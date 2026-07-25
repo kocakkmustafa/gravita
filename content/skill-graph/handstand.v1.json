@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "packId": "gravita.handstand",
+  "packVersion": "1.0.0-draft",
+  "locale": "en",
+  "status": "DRAFT — thresholds inherited from product plan; NOT yet validated by a movement-science pass or a calisthenics expert (see docs/G4-BECERI-GRAFI-TASARIMI.md §7 debt D-1).",
+  "engineContract": "docs/G4-BECERI-GRAFI-TASARIMI.md",
+  "enginePolicy": {
+    "note": "Enforced in code, not content. Packs cannot override these.",
+    "impliedCriteria": [
+      { "metric": "analysis_confidence", "op": ">=", "value": 0.7 },
+      { "metric": "pain_reported", "op": "==", "value": false }
+    ],
+    "sideAgnostic": true,
+    "gateablePhases": ["HOLD"],
+    "unmeasuredIsNotFailure": true
+  },
+  "metricDictionary": {
+    "hold_duration_s": { "unit": "s", "phase": "HOLD", "gateable": true },
+    "elbow_extension_pct": { "unit": "%", "phase": "HOLD", "gateable": true, "note": "Visible-side elbow chain only (D1/G-007)." },
+    "line_deviation_deg": { "unit": "deg", "phase": "HOLD", "gateable": true, "note": "Shoulder-hip-ankle line vs vertical." },
+    "lumbar_flexion_proxy": { "unit": "deg", "phase": "HOLD", "gateable": true, "note": "Proxy. Not a spinal measurement." },
+    "sway_proxy": { "unit": "deg_var", "phase": "HOLD", "gateable": true, "note": "Balance-quality PROXY from line-angle variance. The camera cannot measure torque — never present as wrist torque or muscle activation." },
+    "analysis_confidence": { "unit": "ratio", "phase": "ALL", "gateable": true },
+    "pain_reported": { "unit": "bool", "phase": "ALL", "gateable": true },
+    "kickup_impulse": { "unit": "au", "phase": "ENTRY", "gateable": false, "note": "Best-effort only. Pose detection degrades or disappears during fast entry (gate finding G-006)." },
+    "exit_control": { "unit": "au", "phase": "EXIT", "gateable": false, "note": "Best-effort only (G-006)." }
+  },
+  "safetyCopy": {
+    "generalDisclaimer": "Gravita is a movement-practice tool, not a medical service and not a substitute for an in-person coach. It cannot prevent a fall.",
+    "spaceCheck": "Clear the space around you. Move fragile objects. Practise on a firm, level, non-slip surface.",
+    "painRule": "Sharp or joint pain means stop — that is different from muscular effort. End the session and rest.",
+    "neckLoad": "Head-supported positions load the neck. Build up gradually and stop at any neck discomfort."
+  },
+  "nodes": [
+    {
+      "id": "wrist_prep",
+      "title": "Wrist Preparation",
+      "summary": "Prepare the wrists to accept load before any weight-bearing on the hands.",
+      "type": "prep",
+      "requires": [],
+      "entry": true,
+      "safetyGate": true,
+      "safetyNotes": ["Never load through wrist pain.", "Build tolerance over sessions, not within one session."],
+      "measurement": { "captured": false, "reason": "Self-reported preparation routine; no camera judgement in V1." },
+      "unlock": { "allOf": [ { "metric": "sessions_completed", "op": ">=", "value": 2 } ] },
+      "drills": [
+        { "id": "wrist_rocks", "title": "Wrist rocks", "prescription": "2 × 30 s, slow" },
+        { "id": "fingertip_pulses", "title": "Fingertip pulses", "prescription": "2 × 20" },
+        { "id": "forearm_stretch", "title": "Forearm flexor/extensor stretch", "prescription": "2 × 30 s each" }
+      ],
+      "cues": ["Spread your fingers wide.", "Press through your fingertips, not just your palms."]
+    },
+    {
+      "id": "shoulder_flexion",
+      "title": "Overhead Shoulder Range",
+      "summary": "Reach a stacked overhead position, so the handstand line is available to you.",
+      "type": "assessment",
+      "requires": [],
+      "entry": true,
+      "measurement": { "captured": true, "phase": "HOLD", "metrics": ["line_deviation_deg", "analysis_confidence"] },
+      "unlock": { "allOf": [
+        { "metric": "line_deviation_deg", "op": "<=", "value": 15, "aggregate": "median", "window": { "sessions": 2, "successesRequired": 1 } }
+      ] },
+      "drills": [
+        { "id": "wall_slides", "title": "Wall slides", "prescription": "3 × 8" },
+        { "id": "floor_reach", "title": "Prone overhead reach", "prescription": "3 × 8" }
+      ],
+      "cues": ["Reach your arms past your ears.", "Keep your ribs down as you reach."]
+    },
+    {
+      "id": "hollow_body",
+      "title": "Hollow Body Hold",
+      "summary": "Learn the trunk shape that keeps a handstand from collapsing into a banana.",
+      "type": "hold",
+      "requires": [],
+      "entry": true,
+      "measurement": { "captured": true, "phase": "HOLD", "metrics": ["hold_duration_s", "lumbar_flexion_proxy", "analysis_confidence"] },
+      "unlock": { "allOf": [
+        { "metric": "hold_duration_s", "op": ">=", "value": 30, "aggregate": "best", "window": { "sessions": 3, "successesRequired": 2 } },
+        { "metric": "lumbar_flexion_proxy", "op": "<=", "value": 12, "aggregate": "median" }
+      ] },
+      "drills": [
+        { "id": "tuck_hollow", "title": "Tucked hollow hold", "prescription": "4 × 20 s" },
+        { "id": "hollow_rocks", "title": "Hollow rocks", "prescription": "3 × 15" }
+      ],
+      "cues": ["Press your lower back into the floor.", "Ribs down, hips slightly tucked."]
+    },
+    {
+      "id": "arch_body",
+      "title": "Arch Body Hold",
+      "summary": "The counterpart shape — trunk awareness in the other direction.",
+      "type": "hold",
+      "requires": ["hollow_body"],
+      "measurement": { "captured": true, "phase": "HOLD", "metrics": ["hold_duration_s", "analysis_confidence"] },
+      "unlock": { "allOf": [ { "metric": "hold_duration_s", "op": ">=", "value": 25, "aggregate": "best", "window": { "sessions": 3, "successesRequired": 2 } } ] },
+      "drills": [ { "id": "arch_hold", "title": "Arch hold", "prescription": "4 × 20 s" } ],
+      "cues": ["Lift your chest and thighs off the floor.", "Squeeze your legs together."]
+    },
+    {
+      "id": "wall_plank",
+      "title": "Wall Plank",
+      "summary": "First loaded position with the wall taking part of the weight.",
+      "type": "hold",
+      "requires": ["wrist_prep", "hollow_body"],
+      "safetyGate": true,
+      "measurement": { "captured": true, "phase": "HOLD", "metrics": ["hold_duration_s", "elbow_extension_pct", "line_deviation_deg", "analysis_confidence"] },
+      "unlock": { "allOf": [
+        { "metric": "hold_duration_s", "op": ">=", "value": 30, "aggregate": "best", "window": { "sessions": 3, "successesRequired": 2 } },
+        { "metric": "elbow_extension_pct", "op": ">=", "value": 75, "aggregate": "median" }
+      ] },
+      "drills": [ { "id": "plank_shoulder_taps", "title": "Plank shoulder taps", "prescription": "3 × 10" } ],
+      "cues": ["Push the floor away.", "Straighten your elbows without locking them hard."]
+    },
+    {
+      "id": "wall_walk",
+      "title": "Wall Walk",
+      "summary": "Walk your feet up the wall to meet a near-vertical stack, under control.",
+      "type": "dynamic",
+      "requires": ["wall_plank", "shoulder_flexion"],
+      "safetyGate": true,
+      "safetyNotes": ["Come down the same way you went up — walk out, do not drop."],
+      "measurement": { "captured": true, "phase": "HOLD", "metrics": ["hold_duration_s", "line_deviation_deg", "analysis_confidence"] },
+      "unlock": { "allOf": [
+        { "metric": "hold_duration_s", "op": ">=", "value": 10, "aggregate": "best", "window": { "sessions": 3, "successesRequired": 2 } },
+        { "metric": "line_deviation_deg", "op": "<=", "value": 25, "aggregate": "median" }
+      ] },
+      "drills": [ { "id": "half_wall_walk", "title": "Half wall walk", "prescription": "4 × 3 reps" } ],
+      "cues": ["Small steps.", "Walk your hands closer as your feet climb."]
+    },
+    {
+      "id": "chest_to_wall",
+      "title": "Chest-to-Wall Hold",
+      "summary": "The alignment cornerstone: a stacked line with the wall in front of you.",
+      "type": "hold",
+      "requires": ["wall_walk"],
+      "safetyGate": true,
+      "measurement": { "captured": true, "phase": "HOLD", "metrics": ["hold_duration_s", "elbow_extension_pct", "line_deviation_deg", "lumbar_flexion_proxy", "sway_proxy", "analysis_confidence"] },
+      "unlock": { "allOf": [
+        { "metric": "hold_duration_s", "op": ">=", "value": 20, "aggregate": "best", "window": { "sessions": 3, "successesRequired": 2 } },
+        { "metric": "elbow_extension_pct", "op": ">=", "value": 80, "aggregate": "median" },
+        { "metric": "line_deviation_deg", "op": "<=", "value": 12, "aggregate": "median" }
+      ] },
+      "drills": [
+        { "id": "ctw_shrugs", "title": "Chest-to-wall shrugs", "prescription": "3 × 8" },
+        { "id": "ctw_hold_ladder", "title": "Hold ladder 10/15/20 s", "prescription": "3 sets" }
+      ],
+      "cues": ["Reach tall through your shoulders.", "Ribs in — stop the arch.", "Squeeze your legs together."]
+    },
+    {
+      "id": "heel_pulls",
+      "title": "Heel Pulls",
+      "summary": "Leave the wall for a moment and find the balance point.",
+      "type": "dynamic",
+      "requires": ["chest_to_wall"],
+      "safetyGate": true,
+      "measurement": { "captured": true, "phase": "HOLD", "metrics": ["hold_duration_s", "sway_proxy", "analysis_confidence"], "bestEffort": ["exit_control"] },
+      "unlock": { "allOf": [
+        { "metric": "hold_duration_s", "op": ">=", "value": 3, "aggregate": "best", "window": { "sessions": 3, "successesRequired": 2 } }
+      ] },
+      "drills": [ { "id": "one_heel_off", "title": "One heel off the wall", "prescription": "5 × 5 attempts" } ],
+      "cues": ["Pull one heel off the wall.", "Shift the pressure into your fingertips.", "Come back to the wall gently."]
+    },
+    {
+      "id": "kick_up_control",
+      "title": "Controlled Kick-Up",
+      "summary": "Enter a handstand with a measured amount of force — not too little, not too much.",
+      "type": "dynamic",
+      "requires": ["chest_to_wall"],
+      "safetyGate": true,
+      "safetyNotes": ["Learn a bail-out first: turn out to one side rather than falling over your back."],
+      "measurement": {
+        "captured": true, "phase": "HOLD",
+        "metrics": ["hold_duration_s", "analysis_confidence"],
+        "bestEffort": ["kickup_impulse"],
+        "note": "Gate finding G-006: entry-phase metrics are shown but never gate progression."
+      },
+      "unlock": { "allOf": [
+        { "metric": "hold_duration_s", "op": ">=", "value": 2, "aggregate": "best", "window": { "sessions": 3, "successesRequired": 2 } }
+      ] },
+      "drills": [ { "id": "kickup_to_wall", "title": "Kick-up to wall", "prescription": "5 × 5 attempts" } ],
+      "cues": ["Step, then lift — do not jump.", "Aim to arrive, not to crash into the wall."]
+    },
+    {
+      "id": "freestanding",
+      "title": "Freestanding Handstand",
+      "summary": "Hold the line with nothing to lean on.",
+      "type": "hold",
+      "requires": ["heel_pulls", "kick_up_control"],
+      "safetyGate": true,
+      "safetyNotes": ["Only attempt away from the wall once you can bail out reliably."],
+      "measurement": { "captured": true, "phase": "HOLD", "metrics": ["hold_duration_s", "elbow_extension_pct", "line_deviation_deg", "sway_proxy", "analysis_confidence"] },
+      "unlock": { "allOf": [
+        { "metric": "hold_duration_s", "op": ">=", "value": 5, "aggregate": "best", "window": { "sessions": 5, "successesRequired": 2 } }
+      ] },
+      "drills": [ { "id": "freestanding_attempts", "title": "Freestanding attempts", "prescription": "8 × 1 attempt, full rest" } ],
+      "cues": ["Fingertips control the balance.", "Small corrections, early.", "Stay tall."],
+      "milestone": true
+    },
+    {
+      "id": "shape_refinement",
+      "title": "Shape Refinement",
+      "summary": "Turn a held handstand into a clean one.",
+      "type": "hold",
+      "requires": ["freestanding"],
+      "measurement": { "captured": true, "phase": "HOLD", "metrics": ["line_deviation_deg", "lumbar_flexion_proxy", "sway_proxy", "elbow_extension_pct", "analysis_confidence"] },
+      "unlock": { "allOf": [
+        { "metric": "line_deviation_deg", "op": "<=", "value": 8, "aggregate": "median", "window": { "sessions": 5, "successesRequired": 2 } },
+        { "metric": "lumbar_flexion_proxy", "op": "<=", "value": 10, "aggregate": "median" }
+      ] },
+      "drills": [ { "id": "wall_shape_check", "title": "Chest-to-wall shape check", "prescription": "3 × 20 s" } ],
+      "cues": ["Stack: hands, shoulders, hips, feet.", "Point your toes."]
+    },
+    {
+      "id": "crow_pose",
+      "title": "Crow Pose",
+      "summary": "An arm-balance entry point that builds hand-loading confidence without full inversion.",
+      "type": "hold",
+      "branch": "auxiliary",
+      "requires": ["wrist_prep"],
+      "measurement": { "captured": true, "phase": "HOLD", "metrics": ["hold_duration_s", "analysis_confidence"] },
+      "unlock": { "allOf": [ { "metric": "hold_duration_s", "op": ">=", "value": 15, "aggregate": "best", "window": { "sessions": 3, "successesRequired": 2 } } ] },
+      "drills": [ { "id": "crow_lift_offs", "title": "Crow lift-offs", "prescription": "5 × 3" } ],
+      "cues": ["Look slightly forward, not down.", "Round your upper back."]
+    },
+    {
+      "id": "headstand",
+      "title": "Headstand",
+      "summary": "A supported inversion. Optional branch — it is not required for the handstand path.",
+      "type": "hold",
+      "branch": "auxiliary",
+      "requires": ["hollow_body"],
+      "safetyGate": true,
+      "requiresExplicitAcknowledgement": true,
+      "safetyNotes": [
+        "This position loads the neck. Take the weight mostly in your forearms, not your head.",
+        "Stop immediately at any neck discomfort, tingling or pressure."
+      ],
+      "measurement": { "captured": true, "phase": "HOLD", "metrics": ["hold_duration_s", "line_deviation_deg", "analysis_confidence"] },
+      "unlock": { "allOf": [ { "metric": "hold_duration_s", "op": ">=", "value": 20, "aggregate": "best", "window": { "sessions": 3, "successesRequired": 2 } } ] },
+      "drills": [ { "id": "tripod_prep", "title": "Tripod preparation", "prescription": "4 × 15 s" } ],
+      "cues": ["Push the floor with your forearms.", "Keep your neck long."]
+    },
+    {
+      "id": "l_sit_prep",
+      "title": "L-Sit Preparation",
+      "summary": "Separate skill branch — proof that the engine is skill-agnostic.",
+      "type": "hold",
+      "branch": "separate_skill",
+      "requires": ["wrist_prep"],
+      "measurement": { "captured": true, "phase": "HOLD", "metrics": ["hold_duration_s", "analysis_confidence"] },
+      "unlock": { "allOf": [ { "metric": "hold_duration_s", "op": ">=", "value": 10, "aggregate": "best", "window": { "sessions": 3, "successesRequired": 2 } } ] },
+      "drills": [ { "id": "tuck_support", "title": "Tucked support hold", "prescription": "5 × 15 s" } ],
+      "cues": ["Push your shoulders down away from your ears.", "Straighten your knees."]
+    },
+    {
+      "id": "pistol_prep",
+      "title": "Pistol Squat Preparation",
+      "summary": "Separate skill branch — lower-body balance under the same graph engine.",
+      "type": "dynamic",
+      "branch": "separate_skill",
+      "requires": [],
+      "entry": true,
+      "measurement": { "captured": true, "phase": "HOLD", "metrics": ["hold_duration_s", "analysis_confidence"] },
+      "unlock": { "allOf": [ { "metric": "hold_duration_s", "op": ">=", "value": 10, "aggregate": "best", "window": { "sessions": 3, "successesRequired": 2 } } ] },
+      "drills": [ { "id": "box_pistol", "title": "Box pistol squat", "prescription": "3 × 5 each side" } ],
+      "cues": ["Keep your heel down.", "Control the way down."]
+    }
+  ]
+}
