@@ -5,11 +5,20 @@
  "models": {
   "full": {
    "sha256": "4eaa5eb7a98365221087693fcc286334cf0858e2eb6e15b506aa4a7ecdcec4ad",
-   "source": "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/latest/pose_landmarker_full.task"
+   "source": "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/latest/pose_landmarker_full.task",
+   "pinned_equivalent": {
+    "url": "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/1/pose_landmarker_full.task",
+    "sha256": "5134a3aad27a58b93da0088d431f366da362b44e3ccfbe3462b3827a839011b1",
+    "note": "FARKLI SHA, AYNI bayt boyutu (Lissom M-L-01). Tüm kapı bu pinli modelle yeniden koşuldu: 100 görüntüde her metrik ve her eksen-hatası ID'si BİREBİR aynı -> hash farki davranis farki DEGIL. Kanonik yol artik /1/. (G-011)"
+   }
   },
   "heavy": {
    "sha256": "64437af838a65d18e5ba7a0d39b465540069bc8aae8308de3e318aad31fcbc7b",
-   "source": "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_heavy/float16/latest/pose_landmarker_heavy.task"
+   "source": "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_heavy/float16/latest/pose_landmarker_heavy.task",
+   "pinned_equivalent": {
+    "url": ".../float16/1/pose_landmarker_heavy.task",
+    "sha256": "AYNI (64437af8...) — heavy'de drift yok"
+   }
   }
  },
  "mediapipe_version": "0.10.35",
@@ -453,5 +462,10 @@
     "arm_cv": 0.33499868808312183
    }
   }
+ },
+ "version_robustness": {
+  "tested": true,
+  "verdict": "D1 hükmü model sürümüne dayanıklı",
+  "evidence": "out/full vs out/fullv1 karşılaştırması"
  }
 }
