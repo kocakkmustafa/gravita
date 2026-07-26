@@ -4,6 +4,8 @@
 **Hiyerarşi:** `00-AILE-MIMARISI.md` (D1 = P0 kapı!) > `20-URETIM-SURECI.md` > `10-ARAC-KATALOGU.md` > bu dosya > `gravita-plan.md`.
 **Ürün dili: İNGİLİZCE.** Aile sırası **3** (ters-duruş riski nedeniyle Lissom/JabLab'dan sonra önerildi; kurucu tetiği sırayı ezer).
 
+> ⚡ **REVİZYON 2026-07-26 (kurucu direktifi — KURUCUSUZ VERİ FABRİKASI + GENİŞ KÜTÜPHANE, M-F-13..16):** Bu haritadaki "kurucu çekimi / fixture çekim listesi kurucuya" varsayımları KALDIRILDI — kurucu çekim YAPMAZ. Birincil veri = kamu-video hasadı + sentetik + gerekirse ücretli klip (katalog §6.2); doğrulama = §6.3 merdiveni; öğretim görselleri = §6.4 katmanlı AI-eğitmen hattı (T1 = iskelet-sürümlü uygulama-içi avatar, $0 ve form-garantili). Kurucudan yalnız cihaz-benchmark'ı + onay/kapı kararları beklenir. **Geniş kütüphane:** Handstand + crow/headstand/hollow/L-sit/pistol + planche/lever GENİŞ hasat (GMB/FitnessFAQs/Merrick/THENX/Antranik; planche-lever ek tarama); G3 fixture'ları kamu-video + Unity-Perception sentetik ters-duruş setiyle; kasıtlı-hata örnekleri referansın kontrollü bozulmasından (M-C-03). Sorularını bu çerçevede kendin karara bağla — kurucuya soru YOK.
+
 ## 1. Kimlik ve Kuzey Yıldızı
 
 **Gravita: Skills & Strength** — telefonu sabitle, handstand/beceri denemeni yap; sistem hizanı ve denemeni analiz etsin, EN önemli tek hatanı söylesin, doğru progresyonu açsın. Genel fitness app'i DEĞİL: ölçülebilir beceri kazanımı.
