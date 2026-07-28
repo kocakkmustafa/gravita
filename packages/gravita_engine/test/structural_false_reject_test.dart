@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:gravita_engine/gravita_engine.dart';
 import 'package:motion_core/motion_core.dart';
 import 'package:test/test.dart';
 
@@ -47,18 +46,18 @@ void main() {
       final BodyOrientation expected =
           m['bucket'] == 'inv' ? BodyOrientation.inverted : BodyOrientation.upright;
       final PoseFrame frame = isotropic
-          ? toIsotropic(toFrame(m), sizeOf(m))
+          ? toFrame(m).toIsotropic(sizeOf(m))
           : toFrame(m);
       if (!v.check(frame, expected: expected).plausible) rejected++;
     }
     return (rejected: rejected, total: frames.length);
   }
 
-  test('G-018 KAPANIŞI — çekirdek v0.2.1 varsayılanı kabul edilebilir bandta', () {
+  test('G-018 KAPANIŞI — çekirdek varsayılanı kabul edilebilir bandta', () {
     final ({int rejected, int total}) r = measure();
     final double rate = r.rejected / r.total;
     // ignore: avoid_print
-    print('v0.2.1 varsayılanı (bilateralTolerance 0.55) → yanlış-red '
+    print('çekirdek varsayılanı (bilateralTolerance 0.55) → yanlış-red '
         '${r.rejected}/${r.total} (${(rate * 100).round()}%)');
     expect(rate, lessThan(0.10),
         reason: 'v0.1.0 varsayılanı (0.35) %32 reddediyordu — ürünü '

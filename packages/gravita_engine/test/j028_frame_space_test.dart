@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 
-import 'package:gravita_engine/gravita_engine.dart';
 import 'package:motion_core/motion_core.dart';
 import 'package:test/test.dart';
 
@@ -71,7 +70,7 @@ void main() {
       for (final Map<String, dynamic> f in frames) {
         final PoseFrame raw = toFrame(f);
         final FrameSize s = sizeOf(f);
-        final PoseFrame iso = toIsotropic(raw, s);
+        final PoseFrame iso = raw.toIsotropic(s);
         for (final List<int> j in <List<int>>[
           <int>[Lm.leftShoulder, Lm.leftElbow, Lm.leftWrist],
           <int>[Lm.leftHip, Lm.leftKnee, Lm.leftAnkle],
@@ -89,8 +88,8 @@ void main() {
       for (final Map<String, dynamic> f in frames) {
         final PoseFrame raw = toFrame(f);
         final FrameSize s = sizeOf(f);
-        if (s.isSquare) continue;
-        final PoseFrame iso = toIsotropic(raw, s);
+        if (s.width == s.height) continue;
+        final PoseFrame iso = raw.toIsotropic(s);
         deltas.add((angleOf(raw, Lm.leftShoulder, Lm.leftElbow, Lm.leftWrist) -
                 angleOf(iso, Lm.leftShoulder, Lm.leftElbow, Lm.leftWrist))
             .abs());
@@ -108,9 +107,15 @@ void main() {
               'ham uzayda kalibre edilen her eşik yanlıştır');
     });
 
-    test('kare görüntüde dönüşüm kimlik (gereksiz kopya yok)', () {
+    test('kare görüntüde dönüşüm koordinatları DEĞİŞTİRMİYOR', () {
+      // Çekirdek her zaman kopya döndürür (kimlik garantisi vermez); önemli
+      // olan kare en-boyda değerlerin aynı kalması.
       final PoseFrame raw = toFrame(frames.first);
-      expect(identical(toIsotropic(raw, const FrameSize(720, 720)), raw), isTrue);
+      final PoseFrame iso = raw.toIsotropic(const FrameSize(720, 720));
+      for (int i = 0; i < Lm.count; i++) {
+        expect(iso[i].x, closeTo(raw[i].x, 1e-12));
+        expect(iso[i].y, closeTo(raw[i].y, 1e-12));
+      }
     });
   });
 }
