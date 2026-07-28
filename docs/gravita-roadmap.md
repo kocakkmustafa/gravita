@@ -92,7 +92,7 @@ G0→G10 faz modeli korunur; **kapsam artık dalga-bazlı işlenir** (standart �
 | Dalga | Kapsam | Motor gereksinimi | Durum |
 |---|---|---|---|
 | **W0** | Borç kapatma + IA çatısı + sınıf-kuralları config şeması | — | ✅ **BİTTİ** (2026-07-29) |
-| **W1** | Kitle-pazar bodyweight + core (şınav/barfiks/dip/squat/lunge/plank/burpee + core seti) | rep-FSM jeneriği · statik-tutuş motoru · çok-faz FSM | 🟠 başladı — 5/≈20 hareket şemalandı |
+| **W1** | Kitle-pazar bodyweight + core (şınav/barfiks/dip/squat/lunge/plank/burpee + core seti) | rep-FSM jeneriği ✅ · statik-tutuş motoru ⏳ · çok-faz FSM ⏳ | 🟠 **20 hareket şemalandı · RepEngine çalışıyor (37/37 test)** — kalan: statik-tutuş + çok-faz motorları, perturbasyon üreteci, hasat pilotu |
 | **W2** | DB/KB kütüphanesi + amiral beceriler (handstand ağacı, planche ağacı) | tempo/eksantrik · KB kadans (RhythmEngine) · **inversiyon hattı (D1 çözümü)** | ⏳ |
 | **W3** | Barbell bileşikleri + FSM klasikleri (TGU, Nordic) + **bench = sınıf B** | çok-faz FSM derinleşmesi · **bar/kenar tespiti R&D başlar** | ⏳ |
 | **W4** | Bar becerileri + genişletilmiş calisthenics + pliometrik | bar tespiti (veya fallback) · checkpoint koçluğu | ⏳ |
