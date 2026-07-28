@@ -168,6 +168,87 @@ final class RepConfig {
   bool get topIsExtended => topAngleMin > bottomAngleMax;
 }
 
+/// Bir eşik koşulu: `{metric, op, value}` — hem tutuş girişinde hem form
+/// kırılmasında aynı yapı kullanılır.
+final class MetricCondition {
+  const MetricCondition(this.metric, this.op, this.value, {this.sustainedMs});
+
+  factory MetricCondition.fromJson(Map<String, dynamic> j) => MetricCondition(
+        j['metric'] as String,
+        (j['op'] as String?) ?? '>',
+        (j['value'] as num).toDouble(),
+        sustainedMs: (j['sustainedMs'] as num?)?.toInt(),
+      );
+
+  final String metric;
+  final String op;
+  final double value;
+  final int? sustainedMs;
+
+  bool holds(double v) => switch (op) {
+        '>' => v > value,
+        '>=' => v >= value,
+        '<' => v < value,
+        '<=' => v <= value,
+        _ => false,
+      };
+}
+
+/// Form kırılması: koşul + süre + ne yapılacağı.
+final class FormBreak {
+  const FormBreak({
+    required this.id,
+    required this.condition,
+    required this.cue,
+    required this.endsHold,
+  });
+
+  factory FormBreak.fromJson(Map<String, dynamic> j) => FormBreak(
+        id: j['id'] as String,
+        condition: MetricCondition.fromJson(j),
+        cue: (j['cue'] as String?) ?? '',
+        endsHold: (j['action'] as String?) == 'warn_then_end',
+      );
+
+  final String id;
+  final MetricCondition condition;
+  final String cue;
+
+  /// `warn` yalnız uyarır; `warn_then_end` tutuşu bitirir. Ayrım içerikte
+  /// durur çünkü hangi bozulmanın tutuşu geçersiz kıldığı harekete özgüdür.
+  final bool endsHold;
+}
+
+/// staticHold ayarları.
+final class HoldConfig {
+  const HoldConfig({
+    required this.entry,
+    required this.stableForUs,
+    required this.minHoldUs,
+    required this.formBreaks,
+  });
+
+  factory HoldConfig.fromJson(Map<String, dynamic> e) {
+    final Map<String, dynamic> entry = e['holdEntry'] as Map<String, dynamic>;
+    return HoldConfig(
+      entry: (entry['requires'] as List<dynamic>)
+          .map((dynamic r) =>
+              MetricCondition.fromJson(r as Map<String, dynamic>))
+          .toList(),
+      stableForUs: (((entry['stableForMs'] as num?)?.toInt()) ?? 1000) * 1000,
+      minHoldUs: (((e['minHoldMs'] as num?)?.toInt()) ?? 0) * 1000,
+      formBreaks: ((e['formBreak'] as List<dynamic>?) ?? const <dynamic>[])
+          .map((dynamic b) => FormBreak.fromJson(b as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+  final List<MetricCondition> entry;
+  final int stableForUs;
+  final int minHoldUs;
+  final List<FormBreak> formBreaks;
+}
+
 final class MovementConfig {
   const MovementConfig({
     required this.id,
@@ -178,6 +259,7 @@ final class MovementConfig {
     required this.contract,
     required this.formErrors,
     required this.rep,
+    required this.hold,
     required this.cameraSetup,
   });
 
@@ -205,6 +287,7 @@ final class MovementConfig {
           .map((dynamic f) => FormError.fromJson(f as Map<String, dynamic>))
           .toList(),
       rep: t == EngineType.repFsm ? RepConfig.fromJson(e) : null,
+      hold: t == EngineType.staticHold ? HoldConfig.fromJson(e) : null,
       cameraSetup: (j['camera'] as Map<String, dynamic>)['setup'] as String,
     );
   }
@@ -220,6 +303,7 @@ final class MovementConfig {
   final MeasurementContract contract;
   final List<FormError> formErrors;
   final RepConfig? rep;
+  final HoldConfig? hold;
   final String cameraSetup;
 
   /// B sınıfı form hükmü VERMEZ (blueprint §1/§8) — bu, UI'ın değil motorun
