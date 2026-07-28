@@ -1,0 +1,170 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "gravita.movement.schema.v1",
+  "title": "Gravita movement catalog entry",
+  "description": "Bir hareketin TAM sözleşmesi: hangi sınıf, kamera ne görmeli, motor nasıl sayar, ne ölçülür/ölçülmez, hangi form hataları, hangi kaynaklardan. Dürüstlük kutusu bu dosyadan ÜRETİLİR (movement-classes.json §honestyBoxContract).",
+  "type": "object",
+  "required": ["schemaVersion", "id", "name", "family", "wave", "class", "classRationale", "camera", "engine", "measurementContract", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "name": { "type": "string", "description": "Kullanıcıya görünen ad — İNGİLİZCE" },
+    "aliases": { "type": "array", "items": { "type": "string" } },
+    "family": {
+      "enum": ["push", "pull", "legs", "core", "shoulders", "skill", "barbell", "dbkb", "plyo", "carry"],
+      "description": "IA'daki hareket-aile sayfası (blueprint §3)"
+    },
+    "muscleGroups": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "equipment": { "type": "array", "items": { "type": "string" }, "description": "[] = bodyweight" },
+    "wave": { "type": "integer", "minimum": 1, "maximum": 5 },
+    "level": { "enum": ["beginner", "intermediate", "advanced", "elite"] },
+    "aspirational": { "type": "boolean", "description": "true ise ROZET VERİLMEZ (blueprint §8) — rehberli ama ödüllendirilmez" },
+
+    "class": { "enum": ["A", "B", "D"], "description": "C sınıfı katalogda yer ALMAZ -> exclusions.json" },
+    "classRationale": { "type": "string", "description": "Hangi kural bu sınıfı atadı — bir kez cevaplanır, tekrar tartışılmaz" },
+    "pendingVerification": { "type": "boolean", "description": "true ise sınıf iddiası ölçüm bekliyor; A iddiası YAPILMAZ" },
+
+    "camera": {
+      "type": "object",
+      "required": ["setup"],
+      "additionalProperties": false,
+      "properties": {
+        "setup": { "enum": ["side45", "side", "front", "frontal_plane", "walking_frame", "overhead_wall"] },
+        "framing": { "enum": ["full_body", "upper_body", "wide"] },
+        "notes": { "type": "string" },
+        "calibrationGate": { "type": "boolean", "description": "M-F-09: ölçüm modlarında kalibrasyon SERT KAPI" }
+      }
+    },
+
+    "engine": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "enum": ["repFsm", "staticHold", "multiPhaseFsm", "inversion"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "repFsm" } } },
+          "then": {
+            "required": ["signal", "phases", "repCountedOn"],
+            "properties": {
+              "signal": {
+                "type": "object",
+                "required": ["kind", "joint", "side"],
+                "properties": {
+                  "kind": { "enum": ["jointAngle", "verticalTravel", "segmentAngle"] },
+                  "joint": { "type": "string" },
+                  "side": { "const": "visible", "description": "G-007/M-F-06: taraf GEOMETRİK seçilir; model L/R etiketine bağlanmaz" }
+                }
+              },
+              "phases": { "type": "object" },
+              "repCountedOn": { "type": "string" },
+              "minPhaseMs": { "type": "integer", "minimum": 0 },
+              "timeoutMs": { "type": "integer", "description": "Fiziksel üst sınır — JabLab J-009 dersi: sınırsız faz, yaslanmayı 'rep' sayar" },
+              "romTarget": { "type": "object" },
+              "tempo": { "type": "object" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "type": { "const": "staticHold" } } },
+          "then": {
+            "required": ["holdEntry", "formBreak"],
+            "properties": {
+              "holdEntry": { "type": "object" },
+              "formBreak": { "type": "array", "items": { "type": "object" } },
+              "minHoldMs": { "type": "integer" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "type": { "const": "multiPhaseFsm" } } },
+          "then": {
+            "required": ["sequence"],
+            "properties": {
+              "sequence": { "type": "array", "minItems": 3, "items": { "type": "object" } },
+              "checkpointOnly": { "type": "array", "items": { "type": "string" },
+                "description": "Blur/hızlı fazlar: kare-kare skorlanmaz, checkpoint koçluğu (G-006 + aile dürüstlük kuralı)" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "type": { "const": "inversion" } } },
+          "then": {
+            "required": ["expectedOrientation"],
+            "properties": {
+              "expectedOrientation": { "const": "inverted", "description": "ADR-001 yönelim-farkında çıkarımı tetikler" },
+              "structuralCheck": { "const": "required" }
+            }
+          }
+        }
+      ]
+    },
+
+    "measurementContract": {
+      "type": "object",
+      "required": ["measured", "notMeasured"],
+      "additionalProperties": false,
+      "properties": {
+        "measured": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "notMeasured": { "type": "array", "items": { "type": "string" } },
+        "gateableMetrics": { "type": "array", "items": { "type": "string" },
+          "description": "Progresyon kapısı olabilecekler. G-006: hızlı/patlayıcı faz metrikleri BURAYA GİREMEZ" },
+        "scoreDisplay": { "enum": ["band", "numeric"], "default": "band",
+          "description": "M-F-04/K8: kalibrasyon kapısı geçilmeden SAYISAL skor gösterilmez -> V1 varsayılanı 'band'" }
+      }
+    },
+
+    "formErrors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "priority", "cue"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string", "description": "İngilizce" },
+          "priority": { "enum": ["safety", "blocking", "balance", "major_alignment", "minor_form", "optimization"],
+            "description": "Tek-düzeltme önceliklendirmesi (plan §9)" },
+          "detect": { "type": "object" },
+          "cue": { "type": "string", "description": "İngilizce, tek cümle, telefon uzaktayken sesle anlaşılır" },
+          "perturbation": { "type": "object",
+            "description": "M-C-03: bu hatanın fixture'ı referansın kontrollü bozulmasıyla üretilir. Genlik G-013 gereği toleranstan BÜYÜK olmalı" }
+        }
+      }
+    },
+
+    "cues": {
+      "type": "object",
+      "properties": {
+        "setup": { "type": "array", "items": { "type": "string" } },
+        "during": { "type": "array", "items": { "type": "string" } },
+        "success": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "safety": {
+      "type": "object",
+      "properties": {
+        "warnings": { "type": "array", "items": { "type": "string" } },
+        "requiresAcknowledgement": { "type": "boolean" },
+        "hardGate": { "type": "boolean", "description": "Kırpılamaz güvenlik kapısı (blueprint §8)" }
+      }
+    },
+
+    "skillGraphNode": { "type": "string", "description": "Varsa skill-tree düğüm id'si (content/skill-graph/*)" },
+    "courses": { "type": "array", "items": { "type": "string" } },
+
+    "provenance": {
+      "type": "object",
+      "required": ["sources", "status"],
+      "properties": {
+        "sources": { "type": "array", "items": { "type": "object" },
+          "description": "≥3 bağımsız eğitmen (katalog §6.0). Tolerans bu kaynakların VARYANSINDAN türetilir" },
+        "consensusN": { "type": "integer" },
+        "status": { "enum": ["pending_harvest", "harvested", "consensus_built", "expert_reviewed"] },
+        "referenceId": { "type": "string" }
+      }
+    }
+  }
+}

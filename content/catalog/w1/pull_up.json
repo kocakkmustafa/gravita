@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "id": "pull_up",
+  "name": "Pull-Up",
+  "aliases": [
+    "Chin-Up (supinated variant)"
+  ],
+  "family": "pull",
+  "muscleGroups": [
+    "lats",
+    "biceps",
+    "mid_back",
+    "core"
+  ],
+  "equipment": [
+    "pull_up_bar"
+  ],
+  "wave": 1,
+  "level": "intermediate",
+  "class": "A",
+  "classRationale": "Açık zincir · dik/asılı · sagittal düzlem yan kameradan tam görünür. BAR sınıfı D'ye düşürmez çünkü hiçbir metrik bar konumuna BAĞLI DEĞİLDİR — rep kriteri gövde-göreli tanımlandı (bkz. notMeasured 'chin over bar').",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Barın kendisi tespit edilmez; kullanıcının tam boyu (asılı halde) kadrajda kalmalı."
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "elbow",
+      "side": "visible"
+    },
+    "phases": {
+      "hang": {
+        "angleMin": 160
+      },
+      "pull": {
+        "direction": "decreasing"
+      },
+      "top": {
+        "angleMax": 75
+      },
+      "lower": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "top->hang",
+    "minPhaseMs": 250,
+    "timeoutMs": 10000,
+    "romTarget": {
+      "topAngleMax": 75,
+      "verticalTravelMinTorso": 0.55,
+      "label": "elbow flexion + vertical travel — body-relative, not bar-relative"
+    },
+    "tempo": {
+      "reportPullMs": true,
+      "reportLowerMs": true
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo (pull/lower)",
+      "Elbow range of motion",
+      "Vertical travel relative to your own torso length",
+      "Swing and body line"
+    ],
+    "notMeasured": [
+      "\"Chin over bar\" — the bar itself is not detected, so we judge your range by your own body, not by the bar",
+      "Grip width or grip type",
+      "Force or load"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "rom_top_angle",
+      "vertical_travel",
+      "swing_amplitude"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "partial_rom_top",
+      "label": "Not pulling high enough",
+      "priority": "blocking",
+      "detect": {
+        "metric": "rom_top_angle",
+        "op": ">",
+        "value": 95
+      },
+      "cue": "Pull until your elbows are fully bent — drive them down to your ribs.",
+      "perturbation": {
+        "metric": "rom_top_angle",
+        "targetValue": 120,
+        "via": {
+          "clampPullAt": 120
+        }
+      }
+    },
+    {
+      "id": "partial_rom_bottom",
+      "label": "Not reaching a full hang",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "rom_bottom_angle",
+        "op": "<",
+        "value": 150
+      },
+      "cue": "Straighten your arms at the bottom of every rep.",
+      "perturbation": {
+        "metric": "rom_bottom_angle",
+        "targetValue": 118,
+        "via": {
+          "clampHangAt": 118
+        },
+        "opNote": "eşik <150, hedef altında"
+      }
+    },
+    {
+      "id": "kipping_swing",
+      "label": "Swinging to get up",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "hip_swing_amplitude_torso",
+        "op": ">",
+        "value": 0.18,
+        "sustainedMs": 300
+      },
+      "cue": "Stop the swing — squeeze your glutes and pull with your back.",
+      "perturbation": {
+        "metric": "hip_swing_amplitude_torso",
+        "targetValue": 0.25,
+        "via": {
+          "joint": "hip",
+          "axis": "sagittal",
+          "oscillationDeg": 25
+        }
+      }
+    },
+    {
+      "id": "shrugged_shoulders",
+      "label": "Shoulders up by your ears",
+      "priority": "minor_form",
+      "detect": {
+        "metric": "shoulder_elevation_proxy",
+        "op": ">",
+        "value": 0.12
+      },
+      "cue": "Pull your shoulders down away from your ears before you bend your arms.",
+      "perturbation": {
+        "metric": "shoulder_elevation_proxy",
+        "targetValue": 0.16,
+        "via": {
+          "joint": "shoulder",
+          "elevateTorsoNorm": 0.16
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Hang with straight arms and squeeze your glutes.",
+      "Set the phone to your side so your whole body is in frame."
+    ],
+    "during": [
+      "Elbows down to your ribs.",
+      "Lower with control."
+    ],
+    "success": [
+      "Full hang to full pull — that's the rep."
+    ]
+  },
+  "safety": {
+    "warnings": [
+      "Build up gradually — sudden high volume is a common shoulder and elbow irritant."
+    ],
+    "hardGate": false
+  },
+  "courses": [
+    "pull_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

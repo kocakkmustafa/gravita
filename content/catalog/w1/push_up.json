@@ -1,0 +1,209 @@
+{
+  "schemaVersion": 1,
+  "id": "push_up",
+  "name": "Push-Up",
+  "aliases": [
+    "Press-Up"
+  ],
+  "family": "push",
+  "muscleGroups": [
+    "chest",
+    "triceps",
+    "front_delts",
+    "core"
+  ],
+  "equipment": [],
+  "wave": 1,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Açık zincir · yüzüstü ama hareket düzlemi (dirsek fleksiyon/ekstansiyon + gövde hattı) yan-45°'den TAM görünür; derinlik ekseni kesilmiyor. Bench press'ten farkı: gövde yerde sabit, uzuv yolu kameraya dik değil paralel.",
+  "camera": {
+    "setup": "side45",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Baş ve ayaklar kadrajda kalmalı; gövde hattı ölçümü uçlara bağlı."
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "elbow",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 155
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 100
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "bottom->top",
+    "minPhaseMs": 200,
+    "timeoutMs": 8000,
+    "romTarget": {
+      "bottomAngleMax": 95,
+      "label": "chest to about a fist off the floor"
+    },
+    "tempo": {
+      "reportDescentMs": true,
+      "reportAscentMs": true
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo (down/up timing)",
+      "Elbow range of motion",
+      "Body-line alignment (shoulder-hip-ankle)",
+      "Form breakdown across the set"
+    ],
+    "notMeasured": [
+      "Force or load",
+      "Muscle activation",
+      "Hand pressure distribution"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "rom_bottom_angle",
+      "line_deviation_deg",
+      "hold_quality"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "hip_sag",
+      "label": "Hips dropping",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "line_deviation_deg",
+        "op": ">",
+        "value": 12,
+        "sustainedMs": 400
+      },
+      "cue": "Squeeze your glutes and keep a straight line from head to heels.",
+      "perturbation": {
+        "metric": "line_deviation_deg",
+        "targetValue": 22,
+        "via": {
+          "joint": "hip",
+          "axis": "sagittal",
+          "deltaDeg": 20
+        },
+        "baselineNote": "düz hatta ~2°"
+      }
+    },
+    {
+      "id": "hip_pike",
+      "label": "Hips too high",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "line_deviation_deg",
+        "op": "<",
+        "value": -12,
+        "sustainedMs": 400
+      },
+      "cue": "Lower your hips until your body is one straight line.",
+      "perturbation": {
+        "metric": "line_deviation_deg",
+        "targetValue": -22,
+        "via": {
+          "joint": "hip",
+          "axis": "sagittal",
+          "deltaDeg": -20
+        }
+      }
+    },
+    {
+      "id": "partial_rom",
+      "label": "Not going deep enough",
+      "priority": "blocking",
+      "detect": {
+        "metric": "rom_bottom_angle",
+        "op": ">",
+        "value": 110
+      },
+      "cue": "Go lower — bend your elbows until your chest is close to the floor.",
+      "perturbation": {
+        "metric": "rom_bottom_angle",
+        "targetValue": 140,
+        "via": {
+          "clampDescentAt": 140
+        }
+      }
+    },
+    {
+      "id": "head_drop",
+      "label": "Head dropping",
+      "priority": "minor_form",
+      "detect": {
+        "metric": "neck_flexion_proxy",
+        "op": ">",
+        "value": 25
+      },
+      "cue": "Look at the floor just ahead of your hands, not straight down.",
+      "perturbation": {
+        "metric": "neck_flexion_proxy",
+        "targetValue": 34,
+        "via": {
+          "joint": "neck",
+          "deltaDeg": 22
+        },
+        "baselineNote": "nötr ~12°"
+      }
+    },
+    {
+      "id": "asymmetric_press",
+      "label": "Pressing unevenly",
+      "priority": "minor_form",
+      "detect": {
+        "metric": "elbow_angle_asymmetry",
+        "op": ">",
+        "value": 15
+      },
+      "cue": "Push evenly with both arms.",
+      "perturbation": {
+        "metric": "elbow_angle_asymmetry",
+        "targetValue": 20,
+        "via": {
+          "side": "one_arm",
+          "deltaDeg": 20
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Hands under your shoulders.",
+      "Set your body in one straight line before the first rep."
+    ],
+    "during": [
+      "Down slow, up strong.",
+      "Keep your ribs down."
+    ],
+    "success": [
+      "Clean line the whole set."
+    ]
+  },
+  "safety": {
+    "warnings": [
+      "Stop if you feel sharp shoulder or wrist pain — that is different from muscular effort."
+    ],
+    "hardGate": false
+  },
+  "courses": [
+    "push_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

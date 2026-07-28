@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "id": "burpee",
+  "name": "Burpee",
+  "family": "plyo",
+  "muscleGroups": [
+    "full_body",
+    "chest",
+    "quads",
+    "core"
+  ],
+  "equipment": [],
+  "wave": 1,
+  "level": "intermediate",
+  "class": "A",
+  "classRationale": "Açık zincir · sagittal düzlem baskın · yan-45°'den görünür. Patlayıcı sıçrama fazı sınıfı düşürmez ama o faz CHECKPOINT olarak koçlanır (aşağıya bak).",
+  "camera": {
+    "setup": "side45",
+    "framing": "wide",
+    "calibrationGate": true,
+    "notes": "Sıçrama tepesi kadraj dışına çıkmamalı — 'wide' kadraj zorunlu."
+  },
+  "engine": {
+    "type": "multiPhaseFsm",
+    "sequence": [
+      {
+        "id": "stand",
+        "enter": {
+          "metric": "hip_height_torso",
+          "op": ">",
+          "value": 0.9
+        }
+      },
+      {
+        "id": "squat_down",
+        "enter": {
+          "metric": "knee_angle",
+          "op": "<",
+          "value": 120
+        },
+        "maxMs": 2000
+      },
+      {
+        "id": "plank_out",
+        "enter": {
+          "metric": "line_deviation_deg",
+          "op": "<",
+          "value": 20
+        },
+        "maxMs": 2000,
+        "checks": [
+          {
+            "metric": "line_deviation_deg",
+            "op": "<=",
+            "value": 18,
+            "errorId": "sloppy_plank"
+          }
+        ]
+      },
+      {
+        "id": "chest_to_floor",
+        "optional": true,
+        "enter": {
+          "metric": "elbow_angle",
+          "op": "<",
+          "value": 100
+        },
+        "note": "Varyanta göre: 'chest-to-floor burpee' seçiliyse ZORUNLU, aksi halde atlanır"
+      },
+      {
+        "id": "jump_back_in",
+        "enter": {
+          "metric": "knee_angle",
+          "op": "<",
+          "value": 120
+        },
+        "maxMs": 2000
+      },
+      {
+        "id": "jump_up",
+        "enter": {
+          "metric": "feet_off_ground",
+          "op": "==",
+          "value": true
+        },
+        "maxMs": 1200
+      },
+      {
+        "id": "land",
+        "enter": {
+          "metric": "feet_off_ground",
+          "op": "==",
+          "value": false
+        },
+        "checks": [
+          {
+            "metric": "knee_angle_at_contact",
+            "op": "<",
+            "value": 165,
+            "errorId": "stiff_landing"
+          }
+        ]
+      }
+    ],
+    "checkpointOnly": [
+      "jump_up"
+    ],
+    "checkpointRationale_tr": "G-006 + aile dürüstlük kuralı: patlayıcı faz 20-30fps'te 1-2 kare + blur. Sıçrama YÜKSEKLİĞİ ölçülmez, sıçramanın GERÇEKLEŞTİĞİ ve inişin yumuşaklığı checkpoint olarak değerlendirilir.",
+    "repCountedOn": "land->stand",
+    "timeoutMs": 12000
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Phase timing (how long each part takes)",
+      "Plank-position body line",
+      "Landing softness",
+      "Pace consistency across the set"
+    ],
+    "notMeasured": [
+      "Jump height — the jump is 1-2 frames at phone frame rates, so we check that it happened and how you landed, not how high",
+      "Power or force output",
+      "Whether your chest actually touched the floor (unless you pick the chest-to-floor variant, where we check elbow bend)"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "phase_timing",
+      "line_deviation_deg",
+      "landing_knee_angle"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "stiff_landing",
+      "label": "Landing with locked knees",
+      "priority": "safety",
+      "detect": {
+        "metric": "knee_angle_at_contact",
+        "op": ">",
+        "value": 165
+      },
+      "cue": "Land softly — bend your knees as you hit the floor.",
+      "perturbation": {
+        "metric": "knee_angle_at_contact",
+        "targetValue": 178,
+        "via": {
+          "clampLandingKneeAt": 178
+        }
+      }
+    },
+    {
+      "id": "sloppy_plank",
+      "label": "Hips sagging in the plank",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "line_deviation_deg",
+        "op": ">",
+        "value": 18
+      },
+      "cue": "Hold a tight line when you kick your feet back.",
+      "perturbation": {
+        "metric": "line_deviation_deg",
+        "targetValue": 26,
+        "via": {
+          "joint": "hip",
+          "axis": "sagittal",
+          "deltaDeg": 24
+        }
+      }
+    },
+    {
+      "id": "skipped_phase",
+      "label": "Skipping part of the rep",
+      "priority": "blocking",
+      "detect": {
+        "rule": "sequence_incomplete"
+      },
+      "cue": "Full rep: chest down, feet in, jump up."
+    },
+    {
+      "id": "pace_collapse",
+      "label": "Pace dropping off",
+      "priority": "optimization",
+      "detect": {
+        "metric": "rep_duration_trend",
+        "op": ">",
+        "value": 1.4
+      },
+      "cue": "Your pace is slowing — shorten the pause at the top.",
+      "perturbation": {
+        "metric": "rep_duration_trend",
+        "targetValue": 1.9,
+        "via": {
+          "stretchRepDurations": 1.9
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Give yourself space — full body and the top of your jump need to be in frame."
+    ],
+    "during": [
+      "Tight plank.",
+      "Soft landing."
+    ],
+    "success": [
+      "Full reps, steady pace."
+    ]
+  },
+  "safety": {
+    "warnings": [
+      "High-impact movement. Land softly and stop if your knees or lower back complain."
+    ],
+    "hardGate": false
+  },
+  "courses": [
+    "conditioning_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

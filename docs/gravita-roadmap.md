@@ -82,3 +82,34 @@ Handstand fixture çekimleri (kendi denemelerin + çevrenden gönüllü) · AI H
 
 ## 7. Oturum örgütlenmesi
 Fable/high; `motion-cv-engineer` D1 sahibi (İLK durak); fan-out sonnet; riskli sınıf Opus; /loop. Başlangıç promptu: vault `🚀 Başlangıç Promptu — Gravita`.
+
+---
+
+## 8. DALGA PLANI (blueprint M-F-18 sonrası — kapsam otoritesi `GRAVITA-BLUEPRINT.md`)
+
+G0→G10 faz modeli korunur; **kapsam artık dalga-bazlı işlenir** (standart §4.2: her dalga için G3→G6 döngüsü, platform katmanı bir kez G5'te).
+
+| Dalga | Kapsam | Motor gereksinimi | Durum |
+|---|---|---|---|
+| **W0** | Borç kapatma + IA çatısı + sınıf-kuralları config şeması | — | ✅ **BİTTİ** (2026-07-29) |
+| **W1** | Kitle-pazar bodyweight + core (şınav/barfiks/dip/squat/lunge/plank/burpee + core seti) | rep-FSM jeneriği · statik-tutuş motoru · çok-faz FSM | 🟠 başladı — 5/≈20 hareket şemalandı |
+| **W2** | DB/KB kütüphanesi + amiral beceriler (handstand ağacı, planche ağacı) | tempo/eksantrik · KB kadans (RhythmEngine) · **inversiyon hattı (D1 çözümü)** | ⏳ |
+| **W3** | Barbell bileşikleri + FSM klasikleri (TGU, Nordic) + **bench = sınıf B** | çok-faz FSM derinleşmesi · **bar/kenar tespiti R&D başlar** | ⏳ |
+| **W4** | Bar becerileri + genişletilmiş calisthenics + pliometrik | bar tespiti (veya fallback) · checkpoint koçluğu | ⏳ |
+| **W5** | Rings + köprü + aspirasyonel + doğrulama-bekleyenler | salınım-toleranslı smoothing · derin-fleksiyon doğrulaması | ⏳ |
+
+### W0 çıktıları (kanıt)
+`content/schema/{movement-classes,movement.schema,metrics}.json` · `content/catalog/w1/*.json` (5) · `content/catalog/exclusions.json` · `tools/validate_catalog.py` (9 değişmez, ✅ 0 hata) · `docs/W0-BILGI-MIMARISI.md`
+
+### W1 görev kuyruğu
+1. Kalan ≈15 hareketin şemalanması (dip, lunge, dead bug, bird dog, hollow, side plank, hanging leg raise, mountain climber, glute bridge, superman, wall sit, calf raise, step-up, toes-to-bar, inverted row).
+2. **Hasat hattı** (katalog §6.2): hareket-başına ≥3 bağımsız eğitmen → referans çıkarımı → **tolerans kaynak varyansından** (G-014 kapanışı).
+3. Perturbasyon üreteci: referanstan kasıtlı-hata fixture'ları (M-C-03) — betik zaten genlik şartını zorluyor.
+4. Rep-FSM + statik-tutuş motoru: fixture-replay testli (kod, motion-core'u TÜKETİR — çekirdeğe yazılmaz, M-F-03).
+5. Kurs/program config'leri + sesli koç replikleri (EN).
+
+### Değişen varsayımlar (M-F-13..18)
+- ❌ Kurucu çekimi — `docs/G3-CEKIM-LISTESI.md` artık **opsiyonel şablon**; birincil hat kamu-video hasadı + Unity sentetik.
+- ❌ Kurucu-bekleyen cihaz benchmark'ı erken fazlarda — **G8'e ötelendi**, eşikler "cihazda doğrulanacak" etiketiyle taşınır.
+- ✅ Skor gösterimi **bant** (M-F-04/K8) — sayısal skor kalibrasyon kapısı sonrası.
+- ✅ motion-core sahibi **koordinatör oturum** (M-F-03) — çekirdek API ihtiyaçları DEFTER'e yazılır, core'a doğrudan yazılmaz.

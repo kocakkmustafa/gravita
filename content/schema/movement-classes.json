@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "docId": "gravita.movement-classes",
+  "version": "1.0.0",
+  "authority": "docs/GRAVITA-BLUEPRINT.md §1 (kurucu-onaylı). Sınıf kuralları tek tek hareket tartışılarak değil, BU kurallarla atanır.",
+  "principle": "Sınıf, hareketin zorluğunu değil KAMERANIN NE GÖREBİLDİĞİNİ tanımlar. Bir hareketin sınıfı düşükse bu 'kötü egzersiz' demek değildir; 'tek kameradan form hükmü veremeyiz' demektir.",
+
+  "classes": [
+    {
+      "id": "A",
+      "label": "Full form coaching",
+      "rule_tr": "Açık-zincir · dik/ayakta · tek-düzlem baskın · uzuv veya bar yolu yan-45° kameradan görünür",
+      "test": {
+        "openChain": true,
+        "primaryPlaneVisibleFrom": ["side45", "side"],
+        "occlusionByEquipment": false,
+        "bodyAxisTrackable": true
+      },
+      "claims": { "repCount": true, "tempo": true, "setup": true, "formVerdict": true, "romDepth": true },
+      "userCopy": {
+        "badge": "Form coaching",
+        "measured": ["Rep count", "Tempo (up/down timing)", "Range of motion", "Joint alignment", "Form breakdown across the set"],
+        "notMeasured": ["Force or torque", "Muscle activation", "Load on the bar"]
+      }
+    },
+    {
+      "id": "B",
+      "label": "Rep + tempo + setup only",
+      "rule_tr": "Sırtüstü/yüzüstü VEYA hareket kameranın derinlik eksenini kesiyor (ör. bench press) → uzuv yolu foreshortening'e giriyor",
+      "test": {
+        "openChain": true,
+        "primaryPlaneVisibleFrom": ["depthAxis"],
+        "supineOrProne": true
+      },
+      "claims": { "repCount": true, "tempo": true, "setup": true, "formVerdict": false, "romDepth": false },
+      "userCopy": {
+        "badge": "Reps & tempo",
+        "measured": ["Rep count", "Tempo", "Setup checklist (bench/bar position before you start)"],
+        "notMeasured": ["Form verdict — the camera looks down the movement path, so depth and bar path can't be judged honestly", "Range of motion", "Force or load"]
+      },
+      "marketingRule_tr": "Bu sınıftaki hareketler için 'form analizi' pazarlamada da İDDİA EDİLMEZ. Blueprint §8."
+    },
+    {
+      "id": "C",
+      "label": "Out of scope",
+      "rule_tr": "Makine-kılavuzlu: hareket yolu makinece sabit + gövde makinece kapalı (oklüzyon)",
+      "test": { "machineGuided": true },
+      "claims": { "repCount": false, "tempo": false, "setup": false, "formVerdict": false, "romDepth": false },
+      "inCatalog": false,
+      "goesTo": "content/catalog/exclusions.json",
+      "userCopy": {
+        "badge": "Not covered",
+        "why": "Machines already constrain the path for you, and the frame usually hides your torso. We would be guessing, so we don't include them."
+      }
+    },
+    {
+      "id": "D",
+      "label": "Body mechanics coached, prop not tracked",
+      "rule_tr": "Prop/nesne takibi gerektirir (kutu yüksekliği, ip, ab-wheel mesafesi, bant gerginliği, bar konumu)",
+      "test": { "requiresPropTracking": true },
+      "claims": { "repCount": true, "tempo": true, "setup": true, "formVerdict": true, "propMetric": false },
+      "userCopy": {
+        "badge": "Form coaching · equipment not tracked",
+        "measured": ["Rep count", "Tempo", "Your body mechanics (landing, hinge, alignment)"],
+        "notMeasured": ["The equipment itself — box height, rope, band tension or bar position are not detected"]
+      },
+      "rndNote_tr": "Prop-metriği ayrı R&D işidir (blueprint §4.6 bar/kenar tespiti). Başarısız olursa fallback: 'ekipman-görünür kadraj yönergesi + gövde-tek analiz'."
+    }
+  ],
+
+  "assignmentRules_tr": [
+    "Sınıf ATANIRKEN gerekçe kaydedilir (`classRationale`) — 'bench neden B' sorusu bir kez cevaplanır, tekrar tartışılmaz.",
+    "Bir hareket birden çok kurala uyuyorsa EN KISITLAYICI sınıf kazanır (C > B > D > A).",
+    "Sınıf ⚠️ 'doğrulama bekliyor' olarak işaretlenebilir (`pendingVerification: true`) — ör. derin-fleksiyon hareketleri landmark jitter ölçümü öncesi. Doğrulanmadan A iddiası yapılmaz.",
+    "Sınıf değişimi = kullanıcıya verilen iddianın değişimi → DEFTER kaydı + config sürümü artışı zorunlu."
+  ],
+
+  "honestyBoxContract_tr": "Kullanıcıya gösterilen 'neler ölçülür/ölçülmez' kutusu ELLE YAZILMAZ: `userCopy.measured/notMeasured` + hareketin kendi `measurementContract`'ından ÜRETİLİR. Gerekçe: 180 hareketin bir kısmında elle yazılan metin motorla kaçınılmaz olarak ayrışır; üretilmiş kutuda drift imkânsızdır. Motor bir metriği kapatırsa kutu aynı anda değişir."
+}
