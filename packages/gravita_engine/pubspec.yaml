@@ -1,0 +1,20 @@
+name: gravita_engine
+description: Gravita'nın hareket motoru — rep-FSM, statik tutuş ve inversiyon hatları. motion_core'u PİNLİ sürümle tüketir; çekirdeğe kod yazmaz (M-F-03).
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  # Aile kuralı: app'ler çekirdeği PİNLİ sürümle tüketir (00-AILE-MIMARISI §2).
+  # Sürüm yükseltmesi = DEFTER kaydı + fixture-replay testlerinin yeniden koşulması.
+  motion_core:
+    git:
+      url: https://github.com/kocakkmustafa/motion-core.git
+      ref: motion_core-v0.1.0
+      path: packages/motion_core
+
+dev_dependencies:
+  test: ^1.25.0
+  lints: ^4.0.0
