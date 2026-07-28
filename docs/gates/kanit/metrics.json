@@ -1,0 +1,471 @@
+{
+ "gate": "G1/D1",
+ "date": "2026-07-26",
+ "protocol": "docs/gates/G1-D1-PROTOKOL.md",
+ "models": {
+  "full": {
+   "sha256": "4eaa5eb7a98365221087693fcc286334cf0858e2eb6e15b506aa4a7ecdcec4ad",
+   "source": "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/latest/pose_landmarker_full.task",
+   "pinned_equivalent": {
+    "url": "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/1/pose_landmarker_full.task",
+    "sha256": "5134a3aad27a58b93da0088d431f366da362b44e3ccfbe3462b3827a839011b1",
+    "note": "FARKLI SHA, AYNI bayt boyutu (Lissom M-L-01). Tüm kapı bu pinli modelle yeniden koşuldu: 100 görüntüde her metrik ve her eksen-hatası ID'si BİREBİR aynı -> hash farki davranis farki DEGIL. Kanonik yol artik /1/. (G-011)"
+   }
+  },
+  "heavy": {
+   "sha256": "64437af838a65d18e5ba7a0d39b465540069bc8aae8308de3e318aad31fcbc7b",
+   "source": "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_heavy/float16/latest/pose_landmarker_heavy.task",
+   "pinned_equivalent": {
+    "url": ".../float16/1/pose_landmarker_heavy.task",
+    "sha256": "AYNI (64437af8...) — heavy'de drift yok"
+   }
+  }
+ },
+ "mediapipe_version": "0.10.35",
+ "runtime": "Python Tasks API (vekil; üretim native)",
+ "params": {
+  "min_pose_detection_confidence": 0.5,
+  "min_pose_presence_confidence": 0.5,
+  "min_tracking_confidence": 0.5,
+  "num_poses": 1,
+  "input_long_edge_px": 900
+ },
+ "sets": {
+  "full": {
+   "UPR_S1": {
+    "n": 25,
+    "detect_rate": 0.96,
+    "vis_crit": 0.8726,
+    "vis_crit_median": 0.8882,
+    "vis_crit_min_mean": 0.438,
+    "gate_pass_rate": 0.32,
+    "vis_by_lm": {
+     "L_sho": 0.999,
+     "R_sho": 0.998,
+     "L_elb": 0.842,
+     "R_elb": 0.749,
+     "L_wri": 0.774,
+     "R_wri": 0.738,
+     "L_hip": 0.997,
+     "R_hip": 0.997,
+     "L_kne": 0.88,
+     "R_kne": 0.828,
+     "L_ank": 0.83,
+     "R_ank": 0.838
+    },
+    "side_gate_mean": 0.8227,
+    "side_gate_rate": 0.84,
+    "weakest_hist": {
+     "R_elb": 7,
+     "L_elb": 5,
+     "L_wri": 4,
+     "L_ank": 3,
+     "R_wri": 3,
+     "R_kne": 1,
+     "R_ank": 1
+    },
+    "pres_crit": 0.9934
+   },
+   "UPR_S2_rot": {
+    "n": 25,
+    "detect_rate": 0.96,
+    "vis_crit": 0.8723,
+    "vis_crit_median": 0.8827,
+    "vis_crit_min_mean": 0.4484,
+    "gate_pass_rate": 0.32,
+    "vis_by_lm": {
+     "L_sho": 0.999,
+     "R_sho": 0.998,
+     "L_elb": 0.84,
+     "R_elb": 0.737,
+     "L_wri": 0.771,
+     "R_wri": 0.715,
+     "L_hip": 0.997,
+     "R_hip": 0.997,
+     "L_kne": 0.887,
+     "R_kne": 0.844,
+     "L_ank": 0.838,
+     "R_ank": 0.845
+    },
+    "side_gate_mean": 0.8186,
+    "side_gate_rate": 0.88,
+    "weakest_hist": {
+     "R_elb": 8,
+     "L_elb": 5,
+     "L_wri": 3,
+     "L_ank": 3,
+     "R_wri": 2,
+     "L_kne": 1,
+     "R_kne": 1,
+     "R_ank": 1
+    },
+    "pres_crit": 0.9935
+   },
+   "INV_S1": {
+    "n": 42,
+    "detect_rate": 0.9762,
+    "vis_crit": 0.8422,
+    "vis_crit_median": 0.8252,
+    "vis_crit_min_mean": 0.408,
+    "gate_pass_rate": 0.3095,
+    "vis_by_lm": {
+     "L_sho": 0.998,
+     "R_sho": 0.995,
+     "L_elb": 0.794,
+     "R_elb": 0.772,
+     "L_wri": 0.765,
+     "R_wri": 0.733,
+     "L_hip": 0.999,
+     "R_hip": 0.998,
+     "L_kne": 0.79,
+     "R_kne": 0.77,
+     "L_ank": 0.747,
+     "R_ank": 0.745
+    },
+    "side_gate_mean": 0.8074,
+    "side_gate_rate": 0.881,
+    "weakest_hist": {
+     "L_elb": 9,
+     "L_wri": 8,
+     "R_wri": 7,
+     "R_kne": 4,
+     "R_ank": 4,
+     "L_kne": 3,
+     "R_elb": 3,
+     "L_ank": 3
+    },
+    "pres_crit": 0.9764
+   },
+   "INV_S2_rot": {
+    "n": 42,
+    "detect_rate": 1.0,
+    "vis_crit": 0.8448,
+    "vis_crit_median": 0.822,
+    "vis_crit_min_mean": 0.4245,
+    "gate_pass_rate": 0.4048,
+    "vis_by_lm": {
+     "L_sho": 0.997,
+     "R_sho": 0.995,
+     "L_elb": 0.808,
+     "R_elb": 0.773,
+     "L_wri": 0.774,
+     "R_wri": 0.721,
+     "L_hip": 0.999,
+     "R_hip": 0.998,
+     "L_kne": 0.801,
+     "R_kne": 0.754,
+     "L_ank": 0.773,
+     "R_ank": 0.742
+    },
+    "side_gate_mean": 0.8268,
+    "side_gate_rate": 0.9286,
+    "weakest_hist": {
+     "L_elb": 9,
+     "L_wri": 8,
+     "R_wri": 7,
+     "R_elb": 5,
+     "R_ank": 5,
+     "R_kne": 4,
+     "L_kne": 2,
+     "L_ank": 2
+    },
+    "pres_crit": 0.9719
+   },
+   "n_inv": 42,
+   "n_upr": 25
+  },
+  "heavy": {
+   "UPR_S1": {
+    "n": 25,
+    "detect_rate": 0.96,
+    "vis_crit": 0.7683,
+    "vis_crit_median": 0.7723,
+    "vis_crit_min_mean": 0.3323,
+    "gate_pass_rate": 0.28,
+    "vis_by_lm": {
+     "L_sho": 0.999,
+     "R_sho": 0.998,
+     "L_elb": 0.717,
+     "R_elb": 0.588,
+     "L_wri": 0.672,
+     "R_wri": 0.642,
+     "L_hip": 1.0,
+     "R_hip": 1.0,
+     "L_kne": 0.683,
+     "R_kne": 0.619,
+     "L_ank": 0.644,
+     "R_ank": 0.657
+    },
+    "side_gate_mean": 0.6614,
+    "side_gate_rate": 0.68,
+    "weakest_hist": {
+     "R_elb": 8,
+     "L_wri": 3,
+     "R_ank": 3,
+     "L_ank": 3,
+     "L_kne": 2,
+     "L_elb": 2,
+     "R_kne": 2,
+     "R_wri": 1
+    },
+    "pres_crit": 0.999
+   },
+   "UPR_S2_rot": {
+    "n": 25,
+    "detect_rate": 0.96,
+    "vis_crit": 0.7809,
+    "vis_crit_median": 0.79,
+    "vis_crit_min_mean": 0.3258,
+    "gate_pass_rate": 0.28,
+    "vis_by_lm": {
+     "L_sho": 0.999,
+     "R_sho": 0.998,
+     "L_elb": 0.737,
+     "R_elb": 0.605,
+     "L_wri": 0.687,
+     "R_wri": 0.652,
+     "L_hip": 1.0,
+     "R_hip": 1.0,
+     "L_kne": 0.723,
+     "R_kne": 0.628,
+     "L_ank": 0.693,
+     "R_ank": 0.649
+    },
+    "side_gate_mean": 0.6997,
+    "side_gate_rate": 0.72,
+    "weakest_hist": {
+     "R_elb": 6,
+     "R_ank": 4,
+     "L_elb": 3,
+     "L_wri": 3,
+     "R_kne": 3,
+     "L_ank": 3,
+     "L_kne": 1,
+     "R_wri": 1
+    },
+    "pres_crit": 0.999
+   },
+   "INV_S1": {
+    "n": 42,
+    "detect_rate": 1.0,
+    "vis_crit": 0.6966,
+    "vis_crit_median": 0.6819,
+    "vis_crit_min_mean": 0.2038,
+    "gate_pass_rate": 0.1429,
+    "vis_by_lm": {
+     "L_sho": 0.999,
+     "R_sho": 0.999,
+     "L_elb": 0.577,
+     "R_elb": 0.545,
+     "L_wri": 0.578,
+     "R_wri": 0.586,
+     "L_hip": 0.999,
+     "R_hip": 0.999,
+     "L_kne": 0.483,
+     "R_kne": 0.532,
+     "L_ank": 0.519,
+     "R_ank": 0.546
+    },
+    "side_gate_mean": 0.5071,
+    "side_gate_rate": 0.4762,
+    "weakest_hist": {
+     "L_kne": 9,
+     "R_elb": 8,
+     "L_elb": 6,
+     "L_wri": 6,
+     "R_ank": 6,
+     "R_kne": 4,
+     "R_wri": 3
+    },
+    "pres_crit": 0.9842
+   },
+   "INV_S2_rot": {
+    "n": 42,
+    "detect_rate": 1.0,
+    "vis_crit": 0.7177,
+    "vis_crit_median": 0.6909,
+    "vis_crit_min_mean": 0.218,
+    "gate_pass_rate": 0.1667,
+    "vis_by_lm": {
+     "L_sho": 1.0,
+     "R_sho": 0.999,
+     "L_elb": 0.649,
+     "R_elb": 0.574,
+     "L_wri": 0.657,
+     "R_wri": 0.598,
+     "L_hip": 0.999,
+     "R_hip": 0.999,
+     "L_kne": 0.515,
+     "R_kne": 0.516,
+     "L_ank": 0.562,
+     "R_ank": 0.544
+    },
+    "side_gate_mean": 0.5549,
+    "side_gate_rate": 0.5238,
+    "weakest_hist": {
+     "L_kne": 9,
+     "L_elb": 6,
+     "R_elb": 6,
+     "R_kne": 6,
+     "L_wri": 5,
+     "R_wri": 5,
+     "R_ank": 3,
+     "L_ank": 2
+    },
+    "pres_crit": 0.9867
+   },
+   "n_inv": 42,
+   "n_upr": 25
+  }
+ },
+ "axis": {
+  "full": {
+   "inv_S1": {
+    "n": 42,
+    "axis_ok": 38,
+    "axis_error": 3,
+    "no_pose": 1,
+    "axis_error_rate": 0.0732,
+    "bad_ids": [
+     9,
+     21,
+     53
+    ]
+   },
+   "inv_S2": {
+    "n": 42,
+    "axis_ok": 42,
+    "axis_error": 0,
+    "no_pose": 0,
+    "axis_error_rate": 0.0,
+    "bad_ids": []
+   },
+   "upr_S1": {
+    "n": 25,
+    "axis_ok": 24,
+    "axis_error": 0,
+    "no_pose": 1,
+    "axis_error_rate": 0.0,
+    "bad_ids": []
+   },
+   "upr_S2": {
+    "n": 25,
+    "axis_ok": 23,
+    "axis_error": 1,
+    "no_pose": 1,
+    "axis_error_rate": 0.0417,
+    "bad_ids": [
+     88
+    ]
+   }
+  },
+  "heavy": {
+   "inv_S1": {
+    "n": 42,
+    "axis_ok": 38,
+    "axis_error": 4,
+    "no_pose": 0,
+    "axis_error_rate": 0.0952,
+    "bad_ids": [
+     9,
+     21,
+     45,
+     53
+    ]
+   },
+   "inv_S2": {
+    "n": 42,
+    "axis_ok": 42,
+    "axis_error": 0,
+    "no_pose": 0,
+    "axis_error_rate": 0.0,
+    "bad_ids": []
+   },
+   "upr_S1": {
+    "n": 25,
+    "axis_ok": 24,
+    "axis_error": 0,
+    "no_pose": 1,
+    "axis_error_rate": 0.0,
+    "bad_ids": []
+   },
+   "upr_S2": {
+    "n": 25,
+    "axis_ok": 23,
+    "axis_error": 1,
+    "no_pose": 1,
+    "axis_error_rate": 0.0417,
+    "bad_ids": [
+     88
+    ]
+   }
+  }
+ },
+ "video": {
+  "Gymnastics_Australia_027.theora.ogv.json": {
+   "S1": {
+    "detect": 0.8611111111111112,
+    "flips": 0,
+    "pairs": 118,
+    "vis": 0.7426282700153708,
+    "arm_cv": 0.23806361053763103
+   },
+   "S2": {
+    "detect": 0.8819444444444444,
+    "flips": 0,
+    "pairs": 119,
+    "vis": 0.7351031570901283,
+    "arm_cv": 0.21777154577693794
+   },
+   "S3": {
+    "detect": 0.8611111111111112,
+    "flips": 0,
+    "pairs": 117,
+    "vis": 0.7567232284689902,
+    "arm_cv": 0.2195522892280763
+   },
+   "S4": {
+    "detect": 0.8958333333333334,
+    "flips": 0,
+    "pairs": 122,
+    "vis": 0.7530241474576622,
+    "arm_cv": 0.21256867502173016
+   }
+  },
+  "Gymnastics_Australia_020.theora.ogv.json": {
+   "S1": {
+    "detect": 0.9419191919191919,
+    "flips": 1,
+    "pairs": 356,
+    "vis": 0.8240054497284415,
+    "arm_cv": 0.30653867532574514
+   },
+   "S2": {
+    "detect": 0.9646464646464646,
+    "flips": 5,
+    "pairs": 368,
+    "vis": 0.8203885625224714,
+    "arm_cv": 0.32107061406467996
+   },
+   "S3": {
+    "detect": 0.9671717171717171,
+    "flips": 2,
+    "pairs": 369,
+    "vis": 0.8264008092201981,
+    "arm_cv": 0.33613490818529096
+   },
+   "S4": {
+    "detect": 0.9671717171717171,
+    "flips": 1,
+    "pairs": 369,
+    "vis": 0.8251624709040613,
+    "arm_cv": 0.33499868808312183
+   }
+  }
+ },
+ "version_robustness": {
+  "tested": true,
+  "verdict": "D1 hükmü model sürümüne dayanıklı",
+  "evidence": "out/full vs out/fullv1 karşılaştırması"
+ }
+}

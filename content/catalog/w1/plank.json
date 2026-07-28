@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "id": "plank",
+  "name": "Plank",
+  "aliases": [
+    "Front Plank",
+    "Forearm Plank"
+  ],
+  "family": "core",
+  "muscleGroups": [
+    "core",
+    "shoulders",
+    "glutes"
+  ],
+  "equipment": [],
+  "wave": 1,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Statik · yüzüstü ama gövde hattı yan-45°'den tam görünür; ölçülen şey (hat sapması) kameranın en iyi gördüğü büyüklük.",
+  "camera": {
+    "setup": "side45",
+    "framing": "full_body",
+    "calibrationGate": true
+  },
+  "engine": {
+    "type": "staticHold",
+    "holdEntry": {
+      "requires": [
+        {
+          "metric": "line_deviation_deg",
+          "op": "<=",
+          "value": 10
+        },
+        {
+          "metric": "elbow_under_shoulder_offset_torso",
+          "op": "<=",
+          "value": 0.12
+        }
+      ],
+      "stableForMs": 1000
+    },
+    "minHoldMs": 5000,
+    "formBreak": [
+      {
+        "id": "hip_sag",
+        "metric": "line_deviation_deg",
+        "op": ">",
+        "value": 14,
+        "sustainedMs": 1500,
+        "action": "warn_then_end",
+        "cue": "Hips are dropping — lift them back into line."
+      },
+      {
+        "id": "hip_pike",
+        "metric": "line_deviation_deg",
+        "op": "<",
+        "value": -14,
+        "sustainedMs": 1500,
+        "action": "warn",
+        "cue": "Lower your hips — you're piking up."
+      },
+      {
+        "id": "shoulder_drift",
+        "metric": "elbow_under_shoulder_offset_torso",
+        "op": ">",
+        "value": 0.2,
+        "sustainedMs": 2000,
+        "action": "warn",
+        "cue": "Bring your shoulders back over your elbows."
+      }
+    ],
+    "endsOn": [
+      "form_break_sustained",
+      "user_stop",
+      "confidence_lost"
+    ]
+  },
+  "measurementContract": {
+    "measured": [
+      "Hold duration",
+      "Body-line alignment over time",
+      "Time until form starts to break",
+      "Shoulder position over elbows"
+    ],
+    "notMeasured": [
+      "Muscle activation or how hard it feels",
+      "Breathing",
+      "Force through the forearms"
+    ],
+    "gateableMetrics": [
+      "hold_duration_s",
+      "line_deviation_deg",
+      "time_to_form_break_s"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "hip_sag",
+      "label": "Hips dropping",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "line_deviation_deg",
+        "op": ">",
+        "value": 14,
+        "sustainedMs": 1500
+      },
+      "cue": "Squeeze your glutes and lift your hips back into line.",
+      "perturbation": {
+        "metric": "line_deviation_deg",
+        "targetValue": 22,
+        "via": {
+          "joint": "hip",
+          "axis": "sagittal",
+          "deltaDeg": 20
+        }
+      }
+    },
+    {
+      "id": "hip_pike",
+      "label": "Hips too high",
+      "priority": "minor_form",
+      "detect": {
+        "metric": "line_deviation_deg",
+        "op": "<",
+        "value": -14,
+        "sustainedMs": 1500
+      },
+      "cue": "Drop your hips until your body is one straight line.",
+      "perturbation": {
+        "metric": "line_deviation_deg",
+        "targetValue": -22,
+        "via": {
+          "joint": "hip",
+          "axis": "sagittal",
+          "deltaDeg": -20
+        }
+      }
+    },
+    {
+      "id": "head_drop",
+      "label": "Head hanging",
+      "priority": "minor_form",
+      "detect": {
+        "metric": "neck_flexion_proxy",
+        "op": ">",
+        "value": 25
+      },
+      "cue": "Keep your neck long — look at the floor just ahead of your hands.",
+      "perturbation": {
+        "metric": "neck_flexion_proxy",
+        "targetValue": 34,
+        "via": {
+          "joint": "neck",
+          "deltaDeg": 22
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Elbows under your shoulders.",
+      "Set your line before the timer starts."
+    ],
+    "during": [
+      "Squeeze your glutes.",
+      "Ribs down."
+    ],
+    "success": [
+      "You held your line the whole time."
+    ]
+  },
+  "safety": {
+    "warnings": [
+      "Stop if your lower back starts to ache — end the hold rather than pushing through."
+    ],
+    "hardGate": false
+  },
+  "courses": [
+    "core_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

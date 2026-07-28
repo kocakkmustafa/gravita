@@ -1,0 +1,31 @@
+{
+  "_doc": "M5 — elle görsel denetim kayıtları (protokol §5). Ana oturum, etiketli bindirmeler (KOL=kırmızı, BACAK=mavi, BAŞ=sarı) üzerinden sınıflandırdı. Etiketli render ZORUNLU: sade tek-renk iskelette eksen terslemesi GÖRÜNMEZ (bkz. #21/#53 — S1'de iskelet şekli doğru, etiketler ters).",
+  "annotator": "ana oturum (Fable 5)",
+  "date": "2026-07-26",
+  "model": "pose_landmarker_full.task",
+  "sheets": [
+    "out/sheet_inv_S1_*.jpg (S1, sade render — eksen körlüğü içerir, tarihsel kayıt)",
+    "out/sheet_lblS2_*.jpg (S2, etiketli render — asıl hüküm kaynağı)",
+    "out/sheet_labeled.jpg (S1↔S2 yan yana, eksen terslemesi kanıtı)"
+  ],
+  "S2_inv": {
+    "n": 42,
+    "CORRECT": 42,
+    "PARTIAL": 0,
+    "GROSS": 0,
+    "NO_POSE": 0,
+    "note": "42/42. Karmaşık kontorsiyon pozları (#9, #40, #46, #47) dahil doğru; bunlar S1'de kısmi/hatalıydı."
+  },
+  "S1_inv": {
+    "n": 42,
+    "CORRECT_shape_but_axis_inverted": [9, 21, 53],
+    "NO_POSE": [45],
+    "PARTIAL": [6],
+    "note": "İlk geçişte #9/#21/#53 sade render ile 'doğru' sanıldı — iskelet ŞEKLİ doğru, ETİKETLER baş-ayak ekseninde ters. Ölçümle (axis.py) yakalandı, etiketli renderla görsel olarak doğrulandı. Bu, M5 metodolojisinin düzeltilmiş halidir: sade render yeterli değil."
+  },
+  "methodology_correction": {
+    "what": "M5 ilk turu tek-renk iskelet bindirmesiyle yapıldı; eksen terslemesini göremedi.",
+    "fix": "Uzuv-sınıfı renk kodlu (kol/bacak/baş) render zorunlu kılındı; protokol §5 M5 buna göre güncellenecek.",
+    "why_it_matters": "Bu tam olarak ürünün en tehlikeli hata modudur: yüksek güvenli, makul görünen, tamamen yanlış koçluk."
+  }
+}

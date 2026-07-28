@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "id": "bodyweight_squat",
+  "name": "Bodyweight Squat",
+  "aliases": [
+    "Air Squat"
+  ],
+  "family": "legs",
+  "muscleGroups": [
+    "quads",
+    "glutes",
+    "hamstrings",
+    "core"
+  ],
+  "equipment": [],
+  "wave": 1,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Açık zincir · ayakta · sagittal düzlem baskın ve yan-45°'den tam görünür.",
+  "camera": {
+    "setup": "side45",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Diz valgusu FRONTAL görüş ister — side45 kurulumunda ölçülmez (bkz. notMeasured). Frontal kurulum ayrı bir ölçüm modudur."
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "knee",
+      "side": "visible"
+    },
+    "phases": {
+      "stand": {
+        "angleMin": 165
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 100
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "bottom->stand",
+    "minPhaseMs": 250,
+    "timeoutMs": 9000,
+    "romTarget": {
+      "bottomAngleMax": 95,
+      "label": "thighs at least parallel"
+    },
+    "tempo": {
+      "reportDescentMs": true,
+      "reportAscentMs": true
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo",
+      "Squat depth (knee angle)",
+      "Torso angle",
+      "Heel lift",
+      "Form breakdown across the set"
+    ],
+    "notMeasured": [
+      "Knee tracking side-to-side (valgus) — that needs a front-facing setup, not this one",
+      "Weight distribution across the foot",
+      "Force or load"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "rom_bottom_angle",
+      "torso_angle",
+      "heel_lift"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "shallow_depth",
+      "label": "Not squatting deep enough",
+      "priority": "blocking",
+      "detect": {
+        "metric": "rom_bottom_angle",
+        "op": ">",
+        "value": 110
+      },
+      "cue": "Sit down lower — aim for your thighs parallel to the floor.",
+      "perturbation": {
+        "metric": "rom_bottom_angle",
+        "targetValue": 140,
+        "via": {
+          "clampDescentAt": 140
+        }
+      }
+    },
+    {
+      "id": "excessive_forward_lean",
+      "label": "Chest dropping forward",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "torso_angle_from_vertical",
+        "op": ">",
+        "value": 45,
+        "sustainedMs": 300
+      },
+      "cue": "Chest up — sit back into your hips instead of leaning over.",
+      "perturbation": {
+        "metric": "torso_angle_from_vertical",
+        "targetValue": 60,
+        "via": {
+          "segment": "torso",
+          "deltaDeg": 25
+        },
+        "baselineNote": "doğru squat'ta ~35° -> 35+25=60 > 45 eşiği"
+      }
+    },
+    {
+      "id": "heel_lift",
+      "label": "Heels coming up",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "heel_rise_torso_norm",
+        "op": ">",
+        "value": 0.03
+      },
+      "cue": "Keep your heels down — take a slightly wider stance if you need to.",
+      "perturbation": {
+        "metric": "heel_rise_torso_norm",
+        "targetValue": 0.05,
+        "via": {
+          "joint": "ankle",
+          "raiseTorsoNorm": 0.05
+        }
+      }
+    },
+    {
+      "id": "butt_wink",
+      "label": "Lower back rounding at the bottom",
+      "priority": "safety",
+      "detect": {
+        "metric": "lumbar_flexion_proxy",
+        "op": ">",
+        "value": 18
+      },
+      "cue": "Stop just above the depth where your lower back starts to round.",
+      "pendingVerification": true,
+      "note_tr": "Derin-fleksiyonda landmark jitter riski (blueprint §4.7) — doğrulama turundan önce bu hata için hüküm verilmez.",
+      "perturbation": {
+        "metric": "lumbar_flexion_proxy",
+        "targetValue": 26,
+        "via": {
+          "segment": "lumbar",
+          "deltaDeg": 18
+        },
+        "baselineNote": "nötr ~8°"
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Feet about shoulder width.",
+      "Stand side-on to the phone, full body in frame."
+    ],
+    "during": [
+      "Sit back and down.",
+      "Drive through your whole foot."
+    ],
+    "success": [
+      "Good depth, chest stayed up."
+    ]
+  },
+  "safety": {
+    "warnings": [
+      "Stop at the depth you can control with a neutral spine."
+    ],
+    "hardGate": false
+  },
+  "courses": [
+    "leg_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

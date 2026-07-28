@@ -1,0 +1,40 @@
+{
+  "_doc": "G1/D1 veri eleme kaydı — ana oturum tarafından kontakt sayfalarıyla GÖZLE yapıldı (protokol §4 veri geçerliliği). Eleme ölçümden bağımsız kriterlerle yapıldı: gerçek insan fotoğrafı mı, tek kişi mi, tam vücut kadrajda mı.",
+  "screened_by": "ana oturum (Fable) — out/sheet_raw_*.jpg üzerinden",
+  "screened_at": "2026-07-26",
+  "criteria": [
+    "insan fotoğrafı DEĞİL (heykel/gravür/çizim/pul/anıt) -> ele",
+    "birden fazla belirgin kişi -> ele (ürün tek-kişi senaryosu)",
+    "özne kadrajın çok küçük bir parçası (uzak çekim) -> ele (kalibre kadraj temsil etmiyor)",
+    "vücut ciddi kırpılmış (yarım boy) -> ele (kritik landmark seti kadrajda değil)"
+  ],
+  "exclude": [
+    0, 5, 10, 11, 12, 17, 23, 24, 26, 28, 34, 43, 52, 54, 55,
+    62, 69, 70, 73, 74, 76, 78, 79, 80, 82, 83, 85, 86, 87, 89, 94, 98, 99
+  ],
+  "exclude_reasons": {
+    "0": "metal heykel", "5": "heykel", "10": "özne çok küçük (uzak)", "11": "kalabalık sahne, karanlık",
+    "12": "tel heykel",
+    "17": "iki kişi + ekran görüntüsü UI",
+    "23": "HEYKEL — ilk taramada canlı sanılmıştı; Commons kategorisi 'Handstands in art' ile kaynakta teyit edildi (bkz. descriptionurl). Ölçüm sonrası eklendi; eleme ölçüm sonucuna değil KAYNAK METADATASINA dayanır.",
+    "24": "özne çok küçük, arkadan ışık",
+    "26": "heykel", "28": "capoeira kalabalık (çok kişi)", "34": "highline, özne çok küçük",
+    "43": "iki kişi", "52": "gravür/çizim", "54": "gravür", "55": "gravür",
+    "62": "iki asker", "69": "spor salonu kalabalık", "70": "sanatsal çift-pozlama",
+    "73": "grup yoga dersi", "74": "yarım boy kadraj", "76": "tarihî kalabalık fotoğraf",
+    "78": "eskiz/çizim", "79": "kalabalık", "80": "grup", "82": "asker grubu", "83": "asker grubu",
+    "85": "büyük yoga sınıfı", "86": "özne çok küçük", "87": "özne çok küçük", "89": "posta pulu",
+    "94": "anıt/mezar", "98": "#96 ile kopya (aynı çekim serisi)", "99": "#96 ile kopya"
+  },
+  "reclass": {
+    "36": "upr",
+    "38": "upr",
+    "41": "upr"
+  },
+  "reclass_reason": "'Adho Mukha Vrksasana' araması Vrksasana (ağaç pozu, DİK) ve Virabhadrasana III getirdi — ters-duruş değil; dik kontrol setine taşındı (veri israfı yerine kontrol gücü).",
+  "known_bias": "UPR seti stüdyo çekimi ağırlıklı (temiz arka plan, tam boy), INV seti daha 'vahşi' (dış mekân, değişken ışık). Bu, dik temel çizgiyi YUKARI çeker — yani 'ters-duruş kötü değil' bulgusu bu önyargıya RAĞMEN çıkarsa güçlenir (muhafazakâr yön).",
+  "near_duplicates_kept": {
+    "56,57,58": "aynı kişi/oturum 3 headstand karesi — INV'de bırakıldı, korelasyon raporda not edildi",
+    "96,97": "aynı çekim serisi 2 kare bırakıldı (98,99 elendi)"
+  }
+}

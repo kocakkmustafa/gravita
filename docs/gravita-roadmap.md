@@ -4,6 +4,8 @@
 **Hiyerarşi:** `00-AILE-MIMARISI.md` (D1 = P0 kapı!) > `20-URETIM-SURECI.md` > `10-ARAC-KATALOGU.md` > bu dosya > `gravita-plan.md`.
 **Ürün dili: İNGİLİZCE.** Aile sırası **3** (ters-duruş riski nedeniyle Lissom/JabLab'dan sonra önerildi; kurucu tetiği sırayı ezer).
 
+> ⚡ **REVİZYON 2026-07-26 (kurucu direktifi — KURUCUSUZ VERİ FABRİKASI + GENİŞ KÜTÜPHANE, M-F-13..16):** Bu haritadaki "kurucu çekimi / fixture çekim listesi kurucuya" varsayımları KALDIRILDI — kurucu çekim YAPMAZ. Birincil veri = kamu-video hasadı + sentetik (katalog §6.2; ücretli klip İPTAL — M-F-17); doğrulama = §6.3 merdiveni; öğretim görselleri = §6.4 katmanlı AI-eğitmen hattı (T1 = iskelet-sürümlü uygulama-içi avatar, $0 ve form-garantili). Kurucudan yalnız onay/kapı kararları + EN SONDA (G8'de, deneme amaçlı) cihaz-benchmark'ı beklenir — erken fazlar benchmark'ı BEKLEMEZ. **Geniş kütüphane:** Handstand + crow/headstand/hollow/L-sit/pistol + planche/lever GENİŞ hasat (GMB/FitnessFAQs/Merrick/THENX/Antranik; planche-lever ek tarama); G3 fixture'ları kamu-video + Unity-Perception sentetik ters-duruş setiyle; kasıtlı-hata örnekleri referansın kontrollü bozulmasından (M-C-03). Sorularını bu çerçevede kendin karara bağla — kurucuya soru YOK.
+
 ## 1. Kimlik ve Kuzey Yıldızı
 
 **Gravita: Skills & Strength** — telefonu sabitle, handstand/beceri denemeni yap; sistem hizanı ve denemeni analiz etsin, EN önemli tek hatanı söylesin, doğru progresyonu açsın. Genel fitness app'i DEĞİL: ölçülebilir beceri kazanımı.
@@ -80,3 +82,34 @@ Handstand fixture çekimleri (kendi denemelerin + çevrenden gönüllü) · AI H
 
 ## 7. Oturum örgütlenmesi
 Fable/high; `motion-cv-engineer` D1 sahibi (İLK durak); fan-out sonnet; riskli sınıf Opus; /loop. Başlangıç promptu: vault `🚀 Başlangıç Promptu — Gravita`.
+
+---
+
+## 8. DALGA PLANI (blueprint M-F-18 sonrası — kapsam otoritesi `GRAVITA-BLUEPRINT.md`)
+
+G0→G10 faz modeli korunur; **kapsam artık dalga-bazlı işlenir** (standart §4.2: her dalga için G3→G6 döngüsü, platform katmanı bir kez G5'te).
+
+| Dalga | Kapsam | Motor gereksinimi | Durum |
+|---|---|---|---|
+| **W0** | Borç kapatma + IA çatısı + sınıf-kuralları config şeması | — | ✅ **BİTTİ** (2026-07-29) |
+| **W1** | Kitle-pazar bodyweight + core (şınav/barfiks/dip/squat/lunge/plank/burpee + core seti) | rep-FSM jeneriği · statik-tutuş motoru · çok-faz FSM | 🟠 başladı — 5/≈20 hareket şemalandı |
+| **W2** | DB/KB kütüphanesi + amiral beceriler (handstand ağacı, planche ağacı) | tempo/eksantrik · KB kadans (RhythmEngine) · **inversiyon hattı (D1 çözümü)** | ⏳ |
+| **W3** | Barbell bileşikleri + FSM klasikleri (TGU, Nordic) + **bench = sınıf B** | çok-faz FSM derinleşmesi · **bar/kenar tespiti R&D başlar** | ⏳ |
+| **W4** | Bar becerileri + genişletilmiş calisthenics + pliometrik | bar tespiti (veya fallback) · checkpoint koçluğu | ⏳ |
+| **W5** | Rings + köprü + aspirasyonel + doğrulama-bekleyenler | salınım-toleranslı smoothing · derin-fleksiyon doğrulaması | ⏳ |
+
+### W0 çıktıları (kanıt)
+`content/schema/{movement-classes,movement.schema,metrics}.json` · `content/catalog/w1/*.json` (5) · `content/catalog/exclusions.json` · `tools/validate_catalog.py` (9 değişmez, ✅ 0 hata) · `docs/W0-BILGI-MIMARISI.md`
+
+### W1 görev kuyruğu
+1. Kalan ≈15 hareketin şemalanması (dip, lunge, dead bug, bird dog, hollow, side plank, hanging leg raise, mountain climber, glute bridge, superman, wall sit, calf raise, step-up, toes-to-bar, inverted row).
+2. **Hasat hattı** (katalog §6.2): hareket-başına ≥3 bağımsız eğitmen → referans çıkarımı → **tolerans kaynak varyansından** (G-014 kapanışı).
+3. Perturbasyon üreteci: referanstan kasıtlı-hata fixture'ları (M-C-03) — betik zaten genlik şartını zorluyor.
+4. Rep-FSM + statik-tutuş motoru: fixture-replay testli (kod, motion-core'u TÜKETİR — çekirdeğe yazılmaz, M-F-03).
+5. Kurs/program config'leri + sesli koç replikleri (EN).
+
+### Değişen varsayımlar (M-F-13..18)
+- ❌ Kurucu çekimi — `docs/G3-CEKIM-LISTESI.md` artık **opsiyonel şablon**; birincil hat kamu-video hasadı + Unity sentetik.
+- ❌ Kurucu-bekleyen cihaz benchmark'ı erken fazlarda — **G8'e ötelendi**, eşikler "cihazda doğrulanacak" etiketiyle taşınır.
+- ✅ Skor gösterimi **bant** (M-F-04/K8) — sayısal skor kalibrasyon kapısı sonrası.
+- ✅ motion-core sahibi **koordinatör oturum** (M-F-03) — çekirdek API ihtiyaçları DEFTER'e yazılır, core'a doğrudan yazılmaz.

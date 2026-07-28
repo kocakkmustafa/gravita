@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "docId": "gravita.metrics",
+  "version": "1.0.0",
+  "purpose_tr": "Kataloğun ölçüm sözlüğü. Her metriğin birimi, fiziksel aralığı ve GÜRÜLTÜ BANDI burada tanımlanır; hareket dosyaları yalnız bu metriklere referans verebilir. Nöbetçi betik (tools/validate_catalog.py) fixture-perturbasyonlarının eşiği gerçekten aştığını bu bantla denetler.",
+
+  "noiseBandContract_tr": "`noiseBand` = metriğin ölçüm gürültüsü + kişiler-arası doğal varyans için ayrılan pay, metriğin KENDİ biriminde. Perturbasyon hedefi, tespit eşiğini EN AZ bu kadar aşmalı (G-013/C-011). ⚠️ Şu anki değerler PROVİZYONEL mühendislik tahminidir; katalog §6.0 gereği nihai değerler ≥3 bağımsız eğitmen kaynağının VARYANSINDAN türetilecek (`source: harvest_variance`). Değer değişince bağlı eşikler yeniden kalibre edilir.",
+
+  "metrics": {
+    "line_deviation_deg": {
+      "unit": "deg", "range": [-60, 60], "noiseBand": 4, "source": "provisional",
+      "desc": "Omuz-kalça-ayak bileği hattının hedef hattan sapması. + = kalça düşük (sag), − = kalça yüksek (pike)."
+    },
+    "rom_bottom_angle": {
+      "unit": "deg", "range": [0, 180], "noiseBand": 6, "source": "provisional",
+      "desc": "Hareketin en alt noktasındaki eklem açısı (küçük = derin)."
+    },
+    "rom_top_angle": {
+      "unit": "deg", "range": [0, 180], "noiseBand": 6, "source": "provisional",
+      "desc": "Hareketin tepe noktasındaki eklem açısı."
+    },
+    "torso_angle_from_vertical": {
+      "unit": "deg", "range": [0, 90], "noiseBand": 5, "source": "provisional",
+      "desc": "Gövdenin düşeyden sapması. Squat'ta doğal taban ~30-40° — eşikler MUTLAK, perturbasyon hedefi de mutlak."
+    },
+    "lumbar_flexion_proxy": {
+      "unit": "deg", "range": [0, 60], "noiseBand": 5, "source": "provisional",
+      "desc": "Bel fleksiyonu VEKİLİ (omuz-kalça-diz açısından türetilir). Omurga ölçümü DEĞİLDİR.",
+      "pendingVerification": true
+    },
+    "neck_flexion_proxy": {
+      "unit": "deg", "range": [0, 70], "noiseBand": 5, "source": "provisional",
+      "desc": "Baş-boyun fleksiyonu vekili. Nötr taban ~10-15°."
+    },
+    "elbow_angle_asymmetry": {
+      "unit": "deg", "range": [0, 90], "noiseBand": 4, "source": "provisional",
+      "desc": "İki kol arasındaki açı farkı. ⚠️ Taraf GEOMETRİK eşlenir (G-007) — model L/R etiketi kullanılmaz."
+    },
+    "heel_rise_torso_norm": {
+      "unit": "torso_length", "range": [0, 0.3], "noiseBand": 0.01, "source": "provisional",
+      "desc": "Topuğun zeminden yükselmesi, gövde uzunluğuna normalize."
+    },
+    "hip_swing_amplitude_torso": {
+      "unit": "torso_length", "range": [0, 1.0], "noiseBand": 0.04, "source": "provisional",
+      "desc": "Kalçanın salınım genliği, gövde uzunluğuna normalize (kipping tespiti)."
+    },
+    "shoulder_elevation_proxy": {
+      "unit": "torso_length", "range": [0, 0.5], "noiseBand": 0.02, "source": "provisional",
+      "desc": "Omuz-kulak mesafesinin daralması vekili (shrug tespiti)."
+    },
+    "elbow_under_shoulder_offset_torso": {
+      "unit": "torso_length", "range": [0, 1.0], "noiseBand": 0.03, "source": "provisional",
+      "desc": "Dirseğin omuz düşeyinden yatay kayması."
+    },
+    "knee_angle_at_contact": {
+      "unit": "deg", "range": [0, 180], "noiseBand": 5, "source": "provisional",
+      "desc": "İniş anındaki diz açısı (180 = kilitli). ⚠️ TAVANI 180 — çarpımsal marj kullanılamaz, bu yüzden marj mutlak."
+    },
+    "knee_angle": { "unit": "deg", "range": [0, 180], "noiseBand": 5, "source": "provisional" },
+    "elbow_angle": { "unit": "deg", "range": [0, 180], "noiseBand": 5, "source": "provisional" },
+    "hip_height_torso": { "unit": "torso_length", "range": [0, 2], "noiseBand": 0.05, "source": "provisional" },
+    "feet_off_ground": { "unit": "bool", "range": [0, 1], "noiseBand": 0, "source": "derived" },
+    "rep_duration_trend": {
+      "unit": "ratio", "range": [0.5, 4], "noiseBand": 0.15, "source": "provisional",
+      "desc": "Son tekrarların süresinin ilk tekrarlara oranı (tempo çöküşü)."
+    },
+    "vertical_travel": { "unit": "torso_length", "range": [0, 2], "noiseBand": 0.05, "source": "provisional" },
+    "hold_duration_s": { "unit": "s", "range": [0, 3600], "noiseBand": 0.5, "source": "provisional" },
+    "time_to_form_break_s": { "unit": "s", "range": [0, 3600], "noiseBand": 0.5, "source": "provisional" },
+    "phase_timing": { "unit": "ms", "range": [0, 60000], "noiseBand": 60, "source": "provisional" },
+    "rep_count": { "unit": "count", "range": [0, 1000], "noiseBand": 0, "source": "derived" },
+    "landing_knee_angle": { "unit": "deg", "range": [0, 180], "noiseBand": 5, "source": "provisional" },
+    "swing_amplitude": { "unit": "torso_length", "range": [0, 1], "noiseBand": 0.04, "source": "provisional" },
+    "hold_quality": { "unit": "ratio", "range": [0, 1], "noiseBand": 0.05, "source": "provisional" },
+    "analysis_confidence": { "unit": "ratio", "range": [0, 1], "noiseBand": 0.05, "source": "derived" }
+  }
+}
