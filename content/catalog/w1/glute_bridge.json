@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "id": "glute_bridge",
+  "name": "Glute Bridge",
+  "family": "legs",
+  "muscleGroups": [
+    "glutes",
+    "hamstrings",
+    "core"
+  ],
+  "equipment": [],
+  "wave": 1,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Sırtüstü ama kalça ekstansiyonu sagittal düzlemde ve yandan TAM görünür.",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "hip",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 165
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 110
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "bottom->top",
+    "minPhaseMs": 250,
+    "timeoutMs": 9000,
+    "romTarget": {
+      "topAngleMin": 170,
+      "label": "hips fully extended at the top"
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo",
+      "Hip extension range at the top",
+      "Hold time at the top",
+      "Lower-back position"
+    ],
+    "notMeasured": [
+      "Glute activation — we see the shape, not the muscle",
+      "Force or load"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "hip_angle",
+      "hold_duration_s"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "incomplete_extension",
+      "label": "Not reaching full hip extension",
+      "priority": "blocking",
+      "detect": {
+        "metric": "hip_angle",
+        "op": "<",
+        "value": 165
+      },
+      "cue": "Squeeze your glutes and push your hips all the way up.",
+      "perturbation": {
+        "metric": "hip_angle",
+        "targetValue": 145,
+        "via": {
+          "clampTopAt": 145
+        }
+      }
+    },
+    {
+      "id": "lumbar_overextension",
+      "label": "Arching your back instead of extending your hips",
+      "priority": "safety",
+      "detect": {
+        "metric": "lumbar_extension_proxy",
+        "op": ">",
+        "value": 15
+      },
+      "cue": "Stop where your glutes do the work — don't arch your back to go higher.",
+      "perturbation": {
+        "metric": "lumbar_extension_proxy",
+        "targetValue": 23,
+        "via": {
+          "segment": "lumbar",
+          "deltaDeg": 20
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Feet close to your hips."
+    ],
+    "during": [
+      "Squeeze at the top.",
+      "Ribs down."
+    ],
+    "success": [
+      "Full extension, no arch."
+    ]
+  },
+  "safety": {
+    "warnings": [],
+    "hardGate": false
+  },
+  "courses": [
+    "leg_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

@@ -11,6 +11,11 @@ Denetlenen değişmezler (hepsi bir DEFTER/ADR maddesine bağlı):
   V7  Dürüstlük      : her form hatasının kullanıcıya söylenecek bir `cue`u var
   V8  C sınıfı katalogda yer alamaz (exclusions.json'a gider)
   V9  timeout        : rep/çok-faz motorlarında fiziksel üst sınır zorunlu (JabLab J-009 dersi)
+  V11 uç ayrıklığı   : repFsm'in iki ucu (angleMin/angleMax) ÖRTÜŞEMEZ — örtüşürse her kare
+                       her iki uçta sayılır ve motor durmadan "tekrar" üretir
+  V10 J-027          : `fastTransition: true` olan motor `signalFilter.cutoffHz` beyan ETMELİ —
+                       çekirdek varsayılan yumuşatması hızlı geçişleri söndürür; filtre kesimi
+                       eşiklerle BİRLİKTE pinlenir
 
 Çıkış kodu 0 = temiz, 1 = ihlal var.
 """
@@ -124,8 +129,29 @@ def check(path):
                    f"(G-007/M-F-06: model L/R etiketine güvenilmez)")
         if not eng.get("repCountedOn"):
             err(f, "repFsm: repCountedOn eksik")
+        # V11: iki uç eşiği ayrık olmalı (faz ADLARINA bakılmaz — motor da bakmıyor)
+        open_end = closed_end = None
+        for v in (eng.get("phases") or {}).values():
+            if not isinstance(v, dict):
+                continue
+            if num(v.get("angleMin")):
+                open_end = v["angleMin"]
+            if num(v.get("angleMax")):
+                closed_end = v["angleMax"]
+        if open_end is None or closed_end is None:
+            err(f, "repFsm fazları iki uç tanımlamalı: biri angleMin, biri angleMax")
+        elif open_end <= closed_end:
+            err(f, f"repFsm uçları ÖRTÜŞÜYOR (angleMin={open_end} ≤ angleMax={closed_end}) — "
+                   f"her kare iki uçta birden sayılır, motor durmadan tekrar üretir")
         if not num(eng.get("timeoutMs")):                               # V9
             err(f, "repFsm: timeoutMs eksik — fiziksel üst sınır zorunlu (J-009 dersi)")
+        if eng.get("fastTransition"):                                   # V10
+            sf = eng.get("signalFilter") or {}
+            if not num(sf.get("cutoffHz")):
+                err(f, "fastTransition=true ama signalFilter.cutoffHz yok — çekirdek varsayılan "
+                       "yumuşatması hızlı geçişi söndürür (J-027); kesim eşiklerle birlikte pinlenir")
+            elif not sf.get("rationale_tr") and not sf.get("derivedFrom"):
+                warn(f, "signalFilter var ama kesim frekansının NEREDEN türetildiği yazılmamış (J-027)")
     if et == "multiPhaseFsm":
         if len(eng.get("sequence", [])) < 3:
             err(f, "multiPhaseFsm: sequence en az 3 faz içermeli")

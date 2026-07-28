@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "id": "lunge",
+  "name": "Lunge",
+  "family": "legs",
+  "muscleGroups": [
+    "quads",
+    "glutes",
+    "hamstrings"
+  ],
+  "equipment": [],
+  "wave": 1,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Açık zincir · ayakta · sagittal düzlem baskın, yandan tam görünür.",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Her iki bacak da kadrajda; adım yönü kameraya paralel."
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "knee",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 160
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 100
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "bottom->stand",
+    "minPhaseMs": 200,
+    "timeoutMs": 9000,
+    "tempo": {
+      "reportDescentMs": true,
+      "reportAscentMs": true
+    },
+    "romTarget": {
+      "bottomAngleMax": 95,
+      "label": "front thigh about parallel"
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo",
+      "Front-knee depth",
+      "Torso angle",
+      "Back-knee travel"
+    ],
+    "notMeasured": [
+      "Knee tracking side-to-side — that needs a front-facing setup",
+      "Weight distribution across the feet",
+      "Force or load"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "rom_bottom_angle",
+      "torso_angle_from_vertical"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "shallow_depth",
+      "label": "Not lunging deep enough",
+      "priority": "blocking",
+      "detect": {
+        "metric": "rom_bottom_angle",
+        "op": ">",
+        "value": 115
+      },
+      "cue": "Drop your back knee closer to the floor.",
+      "perturbation": {
+        "metric": "rom_bottom_angle",
+        "targetValue": 145,
+        "via": {
+          "clampDescentAt": 145
+        }
+      }
+    },
+    {
+      "id": "torso_collapse",
+      "label": "Chest dropping forward",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "torso_angle_from_vertical",
+        "op": ">",
+        "value": 25
+      },
+      "cue": "Stay tall — think of your torso as a column.",
+      "perturbation": {
+        "metric": "torso_angle_from_vertical",
+        "targetValue": 40,
+        "via": {
+          "segment": "torso",
+          "deltaDeg": 20
+        }
+      }
+    },
+    {
+      "id": "knee_over_toe",
+      "label": "Front knee sliding far past the toes",
+      "priority": "minor_form",
+      "detect": {
+        "metric": "knee_travel_torso",
+        "op": ">",
+        "value": 0.18
+      },
+      "cue": "Take a slightly longer step so your shin stays more upright.",
+      "perturbation": {
+        "metric": "knee_travel_torso",
+        "targetValue": 0.24,
+        "via": {
+          "joint": "knee",
+          "translateTorsoNorm": 0.24
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Stand side-on to the phone."
+    ],
+    "during": [
+      "Tall chest.",
+      "Push through your front heel."
+    ],
+    "success": [
+      "Good depth both sides."
+    ]
+  },
+  "safety": {
+    "warnings": [
+      "Stop if your front knee complains — shorten the range before adding reps."
+    ],
+    "hardGate": false
+  },
+  "courses": [
+    "leg_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

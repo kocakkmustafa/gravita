@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "id": "hanging_leg_raise",
+  "name": "Hanging Leg Raise",
+  "family": "core",
+  "muscleGroups": [
+    "core",
+    "hip_flexors",
+    "lats"
+  ],
+  "equipment": [
+    "pull_up_bar"
+  ],
+  "wave": 1,
+  "level": "intermediate",
+  "class": "A",
+  "classRationale": "Asılı · sagittal düzlem yandan tam görünür. Bar sınıfı düşürmez — metrikler gövde-göreli (G-017 deseni).",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Bar tespit edilmez; asılı halde tam boy kadrajda."
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "hip",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMax": 100
+      },
+      "descent": {
+        "direction": "increasing"
+      },
+      "bottom": {
+        "angleMin": 160
+      },
+      "ascent": {
+        "direction": "decreasing"
+      }
+    },
+    "repCountedOn": "top->bottom",
+    "minPhaseMs": 300,
+    "timeoutMs": 10000,
+    "romTarget": {
+      "topAngleMax": 95,
+      "label": "hips to about 90°"
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo",
+      "Hip range of motion",
+      "Swing between reps",
+      "Knee bend"
+    ],
+    "notMeasured": [
+      "\"Toes to bar\" — the bar is not detected, so we judge range by your hip angle",
+      "Grip or forearm fatigue",
+      "Force or load"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "hip_angle",
+      "swing_amplitude"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "partial_rom",
+      "label": "Not raising high enough",
+      "priority": "blocking",
+      "detect": {
+        "metric": "hip_angle",
+        "op": ">",
+        "value": 120
+      },
+      "cue": "Bring your thighs up to at least parallel.",
+      "perturbation": {
+        "metric": "hip_angle",
+        "targetValue": 145,
+        "via": {
+          "clampRaiseAt": 145
+        }
+      }
+    },
+    {
+      "id": "swinging",
+      "label": "Using swing to get up",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "hip_swing_amplitude_torso",
+        "op": ">",
+        "value": 0.18
+      },
+      "cue": "Stop the swing — pause at the bottom before the next rep.",
+      "perturbation": {
+        "metric": "hip_swing_amplitude_torso",
+        "targetValue": 0.26,
+        "via": {
+          "joint": "hip",
+          "oscillationDeg": 26
+        }
+      }
+    },
+    {
+      "id": "knee_bend",
+      "label": "Knees bending a lot",
+      "priority": "minor_form",
+      "detect": {
+        "metric": "knee_angle",
+        "op": "<",
+        "value": 140
+      },
+      "cue": "Keep your legs straighter if you can, or switch to knee raises.",
+      "perturbation": {
+        "metric": "knee_angle",
+        "targetValue": 120,
+        "via": {
+          "joint": "knee",
+          "deltaDeg": 30
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Hang tall, shoulders packed."
+    ],
+    "during": [
+      "No swing.",
+      "Lower slowly."
+    ],
+    "success": [
+      "Clean reps, no swing."
+    ]
+  },
+  "safety": {
+    "warnings": [],
+    "hardGate": false
+  },
+  "courses": [
+    "core_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "id": "superman_hold",
+  "name": "Superman Hold",
+  "family": "core",
+  "muscleGroups": [
+    "spinal_erectors",
+    "glutes"
+  ],
+  "equipment": [],
+  "wave": 1,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Statik · yüzüstü · ekstansiyon sagittal düzlemde yandan görünür.",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true
+  },
+  "engine": {
+    "type": "staticHold",
+    "holdEntry": {
+      "requires": [
+        {
+          "metric": "lumbar_extension_proxy",
+          "op": ">=",
+          "value": 8
+        }
+      ],
+      "stableForMs": 1000
+    },
+    "minHoldMs": 4000,
+    "formBreak": [
+      {
+        "id": "collapse",
+        "metric": "lumbar_extension_proxy",
+        "op": "<",
+        "value": 5,
+        "sustainedMs": 1500,
+        "action": "warn_then_end",
+        "cue": "Your chest and legs are dropping — lift them back up."
+      }
+    ],
+    "endsOn": [
+      "form_break_sustained",
+      "user_stop",
+      "confidence_lost"
+    ]
+  },
+  "measurementContract": {
+    "measured": [
+      "Hold duration",
+      "Lift height over time",
+      "Time until you start to drop"
+    ],
+    "notMeasured": [
+      "How hard it feels",
+      "Force"
+    ],
+    "gateableMetrics": [
+      "hold_duration_s",
+      "time_to_form_break_s"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "neck_crank",
+      "label": "Cranking your neck back",
+      "priority": "safety",
+      "detect": {
+        "metric": "neck_flexion_proxy",
+        "op": "<",
+        "value": -15
+      },
+      "cue": "Look at the floor — keep your neck in line with your spine.",
+      "perturbation": {
+        "metric": "neck_flexion_proxy",
+        "targetValue": -24,
+        "via": {
+          "joint": "neck",
+          "deltaDeg": -24
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Lie face down, arms forward."
+    ],
+    "during": [
+      "Lift chest and thighs.",
+      "Neck long."
+    ],
+    "success": [
+      "Held the lift."
+    ]
+  },
+  "safety": {
+    "warnings": [
+      "Stop if your lower back pinches — a small lift you can hold is the goal."
+    ],
+    "hardGate": false
+  },
+  "courses": [
+    "core_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

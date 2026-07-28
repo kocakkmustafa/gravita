@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "id": "dead_bug",
+  "name": "Dead Bug",
+  "family": "core",
+  "muscleGroups": [
+    "core",
+    "hip_flexors"
+  ],
+  "equipment": [],
+  "wave": 1,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Sırtüstü ama uzuv yolu sagittal düzlemde ve yandan TAM görünür; derinlik ekseni kesilmiyor (bench press'ten farkı bu).",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Yerde yan profil; kollar ve bacaklar kadrajda."
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "hip",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMax": 95
+      },
+      "descent": {
+        "direction": "increasing"
+      },
+      "bottom": {
+        "angleMin": 155
+      },
+      "ascent": {
+        "direction": "decreasing"
+      }
+    },
+    "repCountedOn": "bottom->top",
+    "minPhaseMs": 300,
+    "timeoutMs": 10000,
+    "tempo": {
+      "reportExtendMs": true,
+      "reportReturnMs": true
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo",
+      "Limb extension range",
+      "Lower-back contact (via pelvis angle proxy)",
+      "Left/right timing symmetry"
+    ],
+    "notMeasured": [
+      "Actual pressure between your back and the floor",
+      "Breathing",
+      "Force or load"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "hip_angle",
+      "limb_extension_sync_ms"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "back_arch",
+      "label": "Lower back lifting off the floor",
+      "priority": "safety",
+      "detect": {
+        "metric": "lumbar_extension_proxy",
+        "op": ">",
+        "value": 15
+      },
+      "cue": "Press your lower back down — shorten the reach until you can hold it.",
+      "perturbation": {
+        "metric": "lumbar_extension_proxy",
+        "targetValue": 22,
+        "via": {
+          "segment": "lumbar",
+          "deltaDeg": 18
+        }
+      }
+    },
+    {
+      "id": "rushed_tempo",
+      "label": "Moving too fast to control it",
+      "priority": "minor_form",
+      "detect": {
+        "metric": "limb_extension_sync_ms",
+        "op": ">",
+        "value": 250
+      },
+      "cue": "Slow down — extend and return with control.",
+      "perturbation": {
+        "metric": "limb_extension_sync_ms",
+        "targetValue": 400,
+        "via": {
+          "desyncMs": 400
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Lie side-on to the phone.",
+      "Press your lower back into the floor."
+    ],
+    "during": [
+      "Slow and long.",
+      "Keep the back flat."
+    ],
+    "success": [
+      "Controlled the whole way."
+    ]
+  },
+  "safety": {
+    "warnings": [
+      "If your lower back lifts, reduce the range rather than pushing through."
+    ],
+    "hardGate": false
+  },
+  "courses": [
+    "core_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

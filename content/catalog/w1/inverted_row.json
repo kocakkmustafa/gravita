@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "id": "inverted_row",
+  "name": "Inverted Row",
+  "family": "pull",
+  "muscleGroups": [
+    "mid_back",
+    "lats",
+    "biceps"
+  ],
+  "equipment": [
+    "low_bar"
+  ],
+  "wave": 1,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Açık zincir · sagittal düzlem yandan tam görünür. Bar sınıfı düşürmez — rep kriteri gövde-göreli (G-017 deseni).",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Bar tespit edilmez."
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "elbow",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 160
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 80
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "top->hang",
+    "minPhaseMs": 200,
+    "timeoutMs": 9000,
+    "tempo": {
+      "reportDescentMs": true,
+      "reportAscentMs": true
+    },
+    "romTarget": {
+      "topAngleMax": 85,
+      "label": "chest to bar height, judged by elbow angle"
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo",
+      "Elbow range of motion",
+      "Body-line alignment",
+      "Hip sag"
+    ],
+    "notMeasured": [
+      "\"Chest touched the bar\" — the bar is not detected",
+      "Grip width",
+      "Force or load"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "rom_top_angle",
+      "line_deviation_deg"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "hip_sag",
+      "label": "Hips dropping",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "line_deviation_deg",
+        "op": ">",
+        "value": 12,
+        "sustainedMs": 400
+      },
+      "cue": "Squeeze your glutes — stay in one straight line.",
+      "perturbation": {
+        "metric": "line_deviation_deg",
+        "targetValue": 20,
+        "via": {
+          "joint": "hip",
+          "deltaDeg": 20
+        }
+      }
+    },
+    {
+      "id": "partial_rom",
+      "label": "Not pulling far enough",
+      "priority": "blocking",
+      "detect": {
+        "metric": "rom_top_angle",
+        "op": ">",
+        "value": 105
+      },
+      "cue": "Pull until your elbows are well past your torso.",
+      "perturbation": {
+        "metric": "rom_top_angle",
+        "targetValue": 125,
+        "via": {
+          "clampPullAt": 125
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Straight line from head to heels."
+    ],
+    "during": [
+      "Pull your elbows back.",
+      "Lower slowly."
+    ],
+    "success": [
+      "Full range, tight line."
+    ]
+  },
+  "safety": {
+    "warnings": [],
+    "hardGate": false
+  },
+  "courses": [
+    "pull_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

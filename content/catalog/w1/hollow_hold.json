@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "id": "hollow_hold",
+  "name": "Hollow Body Hold",
+  "family": "core",
+  "muscleGroups": [
+    "core",
+    "hip_flexors"
+  ],
+  "equipment": [],
+  "wave": 1,
+  "level": "intermediate",
+  "class": "A",
+  "classRationale": "Statik · sırtüstü · gövde şekli yandan tam görünür.",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true
+  },
+  "engine": {
+    "type": "staticHold",
+    "holdEntry": {
+      "requires": [
+        {
+          "metric": "lumbar_extension_proxy",
+          "op": "<=",
+          "value": 10
+        },
+        {
+          "metric": "hip_angle",
+          "op": "<=",
+          "value": 150
+        }
+      ],
+      "stableForMs": 1000
+    },
+    "minHoldMs": 5000,
+    "formBreak": [
+      {
+        "id": "back_arch",
+        "metric": "lumbar_extension_proxy",
+        "op": ">",
+        "value": 16,
+        "sustainedMs": 1200,
+        "action": "warn_then_end",
+        "cue": "Your lower back is lifting — bend your knees a little and keep it pressed down."
+      },
+      {
+        "id": "leg_drop",
+        "metric": "hip_angle",
+        "op": ">",
+        "value": 165,
+        "sustainedMs": 1500,
+        "action": "warn",
+        "cue": "Legs are dropping — lift them back up."
+      }
+    ],
+    "endsOn": [
+      "form_break_sustained",
+      "user_stop",
+      "confidence_lost"
+    ]
+  },
+  "measurementContract": {
+    "measured": [
+      "Hold duration",
+      "Lower-back position over time",
+      "Leg height over time",
+      "Time until form starts to break"
+    ],
+    "notMeasured": [
+      "Actual pressure between your back and the floor",
+      "How hard it feels",
+      "Breathing"
+    ],
+    "gateableMetrics": [
+      "hold_duration_s",
+      "lumbar_extension_proxy",
+      "time_to_form_break_s"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "back_arch",
+      "label": "Lower back lifting",
+      "priority": "safety",
+      "detect": {
+        "metric": "lumbar_extension_proxy",
+        "op": ">",
+        "value": 16,
+        "sustainedMs": 1200
+      },
+      "cue": "Press your lower back down — tuck your knees in if you need to.",
+      "perturbation": {
+        "metric": "lumbar_extension_proxy",
+        "targetValue": 24,
+        "via": {
+          "segment": "lumbar",
+          "deltaDeg": 20
+        }
+      }
+    },
+    {
+      "id": "leg_drop",
+      "label": "Legs dropping",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "hip_angle",
+        "op": ">",
+        "value": 165,
+        "sustainedMs": 1500
+      },
+      "cue": "Lift your legs back up.",
+      "perturbation": {
+        "metric": "hip_angle",
+        "targetValue": 172,
+        "via": {
+          "joint": "hip",
+          "deltaDeg": 20
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Press your lower back flat before the timer starts."
+    ],
+    "during": [
+      "Ribs down.",
+      "Squeeze everything."
+    ],
+    "success": [
+      "Held your shape."
+    ]
+  },
+  "safety": {
+    "warnings": [
+      "If your lower back lifts, tuck your knees — a smaller shape you can hold beats a big one you can't."
+    ],
+    "hardGate": false
+  },
+  "courses": [
+    "core_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  },
+  "skillGraphNode": "hollow_body"
+}

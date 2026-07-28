@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "id": "dip",
+  "name": "Dip",
+  "family": "push",
+  "muscleGroups": [
+    "chest",
+    "triceps",
+    "front_delts"
+  ],
+  "equipment": [
+    "parallel_bars"
+  ],
+  "wave": 1,
+  "level": "intermediate",
+  "class": "A",
+  "classRationale": "Açık zincir · dik gövde · sagittal düzlem yandan tam görünür. Paraleller sınıfı düşürmez: hiçbir metrik bar konumuna bağlı değil (rep kriteri gövde-göreli, G-017 deseni).",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Paraleller tespit edilmez; tam boy kadrajda kalmalı."
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "elbow",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 160
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 95
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "bottom->top",
+    "minPhaseMs": 200,
+    "timeoutMs": 9000,
+    "tempo": {
+      "reportDescentMs": true,
+      "reportAscentMs": true
+    },
+    "romTarget": {
+      "bottomAngleMax": 95,
+      "label": "upper arm at least parallel to the floor"
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo",
+      "Elbow range of motion",
+      "Torso lean",
+      "Shoulder position at the bottom"
+    ],
+    "notMeasured": [
+      "The bars themselves are not detected",
+      "Force or load",
+      "How far your chest travels relative to the bars"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "rom_bottom_angle",
+      "torso_angle_from_vertical"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "partial_rom",
+      "label": "Not going deep enough",
+      "priority": "blocking",
+      "detect": {
+        "metric": "rom_bottom_angle",
+        "op": ">",
+        "value": 110
+      },
+      "cue": "Lower until your upper arms are about parallel to the floor.",
+      "perturbation": {
+        "metric": "rom_bottom_angle",
+        "targetValue": 140,
+        "via": {
+          "clampDescentAt": 140
+        }
+      }
+    },
+    {
+      "id": "excessive_lean",
+      "label": "Leaning too far forward",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "torso_angle_from_vertical",
+        "op": ">",
+        "value": 35
+      },
+      "cue": "Keep your chest more upright unless you're targeting chest on purpose.",
+      "perturbation": {
+        "metric": "torso_angle_from_vertical",
+        "targetValue": 50,
+        "via": {
+          "segment": "torso",
+          "deltaDeg": 20
+        }
+      }
+    },
+    {
+      "id": "shoulder_shrug",
+      "label": "Shoulders rising at the bottom",
+      "priority": "safety",
+      "detect": {
+        "metric": "shoulder_elevation_proxy",
+        "op": ">",
+        "value": 0.12
+      },
+      "cue": "Push your shoulders down away from your ears at the bottom.",
+      "perturbation": {
+        "metric": "shoulder_elevation_proxy",
+        "targetValue": 0.17,
+        "via": {
+          "joint": "shoulder",
+          "elevateTorsoNorm": 0.17
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Set your shoulders down before the first rep."
+    ],
+    "during": [
+      "Down under control.",
+      "Chest tall."
+    ],
+    "success": [
+      "Clean depth, shoulders stayed packed."
+    ]
+  },
+  "safety": {
+    "warnings": [
+      "Dips load the shoulder at end range — build depth gradually and stop at pinching pain."
+    ],
+    "hardGate": false
+  },
+  "courses": [
+    "push_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

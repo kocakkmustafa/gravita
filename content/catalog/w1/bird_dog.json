@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "id": "bird_dog",
+  "name": "Bird Dog",
+  "family": "core",
+  "muscleGroups": [
+    "core",
+    "glutes",
+    "spinal_erectors"
+  ],
+  "equipment": [],
+  "wave": 1,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Dört ayak üstü · sagittal düzlem yandan görünür · açık zincir.",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "hip",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 150
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 95
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "top->bottom",
+    "minPhaseMs": 400,
+    "timeoutMs": 10000
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo",
+      "Extension range",
+      "Alignment of the extended arm and leg with your torso",
+      "Hold time at the top"
+    ],
+    "notMeasured": [
+      "Side-to-side hip rotation — hard to judge from a side view",
+      "Force or load"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "contralateral_alignment_deg",
+      "hold_duration_s"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "overextension",
+      "label": "Arching your back to reach higher",
+      "priority": "safety",
+      "detect": {
+        "metric": "lumbar_extension_proxy",
+        "op": ">",
+        "value": 15
+      },
+      "cue": "Reach long, not high — keep your back flat.",
+      "perturbation": {
+        "metric": "lumbar_extension_proxy",
+        "targetValue": 22,
+        "via": {
+          "segment": "lumbar",
+          "deltaDeg": 18
+        }
+      }
+    },
+    {
+      "id": "misalignment",
+      "label": "Arm and leg off the body line",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "contralateral_alignment_deg",
+        "op": ">",
+        "value": 20
+      },
+      "cue": "Reach straight back and straight forward, in line with your body.",
+      "perturbation": {
+        "metric": "contralateral_alignment_deg",
+        "targetValue": 28,
+        "via": {
+          "limbs": "contralateral",
+          "deltaDeg": 28
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Hands under shoulders, knees under hips."
+    ],
+    "during": [
+      "Reach long.",
+      "Flat back."
+    ],
+    "success": [
+      "Steady line, no wobble."
+    ]
+  },
+  "safety": {
+    "warnings": [],
+    "hardGate": false
+  },
+  "courses": [
+    "core_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

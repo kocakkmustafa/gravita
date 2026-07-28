@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "id": "calf_raise",
+  "name": "Standing Calf Raise",
+  "family": "legs",
+  "muscleGroups": [
+    "calves"
+  ],
+  "equipment": [],
+  "wave": 1,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Açık zincir · ayakta · sagittal. ⚠️ ROM küçük (≈30-40°) → metrik bandı dar tutuldu; gerçek görüntüde jitter doğrulaması G4'te.",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Ayak bileği net görünmeli — kamera alçak ve yakın."
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "ankle",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 22
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 6
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "top->bottom",
+    "minPhaseMs": 200,
+    "timeoutMs": 8000,
+    "tempo": {
+      "reportDescentMs": true,
+      "reportAscentMs": true
+    },
+    "romTarget": {
+      "topAngleMin": 25,
+      "label": "up onto the balls of your feet"
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo",
+      "Ankle range of motion",
+      "Pause at the top"
+    ],
+    "notMeasured": [
+      "Which part of the calf is working",
+      "Force or load",
+      "Balance assistance from a wall"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "plantarflexion_deg"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "partial_rom",
+      "label": "Not rising high enough",
+      "priority": "blocking",
+      "detect": {
+        "metric": "plantarflexion_deg",
+        "op": "<",
+        "value": 20
+      },
+      "cue": "Push all the way up onto the balls of your feet.",
+      "perturbation": {
+        "metric": "plantarflexion_deg",
+        "targetValue": 12,
+        "via": {
+          "clampTopAt": 12
+        }
+      }
+    },
+    {
+      "id": "bouncing",
+      "label": "Bouncing through the reps",
+      "priority": "minor_form",
+      "detect": {
+        "metric": "cadence_spm",
+        "op": ">",
+        "value": 70
+      },
+      "cue": "Slow down — pause at the top of each rep.",
+      "perturbation": {
+        "metric": "cadence_spm",
+        "targetValue": 85,
+        "via": {
+          "setCadence": 85
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Stand side-on, ankle in frame."
+    ],
+    "during": [
+      "All the way up.",
+      "Slow down."
+    ],
+    "success": [
+      "Full range, controlled."
+    ]
+  },
+  "safety": {
+    "warnings": [],
+    "hardGate": false
+  },
+  "courses": [
+    "leg_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  },
+  "pendingVerification": true
+}

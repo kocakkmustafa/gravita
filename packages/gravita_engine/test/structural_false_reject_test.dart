@@ -64,9 +64,10 @@ void main() {
 
   test('#21 takası, gevşetilmiş toleransta bile yakalanmaya devam ediyor', () {
     // Toleransı gevşetmenin bedeli, gerçek hatayı kaçırmak OLMAMALI.
-    final Map<String, dynamic> swap = (jsonDecode(
-                File('test/fixtures/d1_axis_swap.json').readAsStringSync())
-            as Map<String, dynamic>)['cases']
+    final Map<String, dynamic> root = jsonDecode(
+            File('test/fixtures/d1_axis_swap.json').readAsStringSync())
+        as Map<String, dynamic>;
+    final Map<String, dynamic> swap = (root['cases'] as List<dynamic>)
         .cast<Map<String, dynamic>>()
         .firstWhere((Map<String, dynamic> c) => c['id'] == 'd1_axis_swap_021');
     final PoseFrame wrong = PoseFrame(

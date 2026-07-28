@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "id": "toes_to_bar",
+  "name": "Toes to Bar",
+  "family": "core",
+  "muscleGroups": [
+    "core",
+    "lats",
+    "hip_flexors"
+  ],
+  "equipment": [
+    "pull_up_bar"
+  ],
+  "wave": 1,
+  "level": "advanced",
+  "class": "A",
+  "classRationale": "Asılı · sagittal düzlem yandan görünür. Bar tespit EDİLMEZ → hedef, kalça açısı + ayak yüksekliğiyle gövde-göreli tanımlandı (G-017).",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Bar tespit edilmez; asılı tam boy kadrajda."
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "hip",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMax": 55
+      },
+      "descent": {
+        "direction": "increasing"
+      },
+      "bottom": {
+        "angleMin": 160
+      },
+      "ascent": {
+        "direction": "decreasing"
+      }
+    },
+    "repCountedOn": "top->bottom",
+    "minPhaseMs": 250,
+    "timeoutMs": 10000,
+    "romTarget": {
+      "topAngleMax": 55,
+      "label": "hips deeply closed — judged by hip angle, not by the bar"
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo",
+      "Hip range of motion",
+      "Swing between reps"
+    ],
+    "notMeasured": [
+      "Whether your toes actually touched the bar — the bar is not detected",
+      "Kipping efficiency",
+      "Force or load"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "hip_angle",
+      "swing_amplitude"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "partial_rom",
+      "label": "Not closing the hips enough",
+      "priority": "blocking",
+      "detect": {
+        "metric": "hip_angle",
+        "op": ">",
+        "value": 75
+      },
+      "cue": "Bring your feet higher — close the hips fully.",
+      "perturbation": {
+        "metric": "hip_angle",
+        "targetValue": 95,
+        "via": {
+          "clampRaiseAt": 95
+        }
+      }
+    },
+    {
+      "id": "excessive_swing",
+      "label": "Big swing between reps",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "hip_swing_amplitude_torso",
+        "op": ">",
+        "value": 0.22
+      },
+      "cue": "Control the swing on the way down.",
+      "perturbation": {
+        "metric": "hip_swing_amplitude_torso",
+        "targetValue": 0.3,
+        "via": {
+          "joint": "hip",
+          "oscillationDeg": 30
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Hang tall."
+    ],
+    "during": [
+      "Close the hips.",
+      "Control the way down."
+    ],
+    "success": [
+      "Full range, controlled swing."
+    ]
+  },
+  "safety": {
+    "warnings": [],
+    "hardGate": false
+  },
+  "courses": [
+    "core_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

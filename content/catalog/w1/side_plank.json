@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "id": "side_plank",
+  "name": "Side Plank",
+  "family": "core",
+  "muscleGroups": [
+    "obliques",
+    "core",
+    "shoulders"
+  ],
+  "equipment": [],
+  "wave": 1,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Statik · vücut hattı kameraya DİK duran düzlemde; kişinin göğsüne bakan kamera hattı tam görür.",
+  "camera": {
+    "setup": "front",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Kişi kameraya göğsünü döner; ölçülen hat (baş-kalça-ayak) frontal düzlemde."
+  },
+  "engine": {
+    "type": "staticHold",
+    "holdEntry": {
+      "requires": [
+        {
+          "metric": "hip_drop_deg",
+          "op": "<=",
+          "value": 8
+        }
+      ],
+      "stableForMs": 1000
+    },
+    "minHoldMs": 5000,
+    "formBreak": [
+      {
+        "id": "hip_drop",
+        "metric": "hip_drop_deg",
+        "op": ">",
+        "value": 12,
+        "sustainedMs": 1500,
+        "action": "warn_then_end",
+        "cue": "Your hips are sinking — lift them back into line."
+      },
+      {
+        "id": "hip_rotate",
+        "metric": "trunk_rotation_proxy",
+        "op": ">",
+        "value": 25,
+        "sustainedMs": 2000,
+        "action": "warn",
+        "cue": "Stack your shoulders and hips — you're rolling forward."
+      }
+    ],
+    "endsOn": [
+      "form_break_sustained",
+      "user_stop",
+      "confidence_lost"
+    ]
+  },
+  "measurementContract": {
+    "measured": [
+      "Hold duration",
+      "Hip height over time",
+      "Time until form starts to break"
+    ],
+    "notMeasured": [
+      "How hard it feels",
+      "Exact shoulder loading",
+      "Force"
+    ],
+    "gateableMetrics": [
+      "hold_duration_s",
+      "hip_drop_deg",
+      "time_to_form_break_s"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "hip_drop",
+      "label": "Hips sinking",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "hip_drop_deg",
+        "op": ">",
+        "value": 12,
+        "sustainedMs": 1500
+      },
+      "cue": "Lift your hips back into a straight line.",
+      "perturbation": {
+        "metric": "hip_drop_deg",
+        "targetValue": 18,
+        "via": {
+          "joint": "hip",
+          "deltaDeg": 18
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Elbow under your shoulder.",
+      "Face the phone."
+    ],
+    "during": [
+      "Lift your hips.",
+      "Stack your shoulders."
+    ],
+    "success": [
+      "Solid line."
+    ]
+  },
+  "safety": {
+    "warnings": [],
+    "hardGate": false
+  },
+  "courses": [
+    "core_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "id": "wall_sit",
+  "name": "Wall Sit",
+  "family": "legs",
+  "muscleGroups": [
+    "quads",
+    "glutes"
+  ],
+  "equipment": [],
+  "wave": 1,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Statik · duvara yaslı oturma · diz açısı yandan tam görünür.",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true
+  },
+  "engine": {
+    "type": "staticHold",
+    "holdEntry": {
+      "requires": [
+        {
+          "metric": "knee_angle",
+          "op": "<=",
+          "value": 100
+        }
+      ],
+      "stableForMs": 1000
+    },
+    "minHoldMs": 5000,
+    "formBreak": [
+      {
+        "id": "rising",
+        "metric": "knee_angle",
+        "op": ">",
+        "value": 115,
+        "sustainedMs": 1500,
+        "action": "warn_then_end",
+        "cue": "You're sliding up — sink back to thighs parallel."
+      }
+    ],
+    "endsOn": [
+      "form_break_sustained",
+      "user_stop",
+      "confidence_lost"
+    ]
+  },
+  "measurementContract": {
+    "measured": [
+      "Hold duration",
+      "Knee angle over time",
+      "Time until you start to rise"
+    ],
+    "notMeasured": [
+      "How hard it feels",
+      "Force through the feet"
+    ],
+    "gateableMetrics": [
+      "hold_duration_s",
+      "knee_angle",
+      "time_to_form_break_s"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "too_high",
+      "label": "Sitting too high",
+      "priority": "blocking",
+      "detect": {
+        "metric": "knee_angle",
+        "op": ">",
+        "value": 115,
+        "sustainedMs": 1500
+      },
+      "cue": "Slide down until your thighs are about parallel to the floor.",
+      "perturbation": {
+        "metric": "knee_angle",
+        "targetValue": 135,
+        "via": {
+          "clampAt": 135
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Back flat on the wall, thighs parallel."
+    ],
+    "during": [
+      "Hold the angle."
+    ],
+    "success": [
+      "Held your depth."
+    ]
+  },
+  "safety": {
+    "warnings": [],
+    "hardGate": false
+  },
+  "courses": [
+    "leg_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

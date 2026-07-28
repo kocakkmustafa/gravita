@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "id": "step_up",
+  "name": "Step-Up",
+  "family": "legs",
+  "muscleGroups": [
+    "quads",
+    "glutes"
+  ],
+  "equipment": [
+    "box"
+  ],
+  "wave": 1,
+  "level": "beginner",
+  "class": "D",
+  "classRationale": "KUTU YÜKSEKLİĞİ ölçülemez → sınıf D. Vücut mekaniği (diz yolu, gövde açısı, itiş bacağı) koçlanır; kutunun kendisi tespit edilmez.",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Kutu kadrajda olsun ama tespit edilmediği kullanıcıya söylenir."
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "knee",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 165
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 95
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "bottom->stand",
+    "minPhaseMs": 200,
+    "timeoutMs": 10000,
+    "tempo": {
+      "reportDescentMs": true,
+      "reportAscentMs": true
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo",
+      "Knee range of motion",
+      "Torso angle",
+      "Which leg leads (by frame position, not by model L/R labels)"
+    ],
+    "notMeasured": [
+      "Box height — the box is not detected",
+      "Whether you pushed off the trailing foot",
+      "Force or load"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "rom_bottom_angle",
+      "torso_angle_from_vertical"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "torso_collapse",
+      "label": "Leaning too far forward",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "torso_angle_from_vertical",
+        "op": ">",
+        "value": 40
+      },
+      "cue": "Stand up through the front leg instead of throwing your chest forward.",
+      "perturbation": {
+        "metric": "torso_angle_from_vertical",
+        "targetValue": 55,
+        "via": {
+          "segment": "torso",
+          "deltaDeg": 22
+        }
+      }
+    },
+    {
+      "id": "push_off",
+      "label": "Pushing off the back foot",
+      "priority": "minor_form",
+      "detect": {
+        "metric": "knee_travel_torso",
+        "op": ">",
+        "value": 0.2
+      },
+      "cue": "Let the top leg do the work — minimise the push from the bottom foot.",
+      "perturbation": {
+        "metric": "knee_travel_torso",
+        "targetValue": 0.27,
+        "via": {
+          "joint": "knee",
+          "translateTorsoNorm": 0.27
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Set the phone side-on to the box."
+    ],
+    "during": [
+      "Drive through the top foot.",
+      "Stand tall."
+    ],
+    "success": [
+      "Controlled up and down."
+    ]
+  },
+  "safety": {
+    "warnings": [
+      "Use a box height you can control — step down, don't jump down."
+    ],
+    "hardGate": false
+  },
+  "courses": [
+    "leg_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

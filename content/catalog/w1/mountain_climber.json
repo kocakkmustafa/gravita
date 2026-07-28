@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "id": "mountain_climber",
+  "name": "Mountain Climber",
+  "family": "core",
+  "muscleGroups": [
+    "core",
+    "hip_flexors",
+    "shoulders"
+  ],
+  "equipment": [],
+  "wave": 1,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Açık zincir · yüzüstü plank pozisyonu · sagittal düzlem yandan görünür. HIZLI hareket: filtre kesimi eşiklerle birlikte pinlendi (J-027).",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "hip",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 150
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 110
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "bottom->top",
+    "minPhaseMs": 100,
+    "timeoutMs": 6000,
+    "fastTransition": true,
+    "signalFilter": {
+      "cutoffHz": 6.0,
+      "derivedFrom": "geçiş süresi ~150-250 ms ölçüldüğünde yeniden türetilecek",
+      "rationale_tr": "J-027: çekirdek varsayılan yumuşatması hızlı geçişleri söndürüyor. Kesim frekansı sinyalin GEÇİŞ SÜRESİNDEN türetilir ve eşiklerle BİRLİKTE pinlenir — biri değişince diğeri yeniden kalibre edilir."
+    },
+    "tempo": {
+      "reportCadence": true
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Cadence (reps per minute)",
+      "Plank body line while you drive the knees",
+      "Pace consistency"
+    ],
+    "notMeasured": [
+      "Which foot is which — we count drives, not sides",
+      "Force or load",
+      "Ground contact time"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "cadence_spm",
+      "line_deviation_deg"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "hip_pike",
+      "label": "Hips riding high",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "line_deviation_deg",
+        "op": "<",
+        "value": -14,
+        "sustainedMs": 600
+      },
+      "cue": "Drop your hips — hold the plank line while your knees drive.",
+      "perturbation": {
+        "metric": "line_deviation_deg",
+        "targetValue": -22,
+        "via": {
+          "joint": "hip",
+          "deltaDeg": -22
+        }
+      }
+    },
+    {
+      "id": "partial_drive",
+      "label": "Knees not coming through",
+      "priority": "blocking",
+      "detect": {
+        "metric": "hip_angle",
+        "op": ">",
+        "value": 130
+      },
+      "cue": "Drive your knee further towards your chest.",
+      "perturbation": {
+        "metric": "hip_angle",
+        "targetValue": 150,
+        "via": {
+          "clampDriveAt": 150
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Set a strong plank first."
+    ],
+    "during": [
+      "Hips down.",
+      "Drive the knee."
+    ],
+    "success": [
+      "Line held at pace."
+    ]
+  },
+  "safety": {
+    "warnings": [],
+    "hardGate": false
+  },
+  "courses": [
+    "conditioning_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}
