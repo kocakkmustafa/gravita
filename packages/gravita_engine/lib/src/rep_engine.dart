@@ -1,5 +1,6 @@
 import 'package:motion_core/motion_core.dart';
 
+import 'frame_space.dart';
 import 'movement_config.dart';
 
 /// Görünen tarafın GEOMETRİK seçimi.
@@ -98,8 +99,12 @@ final class RepEngine {
 
   /// Bir kareyi işler. [expected] verilirse yapısal denetim faz-eksen uyumunu
   /// da sınar (ADR-001 → ADR-002 zinciri).
-  void addFrame(PoseFrame frame, {BodyOrientation? expected}) {
+  /// [size] ZORUNLUDUR: ham normalize koordinat anizotropiktir ve açı
+  /// matematiğini en-boy oranı kadar bozar (J-028). Varsayılan vermek, hatayı
+  /// sessizce geri getirmek olurdu.
+  void addFrame(PoseFrame rawFrame, FrameSize size, {BodyOrientation? expected}) {
     final RepConfig c = config.rep!;
+    final PoseFrame frame = toIsotropic(rawFrame, size);
 
     // 1) Güven kapısı — modelin net görüp görmediği.
     final FrameQuality quality =

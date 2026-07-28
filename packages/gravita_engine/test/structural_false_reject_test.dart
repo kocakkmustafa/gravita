@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:gravita_engine/gravita_engine.dart';
 import 'package:motion_core/motion_core.dart';
 import 'package:test/test.dart';
 
@@ -30,36 +31,51 @@ void main() {
             .toList(),
       );
 
-  ({int rejected, int total}) measure({required double bilateralTolerance}) {
+  FrameSize sizeOf(Map<String, dynamic> f) {
+    final Map<String, dynamic> s = f['frameSize'] as Map<String, dynamic>;
+    return FrameSize(s['width'] as int, s['height'] as int);
+  }
+
+  ({int rejected, int total}) measure(
+      {double? bilateralTolerance, bool isotropic = true}) {
     int rejected = 0;
     for (final dynamic f in frames) {
       final Map<String, dynamic> m = f as Map<String, dynamic>;
-      final StructuralValidator v =
-          StructuralValidator(bilateralTolerance: bilateralTolerance);
+      final StructuralValidator v = bilateralTolerance == null
+          ? StructuralValidator()
+          : StructuralValidator(bilateralTolerance: bilateralTolerance);
       final BodyOrientation expected =
           m['bucket'] == 'inv' ? BodyOrientation.inverted : BodyOrientation.upright;
-      if (!v.check(toFrame(m), expected: expected).plausible) rejected++;
+      final PoseFrame frame = isotropic
+          ? toIsotropic(toFrame(m), sizeOf(m))
+          : toFrame(m);
+      if (!v.check(frame, expected: expected).plausible) rejected++;
     }
     return (rejected: rejected, total: frames.length);
   }
 
-  test('varsayılan tolerans (0.35) doğru karelerin üçte birini reddediyor', () {
-    final ({int rejected, int total}) r = measure(bilateralTolerance: 0.35);
+  test('G-018 KAPANIŞI — çekirdek v0.2.1 varsayılanı kabul edilebilir bandta', () {
+    final ({int rejected, int total}) r = measure();
     final double rate = r.rejected / r.total;
     // ignore: avoid_print
-    print('varsayılan 0.35 → yanlış-red ${r.rejected}/${r.total} '
-        '(${(rate * 100).round()}%)');
-    expect(rate, greaterThan(0.20),
-        reason: 'ölçülen taban ~%32; bu beklenti çekirdek düzelince kırılır');
+    print('v0.2.1 varsayılanı (bilateralTolerance 0.55) → yanlış-red '
+        '${r.rejected}/${r.total} (${(rate * 100).round()}%)');
+    expect(rate, lessThan(0.10),
+        reason: 'v0.1.0 varsayılanı (0.35) %32 reddediyordu — ürünü '
+            '"analiz edemedim" duvarına kilitliyordu');
   });
 
-  test('tolerans gevşetilince yanlış-red düşüyor — sorun eşikte, mimaride değil',
-      () {
-    final double at35 = measure(bilateralTolerance: 0.35).rejected / frames.length;
-    final double at60 = measure(bilateralTolerance: 0.60).rejected / frames.length;
+  test('J-028 düzeltmesi yanlış-redlerin bir kısmını AYRICA açıklıyor', () {
+    // Aynı tolerans, iki uzay: fark tamamen en-boy çarpıklığından gelir.
+    final double raw035 =
+        measure(bilateralTolerance: 0.35, isotropic: false).rejected / frames.length;
+    final double iso035 =
+        measure(bilateralTolerance: 0.35, isotropic: true).rejected / frames.length;
     // ignore: avoid_print
-    print('0.35 → ${(at35 * 100).round()}%   |   0.60 → ${(at60 * 100).round()}%');
-    expect(at60, lessThan(at35));
+    print('0.35 toleransında — HAM uzay ${(raw035 * 100).round()}% · '
+        'İZOTROPİK ${(iso035 * 100).round()}%');
+    expect(iso035, lessThan(raw035),
+        reason: 'G-018 ölçümümün bir kısmı perspektif değil J-028 çarpıklığıydı');
   });
 
   test('#21 takası, gevşetilmiş toleransta bile yakalanmaya devam ediyor', () {

@@ -489,6 +489,10 @@
       0.998295
      ]
     ]
+   },
+   "frameSize": {
+    "width": 900,
+    "height": 900
    }
   },
   {
@@ -970,6 +974,10 @@
       0.998868
      ]
     ]
+   },
+   "frameSize": {
+    "width": 900,
+    "height": 506
    }
   },
   {
@@ -1451,7 +1459,12 @@
       0.996766
      ]
     ]
+   },
+   "frameSize": {
+    "width": 572,
+    "height": 900
    }
   }
- ]
+ ],
+ "note_frameSize_tr": "J-028: ham normalize koordinat (x/genişlik, y/yükseklik AYRI) en-boy oranı kadar bozuktur. Açı/mesafe matematiği İZOTROPİK uzayda yapılmalı; bu yüzden her fixture kare boyutunu taşır."
 }

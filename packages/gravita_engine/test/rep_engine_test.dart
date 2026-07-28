@@ -16,6 +16,9 @@ void main() {
       File('../../content/catalog/w1/$id.json').readAsStringSync());
 
   const SyntheticPoseBuilder builder = SyntheticPoseBuilder();
+  // Sentetik iskelet kare uzayda üretilir -> izotropik dönüşüm kimlik olur.
+  // Gerçek-kare doğrulaması ayrı dosyada (j028_frame_space_test.dart).
+  const FrameSize kSynthSize = FrameSize(900, 900);
 
   /// Dirsek açısı [deg] olan bir şınav karesi üretir.
   ///
@@ -75,7 +78,7 @@ void main() {
     test('temiz 5 tekrarlık dizide TAM 5 tekrar sayıyor', () {
       final RepEngine e = RepEngine(load('push_up'));
       for (final PoseFrame f in pushUpSequence(5)) {
-        e.addFrame(f);
+        e.addFrame(f, kSynthSize);
       }
       expect(e.repCount, 5);
       expect(e.skippedFrames, 0);
@@ -85,7 +88,7 @@ void main() {
       final RepEngine e = RepEngine(load('push_up'));
       // Dip açısı 130° → config'in bottom eşiği (100) hiç geçilmiyor.
       for (final PoseFrame f in pushUpSequence(4, bottom: 130)) {
-        e.addFrame(f);
+        e.addFrame(f, kSynthSize);
       }
       expect(e.repCount, 0,
           reason: 'kısmi tekrarı saymak, kullanıcıya yapmadığı işi yaptı demektir');
@@ -94,7 +97,7 @@ void main() {
     test('tempo faz damgalarından türetiliyor (piksel hızından DEĞİL)', () {
       final RepEngine e = RepEngine(load('push_up'));
       for (final PoseFrame f in pushUpSequence(3, msPerPhase: 600)) {
-        e.addFrame(f);
+        e.addFrame(f, kSynthSize);
       }
       expect(e.repCount, 3);
       for (final Rep r in e.reps) {
@@ -107,7 +110,7 @@ void main() {
     test('uç açı kaydediliyor — ROM hükmünün kaynağı', () {
       final RepEngine e = RepEngine(load('push_up'));
       for (final PoseFrame f in pushUpSequence(2, bottom: 85)) {
-        e.addFrame(f);
+        e.addFrame(f, kSynthSize);
       }
       expect(e.repCount, 2);
       expect(e.reps.first.extremeAngleDeg, closeTo(85, 6));
