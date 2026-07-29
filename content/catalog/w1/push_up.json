@@ -216,7 +216,7 @@
   ],
   "provenance": {
     "sources": [
-      "Cara Kuykens",
+      "Calisthenicmovement",
       "FitnessFAQs",
       "K boges",
       "Renaissance Periodization",
@@ -236,8 +236,8 @@
       "trunk_tilt",
       "upper_arm"
     ],
-    "takes": 37,
-    "excludedOutliers": 34,
+    "takes": 36,
+    "excludedOutliers": 35,
     "orderIndependent": false,
     "mirrorAgnostic": true,
     "$note": "ELLE DÜZENLENMEZ — tools/sync_provenance.py referans artefaktından türetir, validate_catalog.py V17 denetler."

@@ -162,6 +162,47 @@ BİR tarafı bile taban-bağlıysa çift "floor" sayılır** (zayıf halka kadar
 güçlü, G-050 ilkesinin taraf-düzeyi uzantısı). G-014 bu yüzden KAPANMADI
 (hâlâ 9/9 taban-bağlı) — ama artık doğru sayıyor.
 
+## v3 — motion_core v0.8.4 (J-056 görünürlük-kapısı düzeltmesi sonrası)
+
+**Koordinatör talimatı (M-F-93):** JabLab çekirdek P0 kanıtladı — kanonik
+`prepareTake` görünürlük-kapısını HİÇ ÇAĞIRMIYORDU; görünmez eklemlerin
+tahmini pozisyonları numerik açı olarak konsensüse giriyordu ("çöp-ölçüm-
+gibi"). v0.8.3 kırık (artefakt yazımında çöker) — v0.8.4 (`eb28039`)
+kullanıldı. 37/5 artefaktı bu düzeltmeyle YENİDEN üretildi, yayım ondan
+sonra yapıldı (aynı 3 M-F-90 şartıyla).
+
+**Bulunan ek kırılma:** v0.8.4'te bazı eklem hücreleri artık DÜRÜST `null`
+dönüyor (önceden fabrike edilmiş sayı vardı) — kendi `mirrorAgnostic`
+hesabım `num` cast'i bu null'larda ÇÖKTÜ (`type 'Null' is not a subtype of
+type 'num'`). Düzeltildi: `null → NaN` (aile kuralı — ölçülemeyen "hüküm
+yok" demektir, aynı desenin bir başka örneği).
+
+| | v2 (v0.8.2) | v3 (v0.8.4, görünürlük-kapısı düzeltmesiyle) |
+|---|---|---|
+| contributingTakes | 37 | 36 |
+| distinctSources | 5 (Cara Kuykens dahil) | 5 (**Cara Kuykens→Calisthenicmovement**) |
+| excludedOutlierIds | 34 | 35 |
+| meanAgreement | 0,879 | **0,890** (İYİLEŞTİ — koordinatörün "çöp temizlenince anlaşma sıkılaşır" beklentisiyle tutarlı, JabLab stance emsaliyle aynı yön) |
+| meanLeftRightDiffDeg | 4,90° | 5,16° |
+| mirrorAgnostic | true | **true (BEŞİNCİ bağımsız doğrulama)** |
+| unreliableJoints | [] | **[] (değişmedi)** |
+| G-014 (varyans/taban) | 0/9 | **0/9 (değişmedi — ama left_hip/knee/thigh/shin floorShare TAM 1,00'a çıktı**, önceden 0,62-0,92 arasıydı: düşük-görünürlük fabrikasyonu temizlenince taban-bağlılık DAHA NET görünür oldu) |
+
+**Kaynak değişimi:** THENX ve GMB Fitness (Praxis) hâlâ M-F-47'de aykırı;
+Cara Kuykens (v2'de contributing) v3'te aykırı sayıldı, Calisthenicmovement
+(v2'de aykırı) v3'te contributing oldu — görünürlük-kapısı düzeltmesi
+kümelemeyi YENİDEN DAĞITTI, tesadüfi değil: hangi eklemlerin gerçekten
+ölçülebilir olduğu değişince hangi take'in konsensüse "yakın" göründüğü de
+değişti.
+
+**G-064/G-065 diferansiyel testi v0.8.4 üstünde de koşuldu — SONUÇ AYNI**
+(bu test `ReferenceCli`/`prepareTake` KULLANMIYOR, kendi bağımsız
+world-koordinat hesabı; J-056 düzeltmesinden ETKİLENMEDİ, beklenen).
+
+**Koordinatörün iki yan-bulgu kabulü (M-F-95):** V17 okuyucu düzeltmesi +
+"çiftin bir tarafı taban-bağlıysa çift floor sayılır" kuralı AİLE STANDARDI
+oldu.
+
 ## Kanıt / komutlar
 
 ```bash

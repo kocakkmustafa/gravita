@@ -261,8 +261,13 @@ void main(List<String> args) {
   final List<String> joints = (artifact['joints'] as List<dynamic>).cast<String>();
   final List<dynamic> meanRadRaw =
       (artifact['frames'] as Map<String, dynamic>)['meanRad'] as List<dynamic>;
+  // v0.8.4 görünürlük-kapısı düzeltmesi (J-056): ölçülemeyen hücreler artık
+  // DÜRÜST null — `num`'a zorla cast etmek (eski davranış) bu koşumda
+  // patlıyordu. null → NaN (aile kuralı: ölçülemeyen "hüküm yok" demektir).
   final List<List<double>> meanRad = meanRadRaw
-      .map((dynamic row) => (row as List<dynamic>).cast<num>().map((num n) => n.toDouble()).toList())
+      .map((dynamic row) => (row as List<dynamic>)
+          .map((dynamic n) => n == null ? double.nan : (n as num).toDouble())
+          .toList())
       .toList();
   double symSum = 0;
   int symCnt = 0;
