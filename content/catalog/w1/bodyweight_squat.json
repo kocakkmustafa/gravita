@@ -186,5 +186,7 @@
     "sources": [],
     "consensusN": 0,
     "status": "pending_harvest"
-  }
+  },
+  "passiveExecutionPossible": false,
+  "$passiveRationale": "Pasif icra İMKÂNSIZ: kullanıcı ya ağırlık tutuyor (gevşerse düşürür) ya da vücudunu taşıyor (gevşerse çöker). Kimse başkasına pasif şınav yaptıramaz. M-F-45: bu beyanla `unknown` kaynak referansa uygun — çünkü pasif kirlenme fiziksel olarak mümkün değil."
 }

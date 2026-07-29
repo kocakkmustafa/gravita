@@ -1,0 +1,102 @@
+{
+  "movement": "push_up",
+  "rule": "M-F-38: ≥3 eğitmen × ≥3 temiz tekrar olmadan varyans-türetim YAPILMAZ",
+  "sufficiencyGate": "closed",
+  "sources": [
+    {
+      "source": "-w6r23P-fy8.full.json",
+      "channel": "Calisthenicmovement",
+      "sourceUrl": "https://www.youtube.com/watch?v=-w6r23P-fy8",
+      "license": "standard-youtube",
+      "reps": 0,
+      "windows": 12,
+      "longestWindowS": 2.0,
+      "extremeAnglesDeg": []
+    },
+    {
+      "source": "5aRHy5ZPjwk.full.json",
+      "channel": "Renaissance Periodization",
+      "sourceUrl": "https://www.youtube.com/watch?v=5aRHy5ZPjwk",
+      "license": "standard-youtube",
+      "reps": 0,
+      "windows": 14,
+      "longestWindowS": 24.8,
+      "extremeAnglesDeg": []
+    },
+    {
+      "source": "Ggb2rXUL5kg.full.json",
+      "channel": "K boges",
+      "sourceUrl": "https://www.youtube.com/watch?v=Ggb2rXUL5kg",
+      "license": "standard-youtube",
+      "reps": 0,
+      "windows": 38,
+      "longestWindowS": 3.9,
+      "extremeAnglesDeg": []
+    },
+    {
+      "source": "GxW9MAMQSv0.full.json",
+      "channel": "FitnessFAQs",
+      "sourceUrl": "https://www.youtube.com/watch?v=GxW9MAMQSv0",
+      "license": "standard-youtube",
+      "reps": 0,
+      "windows": 9,
+      "longestWindowS": 5.0,
+      "extremeAnglesDeg": []
+    },
+    {
+      "source": "Ua7B2q21UHg.full.json",
+      "channel": "Antranik Kizirian",
+      "sourceUrl": "https://www.youtube.com/watch?v=Ua7B2q21UHg",
+      "license": "standard-youtube",
+      "reps": 0,
+      "windows": 10,
+      "longestWindowS": 5.8,
+      "extremeAnglesDeg": []
+    },
+    {
+      "source": "_eKHSsHky5U.full.json",
+      "channel": "THENX",
+      "sourceUrl": "https://www.youtube.com/watch?v=_eKHSsHky5U",
+      "license": "standard-youtube",
+      "reps": 2,
+      "windows": 17,
+      "longestWindowS": 4.6,
+      "extremeAnglesDeg": [
+        84.5,
+        176.4
+      ]
+    },
+    {
+      "source": "kKHxpbBGiuM.full.json",
+      "channel": "GMB Fitness (Praxis)",
+      "sourceUrl": "https://www.youtube.com/watch?v=kKHxpbBGiuM",
+      "license": "standard-youtube",
+      "reps": 0,
+      "windows": 8,
+      "longestWindowS": 4.5,
+      "extremeAnglesDeg": []
+    },
+    {
+      "source": "v3sJMaB7q1E.full.json",
+      "channel": "TappBrothers",
+      "sourceUrl": "https://www.youtube.com/watch?v=v3sJMaB7q1E",
+      "license": "standard-youtube",
+      "reps": 1,
+      "windows": 3,
+      "longestWindowS": 1.8,
+      "extremeAnglesDeg": [
+        174.8
+      ]
+    },
+    {
+      "source": "yvgp8R0fbWg.full.json",
+      "channel": "Tom Merrick",
+      "sourceUrl": "https://www.youtube.com/watch?v=yvgp8R0fbWg",
+      "license": "standard-youtube",
+      "reps": 0,
+      "windows": 19,
+      "longestWindowS": 14.5,
+      "extremeAnglesDeg": []
+    }
+  ]
+}

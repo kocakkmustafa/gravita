@@ -132,5 +132,7 @@
     "sources": [],
     "consensusN": 0,
     "status": "pending_harvest"
-  }
+  },
+  "passiveExecutionPossible": true,
+  "$passiveRationale": "Sırtüstü, yüksüz uzuv hareketi — bir klinisyen kullanıcı gevşerken üretebilir; bu yüzden kaynak modu bilinmiyorsa referansa GİREMEZ (M-F-43 fail-closed)."
 }

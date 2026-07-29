@@ -71,16 +71,50 @@ enum _End { open, closed }
 ///
 /// Zamanlama metrikleri kare-arası piksel hızından DEĞİL uç geçişlerinin
 /// damgalarından türetilir (aile kuralı D2).
+/// Bir karenin hüküm verilebilir olup olmadığına karar veren yargıç.
+///
+/// İki farklı bağlam, iki farklı katılık ister ve bunu karıştırmak hattı
+/// tıkıyor (ölçüldü):
+///
+/// * **Ürün (canlı koçluk):** çekirdeğin `ConfidenceGate`'i doğru seçim —
+///   kullanıcı kadrajı düzeltebilir, biz de düzeltmesini isteriz.
+/// * **Referans hasadı:** eğitmene "yeniden çek" diyemeyiz. Hareket-agnostik
+///   bir kapı, hareketin İHTİYAÇ DUYDUĞU landmark'lar tamamen kadrajdayken bile
+///   reddediyor: push-up hasadında gerekli landmark'lar karelerin %46-99'unda
+///   kadrajdaydı ama kapı %96-100'ünü eledi. Aynı ders triyajda öğrenilmişti
+///   (L-080 harekete-özel `lower_body_ids`); burada da geçerli.
+typedef FrameJudge = bool Function(PoseFrame frame);
+
+/// Yalnız [required] landmark'ları sınayan hareket-kapsamlı yargıç.
+///
+/// ⚠️ **HAM (izotropik OLMAYAN) kareyle çağrılmalıdır.** "Kadraj içinde mi"
+/// sorusu yalnız orijinal normalize uzayda anlamlıdır: `toIsotropic` x'i
+/// en-boy oranıyla çarpar (16:9'da 1,78), yani izotropik uzayda x ∈ [0, 1.78].
+/// Orada `x <= 1` sınaması neredeyse her landmark'ı "kadraj dışı" sayar.
+/// Ölçüldü: aynı hasat setinde ham uzayda %5-14 kare geçerken izotropik
+/// uzayda %0 geçti.
+FrameJudge scopedJudge(List<int> required, {double minVisibility = 0.5}) =>
+    (PoseFrame f) => required.every((int i) {
+          final PoseLandmark l = f.landmarks[i];
+          return l.x >= 0 && l.x <= 1 && l.y >= 0 && l.y <= 1 &&
+              l.visibility >= minVisibility;
+        });
+
 final class RepEngine {
-  RepEngine(this.config, {JointAngleExtractor? extractor, PoseNormalizer? normalizer})
+  RepEngine(this.config,
+      {JointAngleExtractor? extractor, PoseNormalizer? normalizer, FrameJudge? judge})
       : assert(config.engineType == EngineType.repFsm,
             'RepEngine yalnız repFsm yapılandırmalarını çalıştırır'),
         _extractor = extractor ?? const JointAngleExtractor(),
-        _normalizer = normalizer ?? PoseNormalizer();
+        _normalizer = normalizer ?? PoseNormalizer(),
+        _judge = judge;
 
   final MovementConfig config;
   final JointAngleExtractor _extractor;
   final PoseNormalizer _normalizer;
+
+  /// null ise çekirdeğin ürün-katılığındaki güven kapısı kullanılır.
+  final FrameJudge? _judge;
 
   final List<Rep> _reps = <Rep>[];
   List<Rep> get reps => List<Rep>.unmodifiable(_reps);
@@ -108,9 +142,14 @@ final class RepEngine {
     final PoseFrame frame = rawFrame.toIsotropic(size);
 
     // 1) Güven kapısı — modelin net görüp görmediği.
-    final FrameQuality quality =
-        ConfidenceGate.forVariant(PoseModelVariant.full).evaluate(frame);
-    if (!quality.judgeable) {
+    //
+    // ⚠️ Kadraj sınaması HAM kareyle yapılır: `toIsotropic` koordinat aralığını
+    // [0,1]'den [0,aspect]'e taşır ve [0,1] varsayan her kadraj kontrolü
+    // sessizce "kadraj dışı" der. Açı matematiği izotropik uzayda kalır.
+    final bool judgeable = _judge != null
+        ? _judge(rawFrame)
+        : ConfidenceGate.forVariant(PoseModelVariant.full).evaluate(rawFrame).judgeable;
+    if (!judgeable) {
       skippedFrames++;
       return;
     }

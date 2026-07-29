@@ -11,6 +11,8 @@ Denetlenen değişmezler (hepsi bir DEFTER/ADR maddesine bağlı):
   V7  Dürüstlük      : her form hatasının kullanıcıya söylenecek bir `cue`u var
   V8  C sınıfı katalogda yer alamaz (exclusions.json'a gider)
   V9  timeout        : rep/çok-faz motorlarında fiziksel üst sınır zorunlu (JabLab J-009 dersi)
+  V14 pasif-icra    : `passiveExecutionPossible` BEYAN edilmeli (M-F-43/45). Beyansız hareket,
+                       `unknown` kaynak muafiyetini sessizce kullanamaz
   V13 ağaç bağı     : `skillGraphNode` referansı GERÇEK bir düğüme işaret etmeli — kopuk
                        referans, kullanıcıyı var olmayan bir beceri düğümüne yollar
   V12 ters yönelim   : `expectedOrientation: inverted` -> `structuralCheck: required` ZORUNLU
@@ -104,6 +106,10 @@ def check(path):
         err(f, f"JSON okunamadı: {e}")
         return None
 
+    if not isinstance(m.get("passiveExecutionPossible"), bool):           # V14
+        err(f, "passiveExecutionPossible BEYAN edilmemiş — `unknown` kaynak "
+               "muafiyeti (M-F-45) beyansız kullanılamaz; fail-closed kural gereği "
+               "beyan yoksa kaynak referansa giremez")
     for k in ("schemaVersion", "id", "name", "family", "wave", "class",
               "classRationale", "camera", "engine", "measurementContract", "provenance"):
         if k not in m:

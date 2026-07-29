@@ -19,6 +19,9 @@
     "equipment": { "type": "array", "items": { "type": "string" }, "description": "[] = bodyweight" },
     "wave": { "type": "integer", "minimum": 1, "maximum": 5 },
     "level": { "enum": ["beginner", "intermediate", "advanced", "elite"] },
+    "passiveExecutionPossible": { "type": "boolean",
+      "description": "M-F-43/45: başka biri, kullanıcı GEVŞERKEN bu hareketi üretebilir mi? Ağırlık tutan ya da vücudunu taşıyan hareketlerde imkânsızdır. `false` ise `romMode: unknown` kaynak referansa UYGUNDUR (pasif kirlenme fiziksel olarak mümkün değil); `true` ise fail-closed kural geçerli." },
+    "$passiveRationale": { "type": "string" },
     "aspirational": { "type": "boolean", "description": "true ise ROZET VERİLMEZ (blueprint §8) — rehberli ama ödüllendirilmez" },
 
     "class": { "enum": ["A", "B", "D"], "description": "C sınıfı katalogda yer ALMAZ -> exclusions.json" },
