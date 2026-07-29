@@ -3,14 +3,14 @@
 **Tarih:** 2026-07-29 · **Statü:** tasarım-girdisi (KOD DEĞİL) · **Otorite:** `docs/PRD.md` + `docs/W0-BILGI-MIMARISI.md` + `docs/GRAVITA-BLUEPRINT.md`
 **Bu belge hiçbir yeni ürün kararı ÜRETMEZ** — var olan bağlayıcı kararları tasarımcının kullanabileceği biçime çevirir. Her madde bir kaynağa dayanır; dayanağı olmayan hiçbir ekran/durum uydurulmadı.
 
-## 0. Dil — ⚠️ koordinatöre not
+## 0. Dil — ✅ KARAR VERİLDİ (M-F-122 hüküm 2)
 
-Gece paketi "TR+EN" istedi. **PRD §7 ürün dilini V1 için `en` olarak BAĞLIYOR** (i18n altyapısı baştan var, V1 yalnız İngilizce). Bu yüzden:
+Gece paketi "TR+EN" istemişti; PRD §7 ise ürün dilini V1 için `en` olarak bağlıyordu. **Koordinatör hükmü: V1 = EN-ONLY KALIR** (PRD §7 bağlaması onaylandı). Gerekçe: global-first launch + sesli-koç yükü (TR = 61+ anahtar × ses satırları); i18n altyapısı yerinde durduğu için TR bir **v1.x İÇERİK işi**, mimari iş değil. Kurucu özetine görünür yazıldı; itiraz gelirse döner.
+
+Bu yüzden:
 - **Bu brief Türkçe** (iç doküman konvansiyonu),
 - **içindeki tüm kullanıcı-görür metin İngilizce** (ürün dili),
-- TR ürün dili V1 kapsamında **DEĞİL** — altyapı hazır, çeviri turu sonraki dalga.
-
-Bu bilinçli bir sapma değil, PRD'nin bağlayıcı kararına uyum. TR'yi V1'e almak istiyorsan bu bir kapsam kararı — bende değil.
+- tasarım oturumu **tek dil** varsayabilir; ama metin uzunluğu esnekliği korunmalı (TR ~%20-30 daha uzun) ki v1.x çeviri turu yeniden-tasarım gerektirmesin.
 
 ## 1. Ürün tek cümlede (tasarımın çözmesi gereken şey)
 
@@ -195,12 +195,13 @@ Bunların hepsi ölçüme veya bağlayıcı karara dayanıyor; "daha güzel olur
 7. **Aspirasyonel düğümler rozetsiz** (blueprint §8).
 8. **Ses birincil, ekran ikincil** — canlı seansta ekran 5 öğeyle sınırlı (W0 §7).
 
-## 7. Açık kalemler (tasarım oturumu ÖNCESİ kurucu/koordinatör kararı)
+## 7. Açık kalemler (tasarım oturumu ÖNCESİ kurucu kararı)
+
+*(Dil kalemi KAPANDI — bkz. §0, M-F-122 hüküm 2.)*
 
 1. **Fiyat/paywall nihai konumu** — ADR-006 "değerlendirme-kapılı" diyor, fiyat kurucuda (PRD §12.1).
 2. **İzinli video kaydı V1'de olsun mu** (öneri: EVET, varsayılan kapalı) — UI'da kayıt kontrolü olacak mı belirler (PRD §12.2).
 3. **Store adı** `Gravita: Skills & Strength` sabit mi (PRD §12.4) — store görselleri buna bağlı.
-4. **TR ürün dili V1'de mi** (§0) — bu brief EN varsayıyor.
 
 ## 8. Kaynaklar
 

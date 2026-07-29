@@ -41,6 +41,53 @@ void main() {
     );
   }
 
+  /// Diz açısı [kneeDeg] olan bir SQUAT karesi (gövde dik, dizler bükülüyor).
+  ///
+  /// Squat sinyali diz açısıdır (`signal.joint: knee`, stand>=165°,
+  /// bottom<=116°). Uyluk aşağı-öne, baldır dizden geriye kırılır: diz
+  /// fleksiyonu uyluk ile baldır arasındaki açıdır.
+  SyntheticPose squatPose(double kneeDeg) {
+    const double thigh = math.pi / 2; // uyluk aşağı
+    final double shin = thigh - (math.pi - kneeDeg * math.pi / 180);
+    return SyntheticPose(
+      trunkAngle: -math.pi / 2, // omuzlar kalçanın ÜSTÜNDE = dik duruş
+      leftUpperArm: math.pi / 2,
+      rightUpperArm: math.pi / 2,
+      leftForearm: math.pi / 2,
+      rightForearm: math.pi / 2,
+      leftThigh: thigh,
+      rightThigh: thigh,
+      leftShin: shin,
+      rightShin: shin,
+      rootY: 0.45,
+    );
+  }
+
+  /// n tekrarlık squat dizisi: ayakta → dip → ayakta.
+  List<PoseFrame> squatSequence(int reps,
+      {double top = 175, double bottom = 95, int msPerPhase = 800}) {
+    final List<PoseFrame> out = <PoseFrame>[];
+    int tUs = 0;
+    const int step = 40000; // 25 fps
+    void ramp(double from, double to) {
+      final int frames = (msPerPhase * 1000) ~/ step;
+      for (int i = 0; i <= frames; i++) {
+        out.add(builder.build(
+            squatPose(from + (to - from) * (i / frames)),
+            tUs: tUs));
+        tUs += step;
+      }
+    }
+
+    out.add(builder.build(squatPose(top), tUs: tUs));
+    tUs += step;
+    for (int r = 0; r < reps; r++) {
+      ramp(top, bottom);
+      ramp(bottom, top);
+    }
+    return out;
+  }
+
   /// n tekrarlık bir dizi: tepe → dip → tepe.
   List<PoseFrame> pushUpSequence(int reps,
       {double top = 170, double bottom = 80, int msPerPhase = 800}) {
@@ -226,6 +273,52 @@ void main() {
       expect(e.repCount, 5,
           reason: 'ön koşul gerçek şınavı ELEMEMELİ — aksi hâlde kapı değil, '
               'körlük olur');
+    });
+  });
+
+  group('M-F-122 hüküm 1 — ön koşul BEYAN EDİLMEMİŞSE motor saymaz', () {
+    /// G-071 ölçümü: motor kimlik kapısını `precondition.isNotEmpty` ile
+    /// kuruyordu, yani koşul LİSTESİ boş olan bir harekette (squat:
+    /// `status:pending`, `conditions:[]`) kapı hiç kurulmuyor ve rep FSM'i
+    /// hareketi değil sinyal ekleminin salınımını sayıyordu. Beyan vardı,
+    /// ürün tarafında OKUYANI yoktu (beşinci canlılık sorusu, G-059).
+    test('pending ön koşullu harekette tekrar ÜRETİLMEZ ve sebep İSİMLİ', () {
+      final MovementConfig c = load('bodyweight_squat');
+      expect(c.preconditionDerived, isFalse,
+          reason: 'bu test tam olarak türetilmemiş ön koşul için var');
+
+      final RepEngine e = RepEngine(c);
+      expect(e.refusalReason, isNotNull);
+      expect(e.refusalReason, contains('identity precondition not derived'));
+
+      for (final PoseFrame f in squatSequence(5)) {
+        e.addFrame(f, kSynthSize);
+      }
+      expect(e.repCount, 0,
+          reason: 'sessiz-yanlış sayım, sayım yokluğundan KÖTÜDÜR (M-F-57)');
+      expect(e.skippedFrames, greaterThan(0),
+          reason: '"hüküm yok" sessiz olmaz: elenen kareler sayılır');
+    });
+
+    test('HASAT dikişi (harvestIdentityAttested) aynı config\'de sayar', () {
+      // Hasat yolu ön koşulu TÜRETECEK malzemeyi üretir; kimlik güvencesi
+      // take-düzeyi hasat kapısından gelir (hipKneeCoupling, M-F-106).
+      // Muafiyet değil KAPI DEĞİŞİMİ — ama dikişin gerçekten açtığı
+      // kanıtlanmalı, yoksa hasat hattı sessizce ölür.
+      final RepEngine e = RepEngine(load('bodyweight_squat'),
+          harvestIdentityAttested: true);
+      expect(e.refusalReason, isNull);
+      for (final PoseFrame f in squatSequence(5)) {
+        e.addFrame(f, kSynthSize);
+      }
+      expect(e.repCount, greaterThan(0),
+          reason: 'hasat dikişi açılmazsa squat referans hattı üretilemez');
+    });
+
+    test('DERIVED ön koşullu harekette dikişe GEREK YOK (push_up)', () {
+      final RepEngine e = RepEngine(load('push_up'));
+      expect(e.refusalReason, isNull,
+          reason: 'push_up ön koşulu türetilmiş — red yok');
     });
   });
 }

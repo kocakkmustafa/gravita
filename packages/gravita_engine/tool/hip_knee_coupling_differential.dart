@@ -186,7 +186,15 @@ void main(List<String> args) {
     if (cur.isNotEmpty) windows.add(cur);
 
     for (final List<({PoseFrame pf, List<dynamic>? world})> w in windows) {
-      final RepEngine e = RepEngine(cfg, judge: judge);
+      // M-F-122 hüküm 1: motor artık `precondition.status != derived` ise
+      // tekrar ÜRETMEZ. Bu HASAT yolu ve kimlik güvencesi kare-düzeyi ürün
+      // ön koşulundan değil, take-düzeyi hasat-kimlik kapısından geliyor
+      // (hipKneeCoupling, 12/16 eğitmen PASS — M-F-106/G-067). Hasat, ön
+      // koşulu TÜRETECEK malzemeyi üreten yerdir; ondan "ön koşul zaten
+      // türetilmiş olsun" istemek yumurta-tavuk olurdu. Muafiyet DEĞİL,
+      // kapı DEĞİŞİMİ (G-039/G-048: farklı sorular, farklı kapılar).
+      final RepEngine e =
+          RepEngine(cfg, judge: judge, harvestIdentityAttested: true);
       final StructuralValidator sv = StructuralValidator();
       final List<({int tUs, double gh, double gk, double? lh, double? lk})>
           trace = <({int tUs, double gh, double gk, double? lh, double? lk})>[];

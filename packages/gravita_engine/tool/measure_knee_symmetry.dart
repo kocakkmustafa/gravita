@@ -128,7 +128,15 @@ void main(List<String> args) {
     if (current.isNotEmpty) windows.add(current);
 
     for (final List<PoseFrame> w in windows) {
-      final RepEngine e = RepEngine(cfg, judge: judge);
+      // M-F-122 hüküm 1: motor artık `precondition.status != derived` ise
+      // tekrar ÜRETMEZ. Bu HASAT yolu ve kimlik güvencesi kare-düzeyi ürün
+      // ön koşulundan değil, take-düzeyi hasat-kimlik kapısından geliyor
+      // (hipKneeCoupling, 12/16 eğitmen PASS — M-F-106/G-067). Hasat, ön
+      // koşulu TÜRETECEK malzemeyi üreten yerdir; ondan "ön koşul zaten
+      // türetilmiş olsun" istemek yumurta-tavuk olurdu. Muafiyet DEĞİL,
+      // kapı DEĞİŞİMİ (G-039/G-048: farklı sorular, farklı kapılar).
+      final RepEngine e =
+          RepEngine(cfg, judge: judge, harvestIdentityAttested: true);
       // ⚠️ StructuralValidator SIRALI/AKAN kare bekler (boneLengthInstability +
       // temporalDiscontinuity önceki kareyle kıyaslar) — pencere başına TAZE
       // örnek gerekir (build_reference.dart'la aynı desen).

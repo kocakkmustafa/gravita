@@ -116,7 +116,10 @@ FrameJudge scopedJudge(List<int> required, {double minVisibility = 0.5}) =>
 
 final class RepEngine {
   RepEngine(this.config,
-      {JointAngleExtractor? extractor, PoseNormalizer? normalizer, FrameJudge? judge})
+      {JointAngleExtractor? extractor,
+      PoseNormalizer? normalizer,
+      FrameJudge? judge,
+      this.harvestIdentityAttested = false})
       : assert(config.engineType == EngineType.repFsm,
             'RepEngine yalnız repFsm yapılandırmalarını çalıştırır'),
         _extractor = extractor ?? const JointAngleExtractor(),
@@ -129,6 +132,46 @@ final class RepEngine {
 
   /// null ise çekirdeğin ürün-katılığındaki güven kapısı kullanılır.
   final FrameJudge? _judge;
+
+  /// HASAT yolu için açık dikiş: bu koşumun kimlik güvencesi ÜRÜN ön
+  /// koşulundan DEĞİL, take-düzeyi hasat-kimlik kapısından geliyor.
+  ///
+  /// Neden gerekli: hasat, ön koşulu TÜRETECEK malzemeyi üreten yerdir —
+  /// ondan "ön koşul zaten türetilmiş olsun" istemek yumurta-tavuk olur
+  /// (aynı gerekçe `measure_knee_symmetry.dart`ta da yazılı). Ama bu bir
+  /// muafiyet DEĞİL, kapı DEĞİŞİMİDİR: squat referansı meşru çünkü
+  /// malzemesi hipKneeCoupling take-düzeyi kimlik kapısından geçti
+  /// (12/16 eğitmen PASS, M-F-106/G-067) — kare-düzeyi ön koşul yerine
+  /// take-düzeyi kanıt. Farklı sorular, farklı kapılar (G-039/G-048).
+  ///
+  /// ⚠️ ÜRÜN yolunda ASLA `true` verilmez: kullanıcının canlı denemesinin
+  /// take-düzeyi bir hasat kapısı yoktur.
+  final bool harvestIdentityAttested;
+
+  /// Motorun neden hiç tekrar üretmediğinin İSİMLİ sebebi (null = red yok).
+  ///
+  /// M-F-122 hüküm 1 (fail-closed, koçlanan-durumlu): kimlik ön koşulu
+  /// `derived` değilse motor tekrar ÜRETMEZ. Sebep G-071'de ölçüldü —
+  /// `precondition.conditions` BOŞ olduğunda kimlik kapısı hiç kurulmuyordu
+  /// (`isNotEmpty` false), yani squat'ta rep FSM'i hareketi değil sinyal
+  /// ekleminin salınımını sayıyordu: ayakta duran birinin dizi de bükülür
+  /// (G-043'ün şınavda kapattığı sınıf, squat'ta AÇIKTI). `status: pending`
+  /// beyanı vardı ama ürün tarafında OKUYANI yoktu (beşinci canlılık
+  /// sorusu, G-059).
+  ///
+  /// Sessiz sıfır DEĞİL: sebep isimlendirilir, UI bunu "ölçüm kapısı
+  /// türetilmedi" durumu olarak gösterir (UI-BRIEF §5 "ölçülemedi" sınıfı,
+  /// başarısızlık DEĞİL). Sessiz-yanlış sayım, sayım yokluğundan kötüdür
+  /// (M-F-57 sayım dürüstlüğü).
+  String? get refusalReason {
+    if (config.preconditionDerived || harvestIdentityAttested) return null;
+    return 'identity precondition not derived '
+        '(engine.precondition.status=${config.preconditionStatus}) — '
+        'reps are not counted, because counting without an identity gate '
+        'counts limb swing, not ${config.id}';
+  }
+
+  bool get _refused => refusalReason != null;
 
   final List<Rep> _reps = <Rep>[];
   List<Rep> get reps => List<Rep>.unmodifiable(_reps);
@@ -158,6 +201,13 @@ final class RepEngine {
   /// `PoseFrame.toIsotropic` API'sindedir (M-F-33 yakınsama emri) — bu paket
   /// artık kendi kopyasını taşımaz.
   void addFrame(PoseFrame rawFrame, FrameSize size, {BodyOrientation? expected}) {
+    // 0) Kimlik ön koşulu BEYAN EDİLMEMİŞSE hiç sayma (M-F-122 hüküm 1).
+    //    Kareler `skippedFrames`e yazılır ki "hüküm veremedim" oranı dürüst
+    //    kalsın; sebep `refusalReason`da İSİMLİ durur.
+    if (_refused) {
+      skippedFrames++;
+      return;
+    }
     final RepConfig c = config.rep!;
     final PoseFrame frame = rawFrame.toIsotropic(size);
 
