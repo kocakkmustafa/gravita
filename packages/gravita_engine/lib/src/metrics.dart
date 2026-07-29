@@ -146,6 +146,28 @@ final class MovementMetrics {
     return math.max(0, _y(toe) - _y(_heel)) / torsoLength;
   }
 
+  /// Ayak bileği orta noktasının görüntü-y'si.
+  double get ankleMidY => (_y(Lm.leftAnkle) + _y(Lm.rightAnkle)) / 2;
+
+  /// ZEMİN TEMAS noktasının görüntü-y'si: ayağın en alçak parçası (parmak ucu
+  /// veya topuk), ayak bileği DEĞİL.
+  ///
+  /// Ayak bileğiyle ölçmek plankta, şınavda, lungede ve parmak ucundaki her
+  /// pozisyonda "ayak havada" der — çünkü o pozisyonlarda ayak bileği gerçekten
+  /// yukarıdadır, yere değen parmak ucudur. Ölçümle bulundu (burpee zinciri
+  /// plank fazında takılıyordu).
+  double get footContactY => <double>[
+        _y(Lm.leftFootIndex), _y(Lm.rightFootIndex),
+        _y(Lm.leftHeel), _y(Lm.rightHeel),
+      ].reduce(math.max);
+
+  /// Kalçanın ayak hizasından yüksekliği, gövdeye normalize (ayakta ~büyük,
+  /// çömelmede küçük, plankta ~0).
+  double get hipHeightTorso {
+    final double hy = (_y(Lm.leftHip) + _y(Lm.rightHip)) / 2;
+    return (ankleMidY - hy) / torsoLength;
+  }
+
   /// Yan plankta kalçanın hattan düşmesi (`+`) / yükselmesi (`−`).
   double get hipDropDeg => lineDeviationDeg;
 
@@ -164,6 +186,7 @@ final class MovementMetrics {
         'elbow_under_shoulder_offset_torso' => elbowUnderShoulderOffsetTorso,
         'heel_rise_torso_norm' => heelRiseTorsoNorm,
         'hip_drop_deg' => hipDropDeg,
+        'hip_height_torso' => hipHeightTorso,
         'knee_angle_at_contact' => kneeAngle,
         _ => null,
       };
@@ -175,6 +198,7 @@ final class MovementMetrics {
     'hip_swing_amplitude_torso', 'shoulder_elevation_proxy',
     'cadence_spm', 'rep_duration_trend', 'limb_extension_sync_ms',
     'contralateral_alignment_deg', 'trunk_rotation_proxy', 'knee_travel_torso',
-    'plantarflexion_deg', 'vertical_travel', 'hip_height_torso', 'feet_off_ground',
+    'plantarflexion_deg', 'vertical_travel',
+    'feet_off_ground', // zemin-göreli: MultiPhaseEngine'in GroundReference'ı üretir
   };
 }

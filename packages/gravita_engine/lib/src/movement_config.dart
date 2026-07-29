@@ -249,6 +249,86 @@ final class HoldConfig {
   final List<FormBreak> formBreaks;
 }
 
+/// Çok-faz zincirindeki tek faz.
+final class PhaseSpec {
+  const PhaseSpec({
+    required this.id,
+    required this.enterMetric,
+    required this.enterOp,
+    required this.enterValue,
+    required this.optional,
+    required this.checks,
+  });
+
+  factory PhaseSpec.fromJson(Map<String, dynamic> j) {
+    final Map<String, dynamic> e = j['enter'] as Map<String, dynamic>;
+    final dynamic v = e['value'];
+    return PhaseSpec(
+      id: j['id'] as String,
+      enterMetric: e['metric'] as String,
+      enterOp: (e['op'] as String?) ?? '>',
+      enterValue: v is bool ? (v ? 1.0 : 0.0) : (v as num).toDouble(),
+      optional: j['optional'] as bool? ?? false,
+      checks: ((j['checks'] as List<dynamic>?) ?? const <dynamic>[])
+          .map((dynamic c) => PhaseCheck.fromJson(c as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+  final String id;
+  final String enterMetric;
+  final String enterOp;
+  final double enterValue;
+
+  /// Varyanta göre atlanabilen faz (ör. chest-to-floor burpee).
+  final bool optional;
+  final List<PhaseCheck> checks;
+}
+
+/// Faz içinde sürekli sınanan kalite koşulu — ihlali bir form hatasına bağlanır.
+final class PhaseCheck {
+  const PhaseCheck(this.metric, this.op, this.value, this.errorId);
+
+  factory PhaseCheck.fromJson(Map<String, dynamic> j) => PhaseCheck(
+        j['metric'] as String,
+        (j['op'] as String?) ?? '<',
+        (j['value'] as num).toDouble(),
+        j['errorId'] as String,
+      );
+
+  final String metric;
+  final String op;
+  final double value;
+  final String errorId;
+}
+
+/// multiPhaseFsm ayarları.
+final class MultiPhaseConfig {
+  const MultiPhaseConfig({
+    required this.sequence,
+    required this.checkpointOnly,
+    required this.timeoutUs,
+  });
+
+  factory MultiPhaseConfig.fromJson(Map<String, dynamic> e) => MultiPhaseConfig(
+        sequence: (e['sequence'] as List<dynamic>)
+            .map((dynamic p) => PhaseSpec.fromJson(p as Map<String, dynamic>))
+            .toList(),
+        checkpointOnly:
+            ((e['checkpointOnly'] as List<dynamic>?) ?? const <dynamic>[])
+                .cast<String>()
+                .toSet(),
+        timeoutUs: ((e['timeoutMs'] as num).toInt()) * 1000,
+      );
+
+  final List<PhaseSpec> sequence;
+
+  /// Kare-kare SKORLANMAYAN fazlar (patlayıcı/blur). Orada yalnız "gerçekleşti
+  /// mi" sorulur; büyüklük iddia edilmez (G-006).
+  final Set<String> checkpointOnly;
+  final int timeoutUs;
+}
+
 final class MovementConfig {
   const MovementConfig({
     required this.id,
@@ -260,6 +340,7 @@ final class MovementConfig {
     required this.formErrors,
     required this.rep,
     required this.hold,
+    required this.multi,
     required this.cameraSetup,
   });
 
@@ -288,6 +369,7 @@ final class MovementConfig {
           .toList(),
       rep: t == EngineType.repFsm ? RepConfig.fromJson(e) : null,
       hold: t == EngineType.staticHold ? HoldConfig.fromJson(e) : null,
+      multi: t == EngineType.multiPhaseFsm ? MultiPhaseConfig.fromJson(e) : null,
       cameraSetup: (j['camera'] as Map<String, dynamic>)['setup'] as String,
     );
   }
@@ -304,6 +386,7 @@ final class MovementConfig {
   final List<FormError> formErrors;
   final RepConfig? rep;
   final HoldConfig? hold;
+  final MultiPhaseConfig? multi;
   final String cameraSetup;
 
   /// B sınıfı form hükmü VERMEZ (blueprint §1/§8) — bu, UI'ın değil motorun

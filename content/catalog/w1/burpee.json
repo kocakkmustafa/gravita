@@ -43,9 +43,9 @@
       {
         "id": "plank_out",
         "enter": {
-          "metric": "line_deviation_deg",
+          "metric": "hip_height_torso",
           "op": "<",
-          "value": 20
+          "value": 0.3
         },
         "maxMs": 2000,
         "checks": [
@@ -55,7 +55,8 @@
             "value": 18,
             "errorId": "sloppy_plank"
           }
-        ]
+        ],
+        "note_tr": "Giriş koşulu kalça YÜKSEKLİĞİ; hat sapması burada GİRİŞ değil KALİTE kontrolüdür (line_deviation<20 ayaktayken de doğrudur, yani plank'ı tanımlamaz — motor yazılırken ölçülerek bulundu)."
       },
       {
         "id": "chest_to_floor",
