@@ -67,7 +67,13 @@
         26,
         27,
         28
-      ]
+      ],
+      "identity": {
+        "kneeSymmetry": {
+          "metric": "knee_angle_asymmetry",
+          "status": "pending"
+        }
+      }
     },
     "lunge": {
       "lower_body_ids": [

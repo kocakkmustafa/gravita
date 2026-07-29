@@ -1,0 +1,33 @@
+{
+  "movement": "bodyweight_squat",
+  "$doc": "DANIŞMA amaçlı eğitmen sınıflandırması — G-061 ölçümünden (kneeAngleAsymmetry, kademe D: FSM-tamamlanmış tekrar ∩ StructuralValidator.plausible, world-koordinatı). KAPI DEĞİLDİR: hiçbir doğrulayıcı/build_reference/harvest_reps bu dosyayı okumaz (M-F-62 beşinci-soru disiplini — okuyanı olmayan bayrak üretilmez, bu yüzden burada açıkça beyan ediliyor: ŞU AN OKUYANI YOK, yalnız insan/koordinatör kararına girdi). Eşik NÜMERİK olarak türetilemediği için (bkz. docs/gates/G-061-DIZ-SIMETRISI-OLCUM-RAPORU.md) sınıflar ELEME yapmaz, yalnız ÖNCELİK sırası önerir.",
+  "labelRationale": {
+    "clean": "mean<15° ve p95<55° — squat boyunca iki diz büyük ölçüde birlikte hareket ediyor görünüyor",
+    "mixed": "orta düzey mean/p95 VEYA küçük örneklem (n<200) — yorum güvenilirliği düşük",
+    "suspect": "mean>=30° VEYA p95>=85° — muhtemelen split-stance/tek-bacak kesit karışmış (Tom Merrick'te kare-kare doğrulandı, bkz. G-061)",
+    "noSignal": "FSM hiç tamamlanmış tekrar üretmedi — kimlik sinyali hiç ölçülemedi"
+  },
+  "instructors": {
+    "WeShape": {"label": "clean", "n": 1774, "meanDeg": 6.17, "p95Deg": 18.16, "maxDeg": 74.92},
+    "Minus The Gym": {"label": "clean", "n": 419, "meanDeg": 8.08, "p95Deg": 11.89, "maxDeg": 102.89, "note": "p95 çok dar ama max 102,89° — tek bir aykırı segment olası"},
+    "FitnessFAQs": {"label": "clean", "n": 295, "meanDeg": 8.66, "p95Deg": 29.67, "maxDeg": 122.79},
+    "Jeremy Ethier": {"label": "clean", "n": 874, "meanDeg": 8.78, "p95Deg": 45.56, "maxDeg": 77.46},
+    "Squat University": {"label": "clean", "n": 2598, "meanDeg": 10.24, "p95Deg": 44.42, "maxDeg": 128.36},
+    "GMB Fitness (Praxis)": {"label": "clean", "n": 512, "meanDeg": 12.22, "p95Deg": 46.12, "maxDeg": 73.34},
+    "Jeff Nippard": {"label": "clean", "n": 1911, "meanDeg": 12.51, "p95Deg": 52.53, "maxDeg": 113.39},
+    "Sebastian Oreb": {"label": "mixed", "n": 179, "meanDeg": 15.22, "p95Deg": 81.90, "maxDeg": 106.60, "note": "küçük n + geniş p95"},
+    "Strength Side": {"label": "mixed", "n": 2633, "meanDeg": 17.99, "p95Deg": 47.99, "maxDeg": 99.16},
+    "K boges": {"label": "mixed", "n": 3272, "meanDeg": 18.17, "p95Deg": 54.23, "maxDeg": 67.33},
+    "THENX": {"label": "mixed", "n": 3566, "meanDeg": 23.06, "p95Deg": 60.15, "maxDeg": 112.31},
+    "School of Calisthenics": {"label": "mixed", "n": 15, "meanDeg": 24.24, "p95Deg": 49.03, "maxDeg": 52.87, "note": "n=15 — istatistik güvenilir DEĞİL, tek fixture kısa"},
+    "TappBrothers": {"label": "suspect", "n": 130, "meanDeg": 31.32, "p95Deg": 99.27, "maxDeg": 101.80, "note": "küçük n + yüksek mean/p95"},
+    "Calisthenicmovement": {"label": "suspect", "n": 1278, "meanDeg": 32.13, "p95Deg": 85.98, "maxDeg": 167.74},
+    "Tom Merrick": {"label": "suspect", "n": 3137, "meanDeg": 49.82, "p95Deg": 127.72, "maxDeg": 153.74, "note": "kare-kare denetlendi (G-061): t=202.78s sol diz 162°/sağ diz 39,5° — split-stance kesiti tutorial içine karışmış görünüyor"},
+    "Vast Fitness Academy": {"label": "noSignal", "n": 0, "note": "FSM hiç tekrar tamamlamadı — 27 fixture'ın 1'i (16 eğitmenden), kneeAngleAsymmetry hiç ölçülemedi"}
+  },
+  "$consumers": {
+    "gate": [],
+    "advisory": ["bu dosyanın tamamı"],
+    "note": "Şu an HİÇBİR kod bu dosyayı okumuyor. Koordinatör/insan kararına girdi olarak üretildi (G-061 YÜKSELTME). Bir tüketici yazılırsa buraya eklenmeli (M-F-62/66)."
+  }
+}
