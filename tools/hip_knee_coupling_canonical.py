@@ -13,13 +13,23 @@ sagittal izdüşümü), knee_flexion `frameRef=none` (WORLD 3D, izdüşümsüz,
 menteşe eklem). Metrik TANIMLARI Lissom'un kendi config'inden OKUNUR
 (`MetricDef.from_dict`) — elle kopyalanmaz, iki app aynı sözlüğü paylaşır.
 
-⚠️ Metodolojik not: bu script mocore'un KENDİ güven kapısını kullanır
-(`Measurement.valid`, `min_confidence` config'te — varsayılan 0,6);
-Gravita'nın önceki Dart aracının FSM-tamamlanmış-tekrar ∩ StructuralValidator
-penceresi (rep-FSM kesin sınırları) BURADA YOK. Bu bilinçli bir basitleştirme
-— G-065'in mimari kararı "harvest-anında-bir-kez" ilkesini kuruyor, rep-FSM
-pencereleme entegrasyonu (Dart↔Python) ayrı bir iş kalemi.
+Sayının dayanağı — `windowBasis` (G-066/M-F-101):
+  confidence-gate — girdi HAM fixture'lar; yalnız mocore'un kendi frame-başı
+                    güven kapısı uygulanır. Kimlik-KAPILAMASI için
+                    PROVISIONAL sayılır (rep-FSM doğrulaması YOK — bir video
+                    hiç squat içermese bile görünür/net kareleri varsa sayı
+                    üretir). Triyaj-bilgisi olarak serbest.
+  rep-fsm         — girdi `tool/slice_deep_reps_squat.dart`'ın kestiği
+                    fixture'lar (ürünün rep-FSM'i formErrors.shallow_depth
+                    eşiğini geçen TEKRARLARI önceden seçti). Kimlik-KAPILAMASI
+                    için GEÇERLİ sayılır — Python'a FSM portu YOK, iki aracın
+                    SIRALAMASI (önce Dart keser, sonra bu script işler) yeterli.
+
+Kullanım:
+  python hip_knee_coupling_canonical.py --dir landmarks --window-basis confidence-gate
+  python hip_knee_coupling_canonical.py --dir landmarks-rep-sliced --window-basis rep-fsm
 """
+import argparse
 import json
 import pathlib
 import sys
@@ -35,7 +45,8 @@ from mocore import measures as mz  # noqa: E402
 
 LISSOM_METRICS = (ROOT.parent.parent / "lissom" / "app" / "config" / "metrics"
                   / "lissom-metrics.v1.json")
-SQUAT_LANDMARKS = pathlib.Path.home() / "motion-harvest" / "gravita-squat" / "landmarks"
+SQUAT_HARVEST = pathlib.Path.home() / "motion-harvest" / "gravita-squat"
+RAW_LANDMARKS = SQUAT_HARVEST / "landmarks"
 OUT = ROOT / "content" / "harvest" / "hip_knee_coupling.bodyweight_squat.json"
 
 
@@ -56,14 +67,32 @@ def pearson(xs, ys):
     return float(np.corrcoef(xs, ys)[0, 1])
 
 
+def all_channels(directory: pathlib.Path) -> set[str]:
+    out = set()
+    for path in directory.glob("*.json"):
+        fx = json.loads(path.read_text())
+        out.add((fx.get("provenance") or {}).get("channel") or "?")
+    return out
+
+
 def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dir", default=str(RAW_LANDMARKS),
+                    help="işlenecek fixture dizini (ham veya rep-dilimli)")
+    ap.add_argument("--window-basis", choices=["confidence-gate", "rep-fsm"],
+                    required=True)
+    ap.add_argument("--stamp", action="store_true",
+                    help="her fixture'ın provenance'ına damga yaz")
+    args = ap.parse_args()
+    src_dir = pathlib.Path(args.dir).expanduser()
+
     hip_metric = load_metric("hip_flexion_right")
     knee_metric = load_metric("knee_flexion_right")
 
     by_channel: dict[str, dict[str, list]] = {}
     fixtures_by_channel: dict[str, list[pathlib.Path]] = {}
 
-    for path in sorted(SQUAT_LANDMARKS.glob("*.json")):
+    for path in sorted(src_dir.glob("*.json")):
         fx = json.loads(path.read_text())
         prov = fx.get("provenance") or {}
         channel = prov.get("channel") or "?"
@@ -103,39 +132,60 @@ def main() -> int:
             "n": len(acc["hip"]),
             "pearsonHipKnee": None if r != r else round(r, 3),
             "gate": gate,
+            "windowBasis": args.window_basis,
         }
-        # Damga: her fixture'ın KENDİ provenance'ına kanonik değeri yaz.
-        for fpath in fixtures_by_channel[channel]:
-            fx = json.loads(fpath.read_text())
-            fx.setdefault("provenance", {})["hipKneeCoupling"] = {
-                "pearsonHipKnee": instructors[channel]["pearsonHipKnee"],
-                "n": instructors[channel]["n"],
-                "method": "mocore.measures.evaluate(anatomical=True); "
-                          "hip_flexion_right(frameRef=proximal)+"
-                          "knee_flexion_right(frameRef=none), "
-                          "lissom-metrics.v1.json",
-                "computedBy": "tools/hip_knee_coupling_canonical.py (G-065/M-F-96)",
-            }
-            fpath.write_text(json.dumps(fx, indent=2, ensure_ascii=False) + "\n")
+        if args.stamp:
+            for fpath in fixtures_by_channel[channel]:
+                fx = json.loads(fpath.read_text())
+                fx.setdefault("provenance", {})["hipKneeCoupling"] = {
+                    "pearsonHipKnee": instructors[channel]["pearsonHipKnee"],
+                    "n": instructors[channel]["n"],
+                    "windowBasis": args.window_basis,
+                    "method": "mocore.measures.evaluate(anatomical=True); "
+                              "hip_flexion_right(frameRef=proximal)+"
+                              "knee_flexion_right(frameRef=none), "
+                              "lissom-metrics.v1.json",
+                    "computedBy": "tools/hip_knee_coupling_canonical.py (G-065/M-F-96/G-066)",
+                }
+                fpath.write_text(json.dumps(fx, indent=2, ensure_ascii=False) + "\n")
 
-    out_doc = {
-        "movement": "bodyweight_squat",
-        "$doc": (
-            "KANONİK hipKneeCoupling (G-065/M-F-96): mocore.measures.evaluate"
-            "(anatomical=True) ile hasat-anında hesaplanır, her fixture'ın "
-            "provenance'ına damgalanır. Gravita'nın önceki 2D-taraf-agnostik "
-            "Dart formülü EMEKLİ edildi (kamera-açısına kırılgan çıktı, "
-            "G-065 diferansiyel testi) — bkz. docs/gates/G-065/G-066."
-        ),
-        "gateThreshold": threshold,
-        "method": "mocore.measures.evaluate(anatomical=True), "
-                  "lissom-metrics.v1.json hip_flexion_right/knee_flexion_right",
-        "instructors": instructors,
-    }
-    OUT.write_text(json.dumps(out_doc, indent=2, ensure_ascii=False) + "\n")
+    # Roster HAM dizinden gelir (rep-dilimli dizinde sıfır-dilimli eğitmen
+    # hiç dosya bırakmaz — "yok" ile "veri yok" karışmasın diye tam roster
+    # ayrı taşınır).
+    roster = all_channels(RAW_LANDMARKS)
+    no_signal = sorted(roster - set(instructors))
+    for ch in no_signal:
+        instructors[ch] = {"n": 0, "pearsonHipKnee": None, "gate": "noSignal",
+                            "windowBasis": args.window_basis}
+
+    if args.window_basis == "rep-fsm":
+        out_doc = {
+            "movement": "bodyweight_squat",
+            "$doc": (
+                "KANONİK hipKneeCoupling, windowBasis=rep-fsm (G-066/M-F-101): "
+                "girdi tool/slice_deep_reps_squat.dart'ın kestiği DERİN-TEKRAR "
+                "fixture'ları — ürünün kendi rep-FSM'i formErrors.shallow_depth "
+                "eşiğini (rom_bottom_angle≤110°) geçen tekrarları önceden seçti. "
+                "Kimlik-KAPILAMASI için GEÇERLİ sayı budur. FSM hiç tamamlanmış "
+                "derin tekrar üretmeyen eğitmen (School of Calisthenics, Vast "
+                "Fitness Academy, Minus The Gym) dürüstçe noSignal — dilim "
+                "üretilmediği için bu script'e hiç girmediler (G-043 disiplini: "
+                "'ölçemedim' demek, yanlış ölçmekten üstündür)."
+            ),
+            "gateThreshold": threshold,
+            "windowBasis": "rep-fsm",
+            "method": "mocore.measures.evaluate(anatomical=True) + "
+                      "tool/slice_deep_reps_squat.dart (rep-FSM ön-kesici), "
+                      "lissom-metrics.v1.json hip_flexion_right/knee_flexion_right",
+            "instructors": instructors,
+        }
+        OUT.write_text(json.dumps(out_doc, indent=2, ensure_ascii=False) + "\n")
+        print(f"YAZILDI: {OUT} (windowBasis=rep-fsm, kimlik-kapılama kaynağı)")
+
     passed = sum(1 for v in instructors.values() if v["gate"] == "pass")
-    print(f"{passed}/{len(instructors)} eğitmen geçti (eşik {threshold})")
-    for ch, v in instructors.items():
+    total = len(instructors)
+    print(f"[{args.window_basis}] {passed}/{total} eğitmen geçti (eşik {threshold})")
+    for ch, v in sorted(instructors.items()):
         print(f"  {ch}: n={v['n']} r={v['pearsonHipKnee']} -> {v['gate']}")
     return 0
 

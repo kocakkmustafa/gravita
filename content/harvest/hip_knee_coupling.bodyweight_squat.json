@@ -1,88 +1,105 @@
 {
   "movement": "bodyweight_squat",
-  "$doc": "KANONİK hipKneeCoupling (G-065/M-F-96): mocore.measures.evaluate(anatomical=True) ile hasat-anında hesaplanır, her fixture'ın provenance'ına damgalanır. Gravita'nın önceki 2D-taraf-agnostik Dart formülü EMEKLİ edildi (kamera-açısına kırılgan çıktı, G-065 diferansiyel testi) — bkz. docs/gates/G-065/G-066.",
+  "$doc": "KANONİK hipKneeCoupling, windowBasis=rep-fsm (G-066/M-F-101): girdi tool/slice_deep_reps_squat.dart'ın kestiği DERİN-TEKRAR fixture'ları — ürünün kendi rep-FSM'i formErrors.shallow_depth eşiğini (rom_bottom_angle≤110°) geçen tekrarları önceden seçti. Kimlik-KAPILAMASI için GEÇERLİ sayı budur. FSM hiç tamamlanmış derin tekrar üretmeyen eğitmen (School of Calisthenics, Vast Fitness Academy, Minus The Gym) dürüstçe noSignal — dilim üretilmediği için bu script'e hiç girmediler (G-043 disiplini: 'ölçemedim' demek, yanlış ölçmekten üstündür).",
   "gateThreshold": 0.2,
-  "method": "mocore.measures.evaluate(anatomical=True), lissom-metrics.v1.json hip_flexion_right/knee_flexion_right",
+  "windowBasis": "rep-fsm",
+  "method": "mocore.measures.evaluate(anatomical=True) + tool/slice_deep_reps_squat.dart (rep-FSM ön-kesici), lissom-metrics.v1.json hip_flexion_right/knee_flexion_right",
   "instructors": {
     "Calisthenicmovement": {
-      "n": 16460,
-      "pearsonHipKnee": 0.616,
-      "gate": "pass"
+      "n": 211,
+      "pearsonHipKnee": 0.579,
+      "gate": "pass",
+      "windowBasis": "rep-fsm"
     },
     "FitnessFAQs": {
-      "n": 4642,
-      "pearsonHipKnee": 0.495,
-      "gate": "pass"
+      "n": 10,
+      "pearsonHipKnee": -0.233,
+      "gate": "fail",
+      "windowBasis": "rep-fsm"
     },
     "GMB Fitness (Praxis)": {
-      "n": 9444,
-      "pearsonHipKnee": 0.808,
-      "gate": "pass"
+      "n": 62,
+      "pearsonHipKnee": 0.692,
+      "gate": "pass",
+      "windowBasis": "rep-fsm"
     },
     "Jeff Nippard": {
-      "n": 9618,
-      "pearsonHipKnee": 0.88,
-      "gate": "pass"
+      "n": 1804,
+      "pearsonHipKnee": 0.867,
+      "gate": "pass",
+      "windowBasis": "rep-fsm"
     },
     "Jeremy Ethier": {
-      "n": 5404,
-      "pearsonHipKnee": 0.853,
-      "gate": "pass"
+      "n": 646,
+      "pearsonHipKnee": 0.896,
+      "gate": "pass",
+      "windowBasis": "rep-fsm"
     },
     "K boges": {
-      "n": 8252,
-      "pearsonHipKnee": 0.98,
-      "gate": "pass"
-    },
-    "Minus The Gym": {
-      "n": 1859,
-      "pearsonHipKnee": 0.971,
-      "gate": "pass"
-    },
-    "School of Calisthenics": {
-      "n": 3298,
-      "pearsonHipKnee": 0.707,
-      "gate": "pass"
+      "n": 3684,
+      "pearsonHipKnee": 0.982,
+      "gate": "pass",
+      "windowBasis": "rep-fsm"
     },
     "Sebastian Oreb": {
-      "n": 7233,
-      "pearsonHipKnee": 0.857,
-      "gate": "pass"
+      "n": 219,
+      "pearsonHipKnee": 0.98,
+      "gate": "pass",
+      "windowBasis": "rep-fsm"
     },
     "Squat University": {
-      "n": 22880,
-      "pearsonHipKnee": 0.732,
-      "gate": "pass"
+      "n": 1566,
+      "pearsonHipKnee": 0.677,
+      "gate": "pass",
+      "windowBasis": "rep-fsm"
     },
     "Strength Side": {
-      "n": 6242,
-      "pearsonHipKnee": 0.95,
-      "gate": "pass"
+      "n": 2396,
+      "pearsonHipKnee": 0.973,
+      "gate": "pass",
+      "windowBasis": "rep-fsm"
     },
     "THENX": {
-      "n": 12387,
-      "pearsonHipKnee": 0.963,
-      "gate": "pass"
+      "n": 4045,
+      "pearsonHipKnee": 0.971,
+      "gate": "pass",
+      "windowBasis": "rep-fsm"
     },
     "TappBrothers": {
-      "n": 1881,
-      "pearsonHipKnee": 0.642,
-      "gate": "pass"
+      "n": 101,
+      "pearsonHipKnee": 0.958,
+      "gate": "pass",
+      "windowBasis": "rep-fsm"
     },
     "Tom Merrick": {
-      "n": 54313,
-      "pearsonHipKnee": 0.442,
-      "gate": "pass"
-    },
-    "Vast Fitness Academy": {
-      "n": 2537,
-      "pearsonHipKnee": 0.821,
-      "gate": "pass"
+      "n": 1594,
+      "pearsonHipKnee": 0.274,
+      "gate": "pass",
+      "windowBasis": "rep-fsm"
     },
     "WeShape": {
-      "n": 9914,
-      "pearsonHipKnee": 0.941,
-      "gate": "pass"
+      "n": 807,
+      "pearsonHipKnee": 0.912,
+      "gate": "pass",
+      "windowBasis": "rep-fsm"
+    },
+    "Minus The Gym": {
+      "n": 0,
+      "pearsonHipKnee": null,
+      "gate": "noSignal",
+      "windowBasis": "rep-fsm"
+    },
+    "School of Calisthenics": {
+      "n": 0,
+      "pearsonHipKnee": null,
+      "gate": "noSignal",
+      "windowBasis": "rep-fsm"
+    },
+    "Vast Fitness Academy": {
+      "n": 0,
+      "pearsonHipKnee": null,
+      "gate": "noSignal",
+      "windowBasis": "rep-fsm"
     }
   }
 }
