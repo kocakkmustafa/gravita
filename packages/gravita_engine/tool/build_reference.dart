@@ -475,6 +475,28 @@ void main(List<String> args) async {
         'olarak yazılır; skorlayıcı tarafı kare başına görünen-taraf '
         'çözümüyle bağlar, ada göre DEĞİL.',
     'unreliableJoints': ref.unreliableJoints(),
+    // TÜKETİCİ HARİTASI — okuyanı olmayan bayrak süstür (M-F-63):
+    //   KAPI (yük taşır): tolerances.source · instructors · takes ·
+    //     excludedOutlierIds · orderIndependent · mirrorAgnostic ·
+    //     unreliableJoints  → tools/sync_provenance.py yazar,
+    //     validate_catalog.py V17 denetler.
+    //   DANIŞMA (bilinçli olarak kapı DEĞİL): outlierProfile · styleExcluded
+    //     (eklem-yetkisi app-side, M-F-51) · g050WidenedGateProbe (tek seferlik
+    //     deney kaydı) · measuredDispersionDeg (source'u besler).
+    r'$consumers': <String, dynamic>{
+      'gate': <String>[
+        'tolerances.source', 'instructors', 'takes', 'excludedOutlierIds',
+        'orderIndependent', 'mirrorAgnostic', 'unreliableJoints',
+      ],
+      'advisory': <String>[
+        'outlierProfile', 'styleExcluded', 'g050WidenedGateProbe',
+        'measuredDispersionDeg', 'meanLeftRightDiffDeg',
+      ],
+      'note': 'Kapı bayrakları sync_provenance.py → katalog provenance → '
+          'validate_catalog V17 zinciriyle DENETLENİR. Danışma bayrakları '
+          'bilinçli olarak kapı değildir; kapı sanılmasınlar diye burada '
+          'AYRI listelenir.',
+    },
     'g050WidenedGateProbe': widened,
     'tolerances': <String, dynamic>{},
   };

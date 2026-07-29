@@ -901,6 +901,25 @@
   "$mirrorNote": "ayna kümesi farklı VE referans değişiyor → GERÇEK kararsızlık, M-F-46 kural 7: taraf-bağımlı hüküm verilmez",
   "$sideNaming": "J-034: global ayna-ataması `left_*` adının işaret ettiği FİZİKSEL eklemi değiştirebilir. Toleranslar bu yüzden eklem-ÇİFTİ olarak yazılır; skorlayıcı tarafı kare başına görünen-taraf çözümüyle bağlar, ada göre DEĞİL.",
   "unreliableJoints": [],
+  "$consumers": {
+    "gate": [
+      "tolerances.source",
+      "instructors",
+      "takes",
+      "excludedOutlierIds",
+      "orderIndependent",
+      "mirrorAgnostic",
+      "unreliableJoints"
+    ],
+    "advisory": [
+      "outlierProfile",
+      "styleExcluded",
+      "g050WidenedGateProbe",
+      "measuredDispersionDeg",
+      "meanLeftRightDiffDeg"
+    ],
+    "note": "Kapı bayrakları sync_provenance.py → katalog provenance → validate_catalog V17 zinciriyle DENETLENİR. Danışma bayrakları bilinçli olarak kapı değildir; kapı sanılmasınlar diye burada AYRI listelenir."
+  },
   "g050WidenedGateProbe": {
     "clusterToleranceDeg": 30,
     "takes": 78,

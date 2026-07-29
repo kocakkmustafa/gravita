@@ -1,26 +1,10 @@
 #!/usr/bin/env python3
 """Gravita hareket kataloğu nöbetçisi — mekanik denetim betikle yapılır (aile kuralı: LLM-denetim değil).
 
-Denetlenen değişmezler (hepsi bir DEFTER/ADR maddesine bağlı):
-  V1  şema: zorunlu alanlar + enum'lar + id benzersizliği
-  V2  G-007 / M-F-06 : rep-FSM sinyali `side: "visible"` olmalı — model L/R etiketine bağlanamaz
-  V3  G-006          : patlayıcı/checkpoint fazlarının metrikleri `gateableMetrics`e GİREMEZ
-  V4  M-F-04 / K8    : `scoreDisplay` kalibrasyon kapısı geçilmeden "numeric" olamaz
-  V5  Blueprint §1   : B sınıfı hareket form-hükmü İDDİA EDEMEZ
-  V6  G-013 / M-C-03 : her form hatasının perturbasyon genliği, tespit eşiğinden BÜYÜK olmalı
-  V7  Dürüstlük      : her form hatasının kullanıcıya söylenecek bir `cue`u var
-  V8  C sınıfı katalogda yer alamaz (exclusions.json'a gider)
-  V9  timeout        : rep/çok-faz motorlarında fiziksel üst sınır zorunlu (JabLab J-009 dersi)
-  V14 pasif-icra    : `passiveExecutionPossible` BEYAN edilmeli (M-F-43/45). Beyansız hareket,
-                       `unknown` kaynak muafiyetini sessizce kullanamaz
-  V13 ağaç bağı     : `skillGraphNode` referansı GERÇEK bir düğüme işaret etmeli — kopuk
-                       referans, kullanıcıyı var olmayan bir beceri düğümüne yollar
-  V12 ters yönelim   : `expectedOrientation: inverted` -> `structuralCheck: required` ZORUNLU
-  V11 uç ayrıklığı   : repFsm'in iki ucu (angleMin/angleMax) ÖRTÜŞEMEZ — örtüşürse her kare
-                       her iki uçta sayılır ve motor durmadan "tekrar" üretir
-  V10 J-027          : `fastTransition: true` olan motor `signalFilter.cutoffHz` beyan ETMELİ —
-                       çekirdek varsayılan yumuşatması hızlı geçişleri söndürür; filtre kesimi
-                       eşiklerle BİRLİKTE pinlenir
+Denetlenen değişmezlerin LİSTESİ koddaki `INVARIANTS` kaydındadır ve sayısı
+oradan TÜRETİLİR — elle yazılmış bir başlık listesi, değişmez eklendikçe sessizce
+bayatlıyordu (V15/V16/V17 eklendi, başlık 14'te kalmıştı; commit mesajlarımda
+"16 değişmez" yazdım, gerçek 17'ydi). Sayı artık kaynaktan gelir.
 
 Çıkış kodu 0 = temiz, 1 = ihlal var.
 """
@@ -36,6 +20,27 @@ ENGINES = {"repFsm", "staticHold", "multiPhaseFsm"}
 # V3: bu metrikler patlayıcı/blur fazlardan gelir -> asla progresyon kapısı olamaz
 NON_GATEABLE = {"jump_height", "power", "force", "kickup_impulse", "exit_control",
                 "punch_velocity", "peak_speed", "explosive_power"}
+
+#: Değişmez kaydı — TEK ADRES. Başlık, çıktı ve sayı hep buradan türer.
+INVARIANTS = {
+    "V1": "şema: zorunlu alanlar + enum'lar + id benzersizliği",
+    "V2": "G-007/M-F-06: rep-FSM sinyali `side: visible` olmalı",
+    "V3": "G-006: patlayıcı/checkpoint metrikleri gateableMetrics'e giremez",
+    "V4": "M-F-04/K8: scoreDisplay kalibrasyon kapısı olmadan 'numeric' olamaz",
+    "V5": "Blueprint §1: B sınıfı form-hükmü iddia edemez",
+    "V6": "G-013/M-C-03: perturbasyon genliği tespit eşiğinden büyük olmalı",
+    "V7": "her form hatasının kullanıcıya söylenecek bir cue'u var",
+    "V8": "C sınıfı katalogda yer alamaz",
+    "V9": "J-009: rep/çok-faz motorlarında timeout zorunlu",
+    "V10": "J-027: fastTransition -> signalFilter.cutoffHz beyanı zorunlu",
+    "V11": "repFsm'in iki ucu (angleMin/angleMax) örtüşemez",
+    "V12": "ADR-001: expectedOrientation=inverted -> structuralCheck required",
+    "V13": "skillGraphNode gerçek bir düğüme işaret etmeli",
+    "V14": "M-F-43/45: passiveExecutionPossible beyan edilmeli",
+    "V15": "G-043: hareket-kimliği precondition beyanı (derived|pending)",
+    "V16": "G-054: ROM hata eşiği SAYIM eşiğiyle ulaşılabilir olmalı",
+    "V17": "M-F-63: referans artefaktı ile katalog provenance'ı çelişemez",
+}
 
 errors: list[str] = []
 warnings: list[str] = []
@@ -153,6 +158,60 @@ def check(path):
                     and val <= amin:
                 err(f, f"'{e['id']}' ULAŞILAMAZ: tekrar sayılmak için tepe ≥{amin}° "
                        f"olmalı, hata ise <{val}° istiyor (V16/G-054)")
+
+    # V17: REFERANS ARTEFAKTI ile katalog provenance'ı ÇELİŞEMEZ.
+    #
+    # Bu değişmez bir bayrak denetiminden fazlası: referans artefaktındaki
+    # `source: floor|variance`, eğitmen sayısı ve sıra/ayna bayrakları buraya
+    # bağlanana kadar OKUYANI YOKTU — özenle yazılmış, kimsenin sormadığı
+    # provenance. Okuyanı olmayan bayrak süstür; ya bağlanır ya kaldırılır.
+    #
+    # Sözlük: pending_harvest (referans yok) · harvested_provisional (referans
+    # var ama ≥1 eklem TABAN-bağlı → G-014 kapanmaz) · harvested_derived
+    # (tüm eklemler varyans-türetimli).
+    ref_path = ROOT / "content" / "harvest" / f"reference.{m.get('id')}.json"
+    prov0 = m.get("provenance") or {}
+    if ref_path.exists():
+        try:
+            ref = json.loads(ref_path.read_text())
+        except Exception as e:
+            err(f, f"referans artefaktı okunamadı: {e}")
+            ref = None
+        if ref:
+            n_inst = len(ref.get("instructors") or [])
+            floor = [k for k, v in (ref.get("tolerances") or {}).items()
+                     if v.get("source") == "floor"]
+            want = "harvested_provisional" if floor else "harvested_derived"
+            if prov0.get("status") != want:
+                err(f, f"provenance.status='{prov0.get('status')}' ama referans "
+                       f"artefaktı '{want}' diyor "
+                       f"({len(floor)} eklem taban-bağlı) — katalog iddiası "
+                       f"ölçümle çelişiyor (V17)")
+            if prov0.get("consensusN") != n_inst:
+                err(f, f"provenance.consensusN={prov0.get('consensusN')} ama "
+                       f"referans {n_inst} eğitmenden türedi (V17)")
+            # M-F-46 kural 7: sıra-bağımsız DEĞİL ve ayna-duyarsız DEĞİLSE
+            # taraf-bağımlı hüküm yasak. ADR-003 zaten taraf adı yasaklıyor;
+            # burada MEKANİK olarak da doğrulanır.
+            # Eğitmenlerin ANLAŞAMADIĞI eklem skorlanamaz: dağılımı bu kadar
+            # geniş bir eklemde hüküm vermek, kullanıcıyı öğretmenlerin kendi
+            # aralarında anlaşamadığı bir şey için cezalandırmaktır.
+            for j in ref.get("unreliableJoints") or []:
+                base = j.replace("left_", "").replace("right_", "")
+                gm = ((m.get("measurementContract") or {}).get("gateableMetrics") or [])
+                if any(base in g for g in gm):
+                    err(f, f"'{j}' referansta GÜVENİLMEZ (eğitmenler anlaşamıyor) "
+                           f"ama gateableMetrics onu kapı metriği yapıyor — "
+                           f"anlaşmazlık üzerine hüküm kurulamaz (V17)")
+            if not ref.get("orderIndependent", True) and not ref.get("mirrorAgnostic", False):
+                sig = ((m.get("engine") or {}).get("signal") or {})
+                if sig.get("side") != "visible":
+                    err(f, "referans sıra-bağımsız DEĞİL ve ayna-duyarsız DEĞİL → "
+                           "M-F-46 kural 7: taraf-bağımlı hüküm verilemez, "
+                           "signal.side 'visible' olmalı (V17)")
+    elif prov0.get("status") not in (None, "pending_harvest"):
+        err(f, f"provenance.status='{prov0.get('status')}' ama referans "
+               f"artefaktı YOK — hasat edilmiş iddiası kanıtsız (V17)")
 
     if not isinstance(m.get("passiveExecutionPossible"), bool):           # V14
         err(f, "passiveExecutionPossible BEYAN edilmemiş — `unknown` kaynak "
@@ -311,7 +370,7 @@ def main():
         if len(fs) > 1:
             err(", ".join(fs), f"id çakışması: '{i}'")
 
-    print(f"Denetlenen hareket: {len(files)}")
+    print(f"Denetlenen hareket: {len(files)} · değişmez: {len(INVARIANTS)}")
     for w in warnings:
         print(w)
     for e in errors:

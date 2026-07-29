@@ -92,7 +92,7 @@ G0→G10 faz modeli korunur; **kapsam artık dalga-bazlı işlenir** (standart �
 | Dalga | Kapsam | Motor gereksinimi | Durum |
 |---|---|---|---|
 | **W0** | Borç kapatma + IA çatısı + sınıf-kuralları config şeması | — | ✅ **BİTTİ** (2026-07-29) |
-| **W1** | Kitle-pazar bodyweight + core (şınav/barfiks/dip/squat/lunge/plank/burpee + core seti) | rep-FSM jeneriği ✅ · statik-tutuş motoru ⏳ · çok-faz FSM ⏳ | 🟠 **20 hareket şemalandı · RepEngine çalışıyor (37/37 test)** — kalan: statik-tutuş + çok-faz motorları, perturbasyon üreteci, hasat pilotu |
+| **W1** | Kitle-pazar bodyweight + core (şınav/barfiks/dip/squat/lunge/plank/burpee + core seti) | rep-FSM jeneriği ✅ · statik-tutuş motoru ⏳ · çok-faz FSM ⏳ | 🟢 **31 hareket şemalı · üç motor da çalışıyor · 69/69 test (2026-07-29)** — statik-tutuş, çok-faz, perturbasyon üreteci ve hasat hattı TAMAM; push_up referansı üretildi (`harvested_provisional`) |
 | **W2** | DB/KB kütüphanesi + amiral beceriler (handstand ağacı, planche ağacı) | tempo/eksantrik · KB kadans (RhythmEngine) · **inversiyon hattı (D1 çözümü)** | ⏳ |
 | **W3** | Barbell bileşikleri + FSM klasikleri (TGU, Nordic) + **bench = sınıf B** | çok-faz FSM derinleşmesi · **bar/kenar tespiti R&D başlar** | ⏳ |
 | **W4** | Bar becerileri + genişletilmiş calisthenics + pliometrik | bar tespiti (veya fallback) · checkpoint koçluğu | ⏳ |
@@ -102,7 +102,7 @@ G0→G10 faz modeli korunur; **kapsam artık dalga-bazlı işlenir** (standart �
 `content/schema/{movement-classes,movement.schema,metrics}.json` · `content/catalog/w1/*.json` (5) · `content/catalog/exclusions.json` · `tools/validate_catalog.py` (9 değişmez, ✅ 0 hata) · `docs/W0-BILGI-MIMARISI.md`
 
 ### W1 görev kuyruğu
-1. Kalan ≈15 hareketin şemalanması (dip, lunge, dead bug, bird dog, hollow, side plank, hanging leg raise, mountain climber, glute bridge, superman, wall sit, calf raise, step-up, toes-to-bar, inverted row).
+1. ~~Kalan ≈15 hareketin şemalanması~~ ✅ **TAMAM (2026-07-29): 31 hareket şemalı** (W1 20 + W2 11).
 2. **Hasat hattı** (katalog §6.2): hareket-başına ≥3 bağımsız eğitmen → referans çıkarımı → **tolerans kaynak varyansından** (G-014 kapanışı).
 3. Perturbasyon üreteci: referanstan kasıtlı-hata fixture'ları (M-C-03) — betik zaten genlik şartını zorluyor.
 4. Rep-FSM + statik-tutuş motoru: fixture-replay testli (kod, motion-core'u TÜKETİR — çekirdeğe yazılmaz, M-F-03).
