@@ -198,6 +198,19 @@ void main(List<String> args) {
         'işaret-iptali değil. Eşik (7°) temeli metrik-ayrımı ÖNCESİ döneme '
         'ait; şu an sınırda vaka yok, bir referans eşiğe YAKLAŞIRSA önce '
         'temeli yeniden türetilmeli.',
+    r'$evidenceThicknessNote': 'M-F-155 ayrıştırması: `alignedDistinctShare` '
+        'İKİ mekanizmayı aynı sayıya indirir — (a) kısa-take/uzun-medoid '
+        '(tavan = min(1, takeFrames/medoidFrames)) ve (b) gerilmiş-take. '
+        'ÖLÇÜLDÜ: squat\'ın 36 take\'inin 33\'ü share<0,70 ama tavana-göre '
+        'doluluk (share/tavan) medyanı 0,922 · 22/36 ≥0,90 · 0/36 <0,70 → '
+        'incelik (a) UZUNLUK-ORANI eseri, GERİLME DEĞİL. Sebep ölçüldü: '
+        'medoidFrames=107 iken take tavan-medyanı yalnız 0,491, yani medoid '
+        'olarak YAVAŞ bir tekrar seçilmiş (medoid benzerlik-merkezine göre '
+        'seçilir, süreye göre değil). Take\'lerin her örneği GERÇEK, sadece '
+        '107-karelik medoide göre az. ⚠️ Buna rağmen okuyucu şerhi geçerli: '
+        '"36 katkı take\'i" sayısı ETKİN kanıt kalınlığını olduğundan kalın '
+        'gösterir — 36 take medoid zaman çizgisinin medyanda yalnız %44\'ünü '
+        'ayrık örnekle dolduruyor.',
     r'$thinEvidenceInstructors': thinEvidence,
     r'$firstReference': true,
     r'$clusterToleranceDegUsed': clusterToleranceDeg,

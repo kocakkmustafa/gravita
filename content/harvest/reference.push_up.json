@@ -2,7 +2,7 @@
   "schema": "motion-core/reference@1",
   "technique": "push_up",
   "measurementProvenance": "ATTESTED",
-  "generatedAt": "2026-07-29T23:20:25.281101Z",
+  "generatedAt": "2026-07-29T23:30:44.469406Z",
   "gates": {
     "minTakes": 3,
     "minSources": 3,
@@ -3372,6 +3372,350 @@
   "$mirrorAgnostic": false,
   "$mirrorMetricNote": "M-F-145 — DEĞİŞİKLİK: eski `meanLeftRightDiffDeg` (konsensüs üzerinde |ortalama|) KALDIRILDI. G-078 Bulgu B: o sayı iki soruyu karıştırıyordu (büyüklük × take'ler-arası işaret tutarlılığı) ve push_up'ta 3,73× işaret-iptali üretiyordu — take düzeyi 19,25° iken konsensüs 5,16° gösteriyordu. ⚠️ O 5,16° gece boyu \"6 bağımsız kez doğrulandı\" diye kayıtlıydı ama ALTI KOŞUM DA AYNI hatalı işlem sırasını kullanmıştı; aynı yanlış niceliğin altı kopyası altı doğrulama DEĞİLDİR (G-052 uzantısı, M-F-145 aile dersi). Yerine iki alan: `takeMeanAbsLRDiffDeg` (büyüklük) + `signConsistencyRatio` (sistematik tek-yanlılık). Bayrak YALNIZ büyüklükten türer. Eşik (7°) temeli metrik-ayrımı ÖNCESİ döneme ait; sınırda vaka yok, bir referans eşiğe YAKLAŞIRSA temeli önce yeniden türetilmeli.",
   "$mirrorAgnosticNote": "ÖNCEKİ İDDİA GERİ ÇEKİLDİ. Eskiden bu artefakt \"şınav iki-taraflı simetriktir, sol-sağ farkı 7° tabanının altında\" diyordu. G-078A ölçümü bunu çürüttü: model uzak uzvu GÖRDÜĞÜNDE fark ~36,8°, GÖREMEDİĞİNDE 12,75°'e çöküyor (2,9×) — küçük fark simetri kanıtı DEĞİL, MODEL KÖRLÜĞÜNÜN eseri (kopyalama imzası POZİTİF). Taraf-bağlı hüküm bu referanstan çıkarılamaz (M-F-46 kural 7). Ürün etkisi yok: kurallar ADR-003/G-007 gereği zaten taraf-agnostik.",
+  "$preFilterFrameDrops": {
+    "FitnessFAQs#w4 r0": {
+      "rawDetectedInSpan": 81,
+      "keptAfterJudge": 36,
+      "dropped": 45
+    },
+    "FitnessFAQs#w4 r1": {
+      "rawDetectedInSpan": 66,
+      "keptAfterJudge": 22,
+      "dropped": 44
+    },
+    "FitnessFAQs#w4 r2": {
+      "rawDetectedInSpan": 56,
+      "keptAfterJudge": 38,
+      "dropped": 18
+    },
+    "Calisthenicmovement#w7 r0": {
+      "rawDetectedInSpan": 41,
+      "keptAfterJudge": 29,
+      "dropped": 12
+    },
+    "Antranik Kizirian#w17 r0": {
+      "rawDetectedInSpan": 93,
+      "keptAfterJudge": 74,
+      "dropped": 19
+    },
+    "Renaissance Periodization#w6 r0": {
+      "rawDetectedInSpan": 128,
+      "keptAfterJudge": 112,
+      "dropped": 16
+    },
+    "Renaissance Periodization#w6 r1": {
+      "rawDetectedInSpan": 55,
+      "keptAfterJudge": 36,
+      "dropped": 19
+    },
+    "Renaissance Periodization#w6 r2": {
+      "rawDetectedInSpan": 123,
+      "keptAfterJudge": 78,
+      "dropped": 45
+    },
+    "Renaissance Periodization#w6 r3": {
+      "rawDetectedInSpan": 91,
+      "keptAfterJudge": 49,
+      "dropped": 42
+    },
+    "FitnessFAQs#w8 r0": {
+      "rawDetectedInSpan": 46,
+      "keptAfterJudge": 27,
+      "dropped": 19
+    },
+    "FitnessFAQs#w8 r1": {
+      "rawDetectedInSpan": 54,
+      "keptAfterJudge": 36,
+      "dropped": 18
+    },
+    "FitnessFAQs#w8 r2": {
+      "rawDetectedInSpan": 57,
+      "keptAfterJudge": 42,
+      "dropped": 15
+    },
+    "Upright Health#w10 r0": {
+      "rawDetectedInSpan": 73,
+      "keptAfterJudge": 24,
+      "dropped": 49
+    },
+    "Cara Kuykens#w2 r0": {
+      "rawDetectedInSpan": 100,
+      "keptAfterJudge": 86,
+      "dropped": 14
+    },
+    "Cara Kuykens#w22 r0": {
+      "rawDetectedInSpan": 201,
+      "keptAfterJudge": 49,
+      "dropped": 152
+    },
+    "Cara Kuykens#w26 r0": {
+      "rawDetectedInSpan": 232,
+      "keptAfterJudge": 152,
+      "dropped": 80
+    },
+    "Kayla Itsines#w1 r0": {
+      "rawDetectedInSpan": 161,
+      "keptAfterJudge": 126,
+      "dropped": 35
+    },
+    "FitnessFAQs#w6 r1": {
+      "rawDetectedInSpan": 68,
+      "keptAfterJudge": 35,
+      "dropped": 33
+    },
+    "FitnessFAQs#w6 r2": {
+      "rawDetectedInSpan": 46,
+      "keptAfterJudge": 19,
+      "dropped": 27
+    },
+    "FitnessFAQs#w13 r0": {
+      "rawDetectedInSpan": 153,
+      "keptAfterJudge": 126,
+      "dropped": 27
+    },
+    "FitnessFAQs#w13 r1": {
+      "rawDetectedInSpan": 87,
+      "keptAfterJudge": 62,
+      "dropped": 25
+    },
+    "FitnessFAQs#w13 r2": {
+      "rawDetectedInSpan": 88,
+      "keptAfterJudge": 59,
+      "dropped": 29
+    },
+    "FitnessFAQs#w13 r3": {
+      "rawDetectedInSpan": 87,
+      "keptAfterJudge": 57,
+      "dropped": 30
+    },
+    "FitnessFAQs#w15 r0": {
+      "rawDetectedInSpan": 103,
+      "keptAfterJudge": 48,
+      "dropped": 55
+    },
+    "TappBrothers#w11 r0": {
+      "rawDetectedInSpan": 140,
+      "keptAfterJudge": 118,
+      "dropped": 22
+    },
+    "Calisthenicmovement#w3 r0": {
+      "rawDetectedInSpan": 49,
+      "keptAfterJudge": 31,
+      "dropped": 18
+    },
+    "Calisthenicmovement#w3 r1": {
+      "rawDetectedInSpan": 75,
+      "keptAfterJudge": 32,
+      "dropped": 43
+    },
+    "Calisthenicmovement#w3 r2": {
+      "rawDetectedInSpan": 94,
+      "keptAfterJudge": 30,
+      "dropped": 64
+    },
+    "Calisthenicmovement#w3 r3": {
+      "rawDetectedInSpan": 124,
+      "keptAfterJudge": 42,
+      "dropped": 82
+    },
+    "Calisthenicmovement#w5 r1": {
+      "rawDetectedInSpan": 161,
+      "keptAfterJudge": 59,
+      "dropped": 102
+    },
+    "Calisthenicmovement#w5 r2": {
+      "rawDetectedInSpan": 82,
+      "keptAfterJudge": 35,
+      "dropped": 47
+    },
+    "Calisthenicmovement#w5 r3": {
+      "rawDetectedInSpan": 33,
+      "keptAfterJudge": 6,
+      "dropped": 27
+    },
+    "Calisthenicmovement#w5 r5": {
+      "rawDetectedInSpan": 66,
+      "keptAfterJudge": 47,
+      "dropped": 19
+    },
+    "Calisthenicmovement#w5 r6": {
+      "rawDetectedInSpan": 13,
+      "keptAfterJudge": 10,
+      "dropped": 3
+    },
+    "Calisthenicmovement#w5 r7": {
+      "rawDetectedInSpan": 96,
+      "keptAfterJudge": 75,
+      "dropped": 21
+    },
+    "Calisthenicmovement#w5 r8": {
+      "rawDetectedInSpan": 102,
+      "keptAfterJudge": 89,
+      "dropped": 13
+    },
+    "GMB Fitness (Praxis)#w6 r0": {
+      "rawDetectedInSpan": 79,
+      "keptAfterJudge": 21,
+      "dropped": 58
+    },
+    "GMB Fitness (Praxis)#w8 r0": {
+      "rawDetectedInSpan": 222,
+      "keptAfterJudge": 154,
+      "dropped": 68
+    },
+    "K boges#w0 r0": {
+      "rawDetectedInSpan": 90,
+      "keptAfterJudge": 38,
+      "dropped": 52
+    },
+    "K boges#w0 r1": {
+      "rawDetectedInSpan": 101,
+      "keptAfterJudge": 52,
+      "dropped": 49
+    },
+    "K boges#w0 r2": {
+      "rawDetectedInSpan": 95,
+      "keptAfterJudge": 44,
+      "dropped": 51
+    },
+    "K boges#w0 r3": {
+      "rawDetectedInSpan": 99,
+      "keptAfterJudge": 46,
+      "dropped": 53
+    },
+    "K boges#w1 r0": {
+      "rawDetectedInSpan": 103,
+      "keptAfterJudge": 47,
+      "dropped": 56
+    },
+    "K boges#w1 r1": {
+      "rawDetectedInSpan": 98,
+      "keptAfterJudge": 49,
+      "dropped": 49
+    },
+    "K boges#w1 r2": {
+      "rawDetectedInSpan": 97,
+      "keptAfterJudge": 50,
+      "dropped": 47
+    },
+    "K boges#w1 r3": {
+      "rawDetectedInSpan": 102,
+      "keptAfterJudge": 51,
+      "dropped": 51
+    },
+    "K boges#w1 r4": {
+      "rawDetectedInSpan": 104,
+      "keptAfterJudge": 49,
+      "dropped": 55
+    },
+    "K boges#w2 r0": {
+      "rawDetectedInSpan": 102,
+      "keptAfterJudge": 47,
+      "dropped": 55
+    },
+    "K boges#w2 r1": {
+      "rawDetectedInSpan": 105,
+      "keptAfterJudge": 52,
+      "dropped": 53
+    },
+    "K boges#w2 r2": {
+      "rawDetectedInSpan": 108,
+      "keptAfterJudge": 56,
+      "dropped": 52
+    },
+    "K boges#w2 r3": {
+      "rawDetectedInSpan": 106,
+      "keptAfterJudge": 51,
+      "dropped": 55
+    },
+    "K boges#w2 r4": {
+      "rawDetectedInSpan": 112,
+      "keptAfterJudge": 55,
+      "dropped": 57
+    },
+    "K boges#w4 r0": {
+      "rawDetectedInSpan": 109,
+      "keptAfterJudge": 53,
+      "dropped": 56
+    },
+    "K boges#w4 r1": {
+      "rawDetectedInSpan": 109,
+      "keptAfterJudge": 53,
+      "dropped": 56
+    },
+    "K boges#w5 r0": {
+      "rawDetectedInSpan": 98,
+      "keptAfterJudge": 47,
+      "dropped": 51
+    },
+    "K boges#w5 r1": {
+      "rawDetectedInSpan": 100,
+      "keptAfterJudge": 45,
+      "dropped": 55
+    },
+    "K boges#w5 r2": {
+      "rawDetectedInSpan": 106,
+      "keptAfterJudge": 53,
+      "dropped": 53
+    },
+    "K boges#w5 r3": {
+      "rawDetectedInSpan": 108,
+      "keptAfterJudge": 51,
+      "dropped": 57
+    },
+    "K boges#w5 r4": {
+      "rawDetectedInSpan": 107,
+      "keptAfterJudge": 52,
+      "dropped": 55
+    },
+    "K boges#w5 r5": {
+      "rawDetectedInSpan": 102,
+      "keptAfterJudge": 49,
+      "dropped": 53
+    },
+    "K boges#w5 r6": {
+      "rawDetectedInSpan": 105,
+      "keptAfterJudge": 51,
+      "dropped": 54
+    },
+    "K boges#w5 r7": {
+      "rawDetectedInSpan": 115,
+      "keptAfterJudge": 59,
+      "dropped": 56
+    },
+    "K boges#w5 r8": {
+      "rawDetectedInSpan": 112,
+      "keptAfterJudge": 54,
+      "dropped": 58
+    },
+    "K boges#w15 r0": {
+      "rawDetectedInSpan": 80,
+      "keptAfterJudge": 25,
+      "dropped": 55
+    },
+    "K boges#w15 r1": {
+      "rawDetectedInSpan": 96,
+      "keptAfterJudge": 41,
+      "dropped": 55
+    },
+    "K boges#w18 r0": {
+      "rawDetectedInSpan": 99,
+      "keptAfterJudge": 41,
+      "dropped": 58
+    },
+    "K boges#w20 r0": {
+      "rawDetectedInSpan": 104,
+      "keptAfterJudge": 74,
+      "dropped": 30
+    },
+    "Tom Merrick#w23 r1": {
+      "rawDetectedInSpan": 64,
+      "keptAfterJudge": 16,
+      "dropped": 48
+    }
+  },
+  "$preFilterFrameDropsNote": "G-081: bu tool, Fixture'ı kurmadan ÖNCE kendi `judge()` süzgecini uygular; `takes[].gateDroppedFrames` yalnız prepareTake'in KENDİ elemesini sayar, bu ön-süzgeci GÖRMEZ. Ölçüldü: `Calisthenicmovement#w5 r3` 6 kare / 1,07 sn görünüyordu ama aralıkta ~32 ham kare vardı — 26 kare RAPORSUZ düşmüştü. Bu alan o boşluğu kapatır (düşüş olan take'ler adıyla listelenir).",
+  "$evidenceThicknessNote": "M-F-155 ayrıştırması: `alignedDistinctShare` İKİ mekanizmayı aynı sayıya indirir — (a) kısa-take/uzun-medoid (tavan = min(1, takeFrames/medoidFrames)) ve (b) gerilmiş-take (hizalama az sayıda konuma park ediyor). ÖLÇÜLDÜ: tavana-göre doluluk (share/tavan) medyanı 1,000 · 35/36 take ≥0,90 · 0/36 <0,70 → incelik neredeyse TAMAMEN (a) UZUNLUK-ORANI eseri, gerilme DEĞİL. Yani düşük share'li take'lerin her örneği gerçek, sadece medoid'e göre AZ. medoidFrames=55, tavan medyanı 0,891.",
   "$thinEvidenceInstructors": [
     "Antranik Kizirian (1 tekrar)",
     "Kayla Itsines (1 tekrar)",
@@ -3387,6 +3731,6 @@
     "Cara Kuykens": "3 derin tekrar üretti ama M-F-47 anlaşma-kapısında (14° küme toleransı) aykırı sayıldı, excludedOutlierIds içinde",
     "GMB Fitness (Praxis)": "2 derin tekrar üretti ama M-F-47 anlaşma-kapısında (14° küme toleransı) aykırı sayıldı, excludedOutlierIds içinde"
   },
-  "$windowRule": "rep_fsm@45beebf partial_rom=110.0",
+  "$windowRule": "rep_fsm@cb400cb partial_rom=110.0",
   "$supersedes": "harvested_provisional (9 eğitmen/44 take, build_reference.dart, kanonik-CLI-öncesi) — G-063/G-064 (docs/gates/), koordinatör hükmü M-F-90."
 }

@@ -85,6 +85,10 @@ void main(List<String> args) {
   final String windowRule = 'rep_fsm@$repoSha partial_rom=$shallowThreshold';
 
   final Map<String, Fixture> eligible = <String, Fixture>{};
+  /// Take başına, bu tool'un `judge()` ön-süzgecinin düşürdüğü kare sayısı.
+  /// prepareTake bunu GÖREMEZ (G-081) — raporsuz düşüş bırakılmaz.
+  final Map<String, Map<String, dynamic>> preFilterDrops =
+      <String, Map<String, dynamic>>{};
   int windowCount = 0;
   int totalReps = 0;
   int shallowReps = 0;
@@ -108,6 +112,12 @@ void main(List<String> args) {
     final int fps = ((meta['fps'] as num?) ?? 30).round();
 
     const int maxGapUs = 2000000;
+    // G-081: `judge()` ön-süzgecinden GEÇMEYEN kareler de sayılmalı.
+    // prepareTake'in `gateDroppedFrames` sayacı yalnız KENDİ elemesini görür;
+    // bu tool'un ön-süzgeci onun görüş alanına hiç girmiyordu ve artefakt
+    // "0 kare düştü" diyordu. Ölçüldü: 6-karelik take aslında ~32 ham kare
+    // içeren 1,07 sn'lik bir pencereydi — 26 kare RAPORSUZ düşüyordu.
+    final List<PoseFrame> allDetected = <PoseFrame>[];
     final List<List<PoseFrame>> windows = <List<PoseFrame>>[];
     List<PoseFrame> cur = <PoseFrame>[];
     int lastUs = -1 << 40;
@@ -128,6 +138,7 @@ void main(List<String> args) {
                 ))
             .toList(),
       );
+      allDetected.add(pf);
       if (!judge(pf)) continue;
       if (pf.tUs - lastUs > maxGapUs && cur.isNotEmpty) {
         windows.add(cur);
@@ -157,6 +168,17 @@ void main(List<String> args) {
             .toList(growable: false);
         if (repFrames.length < 4) continue; // hizalanacak bir şey yok
         final String id = '$channel#w$wIdx r$rIdx';
+        final int rawInSpan = allDetected
+            .where((PoseFrame pf) =>
+                pf.tUs >= r.startUs && pf.tUs <= r.endUs)
+            .length;
+        if (rawInSpan > repFrames.length) {
+          preFilterDrops[id] = <String, dynamic>{
+            'rawDetectedInSpan': rawInSpan,
+            'keptAfterJudge': repFrames.length,
+            'dropped': rawInSpan - repFrames.length,
+          };
+        }
         eligible[id] = Fixture(
           app: 'gravita',
           technique: movementId,
@@ -328,6 +350,21 @@ void main(List<String> args) {
         'POZİTİF). Taraf-bağlı hüküm bu referanstan çıkarılamaz (M-F-46 '
         'kural 7). Ürün etkisi yok: kurallar ADR-003/G-007 gereği zaten '
         'taraf-agnostik.',
+    r'$preFilterFrameDrops': preFilterDrops,
+    r'$preFilterFrameDropsNote': 'G-081: bu tool, Fixture\'ı kurmadan ÖNCE '
+        'kendi `judge()` süzgecini uygular; `takes[].gateDroppedFrames` yalnız '
+        'prepareTake\'in KENDİ elemesini sayar, bu ön-süzgeci GÖRMEZ. '
+        'Ölçüldü: `Calisthenicmovement#w5 r3` 6 kare / 1,07 sn görünüyordu ama '
+        'aralıkta ~32 ham kare vardı — 26 kare RAPORSUZ düşmüştü. Bu alan o '
+        'boşluğu kapatır (düşüş olan take\'ler adıyla listelenir).',
+    r'$evidenceThicknessNote': 'M-F-155 ayrıştırması: `alignedDistinctShare` '
+        'İKİ mekanizmayı aynı sayıya indirir — (a) kısa-take/uzun-medoid '
+        '(tavan = min(1, takeFrames/medoidFrames)) ve (b) gerilmiş-take '
+        '(hizalama az sayıda konuma park ediyor). ÖLÇÜLDÜ: tavana-göre '
+        'doluluk (share/tavan) medyanı 1,000 · 35/36 take ≥0,90 · 0/36 <0,70 '
+        '→ incelik neredeyse TAMAMEN (a) UZUNLUK-ORANI eseri, gerilme DEĞİL. '
+        'Yani düşük share\'li take\'lerin her örneği gerçek, sadece medoid\'e '
+        'göre AZ. medoidFrames=55, tavan medyanı 0,891.',
     r'$thinEvidenceInstructors': thinEvidenceInstructors,
     r'$thinEvidenceNote': 'Bu eğitmenler yalnız 1-2 derin tekrarla katkıda '
         'bulunuyor (Choreia'
