@@ -12,6 +12,7 @@ Video kimlikleri UYDURULMAZ: `yt-dlp` aramasıyla çözülür ve provenance
 (M-F-26) — burada üretilen yalnız kuyruk + provenance özetidir.
 """
 import json
+import math
 import pathlib
 import subprocess
 import sys
@@ -35,6 +36,16 @@ POOLS = [
     "Squat University",
     "Jeff Nippard",
     "Minus The Gym",
+    # JENERİK aramalar: isimli havuz kapalı bir kümedir ve 10 üyesi ÖLÇÜLDÜ —
+    # aynı havuzu tekrar taramak yeni eğitmen getirmez, yalnız aynı 5'i geri
+    # verir (G-045'in ikinci yüzü). Ön-eleme artık ucuz ve indirmeden çalıştığı
+    # için havuzu geniş tutup elemeyi triyaja bırakmak doğru sıra.
+    "",
+    "physical therapist",
+    "strength coach",
+    "beginner",
+    "form check",
+    "how to",
 ]
 
 # Hareket → arama çekirdeği + ALAKA süzgeci.
@@ -128,7 +139,21 @@ def relevant(title, spec):
     return True, ""
 
 
-def build(movements=None, target_instructors=5):
+#: Kimlik kapısı SONRASI ≥3 temiz tekrar veren eğitmen oranı — ÖLÇÜLDÜ.
+#: push_up: duruş bandını geçen 5 eğitmenin 2'si nitelendi (G-043 sonrası).
+#: %95 Wilson aralığı 0,12-0,77 (n=5) — bu bir TAHMİN değil, kademe boyutu.
+#: Ölçülmemiş hareket muhafazakâr varsayılanı alır.
+YIELD_RATE = {"push_up": 0.40}
+DEFAULT_YIELD_RATE = 0.35
+
+
+def build(movements=None, target_qualified=5):
+    """M-F-32'nin '~5 bağımsız eğitmen' hedefi NİTELENEN eğitmen sayısıdır.
+
+    Bu hedefi KEŞİF aşamasında uygulamak ölçülmüş bir hataydı (G-045): 5 eğitmen
+    bulup durduk, kimlik kapısından yalnız 2'si geçti ve M-F-38 kapalı kaldı.
+    Keşif hedefi, ölçülen nitelenme oranıyla ŞİŞİRİLİR.
+    """
     movements = movements or MOVEMENTS
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     result = {
@@ -144,7 +169,11 @@ def build(movements=None, target_instructors=5):
 
     for mid, spec in movements.items():
         core = spec["core"]
+        rate = YIELD_RATE.get(mid, DEFAULT_YIELD_RATE)
+        target_instructors = math.ceil(target_qualified / rate)
         print(f"\n=== {mid} ===")
+        print(f"  hedef: {target_qualified} NİTELENEN × 1/{rate:.2f} "
+              f"= {target_instructors} aday eğitmen aranacak")
         by_channel = {}
         rejected = []
         for pool in POOLS:
@@ -171,13 +200,19 @@ def build(movements=None, target_instructors=5):
             "searchCore": core,
             "rejectedForRelevance": rejected,
             "instructorCount": len(picked),
-            "meetsTarget": len(picked) >= 3,   # triyaj sonrası ≥3 kalmalı
+            "targetQualified": target_qualified,
+            "assumedYieldRate": rate,
+            "discoveryTarget": target_instructors,
+            # "Yeter" hükmü ancak ÇIKARIMDAN sonra verilebilir; keşif sayısı
+            # yeterlilik iddiası TAŞIMAZ (G-045).
+            "meetsTarget": None,
             "candidates": picked,
         }
         for r in picked:
             print(f"  {r['channel'][:30]:<32} {r['duration_s']:>5}s  {r['title'][:52]}")
-        flag = "✓" if len(picked) >= target_instructors else ("~" if len(picked) >= 3 else "✗")
-        print(f"  → {len(picked)} bağımsız eğitmen {flag}")
+        flag = "✓" if len(picked) >= target_instructors else "~"
+        print(f"  → {len(picked)}/{target_instructors} bağımsız eğitmen {flag}  "
+              f"(beklenen nitelenen ≈ {len(picked) * rate:.1f})")
 
     return result
 
@@ -189,8 +224,16 @@ if __name__ == "__main__":
 
     out_dir = ROOT / "content" / "harvest"
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "queue.gravita.json").write_text(
-        json.dumps(data, indent=2, ensure_ascii=False) + "\n")
+    queue_path = out_dir / "queue.gravita.json"
+    # Kısmi koşum kuyruğun TAMAMINI ezmemeli (G-046): `harvest_queue.py push_up`
+    # çağrısı bodyweight_squat'ı sessizce siliyordu. Yalnız KOŞULAN hareketler
+    # güncellenir, geri kalanı korunur.
+    if queue_path.exists():
+        prev = json.loads(queue_path.read_text())
+        merged = dict(prev.get("movements", {}))
+        merged.update(data["movements"])
+        data["movements"] = merged
+    queue_path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
 
     # Rig'in beklediği düz URL listesi — ham kütüphaneye yazılır, repoya DEĞİL.
     lib = pathlib.Path.home() / "motion-harvest" / "gravita"
@@ -199,8 +242,13 @@ if __name__ == "__main__":
     (lib / "queue.txt").write_text("\n".join(urls) + "\n")
 
     total = sum(m["instructorCount"] for m in data["movements"].values())
-    short = [k for k, m in data["movements"].items() if not m["meetsTarget"]]
+    # `meetsTarget` artık None (yeterlilik ancak ÇIKARIMDAN sonra bilinir) —
+    # sade bir `not m[...]` her hareketi "eksik" ilan ediyordu. Keşif aşamasının
+    # söyleyebileceği tek şey, keşif hedefinin tutup tutmadığıdır.
+    short = [k for k, m in data["movements"].items()
+             if m.get("discoveryTarget") is not None
+             and m["instructorCount"] < m["discoveryTarget"]]
     print(f"\n{total} aday / {len(data['movements'])} hareket")
     print(f"kuyruk: {lib/'queue.txt'} · provenance: {out_dir/'queue.gravita.json'}")
     if short:
-        print(f"⚠️  ≥3 eğitmen bulunamayan: {short} — ek tarama gerek")
+        print(f"⚠️  keşif hedefine ulaşamayan: {short} — ek tarama gerek")

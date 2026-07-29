@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "app": "gravita",
   "rule": "M-F-32: sayım birimi EĞİTMEN; hedef ~5 bağımsız eğitmen/teknik",
-  "discoveredAt": "2026-07-29T01:56:30+00:00",
+  "discoveredAt": "2026-07-29T05:54:05+00:00",
   "tool": "2026.07.04",
   "filters": {
     "min_duration_s": 90,
@@ -13,8 +13,18 @@
       "searchCore": "push up technique tutorial",
       "rejectedForRelevance": [
         {
+          "title": "I Cut My Daily Mobility Routine by 80%",
+          "channel": "GMB Fitness (Praxis)",
+          "reason": "başlıkta yok: ['push']"
+        },
+        {
           "title": "Handstand Push-Up Tutorial",
           "channel": "GMB Fitness (Praxis)",
+          "reason": "varyant/başka hareket: 'handstand'"
+        },
+        {
+          "title": "Handstand Push Up Training Tips",
+          "channel": "Tom Merrick",
           "reason": "varyant/başka hareket: 'handstand'"
         },
         {
@@ -28,18 +38,76 @@
           "reason": "varyant/başka hareket: 'handstand'"
         },
         {
-          "title": "Beginner Handstand Push Up Routine (SETS & REPS)",
+          "title": "1 Trick to Master Your One Arm Pushup - Best Bodyweight Exercises #1",
+          "channel": "TappBrothers",
+          "reason": "varyant/başka hareket: 'one arm'"
+        },
+        {
+          "title": "Why EVERYONE Should Do HINDU PUSH UPS",
+          "channel": "TappBrothers",
+          "reason": "varyant/başka hareket: 'hindu'"
+        },
+        {
+          "title": "How to do Proper Pull Ups 💪 with Antranik (Part 1/2)",
+          "channel": "Antranik Kizirian",
+          "reason": "başlıkta yok: ['push']"
+        },
+        {
+          "title": "Daily Training- Do it RIGHT!",
+          "channel": "K boges",
+          "reason": "başlıkta yok: ['push']"
+        },
+        {
+          "title": "The Simplest Exercise For A  Sculpted Chest, Shoulders, and Triceps",
+          "channel": "K boges",
+          "reason": "başlıkta yok: ['push']"
+        },
+        {
+          "title": "HANDSTAND PUSH UP TUTORIAL | Starting Calisthenics",
           "channel": "Tom Merrick",
           "reason": "varyant/başka hareket: 'handstand'"
         },
         {
-          "title": "1 Trick to Master Your One Arm Pushup - Best Bodyweight Exercises #1",
-          "channel": "TappBrothers",
-          "reason": "varyant/başka hareket: 'one arm'"
+          "title": "BEST Way to Master Handstand Push Ups!",
+          "channel": "Tom Merrick",
+          "reason": "varyant/başka hareket: 'handstand'"
+        },
+        {
+          "title": "Beginner Planche Routine (SETS & REPS)",
+          "channel": "Tom Merrick",
+          "reason": "varyant/başka hareket: 'planche'"
+        },
+        {
+          "title": "Build A STRONG & Muscular Back With Pull Ups (TOP SECRET METHOD)",
+          "channel": "Squat University",
+          "reason": "başlıkta yok: ['push']"
+        },
+        {
+          "title": "Squat Shoulder Mobility (FIX YOUR RACK POSITION)",
+          "channel": "Squat University",
+          "reason": "başlıkta yok: ['push']"
+        },
+        {
+          "title": "How To Do Dips For A Bigger Chest and Shoulders (Fix Mistakes!)",
+          "channel": "Jeff Nippard",
+          "reason": "başlıkta yok: ['push']"
+        },
+        {
+          "title": "Archer Push Ups Tutorial | Progressions From Basic Push Ups",
+          "channel": "Minus The Gym",
+          "reason": "varyant/başka hareket: 'archer'"
+        },
+        {
+          "title": "Dive Bomber Push Ups & Hindu Push Ups (Full Tutorial)",
+          "channel": "Minus The Gym",
+          "reason": "varyant/başka hareket: 'hindu'"
         }
       ],
-      "instructorCount": 5,
-      "meetsTarget": true,
+      "instructorCount": 13,
+      "targetQualified": 5,
+      "assumedYieldRate": 0.4,
+      "discoveryTarget": 13,
+      "meetsTarget": null,
       "candidates": [
         {
           "id": "kKHxpbBGiuM",
@@ -80,6 +148,70 @@
           "title": "The PERFECT PUSH UP  In 3 Minutes!!",
           "query": "Tapp Brothers push up technique tutorial",
           "url": "https://www.youtube.com/watch?v=v3sJMaB7q1E"
+        },
+        {
+          "id": "Ua7B2q21UHg",
+          "channel": "Antranik Kizirian",
+          "duration_s": 114,
+          "title": "Wrist Pain During Push Ups",
+          "query": "Antranik push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=Ua7B2q21UHg"
+        },
+        {
+          "id": "-w6r23P-fy8",
+          "channel": "Calisthenicmovement",
+          "duration_s": 150,
+          "title": "How to GROW (And Feel) Your Chest With Push Ups!",
+          "query": "Calisthenic Movement push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=-w6r23P-fy8"
+        },
+        {
+          "id": "Ggb2rXUL5kg",
+          "channel": "K boges",
+          "duration_s": 142,
+          "title": "Push Ups For Muscle Growth",
+          "query": "Kboges push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=Ggb2rXUL5kg"
+        },
+        {
+          "id": "Yd1grZkAark",
+          "channel": "Squat University",
+          "duration_s": 360,
+          "title": "Your Push-Ups Are WRONG (Here's Why)",
+          "query": "Squat University push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=Yd1grZkAark"
+        },
+        {
+          "id": "5aRHy5ZPjwk",
+          "channel": "Renaissance Periodization",
+          "duration_s": 310,
+          "title": "Maximize Pushups FOR CHEST Growth | Targeting The Muscle",
+          "query": "Jeff Nippard push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=5aRHy5ZPjwk"
+        },
+        {
+          "id": "MO10KOoQx5E",
+          "channel": "Jeremy Ethier",
+          "duration_s": 589,
+          "title": "The Perfect Push-Up To Build Muscle (AVOID THESE MISTAKES!)",
+          "query": "Jeff Nippard push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=MO10KOoQx5E"
+        },
+        {
+          "id": "yCL6iSdAeIA",
+          "channel": "Minus The Gym",
+          "duration_s": 280,
+          "title": "Stop Making These 3 Push Up Mistakes (Do THIS Instead)",
+          "query": "Minus The Gym push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=yCL6iSdAeIA"
+        },
+        {
+          "id": "I9fsqKE5XHo",
+          "channel": "Upright Health",
+          "duration_s": 411,
+          "title": "Do Push-Ups with Proper Form!",
+          "query": " push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=I9fsqKE5XHo"
         }
       ]
     },

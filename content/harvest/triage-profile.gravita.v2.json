@@ -1,0 +1,216 @@
+{
+  "_doc": "Gravita triyaj profili v2 (G-043). v1'e ek: DURUŞ KAPISI. Görünürlük sondaları kişinin kadrajda olduğunu doğrular, ARANAN HAREKETİ yaptığını doğrulamaz — kimlik kapısı olmadan çıkarılan 85 push-up 'tekrarının' 65'i (%76) ayakta konuşan eğitmenlerden geldi. Gravita triyaj profili (M-F-38 / G-030). Rig varsayılanları JabLab-benzeri üst-gövde kadrajı varsayıyor; Gravita omuz-kalça-ayak hattı ve diz açısı ölçtüğü için ALT GÖVDE kadrajda olmak zorunda. Ayrıca asıl kapı ORAN değil KESİNTİSİZ PENCERE: fixture temiz bir TEKRAR ister, temiz bir VİDEO değil.",
+  "_evidence": "G3 hasat pilotu (docs/G3-HASAT-PILOTU-RAPORU.md): eğitmen tutorial'larında tam-gövde görünürlüğü %1-15; geçen video 5,0 sn kesintisiz pencere taşırken reddedilen biri 6,0 sn taşıyordu — oran, işe yarar içerikle korele değil.",
+  "thresholds": {
+    "min_duration_s": 90.0,
+    "require_landscape": true,
+    "min_sharpness": 25.0,
+    "min_full_body_ratio": 0.03,
+    "min_usable_window_s": 5.0,
+    "window_probe_step_s": 1.0,
+    "min_upper_body_ratio": 0.0,
+    "min_posture_ratio": 0.25
+  },
+  "_thresholdNotes": {
+    "min_sharpness": "Varsayılan 40, 1080p bir FitnessFAQs tutorial'ını 37,6 ile reddetti; başka bir klip 471,3 aldı. Bu dağılımda mutlak eşik kırılgan — içerik-göreli ölçüt ayrı kalem (koordinatör kuyruğu). O gelene kadar profil düzeyinde 25.",
+    "min_full_body_ratio": "0,03 KAPI DEĞİL, taban süzgeci: hiç tam-gövde karesi olmayan videoyu ucuza eler. Gerçek karar min_usable_window_s'de.",
+    "min_usable_window_s": "5,0 sn ≈ 2 tekrar (şınav ~2-3 sn/tekrar). Verim pilotu bu sayıyı doğrulayacak.",
+    "min_upper_body_ratio": "0,0 = KAPALI. Varsayılan 0,6 üst-gövde kadrajı arıyor ve konuşan-kafa karelerinde de geçiyor; Gravita'nın ölçtüğü büyüklükler (hat sapması, diz açısı) ALT gövde ister. Bu kapı bizim ihtiyacımızla korele değildi (G-030) — yerine harekete-özel `lower_body_ids` + kesintisiz pencere.",
+    "min_posture_ratio": "Öğretim videosunda anlatım bölümleri normaldir; istenen 'video boyunca hareket' değil, hareketin kayda değer bir kısmında GERÇEKTEN yapılıyor olması. 0.25 PROVISIONAL — ilk kademe koşumundan sonra ölçülen dağılıma göre düzeltilecek; kalan aday sayısını en çoklamak için oynatılmayacak."
+  },
+  "perMovement": {
+    "push_up": {
+      "lower_body_ids": [
+        23,
+        24,
+        27,
+        28
+      ],
+      "trunk_angle_band_deg": [
+        60,
+        90
+      ]
+    },
+    "plank": {
+      "lower_body_ids": [
+        23,
+        24,
+        27,
+        28
+      ],
+      "trunk_angle_band_deg": [
+        60,
+        90
+      ]
+    },
+    "pull_up": {
+      "lower_body_ids": [
+        23,
+        24,
+        27,
+        28
+      ]
+    },
+    "inverted_row": {
+      "lower_body_ids": [
+        23,
+        24,
+        27,
+        28
+      ]
+    },
+    "bodyweight_squat": {
+      "lower_body_ids": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    "lunge": {
+      "lower_body_ids": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    "wall_sit": {
+      "lower_body_ids": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    "glute_bridge": {
+      "lower_body_ids": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    "step_up": {
+      "lower_body_ids": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    "calf_raise": {
+      "lower_body_ids": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ]
+    },
+    "dip": {
+      "lower_body_ids": [
+        23,
+        24
+      ]
+    },
+    "hanging_leg_raise": {
+      "lower_body_ids": [
+        23,
+        24,
+        25,
+        26
+      ]
+    },
+    "toes_to_bar": {
+      "lower_body_ids": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    "burpee": {
+      "lower_body_ids": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    "mountain_climber": {
+      "lower_body_ids": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    "dead_bug": {
+      "lower_body_ids": [
+        23,
+        24,
+        25,
+        26
+      ]
+    },
+    "bird_dog": {
+      "lower_body_ids": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    "hollow_hold": {
+      "lower_body_ids": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    "side_plank": {
+      "lower_body_ids": [
+        23,
+        24,
+        27,
+        28
+      ]
+    },
+    "superman_hold": {
+      "lower_body_ids": [
+        23,
+        24,
+        25,
+        26
+      ]
+    }
+  },
+  "_perMovementRationale": "Kadrajda aranan landmark HAREKETE göre değişir (L-080). Dip'te ölçtüğümüz dirsek açısı ve gövde eğimi ayak bileği görmeden hesaplanır — sabit 'tam gövde' şartı o adayları haksız yere reddeder. Calf raise'in tersi: ölçüm ayak bileği/parmak ucundadır, kalça şart değildir. Temas metriklerinde G-026: zemin, ayak bileğinden değil parmak ucu/topuktan kestirilir — bu yüzden calf_raise kümesinde 29-32 var.",
+  "_rigRequirement": "motion-core rig `feat/rig-posture-gate` (1c30556) veya sonrası ŞART. ESKİ RİG BU DOSYAYI OKUYAMAZ: perMovement girdileri artık nesne; eski yükleyici `tuple(dict)` yapıp anahtar adlarını landmark indeksi sanar. Rig main'e inene kadar v1 kullanılmaya devam eder — bu yüzden v1 SİLİNMEDİ, v2 yanına kondu.",
+  "_bandNotes": "Bant = gövdenin DÜŞEYDEN sapması (0=dik, 90=yatay); birim motorun torso_angle_from_vertical ön koşuluyla AYNI.\n⚠️ BANT YALNIZ YATAY DURUŞLU HAREKETLERDE AYIRT EDİCİDİR. Şınav/plank ayakta konuşmadan gövde ekseniyle ayrılır. Barfiks, squat, curl gibi DİK hareketlerde ayakta konuşmak da dik duruştur — [0,45] yazmak onları elemez ama ELENMİŞ GİBİ GÖSTERİR; bu, kapısızlıktan KÖTÜDÜR. O hareketler için kimlik sinyali başkadır (barfiks: eller baş üstünde + ayaklar yerden kesik; squat: diz fleksiyonu + kalça alçalması) ve HENÜZ ÖLÇÜLMEDİ — G-045.\nBandı olmayan hareket = duruş kapısı o harekette KAPALI (bilinçli)."
+}
