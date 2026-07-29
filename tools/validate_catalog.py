@@ -122,6 +122,38 @@ def check(path):
                "calibrationGate'in karşılığı hasatta ölçümdür); türetilmeden "
                "çıkarılan tekrarlar referansa giremez")
 
+    # V16: ROM hata eşiği SAYIM eşiğiyle ulaşılabilir olmalı.
+    #
+    # Sayım eşiği hatayı KAPILAR: bir tekrar sayılmak için dibe inmek zorundaysa,
+    # "yeterince inmedin" hatası o tekrar için hiçbir zaman doğru olamaz. Şema
+    # bunu göremez (iki alan da geçerli), replay gösterir — 5 harekette birden
+    # aynı çelişki vardı (G-054) ve sığ çalışan kullanıcı sıfır tekrar + sıfır
+    # geri bildirim alıyordu: sessiz-hiçlik, en kötü sonuç.
+    #
+    # Doğru tasarım: SAYIM eşiği cömert dış sınır, HATA eşiği onun içindeki
+    # kalite çizgisi.
+    eng = m.get("engine") or {}
+    if eng.get("type") == "repFsm":
+        amin = amax = None
+        for v in (eng.get("phases") or {}).values():
+            if isinstance(v, dict):
+                if "angleMin" in v:
+                    amin = v["angleMin"]
+                if "angleMax" in v:
+                    amax = v["angleMax"]
+        for e in m.get("formErrors") or []:
+            d = e.get("detect") or {}
+            mt, op, val = d.get("metric"), d.get("op"), d.get("value")
+            if mt == "rom_bottom_angle" and op in (">", ">=") and amax is not None \
+                    and val >= amax:
+                err(f, f"'{e['id']}' ULAŞILAMAZ: tekrar sayılmak için dip ≤{amax}° "
+                       f"olmalı, hata ise >{val}° istiyor — hiçbir SAYILAN tekrar "
+                       f"bu hatayı tetikleyemez (V16/G-054)")
+            if mt == "rom_top_angle" and op in ("<", "<=") and amin is not None \
+                    and val <= amin:
+                err(f, f"'{e['id']}' ULAŞILAMAZ: tekrar sayılmak için tepe ≥{amin}° "
+                       f"olmalı, hata ise <{val}° istiyor (V16/G-054)")
+
     if not isinstance(m.get("passiveExecutionPossible"), bool):           # V14
         err(f, "passiveExecutionPossible BEYAN edilmemiş — `unknown` kaynak "
                "muafiyeti (M-F-45) beyansız kullanılamaz; fail-closed kural gereği "

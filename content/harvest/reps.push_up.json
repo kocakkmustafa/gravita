@@ -2,12 +2,12 @@
   "movement": "push_up",
   "rule": "M-F-38: ≥3 EĞİTMEN × ≥3 temiz tekrar olmadan varyans-türetim YAPILMAZ. Sayım birimi eğitmendir (M-F-32); aynı eğitmenin videoları havuzlanır, ona ikinci OY vermez.",
   "sufficiencyGate": "open",
-  "qualifiedInstructors": 3,
-  "instructorCount": 11,
-  "videoCount": 21,
+  "qualifiedInstructors": 9,
+  "instructorCount": 15,
+  "videoCount": 27,
   "instructors": {
     "FitnessFAQs": {
-      "reps": 15,
+      "reps": 18,
       "videos": [
         "-WXc4E-zcao.full.json",
         "GxW9MAMQSv0.full.json",
@@ -21,19 +21,22 @@
         61.1,
         70.6,
         97.3,
+        101.5,
         34.1,
         41.1,
         54.1,
         65.0,
         71.0,
         95.9,
+        103.1,
+        115.0,
         169.1,
         176.8
       ],
       "qualifies": true
     },
     "Calisthenicmovement": {
-      "reps": 11,
+      "reps": 18,
       "videos": [
         "-w6r23P-fy8.full.json",
         "IODxDxX7oi4.full.json",
@@ -50,69 +53,145 @@
         91.3,
         99.8,
         100.0,
+        103.9,
+        105.5,
+        112.0,
+        112.1,
+        112.8,
+        113.1,
+        113.7,
         168.9
       ],
       "qualifies": true
     },
     "Antranik Kizirian": {
-      "reps": 0,
+      "reps": 1,
       "videos": [
         "4dF1DOWzf20.full.json",
         "Ua7B2q21UHg.full.json"
       ],
-      "extremeAnglesDeg": [],
+      "extremeAnglesDeg": [
+        103.1
+      ],
       "qualifies": false
     },
     "Renaissance Periodization": {
-      "reps": 3,
+      "reps": 6,
       "videos": [
         "5aRHy5ZPjwk.full.json"
       ],
       "extremeAnglesDeg": [
         68.2,
         73.9,
-        80.4
+        80.4,
+        106.3,
+        163.3,
+        166.5
       ],
       "qualifies": true
     },
     "THENX": {
-      "reps": 1,
+      "reps": 4,
       "videos": [
         "7wblGkVQx3U.full.json",
         "_eKHSsHky5U.full.json",
         "ahJvHMh8494.full.json"
       ],
       "extremeAnglesDeg": [
-        156.8
+        113.5,
+        156.8,
+        102.5,
+        114.9
       ],
-      "qualifies": false
+      "qualifies": true
     },
     "K boges": {
-      "reps": 0,
+      "reps": 31,
       "videos": [
-        "Ggb2rXUL5kg.full.json"
+        "Ggb2rXUL5kg.full.json",
+        "tIbQYnE9Hv8.full.json"
       ],
-      "extremeAnglesDeg": [],
-      "qualifies": false
+      "extremeAnglesDeg": [
+        36.1,
+        72.2,
+        72.3,
+        73.0,
+        73.3,
+        73.3,
+        74.1,
+        75.8,
+        76.0,
+        76.2,
+        76.7,
+        76.8,
+        77.1,
+        77.3,
+        77.8,
+        77.8,
+        77.9,
+        78.3,
+        78.3,
+        78.3,
+        78.7,
+        78.8,
+        78.8,
+        78.9,
+        78.9,
+        79.0,
+        79.4,
+        106.6,
+        107.6,
+        109.2,
+        112.0
+      ],
+      "qualifies": true
     },
     "Upright Health": {
-      "reps": 2,
+      "reps": 5,
       "videos": [
         "I9fsqKE5XHo.full.json"
       ],
       "extremeAnglesDeg": [
         82.1,
-        99.8
+        99.8,
+        100.3,
+        103.3,
+        155.2
       ],
-      "qualifies": false
+      "qualifies": true
     },
     "Jeremy Ethier": {
-      "reps": 1,
+      "reps": 3,
       "videos": [
-        "MO10KOoQx5E.full.json"
+        "MO10KOoQx5E.full.json",
+        "Z88Rl5bpnmI.full.json"
       ],
       "extremeAnglesDeg": [
-        170.3
+        170.3,
+        166.7,
+        168.5
+      ],
+      "qualifies": true
+    },
+    "Cara Kuykens": {
+      "reps": 3,
+      "videos": [
+        "N4TVYoXKk-8.full.json"
+      ],
+      "extremeAnglesDeg": [
+        31.2,
+        34.1,
+        78.1
+      ],
+      "qualifies": true
+    },
+    "Kayla Itsines": {
+      "reps": 1,
+      "videos": [
+        "P3D2PPMYWjk.full.json"
+      ],
+      "extremeAnglesDeg": [
+        83.1
       ],
       "qualifies": false
     },
@@ -128,8 +207,16 @@
       ],
       "qualifies": false
     },
+    "The Source Chiropractic": {
+      "reps": 0,
+      "videos": [
+        "e22iFFXY8vw.full.json"
+      ],
+      "extremeAnglesDeg": [],
+      "qualifies": false
+    },
     "GMB Fitness (Praxis)": {
-      "reps": 2,
+      "reps": 3,
       "videos": [
         "kKHxpbBGiuM.full.json",
         "kvlZXLPqE0k.full.json",
@@ -137,8 +224,17 @@
       ],
       "extremeAnglesDeg": [
         70.4,
-        87.8
+        87.8,
+        176.8
       ],
+      "qualifies": true
+    },
+    "CrossFit": {
+      "reps": 0,
+      "videos": [
+        "kM47_kIXGAY.full.json"
+      ],
+      "extremeAnglesDeg": [],
       "qualifies": false
     },
     "Tom Merrick": {
@@ -185,23 +281,28 @@
       "channel": "Antranik Kizirian",
       "sourceUrl": "https://www.youtube.com/watch?v=4dF1DOWzf20",
       "license": "standard-youtube",
-      "reps": 0,
+      "reps": 1,
       "windows": 27,
       "longestWindowS": 88.8,
-      "extremeAnglesDeg": []
+      "extremeAnglesDeg": [
+        103.1
+      ]
     },
     {
       "source": "5aRHy5ZPjwk.full.json",
       "channel": "Renaissance Periodization",
       "sourceUrl": "https://www.youtube.com/watch?v=5aRHy5ZPjwk",
       "license": "standard-youtube",
-      "reps": 3,
+      "reps": 6,
       "windows": 10,
       "longestWindowS": 55.3,
       "extremeAnglesDeg": [
         68.2,
         73.9,
-        80.4
+        80.4,
+        106.3,
+        163.3,
+        166.5
       ]
     },
     {
@@ -209,10 +310,12 @@
       "channel": "THENX",
       "sourceUrl": "https://www.youtube.com/watch?v=7wblGkVQx3U",
       "license": "standard-youtube",
-      "reps": 0,
+      "reps": 1,
       "windows": 74,
       "longestWindowS": 20.7,
-      "extremeAnglesDeg": []
+      "extremeAnglesDeg": [
+        113.5
+      ]
     },
     {
       "source": "Ggb2rXUL5kg.full.json",
@@ -229,14 +332,15 @@
       "channel": "FitnessFAQs",
       "sourceUrl": "https://www.youtube.com/watch?v=GxW9MAMQSv0",
       "license": "standard-youtube",
-      "reps": 4,
+      "reps": 5,
       "windows": 12,
       "longestWindowS": 19.1,
       "extremeAnglesDeg": [
         59.0,
         61.1,
         70.6,
-        97.3
+        97.3,
+        101.5
       ]
     },
     {
@@ -244,12 +348,15 @@
       "channel": "Upright Health",
       "sourceUrl": "https://www.youtube.com/watch?v=I9fsqKE5XHo",
       "license": "standard-youtube",
-      "reps": 2,
+      "reps": 5,
       "windows": 21,
       "longestWindowS": 34.6,
       "extremeAnglesDeg": [
         82.1,
-        99.8
+        99.8,
+        100.3,
+        103.3,
+        155.2
       ]
     },
     {
@@ -275,11 +382,37 @@
       ]
     },
     {
+      "source": "N4TVYoXKk-8.full.json",
+      "channel": "Cara Kuykens",
+      "sourceUrl": "https://www.youtube.com/watch?v=N4TVYoXKk-8",
+      "license": "standard-youtube",
+      "reps": 3,
+      "windows": 38,
+      "longestWindowS": 24.5,
+      "extremeAnglesDeg": [
+        31.2,
+        34.1,
+        78.1
+      ]
+    },
+    {
+      "source": "P3D2PPMYWjk.full.json",
+      "channel": "Kayla Itsines",
+      "sourceUrl": "https://www.youtube.com/watch?v=P3D2PPMYWjk",
+      "license": "standard-youtube",
+      "reps": 1,
+      "windows": 4,
+      "longestWindowS": 17.6,
+      "extremeAnglesDeg": [
+        83.1
+      ]
+    },
+    {
       "source": "QqTlnhzku5c.full.json",
       "channel": "FitnessFAQs",
       "sourceUrl": "https://www.youtube.com/watch?v=QqTlnhzku5c",
       "license": "standard-youtube",
-      "reps": 8,
+      "reps": 10,
       "windows": 17,
       "longestWindowS": 27.5,
       "extremeAnglesDeg": [
@@ -289,6 +422,8 @@
         65.0,
         71.0,
         95.9,
+        103.1,
+        115.0,
         169.1,
         176.8
       ]
@@ -302,6 +437,19 @@
       "windows": 6,
       "longestWindowS": 13.1,
       "extremeAnglesDeg": []
+    },
+    {
+      "source": "Z88Rl5bpnmI.full.json",
+      "channel": "Jeremy Ethier",
+      "sourceUrl": "https://www.youtube.com/watch?v=Z88Rl5bpnmI",
+      "license": "standard-youtube",
+      "reps": 2,
+      "windows": 40,
+      "longestWindowS": 31.9,
+      "extremeAnglesDeg": [
+        166.7,
+        168.5
+      ]
     },
     {
       "source": "_eKHSsHky5U.full.json",
@@ -320,10 +468,13 @@
       "channel": "THENX",
       "sourceUrl": "https://www.youtube.com/watch?v=ahJvHMh8494",
       "license": "standard-youtube",
-      "reps": 0,
+      "reps": 2,
       "windows": 56,
       "longestWindowS": 56.7,
-      "extremeAnglesDeg": []
+      "extremeAnglesDeg": [
+        102.5,
+        114.9
+      ]
     },
     {
       "source": "cSPSc59Lq5Q.full.json",
@@ -338,11 +489,21 @@
       ]
     },
     {
+      "source": "e22iFFXY8vw.full.json",
+      "channel": "The Source Chiropractic",
+      "sourceUrl": "https://www.youtube.com/watch?v=e22iFFXY8vw",
+      "license": "standard-youtube",
+      "reps": 0,
+      "windows": 18,
+      "longestWindowS": 52.2,
+      "extremeAnglesDeg": []
+    },
+    {
       "source": "fqGd8jUdr2I.full.json",
       "channel": "Calisthenicmovement",
       "sourceUrl": "https://www.youtube.com/watch?v=fqGd8jUdr2I",
       "license": "standard-youtube",
-      "reps": 10,
+      "reps": 17,
       "windows": 15,
       "longestWindowS": 42.2,
       "extremeAnglesDeg": [
@@ -355,6 +516,13 @@
         91.3,
         99.8,
         100.0,
+        103.9,
+        105.5,
+        112.0,
+        112.1,
+        112.8,
+        113.1,
+        113.7,
         168.9
       ]
     },
@@ -369,16 +537,27 @@
       "extremeAnglesDeg": []
     },
     {
+      "source": "kM47_kIXGAY.full.json",
+      "channel": "CrossFit",
+      "sourceUrl": "https://www.youtube.com/watch?v=kM47_kIXGAY",
+      "license": "standard-youtube",
+      "reps": 0,
+      "windows": 10,
+      "longestWindowS": 30.4,
+      "extremeAnglesDeg": []
+    },
+    {
       "source": "kvlZXLPqE0k.full.json",
       "channel": "GMB Fitness (Praxis)",
       "sourceUrl": "https://www.youtube.com/watch?v=kvlZXLPqE0k",
       "license": "standard-youtube",
-      "reps": 2,
+      "reps": 3,
       "windows": 14,
       "longestWindowS": 64.6,
       "extremeAnglesDeg": [
         70.4,
-        87.8
+        87.8,
+        176.8
       ]
     },
     {
@@ -390,6 +569,48 @@
       "windows": 6,
       "longestWindowS": 25.7,
       "extremeAnglesDeg": []
+    },
+    {
+      "source": "tIbQYnE9Hv8.full.json",
+      "channel": "K boges",
+      "sourceUrl": "https://www.youtube.com/watch?v=tIbQYnE9Hv8",
+      "license": "standard-youtube",
+      "reps": 31,
+      "windows": 26,
+      "longestWindowS": 33.4,
+      "extremeAnglesDeg": [
+        36.1,
+        72.2,
+        72.3,
+        73.0,
+        73.3,
+        73.3,
+        74.1,
+        75.8,
+        76.0,
+        76.2,
+        76.7,
+        76.8,
+        77.1,
+        77.3,
+        77.8,
+        77.8,
+        77.9,
+        78.3,
+        78.3,
+        78.3,
+        78.7,
+        78.8,
+        78.8,
+        78.9,
+        78.9,
+        79.0,
+        79.4,
+        106.6,
+        107.6,
+        109.2,
+        112.0
+      ]
     },
     {
       "source": "v3sJMaB7q1E.full.json",

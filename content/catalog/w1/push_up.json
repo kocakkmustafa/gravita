@@ -38,7 +38,7 @@
         "direction": "decreasing"
       },
       "bottom": {
-        "angleMax": 100
+        "angleMax": 116
       },
       "ascent": {
         "direction": "increasing"
@@ -66,7 +66,8 @@
       ],
       "$thresholdRationale": "Şınavın gövdesi tanımı gereği YATAY (düşeyden 90°). 60° eşiği = yataydan en çok 30° sapma. Kaynak: metrik noiseBand 5°, camera.setup=side45 ve tipik tripod yüksekliği görünür eğim katar. 30°'nin ötesi artık yerde şınav değil, eğimli/ayakta bir duruştur. PROVISIONAL: eşik ölçüme UYDURULMADI (kalan eğitmen sayısını en çoklamak için oynatılmadı); ≥3 eğitmen geçtiğinde M-F-38 varyansından yeniden türetilecek.",
       "status": "derived"
-    }
+    },
+    "$romGateRationale": "V16/G-054: SAYIM eşiği hata eşiğini gürültü bandı kadar AŞAR. Ters sırada (sayım daha katı) sığ tekrar hiç sayılmaz ve 'yeterince inmedin' uyarısı hiç söylenemez — kullanıcı sıfır tekrar + sıfır geri bildirim alır. Sayım = cömert dış sınır, hata = içindeki kalite çizgisi."
   },
   "measurementContract": {
     "measured": [

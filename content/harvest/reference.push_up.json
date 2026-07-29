@@ -6,16 +6,24 @@
     "FitnessFAQs",
     "Calisthenicmovement",
     "Renaissance Periodization",
+    "THENX",
+    "Upright Health",
     "Jeremy Ethier",
+    "Cara Kuykens",
+    "GMB Fitness (Praxis)",
     "K boges"
   ],
-  "takes": 39,
+  "takes": 44,
   "excludedOutlierIds": [
+    "FitnessFAQs#3",
     "FitnessFAQs#8",
     "FitnessFAQs#9",
-    "FitnessFAQs#13",
+    "FitnessFAQs#10",
+    "FitnessFAQs#12",
     "FitnessFAQs#14",
     "FitnessFAQs#15",
+    "FitnessFAQs#16",
+    "FitnessFAQs#17",
     "Calisthenicmovement#1",
     "Calisthenicmovement#2",
     "Calisthenicmovement#3",
@@ -23,18 +31,60 @@
     "Calisthenicmovement#5",
     "Calisthenicmovement#6",
     "Calisthenicmovement#7",
+    "Calisthenicmovement#8",
     "Calisthenicmovement#9",
-    "Calisthenicmovement#10",
     "Calisthenicmovement#11",
-    "Renaissance Periodization#1",
+    "Calisthenicmovement#12",
+    "Calisthenicmovement#13",
+    "Calisthenicmovement#14",
+    "Calisthenicmovement#15",
+    "Calisthenicmovement#16",
+    "Calisthenicmovement#17",
+    "Calisthenicmovement#18",
     "Renaissance Periodization#3",
+    "Renaissance Periodization#6",
+    "THENX#1",
+    "THENX#2",
+    "THENX#3",
+    "THENX#4",
+    "Upright Health#1",
+    "Upright Health#3",
+    "Upright Health#4",
+    "Upright Health#5",
     "Jeremy Ethier#1",
-    "K boges#26",
-    "K boges#27"
+    "Jeremy Ethier#2",
+    "Cara Kuykens#1",
+    "Cara Kuykens#2",
+    "Cara Kuykens#3",
+    "GMB Fitness (Praxis)#1",
+    "GMB Fitness (Praxis)#2",
+    "GMB Fitness (Praxis)#3",
+    "K boges#17",
+    "K boges#27",
+    "K boges#31"
   ],
   "outlierProfile": [
     {
+      "id": "FitnessFAQs#3",
+      "kind": "style",
+      "joints": [
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 14.0,
+      "withinTakeStabilityDeg": 1.8
+    },
+    {
       "id": "FitnessFAQs#8",
+      "kind": "style",
+      "joints": [
+        "left_thigh",
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 14.9,
+      "withinTakeStabilityDeg": 1.2
+    },
+    {
+      "id": "FitnessFAQs#9",
       "kind": "setup",
       "joints": [
         "left_elbow",
@@ -46,11 +96,11 @@
         "left_forearm",
         "trunk_tilt"
       ],
-      "maxDevDeg": 132.4,
-      "withinTakeStabilityDeg": 67.3
+      "maxDevDeg": 130.8,
+      "withinTakeStabilityDeg": 67.9
     },
     {
-      "id": "FitnessFAQs#9",
+      "id": "FitnessFAQs#10",
       "kind": "setup",
       "joints": [
         "left_shoulder",
@@ -66,25 +116,22 @@
         "left_shin",
         "right_shin"
       ],
-      "maxDevDeg": 123.8,
-      "withinTakeStabilityDeg": 22.9
+      "maxDevDeg": 122.5,
+      "withinTakeStabilityDeg": 23.3
     },
     {
-      "id": "FitnessFAQs#13",
+      "id": "FitnessFAQs#12",
       "kind": "style",
       "joints": [
-        "right_shoulder",
-        "left_upper_arm",
-        "right_upper_arm",
-        "left_forearm",
-        "right_forearm"
+        "right_hip",
+        "right_thigh"
       ],
-      "maxDevDeg": 25.8,
-      "withinTakeStabilityDeg": 6.2
+      "maxDevDeg": 16.6,
+      "withinTakeStabilityDeg": 7.7
     },
     {
       "id": "FitnessFAQs#14",
-      "kind": "style",
+      "kind": "setup",
       "joints": [
         "right_shoulder",
         "left_upper_arm",
@@ -92,38 +139,90 @@
         "left_forearm",
         "right_forearm"
       ],
-      "maxDevDeg": 25.8,
-      "withinTakeStabilityDeg": 5.4
+      "maxDevDeg": 25.1,
+      "withinTakeStabilityDeg": 15.9
     },
     {
       "id": "FitnessFAQs#15",
       "kind": "style",
       "joints": [
         "right_shoulder",
+        "left_upper_arm",
         "right_upper_arm",
         "left_forearm",
         "right_forearm"
       ],
-      "maxDevDeg": 25.0,
-      "withinTakeStabilityDeg": 8.2
+      "maxDevDeg": 29.4,
+      "withinTakeStabilityDeg": 5.5
+    },
+    {
+      "id": "FitnessFAQs#16",
+      "kind": "style",
+      "joints": [
+        "right_shoulder",
+        "left_upper_arm",
+        "right_upper_arm",
+        "left_forearm",
+        "right_forearm"
+      ],
+      "maxDevDeg": 30.5,
+      "withinTakeStabilityDeg": 7.5
+    },
+    {
+      "id": "FitnessFAQs#17",
+      "kind": "setup",
+      "joints": [
+        "right_shoulder",
+        "left_upper_arm",
+        "right_upper_arm",
+        "left_forearm",
+        "right_forearm",
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 26.4,
+      "withinTakeStabilityDeg": 8.0
     },
     {
       "id": "Calisthenicmovement#1",
       "kind": "setup",
       "joints": [
-        "left_elbow",
+        "left_shoulder",
         "right_shoulder",
         "right_knee",
-        "left_forearm",
+        "right_upper_arm",
         "right_forearm",
         "left_shin",
         "right_shin"
       ],
-      "maxDevDeg": 35.2,
-      "withinTakeStabilityDeg": 27.1
+      "maxDevDeg": 36.8,
+      "withinTakeStabilityDeg": 24.2
     },
     {
       "id": "Calisthenicmovement#2",
+      "kind": "setup",
+      "joints": [
+        "left_elbow",
+        "left_shoulder",
+        "right_shoulder",
+        "left_hip",
+        "right_hip",
+        "left_knee",
+        "right_knee",
+        "left_upper_arm",
+        "right_upper_arm",
+        "left_forearm",
+        "right_forearm",
+        "left_thigh",
+        "right_thigh",
+        "left_shin",
+        "right_shin",
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 155.1,
+      "withinTakeStabilityDeg": 65.2
+    },
+    {
+      "id": "Calisthenicmovement#3",
       "kind": "setup",
       "joints": [
         "left_shoulder",
@@ -134,16 +233,34 @@
         "right_forearm",
         "trunk_tilt"
       ],
-      "maxDevDeg": 56.4,
-      "withinTakeStabilityDeg": 37.9
+      "maxDevDeg": 55.6,
+      "withinTakeStabilityDeg": 38.4
     },
     {
-      "id": "Calisthenicmovement#3",
+      "id": "Calisthenicmovement#4",
       "kind": "setup",
       "joints": [
         "left_elbow",
         "left_shoulder",
         "right_shoulder",
+        "left_upper_arm",
+        "right_upper_arm",
+        "right_forearm",
+        "left_thigh",
+        "right_thigh",
+        "left_shin",
+        "right_shin",
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 30.5,
+      "withinTakeStabilityDeg": 12.8
+    },
+    {
+      "id": "Calisthenicmovement#5",
+      "kind": "setup",
+      "joints": [
+        "left_elbow",
+        "left_shoulder",
         "left_upper_arm",
         "right_upper_arm",
         "right_forearm",
@@ -154,116 +271,71 @@
         "trunk_tilt"
       ],
       "maxDevDeg": 30.2,
-      "withinTakeStabilityDeg": 7.7
-    },
-    {
-      "id": "Calisthenicmovement#4",
-      "kind": "setup",
-      "joints": [
-        "left_elbow",
-        "left_shoulder",
-        "left_upper_arm",
-        "right_upper_arm",
-        "right_forearm",
-        "left_thigh",
-        "right_thigh",
-        "left_shin",
-        "right_shin",
-        "trunk_tilt"
-      ],
-      "maxDevDeg": 31.6,
-      "withinTakeStabilityDeg": 7.0
-    },
-    {
-      "id": "Calisthenicmovement#5",
-      "kind": "setup",
-      "joints": [
-        "left_hip",
-        "right_hip",
-        "left_thigh",
-        "right_thigh",
-        "left_shin",
-        "right_shin",
-        "trunk_tilt"
-      ],
-      "maxDevDeg": 37.6,
-      "withinTakeStabilityDeg": 40.5
+      "withinTakeStabilityDeg": 7.3
     },
     {
       "id": "Calisthenicmovement#6",
       "kind": "setup",
       "joints": [
+        "right_elbow",
         "left_shoulder",
         "right_shoulder",
-        "left_hip",
-        "right_hip",
-        "left_knee",
         "left_upper_arm",
         "right_upper_arm",
         "left_forearm",
         "right_forearm",
-        "left_thigh"
+        "left_shin",
+        "trunk_tilt"
       ],
-      "maxDevDeg": 42.2,
-      "withinTakeStabilityDeg": 40.5
+      "maxDevDeg": 122.8,
+      "withinTakeStabilityDeg": 17.0
     },
     {
       "id": "Calisthenicmovement#7",
       "kind": "setup",
       "joints": [
-        "left_elbow",
         "right_elbow",
-        "left_hip",
-        "right_hip",
+        "left_shoulder",
+        "right_shoulder",
+        "left_upper_arm",
+        "right_upper_arm",
         "left_forearm",
         "right_forearm",
-        "left_thigh",
-        "right_thigh",
-        "right_shin"
+        "trunk_tilt"
       ],
-      "maxDevDeg": 24.8,
-      "withinTakeStabilityDeg": 14.4
+      "maxDevDeg": 108.4,
+      "withinTakeStabilityDeg": 3.3
+    },
+    {
+      "id": "Calisthenicmovement#8",
+      "kind": "setup",
+      "joints": [
+        "right_elbow",
+        "left_shoulder",
+        "right_shoulder",
+        "left_upper_arm",
+        "right_upper_arm",
+        "left_forearm",
+        "right_forearm",
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 108.1,
+      "withinTakeStabilityDeg": 6.3
     },
     {
       "id": "Calisthenicmovement#9",
       "kind": "setup",
       "joints": [
-        "left_shoulder",
-        "right_shoulder",
         "left_hip",
         "right_hip",
-        "left_knee",
-        "right_knee",
-        "left_upper_arm",
-        "right_upper_arm",
-        "left_forearm",
-        "right_forearm",
         "left_thigh",
         "right_thigh",
         "left_shin",
+        "right_shin",
         "trunk_tilt"
       ],
-      "maxDevDeg": 86.5,
-      "withinTakeStabilityDeg": 66.9
-    },
-    {
-      "id": "Calisthenicmovement#10",
-      "kind": "setup",
-      "joints": [
-        "left_elbow",
-        "right_elbow",
-        "left_hip",
-        "right_hip",
-        "left_knee",
-        "right_knee",
-        "left_forearm",
-        "right_forearm",
-        "left_thigh",
-        "right_thigh",
-        "trunk_tilt"
-      ],
-      "maxDevDeg": 58.4,
-      "withinTakeStabilityDeg": 26.7
+      "maxDevDeg": 36.3,
+      "withinTakeStabilityDeg": 40.9
     },
     {
       "id": "Calisthenicmovement#11",
@@ -272,6 +344,111 @@
         "left_shoulder",
         "right_shoulder",
         "left_hip",
+        "left_upper_arm",
+        "right_upper_arm",
+        "left_forearm",
+        "right_forearm",
+        "left_thigh"
+      ],
+      "maxDevDeg": 39.6,
+      "withinTakeStabilityDeg": 32.5
+    },
+    {
+      "id": "Calisthenicmovement#12",
+      "kind": "setup",
+      "joints": [
+        "left_hip",
+        "right_hip",
+        "left_thigh",
+        "right_thigh",
+        "left_shin",
+        "right_shin"
+      ],
+      "maxDevDeg": 24.5,
+      "withinTakeStabilityDeg": 14.7
+    },
+    {
+      "id": "Calisthenicmovement#13",
+      "kind": "style",
+      "joints": [
+        "left_shoulder",
+        "left_upper_arm",
+        "left_thigh"
+      ],
+      "maxDevDeg": 16.6,
+      "withinTakeStabilityDeg": 13.9
+    },
+    {
+      "id": "Calisthenicmovement#14",
+      "kind": "setup",
+      "joints": [
+        "left_shoulder",
+        "right_shoulder",
+        "left_hip",
+        "right_hip",
+        "left_knee",
+        "left_upper_arm",
+        "right_upper_arm",
+        "left_forearm",
+        "right_forearm",
+        "left_thigh",
+        "right_thigh",
+        "left_shin",
+        "right_shin",
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 148.9,
+      "withinTakeStabilityDeg": 8.0
+    },
+    {
+      "id": "Calisthenicmovement#15",
+      "kind": "setup",
+      "joints": [
+        "right_elbow",
+        "left_shoulder",
+        "right_shoulder",
+        "left_hip",
+        "right_hip",
+        "right_knee",
+        "left_upper_arm",
+        "right_upper_arm",
+        "left_forearm",
+        "right_forearm",
+        "left_thigh",
+        "right_thigh",
+        "left_shin",
+        "right_shin",
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 62.8,
+      "withinTakeStabilityDeg": 66.8
+    },
+    {
+      "id": "Calisthenicmovement#16",
+      "kind": "setup",
+      "joints": [
+        "left_elbow",
+        "right_elbow",
+        "left_hip",
+        "right_hip",
+        "left_knee",
+        "right_knee",
+        "left_forearm",
+        "right_forearm",
+        "left_thigh",
+        "right_thigh",
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 54.7,
+      "withinTakeStabilityDeg": 24.9
+    },
+    {
+      "id": "Calisthenicmovement#17",
+      "kind": "setup",
+      "joints": [
+        "left_shoulder",
+        "right_shoulder",
+        "left_hip",
         "right_hip",
         "left_knee",
         "right_knee",
@@ -284,31 +461,49 @@
         "left_shin",
         "trunk_tilt"
       ],
-      "maxDevDeg": 103.1,
-      "withinTakeStabilityDeg": 34.7
+      "maxDevDeg": 102.6,
+      "withinTakeStabilityDeg": 37.1
     },
     {
-      "id": "Renaissance Periodization#1",
+      "id": "Calisthenicmovement#18",
       "kind": "setup",
       "joints": [
         "left_shoulder",
         "right_shoulder",
-        "left_hip",
         "right_hip",
         "left_knee",
         "right_knee",
         "left_upper_arm",
         "right_upper_arm",
         "left_forearm",
+        "right_forearm",
+        "right_thigh",
+        "left_shin",
+        "right_shin",
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 110.3,
+      "withinTakeStabilityDeg": 72.2
+    },
+    {
+      "id": "Renaissance Periodization#3",
+      "kind": "setup",
+      "joints": [
+        "left_shoulder",
+        "left_hip",
+        "right_hip",
+        "left_knee",
+        "right_knee",
+        "left_upper_arm",
         "left_thigh",
         "right_thigh",
         "right_shin"
       ],
-      "maxDevDeg": 79.9,
-      "withinTakeStabilityDeg": 38.0
+      "maxDevDeg": 73.5,
+      "withinTakeStabilityDeg": 43.9
     },
     {
-      "id": "Renaissance Periodization#3",
+      "id": "Renaissance Periodization#6",
       "kind": "setup",
       "joints": [
         "right_elbow",
@@ -319,8 +514,152 @@
         "left_shin",
         "right_shin"
       ],
-      "maxDevDeg": 31.9,
-      "withinTakeStabilityDeg": 30.2
+      "maxDevDeg": 32.8,
+      "withinTakeStabilityDeg": 32.3
+    },
+    {
+      "id": "THENX#1",
+      "kind": "setup",
+      "joints": [
+        "left_elbow",
+        "right_elbow",
+        "left_shoulder",
+        "right_shoulder",
+        "left_upper_arm",
+        "right_upper_arm",
+        "left_forearm",
+        "right_forearm",
+        "right_thigh",
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 114.3,
+      "withinTakeStabilityDeg": 9.0
+    },
+    {
+      "id": "THENX#2",
+      "kind": "setup",
+      "joints": [
+        "left_elbow",
+        "right_elbow",
+        "left_shoulder",
+        "right_shoulder",
+        "left_upper_arm",
+        "right_upper_arm",
+        "right_forearm",
+        "right_thigh",
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 83.5,
+      "withinTakeStabilityDeg": 36.6
+    },
+    {
+      "id": "THENX#3",
+      "kind": "setup",
+      "joints": [
+        "left_elbow",
+        "left_shoulder",
+        "right_shoulder",
+        "left_hip",
+        "right_hip",
+        "left_knee",
+        "right_knee",
+        "left_upper_arm",
+        "right_upper_arm",
+        "left_forearm",
+        "right_forearm",
+        "right_thigh",
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 100.8,
+      "withinTakeStabilityDeg": 43.5
+    },
+    {
+      "id": "THENX#4",
+      "kind": "setup",
+      "joints": [
+        "left_elbow",
+        "left_shoulder",
+        "right_shoulder",
+        "right_hip",
+        "left_upper_arm",
+        "right_upper_arm",
+        "left_forearm",
+        "right_forearm",
+        "left_shin",
+        "right_shin",
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 123.3,
+      "withinTakeStabilityDeg": 2.3
+    },
+    {
+      "id": "Upright Health#1",
+      "kind": "setup",
+      "joints": [
+        "left_hip",
+        "right_hip",
+        "left_knee",
+        "right_knee",
+        "left_upper_arm",
+        "left_forearm",
+        "left_thigh",
+        "right_thigh",
+        "left_shin",
+        "right_shin"
+      ],
+      "maxDevDeg": 102.7,
+      "withinTakeStabilityDeg": 5.4
+    },
+    {
+      "id": "Upright Health#3",
+      "kind": "setup",
+      "joints": [
+        "right_elbow",
+        "left_hip",
+        "right_hip",
+        "left_knee",
+        "right_knee",
+        "left_thigh",
+        "right_shin"
+      ],
+      "maxDevDeg": 76.0,
+      "withinTakeStabilityDeg": 34.5
+    },
+    {
+      "id": "Upright Health#4",
+      "kind": "setup",
+      "joints": [
+        "left_shoulder",
+        "right_hip",
+        "right_knee",
+        "right_upper_arm",
+        "left_forearm",
+        "right_forearm",
+        "left_thigh",
+        "right_thigh",
+        "right_shin"
+      ],
+      "maxDevDeg": 119.6,
+      "withinTakeStabilityDeg": 5.9
+    },
+    {
+      "id": "Upright Health#5",
+      "kind": "setup",
+      "joints": [
+        "left_shoulder",
+        "left_knee",
+        "right_knee",
+        "left_upper_arm",
+        "right_upper_arm",
+        "left_forearm",
+        "right_forearm",
+        "left_thigh",
+        "left_shin",
+        "right_shin",
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 147.2,
+      "withinTakeStabilityDeg": 4.1
     },
     {
       "id": "Jeremy Ethier#1",
@@ -340,27 +679,151 @@
         "right_shin",
         "trunk_tilt"
       ],
-      "maxDevDeg": 150.4,
-      "withinTakeStabilityDeg": 6.6
+      "maxDevDeg": 152.5,
+      "withinTakeStabilityDeg": 5.6
     },
     {
-      "id": "K boges#26",
+      "id": "Jeremy Ethier#2",
       "kind": "setup",
       "joints": [
+        "left_elbow",
+        "left_shoulder",
         "right_shoulder",
+        "left_upper_arm",
+        "right_upper_arm"
+      ],
+      "maxDevDeg": 19.6,
+      "withinTakeStabilityDeg": 22.3
+    },
+    {
+      "id": "Cara Kuykens#1",
+      "kind": "setup",
+      "joints": [
+        "right_elbow",
+        "left_forearm",
+        "right_forearm"
+      ],
+      "maxDevDeg": 67.1,
+      "withinTakeStabilityDeg": 35.7
+    },
+    {
+      "id": "Cara Kuykens#2",
+      "kind": "setup",
+      "joints": [
+        "left_elbow",
+        "right_shoulder",
+        "left_forearm",
+        "right_forearm",
+        "right_shin"
+      ],
+      "maxDevDeg": 142.8,
+      "withinTakeStabilityDeg": 61.8
+    },
+    {
+      "id": "Cara Kuykens#3",
+      "kind": "setup",
+      "joints": [
+        "right_elbow",
+        "left_hip",
+        "left_knee",
+        "right_forearm",
+        "left_thigh"
+      ],
+      "maxDevDeg": 32.2,
+      "withinTakeStabilityDeg": 49.8
+    },
+    {
+      "id": "GMB Fitness (Praxis)#1",
+      "kind": "setup",
+      "joints": [
         "left_hip",
         "right_hip",
         "left_knee",
         "right_knee",
+        "left_upper_arm",
         "right_upper_arm",
+        "left_forearm",
+        "right_forearm",
         "left_thigh",
-        "right_thigh"
+        "right_thigh",
+        "right_shin",
+        "trunk_tilt"
       ],
-      "maxDevDeg": 53.5,
-      "withinTakeStabilityDeg": 52.3
+      "maxDevDeg": 58.2,
+      "withinTakeStabilityDeg": 18.1
+    },
+    {
+      "id": "GMB Fitness (Praxis)#2",
+      "kind": "setup",
+      "joints": [
+        "left_elbow",
+        "left_shoulder",
+        "right_shoulder",
+        "left_hip",
+        "right_hip",
+        "left_upper_arm",
+        "right_upper_arm",
+        "left_forearm",
+        "right_forearm",
+        "left_shin",
+        "trunk_tilt"
+      ],
+      "maxDevDeg": 118.7,
+      "withinTakeStabilityDeg": 8.4
+    },
+    {
+      "id": "GMB Fitness (Praxis)#3",
+      "kind": "setup",
+      "joints": [
+        "right_elbow",
+        "left_shoulder",
+        "right_shoulder",
+        "left_hip",
+        "right_hip",
+        "left_knee",
+        "left_upper_arm",
+        "left_thigh",
+        "right_thigh",
+        "left_shin",
+        "right_shin"
+      ],
+      "maxDevDeg": 98.4,
+      "withinTakeStabilityDeg": 26.1
+    },
+    {
+      "id": "K boges#17",
+      "kind": "setup",
+      "joints": [
+        "left_shoulder",
+        "left_hip",
+        "right_hip",
+        "left_knee",
+        "right_knee",
+        "left_upper_arm",
+        "left_thigh",
+        "right_thigh",
+        "left_shin",
+        "right_shin"
+      ],
+      "maxDevDeg": 68.6,
+      "withinTakeStabilityDeg": 54.6
     },
     {
       "id": "K boges#27",
+      "kind": "setup",
+      "joints": [
+        "left_hip",
+        "right_hip",
+        "left_knee",
+        "right_knee",
+        "left_thigh",
+        "right_thigh"
+      ],
+      "maxDevDeg": 52.6,
+      "withinTakeStabilityDeg": 52.7
+    },
+    {
+      "id": "K boges#31",
       "kind": "setup",
       "joints": [
         "right_elbow",
@@ -376,69 +839,82 @@
         "left_thigh",
         "right_thigh",
         "left_shin",
-        "right_shin",
-        "trunk_tilt"
+        "right_shin"
       ],
-      "maxDevDeg": 63.4,
-      "withinTakeStabilityDeg": 53.4
+      "maxDevDeg": 57.4,
+      "withinTakeStabilityDeg": 56.1
     }
   ],
   "outlierKindCount": {
-    "setup": 17,
-    "style": 3
+    "style": 6,
+    "setup": 41
   },
   "$outlierProfileNote": "M-F-55(2): dışlanan take NEDEN dışlandı? setup = sapma birçok ekleme yayılmış (farklı hareket/kurulum, tolerans bilgisi TAŞIMAZ) · style = az eklemde yoğunlaşmış + take içinde kararlı ofset (toleransın ölçmek İSTEDİĞİ şey, ama otomatik KATILMAZ — eklem-yetkisi app-side, M-F-51).",
   "styleExcluded": {
+    "trunk_tilt": [
+      "FitnessFAQs#3",
+      "FitnessFAQs#8"
+    ],
+    "left_thigh": [
+      "FitnessFAQs#8",
+      "Calisthenicmovement#13"
+    ],
+    "right_hip": [
+      "FitnessFAQs#12"
+    ],
+    "right_thigh": [
+      "FitnessFAQs#12"
+    ],
     "right_shoulder": [
-      "FitnessFAQs#13",
-      "FitnessFAQs#14",
-      "FitnessFAQs#15"
+      "FitnessFAQs#15",
+      "FitnessFAQs#16"
     ],
     "left_upper_arm": [
-      "FitnessFAQs#13",
-      "FitnessFAQs#14"
+      "FitnessFAQs#15",
+      "FitnessFAQs#16",
+      "Calisthenicmovement#13"
     ],
     "right_upper_arm": [
-      "FitnessFAQs#13",
-      "FitnessFAQs#14",
-      "FitnessFAQs#15"
+      "FitnessFAQs#15",
+      "FitnessFAQs#16"
     ],
     "left_forearm": [
-      "FitnessFAQs#13",
-      "FitnessFAQs#14",
-      "FitnessFAQs#15"
+      "FitnessFAQs#15",
+      "FitnessFAQs#16"
     ],
     "right_forearm": [
-      "FitnessFAQs#13",
-      "FitnessFAQs#14",
-      "FitnessFAQs#15"
+      "FitnessFAQs#15",
+      "FitnessFAQs#16"
+    ],
+    "left_shoulder": [
+      "Calisthenicmovement#13"
     ]
   },
   "mirrorConfident": true,
   "priorDisagreements": [],
-  "orderIndependenceMaxDeltaDeg": 0.0,
-  "orderIndependent": true,
-  "mirrorSetStableAcrossOrder": true,
-  "$mirrorNote": "ayna ataması AYNI",
+  "orderIndependenceMaxDeltaDeg": 4.674,
+  "orderIndependent": false,
+  "mirrorSetStableAcrossOrder": false,
+  "$mirrorNote": "ayna kümesi farklı VE referans değişiyor → GERÇEK kararsızlık, M-F-46 kural 7: taraf-bağımlı hüküm verilmez",
   "$sideNaming": "J-034: global ayna-ataması `left_*` adının işaret ettiği FİZİKSEL eklemi değiştirebilir. Toleranslar bu yüzden eklem-ÇİFTİ olarak yazılır; skorlayıcı tarafı kare başına görünen-taraf çözümüyle bağlar, ada göre DEĞİL.",
   "unreliableJoints": [],
   "g050WidenedGateProbe": {
     "clusterToleranceDeg": 30,
-    "takes": 51,
-    "excluded": 8,
-    "meanDispersionDeg": 16.01,
-    "baselineMeanDispersionDeg": 7.45
+    "takes": 78,
+    "excluded": 13,
+    "meanDispersionDeg": 26.39,
+    "baselineMeanDispersionDeg": 8.01
   },
   "tolerances": {
     "elbow": {
-      "meanFreeDeg": 10.6,
-      "measuredDispersionDeg": 9.1,
+      "meanFreeDeg": 10.5,
+      "measuredDispersionDeg": 9.3,
       "floorBinding": false,
       "source": "variance"
     },
     "shoulder": {
-      "meanFreeDeg": 9.9,
-      "measuredDispersionDeg": 9.2,
+      "meanFreeDeg": 10.3,
+      "measuredDispersionDeg": 9.6,
       "floorBinding": false,
       "source": "variance"
     },
@@ -449,38 +925,38 @@
       "source": "floor"
     },
     "knee": {
-      "meanFreeDeg": 8.2,
-      "measuredDispersionDeg": 5.8,
+      "meanFreeDeg": 8.5,
+      "measuredDispersionDeg": 7.7,
       "floorBinding": true,
       "source": "floor"
     },
     "upper_arm": {
-      "meanFreeDeg": 10.0,
-      "measuredDispersionDeg": 9.4,
+      "meanFreeDeg": 10.6,
+      "measuredDispersionDeg": 10.0,
       "floorBinding": false,
       "source": "variance"
     },
     "forearm": {
-      "meanFreeDeg": 8.4,
-      "measuredDispersionDeg": 6.7,
+      "meanFreeDeg": 9.2,
+      "measuredDispersionDeg": 7.4,
       "floorBinding": true,
       "source": "floor"
     },
     "thigh": {
       "meanFreeDeg": 8.2,
-      "measuredDispersionDeg": 7.0,
+      "measuredDispersionDeg": 7.1,
       "floorBinding": true,
       "source": "floor"
     },
     "shin": {
-      "meanFreeDeg": 8.1,
-      "measuredDispersionDeg": 6.1,
+      "meanFreeDeg": 8.4,
+      "measuredDispersionDeg": 7.6,
       "floorBinding": true,
       "source": "floor"
     },
     "trunk_tilt": {
       "meanFreeDeg": 8.0,
-      "measuredDispersionDeg": 6.9,
+      "measuredDispersionDeg": 5.5,
       "floorBinding": true,
       "source": "floor"
     }

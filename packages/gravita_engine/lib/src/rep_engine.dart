@@ -43,6 +43,7 @@ final class Rep {
     required this.descentUs,
     required this.ascentUs,
     required this.extremeAngleDeg,
+    required this.startedAtOpenEnd,
   });
 
   final int index;
@@ -56,7 +57,15 @@ final class Rep {
   final int ascentUs;
 
   /// Çevrimin uç noktasındaki eklem açısı — ROM hükmünün kaynağı.
+  ///
+  /// ⚠️ HANGİ uç olduğu [startedAtOpenEnd]'e bağlıdır: açık uçtan başlayan
+  /// çevrimde bu MİNİMUM (şınavın dibi), kapalı uçtan başlayanda MAKSİMUM
+  /// (tepe). İkisini aynı sütunda karşılaştırmak, 8° ile 179°'yi "anlaşmazlık"
+  /// sanmaktır — bu tam olarak yaşandı, o yüzden ayrım artık TİPTE duruyor.
   final double extremeAngleDeg;
+
+  /// Çevrim açık uçtan mı başladı? [extremeAngleDeg]'in anlamını belirler.
+  final bool startedAtOpenEnd;
 
   int get durationUs => endUs - startUs;
 }
@@ -134,6 +143,12 @@ final class RepEngine {
   int? _cycleStartUs;
   int? _midpointUs;
   double _extreme = double.nan;
+
+  /// Uç değere ULAŞILAN an. Tempo eşik geçişinden DEĞİL buradan türetilir:
+  /// sayım eşiği gevşediğinde (V16/G-054) eşik-tabanlı ölçüm iniş saatini
+  /// erken durdurur — kullanıcı 80°'ye inse bile 116°'de "iniş bitti" der.
+  /// Uç-tabanlı ölçüm eşikten BAĞIMSIZDIR ve gerçek dönüş anını verir.
+  int? _extremeUs;
 
   /// Bir kareyi işler. [expected] verilirse yapısal denetim faz-eksen uyumunu
   /// da sınar (ADR-001 → ADR-002 zinciri).
@@ -215,9 +230,11 @@ final class RepEngine {
     }
 
     if (_cycleStart != null && !_extreme.isNaN) {
-      _extreme = _cycleStart == _End.open
-          ? (deg < _extreme ? deg : _extreme)
-          : (deg > _extreme ? deg : _extreme);
+      final bool better = _cycleStart == _End.open ? deg < _extreme : deg > _extreme;
+      if (better) {
+        _extreme = deg;
+        _extremeUs = tUs;
+      }
     }
 
     final _End? here = _endAt(deg, c);
@@ -227,6 +244,7 @@ final class RepEngine {
       _cycleStart = here;
       _cycleStartUs = tUs;
       _extreme = deg;
+      _extremeUs = tUs;
     } else if (here != _cycleStart) {
       _visitedOther = true;
       _midpointUs = tUs;
@@ -235,15 +253,18 @@ final class RepEngine {
         index: _reps.length + 1,
         startUs: _cycleStartUs ?? tUs,
         endUs: tUs,
-        descentUs: (_midpointUs ?? tUs) - (_cycleStartUs ?? tUs),
-        ascentUs: tUs - (_midpointUs ?? tUs),
+        // Dönüş anı = uç değere ulaşılan an; eşik geçişi DEĞİL.
+        descentUs: (_extremeUs ?? _midpointUs ?? tUs) - (_cycleStartUs ?? tUs),
+        ascentUs: tUs - (_extremeUs ?? _midpointUs ?? tUs),
         extremeAngleDeg: _extreme,
+        startedAtOpenEnd: _cycleStart == _End.open,
       ));
       _cycleStart = here;
       _cycleStartUs = tUs;
       _visitedOther = false;
       _midpointUs = null;
       _extreme = deg;
+      _extremeUs = tUs;
     }
     _current = here;
   }
@@ -255,7 +276,26 @@ final class RepEngine {
     _cycleStartUs = null;
     _midpointUs = null;
     _extreme = double.nan;
+    _extremeUs = null;
   }
+
+  /// Bir tekrarın TEKRAR-KAPSAMLI metrikleri.
+  ///
+  /// Metriklerin kapsamı aynı değil ve bunu karıştırmak kuralı sessizce ÖLDÜRÜR:
+  /// `line_deviation_deg` kare başına ölçülür, `rom_bottom_angle` ise ancak bir
+  /// çevrim TAMAMLANINCA bilinir. Motor yalnız kare başına hüküm verdiği sürece
+  /// tekrar-kapsamlı kurallar değerlendirilecek yer bulamaz — replay kapısı
+  /// `partial_rom`'u tam bu yüzden ÖLÜ buldu: şemadan temiz, metriği kayıtlı,
+  /// testi var ve gerçek kullanıcı için hiç ateşlenmiyordu.
+  Map<String, double> repMetrics(Rep rep) => <String, double>{
+        if (rep.startedAtOpenEnd)
+          'rom_bottom_angle': rep.extremeAngleDeg
+        else
+          'rom_top_angle': rep.extremeAngleDeg,
+      };
+
+  /// Bir tekrar tamamlandığında söylenecek düzeltme (tekrar-kapsamlı kurallar).
+  FormError? correctionFor(Rep rep) => topCorrection(repMetrics(rep));
 
   /// Tek-düzeltme seçimi: aynı anda EN FAZLA bir hata söylenir (plan §9).
   /// Güvenlik > engelleyici > denge > büyük hiza > küçük form > optimizasyon.

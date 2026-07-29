@@ -34,7 +34,7 @@
         "direction": "decreasing"
       },
       "bottom": {
-        "angleMax": 100
+        "angleMax": 121
       },
       "ascent": {
         "direction": "increasing"
@@ -55,7 +55,8 @@
       "status": "pending",
       "rationale": "HENÜZ TÜRETİLMEDİ (G-043). Bu hareketin kimlik ön koşulu ölçümle türetilmedi; hasat sırası gelmedi. Üründe camera.calibrationGate kısmi koruma sağlar (kullanıcı hareketi seçer ve pozisyona girer) ama hasatta böyle bir beyan YOKTUR — bu yüzden V15 hasat kuyruğuna giren her harekette status=derived şart koşar.",
       "conditions": []
-    }
+    },
+    "$romGateRationale": "V16/G-054: SAYIM eşiği hata eşiğini gürültü bandı kadar AŞAR. Ters sırada (sayım daha katı) sığ tekrar hiç sayılmaz ve 'yeterince inmedin' uyarısı hiç söylenemez — kullanıcı sıfır tekrar + sıfır geri bildirim alır. Sayım = cömert dış sınır, hata = içindeki kalite çizgisi."
   },
   "measurementContract": {
     "measured": [
