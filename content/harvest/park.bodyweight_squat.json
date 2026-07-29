@@ -1,10 +1,10 @@
 {
-  "parkedAt": "2026-07-29T16:13:16+03:00",
+  "parkedAt": "2026-07-29T16:25:30+03:00",
   "movement": "bodyweight_squat",
   "library": "~/motion-harvest/gravita-squat",
   "$why": "Oturum tazeleniyor; hasat KESİLMEDİ, arka planda sürüyor. Bu not yeniden başlarken nereden devam edileceğini söyler.",
-  "attempted": 21,
-  "landmarksOnDisk": 18,
+  "attempted": 22,
+  "landmarksOnDisk": 19,
   "totalCandidates": 32,
   "http403_retryNeeded": [
     "LszCaPOFWHg",
@@ -13,7 +13,6 @@
     "0V7BtcG7E4Y"
   ],
   "notYetAttempted": [
-    "8Kls95w2jFA",
     "bEv6CCg2BC8",
     "sdeQjm7avi8",
     "gcNh17Ckjgg",
@@ -27,5 +26,6 @@
   ],
   "$nextSessionFirstJob": "DİZ-SİMETRİSİ EŞİK TÜRETİMİ. kneeAngleAsymmetry metriği uygulandı ve metrics.json'a kayıtlı; eşik BİLİNÇLİ olarak boş. Squat fixture'larından dağılımı ölç, sonra rig perMovement.identity.kneeSymmetry'de status/basis/max üçlüsünü BİRLİKTE doldur ve orkestratöre commit'le bildir. Ölçmeden eşik yazmak G-043'ün kendisini tekrarlamaktır.",
   "$blockedUntilThreshold": "bodyweight_squat.engine.precondition.status = pending → V15 ve harvest_reps tekrar çıkarımını ZATEN reddediyor (fail-closed). Kilit doğru yerde.",
-  "$identityDecision": "M-F-60: squat kimliği = diz-simetrisi (bu app'in tanımı) VE kalça-diz fleksiyon bağlaşımı (Lissom türetiyor) BİRLİKTE. Diz-simetrisi tek başına yüzüstü diz bükme sınıfını yakalamaz."
+  "$identityDecision": "M-F-60: squat kimliği = diz-simetrisi (bu app'in tanımı) VE kalça-diz fleksiyon bağlaşımı (Lissom türetiyor) BİRLİKTE. Diz-simetrisi tek başına yüzüstü diz bükme sınıfını yakalamaz.",
+  "$stillRunning": "Bu not yazılırken hasat HÂLÂ koşuyordu (kesilmedi). Sayılar anlık; yeni oturum önce diski say, nota körü körüne güvenme."
 }
