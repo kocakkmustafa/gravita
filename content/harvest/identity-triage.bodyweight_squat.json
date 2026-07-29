@@ -1,29 +1,29 @@
 {
   "movement": "bodyweight_squat",
-  "$doc": "Squat havuzu kimlik sınıflandırması — G-064/G-065 güncellemesi (M-F-73/80/92). Birincil KAPI artık hipKneeCoupling (pearson(hip_flexion,knee_flexion) >= 0.2, Lissom sinyali, rig identity.hipKneeCoupling, provisional) — tools/hip_knee_coupling_squat.dart tarafından tüketiliyor, bu dosyaya yazıyor. kneeSymmetry (G-061) advisory olarak YANINDA raporlanır, kapı DEĞİLDİR (8765977 şeması zorluyor, tüketici asla kapıya çeviremez). G-065 diferansiyel testi (Gravita 2D-formülü ↔ Lissom-düzeltilmiş 3D-proximal formülü) TappBrothers'ın reddinin FORMÜL ARTEFAKTI olabileceğini gösterdi — bkz. o kaydın notu. Kanıt: docs/gates/G-064-HIPKNEECOUPLING-ILK-TUKETICI.md, docs/gates/G-065-HIPKNEECOUPLING-DIFERANSIYEL-TESTI.md, content/harvest/hip_knee_coupling.bodyweight_squat.json (ham sayılar).",
+  "$doc": "Squat havuzu kimlik sınıflandırması — G-066 güncellemesi (M-F-96/97 mimari kararı). Birincil KAPI hipKneeCoupling, artık KANONİK formülle (mocore.measures.evaluate(anatomical=True), Lissom'un düzeltilmiş yolu) hasat-anında hesaplanıp fixture provenance'ına damgalanıyor — tools/hip_knee_coupling_canonical.py üretiyor, bu dosya onun özeti. Gravita'nın eski 2D-taraf-agnostik Dart formülü (hip_knee_coupling_squat.dart) EMEKLİ edildi (kamera-açısına kırılgan çıktı, G-065 diferansiyel testi — TappBrothers'ta 0,668 fark). kneeSymmetry (G-061) advisory olarak YANINDA raporlanır, kapı DEĞİLDİR (8765977 şeması zorluyor). ⚠️ METODOLOJİK SINIR: kanonik script mocore'un KENDİ güven kapısını kullanıyor (frame-başına visibility*presence), Gravita'nın FSM-tamamlanmış-tekrar penceresini KULLANMIYOR — bu yüzden 'Vast Fitness Academy' (önceden hiç FSM-tekrarı olmayan, noSignal) artık n=2537/r=0,821 ile GEÇİYOR; bu videoda gerçekten squat yapıldığını FSM doğrulamadı, yalnız görünür/güvenli kareler var. Rep-FSM pencerelemesinin Python tarafına taşınması AYRI bir iş kalemi (henüz yapılmadı). Kanıt: docs/gates/G-064/G-065/G-066, content/harvest/hip_knee_coupling.bodyweight_squat.json (ham sayılar, provenance damgası kaynağı).",
   "gateThreshold": 0.2,
   "instructors": {
-    "Calisthenicmovement": {"gate": "pass", "n": 1278, "pearsonHipKnee": 0.456, "kneeAsymmetryAdvisoryMeanDeg": 32.1},
-    "FitnessFAQs": {"gate": "pass", "n": 295, "pearsonHipKnee": 0.760, "kneeAsymmetryAdvisoryMeanDeg": 8.7},
-    "GMB Fitness (Praxis)": {"gate": "pass", "n": 512, "pearsonHipKnee": 0.858, "kneeAsymmetryAdvisoryMeanDeg": 12.2},
-    "Jeff Nippard": {"gate": "pass", "n": 1911, "pearsonHipKnee": 0.916, "kneeAsymmetryAdvisoryMeanDeg": 12.5},
-    "Jeremy Ethier": {"gate": "pass", "n": 874, "pearsonHipKnee": 0.966, "kneeAsymmetryAdvisoryMeanDeg": 8.8},
-    "K boges": {"gate": "pass", "n": 3272, "pearsonHipKnee": 0.990, "kneeAsymmetryAdvisoryMeanDeg": 18.2},
-    "Minus The Gym": {"gate": "pass", "n": 419, "pearsonHipKnee": 0.896, "kneeAsymmetryAdvisoryMeanDeg": 8.1},
-    "School of Calisthenics": {"gate": "pass", "n": 15, "pearsonHipKnee": 0.936, "kneeAsymmetryAdvisoryMeanDeg": 24.2, "note": "n=15 küçük — güven düşük"},
-    "Sebastian Oreb": {"gate": "pass", "n": 179, "pearsonHipKnee": 0.951, "kneeAsymmetryAdvisoryMeanDeg": 15.2},
-    "Squat University": {"gate": "pass", "n": 2598, "pearsonHipKnee": 0.900, "kneeAsymmetryAdvisoryMeanDeg": 10.2},
-    "Strength Side": {"gate": "pass", "n": 2633, "pearsonHipKnee": 0.958, "kneeAsymmetryAdvisoryMeanDeg": 18.0},
-    "THENX": {"gate": "pass", "n": 3566, "pearsonHipKnee": 0.951, "kneeAsymmetryAdvisoryMeanDeg": 23.1},
-    "TappBrothers": {"gate": "fail", "n": 130, "pearsonHipKnee": 0.150, "kneeAsymmetryAdvisoryMeanDeg": 31.3, "formulaSensitive": true, "note": "G-065 diferansiyel testi: Lissom-düzeltilmiş formülle (WORLD 3D+proximal-projeksiyon) r=0,818 — RAHAT GEÇER. Bu ret muhtemelen Gravita'nın 2D-formülünün kamera-açısına duyarlılığından kaynaklı FORMÜL ARTEFAKTI, gerçek confounder sinyali değil. Kesin ret SAYILMAMALI — hangi formül kanonik olacağı koordinatörde."},
-    "Tom Merrick": {"gate": "pass", "n": 3137, "pearsonHipKnee": 0.334, "kneeAsymmetryAdvisoryMeanDeg": 49.8, "note": "kneeSymmetry advisory'de EN YÜKSEK asimetri (G-061'de kare-kare split-stance şüphesi doğrulandı) ama hipKneeCoupling rahat geçiyor — iki sinyal bağımsız eksen, biri kare-içi sol-sağ (kamera-açısına duyarlı), öteki zaman-içi kalça-diz eş-güdümü (değil)"},
-    "WeShape": {"gate": "pass", "n": 1774, "pearsonHipKnee": 0.971, "kneeAsymmetryAdvisoryMeanDeg": 6.2},
-    "Vast Fitness Academy": {"gate": "noSignal", "n": 0, "note": "FSM hiç tekrar tamamlamadı — hipKneeCoupling de kneeSymmetry de hiç ölçülemedi"}
+    "Calisthenicmovement": {"gate": "pass", "n": 16460, "pearsonHipKnee": 0.616, "kneeAsymmetryAdvisoryMeanDeg": 32.1},
+    "FitnessFAQs": {"gate": "pass", "n": 4642, "pearsonHipKnee": 0.495, "kneeAsymmetryAdvisoryMeanDeg": 8.7},
+    "GMB Fitness (Praxis)": {"gate": "pass", "n": 9444, "pearsonHipKnee": 0.808, "kneeAsymmetryAdvisoryMeanDeg": 12.2},
+    "Jeff Nippard": {"gate": "pass", "n": 9618, "pearsonHipKnee": 0.880, "kneeAsymmetryAdvisoryMeanDeg": 12.5},
+    "Jeremy Ethier": {"gate": "pass", "n": 5404, "pearsonHipKnee": 0.853, "kneeAsymmetryAdvisoryMeanDeg": 8.8},
+    "K boges": {"gate": "pass", "n": 8252, "pearsonHipKnee": 0.980, "kneeAsymmetryAdvisoryMeanDeg": 18.2},
+    "Minus The Gym": {"gate": "pass", "n": 1859, "pearsonHipKnee": 0.971, "kneeAsymmetryAdvisoryMeanDeg": 8.1},
+    "School of Calisthenics": {"gate": "pass", "n": 3298, "pearsonHipKnee": 0.707, "kneeAsymmetryAdvisoryMeanDeg": 24.2},
+    "Sebastian Oreb": {"gate": "pass", "n": 7233, "pearsonHipKnee": 0.857, "kneeAsymmetryAdvisoryMeanDeg": 15.2},
+    "Squat University": {"gate": "pass", "n": 22880, "pearsonHipKnee": 0.732, "kneeAsymmetryAdvisoryMeanDeg": 10.2},
+    "Strength Side": {"gate": "pass", "n": 6242, "pearsonHipKnee": 0.950, "kneeAsymmetryAdvisoryMeanDeg": 18.0},
+    "THENX": {"gate": "pass", "n": 12387, "pearsonHipKnee": 0.963, "kneeAsymmetryAdvisoryMeanDeg": 23.1},
+    "TappBrothers": {"gate": "pass", "n": 1881, "pearsonHipKnee": 0.642, "kneeAsymmetryAdvisoryMeanDeg": 31.3, "note": "G-064'te kendi 2D-formülümle (r=0,150) REDDEDİLMİŞTİ, formül-artefaktı çıktı (G-065). Kanonik formülle GEÇER — hem bu (rep-FSM'siz, tüm-video, n=1881) hem G-065'in rep-FSM-pencereli diferansiyel testi (r=0,818) aynı yönde: gate kararı iki yöntemde de PASS, sağlam."},
+    "Tom Merrick": {"gate": "pass", "n": 54313, "pearsonHipKnee": 0.442, "kneeAsymmetryAdvisoryMeanDeg": 49.8, "note": "kneeSymmetry advisory'de EN YÜKSEK asimetri (G-061'de kare-kare split-stance şüphesi doğrulandı) ama hipKneeCoupling rahat geçiyor — iki sinyal bağımsız eksen, biri kare-içi sol-sağ (kamera-açısına duyarlı), öteki zaman-içi kalça-diz eş-güdümü (değil)"},
+    "Vast Fitness Academy": {"gate": "pass", "n": 2537, "pearsonHipKnee": 0.821, "note": "⚠️ ÖNCEDEN noSignal'di (FSM hiç tamamlanmış tekrar üretmedi) — kanonik script rep-FSM penceresi KULLANMADIĞI için bu video artık dahil. Gerçekten squat yapıldığı FSM ile doğrulanmadı, yalnız görünür/güvenli kareler var. Bu kayıt METODOLOJİK SINIRIN somut örneği — bkz. üstteki $doc uyarısı."},
+    "WeShape": {"gate": "pass", "n": 9914, "pearsonHipKnee": 0.941, "kneeAsymmetryAdvisoryMeanDeg": 6.2}
   },
-  "summary": {"pass": 14, "fail": 1, "noSignal": 1, "totalInstructors": 16},
+  "summary": {"pass": 16, "fail": 0, "noSignal": 0, "totalInstructors": 16},
   "$consumers": {
-    "gate": ["content/harvest/hip_knee_coupling.bodyweight_squat.json (hipKneeCoupling >= 0.2)"],
+    "gate": ["content/harvest/hip_knee_coupling.bodyweight_squat.json (hipKneeCoupling >= 0.2, kanonik/damgalı)"],
     "advisory": ["kneeAsymmetryAdvisoryMeanDeg alanı (kapıya çevrilemez, 8765977 şeması)"],
-    "note": "Bu dosyanın kendisi hâlâ HİÇBİR kod tarafından okunmuyor — koordinatör/insan kararına girdi. Asıl gate verisi content/harvest/hip_knee_coupling.bodyweight_squat.json'da (bu dosya onun bir özeti + kneeSymmetry'yle birleştirilmiş hâli)."
+    "note": "Bu dosyanın kendisi hâlâ HİÇBİR üretim kodu tarafından okunmuyor — koordinatör/insan kararına girdi. Asıl gate verisi + provenance damgası content/harvest/hip_knee_coupling.bodyweight_squat.json ve her fixture'ın KENDİ provenance.hipKneeCoupling alanında."
   }
 }

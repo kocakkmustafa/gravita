@@ -1,3 +1,28 @@
+// ⚠️⚠️⚠️ RETIRED (G-065/M-F-96, 2026-07-29) — BU DOSYA ARTIK TÜKETİLMEZ. ⚠️⚠️⚠️
+//
+// Kanıt: bu aracın 2D-taraf-agnostik/düz-izotropik formülü kamera-açısına
+// KIRILGAN çıktı — G-065 diferansiyel testinde TappBrothers'ta Lissom'un
+// düzeltilmiş formülüyle (WORLD 3D + proximal-projeksiyon,
+// `mocore.measures.evaluate(anatomical=true)`) 0,668'lik MADDİ bir fark
+// ölçüldü (bu araç: r=0,150 RED; kanonik: r=0,818/0,642 GEÇER). Bu, G-061'in
+// tüm gece bulduğu "kamera açısı 2D açıları bozar" deseninin hipKneeCoupling
+// düzeyindeki tekrarıydı.
+//
+// Koordinatör mimari kararı: kimlik metriği HASAT ANINDA BİR KEZ, paylaşımlı
+// `mocore` ile hesaplanır ve fixture provenance'ına DAMGALANIR — tüketiciler
+// sayıyı OKUR, yeniden hesaplamaz (kopya-sürüklenmesi sınıfı kökten kapanır).
+// Kanonik yerine geçen: `tools/hip_knee_coupling_canonical.py`
+// (`mocore.measures.evaluate(anatomical=true)`, Lissom'un `lissom-metrics.
+// v1.json`'undan BİREBİR metrik tanımı okuyor).
+//
+// Bu dosya SİLİNMEDİ — "aynı hatayı iki kez ölçme" kanıtı olarak arşivde
+// kalıyor (M-F-57'nin "doğrulayıcının kendisi de denetlenmeli" dersinin bir
+// örneği: yanlış formül bir GATE KARARINI (TappBrothers reddi) fiilen
+// etkilemişti). Kanıt: docs/gates/G-065-HIPKNEECOUPLING-DIFERANSIYEL-TESTI.md,
+// docs/gates/G-066-HIPKNEECOUPLING-KANONIK-DAMGA.md.
+//
+// -----------------------------------------------------------------------
+
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;

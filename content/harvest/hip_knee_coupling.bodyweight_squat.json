@@ -1,101 +1,88 @@
 {
   "movement": "bodyweight_squat",
-  "$doc": "Squat kimliğinin İLK gerçek kapısı (M-F-73/80): hipKneeCoupling (Lissom sinyali, rig identity, provisional r>=0.2) — Gravita 27-fixture squat havuzunda ölçüldü. kneeSymmetry (advisory) yanında raporlanır, KAPI DEĞİLDİR.",
+  "$doc": "KANONİK hipKneeCoupling (G-065/M-F-96): mocore.measures.evaluate(anatomical=True) ile hasat-anında hesaplanır, her fixture'ın provenance'ına damgalanır. Gravita'nın önceki 2D-taraf-agnostik Dart formülü EMEKLİ edildi (kamera-açısına kırılgan çıktı, G-065 diferansiyel testi) — bkz. docs/gates/G-065/G-066.",
   "gateThreshold": 0.2,
-  "passCount": 14,
-  "failCount": 1,
+  "method": "mocore.measures.evaluate(anatomical=True), lissom-metrics.v1.json hip_flexion_right/knee_flexion_right",
   "instructors": {
     "Calisthenicmovement": {
-      "n": 1278,
-      "pearsonHipKnee": 0.456,
-      "gate": "pass",
-      "kneeAsymmetryAdvisoryMeanDeg": 32.1
+      "n": 16460,
+      "pearsonHipKnee": 0.616,
+      "gate": "pass"
     },
     "FitnessFAQs": {
-      "n": 295,
-      "pearsonHipKnee": 0.76,
-      "gate": "pass",
-      "kneeAsymmetryAdvisoryMeanDeg": 8.7
+      "n": 4642,
+      "pearsonHipKnee": 0.495,
+      "gate": "pass"
     },
     "GMB Fitness (Praxis)": {
-      "n": 512,
-      "pearsonHipKnee": 0.858,
-      "gate": "pass",
-      "kneeAsymmetryAdvisoryMeanDeg": 12.2
+      "n": 9444,
+      "pearsonHipKnee": 0.808,
+      "gate": "pass"
     },
     "Jeff Nippard": {
-      "n": 1911,
-      "pearsonHipKnee": 0.916,
-      "gate": "pass",
-      "kneeAsymmetryAdvisoryMeanDeg": 12.5
+      "n": 9618,
+      "pearsonHipKnee": 0.88,
+      "gate": "pass"
     },
     "Jeremy Ethier": {
-      "n": 874,
-      "pearsonHipKnee": 0.966,
-      "gate": "pass",
-      "kneeAsymmetryAdvisoryMeanDeg": 8.8
+      "n": 5404,
+      "pearsonHipKnee": 0.853,
+      "gate": "pass"
     },
     "K boges": {
-      "n": 3272,
-      "pearsonHipKnee": 0.99,
-      "gate": "pass",
-      "kneeAsymmetryAdvisoryMeanDeg": 18.2
+      "n": 8252,
+      "pearsonHipKnee": 0.98,
+      "gate": "pass"
     },
     "Minus The Gym": {
-      "n": 419,
-      "pearsonHipKnee": 0.896,
-      "gate": "pass",
-      "kneeAsymmetryAdvisoryMeanDeg": 8.1
+      "n": 1859,
+      "pearsonHipKnee": 0.971,
+      "gate": "pass"
     },
     "School of Calisthenics": {
-      "n": 15,
-      "pearsonHipKnee": 0.936,
-      "gate": "pass",
-      "kneeAsymmetryAdvisoryMeanDeg": 24.2
+      "n": 3298,
+      "pearsonHipKnee": 0.707,
+      "gate": "pass"
     },
     "Sebastian Oreb": {
-      "n": 179,
-      "pearsonHipKnee": 0.951,
-      "gate": "pass",
-      "kneeAsymmetryAdvisoryMeanDeg": 15.2
+      "n": 7233,
+      "pearsonHipKnee": 0.857,
+      "gate": "pass"
     },
     "Squat University": {
-      "n": 2598,
-      "pearsonHipKnee": 0.9,
-      "gate": "pass",
-      "kneeAsymmetryAdvisoryMeanDeg": 10.2
+      "n": 22880,
+      "pearsonHipKnee": 0.732,
+      "gate": "pass"
     },
     "Strength Side": {
-      "n": 2633,
-      "pearsonHipKnee": 0.958,
-      "gate": "pass",
-      "kneeAsymmetryAdvisoryMeanDeg": 18.0
+      "n": 6242,
+      "pearsonHipKnee": 0.95,
+      "gate": "pass"
     },
     "THENX": {
-      "n": 3566,
-      "pearsonHipKnee": 0.951,
-      "gate": "pass",
-      "kneeAsymmetryAdvisoryMeanDeg": 23.1
+      "n": 12387,
+      "pearsonHipKnee": 0.963,
+      "gate": "pass"
     },
     "TappBrothers": {
-      "n": 130,
-      "pearsonHipKnee": 0.15,
-      "gate": "fail",
-      "kneeAsymmetryAdvisoryMeanDeg": 31.3,
-      "formulaSensitive": true,
-      "note": "G-065 diferansiyel testi: Lissom-düzeltilmiş formülle (WORLD 3D + proximal-projeksiyon, anatomical=true) r=0,818 — RAHAT GEÇER. Gravita'nın 2D-taraf-agnostik formülüyle ret muhtemelen kamera-açısı/küçük-örneklem kaynaklı FORMÜL ARTEFAKTI, gerçek confounder sinyali değil. Kesin karar (hangi formül kanonik) koordinatörde — bkz. docs/gates/G-065-HIPKNEECOUPLING-DIFERANSIYEL-TESTI.md."
+      "n": 1881,
+      "pearsonHipKnee": 0.642,
+      "gate": "pass"
     },
     "Tom Merrick": {
-      "n": 3137,
-      "pearsonHipKnee": 0.334,
-      "gate": "pass",
-      "kneeAsymmetryAdvisoryMeanDeg": 49.8
+      "n": 54313,
+      "pearsonHipKnee": 0.442,
+      "gate": "pass"
+    },
+    "Vast Fitness Academy": {
+      "n": 2537,
+      "pearsonHipKnee": 0.821,
+      "gate": "pass"
     },
     "WeShape": {
-      "n": 1774,
-      "pearsonHipKnee": 0.971,
-      "gate": "pass",
-      "kneeAsymmetryAdvisoryMeanDeg": 6.2
+      "n": 9914,
+      "pearsonHipKnee": 0.941,
+      "gate": "pass"
     }
   }
 }
