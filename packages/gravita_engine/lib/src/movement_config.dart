@@ -343,6 +343,7 @@ final class MovementConfig {
     required this.multi,
     required this.cameraSetup,
     required this.expectedOrientation,
+    required this.wave,
   });
 
   factory MovementConfig.fromJson(Map<String, dynamic> j) {
@@ -372,6 +373,7 @@ final class MovementConfig {
       multi: t == EngineType.multiPhaseFsm ? MultiPhaseConfig.fromJson(e) : null,
       cameraSetup: (j['camera'] as Map<String, dynamic>)['setup'] as String,
       expectedOrientation: (e['expectedOrientation'] as String?) ?? 'upright',
+      wave: (j['wave'] as num).toInt(),
     );
   }
 
@@ -396,6 +398,9 @@ final class MovementConfig {
   final String expectedOrientation;
 
   bool get isInverted => expectedOrientation == 'inverted';
+
+  /// Hangi dalgada açıldığı — IA'da "yakında" etiketi ve kapsam takibi için.
+  final int wave;
 
   /// B sınıfı form hükmü VERMEZ (blueprint §1/§8) — bu, UI'ın değil motorun
   /// zorladığı bir kuraldır.

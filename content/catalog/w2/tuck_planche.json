@@ -149,5 +149,6 @@
     "consensusN": 0,
     "status": "pending_harvest"
   },
-  "aspirational": true
+  "aspirational": true,
+  "skillGraphNode": "tuck_planche"
 }

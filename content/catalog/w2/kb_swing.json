@@ -13,8 +13,8 @@
   ],
   "wave": 2,
   "level": "intermediate",
-  "class": "D",
-  "classRationale": "Kettlebell'in kendisi TESPİT EDİLMEZ (sınıf D) — vücut mekaniği (menteşe derinliği, gövde açısı, kadans) koçlanır. Hareket sagittal düzlemde ve yan kameradan tam görünür.",
+  "class": "A",
+  "classRationale": "Açık zincir · sagittal düzlem yandan tam görünür. **Ağırlık ölçülmediği için sınıf DÜŞMEZ**: ölçtüğümüz hiçbir metrik (menteşe derinliği, gövde açısı, kadans) kettlebell'e BAĞLI değil. Sınıf D, hareketin TANIMI proptan geliyorsa kullanılır (kutu yüksekliği, ip) — burada öyle değil.",
   "camera": {
     "setup": "side",
     "framing": "full_body",

@@ -13,8 +13,8 @@
   ],
   "wave": 2,
   "level": "intermediate",
-  "class": "D",
-  "classRationale": "Ağırlık tespit edilmez (sınıf D). Menteşe sagittal düzlemde ve yan kameradan tam görünür; ölçülen şey gövde-uyluk kapanması ve bel hattı.",
+  "class": "A",
+  "classRationale": "Açık zincir · sagittal düzlem yandan tam görünür. Ağırlık ölçülmüyor ama hiçbir metrik ona bağlı değil (menteşe derinliği, bel hattı, diz açısı) → sınıf A; 'yük ölçülmez' notMeasured maddesi.",
   "camera": {
     "setup": "side",
     "framing": "full_body",

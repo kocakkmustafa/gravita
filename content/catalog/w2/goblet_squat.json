@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "id": "goblet_squat",
+  "name": "Goblet Squat",
+  "family": "legs",
+  "muscleGroups": [
+    "quads",
+    "glutes",
+    "core"
+  ],
+  "equipment": [
+    "kettlebell"
+  ],
+  "wave": 2,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Açık zincir · ayakta · sagittal düzlem yandan tam görünür. Ağırlık ölçülmüyor ama diz açısı ve gövde açısı ona bağlı değil.",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "knee",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 165
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 100
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "bottom->top",
+    "minPhaseMs": 250,
+    "timeoutMs": 9000,
+    "tempo": {
+      "reportDescentMs": true,
+      "reportAscentMs": true
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo",
+      "Squat depth (knee angle)",
+      "Torso angle",
+      "Heel lift"
+    ],
+    "notMeasured": [
+      "The kettlebell is not detected — load is not measured",
+      "Knee tracking side-to-side — that needs a front-facing setup",
+      "Force"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "rom_bottom_angle",
+      "torso_angle_from_vertical"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "shallow_depth",
+      "label": "Not squatting deep enough",
+      "priority": "blocking",
+      "detect": {
+        "metric": "rom_bottom_angle",
+        "op": ">",
+        "value": 110
+      },
+      "cue": "Sit lower — aim for thighs parallel.",
+      "perturbation": {
+        "metric": "rom_bottom_angle",
+        "targetValue": 132,
+        "via": {
+          "clampAt": 132
+        }
+      }
+    },
+    {
+      "id": "heel_lift",
+      "label": "Heels coming up",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "heel_rise_torso_norm",
+        "op": ">",
+        "value": 0.03
+      },
+      "cue": "Keep your heels down — widen your stance if you need to.",
+      "perturbation": {
+        "metric": "heel_rise_torso_norm",
+        "targetValue": 0.05,
+        "via": {
+          "joint": "ankle",
+          "raiseTorsoNorm": 0.05
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Stand side-on, full body in frame."
+    ],
+    "during": [
+      "Elbows inside your knees.",
+      "Chest tall."
+    ],
+    "success": [
+      "Good depth, heels down."
+    ]
+  },
+  "safety": {
+    "warnings": [],
+    "hardGate": false
+  },
+  "courses": [
+    "kb_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

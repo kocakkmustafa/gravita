@@ -13,8 +13,8 @@
   ],
   "wave": 2,
   "level": "beginner",
-  "class": "D",
-  "classRationale": "Yürüme hareketi + ağırlık tespit edilmez. Kadraj YÜRÜME yönergesi ister (kullanıcı kadrajda kalmalı); ölçülen şey gövde dikliği ve omuz seviyesi.",
+  "class": "A",
+  "classRationale": "Yürüme hareketi; ölçtüğümüz gövde dikliği ve omuz simetrisi ağırlığa BAĞLI DEĞİL → sınıf A. Kadraj yürüme yönergesi ister (kullanıcı kadrajda kalmalı).",
   "camera": {
     "setup": "walking_frame",
     "framing": "full_body",

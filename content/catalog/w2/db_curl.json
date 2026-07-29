@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "id": "db_curl",
+  "name": "Dumbbell Curl",
+  "family": "pull",
+  "muscleGroups": [
+    "biceps",
+    "forearms"
+  ],
+  "equipment": [
+    "dumbbells"
+  ],
+  "wave": 2,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Açık zincir · ayakta · dirsek fleksiyonu sagittal düzlemde yandan tam görünür. Ağırlık ölçülmüyor ama hiçbir metrik ona bağlı değil.",
+  "camera": {
+    "setup": "side",
+    "framing": "upper_body",
+    "calibrationGate": true
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "elbow",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 155
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 55
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "bottom->top",
+    "minPhaseMs": 250,
+    "timeoutMs": 8000,
+    "tempo": {
+      "reportDescentMs": true,
+      "reportAscentMs": true
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo (up/down)",
+      "Elbow range of motion",
+      "Torso sway (cheating check)",
+      "Left/right symmetry"
+    ],
+    "notMeasured": [
+      "The dumbbells are not detected — load is not measured",
+      "Which part of the biceps is working",
+      "Force"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "rom_top_angle",
+      "torso_angle_from_vertical"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "body_swing",
+      "label": "Swinging your body to lift",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "torso_angle_from_vertical",
+        "op": ">",
+        "value": 12
+      },
+      "cue": "Stand still — let your arms do the work.",
+      "perturbation": {
+        "metric": "torso_angle_from_vertical",
+        "targetValue": 20,
+        "via": {
+          "segment": "torso",
+          "deltaDeg": 20
+        }
+      }
+    },
+    {
+      "id": "partial_rom",
+      "label": "Not straightening at the bottom",
+      "priority": "blocking",
+      "detect": {
+        "metric": "rom_bottom_angle",
+        "op": "<",
+        "value": 150
+      },
+      "cue": "Straighten your arms fully at the bottom of every rep.",
+      "perturbation": {
+        "metric": "rom_bottom_angle",
+        "targetValue": 125,
+        "via": {
+          "clampAt": 125
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Stand side-on to the phone."
+    ],
+    "during": [
+      "Elbows still.",
+      "Lower slowly."
+    ],
+    "success": [
+      "Full range, no swing."
+    ]
+  },
+  "safety": {
+    "warnings": [],
+    "hardGate": false
+  },
+  "courses": [
+    "db_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

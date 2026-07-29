@@ -11,8 +11,8 @@
   ],
   "wave": 2,
   "level": "beginner",
-  "class": "D",
-  "classRationale": "Hareket FRONTAL düzlemde → yan kameradan foreshortening'e girer. Bu yüzden kamera ÖNE alınır ve o kadrajda ölçüm dürüsttür; ağırlık tespit edilmediği için sınıf D.",
+  "class": "A",
+  "classRationale": "Hareket FRONTAL düzlemde → kamera ÖNE alınır ve o kadrajda abduksiyon açısı dürüstçe ölçülür. Ağırlık ölçülmüyor ama abduksiyon açısı ona bağlı değil → sınıf A.",
   "camera": {
     "setup": "front",
     "framing": "upper_body",

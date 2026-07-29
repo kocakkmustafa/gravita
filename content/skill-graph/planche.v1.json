@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 1,
+  "packId": "gravita.planche",
+  "packVersion": "1.0.0-draft",
+  "locale": "en",
+  "status": "DRAFT — eşikler provizyonel; M-F-38 yeterlilik kapısı (≥3 eğitmen × ≥3 temiz pencere) geçilmeden kaynak-varyans türetimi YAPILMAZ.",
+  "engineContract": "docs/G4-BECERI-GRAFI-TASARIMI.md",
+  "enginePolicy": {
+    "note": "Kodda zorlanır; paketler ezemez.",
+    "impliedCriteria": [
+      {
+        "metric": "analysis_confidence",
+        "op": ">=",
+        "value": 0.7
+      },
+      {
+        "metric": "pain_reported",
+        "op": "==",
+        "value": false
+      }
+    ],
+    "sideAgnostic": true,
+    "gateablePhases": [
+      "HOLD"
+    ],
+    "unmeasuredIsNotFailure": true
+  },
+  "aspirationalPolicy_tr": "straddle ve full planche ROZETSİZDİR (blueprint §8): rehberli ilerleme var, ödül yok. Elit beceriyi rozetle ödüllendirmek, hazır olmayan kullanıcıyı acele ettirir.",
+  "nodes": [
+    {
+      "id": "wrist_prep_planche",
+      "title": "Wrist Preparation",
+      "type": "prep",
+      "requires": [],
+      "entry": true,
+      "safetyGate": true,
+      "safetyNotes": [
+        "Planche loads the wrist harder than any other bodyweight hold. Build tolerance before the lean."
+      ],
+      "measurement": {
+        "captured": false,
+        "reason": "Self-reported preparation; no camera judgement in V1."
+      },
+      "unlock": {
+        "allOf": [
+          {
+            "metric": "sessions_completed",
+            "op": ">=",
+            "value": 3
+          }
+        ]
+      },
+      "drills": [
+        {
+          "id": "wrist_rocks_loaded",
+          "title": "Loaded wrist rocks",
+          "prescription": "3 × 30 s"
+        }
+      ],
+      "cues": [
+        "Spread your fingers and grip the floor."
+      ]
+    },
+    {
+      "id": "planche_lean",
+      "title": "Planche Lean",
+      "type": "hold",
+      "requires": [
+        "wrist_prep_planche"
+      ],
+      "measurement": {
+        "captured": true,
+        "phase": "HOLD",
+        "metrics": [
+          "planche_lean_deg",
+          "hold_duration_s",
+          "elbow_angle",
+          "analysis_confidence"
+        ]
+      },
+      "unlock": {
+        "allOf": [
+          {
+            "metric": "hold_duration_s",
+            "op": ">=",
+            "value": 20,
+            "aggregate": "best",
+            "window": {
+              "sessions": 3,
+              "successesRequired": 2
+            }
+          },
+          {
+            "metric": "planche_lean_deg",
+            "op": ">=",
+            "value": 12,
+            "aggregate": "median"
+          },
+          {
+            "metric": "elbow_angle",
+            "op": ">=",
+            "value": 160,
+            "aggregate": "median"
+          }
+        ]
+      },
+      "drills": [
+        {
+          "id": "lean_holds",
+          "title": "Planche lean holds",
+          "prescription": "4 × 15 s"
+        }
+      ],
+      "cues": [
+        "Push the floor away.",
+        "Shoulders past your hands.",
+        "Lock your elbows."
+      ]
+    },
+    {
+      "id": "tuck_planche",
+      "title": "Tuck Planche",
+      "type": "hold",
+      "requires": [
+        "planche_lean"
+      ],
+      "measurement": {
+        "captured": true,
+        "phase": "HOLD",
+        "metrics": [
+          "hold_duration_s",
+          "planche_lean_deg",
+          "elbow_angle",
+          "analysis_confidence"
+        ]
+      },
+      "unlock": {
+        "allOf": [
+          {
+            "metric": "hold_duration_s",
+            "op": ">=",
+            "value": 10,
+            "aggregate": "best",
+            "window": {
+              "sessions": 4,
+              "successesRequired": 2
+            }
+          },
+          {
+            "metric": "elbow_angle",
+            "op": ">=",
+            "value": 160,
+            "aggregate": "median"
+          }
+        ]
+      },
+      "drills": [
+        {
+          "id": "tuck_holds",
+          "title": "Tuck planche holds",
+          "prescription": "5 × 5 s"
+        }
+      ],
+      "cues": [
+        "Knees to chest.",
+        "Lean until your hips float.",
+        "Elbows locked."
+      ],
+      "milestone": true
+    },
+    {
+      "id": "advanced_tuck_planche",
+      "title": "Advanced Tuck Planche",
+      "type": "hold",
+      "requires": [
+        "tuck_planche"
+      ],
+      "aspirational": true,
+      "measurement": {
+        "captured": true,
+        "phase": "HOLD",
+        "metrics": [
+          "hold_duration_s",
+          "planche_lean_deg",
+          "lumbar_flexion_proxy",
+          "analysis_confidence"
+        ]
+      },
+      "unlock": {
+        "allOf": [
+          {
+            "metric": "hold_duration_s",
+            "op": ">=",
+            "value": 8,
+            "aggregate": "best",
+            "window": {
+              "sessions": 5,
+              "successesRequired": 2
+            }
+          },
+          {
+            "metric": "lumbar_flexion_proxy",
+            "op": "<=",
+            "value": 15,
+            "aggregate": "median"
+          }
+        ]
+      },
+      "drills": [
+        {
+          "id": "adv_tuck_holds",
+          "title": "Advanced tuck holds",
+          "prescription": "5 × 5 s"
+        }
+      ],
+      "cues": [
+        "Open your hips until your back is flat.",
+        "Keep the lean."
+      ]
+    },
+    {
+      "id": "straddle_planche",
+      "title": "Straddle Planche",
+      "type": "hold",
+      "requires": [
+        "advanced_tuck_planche"
+      ],
+      "aspirational": true,
+      "safetyNotes": [
+        "Very high wrist, elbow and shoulder load. Progress slowly; stop at joint pain."
+      ],
+      "measurement": {
+        "captured": true,
+        "phase": "HOLD",
+        "metrics": [
+          "hold_duration_s",
+          "line_deviation_deg",
+          "elbow_angle",
+          "analysis_confidence"
+        ]
+      },
+      "unlock": {
+        "allOf": [
+          {
+            "metric": "hold_duration_s",
+            "op": ">=",
+            "value": 5,
+            "aggregate": "best",
+            "window": {
+              "sessions": 6,
+              "successesRequired": 2
+            }
+          }
+        ]
+      },
+      "drills": [
+        {
+          "id": "straddle_negatives",
+          "title": "Straddle negatives",
+          "prescription": "5 × 3"
+        }
+      ],
+      "cues": [
+        "Legs wide.",
+        "Flat back.",
+        "Push tall through the shoulders."
+      ]
+    },
+    {
+      "id": "full_planche",
+      "title": "Full Planche",
+      "type": "hold",
+      "requires": [
+        "straddle_planche"
+      ],
+      "aspirational": true,
+      "safetyNotes": [
+        "Elite-level joint load. This is guided, not badged — there is no rush."
+      ],
+      "measurement": {
+        "captured": true,
+        "phase": "HOLD",
+        "metrics": [
+          "hold_duration_s",
+          "line_deviation_deg",
+          "elbow_angle",
+          "analysis_confidence"
+        ]
+      },
+      "unlock": {
+        "allOf": [
+          {
+            "metric": "hold_duration_s",
+            "op": ">=",
+            "value": 3,
+            "aggregate": "best",
+            "window": {
+              "sessions": 8,
+              "successesRequired": 2
+            }
+          }
+        ]
+      },
+      "drills": [
+        {
+          "id": "full_negatives",
+          "title": "Full planche negatives",
+          "prescription": "5 × 2"
+        }
+      ],
+      "cues": [
+        "Straight line, toes pointed.",
+        "Elbows locked."
+      ]
+    }
+  ]
+}

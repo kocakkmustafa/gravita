@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "id": "db_row",
+  "name": "Dumbbell Row",
+  "family": "pull",
+  "muscleGroups": [
+    "lats",
+    "mid_back",
+    "biceps"
+  ],
+  "equipment": [
+    "dumbbells"
+  ],
+  "wave": 2,
+  "level": "beginner",
+  "class": "A",
+  "classRationale": "Açık zincir · eğik gövde · çekiş yolu sagittal düzlemde yandan görünür. Tek taraflı hareket; motor GÖRÜNEN taraf zincirini kullanır (ADR-003), sol/sağ etiketine bağlanmaz.",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Eğik gövde tam kadrajda; destek eli/dizi görünsün."
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "elbow",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 155
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 75
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "bottom->top",
+    "minPhaseMs": 250,
+    "timeoutMs": 9000,
+    "tempo": {
+      "reportDescentMs": true,
+      "reportAscentMs": true
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo",
+      "Elbow range of motion",
+      "Torso angle stability (no rotating up)",
+      "Working-side chain"
+    ],
+    "notMeasured": [
+      "The dumbbell is not detected — load is not measured",
+      "Scapular retraction quality",
+      "Force"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "rom_top_angle",
+      "torso_angle_from_vertical"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "torso_rotation",
+      "label": "Rotating your torso to pull",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "torso_angle_from_vertical",
+        "op": ">",
+        "value": 20
+      },
+      "cue": "Keep your chest still — pull with your back, not by twisting.",
+      "perturbation": {
+        "metric": "torso_angle_from_vertical",
+        "targetValue": 30,
+        "via": {
+          "segment": "torso",
+          "deltaDeg": 22
+        }
+      }
+    },
+    {
+      "id": "partial_rom",
+      "label": "Not pulling far enough",
+      "priority": "blocking",
+      "detect": {
+        "metric": "rom_top_angle",
+        "op": ">",
+        "value": 100
+      },
+      "cue": "Pull your elbow past your ribs.",
+      "perturbation": {
+        "metric": "rom_top_angle",
+        "targetValue": 122,
+        "via": {
+          "clampAt": 122
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Set the phone side-on to your bent-over position."
+    ],
+    "during": [
+      "Chest still.",
+      "Elbow to your hip."
+    ],
+    "success": [
+      "Solid position, full pull."
+    ]
+  },
+  "safety": {
+    "warnings": [],
+    "hardGate": false
+  },
+  "courses": [
+    "db_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

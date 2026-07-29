@@ -11,6 +11,8 @@ Denetlenen değişmezler (hepsi bir DEFTER/ADR maddesine bağlı):
   V7  Dürüstlük      : her form hatasının kullanıcıya söylenecek bir `cue`u var
   V8  C sınıfı katalogda yer alamaz (exclusions.json'a gider)
   V9  timeout        : rep/çok-faz motorlarında fiziksel üst sınır zorunlu (JabLab J-009 dersi)
+  V13 ağaç bağı     : `skillGraphNode` referansı GERÇEK bir düğüme işaret etmeli — kopuk
+                       referans, kullanıcıyı var olmayan bir beceri düğümüne yollar
   V12 ters yönelim   : `expectedOrientation: inverted` -> `structuralCheck: required` ZORUNLU
   V11 uç ayrıklığı   : repFsm'in iki ucu (angleMin/angleMax) ÖRTÜŞEMEZ — örtüşürse her kare
                        her iki uçta sayılır ve motor durmadan "tekrar" üretir
@@ -208,17 +210,38 @@ def check(path):
     return m.get("id")
 
 
+def _skill_graph_nodes():
+    """Tüm beceri ağacı paketlerindeki düğüm kimlikleri."""
+    ids = set()
+    for p in (ROOT / "content" / "skill-graph").glob("*.json"):
+        try:
+            for n in json.loads(p.read_text()).get("nodes", []):
+                ids.add(n["id"])
+        except Exception as e:
+            errors.append(f"❌ {p.name}: beceri ağacı okunamadı: {e}")
+    return ids
+
+
 def main():
     files = sorted(CATALOG.rglob("*.json"))
     files = [p for p in files if p.name != "exclusions.json"]
     if not files:
         print("Katalogda hareket yok.")
         return 0
+    graph_nodes = _skill_graph_nodes()
     ids = {}
     for p in files:
         i = check(p)
         if i:
             ids.setdefault(i, []).append(p.name)
+        # V13: kopuk beceri-ağacı referansı
+        try:
+            node = json.loads(p.read_text()).get("skillGraphNode")
+        except Exception:
+            node = None
+        if node and node not in graph_nodes:
+            err(p.name, f"skillGraphNode '{node}' hiçbir beceri ağacında yok — "
+                        f"kullanıcıyı var olmayan düğüme yollar")
     for i, fs in ids.items():
         if len(fs) > 1:
             err(", ".join(fs), f"id çakışması: '{i}'")
