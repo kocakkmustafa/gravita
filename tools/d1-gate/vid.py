@@ -3,7 +3,12 @@
 
 Videoda statik "baş kalçadan aşağıda" değişmezi KULLANILAMAZ (gövde ekseni sürekli dönüyor).
 Yerine GROUND-TRUTH GEREKTİRMEYEN fiziksel imkânsızlık ölçütü:
-  - 25fps'te gövde ekseni bir karede >120° dönemez -> böyle bir sıçrama = ETİKET TERSLEMESİ.
+  - Gövde ekseni saniyede >3000° dönemez -> böyle bir sıçrama = ETİKET TERSLEMESİ.
+    (Eşik °/SANİYE cinsindendir; kare-farkı dt ile normalize edilir. Kare-başına
+     sabit bir eşik gizlice fps'e bağlıdır: 120°/kare 25fps'te 3000°/s demektir
+     ama 60fps'te 7200°/s'ye karşılık gelir ve GERÇEK bir eksen terslemesini
+     KAÇIRIR; düşük fps'te ise sahte-pozitif üretir. Kod fps'i zaten okuyordu,
+     eşiği ölçeklemiyordu.)
   - Kemik uzunlukları (üst kol / uyluk) kişi sabitken ani sıçrayamaz -> uzuv takası tespiti.
 
 Stratejiler: S1 (IMAGE/kare-kare düz) · S2 (IMAGE/kare-kare 180°) · S3 (VIDEO/tracking düz) · S4 (VIDEO/tracking 180°)
@@ -15,7 +20,11 @@ from mediapipe.tasks import python as mp_python
 from mediapipe.tasks.python import vision
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-FLIP_DEG = 120.0
+#: Fiziksel imkânsızlık eşiği, °/SANİYE. 120°/kare @ 25fps = 3000°/s.
+#: Aile sözleşmesi 60-DSP-SOZLESMESI §1: zamana bağlı eşikler kare-başına
+#: DEĞİL saniye-başına ifade edilir; aksi hâlde eşik örnekleme hızına gizlice
+#: bağlanır ve aynı kod farklı fps'te farklı şey ölçer.
+FLIP_DEG_PER_S = 3000.0
 
 
 def mk(model, video):
@@ -94,20 +103,27 @@ def run(path, model_name="full", max_frames=400):
         flips = 0
         pairs = 0
         prev = None
+        prev_k = None
         arms = []
         vis = []
-        for s in S:
+        for k, s in enumerate(S):
             if s is None:
                 prev = None
+                prev_k = None
                 continue
             v = torso_vec(s)
             vis.append(np.mean([s[i][3] for i in (11, 12, 13, 14, 15, 16, 23, 24, 25, 26, 27, 28)]))
             arms.append((seg(s, 11, 13) + seg(s, 12, 14)) / 2)
             if prev is not None:
                 pairs += 1
-                if ang(prev, v) > FLIP_DEG:
+                # dt indeks farkından: kayıp kare sonrası prev sıfırlandığı için
+                # bugün hep 1/fps, ama açıkça hesaplanır — ileride kare atlama
+                # eklenirse eşik sessizce yanlışa dönmesin.
+                dt = (k - prev_k) / fps
+                if ang(prev, v) > FLIP_DEG_PER_S * dt:
                     flips += 1
             prev = v
+            prev_k = k
         cv_arm = float(np.std(arms) / (np.mean(arms) or 1)) if arms else float("nan")
         summary[name] = {"detect": float(np.mean(det)), "flips": flips, "pairs": pairs,
                          "vis": float(np.mean(vis)) if vis else None, "arm_cv": cv_arm}

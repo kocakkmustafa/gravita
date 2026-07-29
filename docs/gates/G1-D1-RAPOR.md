@@ -198,3 +198,18 @@ Eleme kaynağa dayanır (Commons kategorisi `Handstands in art` = heykel), ölç
 1. **Kapı onayı:** §0 hükmü + §4 mimari kararları onaylanıyor mu? (Onaylanırsa G-001/M-001 kapanır, G2 PRD açılır.)
 2. **Çekim listesi onayı:** B2/B3/B4 borçları için gerçek çekim planı — ayrı listede sunulacak.
 3. Bu raporda para/submission/fiyat kararı **yoktur** — gece kısıtı ihlal edilmedi.
+
+### Ek düzeltme — 2026-07-29: eksen-sıçraması eşiği fps'e gizlice bağlıydı
+
+`tools/d1-gate/vid.py` eşiği `FLIP_DEG = 120.0` idi: **kare başına**, ama 25fps
+varsayımından türetilmiş. Kod gerçek fps'i OKUYOR ama eşiği ölçeklemiyordu.
+Sonuç: 60fps'te aynı eşik 7200°/s'ye karşılık gelir ve **gerçek bir eksen
+terslemesini KAÇIRIR**; düşük fps'te ise sahte-pozitif üretir.
+
+Düzeltme: eşik **°/saniye** cinsine çevrildi (`FLIP_DEG_PER_S = 3000.0`) ve
+kare-farkı `dt` ile normalize edildi (60-DSP-SOZLESMESI §1: zamana bağlı eşik
+kare-başına değil saniye-başına ifade edilir).
+
+**Bu raporun hükmü DEĞİŞMEZ.** Ölçüm klipleri @25fps'ti: `3000 × (1/25) = 120°`,
+yani yeni eşik orijinal koşumda eski sabitin birebir aynısını verir. Düzeltme
+davranış-koruyucudur; kazanç, kapının başka kare hızlarında da doğru olmasıdır.
