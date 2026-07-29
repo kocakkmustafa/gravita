@@ -45,7 +45,12 @@
       "form_break_sustained",
       "user_stop",
       "confidence_lost"
-    ]
+    ],
+    "precondition": {
+      "status": "pending",
+      "rationale": "HENÜZ TÜRETİLMEDİ (G-043). Bu hareketin kimlik ön koşulu ölçümle türetilmedi; hasat sırası gelmedi. Üründe camera.calibrationGate kısmi koruma sağlar (kullanıcı hareketi seçer ve pozisyona girer) ama hasatta böyle bir beyan YOKTUR — bu yüzden V15 hasat kuyruğuna giren her harekette status=derived şart koşar.",
+      "conditions": []
+    }
   },
   "measurementContract": {
     "measured": [

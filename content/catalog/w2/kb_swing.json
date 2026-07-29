@@ -53,6 +53,11 @@
       "cutoffHz": 8.0,
       "derivedFrom": "salınım geçiş süresi ~120-200 ms; G3 çekimiyle yeniden türetilecek",
       "rationale_tr": "J-027: balistik menteşe hızlı geçiştir; çekirdek varsayılan yumuşatması tepe noktasını söndürür. Kesim eşiklerle BİRLİKTE pinlenir."
+    },
+    "precondition": {
+      "status": "pending",
+      "rationale": "HENÜZ TÜRETİLMEDİ (G-043). Bu hareketin kimlik ön koşulu ölçümle türetilmedi; hasat sırası gelmedi. Üründe camera.calibrationGate kısmi koruma sağlar (kullanıcı hareketi seçer ve pozisyona girer) ama hasatta böyle bir beyan YOKTUR — bu yüzden V15 hasat kuyruğuna giren her harekette status=derived şart koşar.",
+      "conditions": []
     }
   },
   "measurementContract": {

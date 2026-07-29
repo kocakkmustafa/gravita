@@ -344,6 +344,8 @@ final class MovementConfig {
     required this.cameraSetup,
     required this.expectedOrientation,
     required this.wave,
+    required this.precondition,
+    required this.preconditionStatus,
   });
 
   factory MovementConfig.fromJson(Map<String, dynamic> j) {
@@ -374,6 +376,15 @@ final class MovementConfig {
       cameraSetup: (j['camera'] as Map<String, dynamic>)['setup'] as String,
       expectedOrientation: (e['expectedOrientation'] as String?) ?? 'upright',
       wave: (j['wave'] as num).toInt(),
+      precondition: ((e['precondition'] as Map<String, dynamic>?)?['conditions']
+                  as List<dynamic>?)
+              ?.map((dynamic c) =>
+                  MetricCondition.fromJson(c as Map<String, dynamic>))
+              .toList(growable: false) ??
+          const <MetricCondition>[],
+      preconditionStatus:
+          ((e['precondition'] as Map<String, dynamic>?)?['status'] as String?) ??
+              'pending',
     );
   }
 
@@ -401,6 +412,32 @@ final class MovementConfig {
 
   /// Hangi dalgada açıldığı — IA'da "yakında" etiketi ve kapsam takibi için.
   final int wave;
+
+  /// HAREKET KİMLİĞİ ön koşulu: bu koşullar tutmadan kare bu hareketin adayı
+  /// bile sayılmaz.
+  ///
+  /// Neden gerekli (G-043, ölçüldü): tekrar FSM'i sinyal eklemin salınımını
+  /// sayar, hareketi DEĞİL. Ayakta konuşan bir eğitmenin dirseği de 155°↔100°
+  /// arasında salınır (el hareketi, gösterim, yerden kalkma) ve FSM bunu
+  /// şınavdan ayırt edemez. Şınav hasadında sayılan 85 "tekrarın" 65'i gövdesi
+  /// 50-90° eğimli — yani AYAKTA duran — kayıtlardan geldi.
+  ///
+  /// Ürün bu kapıyı bedava alır: kullanıcı hareketi seçer ve `camera
+  /// .calibrationGate` pozisyona girmesini şart koşar. Hasatta böyle bir beyan
+  /// YOKTUR — eğitmen videoya "şimdi şınav yapıyorum" demez. Bu yüzden ürünün
+  /// çalışma zamanında varsaydığı her şey hasatta ÖLÇÜLMEK zorundadır.
+  ///
+  /// Boş liste = "bu hareket için ön koşul YOK" bilinçli beyanı (V15).
+  final List<MetricCondition> precondition;
+
+  /// `derived` = koşullar ölçümle türetildi · `pending` = henüz türetilmedi.
+  ///
+  /// Ayrı bir alan, çünkü boş liste iki şeyi birden anlatamaz: "ön koşula
+  /// gerek yok" ile "henüz bakmadık" aynı şey değildir ve ikincisini birincisi
+  /// gibi göstermek tam olarak sessiz deliğin kendisidir.
+  final String preconditionStatus;
+
+  bool get preconditionDerived => preconditionStatus == 'derived';
 
   /// B sınıfı form hükmü VERMEZ (blueprint §1/§8) — bu, UI'ın değil motorun
   /// zorladığı bir kuraldır.

@@ -4,6 +4,7 @@
 // hedefli gizleme — sessiz gölgeleme yerine açık beyan.
 import 'package:motion_core/motion_core.dart' hide MetricCondition, PhaseSpec;
 
+import 'metrics.dart';
 import 'movement_config.dart';
 
 /// Görünen tarafın GEOMETRİK seçimi.
@@ -168,7 +169,26 @@ final class RepEngine {
       return;
     }
 
-    // 3) Açıyı GÖRÜNEN taraftan oku (taraf-agnostik kural — ADR-003).
+    // 3) Hareket kimliği — gördüğü vücut BU hareketi yapıyor mu?
+    //
+    //    Güven kapısı "net görüyor muyum", yapısal denetim "bu bir vücut mu"
+    //    sorusunu cevaplar; ikisi de "bu vücut ŞINAV mı yapıyor" sorusunu
+    //    cevaplamaz. FSM sinyal ekleminin salınımını sayar: ayakta konuşurken
+    //    el hareketi de dirseği 155°↔100° arasında gezdirir ve tekrar olarak
+    //    sayılır (G-043, hasatta ölçüldü). Ön koşul config'den gelir.
+    if (config.precondition.isNotEmpty) {
+      final MovementMetrics pre = MovementMetrics.of(frame);
+      for (final MetricCondition c in config.precondition) {
+        final double? v = pre.byName(c.metric);
+        // Ölçülemeyen ön koşul "geçti" sayılmaz — hüküm yok (fail-closed).
+        if (v == null || v.isNaN || !c.holds(v)) {
+          skippedFrames++;
+          return;
+        }
+      }
+    }
+
+    // 4) Açıyı GÖRÜNEN taraftan oku (taraf-agnostik kural — ADR-003).
     final VisibleSide side = resolveVisibleSide(frame);
     final JointAngleVector angles =
         _extractor.extract(_normalizer.normalize(frame));

@@ -155,4 +155,77 @@ void main() {
           reason: 'ölçmediğimiz kriteri sessizce atlamak dürüstlük ihlalidir');
     });
   });
+
+  group('G-043 — hareket kimliği: FSM hareketi değil, salınımı sayar', () {
+    /// AYAKTA duran bir gövde; kollar aynı 170°↔80° salınımını yapıyor.
+    ///
+    /// Bu tam olarak bir eğitmenin konuşurken el hareketi yapmasıdır ve
+    /// sinyal açısı bakımından şınavdan AYIRT EDİLEMEZ. Hasatta ölçüldü:
+    /// sayılan 85 "şınav tekrarının" 65'i gövdesi 50-90° eğimli — yani ayakta
+    /// duran — kayıtlardan geldi. Ürün bu kapıyı camera.calibrationGate ile
+    /// bedava alır; motorun kendisi de almalı, yoksa kalibrasyonu atlayan her
+    /// yol sahte sayım üretir.
+    SyntheticPose standingPose(double elbowDeg) {
+      final double upper = math.pi / 2; // üstkol aşağı
+      final double fore = upper + (math.pi - elbowDeg * math.pi / 180);
+      return SyntheticPose(
+        trunkAngle: -math.pi / 2, // omuzlar kalçanın ÜSTÜNDE = dik duruş
+        leftUpperArm: upper,
+        rightUpperArm: upper,
+        leftForearm: fore,
+        rightForearm: fore,
+        leftThigh: math.pi / 2, // bacaklar aşağı
+        rightThigh: math.pi / 2,
+        leftShin: math.pi / 2,
+        rightShin: math.pi / 2,
+        rootY: 0.5,
+      );
+    }
+
+    List<PoseFrame> standingSequence(int cycles) {
+      final List<PoseFrame> out = <PoseFrame>[];
+      int tUs = 0;
+      const int step = 40000;
+      void ramp(double from, double to) {
+        for (int i = 0; i <= 20; i++) {
+          out.add(builder.build(standingPose(from + (to - from) * (i / 20)),
+              tUs: tUs));
+          tUs += step;
+        }
+      }
+
+      out.add(builder.build(standingPose(170), tUs: tUs));
+      tUs += step;
+      for (int r = 0; r < cycles; r++) {
+        ramp(170, 80);
+        ramp(80, 170);
+      }
+      return out;
+    }
+
+    test('ayakta el hareketi ŞINAV tekrarı SAYILMAZ', () {
+      final MovementConfig c = load('push_up');
+      expect(c.preconditionDerived, isTrue,
+          reason: 'push_up ön koşulu türetilmiş olmalı (V15)');
+
+      final RepEngine e = RepEngine(c);
+      for (final PoseFrame f in standingSequence(5)) {
+        e.addFrame(f, kSynthSize);
+      }
+      expect(e.repCount, 0,
+          reason: 'dirsek 170°↔80° salındı ama gövde DİK — bu bir şınav değil');
+      expect(e.skippedFrames, greaterThan(0),
+          reason: '"hüküm yok" sessiz olmaz: elenen kareler sayılır');
+    });
+
+    test('aynı salınım YATAY gövdeyle tekrar SAYILIR — kapı ayrım yapıyor', () {
+      final RepEngine e = RepEngine(load('push_up'));
+      for (final PoseFrame f in pushUpSequence(5)) {
+        e.addFrame(f, kSynthSize);
+      }
+      expect(e.repCount, 5,
+          reason: 'ön koşul gerçek şınavı ELEMEMELİ — aksi hâlde kapı değil, '
+              'körlük olur');
+    });
+  });
 }

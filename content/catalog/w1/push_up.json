@@ -54,6 +54,18 @@
     "tempo": {
       "reportDescentMs": true,
       "reportAscentMs": true
+    },
+    "precondition": {
+      "rationale": "HAREKET KİMLİĞİ (G-043). Tekrar FSM'i sinyal ekleminin salınımını sayar, hareketi değil: ayakta konuşan bir eğitmenin dirseği de 155°↔100° arasında gezinir. Şınav hasadında sayılan 85 tekrarın 65'i gövdesi 50-90° eğimli kayıtlardan geldi — ayakta duran insanlar. Ürün bu kapıyı camera.calibrationGate ile bedava alır (kullanıcı hareketi seçer ve pozisyona girer); hasatta böyle bir beyan yoktur, bu yüzden ÖLÇÜLÜR.",
+      "conditions": [
+        {
+          "metric": "torso_angle_from_vertical",
+          "op": ">=",
+          "value": 60
+        }
+      ],
+      "$thresholdRationale": "Şınavın gövdesi tanımı gereği YATAY (düşeyden 90°). 60° eşiği = yataydan en çok 30° sapma. Kaynak: metrik noiseBand 5°, camera.setup=side45 ve tipik tripod yüksekliği görünür eğim katar. 30°'nin ötesi artık yerde şınav değil, eğimli/ayakta bir duruştur. PROVISIONAL: eşik ölçüme UYDURULMADI (kalan eğitmen sayısını en çoklamak için oynatılmadı); ≥3 eğitmen geçtiğinde M-F-38 varyansından yeniden türetilecek.",
+      "status": "derived"
     }
   },
   "measurementContract": {

@@ -106,6 +106,22 @@ def check(path):
         err(f, f"JSON okunamadı: {e}")
         return None
 
+    # V15: hareket-kimliği ön koşulu BEYAN edilmeli; hasat kuyruğundakiler
+    # TÜRETİLMİŞ olmalı. Tekrar FSM'i sinyal ekleminin salınımını sayar,
+    # hareketi değil — ayakta el hareketi de "tekrar" üretir (G-043).
+    pre = (m.get("engine") or {}).get("precondition")
+    if not isinstance(pre, dict) or pre.get("status") not in ("derived", "pending"):
+        err(f, "engine.precondition BEYAN edilmemiş (status: derived|pending) — "
+               "beyansız hareket, ayakta el hareketini tekrar sayar (G-043)")
+    elif pre["status"] == "derived" and not pre.get("conditions"):
+        err(f, "precondition.status=derived ama conditions BOŞ — türetilmiş "
+               "diyen beyan koşul taşımak zorunda")
+    elif pre["status"] == "pending" and m.get("id") in _harvested_ids():
+        err(f, f"'{m.get('id')}' için tekrar çıkarımı yapılmış ama precondition "
+               "türetilmemiş — hasatta kullanıcı beyanı YOKTUR (üründeki "
+               "calibrationGate'in karşılığı hasatta ölçümdür); türetilmeden "
+               "çıkarılan tekrarlar referansa giremez")
+
     if not isinstance(m.get("passiveExecutionPossible"), bool):           # V14
         err(f, "passiveExecutionPossible BEYAN edilmemiş — `unknown` kaynak "
                "muafiyeti (M-F-45) beyansız kullanılamaz; fail-closed kural gereği "
@@ -214,6 +230,17 @@ def check(path):
         warn(f, "provenance: hasat bekliyor — tolerans değerleri henüz kaynak varyansından TÜREMEDİ")
 
     return m.get("id")
+
+
+def _harvested_ids():
+    """Tekrar ÇIKARIMI yapılmış hareketler — bunlar için ön koşul TÜRETİLMİŞ olmalı.
+
+    Ölçüt kuyruk DEĞİL, çıkarım artefaktıdır: aday keşfi serbesttir (kuyruğa
+    hareket eklemek bir iddia taşımaz), yasak olan kimlik kapısı olmadan tekrar
+    çıkarıp onu referansa sokmaktır.
+    """
+    return {p.name[len("reps."):-len(".json")]
+            for p in (ROOT / "content" / "harvest").glob("reps.*.json")}
 
 
 def _skill_graph_nodes():

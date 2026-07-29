@@ -67,6 +67,18 @@ void main(List<String> args) {
       orElse: () => throw StateError('config yok: $movementId'));
   final MovementConfig cfg = MovementConfig.parse(cfgFile.readAsStringSync());
 
+  // FAIL-CLOSED (G-043/V15): kimlik ön koşulu türetilmeden tekrar çıkarılmaz.
+  // Doğrulayıcı artefaktı sonradan reddediyor; asıl kapı ÜRETİM noktasındadır —
+  // var olmayan bir hareketin "tekrarlarını" hiç üretmemek, sonra elemekten
+  // iyidir (bir tur boyunca 85 el hareketi tekrar sanıldı).
+  if (!cfg.preconditionDerived) {
+    stderr.writeln('DURDU: ${cfg.id} için engine.precondition '
+        'status=${cfg.preconditionStatus}. Hasatta kullanıcı beyanı YOKTUR; '
+        'kimlik kapısı ölçümle türetilmeden çıkarılan tekrarlar, hareketi '
+        'yapmayan kayıtları içerir (G-043).');
+    exit(65);
+  }
+
   stdout.writeln('hareket: ${cfg.name} (${cfg.engineType.name}, sınıf '
       '${cfg.movementClass.name.toUpperCase()})');
   stdout.writeln('${'kaynak'.padRight(16)}${'eğitmen'.padRight(24)}'

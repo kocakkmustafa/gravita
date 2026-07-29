@@ -108,7 +108,12 @@
     ],
     "checkpointRationale_tr": "G-006 + aile dürüstlük kuralı: patlayıcı faz 20-30fps'te 1-2 kare + blur. Sıçrama YÜKSEKLİĞİ ölçülmez, sıçramanın GERÇEKLEŞTİĞİ ve inişin yumuşaklığı checkpoint olarak değerlendirilir.",
     "repCountedOn": "land->stand",
-    "timeoutMs": 12000
+    "timeoutMs": 12000,
+    "precondition": {
+      "status": "pending",
+      "rationale": "HENÜZ TÜRETİLMEDİ (G-043). Bu hareketin kimlik ön koşulu ölçümle türetilmedi; hasat sırası gelmedi. Üründe camera.calibrationGate kısmi koruma sağlar (kullanıcı hareketi seçer ve pozisyona girer) ama hasatta böyle bir beyan YOKTUR — bu yüzden V15 hasat kuyruğuna giren her harekette status=derived şart koşar.",
+      "conditions": []
+    }
   },
   "measurementContract": {
     "measured": [
