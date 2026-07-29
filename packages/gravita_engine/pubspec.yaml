@@ -12,7 +12,7 @@ dependencies:
   motion_core:
     git:
       url: https://github.com/kocakkmustafa/motion-core.git
-      ref: motion_core-v0.4.3
+      ref: motion_core-v0.5.0
       path: packages/motion_core
 
 dev_dependencies:
