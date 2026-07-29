@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "app": "gravita",
   "rule": "M-F-32: sayım birimi EĞİTMEN; hedef ~5 bağımsız eğitmen/teknik",
-  "discoveredAt": "2026-07-29T01:19:51+00:00",
+  "discoveredAt": "2026-07-29T01:56:30+00:00",
   "tool": "2026.07.04",
   "filters": {
     "min_duration_s": 90,
@@ -28,7 +28,7 @@
           "reason": "varyant/başka hareket: 'handstand'"
         },
         {
-          "title": "How To Press Handstand (Full Tutorial + Training Guide)",
+          "title": "Beginner Handstand Push Up Routine (SETS & REPS)",
           "channel": "Tom Merrick",
           "reason": "varyant/başka hareket: 'handstand'"
         },
@@ -83,66 +83,17 @@
         }
       ]
     },
-    "pull_up": {
-      "searchCore": "pull up technique tutorial",
-      "rejectedForRelevance": [
-        {
-          "title": "Push-Up Technique Tutorial",
-          "channel": "GMB Fitness (Praxis)",
-          "reason": "başlıkta yok: ['pull']"
-        }
-      ],
-      "instructorCount": 5,
-      "meetsTarget": true,
-      "candidates": [
-        {
-          "id": "DIWVBiBt2kg",
-          "channel": "GMB Fitness (Praxis)",
-          "duration_s": 204,
-          "title": "The Pulling Prep: Lat Activation Exercise for Pull-Ups",
-          "query": "GMB Fitness pull up technique tutorial",
-          "url": "https://www.youtube.com/watch?v=DIWVBiBt2kg"
-        },
-        {
-          "id": "XB_7En-zf_M",
-          "channel": "FitnessFAQs",
-          "duration_s": 144,
-          "title": "How to do a Perfect Pullup",
-          "query": "FitnessFAQs pull up technique tutorial",
-          "url": "https://www.youtube.com/watch?v=XB_7En-zf_M"
-        },
-        {
-          "id": "mNI4Mw8XWd8",
-          "channel": "Tom Merrick",
-          "duration_s": 287,
-          "title": "Simple Workout Method To Do MORE Pull Ups",
-          "query": "Tom Merrick pull up technique tutorial",
-          "url": "https://www.youtube.com/watch?v=mNI4Mw8XWd8"
-        },
-        {
-          "id": "Xhe-hFzrrlg",
-          "channel": "THENX",
-          "duration_s": 590,
-          "title": "Why EVERYTHING Changes AFTER You Can DO 7 PULL-UPS",
-          "query": "THENX pull up technique tutorial",
-          "url": "https://www.youtube.com/watch?v=Xhe-hFzrrlg"
-        },
-        {
-          "id": "iBtL9nX2qOs",
-          "channel": "CHRIS HERIA",
-          "duration_s": 803,
-          "title": "How To Do The Perfect Pull Up",
-          "query": "THENX pull up technique tutorial",
-          "url": "https://www.youtube.com/watch?v=iBtL9nX2qOs"
-        }
-      ]
-    },
     "bodyweight_squat": {
       "searchCore": "bodyweight squat technique tutorial",
       "rejectedForRelevance": [
         {
-          "title": "The Most Effective Bodyweight LEG Exercise (STRENGTH + SIZE + FLEXIBILITY)",
+          "title": "The Forgotten Bodyweight Legs Exercise (MOBILITY)",
           "channel": "FitnessFAQs",
+          "reason": "başlıkta yok: ['squat', 'squats']"
+        },
+        {
+          "title": "15 Most Effective Bodyweight Leg Exercises.",
+          "channel": "Strength Side",
           "reason": "başlıkta yok: ['squat', 'squats']"
         },
         {
@@ -151,7 +102,7 @@
           "reason": "varyant/başka hareket: 'hack'"
         }
       ],
-      "instructorCount": 6,
+      "instructorCount": 5,
       "meetsTarget": true,
       "candidates": [
         {
@@ -163,20 +114,20 @@
           "url": "https://www.youtube.com/watch?v=LszCaPOFWHg"
         },
         {
-          "id": "-W19J4VR7D0",
-          "channel": "FitnessFAQs",
-          "duration_s": 272,
-          "title": "How to Squat Correctly | Lift More Weight!",
-          "query": "FitnessFAQs bodyweight squat technique tutorial",
-          "url": "https://www.youtube.com/watch?v=-W19J4VR7D0"
-        },
-        {
           "id": "gsNoPYwWXeM",
           "channel": "Calisthenicmovement",
           "duration_s": 222,
           "title": "Fix Your Squat (In Just 3-Minutes)",
           "query": "FitnessFAQs bodyweight squat technique tutorial",
           "url": "https://www.youtube.com/watch?v=gsNoPYwWXeM"
+        },
+        {
+          "id": "jmqbh-i2SGQ",
+          "channel": "Strength Side",
+          "duration_s": 329,
+          "title": "How 100 Bodyweight Squats Changes the Human Physique.",
+          "query": "FitnessFAQs bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=jmqbh-i2SGQ"
         },
         {
           "id": "WkdXHQ74khI",
@@ -193,233 +144,6 @@
           "title": "DO 100 SQUATS EVERYDAY| LIFE CHANGING RESULTS",
           "query": "THENX bodyweight squat technique tutorial",
           "url": "https://www.youtube.com/watch?v=mla-gfQVQyA"
-        },
-        {
-          "id": "RClKKQqsvXA",
-          "channel": "Buff Dudes Workouts",
-          "duration_s": 225,
-          "title": "How to Perform the Bodyweight Squat - Exercise Tutorial",
-          "query": "THENX bodyweight squat technique tutorial",
-          "url": "https://www.youtube.com/watch?v=RClKKQqsvXA"
-        }
-      ]
-    },
-    "plank": {
-      "searchCore": "plank technique tutorial",
-      "rejectedForRelevance": [
-        {
-          "title": "Planche Progression: Step by Step (Wrists and Shoulders Included)",
-          "channel": "GMB Fitness (Praxis)",
-          "reason": "başlıkta yok: ['plank']"
-        },
-        {
-          "title": "This 4 Minute Routine Replaced My Entire Warmup.",
-          "channel": "GMB Fitness (Praxis)",
-          "reason": "başlıkta yok: ['plank']"
-        },
-        {
-          "title": "4 Simple Mobility Fixes for Stiffness, Weakness & Joint Pain",
-          "channel": "GMB Fitness (Praxis)",
-          "reason": "başlıkta yok: ['plank']"
-        },
-        {
-          "title": "The Smartest Planche Workout Techniques (YOU MUST TRY)",
-          "channel": "FitnessFAQs",
-          "reason": "başlıkta yok: ['plank']"
-        },
-        {
-          "title": "Beginner Planche Routine (SETS & REPS)",
-          "channel": "Tom Merrick",
-          "reason": "başlıkta yok: ['plank']"
-        },
-        {
-          "title": "Making The Most Of Home Training | Day 7 [At Home Program]",
-          "channel": "Tom Merrick",
-          "reason": "başlıkta yok: ['plank']"
-        },
-        {
-          "title": "20 Minute Full Body Flexibility Routine! (FOLLOW ALONG)",
-          "channel": "Tom Merrick",
-          "reason": "başlıkta yok: ['plank']"
-        },
-        {
-          "title": "Morning Flexibility Routine - (Follow Along) With Tom Merrick",
-          "channel": "VIVOBAREFOOT",
-          "reason": "başlıkta yok: ['plank']"
-        },
-        {
-          "title": "Forget the SIT UPS!! Do THIS Instead (TOTAL CORE ACTIVATION)",
-          "channel": "TappBrothers",
-          "reason": "başlıkta yok: ['plank']"
-        },
-        {
-          "title": "How To Get A 6-PACK - Build An Athletic Core You Can Use",
-          "channel": "TappBrothers",
-          "reason": "başlıkta yok: ['plank']"
-        },
-        {
-          "title": "The ONLY 3 Abs Exercises You NEED for Movement",
-          "channel": "TappBrothers",
-          "reason": "başlıkta yok: ['plank']"
-        },
-        {
-          "title": "3 Bodyweight Methods for SUPER Human Strength",
-          "channel": "TappBrothers",
-          "reason": "başlıkta yok: ['plank']"
-        },
-        {
-          "title": "Bodyline Drills with Antranik",
-          "channel": "Antranik Kizirian",
-          "reason": "başlıkta yok: ['plank']"
-        },
-        {
-          "title": "Human Flag Tutorial by Paul Scott and Antranik",
-          "channel": "Antranik Kizirian",
-          "reason": "başlıkta yok: ['plank']"
-        }
-      ],
-      "instructorCount": 3,
-      "meetsTarget": true,
-      "candidates": [
-        {
-          "id": "Tp7jFLRmXu8",
-          "channel": "FitnessFAQs",
-          "duration_s": 217,
-          "title": "The Best Way to Plank",
-          "query": "FitnessFAQs plank technique tutorial",
-          "url": "https://www.youtube.com/watch?v=Tp7jFLRmXu8"
-        },
-        {
-          "id": "UJh6mexJzG0",
-          "channel": "THENX",
-          "duration_s": 566,
-          "title": "I DID PLANKS EVERYDAY FOR 30 DAYS | INSANE RESULTS",
-          "query": "THENX plank technique tutorial",
-          "url": "https://www.youtube.com/watch?v=UJh6mexJzG0"
-        },
-        {
-          "id": "ZB7YZbHH7oM",
-          "channel": "Antranik Kizirian",
-          "duration_s": 441,
-          "title": "Fun Plank Progressions to Build Core Strength At Home with Antranik! (Follow Along!)",
-          "query": "Antranik plank technique tutorial",
-          "url": "https://www.youtube.com/watch?v=ZB7YZbHH7oM"
-        }
-      ]
-    },
-    "dip": {
-      "searchCore": "dip technique tutorial",
-      "rejectedForRelevance": [
-        {
-          "title": "Why You’re Weak on the Rings (And How to Fix It)",
-          "channel": "GMB Fitness (Praxis)",
-          "reason": "varyant/başka hareket: 'ring'"
-        },
-        {
-          "title": "L-Sit: Step-by-Step Progressions",
-          "channel": "GMB Fitness (Praxis)",
-          "reason": "başlıkta yok: ['dip', 'dips']"
-        },
-        {
-          "title": "Full Front Lever Tutorial on Gymnastic Rings",
-          "channel": "GMB Fitness (Praxis)",
-          "reason": "varyant/başka hareket: 'ring'"
-        },
-        {
-          "title": "Loaded Stretching To Improve Chest Flexibility! (2 Techniques)",
-          "channel": "Tom Merrick",
-          "reason": "başlıkta yok: ['dip', 'dips']"
-        },
-        {
-          "title": "Jefferson Curl | Do It Right!",
-          "channel": "Tom Merrick",
-          "reason": "başlıkta yok: ['dip', 'dips']"
-        },
-        {
-          "title": "Beginner Rings Push Workout! (SETS & REPS)",
-          "channel": "Tom Merrick",
-          "reason": "varyant/başka hareket: 'ring'"
-        },
-        {
-          "title": "Ring Muscle Up Checklist (3 STEPS)",
-          "channel": "Tom Merrick",
-          "reason": "varyant/başka hareket: 'ring'"
-        },
-        {
-          "title": "6 Moves To MASTER CALISTHENICS",
-          "channel": "THENX",
-          "reason": "başlıkta yok: ['dip', 'dips']"
-        },
-        {
-          "title": "How To Start Calisthenics | Don't Make These 3 Mistakes",
-          "channel": "TappBrothers",
-          "reason": "başlıkta yok: ['dip', 'dips']"
-        },
-        {
-          "title": "HOW TO PALM SPIN - HOW TO PARKOUR TUTORIAL - TAPP BROTHERS",
-          "channel": "TappBrothers",
-          "reason": "başlıkta yok: ['dip', 'dips']"
-        },
-        {
-          "title": "How To L-SIT (3 STEPS) For Beginners - Core Strength & Progressions",
-          "channel": "TappBrothers",
-          "reason": "başlıkta yok: ['dip', 'dips']"
-        },
-        {
-          "title": "Ring Dip Progressions from Beginner to Advanced with Antranik",
-          "channel": "Antranik Kizirian",
-          "reason": "varyant/başka hareket: 'ring'"
-        },
-        {
-          "title": "How to do Proper Pull Ups 💪 with Antranik (Part 1/2)",
-          "channel": "Antranik Kizirian",
-          "reason": "başlıkta yok: ['dip', 'dips']"
-        },
-        {
-          "title": "The Ultimate Guide to Chest-to-Bar Pull Ups with Antranik",
-          "channel": "Antranik Kizirian",
-          "reason": "başlıkta yok: ['dip', 'dips']"
-        },
-        {
-          "title": "Still Rings Basics: Master the RTO Support Hold with Antranik",
-          "channel": "Antranik Kizirian",
-          "reason": "varyant/başka hareket: 'ring'"
-        }
-      ],
-      "instructorCount": 4,
-      "meetsTarget": true,
-      "candidates": [
-        {
-          "id": "l41SoWZiowI",
-          "channel": "FitnessFAQs",
-          "duration_s": 341,
-          "title": "Master The Dip - (BEGINNER TUTORIAL)",
-          "query": "FitnessFAQs dip technique tutorial",
-          "url": "https://www.youtube.com/watch?v=l41SoWZiowI"
-        },
-        {
-          "id": "2z8JmcrW-As",
-          "channel": "Calisthenicmovement",
-          "duration_s": 278,
-          "title": "The Perfect Dip  - Do it right",
-          "query": "FitnessFAQs dip technique tutorial",
-          "url": "https://www.youtube.com/watch?v=2z8JmcrW-As"
-        },
-        {
-          "id": "0Rfj9LFZJDE",
-          "channel": "THENX",
-          "duration_s": 534,
-          "title": "Why EVERYTHING Changes AFTER You Can Do 12 DIPS",
-          "query": "THENX dip technique tutorial",
-          "url": "https://www.youtube.com/watch?v=0Rfj9LFZJDE"
-        },
-        {
-          "id": "ii1Y-O8co1k",
-          "channel": "TappBrothers",
-          "duration_s": 414,
-          "title": "How to Train Dips (IN HOME) - Back on YouTube!",
-          "query": "Tapp Brothers dip technique tutorial",
-          "url": "https://www.youtube.com/watch?v=ii1Y-O8co1k"
         }
       ]
     }

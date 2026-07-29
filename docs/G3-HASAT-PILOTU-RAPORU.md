@@ -117,3 +117,56 @@ ayak bileği/bilek yüksekliğinden zemin kestiren her etiket yanlıştır.
 - Ham kütüphane: `~/motion-harvest/gravita/` — 4 video, 1 fixture, 4 manifest
 - **Blokaj yok**, ama H-2 ve H-3 kapanmadan geniş hasat başlatmak veri israfı
   olur: eşikler bizim ihtiyacımızı ölçmüyor ve verim ölçülmedi.
+
+---
+
+# TUR 9 — Profil düzeltmesi + verim pilotu (2026-07-29)
+
+## 7. G-030 kapandı: kapı düzeltildi, hayatta kalma 1/4 → 3/4
+
+Gravita triyaj profili yazıldı (`content/harvest/triage-profile.gravita.v1.json`):
+harekete-özel `lower_body_ids` + `min_usable_window_s` + **`min_upper_body_ratio: 0`**.
+
+Aynı 4 videoda: **%25 → %75**. Kurtarmayı yapan asıl değişiklik üst-gövde
+kapısının kapatılması oldu — o kapı konuşan-kafa karelerinde geçiyor ve bizim
+ölçtüğümüz büyüklüklerle ilgisi yok.
+
+## 8. ⚠️ ÖNCEKİ ALARMIM (G-031) FAZLA KARAMSARDI — düzeltme
+
+Verim pilotu: **2 hareket × 10 aday** (genişletilmiş eğitmen havuzu).
+
+| | aday | triyaj KABUL | pencere ≥5 sn | pencere medyan | maks |
+|---|---:|---:|---:|---:|---:|
+| push_up | 10 | 9 (%90) | 7 (%70) | **11,8 sn** | 19,3 sn |
+| bodyweight_squat | 9 | 8 (%89) | 8 (%89) | **22,5 sn** | 90,8 sn |
+
+**Önceki tahminim "eğitmen başına ~5-6 sn ≈ 2 tekrar"dı. Gerçek: medyan
+11,8-22,5 sn ≈ 4-9 tekrar.** Hata kaynağı benim ölçüm ölçütümdü: 12 üst+alt
+landmark'ın HEPSİNİ istemiştim; oysa her hareket kendi landmark kümesini ister
+(L-080). Yanlış ölçütle ölçülen darlık, gerçek darlık değildi.
+
+**Sonuç:** M-F-38'in yeterlilik kapısı (≥3 eğitmen × ≥3 temiz tekrar-penceresi)
+bu iki harekette **karşılanıyor**. G-031'in "G-014'ü tehdit ediyor" hükmü
+geri çekiliyor; risk hâlâ hareket-başına doğrulanmalı ama sistemik değil.
+
+**G-029 de aynı şekilde düzeliyor:** %25 hayatta kalma kaynak-havuzu özelliği
+değil, **profil-uyumsuzluğuydu**. Doğru profille %89-90.
+
+## 9. Yeni bulgu — pencere ölçümü SONDA BÜTÇESİNE duyarlı
+
+`Squat University` push-up videosu (359 sn): rig **RET** dedi, ama aynı
+landmark kümesiyle doğrudan taradığımda **7,0 sn** kesintisiz pencere buldum.
+Fark, sonda bütçesi: uzun videoda kare üst sınırı dolunca adım otomatik
+büyüyor ve kısa bir pencere iki örnek arasına düşebiliyor.
+
+Ayrıca birkaç videoda `fullBodyRatio 0,00` iken pencere 7-10 sn çıktı — oran
+sondası (12 kare) gösterimi tamamen ıskalayabiliyor. Bu, **pencerenin kurtarma
+yolu değil BİRİNCİL kapı olması** gerektiğinin doğrudan kanıtı.
+
+**Öneri (koordinatöre):** uzun videolarda pencere sondası adımını sabit tutup
+bütçeyi süreyle ölçekle; ya da kabul/ret kararını orandan bağımsız olarak
+doğrudan pencereye bağla.
+
+## 10. Kaynak tarafı kaybı
+
+21 adayın 2'si indirilemedi (~%10). Kuyruk hedefleri bu payı içermeli.

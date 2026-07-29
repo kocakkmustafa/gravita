@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "app": "gravita",
+  "rule": "M-F-32: sayım birimi EĞİTMEN; hedef ~5 bağımsız eğitmen/teknik",
+  "discoveredAt": "2026-07-29T01:57:03+00:00",
+  "tool": "2026.07.04",
+  "filters": {
+    "min_duration_s": 90,
+    "max_duration_s": 1800
+  },
+  "movements": {
+    "push_up": {
+      "searchCore": "push up technique tutorial",
+      "rejectedForRelevance": [
+        {
+          "title": "Handstand Push-Up Tutorial",
+          "channel": "GMB Fitness (Praxis)",
+          "reason": "varyant/başka hareket: 'handstand'"
+        },
+        {
+          "title": "HANDSTAND PUSH UP TUTORIAL | Starting Calisthenics",
+          "channel": "Tom Merrick",
+          "reason": "varyant/başka hareket: 'handstand'"
+        },
+        {
+          "title": "BEST Way to Master Handstand Push Ups!",
+          "channel": "Tom Merrick",
+          "reason": "varyant/başka hareket: 'handstand'"
+        },
+        {
+          "title": "How To Press Handstand (Full Tutorial + Training Guide)",
+          "channel": "Tom Merrick",
+          "reason": "varyant/başka hareket: 'handstand'"
+        },
+        {
+          "title": "1 Trick to Master Your One Arm Pushup - Best Bodyweight Exercises #1",
+          "channel": "TappBrothers",
+          "reason": "varyant/başka hareket: 'one arm'"
+        },
+        {
+          "title": "How to do Proper Pull Ups 💪 with Antranik (Part 1/2)",
+          "channel": "Antranik Kizirian",
+          "reason": "başlıkta yok: ['push']"
+        },
+        {
+          "title": "Daily Training- Do it RIGHT!",
+          "channel": "K boges",
+          "reason": "başlıkta yok: ['push']"
+        },
+        {
+          "title": "The Simplest Exercise For A  Sculpted Chest, Shoulders, and Triceps",
+          "channel": "K boges",
+          "reason": "başlıkta yok: ['push']"
+        },
+        {
+          "title": "Handstand Push Up Training Tips",
+          "channel": "Tom Merrick",
+          "reason": "varyant/başka hareket: 'handstand'"
+        },
+        {
+          "title": "BEST Way to Master Handstand Push Ups!",
+          "channel": "Tom Merrick",
+          "reason": "varyant/başka hareket: 'handstand'"
+        },
+        {
+          "title": "Beginner Planche Routine (SETS & REPS)",
+          "channel": "Tom Merrick",
+          "reason": "varyant/başka hareket: 'planche'"
+        },
+        {
+          "title": "Build A STRONG & Muscular Back With Pull Ups (TOP SECRET METHOD)",
+          "channel": "Squat University",
+          "reason": "başlıkta yok: ['push']"
+        },
+        {
+          "title": "Squat Shoulder Mobility (FIX YOUR RACK POSITION)",
+          "channel": "Squat University",
+          "reason": "başlıkta yok: ['push']"
+        },
+        {
+          "title": "How To Do Dips For A Bigger Chest and Shoulders (Fix Mistakes!)",
+          "channel": "Jeff Nippard",
+          "reason": "başlıkta yok: ['push']"
+        }
+      ],
+      "instructorCount": 11,
+      "meetsTarget": true,
+      "candidates": [
+        {
+          "id": "kKHxpbBGiuM",
+          "channel": "GMB Fitness (Praxis)",
+          "duration_s": 120,
+          "title": "Push-Up Pain? Here's 4 Push-Up Tweaks for Stronger, Healthier Shoulders",
+          "query": "GMB Fitness push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=kKHxpbBGiuM"
+        },
+        {
+          "id": "GxW9MAMQSv0",
+          "channel": "FitnessFAQs",
+          "duration_s": 255,
+          "title": "The PERFECT Push-Up Workout (ALL LEVELS)",
+          "query": "FitnessFAQs push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=GxW9MAMQSv0"
+        },
+        {
+          "id": "yvgp8R0fbWg",
+          "channel": "Tom Merrick",
+          "duration_s": 480,
+          "title": "PUSH UP TUTORIAL | Starting Calisthenics",
+          "query": "Tom Merrick push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=yvgp8R0fbWg"
+        },
+        {
+          "id": "_eKHSsHky5U",
+          "channel": "THENX",
+          "duration_s": 596,
+          "title": "PUSH UPS from LVL 1-10",
+          "query": "THENX push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=_eKHSsHky5U"
+        },
+        {
+          "id": "v3sJMaB7q1E",
+          "channel": "TappBrothers",
+          "duration_s": 171,
+          "title": "The PERFECT PUSH UP  In 3 Minutes!!",
+          "query": "Tapp Brothers push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=v3sJMaB7q1E"
+        },
+        {
+          "id": "Ua7B2q21UHg",
+          "channel": "Antranik Kizirian",
+          "duration_s": 114,
+          "title": "Wrist Pain During Push Ups",
+          "query": "Antranik push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=Ua7B2q21UHg"
+        },
+        {
+          "id": "-w6r23P-fy8",
+          "channel": "Calisthenicmovement",
+          "duration_s": 150,
+          "title": "How to GROW (And Feel) Your Chest With Push Ups!",
+          "query": "Calisthenic Movement push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=-w6r23P-fy8"
+        },
+        {
+          "id": "Ggb2rXUL5kg",
+          "channel": "K boges",
+          "duration_s": 142,
+          "title": "Push Ups For Muscle Growth",
+          "query": "Kboges push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=Ggb2rXUL5kg"
+        },
+        {
+          "id": "Yd1grZkAark",
+          "channel": "Squat University",
+          "duration_s": 360,
+          "title": "Your Push-Ups Are WRONG (Here's Why)",
+          "query": "Squat University push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=Yd1grZkAark"
+        },
+        {
+          "id": "5aRHy5ZPjwk",
+          "channel": "Renaissance Periodization",
+          "duration_s": 310,
+          "title": "Maximize Pushups FOR CHEST Growth | Targeting The Muscle",
+          "query": "Jeff Nippard push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=5aRHy5ZPjwk"
+        },
+        {
+          "id": "MO10KOoQx5E",
+          "channel": "Jeremy Ethier",
+          "duration_s": 589,
+          "title": "The Perfect Push-Up To Build Muscle (AVOID THESE MISTAKES!)",
+          "query": "Jeff Nippard push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=MO10KOoQx5E"
+        }
+      ]
+    },
+    "bodyweight_squat": {
+      "searchCore": "bodyweight squat technique tutorial",
+      "rejectedForRelevance": [
+        {
+          "title": "The Most Effective Bodyweight LEG Exercise (STRENGTH + SIZE + FLEXIBILITY)",
+          "channel": "FitnessFAQs",
+          "reason": "başlıkta yok: ['squat', 'squats']"
+        },
+        {
+          "title": "Squat Ankle Mobility Hack (Try This Test)",
+          "channel": "Tom Merrick",
+          "reason": "varyant/başka hareket: 'hack'"
+        },
+        {
+          "title": "How to Pistol Squat - 4 Beginner Progression Steps - Tapp Brothers",
+          "channel": "TappBrothers",
+          "reason": "varyant/başka hareket: 'pistol'"
+        },
+        {
+          "title": "Get Your First Pull Up - Use These 4 Bodyweight Exercises - Tapp Brothers",
+          "channel": "TappBrothers",
+          "reason": "başlıkta yok: ['squat', 'squats']"
+        },
+        {
+          "title": "Explanation of the /r/bodyweightfitness Recommended Routine by Antranik",
+          "channel": "Antranik Kizirian",
+          "reason": "başlıkta yok: ['squat', 'squats']"
+        },
+        {
+          "title": "Warmup for the r/bodyweightfitness Recommended Routine",
+          "channel": "Antranik Kizirian",
+          "reason": "başlıkta yok: ['squat', 'squats']"
+        },
+        {
+          "title": "Beginners Guide to Pistol Squats with Antranik",
+          "channel": "Antranik Kizirian",
+          "reason": "varyant/başka hareket: 'pistol'"
+        },
+        {
+          "title": "Bodyline Drills with Antranik",
+          "channel": "Antranik Kizirian",
+          "reason": "başlıkta yok: ['squat', 'squats']"
+        },
+        {
+          "title": "I Tried The Hardest Calisthenics Leg Exercise!",
+          "channel": "Calisthenicmovement",
+          "reason": "başlıkta yok: ['squat', 'squats']"
+        }
+      ],
+      "instructorCount": 10,
+      "meetsTarget": true,
+      "candidates": [
+        {
+          "id": "LszCaPOFWHg",
+          "channel": "GMB Fitness (Praxis)",
+          "duration_s": 169,
+          "title": "Unlock Your Squat: The 4 Things No One Tells You",
+          "query": "GMB Fitness bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=LszCaPOFWHg"
+        },
+        {
+          "id": "-W19J4VR7D0",
+          "channel": "FitnessFAQs",
+          "duration_s": 272,
+          "title": "How to Squat Correctly | Lift More Weight!",
+          "query": "FitnessFAQs bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=-W19J4VR7D0"
+        },
+        {
+          "id": "gsNoPYwWXeM",
+          "channel": "Calisthenicmovement",
+          "duration_s": 222,
+          "title": "Fix Your Squat (In Just 3-Minutes)",
+          "query": "FitnessFAQs bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=gsNoPYwWXeM"
+        },
+        {
+          "id": "WkdXHQ74khI",
+          "channel": "Tom Merrick",
+          "duration_s": 611,
+          "title": "Can't Squat? Fix Your Ankles! (FULL ROUTINE)",
+          "query": "Tom Merrick bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=WkdXHQ74khI"
+        },
+        {
+          "id": "mla-gfQVQyA",
+          "channel": "THENX",
+          "duration_s": 489,
+          "title": "DO 100 SQUATS EVERYDAY| LIFE CHANGING RESULTS",
+          "query": "THENX bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=mla-gfQVQyA"
+        },
+        {
+          "id": "RClKKQqsvXA",
+          "channel": "Buff Dudes Workouts",
+          "duration_s": 225,
+          "title": "How to Perform the Bodyweight Squat - Exercise Tutorial",
+          "query": "THENX bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=RClKKQqsvXA"
+        },
+        {
+          "id": "65mNUsGx4XM",
+          "channel": "TappBrothers",
+          "duration_s": 799,
+          "title": "How To Squat (Do This 3X A Day) Hip & Spine Alignment",
+          "query": "Tapp Brothers bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=65mNUsGx4XM"
+        },
+        {
+          "id": "0KtrNQre5rQ",
+          "channel": "School of Calisthenics",
+          "duration_s": 243,
+          "title": "Fix Your Squat | Correct Bodyweight Squat Technique // School of Calisthenics",
+          "query": "Calisthenic Movement bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=0KtrNQre5rQ"
+        },
+        {
+          "id": "zWXToSCaq-Q",
+          "channel": "K boges",
+          "duration_s": 128,
+          "title": "Build Durable Legs and Strong Lungs With 100 Rep Squats!  (NO Equipment Needed)",
+          "query": "Kboges bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=zWXToSCaq-Q"
+        },
+        {
+          "id": "0V7BtcG7E4Y",
+          "channel": "WeShape",
+          "duration_s": 535,
+          "title": "What Is A Bodyweight Squat ?",
+          "query": "Bodyweight Warrior bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=0V7BtcG7E4Y"
+        }
+      ]
+    }
+  }
+}

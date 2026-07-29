@@ -27,6 +27,14 @@ POOLS = [
     "THENX",
     "Tapp Brothers",
     "Antranik",
+    # Verim pilotu için genişletilmiş havuz (M-F-38): eğitmen hedefini ölçülen
+    # verimle ölçeklemek için daha çok BAĞIMSIZ eğitmen gerekiyor.
+    "Calisthenic Movement",
+    "Kboges",
+    "Bodyweight Warrior",
+    "Squat University",
+    "Jeff Nippard",
+    "Minus The Gym",
 ]
 
 # Hareket → arama çekirdeği + ALAKA süzgeci.
