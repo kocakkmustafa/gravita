@@ -1,0 +1,97 @@
+{
+  "movement": "push_up",
+  "rule": "M-F-38 + M-F-47; tolerans EĞİTMENLER-ARASI varyanstan türetilir",
+  "$gateInteractionCaveat": "G-050: M-F-47 konsensüsten >14° sapan take'leri ELER, tolerans ise KALANLARIN varyansından türer — kalanlar tanım gereği ≤14° içinde olduğu için ölçülen dağılım KAPININ KENDİSİYLE üstten sınırlıdır. Yani sayı \"eğitmenler ne kadar ayrışıyor\"u değil, \"kapıdan geçenler ne kadar benziyor\"u ölçer. `source` alanı her eklemde değerin tabandan mı ölçümden mi geldiğini söyler; taban bağlıyorken tolerans VARYANS-TÜRETİMLİ SAYILMAZ.",
+  "instructors": [
+    "FitnessFAQs",
+    "Calisthenicmovement",
+    "Renaissance Periodization",
+    "K boges"
+  ],
+  "takes": 37,
+  "excludedOutlierIds": [
+    "FitnessFAQs#8",
+    "FitnessFAQs#9",
+    "FitnessFAQs#13",
+    "FitnessFAQs#14",
+    "FitnessFAQs#15",
+    "Calisthenicmovement#1",
+    "Calisthenicmovement#2",
+    "Calisthenicmovement#3",
+    "Calisthenicmovement#4",
+    "Calisthenicmovement#5",
+    "Calisthenicmovement#6",
+    "Calisthenicmovement#7",
+    "Calisthenicmovement#9",
+    "Calisthenicmovement#10",
+    "Calisthenicmovement#11",
+    "Renaissance Periodization#1",
+    "Renaissance Periodization#3",
+    "K boges#26",
+    "K boges#27"
+  ],
+  "mirrorConfident": true,
+  "priorDisagreements": [],
+  "orderIndependenceMaxDeltaDeg": 0.0,
+  "orderIndependent": true,
+  "mirrorSetStableAcrossOrder": true,
+  "$mirrorNote": "ayna ataması AYNI",
+  "$sideNaming": "J-034: global ayna-ataması `left_*` adının işaret ettiği FİZİKSEL eklemi değiştirebilir. Toleranslar bu yüzden eklem-ÇİFTİ olarak yazılır; skorlayıcı tarafı kare başına görünen-taraf çözümüyle bağlar, ada göre DEĞİL.",
+  "unreliableJoints": [],
+  "tolerances": {
+    "elbow": {
+      "meanFreeDeg": 9.2,
+      "measuredDispersionDeg": 7.0,
+      "floorBinding": true,
+      "source": "floor"
+    },
+    "shoulder": {
+      "meanFreeDeg": 8.9,
+      "measuredDispersionDeg": 7.7,
+      "floorBinding": true,
+      "source": "floor"
+    },
+    "hip": {
+      "meanFreeDeg": 8.1,
+      "measuredDispersionDeg": 6.5,
+      "floorBinding": true,
+      "source": "floor"
+    },
+    "knee": {
+      "meanFreeDeg": 8.2,
+      "measuredDispersionDeg": 5.9,
+      "floorBinding": true,
+      "source": "floor"
+    },
+    "upper_arm": {
+      "meanFreeDeg": 9.0,
+      "measuredDispersionDeg": 8.0,
+      "floorBinding": true,
+      "source": "floor"
+    },
+    "forearm": {
+      "meanFreeDeg": 8.4,
+      "measuredDispersionDeg": 6.5,
+      "floorBinding": true,
+      "source": "floor"
+    },
+    "thigh": {
+      "meanFreeDeg": 8.1,
+      "measuredDispersionDeg": 7.0,
+      "floorBinding": true,
+      "source": "floor"
+    },
+    "shin": {
+      "meanFreeDeg": 8.1,
+      "measuredDispersionDeg": 6.0,
+      "floorBinding": true,
+      "source": "floor"
+    },
+    "trunk_tilt": {
+      "meanFreeDeg": 8.0,
+      "measuredDispersionDeg": 7.0,
+      "floorBinding": true,
+      "source": "floor"
+    }
+  }
+}

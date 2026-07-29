@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math' as math;
 import 'dart:io';
 
 import 'package:gravita_engine/gravita_engine.dart';
@@ -175,6 +176,22 @@ void main(List<String> args) async {
     exit(0);
   }
 
+  // ---- KAPI 2b: M-F-47 SONRASI eğitmen sayımı (kendi minSources'umuz) ----
+  // Anlaşma kapısı take eler; bir eğitmenin TÜM take'leri elenirse take sayısı
+  // hâlâ yeterli görünür ama eğitmenler-arası varyans — toleransın TEK kaynağı —
+  // artık daha az eğitmenden gelir. Çekirdek `minTakes` bunu göremez (M-F-53/2,
+  // 0.5.1'de `minSources` geliyor); o gelene kadar burada fail-closed.
+  final Set<String> survivingInstructors = <String>{
+    for (final String src in ref.sources) src.split(' (').first,
+  };
+  if (survivingInstructors.length < 3) {
+    stdout.writeln('→ M-F-47 SONRASI yalnız ${survivingInstructors.length} '
+        'eğitmen kaldı (${survivingInstructors.join(", ")}) — referans '
+        'ÜRETİLMEDİ. Take sayısı yeterli görünse de tolerans daha az '
+        'eğitmenin varyansından türerdi.');
+    exit(0);
+  }
+
   // ---- M-F-48: sıra bağımsızlığı -----------------------------------------
   // Global atama açgözlü-sıralı uzlaşmanın tohum bağımlılığını kaldırdı ama
   // "kaldırıldı" bir iddiadır; BU veride ölçülmeden kabul edilmez.
@@ -189,25 +206,57 @@ void main(List<String> args) async {
     for (int j = 0; j < ref.frames[f].values.length; j++) {
       final double a = ref.frames[f].values[j], b = alt.frames[f].values[j];
       if (a.isNaN || b.isNaN) continue;
-      final double d = (a - b).abs() * 180 / 3.14159265358979;
+      // ⚠️ AÇI FARKI DAİRESELDİR. `(a-b).abs()` +179,9° ile −179,9°'yi 359,8°
+      // uzak sanar; oysa dairede 0,2°. İlk koşumda tam bu yüzden 359,69°
+      // "fark" raporlandı — sıra bağımlılığı DEĞİL, benim aritmetiğim.
+      // Çekirdeğin `circularStats` doc'u aynı tuzağı anlatıyor: 179° ile
+      // −179°'nin ortalaması kimsenin girmediği bir poz olan 0°'dir.
+      final double diff = math.atan2(math.sin(a - b), math.cos(a - b));
+      final double d = diff.abs() * 180 / math.pi;
       if (d > maxDelta) maxDelta = d;
     }
   }
+  // Ayna KÜMESİ değişip referans DEĞİŞMİYORSA bu belirsizlik değil,
+  // DEJENERASYON: her şeyi birden çevirmek aynı konsensüsü verir (çekirdek
+  // `MirrorResolution.confident` doc'u bu ayrımı açıkça istiyor). Farklı küme +
+  // farklı referans ise gerçek kararsızlıktır ve M-F-46 kural 7 devreye girer.
+  final bool sameMirrorSet = ref.mirroredTakeIds.toSet().length ==
+          alt.mirroredTakeIds.toSet().length &&
+      ref.mirroredTakeIds.toSet().containsAll(alt.mirroredTakeIds);
+  final bool orderIndependent = maxDelta < 0.01;
+  final String mirrorNote = sameMirrorSet
+      ? 'ayna ataması AYNI'
+      : (orderIndependent
+          ? 'ayna kümesi farklı ama referans BİREBİR AYNI → dejenerasyon '
+              '(global çevirme), kararsızlık DEĞİL'
+          : 'ayna kümesi farklı VE referans değişiyor → GERÇEK kararsızlık, '
+              'M-F-46 kural 7: taraf-bağımlı hüküm verilmez');
   stdout.writeln('M-F-48 sıra doğrulaması: en büyük kare-eklem farkı '
-      '${maxDelta.toStringAsFixed(2)}° · ayna kararlı: '
-      '${ref.mirroredTakeIds.length == alt.mirroredTakeIds.length}');
+      '${maxDelta.toStringAsFixed(2)}° (dairesel) · $mirrorNote');
+  stdout.writeln('M-F-47: ${ref.excludedOutlierIds.length} aykırı kaynak '
+      'dışlandı · çekirdek ayna güveni: ${ref.mirrorConfident}');
 
   // ---- Çıktı: J-034 gereği lead/off, MUTLAK taraf adı YOK ----------------
   final List<JointSpec> specs = ref.frames.first.specs;
   final Map<String, dynamic> out = <String, dynamic>{
     'movement': movementId,
     'rule': 'M-F-38 + M-F-47; tolerans EĞİTMENLER-ARASI varyanstan türetilir',
+    r'$gateInteractionCaveat': 'G-050: M-F-47 konsensüsten >14° sapan take\'leri '
+        'ELER, tolerans ise KALANLARIN varyansından türer — kalanlar tanım '
+        'gereği ≤14° içinde olduğu için ölçülen dağılım KAPININ KENDİSİYLE '
+        'üstten sınırlıdır. Yani sayı "eğitmenler ne kadar ayrışıyor"u değil, '
+        '"kapıdan geçenler ne kadar benziyor"u ölçer. `source` alanı her eklemde '
+        'değerin tabandan mı ölçümden mi geldiğini söyler; taban bağlıyorken '
+        'tolerans VARYANS-TÜRETİMLİ SAYILMAZ.',
     'instructors': qualified,
     'takes': ref.contributingTakes,
     'excludedOutlierIds': ref.excludedOutlierIds,
     'mirrorConfident': ref.mirrorConfident,
     'priorDisagreements': ref.priorDisagreements,
-    'orderIndependenceMaxDeltaDeg': double.parse(maxDelta.toStringAsFixed(2)),
+    'orderIndependenceMaxDeltaDeg': double.parse(maxDelta.toStringAsFixed(3)),
+    'orderIndependent': orderIndependent,
+    'mirrorSetStableAcrossOrder': sameMirrorSet,
+    r'$mirrorNote': mirrorNote,
     r'$sideNaming': 'J-034: global ayna-ataması `left_*` adının işaret ettiği '
         'FİZİKSEL eklemi değiştirebilir. Toleranslar bu yüzden eklem-ÇİFTİ '
         'olarak yazılır; skorlayıcı tarafı kare başına görünen-taraf '
@@ -220,7 +269,7 @@ void main(List<String> args) async {
       s.id.replaceFirst('left_', '').replaceFirst('right_', ''),
   };
   for (final String pair in pairs) {
-    double free = 0;
+    double free = 0, rawSd = 0;
     int cnt = 0;
     for (int j = 0; j < specs.length; j++) {
       if (!specs[j].id.endsWith(pair)) continue;
@@ -229,12 +278,24 @@ void main(List<String> args) async {
         // `Tolerance.free` RADYANDIR (degrees ctor dönüştürür) — derece sanmak
         // toleransı 57x küçültürdü.
         free += t.free * radToDeg;
+        final double sd = ref.dispersion[f][j];
+        if (!sd.isNaN) rawSd += sd * radToDeg;
         cnt++;
       }
     }
     if (cnt > 0) {
+      // ⚠️ `toleranceAt` ölçülen dağılımı `freeFloorDeg` (8°) ile TABANLAR.
+      // Yalnız sonucu yazmak, "8,2° tolerans ÖLÇTÜK" izlenimi verir; oysa
+      // ölçülen dağılım tabanın altındaysa sayı ölçümden değil TABANDAN gelir.
+      // Ham ortalama yanında durur ki hangisinin bağladığı görünsün.
+      final double rawMean = rawSd / cnt;
       (out['tolerances'] as Map<String, dynamic>)[pair] = <String, dynamic>{
         'meanFreeDeg': double.parse((free / cnt).toStringAsFixed(1)),
+        'measuredDispersionDeg': double.parse(rawMean.toStringAsFixed(1)),
+        'floorBinding': rawMean < 8.0,
+        // Sayının NEREDEN geldiği etiketlenir. "Varyans-türetimli tolerans"
+        // demek, taban bağlıyorken YANLIŞ bir iddiadır (G-050).
+        'source': rawMean < 8.0 ? 'floor' : 'variance',
       };
     }
   }

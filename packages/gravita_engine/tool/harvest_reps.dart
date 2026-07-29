@@ -211,15 +211,49 @@ void main(List<String> args) {
     });
   }
 
-  final int enough = summary.where((Map<String, dynamic> s) => (s['reps'] as int) >= 3).length;
-  stdout.writeln('\n≥3 tekrar veren eğitmen: $enough / ${summary.length}'
-      '  → M-F-38 yeterlilik kapısı: ${enough >= 3 ? "AÇIK" : "KAPALI (muhafazakâr + provisional)"}');
+  // ---- M-F-38 SAYACI: birim EĞİTMEN, video DEĞİL (M-F-32 / G-049) --------
+  // Kaynak satırları video başınadır; sayaç eğitmen başına HAVUZLANIR. Aynı
+  // eğitmenin ikinci videosu ona ikinci bir OY vermez, aynı oyu tamamlar —
+  // "kanal başına tek aday" kuralı bir eğitmeni birden çok KAYNAK saymamak
+  // içindi, ona tek ŞANS vermek için değil.
+  final Map<String, Map<String, dynamic>> byInstructor =
+      <String, Map<String, dynamic>>{};
+  for (final Map<String, dynamic> row in summary) {
+    final String ch = row['channel'] as String;
+    final Map<String, dynamic> acc = byInstructor.putIfAbsent(
+        ch,
+        () => <String, dynamic>{
+              'reps': 0,
+              'videos': <String>[],
+              'extremeAnglesDeg': <double>[],
+            });
+    acc['reps'] = (acc['reps'] as int) + (row['reps'] as int);
+    (acc['videos'] as List<String>).add(row['source'] as String);
+    (acc['extremeAnglesDeg'] as List<double>)
+        .addAll((row['extremeAnglesDeg'] as List<dynamic>).cast<double>());
+  }
+  for (final Map<String, dynamic> acc in byInstructor.values) {
+    acc['qualifies'] = (acc['reps'] as int) >= 3;
+  }
+  final int enough =
+      byInstructor.values.where((Map<String, dynamic> a) => a['qualifies'] as bool).length;
+
+  stdout.writeln('\n≥3 tekrar veren EĞİTMEN: $enough / ${byInstructor.length}'
+      '  (${summary.length} video)'
+      '  → M-F-38 yeterlilik kapısı: '
+      '${enough >= 3 ? "AÇIK" : "KAPALI (muhafazakâr + provisional)"}');
 
   File('../../content/harvest/reps.$movementId.json').writeAsStringSync(
       '${const JsonEncoder.withIndent('  ').convert(<String, dynamic>{
         'movement': movementId,
-        'rule': 'M-F-38: ≥3 eğitmen × ≥3 temiz tekrar olmadan varyans-türetim YAPILMAZ',
+        'rule': 'M-F-38: ≥3 EĞİTMEN × ≥3 temiz tekrar olmadan varyans-türetim '
+            'YAPILMAZ. Sayım birimi eğitmendir (M-F-32); aynı eğitmenin '
+            'videoları havuzlanır, ona ikinci OY vermez.',
         'sufficiencyGate': enough >= 3 ? 'open' : 'closed',
+        'qualifiedInstructors': enough,
+        'instructorCount': byInstructor.length,
+        'videoCount': summary.length,
+        'instructors': byInstructor,
         'sources': summary,
       })}\n');
 }

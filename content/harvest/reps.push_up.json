@@ -1,8 +1,173 @@
 {
   "movement": "push_up",
-  "rule": "M-F-38: ≥3 eğitmen × ≥3 temiz tekrar olmadan varyans-türetim YAPILMAZ",
-  "sufficiencyGate": "closed",
+  "rule": "M-F-38: ≥3 EĞİTMEN × ≥3 temiz tekrar olmadan varyans-türetim YAPILMAZ. Sayım birimi eğitmendir (M-F-32); aynı eğitmenin videoları havuzlanır, ona ikinci OY vermez.",
+  "sufficiencyGate": "open",
+  "qualifiedInstructors": 3,
+  "instructorCount": 11,
+  "videoCount": 21,
+  "instructors": {
+    "FitnessFAQs": {
+      "reps": 15,
+      "videos": [
+        "-WXc4E-zcao.full.json",
+        "GxW9MAMQSv0.full.json",
+        "QqTlnhzku5c.full.json"
+      ],
+      "extremeAnglesDeg": [
+        60.1,
+        61.6,
+        62.0,
+        59.0,
+        61.1,
+        70.6,
+        97.3,
+        34.1,
+        41.1,
+        54.1,
+        65.0,
+        71.0,
+        95.9,
+        169.1,
+        176.8
+      ],
+      "qualifies": true
+    },
+    "Calisthenicmovement": {
+      "reps": 11,
+      "videos": [
+        "-w6r23P-fy8.full.json",
+        "IODxDxX7oi4.full.json",
+        "fqGd8jUdr2I.full.json"
+      ],
+      "extremeAnglesDeg": [
+        58.8,
+        68.8,
+        81.6,
+        84.3,
+        86.1,
+        90.0,
+        90.6,
+        91.3,
+        99.8,
+        100.0,
+        168.9
+      ],
+      "qualifies": true
+    },
+    "Antranik Kizirian": {
+      "reps": 0,
+      "videos": [
+        "4dF1DOWzf20.full.json",
+        "Ua7B2q21UHg.full.json"
+      ],
+      "extremeAnglesDeg": [],
+      "qualifies": false
+    },
+    "Renaissance Periodization": {
+      "reps": 3,
+      "videos": [
+        "5aRHy5ZPjwk.full.json"
+      ],
+      "extremeAnglesDeg": [
+        68.2,
+        73.9,
+        80.4
+      ],
+      "qualifies": true
+    },
+    "THENX": {
+      "reps": 1,
+      "videos": [
+        "7wblGkVQx3U.full.json",
+        "_eKHSsHky5U.full.json",
+        "ahJvHMh8494.full.json"
+      ],
+      "extremeAnglesDeg": [
+        156.8
+      ],
+      "qualifies": false
+    },
+    "K boges": {
+      "reps": 0,
+      "videos": [
+        "Ggb2rXUL5kg.full.json"
+      ],
+      "extremeAnglesDeg": [],
+      "qualifies": false
+    },
+    "Upright Health": {
+      "reps": 2,
+      "videos": [
+        "I9fsqKE5XHo.full.json"
+      ],
+      "extremeAnglesDeg": [
+        82.1,
+        99.8
+      ],
+      "qualifies": false
+    },
+    "Jeremy Ethier": {
+      "reps": 1,
+      "videos": [
+        "MO10KOoQx5E.full.json"
+      ],
+      "extremeAnglesDeg": [
+        170.3
+      ],
+      "qualifies": false
+    },
+    "TappBrothers": {
+      "reps": 2,
+      "videos": [
+        "cSPSc59Lq5Q.full.json",
+        "v3sJMaB7q1E.full.json"
+      ],
+      "extremeAnglesDeg": [
+        65.7,
+        164.1
+      ],
+      "qualifies": false
+    },
+    "GMB Fitness (Praxis)": {
+      "reps": 2,
+      "videos": [
+        "kKHxpbBGiuM.full.json",
+        "kvlZXLPqE0k.full.json",
+        "ryncZFQCB8I.full.json"
+      ],
+      "extremeAnglesDeg": [
+        70.4,
+        87.8
+      ],
+      "qualifies": false
+    },
+    "Tom Merrick": {
+      "reps": 2,
+      "videos": [
+        "yvgp8R0fbWg.full.json"
+      ],
+      "extremeAnglesDeg": [
+        10.5,
+        76.8
+      ],
+      "qualifies": false
+    }
+  },
   "sources": [
+    {
+      "source": "-WXc4E-zcao.full.json",
+      "channel": "FitnessFAQs",
+      "sourceUrl": "https://www.youtube.com/watch?v=-WXc4E-zcao",
+      "license": "standard-youtube",
+      "reps": 3,
+      "windows": 18,
+      "longestWindowS": 27.9,
+      "extremeAnglesDeg": [
+        60.1,
+        61.6,
+        62.0
+      ]
+    },
     {
       "source": "-w6r23P-fy8.full.json",
       "channel": "Calisthenicmovement",
@@ -14,6 +179,16 @@
       "extremeAnglesDeg": [
         58.8
       ]
+    },
+    {
+      "source": "4dF1DOWzf20.full.json",
+      "channel": "Antranik Kizirian",
+      "sourceUrl": "https://www.youtube.com/watch?v=4dF1DOWzf20",
+      "license": "standard-youtube",
+      "reps": 0,
+      "windows": 27,
+      "longestWindowS": 88.8,
+      "extremeAnglesDeg": []
     },
     {
       "source": "5aRHy5ZPjwk.full.json",
@@ -28,6 +203,16 @@
         73.9,
         80.4
       ]
+    },
+    {
+      "source": "7wblGkVQx3U.full.json",
+      "channel": "THENX",
+      "sourceUrl": "https://www.youtube.com/watch?v=7wblGkVQx3U",
+      "license": "standard-youtube",
+      "reps": 0,
+      "windows": 74,
+      "longestWindowS": 20.7,
+      "extremeAnglesDeg": []
     },
     {
       "source": "Ggb2rXUL5kg.full.json",
@@ -68,6 +253,16 @@
       ]
     },
     {
+      "source": "IODxDxX7oi4.full.json",
+      "channel": "Calisthenicmovement",
+      "sourceUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+      "license": "standard-youtube",
+      "reps": 0,
+      "windows": 13,
+      "longestWindowS": 32.9,
+      "extremeAnglesDeg": []
+    },
+    {
       "source": "MO10KOoQx5E.full.json",
       "channel": "Jeremy Ethier",
       "sourceUrl": "https://www.youtube.com/watch?v=MO10KOoQx5E",
@@ -77,6 +272,25 @@
       "longestWindowS": 26.4,
       "extremeAnglesDeg": [
         170.3
+      ]
+    },
+    {
+      "source": "QqTlnhzku5c.full.json",
+      "channel": "FitnessFAQs",
+      "sourceUrl": "https://www.youtube.com/watch?v=QqTlnhzku5c",
+      "license": "standard-youtube",
+      "reps": 8,
+      "windows": 17,
+      "longestWindowS": 27.5,
+      "extremeAnglesDeg": [
+        34.1,
+        41.1,
+        54.1,
+        65.0,
+        71.0,
+        95.9,
+        169.1,
+        176.8
       ]
     },
     {
@@ -102,6 +316,49 @@
       ]
     },
     {
+      "source": "ahJvHMh8494.full.json",
+      "channel": "THENX",
+      "sourceUrl": "https://www.youtube.com/watch?v=ahJvHMh8494",
+      "license": "standard-youtube",
+      "reps": 0,
+      "windows": 56,
+      "longestWindowS": 56.7,
+      "extremeAnglesDeg": []
+    },
+    {
+      "source": "cSPSc59Lq5Q.full.json",
+      "channel": "TappBrothers",
+      "sourceUrl": "https://www.youtube.com/watch?v=cSPSc59Lq5Q",
+      "license": "standard-youtube",
+      "reps": 1,
+      "windows": 25,
+      "longestWindowS": 39.5,
+      "extremeAnglesDeg": [
+        65.7
+      ]
+    },
+    {
+      "source": "fqGd8jUdr2I.full.json",
+      "channel": "Calisthenicmovement",
+      "sourceUrl": "https://www.youtube.com/watch?v=fqGd8jUdr2I",
+      "license": "standard-youtube",
+      "reps": 10,
+      "windows": 15,
+      "longestWindowS": 42.2,
+      "extremeAnglesDeg": [
+        68.8,
+        81.6,
+        84.3,
+        86.1,
+        90.0,
+        90.6,
+        91.3,
+        99.8,
+        100.0,
+        168.9
+      ]
+    },
+    {
       "source": "kKHxpbBGiuM.full.json",
       "channel": "GMB Fitness (Praxis)",
       "sourceUrl": "https://www.youtube.com/watch?v=kKHxpbBGiuM",
@@ -109,6 +366,29 @@
       "reps": 0,
       "windows": 11,
       "longestWindowS": 16.2,
+      "extremeAnglesDeg": []
+    },
+    {
+      "source": "kvlZXLPqE0k.full.json",
+      "channel": "GMB Fitness (Praxis)",
+      "sourceUrl": "https://www.youtube.com/watch?v=kvlZXLPqE0k",
+      "license": "standard-youtube",
+      "reps": 2,
+      "windows": 14,
+      "longestWindowS": 64.6,
+      "extremeAnglesDeg": [
+        70.4,
+        87.8
+      ]
+    },
+    {
+      "source": "ryncZFQCB8I.full.json",
+      "channel": "GMB Fitness (Praxis)",
+      "sourceUrl": "https://www.youtube.com/watch?v=ryncZFQCB8I",
+      "license": "standard-youtube",
+      "reps": 0,
+      "windows": 6,
+      "longestWindowS": 25.7,
       "extremeAnglesDeg": []
     },
     {
