@@ -1,0 +1,104 @@
+{
+  "$measurement": "per-source shoulder_line_foreshortening (mocore, camera frame) vs per-source mean |left-right| joint angle difference (canonical ReferenceCli.prepareTake)",
+  "$why": "Squat referansı meanLeftRightDiffDeg=32,26° verdi (push_up 5,16°). Squat iki-taraflı simetrik; bu büyüklük 2B izdüşüm artefaktı olabilir (M-F-131 hüküm 4).",
+  "$metricSource": "lissom-metrics.v1.json → shoulder_line_foreshortening (kind=distance_norm, plane=frontal, frameRef=camera)",
+  "$anatomicalMode": false,
+  "$anatomicalNote": "anatomical=False ZORUNLU: anatomik projeksiyon kamera-yaw bilgisini tanım gereği siler (M-F-53), o modda bu metrik ölür (A9 ölü-metrik kapısı).",
+  "$metricCaveat": "Config'in kendi uyarısı: transvers rotasyon tek kameradan güvenilir geri çıkarılamaz — DOLAYLI vekil, açı değil; nitel bant olarak okunur.",
+  "$thinEvidence": "n=13 kaynak — korelasyon istatistiksel olarak ZAYIF güçte; yön göstergesi olarak okunmalı, kesin hüküm olarak DEĞİL.",
+  "pearsonForeshorteningVsMirrorDiff": 0.342,
+  "reading": "POZİTİF — hipotezin TERSİ yönde; 32° kamera açısıyla açıklanamıyor, başka bir sebep aranmalı",
+  "sources": [
+    {
+      "channel": "Calisthenicmovement",
+      "takes": 2,
+      "frames": 220,
+      "shoulderLineForeshortening": 0.1667,
+      "meanLeftRightDiffDeg": 33.702
+    },
+    {
+      "channel": "FitnessFAQs",
+      "takes": 1,
+      "frames": 10,
+      "shoulderLineForeshortening": 1.1211,
+      "meanLeftRightDiffDeg": 38.621
+    },
+    {
+      "channel": "GMB Fitness (Praxis)",
+      "takes": 1,
+      "frames": 62,
+      "shoulderLineForeshortening": 0.8948,
+      "meanLeftRightDiffDeg": 65.087
+    },
+    {
+      "channel": "Jeff Nippard",
+      "takes": 23,
+      "frames": 1879,
+      "shoulderLineForeshortening": 0.645,
+      "meanLeftRightDiffDeg": 24.44
+    },
+    {
+      "channel": "Jeremy Ethier",
+      "takes": 6,
+      "frames": 649,
+      "shoulderLineForeshortening": 0.6101,
+      "meanLeftRightDiffDeg": 17.773
+    },
+    {
+      "channel": "K boges",
+      "takes": 59,
+      "frames": 3999,
+      "shoulderLineForeshortening": 0.5565,
+      "meanLeftRightDiffDeg": 19.13
+    },
+    {
+      "channel": "Sebastian Oreb",
+      "takes": 4,
+      "frames": 323,
+      "shoulderLineForeshortening": 0.596,
+      "meanLeftRightDiffDeg": 41.964
+    },
+    {
+      "channel": "Squat University",
+      "takes": 16,
+      "frames": 1874,
+      "shoulderLineForeshortening": 0.6225,
+      "meanLeftRightDiffDeg": 28.316
+    },
+    {
+      "channel": "Strength Side",
+      "takes": 30,
+      "frames": 2566,
+      "shoulderLineForeshortening": 0.5448,
+      "meanLeftRightDiffDeg": 20.365
+    },
+    {
+      "channel": "THENX",
+      "takes": 68,
+      "frames": 4060,
+      "shoulderLineForeshortening": 0.6801,
+      "meanLeftRightDiffDeg": 46.06
+    },
+    {
+      "channel": "TappBrothers",
+      "takes": 1,
+      "frames": 101,
+      "shoulderLineForeshortening": 0.7004,
+      "meanLeftRightDiffDeg": 29.698
+    },
+    {
+      "channel": "Tom Merrick",
+      "takes": 11,
+      "frames": 1941,
+      "shoulderLineForeshortening": 0.5488,
+      "meanLeftRightDiffDeg": 49.633
+    },
+    {
+      "channel": "WeShape",
+      "takes": 12,
+      "frames": 819,
+      "shoulderLineForeshortening": 0.5782,
+      "meanLeftRightDiffDeg": 18.784
+    }
+  ]
+}

@@ -250,24 +250,153 @@
   },
   "_movementRomPolicyRationale": [
     "M-F-45/M-F-62/M-F-120: `false` = bu harekette PASİF İCRA BİYOMEKANİK OLARAK MÜMKÜN DEĞİL",
-    "→ rig `romMode: unknown` klibi referansa KABUL eder (tehdit yapısal olarak yok).",
-    "`true` = pasif icra mümkün olabilir → M-F-43 fail-closed AYNEN sürer.",
+    "→ rig `romMode: unknown` klibi referansa KABUL eder. `true` = M-F-43 fail-closed AYNEN sürer.",
     "",
-    "Neden yalnız 2 hareket `false`: koordinatör hükmü (M-F-120) rep-FSM sınıfını",
-    "structurally-active ilan etti, ama bu profildeki 20 hareketin 14'ü rep-FSM ve",
-    "hepsi aynı derecede açık DEĞİL: `dead_bug`/`bird_dog` gibi sırtüstü/dörtayak",
-    "düşük-yüklü motor-kontrol drilleri bir klinisyen tarafından GEVŞEK uzuvla",
-    "yürütülebilir — yani o sınıfta muafiyet kapıyı gevşetir. Bu yüzden muafiyet",
-    "YALNIZ hasadı yapılan ve hükmü tartışmasız olan ikisine verildi:",
-    "kimse birine pasif şınav ya da pasif squat yaptıramaz (kendi vücut ağırlığını",
-    "yerçekimine karşı taşımak gerekir).",
+    "AKTİF `false`: yalnız push_up + bodyweight_squat (hasadı yapılan ikisi, hükmü tartışmasız).",
+    "Kalan 18 hareket için advisor turu YAPILDI (M-F-131 hüküm 1) — sonuç ve aktivasyon bloğu:",
+    "bkz. `_movementRomPolicyAdvisor`. ÖZET: 12 hareket advisor-true (fail-closed doğrulandı),",
+    "6 hareket advisor-false AMA aktivasyon iki korumaya bağlı; biri (k>=3) zaten var, biri",
+    "(pose ile ikinci-kişi tespiti) EKSİK → altısı da şimdilik `true` kalıyor.",
     "",
-    "AÇIK KALEM: kalan 12 rep-FSM hareketi + `burpee` (multiPhaseFsm) + 5 statik",
-    "tutuş (plank/side_plank/wall_sit/hollow_hold/superman_hold) hasat sırası",
-    "gelmeden ÖNCE hareket-başına biyomekanik hüküm ister (aile ikinci gözü:",
-    "`movement-science-advisor`). Sessizce `false`a çevrilmemeleri kasıtlı.",
-    "",
-    "⚠️ Gravita ileride mobilite/germe/ROM-değerlendirme içeriği eklerse o",
-    "hareketler ZORUNLU `true` (Lissom/Ostinato postür-kapıları gevşemez)."
-  ]
+    "⚠️ Gravita mobilite/germe/ROM-değerlendirme içeriği eklerse o hareketler ZORUNLU `true`."
+  ],
+  "_movementRomPolicyAdvisor": {
+    "$source": "movement-science-advisor turu (M-F-131 hüküm 1), 2026-07-30 — 18 hareket tek turda",
+    "$axis": "Advisor tek ayırıcı eksen kurdu: ÖZNE PASİFKEN GÖVDESİNİN AĞIRLIĞI NEREDE? Yer taşıyorsa (sırtüstü/yüzükoyun/yan yatış) uzuvları başkası yürütebilir → true. İki temas arasında ASKIDA ya da ayakta DİKEY YÜK ise pasif özne çöker → false. Bu eksen iki emsali (push_up=askıda, squat=dikey yük → false) KENDİLİĞİNDEN üretiyor.",
+    "$verdictSummary": "12 true · 6 false",
+    "$activationBlocked": true,
+    "$activationBlockerNote": "Advisor 6 `false` hükmünün DEVREYE ALINMASINI iki koruma kurulmadan ÖNERMEDİ. Bu yüzden politika değerleri DEĞİŞTİRİLMEDİ — altı hareket de fail-closed (`true`) KALIYOR; hüküm kayıtlı, aktivasyon isimli-bloklu. Hiçbiri şu an hasat edilmiyor, maliyet sıfır.",
+    "$blocker1_secondPersonDetection": {
+      "status": "EKSİK",
+      "what": "Kare içinde İKİNCİ KİŞİ tespiti — metinden değil POSE ile (ikinci iskelet / fazladan uzuv).",
+      "why": "Advisor yeni bir zarar kanalı adlandırdı: \"ASİSTANLI İDEAL POSTÜR gösterimi\" pasif-ROM DEĞİL. Koç elini kalçaya koyup ideal hattı gösterdiğinde öznenin kendi üretemeyeceği bir hedef doğar; bu klipler \"passive\" kelimesini İÇERMEZ, `unknown` düşer ve `false` verildiği anda referansa GİRER. Yani izometriklerde fail-closed kaldırmak pasif-ROM riskini değil BU riski açar.",
+      "note": "MediaPipe tek-kişi modeli ikinci iskeleti döndürmüyor — kapı gerçekten YOK."
+    },
+    "$blocker2_multiSourceConsensus": {
+      "status": "ZATEN VAR ✅",
+      "what": "Tek-video referansı yasağı (k>=3 bağımsız kaynak uzlaşması).",
+      "evidence": "motion_core ReferenceBuilder varsayılanı minSources=3/minTakes=3 (reference_builder.dart:362-363) ve ReferenceCli o varsayılanı kullanıyor; yayımlı squat referansı distinctSources=6, push_up=5. Yani advisor ın istediği asıl panzehir HALİHAZIRDA devrede."
+    },
+    "$boundaryDeclarations": [
+      "side_plank — advisor ın EN ZAYIF false u: pelvis-destekli koç gösterimi gerçek (pasif değil, ASİSTANLI). Uzman true ya çevirebilir.",
+      "lunge — orta güven; step_up true olurken lunge false olması bir YAYGINLIK yargısı, biyomekanik değil. Uzman ikisini aynı yöne çekebilir.",
+      "mountain_climber — hükmü plank a BAĞLI (plank+döngüsel hız). plank true olursa bu da düşer; ayrı ayrı oylanmamalı.",
+      "plank/wall_sit — pediatrik/nörolojik prone-ekstansiyon destek düzeneği kasten dışarıda bırakıldı; \"o klipler plank diye etiketlenmez\" bir METİN-ETİKET varsayımı, biyomekanik güvence değil.",
+      "hollow_hold — true u tam pasif değil YARI-pasif (lomber yerde kalır, şekil birebir olmaz); veri kaybı ucuz olduğu için true tutuldu.",
+      "calf_raise + hanging_leg_raise — asıl risk hareket değil EKLEM: ayak bileği plantar fleksiyonu ve kalça fleksiyonu pasif-ROM literatürünün en çok filmlenen iki eklemi.",
+      "superman_hold vs push_up ikisi de yüzükoyun ama ZIT hüküm — ayıran şey pozisyon değil gövdenin YERDE mi ASKIDA mı olduğu. Uzman bu eksene itiraz ederse tablo TOPLUCA yeniden hesaplanmalı."
+    ],
+    "$newRiskClassRaised": "TERS YÖNLÜ KONTAMİNASYON (advisor, daha önce konuşulmamış): fizyoterapi havuzundan gelen kliplerde gösteren kişi KISITLI bir birey olabilir. O zaman referans pasif yüzünden fazla GENİŞ değil, kısıtlılık yüzünden fazla DAR olur — kullanıcı hedefi kolayca aşar, ölçüm tavana vurur, ilerleme hissi ölür. `passive/active` etiketi bu vakayı HİÇ görmüyor. Ayrı bir \"gösteren kişi popülasyonu\" sorusu olarak insan-uzman envanterine eklenmeli.",
+    "$languageGuard": "Advisor uyarısı: bu blok etrafındaki metinlerde \"rehabilitasyon/tedavi/hasta/düzeltir\" KULLANILMAZ. Doğru kalıp: \"başka bir kişi tarafından üretilmiş hareket gösterimi\". Ürün wellness sınıfında kalır.",
+    "verdicts": {
+      "plank": {
+        "advisorVerdict": false,
+        "activePolicy": true,
+        "blocked": true,
+        "basis": "Gövde el/ön kol–ayak arasında ASKIDA; gevşek vücudu yatay tutmak plank değil taşımaktır."
+      },
+      "side_plank": {
+        "advisorVerdict": false,
+        "activePolicy": true,
+        "blocked": true,
+        "basis": "Yan askı da iki temas noktası arasında. ⚠️ advisor bunu \"en zayıf false\"u ilan etti (pelvis-destekli koç gösterimi gerçek)."
+      },
+      "wall_sit": {
+        "advisorVerdict": false,
+        "activePolicy": true,
+        "blocked": true,
+        "basis": "Duvara yaslı gevşek özne kayar; 90°de tutmak tüm ağırlığı taşımaktır."
+      },
+      "lunge": {
+        "advisorVerdict": false,
+        "activePolicy": true,
+        "blocked": true,
+        "basis": "Ayakta dikey yük altında gevşek özne çöker. ⚠️ orta güven — yaygınlık yargısı, biyomekanik değil; step_up ile AYNI yöne çekilmesi de tutarlı olurdu."
+      },
+      "mountain_climber": {
+        "advisorVerdict": false,
+        "activePolicy": true,
+        "blocked": true,
+        "basis": "Plank tabanı gevşek öznede çöker + döngüsel hız dışarıdan üretilemez. ⚠️ plank hükmüne BAĞLI: plank true olursa bu da düşer."
+      },
+      "burpee": {
+        "advisorVerdict": false,
+        "activePolicy": true,
+        "blocked": true,
+        "basis": "Zincir dikey SIÇRAMA içeriyor; sıçrama pasif üretilemez — listedeki en güvenli false."
+      },
+      "pull_up": {
+        "advisorVerdict": true,
+        "activePolicy": true,
+        "blocked": false,
+        "basis": "Bant/makine/partner-yardımlı barfiks dev bir gösterim sınıfı; yardımlı ROM aktif kapasiteyi aşıyor."
+      },
+      "inverted_row": {
+        "advisorVerdict": true,
+        "activePolicy": true,
+        "blocked": false,
+        "basis": "Topuklar yerde, yükün bir kısmı askıda — partner gövdeyi alttan iterek aynı izi üretebilir."
+      },
+      "glute_bridge": {
+        "advisorVerdict": true,
+        "activePolicy": true,
+        "blocked": false,
+        "basis": "Sırtüstü gevşek özneye pelvisi kaldırtmak yerleşik bir \"yardımlı köprü\" işi."
+      },
+      "step_up": {
+        "advisorVerdict": true,
+        "activePolicy": true,
+        "blocked": false,
+        "basis": "Pasif icra imkânsız AMA terapist destekli basamak/merdiven çalışması çok yaygın filmlenen sınıf."
+      },
+      "calf_raise": {
+        "advisorVerdict": true,
+        "activePolicy": true,
+        "blocked": false,
+        "basis": "Ayak bileği plantar fleksiyonu en sık pasif-ROM ölçülen eklemlerden biri + manuel yardımlı topuk kalkışı yerleşik progresyon."
+      },
+      "dip": {
+        "advisorVerdict": true,
+        "activePolicy": true,
+        "blocked": false,
+        "basis": "Yardımlı dip makinesi/bant/ayak desteği yaygın; yardımlı sürüm tam derinliğe iniyor."
+      },
+      "hanging_leg_raise": {
+        "advisorVerdict": true,
+        "activePolicy": true,
+        "blocked": false,
+        "basis": "Tutuş aktif kalsa bile partner gevşek bacakları kaldırabilir; pasif kalça fleksiyonu aktif ROM u belirgin aşar."
+      },
+      "toes_to_bar": {
+        "advisorVerdict": true,
+        "activePolicy": true,
+        "blocked": false,
+        "basis": "Aynısı daha uçta: antrenörün bacakları bara götürmesi bilinen öğretim hilesi."
+      },
+      "dead_bug": {
+        "advisorVerdict": true,
+        "activePolicy": true,
+        "blocked": false,
+        "basis": "Sırtüstü + havada uzuv + kontrollü indirme = pasif kalça/diz fleksiyon ölçümünün ders kitabı düzeneği."
+      },
+      "bird_dog": {
+        "advisorVerdict": true,
+        "activePolicy": true,
+        "blocked": false,
+        "basis": "Dörtayak tabanı aktiflik ister ama uzuv yolu elle yönlendirilebilir; manuel ipuçlu bird-dog yaygın."
+      },
+      "hollow_hold": {
+        "advisorVerdict": true,
+        "activePolicy": true,
+        "blocked": false,
+        "basis": "Gövde YERDE; şekli veren havadaki uzuvlar — biri onları tutunca görüntü çıkar (yarı-pasif)."
+      },
+      "superman_hold": {
+        "advisorVerdict": true,
+        "activePolicy": true,
+        "blocked": false,
+        "basis": "Yüzükoyun gövde YERDE; prone kalça+omuz ekstansiyonu ikisi de standart pasif-ROM manevrası."
+      }
+    }
+  }
 }

@@ -1,0 +1,106 @@
+{
+  "$measurement": "per-source mean |left-right| joint angle difference (circular), computed via canonical ReferenceCli.prepareTake",
+  "$why": "Squat referansının konsensüs meanLeftRightDiffDeg değeri 32,26° (push_up 5,16°). Squat iki-taraflı simetrik bir harekette bu büyüklük muhtemelen 2B izdüşüm artefaktı — kamera açısıyla korelasyonu sınanacak (M-F-131 hüküm 4).",
+  "$caveat": "Referansın 32,26°si KONSENSÜS üzerinde (36 take/6 kaynak); buradaki sayılar KAYNAK-BAŞINA ve 12 kaynağın tamamında. İlişkili ama aynı nicelik DEĞİL.",
+  "sources": {
+    "Calisthenicmovement": {
+      "takes": 2,
+      "meanLeftRightDiffDeg": 33.702
+    },
+    "FitnessFAQs": {
+      "takes": 1,
+      "meanLeftRightDiffDeg": 38.621
+    },
+    "GMB Fitness (Praxis)": {
+      "takes": 1,
+      "meanLeftRightDiffDeg": 65.087
+    },
+    "Jeff Nippard": {
+      "takes": 23,
+      "meanLeftRightDiffDeg": 24.44
+    },
+    "Jeremy Ethier": {
+      "takes": 6,
+      "meanLeftRightDiffDeg": 17.773
+    },
+    "K boges": {
+      "takes": 59,
+      "meanLeftRightDiffDeg": 19.13
+    },
+    "Sebastian Oreb": {
+      "takes": 4,
+      "meanLeftRightDiffDeg": 41.964
+    },
+    "Squat University": {
+      "takes": 16,
+      "meanLeftRightDiffDeg": 28.316
+    },
+    "Strength Side": {
+      "takes": 30,
+      "meanLeftRightDiffDeg": 20.365
+    },
+    "THENX": {
+      "takes": 68,
+      "meanLeftRightDiffDeg": 46.06
+    },
+    "TappBrothers": {
+      "takes": 1,
+      "meanLeftRightDiffDeg": 29.698
+    },
+    "Tom Merrick": {
+      "takes": 11,
+      "meanLeftRightDiffDeg": 49.633
+    },
+    "WeShape": {
+      "takes": 12,
+      "meanLeftRightDiffDeg": 18.784
+    }
+  },
+  "$byJointPair": {
+    "elbow": {
+      "meanDiffDeg": 21.17,
+      "samples": 10973,
+      "group": "arm"
+    },
+    "forearm": {
+      "meanDiffDeg": 51.84,
+      "samples": 10973,
+      "group": "arm"
+    },
+    "hip": {
+      "meanDiffDeg": 27.62,
+      "samples": 17983,
+      "group": "leg/trunk"
+    },
+    "knee": {
+      "meanDiffDeg": 24.9,
+      "samples": 17983,
+      "group": "leg/trunk"
+    },
+    "shin": {
+      "meanDiffDeg": 18.06,
+      "samples": 17983,
+      "group": "leg/trunk"
+    },
+    "shoulder": {
+      "meanDiffDeg": 24.13,
+      "samples": 12368,
+      "group": "arm"
+    },
+    "thigh": {
+      "meanDiffDeg": 37.61,
+      "samples": 17983,
+      "group": "leg/trunk"
+    },
+    "upper_arm": {
+      "meanDiffDeg": 60.95,
+      "samples": 12368,
+      "group": "arm"
+    }
+  },
+  "$armVsLeg": {
+    "armMeanDiffDeg": 39.52,
+    "legTrunkMeanDiffDeg": 27.05,
+    "note": "Squat'ta kollar serbesttir (eğitmene göre göğüste/önde/başta) — kol asimetrisi GERÇEK davranış, izdüşüm artefaktı DEĞİL. Referansın unreliableJoints listesi de kol eklemleriydi. Bu kırılım, 32,26°lık toplu sayının hangi gruptan geldiğini gösterir."
+  }
+}
