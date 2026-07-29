@@ -121,3 +121,72 @@ değil, komşu şemalar. Yalnız şunu not ederim: `detect` ile `perturbation`ı
 **aynı yerde** durması bizde bir değişmez (G-013/G-015/G-016) — fixture'ın
 sınadığı toleransı gerçekten aştığı ancak ikisi yan yanayken betikle
 denetlenebiliyor.
+
+---
+
+# v2 ONAY TURU — kalan üç pürüz (2026-07-29, tur 7)
+
+v2 beş boşluğu da kapattı. `movement.schema.json` → v2 çevirisini 20 hareket
+üzerinde denedim; **rep-FSM, statik tutuş ve çok-faz zincirlerinin tamamı
+çevrilebiliyor.** Kalan pürüzler v2'nin YENİ hata katmanından (§3) doğuyor —
+v1'de bu katman olmadığı için "komşu şema" diye geçmiştim, artık var ve iki
+alanı eksik.
+
+## F1 (P1) — Hata kaydında ÖNCELİK alanı yok
+
+`hata := {code, evaluateAt, koşul, cooldownMs?, maxPerRound?, suppressesJudgement?}`
+
+`maxPerRound` **kaç** hata söyleneceğini sınırlıyor ama **hangisinin** söyleneceğini
+söylemiyor. Aynı karede iki hata birden ateşlendiğinde sıralama yoksa seçim
+keyfî olur.
+
+Bizde bu bir ürün kuralı, kozmetik değil: *aynı anda EN FAZLA bir düzeltme* ve
+sıra **güvenlik > engelleyici > denge > büyük hiza > küçük form > optimizasyon**
+(plan §9). Squat'ta aynı anda "yeterince derin değil" (blocking) ve "bel
+yuvarlanıyor" (safety) ateşlenirse **güvenlik önce söylenmeli** — testimiz bunu
+sabitliyor.
+
+**Öneri:** `priority: safety|blocking|balance|major_alignment|minor_form|optimization`
+(veya sayısal rank). Sesli koçun tek-düzeltme disiplini bu alan olmadan
+uygulanamaz.
+
+## F2 (P1) — `perturbation` hata kaydında yok → detect↔fixture bağı kopuyor
+
+Bizde tespit kuralı ile onu üreten bozulma **aynı kayıtta** durur:
+
+```jsonc
+{ "id": "hip_sag",
+  "detect":      { "metric": "line_deviation_deg", "op": ">", "value": 14 },
+  "perturbation":{ "metric": "line_deviation_deg", "targetValue": 22 } }
+```
+
+Yan yana olmalarının sebebi estetik değil: nöbetçi betik **perturbasyonun eşiği
+gerçekten aştığını** ancak ikisini birlikte görünce denetleyebiliyor (G-013 /
+G-015 `targetValue` / G-016 `noiseBand`). Ayrılırlarsa Choreia'nın C-011 tuzağı
+geri gelir — fixture toleransın içinde kalır ve test **hiçbir şeyi sınamadan**
+yeşil yanar.
+
+**Öneri:** hata kaydına `perturbation: {metric, targetValue, via?}` + değişmez
+**#11**: *perturbasyon hedefi, tespit eşiğini metriğin `noiseBand`ı kadar
+aşmalıdır.* (v2'de `noiseBand` zaten zorunlu — değişmez bedava geliyor.)
+
+## F3 (P2) — Varyanta bağlı ATLANABİLİR faz yok
+
+Faz kaydında `optional` yok. Burpee'de `chest_to_floor` fazı varyanta göre
+zorunlu ya da atlanabilir; zinciri baştan sona kopyalayıp ikinci bir teknik
+tanımlamak tek fazlık fark için pahalı.
+
+**Öneri:** `optional?: bool` (veya `requiredInVariants: [...]`). `branchProfiles`
+beklenen DEĞERİ branşa göre değiştiriyor; buradaki ihtiyaç fazın VARLIĞI.
+
+## Pürüz olmayan, teyit
+
+`cyclic`/`repCompletedOn`/`resetBetweenReps` → tam karşılık · faz `quality`
+bloku → `romTarget` · `checkpoint: true` → `checkpointOnly` · `sideResolution`
+→ `signal.side: "visible"` · metrik `range`/`noiseBand`/`baseline` → metrics.json
+· değişmez #9 → V11 · #10 → ölü-metrik.
+
+**Not:** `measurementContract` (dürüstlük kutusu) hâlâ v2 dışında ve bu doğru —
+faz-config değil, sunum sözleşmesi. Yalnız `gateableMetrics` (G-006: patlayıcı
+faz metrikleri progresyon kapısı OLAMAZ) `checkpoint: true`'dan tam türetilemiyor;
+app-side kalmasında sakınca görmüyorum, not olarak bırakıyorum.
