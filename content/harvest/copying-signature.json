@@ -1,0 +1,95 @@
+{
+  "$probe": "copying signature: visibility-conditioned |left-right| joint angle difference (M-F-141 hüküm 2)",
+  "$signature": "If |L-R| SHRINKS as far-limb visibility DROPS, the agreement is MANUFACTURED (model copies the near limb). Honest measurement: difference GROWS or stays noisy-flat as visibility drops.",
+  "$visibilityGateDeliberatelyOff": "Kanonik prepareTake düşük-görünürlüklü kareleri eler / açıları NaN yapar (J-056, ÜRÜN için doğru). Bu probe tam o rejimi inceliyor, bu yüzden kapı ATLANDI. Ürün hükmü çıkmaz.",
+  "$bands": [
+    0.0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.01
+  ],
+  "movements": {
+    "push_up": {
+      "bands": [
+        {
+          "band": "0.0-0.2",
+          "meanAbsLeftRightDeg": 12.75,
+          "samples": 832868,
+          "meanAbsWorldZGap": 0.1297,
+          "zSamples": 256334
+        },
+        {
+          "band": "0.2-0.4",
+          "meanAbsLeftRightDeg": 11.83,
+          "samples": 516525,
+          "meanAbsWorldZGap": 0.1715,
+          "zSamples": 130998
+        },
+        {
+          "band": "0.4-0.6",
+          "meanAbsLeftRightDeg": 14.49,
+          "samples": 298432,
+          "meanAbsWorldZGap": 0.1932,
+          "zSamples": 97582
+        },
+        {
+          "band": "0.6-0.8",
+          "meanAbsLeftRightDeg": 39.08,
+          "samples": 168193,
+          "meanAbsWorldZGap": 0.1845,
+          "zSamples": 63228
+        },
+        {
+          "band": "0.8-1.0",
+          "meanAbsLeftRightDeg": 36.83,
+          "samples": 417534,
+          "meanAbsWorldZGap": 0.1306,
+          "zSamples": 289440
+        }
+      ],
+      "reading": "görünürlük düşerken |L−R| KÜÇÜLÜYOR (en düşük bant 12.75° · en yüksek bant 36.83°) → KOPYALAMA İMZASI POZİTİF: fark tam model göremezken kayboluyor, anlaşma ÜRETİLMİŞ olabilir"
+    },
+    "bodyweight_squat": {
+      "bands": [
+        {
+          "band": "0.0-0.2",
+          "meanAbsLeftRightDeg": 44.11,
+          "samples": 13590,
+          "meanAbsWorldZGap": null,
+          "zSamples": 0
+        },
+        {
+          "band": "0.2-0.4",
+          "meanAbsLeftRightDeg": 34.26,
+          "samples": 8410,
+          "meanAbsWorldZGap": null,
+          "zSamples": 0
+        },
+        {
+          "band": "0.4-0.6",
+          "meanAbsLeftRightDeg": 25.77,
+          "samples": 11923,
+          "meanAbsWorldZGap": 0.2014,
+          "zSamples": 1230
+        },
+        {
+          "band": "0.6-0.8",
+          "meanAbsLeftRightDeg": 28.89,
+          "samples": 23062,
+          "meanAbsWorldZGap": 0.187,
+          "zSamples": 5755
+        },
+        {
+          "band": "0.8-1.0",
+          "meanAbsLeftRightDeg": 33.42,
+          "samples": 91239,
+          "meanAbsWorldZGap": 0.1185,
+          "zSamples": 48599
+        }
+      ],
+      "reading": "görünürlük düşerken |L−R| BÜYÜYOR (en düşük bant 44.11° · en yüksek bant 33.42°) → imza NEGATİF: fark belirsizlikte büyüyor, dürüst ölçüm davranışı"
+    }
+  }
+}
