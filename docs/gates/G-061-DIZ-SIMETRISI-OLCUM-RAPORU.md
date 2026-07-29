@@ -122,9 +122,42 @@ squat-kendi-dağılımına bakarak doğrulanamaz.
 bırakıldı** (yeni ölçü/kapı tasarımı + belirsiz-veri yorumu = kendi kararım
 değil).
 
+## EK — koordinatör kararı: seçenek 2 (bottom-fazı daraltması) sınandı
+
+Koordinatör sırası verdi: önce 2 (rep-bottom daraltması), sonra 1 (confounder
+hasadı), sonra 3 (advisory-only). Gerekçe: sınıf-ayrımı (squat'ta iki diz
+BİRLİKTE dipte / lunge'da dipte ayrışır) biyomekanik olarak en çok dipte
+görünmeli.
+
+**E kademesi eklendi** (`measure_knee_symmetry.dart`): D ∩ görünen-taraf diz
+açısı ≤ `bottom.angleMax` (116°) — yalnız FSM'in BOTTOM fazındaki kareler.
+
+**Sonuç: daraltma İYİLEŞTİRMEDİ, bazı eğitmenlerde KÖTÜLEŞTİRDİ.**
+
+```
+D (tüm faz)  : n=22.593  mean=21,02°  p95=76,51°
+E (yalnız dip): n= 7.834  mean=26,03°  p95=86,58°   ← genel ortalama DÜŞMEDİ
+```
+
+Eğitmen başına en çarpıcı fark **K boges**: D'de mean=18,17°, E'de
+mean=**48,56°** — dipte KÖTÜLEŞTİ. Muhtemel neden: maksimum diz fleksiyonunda
+kamera açısına göre bacaklardan biri daha çok öngörüşe/oklüzyona giriyor,
+yani "dipte ayrışma daha görünür" hipotezi tersine, "dipte izdüşüm-bükülmesi
+daha şiddetli" gibi görünüyor — squat'ın en derin anında, hangi bacağın
+kameraya daha yakın/uzak olduğu farkı en çok büyüdüğü an olabilir.
+
+Havuzlanmış histogram (E) hâlâ tek-tepeli/uzun-kuyruklu; doğal bir eşik-
+boşluğu YİNE belirmedi.
+
+**Sonuç: seçenek 2 tükendi, negatif.** Karar zincirindeki bir sonraki adım
+(seçenek 1: confounder hasadı, yine bottom-faz çerçeveli) belirgin bir zaman/
+kaynak yatırımı gerektiriyor (saatler sürebilecek yeni bir hasat turu, squat
+hasadının kendisi gibi) — bunu tek taraflı başlatmadım, koordinatöre
+bildirildi.
+
 ## Kanıt / komutlar
 
 ```bash
 cd packages/gravita_engine
-dart run tool/measure_knee_symmetry.dart   # tam çıktı yukarıdaki tablo
+dart run tool/measure_knee_symmetry.dart   # tam çıktı yukarıdaki tablo (A-E)
 ```

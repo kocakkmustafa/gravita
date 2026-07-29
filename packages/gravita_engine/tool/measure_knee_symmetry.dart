@@ -25,6 +25,12 @@ import 'harvest_reps.dart' show mandatoryFor, requiredFor;
 ///   C) Motorun KENDİ FSM'inin tamamladığı squat TEKRARLARI içindeki kareler
 ///      (stand 165°→bottom 116°→stand gerçek geçişi şart koşar — bir
 ///      konuşmacının ayakta durması bu FSM'i hiç tetiklemez)
+///   D) C ∩ StructuralValidator.plausible
+///   E) D ∩ BOTTOM-fazı (görünen-taraf diz açısı ≤ `bottom.angleMax`) —
+///      koordinatör talimatı (G-061 sonrası): sınıf-ayrımı (squat'ta iki diz
+///      BİRLİKTE dipte / lunge'da ayrışır) biyomekanik olarak en çok DİPTE
+///      görünür; faz-geneli ölçüm (C/D) descent/ascent geçiş karelerini de
+///      katıp gürültü ekliyor olabilir.
 ///
 /// C, ürünün gerçek motorunu (RepEngine) koşturarak elde edilir — paralel bir
 /// Python/heuristic yeniden yazımı DEĞİL (M-F-21/25).
@@ -36,9 +42,15 @@ void main(List<String> args) {
 
   final File cfgFile = File('../../content/catalog/w1/$movementId.json');
   final MovementConfig cfg = MovementConfig.parse(cfgFile.readAsStringSync());
+  final double bottomAngleMax = (((jsonDecode(cfgFile.readAsStringSync())
+                  as Map<String, dynamic>)['engine'] as Map<String, dynamic>)
+              ['phases'] as Map<String, dynamic>)['bottom']['angleMax']
+      .toDouble() as double;
 
   stdout.writeln('hareket: ${cfg.name} — precondition.status='
-      '${cfg.preconditionStatus} (bu araç bilinçli olarak bu kilidi atlar)\n');
+      '${cfg.preconditionStatus} (bu araç bilinçli olarak bu kilidi atlar)');
+  stdout.writeln('bottom.angleMax=$bottomAngleMax° (E kademesi: görünen-taraf '
+      'diz açısı bu değerin ALTINDAYKEN alınan kareler)\n');
 
   final Set<int> mandatory = mandatoryFor(cfg).toSet();
   final List<int> all = requiredFor(cfg);
@@ -58,8 +70,10 @@ void main(List<String> args) {
   final List<double> windowFrames = <double>[];
   final List<double> repFrames = <double>[];
   final List<double> structuralRepFrames = <double>[];
+  final List<double> bottomFrames = <double>[];
   final Map<String, List<double>> repFramesByInstructor = <String, List<double>>{};
   final Map<String, List<double>> structuralRepFramesByInstructor = <String, List<double>>{};
+  final Map<String, List<double>> bottomFramesByInstructor = <String, List<double>>{};
   int fixtureCount = 0;
   int totalReps = 0;
   final Set<String> instructorsWithReps = <String>{};
@@ -119,21 +133,24 @@ void main(List<String> args) {
       // temporalDiscontinuity önceki kareyle kıyaslar) — pencere başına TAZE
       // örnek gerekir (build_reference.dart'la aynı desen).
       final StructuralValidator sv = StructuralValidator();
-      final List<({int tUs, double asym, bool structOk})> trace =
-          <({int tUs, double asym, bool structOk})>[];
+      final List<({int tUs, double asym, bool structOk, double kneeAngle})> trace =
+          <({int tUs, double asym, bool structOk, double kneeAngle})>[];
       for (final PoseFrame pf in w) {
         e.addFrame(pf, size);
         final PoseFrame iso = pf.toIsotropic(size);
-        final double a = MovementMetrics.of(iso).kneeAngleAsymmetry;
+        final MovementMetrics m = MovementMetrics.of(iso);
+        final double a = m.kneeAngleAsymmetry;
         final bool structOk = sv.check(iso).plausible;
         allFrames.add(a);
         windowFrames.add(a);
-        if (!a.isNaN) trace.add((tUs: pf.tUs, asym: a, structOk: structOk));
+        if (!a.isNaN) {
+          trace.add((tUs: pf.tUs, asym: a, structOk: structOk, kneeAngle: m.kneeAngle));
+        }
       }
       totalReps += e.repCount;
       if (e.repCount > 0) instructorsWithReps.add(channel);
       for (final Rep r in e.reps) {
-        for (final ({int tUs, double asym, bool structOk}) t in trace) {
+        for (final ({int tUs, double asym, bool structOk, double kneeAngle}) t in trace) {
           if (t.tUs >= r.startUs && t.tUs <= r.endUs) {
             repFrames.add(t.asym);
             repFramesByInstructor.putIfAbsent(channel, () => <double>[]).add(t.asym);
@@ -142,6 +159,12 @@ void main(List<String> args) {
               structuralRepFramesByInstructor
                   .putIfAbsent(channel, () => <double>[])
                   .add(t.asym);
+              if (!t.kneeAngle.isNaN && t.kneeAngle <= bottomAngleMax) {
+                bottomFrames.add(t.asym);
+                bottomFramesByInstructor
+                    .putIfAbsent(channel, () => <double>[])
+                    .add(t.asym);
+              }
             }
           }
         }
@@ -188,6 +211,7 @@ void main(List<String> args) {
   report('B) Hareket-penceresi kareleri       ', windowFrames);
   report('C) FSM-tamamlanmış TEKRAR kareleri  ', repFrames);
   report('D) C ∩ StructuralValidator.plausible', structuralRepFrames);
+  report('E) D ∩ BOTTOM-fazı (≤${bottomAngleMax.toStringAsFixed(0)}°)     ', bottomFrames);
 
   stdout.writeln('\n-- C) eğitmen başına --');
   final List<String> chans = repFramesByInstructor.keys.toList()..sort();
@@ -209,5 +233,35 @@ void main(List<String> args) {
     stdout.writeln('${ch.padRight(28).substring(0, math.min(28, ch.length))}'
         '  n=${r.n.toString().padLeft(5)}  mean=${r.mean.toStringAsFixed(2)}°'
         '  p95=${r.p95.toStringAsFixed(2)}°  max=${r.max.toStringAsFixed(2)}°');
+  }
+
+  stdout.writeln('\n-- E) eğitmen başına (bottom-fazı daraltması) --');
+  for (final String ch in chans) {
+    final List<double>? xs = bottomFramesByInstructor[ch];
+    if (xs == null) {
+      stdout.writeln('${ch.padRight(28).substring(0, math.min(28, ch.length))}  n=0 (bottom-fazı karesi yok)');
+      continue;
+    }
+    final r = stats(xs);
+    stdout.writeln('${ch.padRight(28).substring(0, math.min(28, ch.length))}'
+        '  n=${r.n.toString().padLeft(5)}  mean=${r.mean.toStringAsFixed(2)}°'
+        '  p95=${r.p95.toStringAsFixed(2)}°  max=${r.max.toStringAsFixed(2)}°');
+  }
+
+  stdout.writeln('\n-- E) havuzlanmış histogram (10° kutular) --');
+  final List<double> bottomClean =
+      bottomFrames.where((double x) => !x.isNaN).toList()..sort();
+  if (bottomClean.isNotEmpty) {
+    final List<int> bins = List<int>.filled(19, 0);
+    for (final double x in bottomClean) {
+      final int b = (x ~/ 10).clamp(0, 18);
+      bins[b]++;
+    }
+    final int maxBin = bins.reduce(math.max);
+    for (int i = 0; i < bins.length; i++) {
+      final String bar = '#' * (maxBin == 0 ? 0 : bins[i] * 60 ~/ maxBin);
+      stdout.writeln('${(i * 10).toString().padLeft(4)}-${(i * 10 + 10).toString().padLeft(4)}° : '
+          '${bins[i].toString().padLeft(6)} $bar');
+    }
   }
 }

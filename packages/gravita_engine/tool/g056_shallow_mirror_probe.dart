@@ -174,14 +174,16 @@ void main(List<String> args) {
         'eğitmen(ler): ${droppedInstructors.join(", ")}');
   }
 
-  // ⚠️ `resolveMirroring(takes).confident` n>12'de ANLAMSIZDIR: kaynak kodu
-  // (reference_builder.dart pub-cache v0.5.0, satır ~400) n>12'de tükenmez
-  // aramayı YAPMAZ, `runnerUpTotal = bestTotal + mirrorMargin*pairs*2` diye
-  // SABİT bir "bilinmeyen boşluk" placeholder'ı yazar — bu her zaman
-  // confident=true üretir, VERİYE bakmaz. build_reference.dart'ın ASIL G-056/
-  // M-F-48 ölçümü bu yüzden `resolveMirroring.confident`e değil, KENDİ
-  // shuffle+yeniden-kur karşılaştırmasına ve `meanLeftRightDiffDeg`e dayanıyor
-  // — aynı yöntem burada tekrarlanıyor.
+  // ⚠️ GÜNCEL DURUM (v0.8.2, M-O-25 sonrası): n>18'de artık `confident`
+  // SESSİZCE true DÖNMÜYOR — `gapMeasured:false` + `confident:false` +
+  // `searchDecisive:false` dürüstçe raporlanıyor (koordinatör düzeltmesi).
+  // AMA bu havuzların ikisi de (91 ve 52 take) hâlâ 18 tükenmez-arama
+  // sınırının ÜSTÜNDE — yani `mirrorGapMeasured`/`mirrorSearchDecisive` HER
+  // İKİ sette de sabit `false` çıkacak, aralarında AYRIM YAPAMAYACAK (aşağıda
+  // ölçülüp doğrulanıyor). Bu yüzden asıl ayırt edici ölçüm hâlâ
+  // build_reference.dart'ın KENDİ shuffle+yeniden-kur karşılaştırması +
+  // `meanLeftRightDiffDeg` — n'den bağımsız çalışıyor, ikisini de burada
+  // koşuyoruz.
   ({double meanLrDiffDeg, bool orderIndependent, bool sameMirrorSet,
       double maxDeltaDeg, int contributingTakes}) measure(
       List<ReferenceTake> takes, String label) {
@@ -234,6 +236,11 @@ void main(List<String> args) {
         'meanLeftRightDiffDeg=${meanLr.toStringAsFixed(2)}° · '
         'orderIndependenceMaxDeltaDeg=${maxDelta.toStringAsFixed(3)}° · '
         'orderIndependent=$orderIndependent · sameMirrorSet=$sameMirrorSet');
+    stdout.writeln('$label  (v0.8.2 alanları) mirrorConfident=${ref.mirrorConfident} · '
+        'mirrorGapMeasured=${ref.mirrorGapMeasured} · '
+        'mirrorSearchDecisive=${ref.mirrorSearchDecisive} · '
+        'takes.length=${takes.length} (18 tükenmez-arama sınırı: '
+        '${takes.length <= 18 ? "İÇİNDE" : "ÜSTÜNDE — gapMeasured beklenen: false"})');
     return (
       meanLrDiffDeg: meanLr,
       orderIndependent: orderIndependent,
