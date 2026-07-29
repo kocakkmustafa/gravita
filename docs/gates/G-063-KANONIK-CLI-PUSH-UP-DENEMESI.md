@@ -1,5 +1,12 @@
 # G-063 — push_up referansı kanonik CLI (v0.8.2) ile: çalıştı, ama havuz ÇOK küçüldü
 
+> **GÜNCELLEME (v2, koordinatör kararı):** Aşağıdaki v1 bölümü PENCERE-düzeyi
+> granüleriteyle (1 kesintisiz-hareket penceresi = 1 take) ölçülmüştü.
+> Koordinatör bunu REDDETTİ ve TEKRAR-düzeyi granüleriteyi (ürünün kendi
+> rep-FSM'i kesici) zorunlu kıldı — sonuç ve karşılaştırma en altta, "## v2
+> — REP-düzeyi (koordinatör kararı, GEÇERLİ SÜRÜM)" başlığında. v1 tarihsel
+> kayıt olarak bırakıldı (aynı aracın nasıl evrildiğinin kanıtı).
+
 **Talimat:** push_up referansını Gravita'nın kendi `build_reference.dart`/
 `harvest_reps.dart` aracıyla DEĞİL, motion-core'un kanonik `ReferenceCli`'siyle
 (v0.8.2, L-139/0.8.0 çevrim-segmentasyonu dahil) yeniden üretmek; sığ-tekrar
@@ -77,6 +84,41 @@ Olası yönler:
 3. **Havuzu genişlet** — `~/motion-harvest/gravita/landmarks`'a yeni push_up
    fixture'ları hasat et (K boges 8 pencereyle en zengin kaynak; benzerlerini
    ara), sonra kanonik CLI'yi yeniden koş.
+
+## v2 — REP-düzeyi (koordinatör kararı, GEÇERLİ SÜRÜM)
+
+**Koordinatör hükmü:** "tekrar-sınıfı malzemenin doğal take birimi TEKRARDIR
+... ürünün kendi rep-FSM'i kesicidir ... kesme eşiği = zaten isimli 110°
+partial_rom." Uygulandı: her derin tekrar (`rom_bottom_angle≤110°`) kendi
+`Fixture`'ına kesildi, provenance'a `windowRule: rep_fsm@9b8f0ca
+partial_rom=110.0` beyanı gömüldü (hangi kuralla/hangi commit'le kesildiği
+izlenebilir).
+
+| | eski (build_reference.dart) | v1 (pencere=take) | **v2 (tekrar=take)** |
+|---|---|---|---|
+| toplam tekrar (derin/sığ) | — | — | 97 (76/21) |
+| contributingTakes | 44 | 7 | **37** |
+| distinctSources (eğitmen) | 9 | 4 | **5** |
+| excludedOutlierIds | 47 | 22 | 34 |
+| cycleSegmentation | yok | notApplied (3/30 periyodik) | **notApplied (1/71 periyodik) — BEKLENEN, tek-tekrarlık fixture aperiyodiktir** |
+| meanLeftRightDiffDeg | 5,03° | 4,51° | **4,90°** |
+| mirrorAgnostic | true | true | **true (4. bağımsız doğrulama)** |
+| unreliableJoints | [] | [trunk_tilt] | **[] (küçük-n artefaktıydı, düzeldi)** |
+
+**v2, v1'den belirgin şekilde daha sağlıklı:** 37/5 hâlâ eskinin (44/9)
+altında ama v1'in (7/4) çok üstünde — M-F-38 tabanının rahatça üstünde.
+`unreliableJoints` boşaldı (v1'in `[trunk_tilt]`'i küçük-n artefaktıydı).
+Çevrim-segmentasyonunun devreye girmemesi artık gerçekten BEKLENEN/dürüst
+bir sonuç (koordinatörün öngördüğü gibi) — tek-tekrarlık fixture'lar tanım
+gereği periyodik değildir; segmentasyon rep-FSM'siz çok-tekrarlı malzeme
+için kalıyor. mirrorAgnostic DÖRDÜNCÜ kez (eski + v1 + v2'nin iki hesabı)
+bağımsız doğrulandı (4,3-5,0° bandında istikrarlı).
+
+**Hâlâ karar bekleyen:** 37/5, eskiden (44/9) daha küçük — `reference.
+push_up.json`'ı bu artefaktla değiştirmek mi, yoksa havuzu (özellikle 1-2
+tekrarlık eğitmenler: Antranik Kizirian, Kayla Itsines, THENX, TappBrothers,
+Tom Merrick) yeni hasatla büyütüp sonra mı değiştirmek, karar koordinatörde.
+Dosya HENÜZ değiştirilmedi.
 
 ## Kanıt / komutlar
 

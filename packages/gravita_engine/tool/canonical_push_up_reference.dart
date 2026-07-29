@@ -15,21 +15,30 @@ import 'harvest_reps.dart' show mandatoryFor, requiredFor;
 /// koşarsa doğru kalır" — bu araçlar kanonik CLI'nin tasarım temeliydi, artık
 /// üstünü kanonik devraldı.
 ///
-/// Bölünen sorumluluk:
-///  * Bu araç yalnız FIXTURE-DÜZEYİ UYGUNLUK kararı verir: bir pencere
-///    (kesintisiz hareket bloğu) en az bir DERİN tekrar (rep-FSM'in İSİMLİ
-///    `formErrors.partial_rom` bloke eşiğini AŞMAYAN, yani `rom_bottom_angle
-///    ≤110°`) içeriyor mu? İçermiyorsa pencere hiç `Fixture` olarak
-///    ÜRETİLMEZ (adıyla dışlanır, G-062 düzeltmesi — bu artık probe-icadı
-///    95° DEĞİL, ürünün canlı koçlamada kullandığı gerçek eşik).
-///  * Geri kalan HER ŞEY (izotropik dönüşüm, güven kapısı, ÇEVRIM
-///    SEGMENTASYONU/hangi tekrarın "temsilci" olacağı, aykırı-kaynak
-///    dışlama, ayna çözümü, tolerans kaynağı) `ReferenceCli.buildArtifact`
-///    içindedir — burada YENİDEN YAZILMAZ.
+/// **Granülerite (G-063 koordinatör revizyonu — v2):** take birimi TEKRARDIR,
+/// pencere DEĞİL. İlk deneme (v1) bir kesintisiz-hareket PENCERESİNİ tek take
+/// yapıyordu; havuzu 638→30'a (44 contributing→7) küçültmüştü — çoğu pencere
+/// karışık/az-tekrarlı olduğu için. Koordinatör kararı: kesici zaten ÜRÜNÜN
+/// KENDİ rep-FSM'i olmalı (M-F-54'ün üç sayım biriminden TEKRAR; kaynak=
+/// EĞİTMEN zaten `minSources`'ta korunuyor). Her İSİMLİ-derin tekrar
+/// (`rom_bottom_angle ≤110°`, `formErrors.partial_rom`) kendi `Fixture`'ına
+/// kesilir; `windowRule` beyanı provenance'a gömülür (hangi kuralla, hangi
+/// config sürümüyle kesildiği İZLENEBİLİR — G-043 kalıbı: bedava varsayım
+/// hasatta açık ölçüme döner).
+///
+/// Çevrim-segmentasyonunun devreye GİRMEMESİ bu granüleritede BEKLENEN ve
+/// DÜRÜST: tek-tekrarlık bir fixture tanım gereği aperiyodiktir (`measured:
+/// false`), segmentasyon rep-FSM'i OLMAYAN çok-tekrarlı video sınıfı için
+/// kalır (ör. rep-FSM'siz statik/döngüsel hareketler).
+///
+/// Bölünen sorumluluk: bu araç yalnız TEKRAR-DÜZEYİ UYGUNLUK kararı verir
+/// (derin mi, sığ mı — sığsa fixture hiç ÜRETİLMEZ, adıyla dışlanır). Geri
+/// kalan HER ŞEY (izotropik dönüşüm, güven kapısı, aykırı-kaynak dışlama,
+/// ayna çözümü, tolerans kaynağı) `ReferenceCli.buildArtifact` içindedir.
 ///
 /// Provenance notu: fixture'ların rig-triyaj `referenceEligible` bayrağı
 /// `false` (bu koşum ayrı bir eşiği ölçüyor, rig-triyaj sorusunu YANITLAMIYOR)
-/// — bunu sahte `true` yapmak yerine sentetik pencere-fixture'larına HİÇ
+/// — bunu sahte `true` yapmak yerine sentetik tekrar-fixture'larına HİÇ
 /// `referenceEligible` yazılmaz (provenance sourceUrl taşır) → CLI bunları
 /// `unattested` sınıflar, `allowUnattested:true` ile kabul eder VE artefaktı
 /// dürüstçe `PROVISIONAL` damgalar (zaten `harvested_provisional` idi).
@@ -67,9 +76,16 @@ void main(List<String> args) {
     return ok >= all.length - 2;
   }
 
+  final String repoSha = Process.runSync('git', <String>['rev-parse', '--short', 'HEAD'])
+      .stdout
+      .toString()
+      .trim();
+  final String windowRule = 'rep_fsm@$repoSha partial_rom=$shallowThreshold';
+
   final Map<String, Fixture> eligible = <String, Fixture>{};
-  final List<String> excludedNoDeepRep = <String>[];
   int windowCount = 0;
+  int totalReps = 0;
+  int shallowReps = 0;
 
   for (final File f in dir
       .listSync()
@@ -127,33 +143,39 @@ void main(List<String> args) {
       for (final PoseFrame pf in w) {
         e.addFrame(pf, size);
       }
-      final bool hasDeepRep =
-          e.reps.any((Rep r) => r.extremeAngleDeg <= shallowThreshold);
-      final String id = '$channel#$wIdx';
-      if (!hasDeepRep) {
-        excludedNoDeepRep.add('$id (${e.reps.length} tekrar, hepsi > '
-            '$shallowThreshold°)');
-        continue;
+      for (int rIdx = 0; rIdx < e.reps.length; rIdx++) {
+        final Rep r = e.reps[rIdx];
+        totalReps++;
+        if (r.extremeAngleDeg > shallowThreshold) {
+          shallowReps++;
+          continue;
+        }
+        final List<PoseFrame> repFrames = w
+            .where((PoseFrame pf) => pf.tUs >= r.startUs && pf.tUs <= r.endUs)
+            .toList(growable: false);
+        if (repFrames.length < 4) continue; // hizalanacak bir şey yok
+        final String id = '$channel#w$wIdx r$rIdx';
+        eligible[id] = Fixture(
+          app: 'gravita',
+          technique: movementId,
+          frames: repFrames,
+          modelVersion: fx['modelVersion'] as String,
+          recordingMeta: RecordingMeta(resolution: resolution, fps: fps),
+          provenance: ProvenanceInfo(
+            channel: channel,
+            sourceUrl: sourceUrl,
+            raw: <String, dynamic>{'windowRule': windowRule},
+          ),
+        );
       }
-      eligible[id] = Fixture(
-        app: 'gravita',
-        technique: movementId,
-        frames: w,
-        modelVersion: fx['modelVersion'] as String,
-        recordingMeta: RecordingMeta(resolution: resolution, fps: fps),
-        provenance: ProvenanceInfo(channel: channel, sourceUrl: sourceUrl),
-      );
     }
   }
 
-  stdout.writeln('pencere sayısı: $windowCount · uygun (≥1 derin tekrar): '
-      '${eligible.length} · dışlanan: ${excludedNoDeepRep.length}');
-  final int zeroRep =
-      excludedNoDeepRep.where((String s) => s.contains('(0 tekrar')).length;
-  stdout.writeln('  dışlananların $zeroRep/${excludedNoDeepRep.length} kadarı '
-      'HİÇ tamamlanmış tekrar içermiyordu (konuşma/geçiş penceresi); '
-      'kalanı tekrar içeriyordu ama HEPSİ >110°.');
-  stdout.writeln('  eğitmen başına UYGUN pencere sayısı:');
+  stdout.writeln('pencere sayısı: $windowCount · toplam tekrar: $totalReps '
+      '(derin=${totalReps - shallowReps} · sığ=$shallowReps) · '
+      'uygun fixture (derin tekrar): ${eligible.length}');
+  stdout.writeln('  windowRule: $windowRule');
+  stdout.writeln('  eğitmen başına UYGUN tekrar sayısı:');
   final Map<String, int> eligibleByChannel = <String, int>{};
   for (final String id in eligible.keys) {
     final String ch = id.split('#').first;
