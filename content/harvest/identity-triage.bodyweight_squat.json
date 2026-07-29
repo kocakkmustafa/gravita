@@ -1,6 +1,6 @@
 {
   "movement": "bodyweight_squat",
-  "$doc": "Squat havuzu kimlik sınıflandırması — G-064 güncellemesi (M-F-73/80). Birincil KAPI artık hipKneeCoupling (pearson(hip_flexion,knee_flexion) >= 0.2, Lissom sinyali, rig identity.hipKneeCoupling, provisional) — tools/hip_knee_coupling_squat.dart tarafından tüketiliyor, bu dosyaya yazıyor. kneeSymmetry (G-061) advisory olarak YANINDA raporlanır, kapı DEĞİLDİR (8765977 şeması zorluyor, tüketici asla kapıya çeviremez). Kanıt: docs/gates/G-064-HIPKNEECOUPLING-ILK-TUKETICI.md, content/harvest/hip_knee_coupling.bodyweight_squat.json (ham sayılar).",
+  "$doc": "Squat havuzu kimlik sınıflandırması — G-064/G-065 güncellemesi (M-F-73/80/92). Birincil KAPI artık hipKneeCoupling (pearson(hip_flexion,knee_flexion) >= 0.2, Lissom sinyali, rig identity.hipKneeCoupling, provisional) — tools/hip_knee_coupling_squat.dart tarafından tüketiliyor, bu dosyaya yazıyor. kneeSymmetry (G-061) advisory olarak YANINDA raporlanır, kapı DEĞİLDİR (8765977 şeması zorluyor, tüketici asla kapıya çeviremez). G-065 diferansiyel testi (Gravita 2D-formülü ↔ Lissom-düzeltilmiş 3D-proximal formülü) TappBrothers'ın reddinin FORMÜL ARTEFAKTI olabileceğini gösterdi — bkz. o kaydın notu. Kanıt: docs/gates/G-064-HIPKNEECOUPLING-ILK-TUKETICI.md, docs/gates/G-065-HIPKNEECOUPLING-DIFERANSIYEL-TESTI.md, content/harvest/hip_knee_coupling.bodyweight_squat.json (ham sayılar).",
   "gateThreshold": 0.2,
   "instructors": {
     "Calisthenicmovement": {"gate": "pass", "n": 1278, "pearsonHipKnee": 0.456, "kneeAsymmetryAdvisoryMeanDeg": 32.1},
@@ -15,7 +15,7 @@
     "Squat University": {"gate": "pass", "n": 2598, "pearsonHipKnee": 0.900, "kneeAsymmetryAdvisoryMeanDeg": 10.2},
     "Strength Side": {"gate": "pass", "n": 2633, "pearsonHipKnee": 0.958, "kneeAsymmetryAdvisoryMeanDeg": 18.0},
     "THENX": {"gate": "pass", "n": 3566, "pearsonHipKnee": 0.951, "kneeAsymmetryAdvisoryMeanDeg": 23.1},
-    "TappBrothers": {"gate": "fail", "n": 130, "pearsonHipKnee": 0.150, "kneeAsymmetryAdvisoryMeanDeg": 31.3, "note": "eşiğin hemen altında + küçük n — sınırda ret, teyit için daha fazla veri gerekir"},
+    "TappBrothers": {"gate": "fail", "n": 130, "pearsonHipKnee": 0.150, "kneeAsymmetryAdvisoryMeanDeg": 31.3, "formulaSensitive": true, "note": "G-065 diferansiyel testi: Lissom-düzeltilmiş formülle (WORLD 3D+proximal-projeksiyon) r=0,818 — RAHAT GEÇER. Bu ret muhtemelen Gravita'nın 2D-formülünün kamera-açısına duyarlılığından kaynaklı FORMÜL ARTEFAKTI, gerçek confounder sinyali değil. Kesin ret SAYILMAMALI — hangi formül kanonik olacağı koordinatörde."},
     "Tom Merrick": {"gate": "pass", "n": 3137, "pearsonHipKnee": 0.334, "kneeAsymmetryAdvisoryMeanDeg": 49.8, "note": "kneeSymmetry advisory'de EN YÜKSEK asimetri (G-061'de kare-kare split-stance şüphesi doğrulandı) ama hipKneeCoupling rahat geçiyor — iki sinyal bağımsız eksen, biri kare-içi sol-sağ (kamera-açısına duyarlı), öteki zaman-içi kalça-diz eş-güdümü (değil)"},
     "WeShape": {"gate": "pass", "n": 1774, "pearsonHipKnee": 0.971, "kneeAsymmetryAdvisoryMeanDeg": 6.2},
     "Vast Fitness Academy": {"gate": "noSignal", "n": 0, "note": "FSM hiç tekrar tamamlamadı — hipKneeCoupling de kneeSymmetry de hiç ölçülemedi"}

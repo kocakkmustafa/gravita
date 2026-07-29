@@ -81,7 +81,9 @@
       "n": 130,
       "pearsonHipKnee": 0.15,
       "gate": "fail",
-      "kneeAsymmetryAdvisoryMeanDeg": 31.3
+      "kneeAsymmetryAdvisoryMeanDeg": 31.3,
+      "formulaSensitive": true,
+      "note": "G-065 diferansiyel testi: Lissom-düzeltilmiş formülle (WORLD 3D + proximal-projeksiyon, anatomical=true) r=0,818 — RAHAT GEÇER. Gravita'nın 2D-taraf-agnostik formülüyle ret muhtemelen kamera-açısı/küçük-örneklem kaynaklı FORMÜL ARTEFAKTI, gerçek confounder sinyali değil. Kesin karar (hangi formül kanonik) koordinatörde — bkz. docs/gates/G-065-HIPKNEECOUPLING-DIFERANSIYEL-TESTI.md."
     },
     "Tom Merrick": {
       "n": 3137,
