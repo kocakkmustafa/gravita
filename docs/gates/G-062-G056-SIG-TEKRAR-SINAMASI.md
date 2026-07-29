@@ -5,79 +5,79 @@ sol-sağ eklem farkı (≈5,03°) sıra-bağımlılığı deltasına (≈4,67°)
 bulunmuş, sonuç "şınav ayna-duyarsız bir malzeme, kararsızlık kovalanacak bir
 kusur değil" diye yorumlanmıştı (M-F-57(2)'de aile kuralına da girdi).
 
-**İkincil hipotez (bu oturumun görevi):** kararsızlık gerçekten malzemenin
-simetrisinden mi geliyor, yoksa referans havuzundaki SIĞ tekrarların
-(FSM'i saydı ama `romTarget.bottomAngleMax=95°`'e ulaşmadı — V16/G-054
-anlamında) gürültüsü mü kararsızlığı üretiyor?
+**İkincil hipotez:** kararsızlık gerçekten malzemenin simetrisinden mi
+geliyor, yoksa referans havuzundaki SIĞ tekrarların gürültüsü mü
+kararsızlığı üretiyor?
 
-**Yöntem:** `packages/gravita_engine/tool/g056_shallow_mirror_probe.dart` —
-push_up fixture havuzunu build_reference.dart ile AYNI şekilde işler (M-F-38
-eğitmen-yeterlilik kapısı, StructuralValidator, RepEngine), sığ/derin ayrımını
-`Rep.extremeAngleDeg > 95°` ile yapar, sonra build_reference.dart'ın KENDİ
-G-056/M-F-48 ölçümünü (meanLeftRightDiffDeg + shuffle-yeniden-kur sıra testi)
-hem TÜM tekrarlarda hem yalnız DERİN tekrarlarda tekrarlar.
+## ❌ İLK TUR SONUCU GERİ ÇEKİLDİ — yanlış (probe-icadı) eşikle ölçülmüştü
 
-⚠️ **Metodolojik not:** `ReferenceBuilder.resolveMirroring(takes).confident`
-n>12'de (havuzumuzda her iki set de: 91 ve 52) tükenmez aramayı YAPMAZ —
-`reference_builder.dart` (pub-cache v0.5.0, ~satır 400) `runnerUpTotal`ı sabit
-bir placeholder'la (`bestTotal + mirrorMargin*pairs*2`) doldurur, bu da HER
-ZAMAN `confident=true` üretir; veriye bakmaz. İlk deneme bu API'yi çağırıp
-`confident` DEĞİŞMEDİ diye yanlış bir "tutarlı" sonucu raporluyordu — kendi
-hatamı fark edip (M-F-57'nin "doğrulayıcının kendisi de denetlenmeli" dersinin
-küçük bir tekrarı) build_reference.dart'ın GERÇEKTEN kullandığı ölçüme
-(shuffle+yeniden-kur + meanLeftRightDiffDeg) geçtim.
+İlk tur `Rep.extremeAngleDeg > romTarget.bottomAngleMax(95°)` ile "sığ"
+tanımladı ve **sıra-deltasının 6,47°→0,000°'ye düştüğünü, G-056'nın kısmen
+yanlış olduğunu** raporlamıştı. **Koordinatör bunu doğru şekilde reddetti:**
+`romTarget.bottomAngleMax` (95°) hiçbir canlı hükmü beslemiyor — yalnız
+perturbasyon/synthetic-fixture hedefi, "İSİMLİ" bir üretim eşiği DEĞİL. Bu tam
+olarak M-F-57'nin uyardığı **eşik yeniden-kullanımı** hatasıydı: probe kendi
+sayısını icat edip onu "sığlık" tanımı yapmıştı.
 
-## Sonuç
+**Doğru kaynak:** ürünün KENDİ, canlı-kullanılan, İSİMLİ kalite eşiği —
+`formErrors` içindeki `partial_rom` (id, `priority: blocking`, "Not going
+deep enough"), `rom_bottom_angle` metriğiyle çalışır ve eşiği **110°**'dir
+(95° değil). `rom_bottom_angle` = `Rep.extremeAngleDeg` (metrics.dart
+`unimplemented` yorumu: "rep motorundan gelir").
+
+## ✅ Düzeltilmiş sonuç: G-056 DOĞRULANDI, ikincil hipotez ÇÜRÜTÜLDÜ
+
+`shallowThreshold = formErrors.partial_rom.detect.value = 110°` ile yeniden
+koşuldu (`g056_shallow_mirror_probe.dart`, motion_core v0.8.2):
 
 | | contributingTakes | excluded | meanLeftRightDiffDeg | sıra-deltası | orderIndependent | sameMirrorSet |
 |---|---|---|---|---|---|---|
-| BASELINE (tüm tekrar, n=91) | 41 | 50 | 4,29° | 6,47° | **false** | **false** |
-| DERİN-YALNIZ (n=52, sığ 38 tekrar çıkarıldı) | 37 | 15 | 6,04° | **0,000°** | **true** | **true** |
+| BASELINE (tüm tekrar, n=91) | 41 | 50 | 4,38° | 60,97° | **false** | **false** |
+| DERİN-YALNIZ (n=68, sığ **21** tekrar çıkarıldı — partial_rom) | 44 | 24 | 5,26° | **69,29°** | **false** | **false** |
 
-**⚠️ G-056'nın kapanışı EKSİK görünüyor.** Sığ tekrarları çıkarınca sıra-
-bağımlılığı deltası 6,47°'den TAM SIFIRA düşüyor ve ayna-atama kümesi sıra
-karışsa da AYNI kalıyor — yani en azından bu 91-tekrarlık havuzda, sıra/ayna
-KARARSIZLIĞI büyük ölçüde sığ-tekrar gürültüsünden geliyormuş, malzemenin
-saf simetrisinden değil. Buna karşın sol-sağ fark endeksi (malzemenin KENDİSİ
-ne kadar simetrik) derin-yalnız sette KÜÇÜLMEDİ, tersine biraz büyüdü
-(4,29°→6,04°) — yani "şınav genel olarak iki-taraflı simetrik bir hareket"
-iddiası hâlâ makul duruyor; EKSİK olan, "bu YÜZDEN sıra-kararsızlığı zaten
-beklenir ve önemsizdir" çıkarımı.
+**Sığ tekrarları (doğru, İSİMLİ eşikle) çıkarmak kararsızlığı GİDERMİYOR —
+sıra-deltası düzelmedi, hafifçe ARTTI (60,97°→69,29°).** İlk turun "kapanıyor"
+sonucu, 95°'nin (çok daha agresif bir kesim — 38 tekrar çıkarıyordu, 110°'nin
+çıkardığı 21'in neredeyse ikisi katı) HANGİ take'leri elediğine bağlı bir
+tesadüftü; gerçek/İSİMLİ eşikle bu tesadüf tekrarlanmıyor.
 
-**Bu, G-056'yı tersine ÇEVİRMİYOR — iki farklı iddiayı ayırıyor:**
-1. "Şınav sol-sağ simetriktir" — hâlâ destekleniyor (~4-6°, düşük).
-2. "Referans-kurma sürecinin sıra/ayna kararsızlığı bu simetriden kaynaklanır,
-   dolayısıyla kovalanmaz" — bu koşumda YANLIŞLANDI: kararsızlık, havuzdaki
-   düşük-kaliteli (sığ) tekrarların payı büyükken ortaya çıkıyor ve onlar
-   çıkarılınca kayboluyor.
+**G-056'nın orijinal kapanışı ("kararsızlık malzemenin özelliği, kovalanacak
+bir kusur değil") bu ikinci ölçümle DOĞRULANDI, geri çekilmedi.** Aile kuralı
+(M-F-57(2)) DEĞİŞMİYOR.
 
-## Koordinatöre taşınan karar
+**İlginç ama beklenmeyen yan bulgu:** sığ tekrarları çıkarınca M-F-47
+kümelenmesi İYİLEŞTİ (excluded 50→24, contributingTakes 41→44 — kalanlar
+konsensüse daha çok benziyor, mantıklı: sığ bir tekrarın açı-izi zaten
+derinden farklı). Ama bu, sıra/ayna KARARLILIĞIYLA (ayrı bir eksen) birlikte
+hareket etmedi — biri iyileşirken öteki bozuldu. **Ders:** "kümeye ne kadar
+uyuyor" (M-F-47 boyutu) ile "referans-kurma sırayla değişiyor mu" (M-F-48/
+G-056 boyutu) BAĞIMSIZ sorular; biri iyi çıktı diye öteki de iyidir
+varsayılamaz.
 
-G-056'nın DEFTER/PROGRESS kaydı ve ondan türeyen aile kuralı (M-F-57(2)) şu an
-"kararsızlık malzemenin özelliği" diyor. Bu ölçüm, en azından KISMEN farklı bir
-resim çiziyor. Olası aksiyonlar (kararı ben vermiyorum — yeni ölçü yorumu /
-aile kuralı revizyonu YÜKSELTME kapsamında):
+## Metodolojik öz-düzeltme (iki kez, aynı turda)
 
-1. **G-056 kaydını GÜNCELLE:** "malzeme simetrik AMA referans havuzu
-   sığ-tekrar filtresi olmadan sıra-kararsız; üretimde/referans inşasında sığ
-   tekrarların (romTarget altı) dışlanması ÖNERİLİR" — bu hem push_up hem
-   ileride benzer sığ/derin ayrımı olan her hareket için bir aile pratiği
-   olabilir (build_reference.dart'a bir `excludeShallow` seçeneği eklenmesi
-   anlamına gelir — bu YENİ bir tasarım kalemi).
-2. **Mevcut kaydı DEĞİŞTİRME, yalnız not düş:** n=91 küçük bir örneklem
-   olduğundan (44 tekrarlık orijinal ölçümle aradaki fark de dikkate
-   alınmalı — bkz. aşağıdaki uyarı), bulguyu "ilginç ama teyit gerektirir"
-   diye işaretle, aile kuralını hemen değiştirme.
+1. İlk deneme `resolveMirroring().confident` API'sine güvenmişti — n>12'de
+   (sonra n>18) tükenmez arama yapmaz, sabit placeholder döner; asıl ölçüme
+   (shuffle+yeniden-kur) geçildi.
+2. İkinci deneme (bu belge) kendi icat ettiği eşiği "sığ" tanımı yapmıştı;
+   koordinatör düzeltmesiyle ürünün İSİMLİ `partial_rom` eşiğine geçildi VE
+   sonuç TERSİNE döndü.
 
-## Uyarı — örneklem farkı
+Her iki düzeltme de aynı sınıf: **doğrulayıcının/ölçümün kendisi de
+denetlenmeli** (M-F-57) — ama bu kez yön "sorun var" değil "sorun YOK, ilk
+bulgu yanlış alarmdı" çıktı. M-F-58(6)'nın "kapı hiç kırmızı yanabilir mi"
+sorusunun aynısı, tersine: "kırmızı yanan bu ölçüm gerçek mi?"
 
-Bu koşumun BASELINE'ı 91 ham tekrar / 41 contributing take verdi; PROGRESS.md
-ve DEFTER'deki orijinal G-056/push_up referansı "9 eğitmen · 44 take"
-diyordu. Fark küçük ama sıfır değil — muhtemelen harvest havuzu gece boyunca
-büyüdü (yeni fixture eklendi) ya da windowing/StructuralValidator sürüm farkı
-var. Sayılar bu yüzden BİREBİR eşleşmiyor; yöntem ve yön (sıra-kararsızlığı
-sığ-tekrar-duyarlı) güvenilir, ama tam sayılar yeniden üretilirken bu fark
-göz önünde bulundurulmalı.
+## Örneklem uyarısı (hâlâ geçerli, çözülmedi)
+
+BASELINE 91 ham tekrar / 41 contributing veriyor; orijinal G-056/push_up
+referansı (`content/harvest/reference.push_up.json`) **44 contributingTakes**
+diyor. Ham havuz TAM eşleşiyor (44+47=91=41+50) — disk kaybı YOK; fark yalnız
+M-F-47 kümeleme sınırında 3 take'lik marjinal bir kayma. En olası neden:
+`ReferenceBuilder` varsayılan `clusterToleranceDeg`/`mirrorMargin` veya
+`StructuralValidator` toleransları motion_core v0.5.0→v0.8.2 arasında hafifçe
+değişti (gece boyunca birden çok M-F kararıyla ayarlandı — ör. M-F-59/61
+eşik revizyonları); tam commit'i izole etmek bu sınamanın kapsamı dışında.
 
 ## Kanıt / komutlar
 

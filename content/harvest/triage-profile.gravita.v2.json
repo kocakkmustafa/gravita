@@ -71,7 +71,8 @@
       "identity": {
         "kneeSymmetry": {
           "metric": "knee_angle_asymmetry",
-          "status": "pending"
+          "status": "advisory",
+          "basis": "G-061: iki bağımsız ölçüm kapı-sınıfı eşiği reddetti. (1) 27 fixture/16 eğitmende eğitmen-başı ortalama 6°(WeShape)-50°(Tom Merrick) arası (>8x), world-koordinatına geçmek farkı yalnız kısmen kapatıyor (25,8°→21,4° genel), pooled histogram tek-tepeli/uzun-kuyruklu (doğal boşluk yok). (2) Koordinatör talimatıyla sınanan bottom-fazı daraltması (yalnız görünen-taraf diz açısı ≤116° kareler) İYİLEŞTİRMEDİ, bazı eğitmenlerde KÖTÜLEŞTİRDİ (K boges 18°→49°) — ayırt edici an (dip) aynı zamanda en kötü ölçülen an (kamera-açısına göre izdüşüm-bükülmesi dipte büyüyor). Kanıt: docs/gates/G-061-DIZ-SIMETRISI-OLCUM-RAPORU.md."
         }
       }
     },

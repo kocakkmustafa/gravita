@@ -15,9 +15,9 @@ import 'harvest_reps.dart' show mandatoryFor, requiredFor;
 ///
 /// İKİNCİL soru bu hükmü SORGULAR: kararsızlık gerçekten malzemenin
 /// simetrisinden mi geliyor, yoksa referans havuzundaki SIĞ tekrarların
-/// (V16/G-054 anlamında: FSM'i saydı ama `romTarget`'a ulaşmadı) gürültüsü
-/// mü kararsızlığı üretiyor? Sığ tekrarları çıkarıp `resolveMirroring`'i
-/// yeniden koşturmak bunu ayırt eder:
+/// (V16/G-054 anlamında: FSM'i saydı ama `formErrors.partial_rom` bloke
+/// eşiğini geçemedi) gürültüsü mü kararsızlığı üretiyor? Sığ tekrarları
+/// çıkarıp `resolveMirroring`'i yeniden koşturmak bunu ayırt eder:
 ///   * kararsızlık DEĞİŞMEZSE (hâlâ near-tie) → yapısal hüküm DOĞRULANIR
 ///     (alternatif açıklama elenir, G-056 kapanışı sağlamlaşır).
 ///   * kararlı hale GELİRSE → G-056'nın kapanışı EKSİK; sığ-tekrar gürültüsü
@@ -32,13 +32,31 @@ void main(List<String> args) {
 
   final File cfgFile = File('../../content/catalog/w1/$movementId.json');
   final MovementConfig cfg = MovementConfig.parse(cfgFile.readAsStringSync());
-  final double romTargetBottomMax = ((jsonDecode(cfgFile.readAsStringSync())
-              as Map<String, dynamic>)['engine']
-          as Map<String, dynamic>)['romTarget']['bottomAngleMax']
-      .toDouble() as double;
 
-  stdout.writeln('hareket: ${cfg.name} · romTarget.bottomAngleMax='
-      '$romTargetBottomMax° (bunun ÜSTÜNDEKİ uç açı = SIĞ tekrar, V16/G-054)\n');
+  // ⚠️ KOORDİNATÖR DÜZELTMESİ (M-F-80): "sığ tekrar" eşiği probe'un kendi
+  // icat ettiği bir sayı (romTarget.bottomAngleMax=95°, yalnız perturbasyon/
+  // synthetic-fixture hedefi, HİÇBİR CANLI hükmü beslemiyor) OLAMAZ — bu tam
+  // olarak M-F-57'nin uyardığı "eşik yeniden-kullanımı" hatası. Doğru kaynak:
+  // ürünün KENDİ, İSİMLİ, canlı-kullanılan kalite eşiği — `formErrors` içinde
+  // `partial_rom` (blocking, "Not going deep enough"), `rom_bottom_angle`
+  // metriğiyle çalışır ve `Rep.extremeAngleDeg` bu metriğin kaynağıdır
+  // (metrics.dart `unimplemented`: "rom_bottom_angle rep motorundan gelir").
+  final List<dynamic> formErrors = (jsonDecode(cfgFile.readAsStringSync())
+      as Map<String, dynamic>)['formErrors'] as List<dynamic>;
+  final Map<String, dynamic> partialRom = formErrors.cast<Map<String, dynamic>>().firstWhere(
+      (Map<String, dynamic> e) => e['id'] == 'partial_rom',
+      orElse: () => throw StateError('partial_rom formError yok: $movementId'));
+  final Map<String, dynamic> detect = partialRom['detect'] as Map<String, dynamic>;
+  if (detect['metric'] != 'rom_bottom_angle' || detect['op'] != '>') {
+    throw StateError('partial_rom beklenmeyen şekilde tanımlı: $detect');
+  }
+  final double shallowThreshold = (detect['value'] as num).toDouble();
+
+  stdout.writeln('hareket: ${cfg.name} · sığ-tekrar kriteri = formErrors.partial_rom '
+      '(id=${partialRom['id']}, priority=${partialRom['priority']}): '
+      'rom_bottom_angle > $shallowThreshold° (bu, ÜRÜNÜN CANLI KOÇLAMADA '
+      'kullandığı "yeterince derin değil" bloke edici hükmü — probe-icadı '
+      'bir sayı DEĞİL)\n');
 
   final Set<int> mandatory = mandatoryFor(cfg).toSet();
   final List<int> all = requiredFor(cfg);
@@ -132,7 +150,7 @@ void main(List<String> args) {
           source: '$channel ($src)',
         );
         byInstructorAll.putIfAbsent(channel, () => <ReferenceTake>[]).add(take);
-        final bool shallow = r.extremeAngleDeg > romTargetBottomMax;
+        final bool shallow = r.extremeAngleDeg > shallowThreshold;
         if (shallow) {
           shallowCount++;
         } else {
