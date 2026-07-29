@@ -12,6 +12,24 @@ import 'package:motion_core/motion_core.dart';
 ///
 /// Kullanım:
 ///   dart run tool/harvest_reps.dart push_up ~/motion-harvest/gravita/landmarks
+/// ÖLÇÜM-KRİTİK landmark'lar: bunlar eksikse hareketin sinyali hesaplanamaz.
+/// Yardımcı landmark'lardan (form metriklerinin kullandıkları) ayrı tutulur —
+/// bir kare tekrar sayımını destekleyip form hükmünü desteklemeyebilir ve bu
+/// normaldir ("hüküm yok" karenin tamamı için değil, METRİK başına verilir).
+List<int> mandatoryFor(MovementConfig cfg) {
+  final String joint = cfg.rep?.joint ?? 'elbow';
+  return switch (joint) {
+    'elbow' => <int>[Lm.leftShoulder, Lm.rightShoulder, Lm.leftElbow,
+                     Lm.rightElbow, Lm.leftWrist, Lm.rightWrist,
+                     Lm.leftHip, Lm.rightHip],
+    'knee' => <int>[Lm.leftHip, Lm.rightHip, Lm.leftKnee, Lm.rightKnee,
+                    Lm.leftAnkle, Lm.rightAnkle],
+    'hip' => <int>[Lm.leftShoulder, Lm.rightShoulder, Lm.leftHip, Lm.rightHip,
+                   Lm.leftKnee, Lm.rightKnee],
+    _ => <int>[Lm.leftShoulder, Lm.rightShoulder, Lm.leftHip, Lm.rightHip],
+  };
+}
+
 /// Hareketin GERÇEKTEN ihtiyaç duyduğu landmark'lar: sinyal ekleminin zinciri
 /// + gövde referansı + triyaj profilinin harekete-özel alt-gövde kümesi.
 List<int> requiredFor(MovementConfig cfg) {
@@ -77,7 +95,25 @@ void main(List<String> args) {
 
     // Referans hasadında ÜRÜN kapısı değil, hareket-kapsamlı yargıç kullanılır:
     // eğitmene "yeniden çek" diyemeyiz (bkz. FrameJudge doc'u).
-    final FrameJudge judge = scopedJudge(requiredFor(cfg));
+    // Kazanan yapılandırma (G-041 taraması): ÖLÇÜM-KRİTİK zincir zorunlu,
+    // yardımcı landmark'lar (ör. şınavda ayak bileği) opsiyonel + 2 sn köprü.
+    // Gerekçe ölçümde: ayak bileği tutorial'larda sık kadraj dışına çıkıyor ama
+    // TEKRAR SAYIMI için gerekli değil — yalnız hat-sapması hükmü için gerekli.
+    // Hepsini birden şart koşmak, form metriği yok diye tekrar verisini de
+    // çöpe atıyordu.
+    final Set<int> mandatory = mandatoryFor(cfg).toSet();
+    final List<int> all = requiredFor(cfg);
+    bool judge(PoseFrame f) {
+      int ok = 0;
+      for (final int i in all) {
+        final PoseLandmark l = f.landmarks[i];
+        final bool good = l.x >= 0 && l.x <= 1 && l.y >= 0 && l.y <= 1 &&
+            l.visibility >= 0.5;
+        if (!good && mandatory.contains(i)) return false;
+        if (good) ok++;
+      }
+      return ok >= all.length - 2;
+    }
     final List<dynamic> frames = fx['frames'] as List<dynamic>;
 
     // ⚠️ PENCERELEME ŞART. Tutorial'da kullanılabilir kareler videonun geneline
@@ -86,7 +122,7 @@ void main(List<String> args) {
     // uçlar taranıyor olsa bile (ölçüldü: 264 açık / 56 kapalı uç karesi) tek
     // bir tekrar tamamlanmaz. Fixture için gereken şey temiz bir TEKRAR, temiz
     // bir VİDEO değil — bu yüzden önce kesintisiz pencerelere ayrılır.
-    const int maxGapUs = 500000; // 0,5 sn'den büyük boşluk pencereyi kapatır
+    const int maxGapUs = 2000000; // histerezis 2 sn (G-041 taraması)
     final List<List<PoseFrame>> windows = <List<PoseFrame>>[];
     List<PoseFrame> current = <PoseFrame>[];
     int lastUs = -1 << 40;

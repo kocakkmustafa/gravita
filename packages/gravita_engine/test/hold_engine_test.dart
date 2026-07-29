@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:gravita_engine/gravita_engine.dart';
-import 'package:motion_core/motion_core.dart';
+import 'package:motion_core/motion_core.dart' hide MetricCondition, PhaseSpec;
 import 'package:test/test.dart';
 
 /// Statik tutuş motoru — plank üzerinden.

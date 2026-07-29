@@ -1,69 +1,162 @@
 {
   "movement": "push_up",
   "rule": "M-F-38: ≥3 eğitmen × ≥3 temiz tekrar olmadan varyans-türetim YAPILMAZ",
-  "sufficiencyGate": "closed",
+  "sufficiencyGate": "open",
   "sources": [
     {
       "source": "-w6r23P-fy8.full.json",
       "channel": "Calisthenicmovement",
       "sourceUrl": "https://www.youtube.com/watch?v=-w6r23P-fy8",
       "license": "standard-youtube",
-      "reps": 0,
-      "windows": 12,
-      "longestWindowS": 2.0,
-      "extremeAnglesDeg": []
+      "reps": 4,
+      "windows": 8,
+      "longestWindowS": 25.5,
+      "extremeAnglesDeg": [
+        7.6,
+        44.9,
+        58.8,
+        81.6
+      ]
     },
     {
       "source": "5aRHy5ZPjwk.full.json",
       "channel": "Renaissance Periodization",
       "sourceUrl": "https://www.youtube.com/watch?v=5aRHy5ZPjwk",
       "license": "standard-youtube",
-      "reps": 0,
-      "windows": 14,
-      "longestWindowS": 24.8,
-      "extremeAnglesDeg": []
+      "reps": 5,
+      "windows": 10,
+      "longestWindowS": 55.3,
+      "extremeAnglesDeg": [
+        168.2,
+        169.4,
+        170.5,
+        176.5,
+        179.5
+      ]
     },
     {
       "source": "Ggb2rXUL5kg.full.json",
       "channel": "K boges",
       "sourceUrl": "https://www.youtube.com/watch?v=Ggb2rXUL5kg",
       "license": "standard-youtube",
-      "reps": 0,
-      "windows": 38,
-      "longestWindowS": 3.9,
-      "extremeAnglesDeg": []
+      "reps": 1,
+      "windows": 31,
+      "longestWindowS": 5.0,
+      "extremeAnglesDeg": [
+        45.4
+      ]
     },
     {
       "source": "GxW9MAMQSv0.full.json",
       "channel": "FitnessFAQs",
       "sourceUrl": "https://www.youtube.com/watch?v=GxW9MAMQSv0",
       "license": "standard-youtube",
-      "reps": 0,
-      "windows": 9,
-      "longestWindowS": 5.0,
-      "extremeAnglesDeg": []
+      "reps": 4,
+      "windows": 12,
+      "longestWindowS": 19.1,
+      "extremeAnglesDeg": [
+        59.0,
+        61.1,
+        70.6,
+        97.3
+      ]
+    },
+    {
+      "source": "MO10KOoQx5E.full.json",
+      "channel": "Jeremy Ethier",
+      "sourceUrl": "https://www.youtube.com/watch?v=MO10KOoQx5E",
+      "license": "standard-youtube",
+      "reps": 3,
+      "windows": 50,
+      "longestWindowS": 26.4,
+      "extremeAnglesDeg": [
+        37.3,
+        168.7,
+        170.3
+      ]
     },
     {
       "source": "Ua7B2q21UHg.full.json",
       "channel": "Antranik Kizirian",
       "sourceUrl": "https://www.youtube.com/watch?v=Ua7B2q21UHg",
       "license": "standard-youtube",
-      "reps": 0,
-      "windows": 10,
-      "longestWindowS": 5.8,
-      "extremeAnglesDeg": []
+      "reps": 4,
+      "windows": 6,
+      "longestWindowS": 13.1,
+      "extremeAnglesDeg": [
+        12.0,
+        54.7,
+        72.4,
+        76.3
+      ]
     },
     {
       "source": "_eKHSsHky5U.full.json",
       "channel": "THENX",
       "sourceUrl": "https://www.youtube.com/watch?v=_eKHSsHky5U",
       "license": "standard-youtube",
-      "reps": 2,
-      "windows": 17,
-      "longestWindowS": 4.6,
+      "reps": 58,
+      "windows": 54,
+      "longestWindowS": 31.2,
       "extremeAnglesDeg": [
+        0.3,
+        0.6,
+        0.8,
+        2.9,
+        3.8,
+        4.7,
+        4.8,
+        6.7,
+        11.9,
+        12.3,
+        13.9,
+        14.0,
+        14.2,
+        18.5,
+        19.7,
+        31.6,
+        32.9,
+        33.3,
+        36.5,
+        44.8,
+        48.0,
+        48.5,
+        52.7,
+        54.8,
+        62.3,
+        63.5,
+        64.7,
+        80.8,
+        83.9,
+        84.0,
         84.5,
-        176.4
+        90.5,
+        97.8,
+        155.6,
+        157.4,
+        158.2,
+        161.5,
+        161.6,
+        166.6,
+        168.5,
+        169.1,
+        169.1,
+        171.8,
+        172.8,
+        174.6,
+        175.3,
+        175.7,
+        176.0,
+        177.3,
+        177.4,
+        178.1,
+        178.3,
+        179.3,
+        179.4,
+        179.7,
+        179.7,
+        179.7,
+        179.8
       ]
     },
     {
@@ -71,20 +164,24 @@
       "channel": "GMB Fitness (Praxis)",
       "sourceUrl": "https://www.youtube.com/watch?v=kKHxpbBGiuM",
       "license": "standard-youtube",
-      "reps": 0,
-      "windows": 8,
-      "longestWindowS": 4.5,
-      "extremeAnglesDeg": []
+      "reps": 2,
+      "windows": 11,
+      "longestWindowS": 16.2,
+      "extremeAnglesDeg": [
+        169.0,
+        170.0
+      ]
     },
     {
       "source": "v3sJMaB7q1E.full.json",
       "channel": "TappBrothers",
       "sourceUrl": "https://www.youtube.com/watch?v=v3sJMaB7q1E",
       "license": "standard-youtube",
-      "reps": 1,
-      "windows": 3,
-      "longestWindowS": 1.8,
+      "reps": 2,
+      "windows": 5,
+      "longestWindowS": 37.5,
       "extremeAnglesDeg": [
+        164.1,
         174.8
       ]
     },
@@ -93,10 +190,13 @@
       "channel": "Tom Merrick",
       "sourceUrl": "https://www.youtube.com/watch?v=yvgp8R0fbWg",
       "license": "standard-youtube",
-      "reps": 0,
-      "windows": 19,
-      "longestWindowS": 14.5,
-      "extremeAnglesDeg": []
+      "reps": 2,
+      "windows": 29,
+      "longestWindowS": 28.2,
+      "extremeAnglesDeg": [
+        10.5,
+        76.8
+      ]
     }
   ]
 }

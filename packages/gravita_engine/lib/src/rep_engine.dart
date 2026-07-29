@@ -1,4 +1,8 @@
-import 'package:motion_core/motion_core.dart';
+// ⚠️ Ad çakışması: çekirdek v0.4.x `phase_config.dart` ile bu paketin
+// kendi config tipleri aynı adları taşıyor. Bu, v3 çeviricisinde ÇEKİRDEK
+// tiplerine geçilmesi gerektiğinin sinyali (M-F-35 göç yolu); o güne kadar
+// hedefli gizleme — sessiz gölgeleme yerine açık beyan.
+import 'package:motion_core/motion_core.dart' hide MetricCondition, PhaseSpec;
 
 import 'movement_config.dart';
 
