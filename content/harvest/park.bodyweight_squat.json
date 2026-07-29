@@ -1,31 +1,28 @@
 {
-  "parkedAt": "2026-07-29T16:25:30+03:00",
+  "parkedAt": "2026-07-29T16:57:13+03:00",
   "movement": "bodyweight_squat",
   "library": "~/motion-harvest/gravita-squat",
   "$why": "Oturum tazeleniyor; hasat KESİLMEDİ, arka planda sürüyor. Bu not yeniden başlarken nereden devam edileceğini söyler.",
-  "attempted": 22,
-  "landmarksOnDisk": 19,
+  "attempted": 32,
+  "landmarksOnDisk": 27,
   "totalCandidates": 32,
   "http403_retryNeeded": [
     "LszCaPOFWHg",
     "BTfEFDXp-cw",
     "5z9ibDZ5ZQY",
-    "0V7BtcG7E4Y"
-  ],
-  "notYetAttempted": [
-    "bEv6CCg2BC8",
-    "sdeQjm7avi8",
-    "gcNh17Ckjgg",
-    "ZtzaFmipv1U",
-    "RClKKQqsvXA",
-    "H1H1WKSm5CU",
-    "CGVxvqxUDz8",
-    "9bXKZnMLi6E",
-    "HFnSsLIB7a4",
+    "0V7BtcG7E4Y",
     "2t3Ab7a2ZM4"
   ],
+  "notYetAttempted": [],
   "$nextSessionFirstJob": "DİZ-SİMETRİSİ EŞİK TÜRETİMİ. kneeAngleAsymmetry metriği uygulandı ve metrics.json'a kayıtlı; eşik BİLİNÇLİ olarak boş. Squat fixture'larından dağılımı ölç, sonra rig perMovement.identity.kneeSymmetry'de status/basis/max üçlüsünü BİRLİKTE doldur ve orkestratöre commit'le bildir. Ölçmeden eşik yazmak G-043'ün kendisini tekrarlamaktır.",
   "$blockedUntilThreshold": "bodyweight_squat.engine.precondition.status = pending → V15 ve harvest_reps tekrar çıkarımını ZATEN reddediyor (fail-closed). Kilit doğru yerde.",
   "$identityDecision": "M-F-60: squat kimliği = diz-simetrisi (bu app'in tanımı) VE kalça-diz fleksiyon bağlaşımı (Lissom türetiyor) BİRLİKTE. Diz-simetrisi tek başına yüzüstü diz bükme sınıfını yakalamaz.",
-  "$stillRunning": "Bu not yazılırken hasat HÂLÂ koşuyordu (kesilmedi). Sayılar anlık; yeni oturum önce diski say, nota körü körüne güvenme."
+  "$stillRunning": "Bu not yazılırken hasat HÂLÂ koşuyordu (kesilmedi). Sayılar anlık; yeni oturum önce diski say, nota körü körüne güvenme.",
+  "status": "completed",
+  "instructorsOnDisk": 16,
+  "triageRejected": [
+    "RClKKQqsvXA",
+    "CGVxvqxUDz8"
+  ],
+  "": "Parti BİTTİ: 32/32 denendi, 27 landmark üretildi (16 eğitmen), 2 triyaj reddi, 5 × HTTP 403. 403'ler yeniden denenebilir ama ZORUNLU DEĞİL — eldeki eğitmen sayısı eşik türetimi için yeterli olabilir; önce ÖLÇ, eksikse o zaman genişlet."
 }
