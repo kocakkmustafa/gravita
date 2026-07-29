@@ -12,6 +12,9 @@ import json
 import pathlib
 import sys
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from sync_provenance import _extract as _extract_reference  # noqa: E402
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CATALOG = ROOT / "content" / "catalog"
 FAMILIES = {"push", "pull", "legs", "core", "shoulders", "skill", "barbell", "dbkb", "plyo", "carry"}
@@ -178,9 +181,12 @@ def check(path):
             err(f, f"referans artefaktı okunamadı: {e}")
             ref = None
         if ref:
-            n_inst = len(ref.get("instructors") or [])
-            floor = [k for k, v in (ref.get("tolerances") or {}).items()
-                     if v.get("source") == "floor"]
+            # Kanonik (motion-core/reference@1) VE eski Gravita şeması ortak
+            # okuyucudan geçer (sync_provenance.py) — iki şema iki yerde
+            # ayrı ayrı yorumlanırsa tam bu gece tekrar sessiz sapma olur.
+            e = _extract_reference(ref)
+            n_inst = e["consensusN"]
+            floor = e["floor"]
             want = "harvested_provisional" if floor else "harvested_derived"
             if prov0.get("status") != want:
                 err(f, f"provenance.status='{prov0.get('status')}' ama referans "
@@ -196,18 +202,22 @@ def check(path):
             # Eğitmenlerin ANLAŞAMADIĞI eklem skorlanamaz: dağılımı bu kadar
             # geniş bir eklemde hüküm vermek, kullanıcıyı öğretmenlerin kendi
             # aralarında anlaşamadığı bir şey için cezalandırmaktır.
-            for j in ref.get("unreliableJoints") or []:
+            for j in e["unreliableJoints"]:
                 base = j.replace("left_", "").replace("right_", "")
                 gm = ((m.get("measurementContract") or {}).get("gateableMetrics") or [])
                 if any(base in g for g in gm):
                     err(f, f"'{j}' referansta GÜVENİLMEZ (eğitmenler anlaşamıyor) "
                            f"ama gateableMetrics onu kapı metriği yapıyor — "
                            f"anlaşmazlık üzerine hüküm kurulamaz (V17)")
-            if not ref.get("orderIndependent", True) and not ref.get("mirrorAgnostic", False):
+            # `orderIndependent` None ise (kanonik şemada ölçülemedi — n>18
+            # tükenmez-arama sınırı) BİLİNMİYOR demektir, "sıra-bağımsız"
+            # VARSAYILMAZ; yalnız mirrorAgnostic tek başına kurtarıyor.
+            order_ok = e["orderIndependent"] is True
+            if not order_ok and not e["mirrorAgnostic"]:
                 sig = ((m.get("engine") or {}).get("signal") or {})
                 if sig.get("side") != "visible":
-                    err(f, "referans sıra-bağımsız DEĞİL ve ayna-duyarsız DEĞİL → "
-                           "M-F-46 kural 7: taraf-bağımlı hüküm verilemez, "
+                    err(f, "referans sıra-bağımsız DEĞİL/BİLİNMİYOR ve ayna-duyarsız "
+                           "DEĞİL → M-F-46 kural 7: taraf-bağımlı hüküm verilemez, "
                            "signal.side 'visible' olmalı (V17)")
     elif prov0.get("status") not in (None, "pending_harvest"):
         err(f, f"provenance.status='{prov0.get('status')}' ama referans "

@@ -199,6 +199,21 @@ void main(List<String> args) {
   stdout.writeln('contributingTakes: ${result['contributingTakes']} · '
       'distinctSources: ${result['distinctSources']} · '
       'excludedOutlierIds: ${(result['excludedOutlierIds'] as List<dynamic>).length}');
+  final Set<String> contributingSources =
+      (result['sources'] as List<dynamic>).cast<String>().toSet();
+  stdout.writeln('contributing sources: ${contributingSources.join(", ")}');
+  const Set<String> oldInstructors = <String>{
+    'FitnessFAQs', 'Calisthenicmovement', 'Renaissance Periodization',
+    'THENX', 'Upright Health', 'Jeremy Ethier', 'Cara Kuykens',
+    'GMB Fitness (Praxis)', 'K boges',
+  };
+  final Set<String> droppedFromOld =
+      oldInstructors.difference(contributingSources);
+  stdout.writeln('eski 9 eğitmenden düşenler: ${droppedFromOld.join(", ")}');
+  for (final String ch in droppedFromOld) {
+    final int n = eligibleByChannel[ch] ?? 0;
+    stdout.writeln('  $ch: ${n == 0 ? "hiç derin tekrar üretmedi (ön-filtrede elendi)" : "$n derin tekrar ÜRETTİ ama M-F-47 anlaşma-kapısında aykırı sayıldı"}');
+  }
   stdout.writeln('mirrorConfident: ${result['mirrorConfident']} · '
       'mirrorGapMeasured: ${result['mirrorGapMeasured']} · '
       'mirrorSearchDecisive: ${result['mirrorSearchDecisive']}');
@@ -264,7 +279,54 @@ void main(List<String> args) {
     }
   }
   final double meanLr = symCnt == 0 ? double.nan : symSum / symCnt;
+  final bool mirrorAgnostic = meanLr < 7;
   stdout.writeln('\nmeanLeftRightDiffDeg (kendi hesabımız): '
       '${meanLr.toStringAsFixed(2)}° (eski: 5,03°) → '
-      'mirrorAgnostic=${meanLr < 7}');
+      'mirrorAgnostic=$mirrorAgnostic');
+
+  // ---- YAYIM (koordinatör hükmü, M-F-90): kanonik artefakt reference.
+  // push_up.json'ı DEĞİŞTİRİR — üç şart: mirrorAgnostic beyanı + eğitmen-başı
+  // thinEvidence + 9→5 düşüşün İSİMLİ sebebi. --------------------------------
+  final List<String> thinEvidenceInstructors = <String>[
+    for (final MapEntry<String, int> e in eligibleByChannel.entries)
+      if (e.value <= 2) '${e.key} (${e.value} tekrar)',
+  ];
+  final Map<String, dynamic> dropReasons = <String, dynamic>{
+    for (final String ch in droppedFromOld)
+      ch: (eligibleByChannel[ch] ?? 0) == 0
+          ? 'hiç derin tekrar üretmedi (formErrors.partial_rom≤110° geçen '
+              'tekrar bulunamadı — ön-filtrede elendi, CLI'
+              "'ye hiç girmedi)"
+          : '${eligibleByChannel[ch]} derin tekrar üretti ama M-F-47 '
+              'anlaşma-kapısında (14° küme toleransı) aykırı sayıldı, '
+              'excludedOutlierIds içinde',
+  };
+  final Map<String, dynamic> published = <String, dynamic>{
+    ...artifact,
+    r'$mirrorAgnostic': mirrorAgnostic,
+    r'$meanLeftRightDiffDeg': double.parse(meanLr.toStringAsFixed(2)),
+    r'$mirrorAgnosticNote': 'G-056/M-F-57(2): şınav iki-taraflı simetrik bir '
+        'harekettir — sol-sağ eklem farkı skorlama tabanının (7°) altında '
+        'kalırsa aynalama sıra-kararsızlığı bir kusur değil malzemenin '
+        'özelliğidir. DÖRT bağımsız pipeline'
+        "'de doğrulandı (build_reference.dart 5,03° · kanonik-pencere 4,51° "
+        '· kanonik-tekrar (bu artefakt) ${meanLr.toStringAsFixed(2)}°) — '
+        'hepsi 4,3-5,0° bandında istikrarlı.',
+    r'$thinEvidenceInstructors': thinEvidenceInstructors,
+    r'$thinEvidenceNote': 'Bu eğitmenler yalnız 1-2 derin tekrarla katkıda '
+        'bulunuyor (Choreia'
+        "'nın thinEvidence dersi: az çevrim take-medyanını gürültüler, "
+        'sıkı-uyum gerçek kalır ama örneklem ince). İsimli kuyruk kalemi — '
+        'ayrı hasat turu AÇILMAZ, ileride herhangi bir Gravita hasat turuna '
+        'katlanır.',
+    r'$instructorDropFromOldReference': dropReasons,
+    r'$windowRule': windowRule,
+    r'$supersedes': 'harvested_provisional (9 eğitmen/44 take, build_reference'
+        '.dart, kanonik-CLI-öncesi) — G-063/G-064 (docs/gates/), koordinatör '
+        'hükmü M-F-90.',
+  };
+  File('../../content/harvest/reference.push_up.json').writeAsStringSync(
+      '${const JsonEncoder.withIndent('  ').convert(published)}\n');
+  stdout.writeln('\nyazıldı: content/harvest/reference.push_up.json '
+      '(eski harvested_provisional artefaktın YERİNE)');
 }

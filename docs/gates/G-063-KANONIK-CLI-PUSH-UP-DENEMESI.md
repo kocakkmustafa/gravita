@@ -120,9 +120,54 @@ tekrarlık eğitmenler: Antranik Kizirian, Kayla Itsines, THENX, TappBrothers,
 Tom Merrick) yeni hasatla büyütüp sonra mı değiştirmek, karar koordinatörde.
 Dosya HENÜZ değiştirilmedi.
 
+## ✅ YAYIMLANDI (koordinatör hükmü M-F-90) — 3 şart karşılandı
+
+Koordinatör: "37/5 kanonik artefakt `reference.push_up.json`'ı DEĞİŞTİRİR" —
+üç şartla:
+
+1. **mirrorAgnostic beyanı artefakta girdi:** `$mirrorAgnostic: true`,
+   `$meanLeftRightDiffDeg: 4.90`, `$mirrorAgnosticNote` DÖRT bağımsız
+   doğrulamayı (5,03° · 4,51° · 4,90°) kayda geçiriyor.
+2. **thinEvidence eğitmenler isimlendirildi:** `$thinEvidenceInstructors` —
+   Antranik Kizirian (1), Kayla Itsines (1), THENX (1), TappBrothers (1),
+   GMB Fitness (Praxis) (2), Tom Merrick (2).
+3. **9→5 düşüşün sebebi isimli:** `$instructorDropFromOldReference` —
+   **Jeremy Ethier**: hiç derin tekrar üretmedi (ön-filtrede elendi, CLI'ye
+   hiç girmedi). **Calisthenicmovement (12), THENX (1), GMB Fitness (Praxis)
+   (2)**: derin tekrar ürettiler ama M-F-47 anlaşma-kapısında (14° küme
+   toleransı) aykırı sayıldılar. Gelecekteki hasat hedeflemesi: Jeremy
+   Ethier için YENİ derin-tekrarlı klip aranmalı; diğer üçü için mevcut
+   klipler yeniden gözden geçirilebilir (aykırılık nedeni — kurulum mu stil
+   mi — ayrı bir M-F-55(2) sınıflandırması gerektirir, bu turda yapılmadı).
+
+**⚠️ Yan bulgu — sync_provenance.py/validate_catalog.py yeni şemayla
+KIRILIYORDU, düzeltildi.** İlk `validate_catalog.py` koşumu **V17'yi
+İHLAL ETTİ**: `sync_provenance.py` ve V17'nin kendisi eski düz şemanın
+(`instructors`/`tolerances` kök-düzeyinde) alan adlarını okuyordu; kanonik
+şema (`result.*`/`tolerance.perJointSource`, TARAF-BAŞINA) hiç eşleşmedi ve
+"0 eğitmenden türedi" gibi yanlış sıfırlar üretti. İkisi de düzeltildi
+(`_extract()` ortak okuyucu, `sync_provenance.py`'de tanımlı, `validate_
+catalog.py` import edip kullanıyor — iki yerde ayrı yorumlanan şema tekrar
+sessiz sapma üretmesin diye).
+
+**İkinci yan bulgu — G-014 sayısı 3 varyans/6 taban'dan 0 varyans/9 taban'a
+DÜŞTÜ, bu bir REGRESYON DEĞİL daha DÜRÜST bir sayı.** Eski build_reference.
+dart PAIR düzeyinde (sol+sağ ortalanmış) tek bir dispersion hesaplıyordu;
+kanonik CLI TARAF-BAŞINA hesaplıyor ve yalnız `right_knee` varyans-eşiğinin
+üstünde çıktı (floorShare 0,365), `left_knee` taban-bağlı kaldı (0,615).
+Pair-düzeyi toleransı "varyans-türetimli" saymak (eski davranış), görünen
+tarafın HANGİSİ olduğuna bakılmaksızın bir iddiada bulunuyordu — ADR-003'ün
+"görünen taraf" ilkesiyle tutarsız bir iyimserlikti. Yeni kural: **bir çiftin
+BİR tarafı bile taban-bağlıysa çift "floor" sayılır** (zayıf halka kadar
+güçlü, G-050 ilkesinin taraf-düzeyi uzantısı). G-014 bu yüzden KAPANMADI
+(hâlâ 9/9 taban-bağlı) — ama artık doğru sayıyor.
+
 ## Kanıt / komutlar
 
 ```bash
 cd packages/gravita_engine
-dart run tool/canonical_push_up_reference.dart
+dart run tool/canonical_push_up_reference.dart   # reference.push_up.json'ı YAZAR
+cd ../..
+python3 tools/sync_provenance.py                 # katalog provenance'ı senkronlar
+python3 tools/validate_catalog.py                # V17 dahil tüm kapılar
 ```

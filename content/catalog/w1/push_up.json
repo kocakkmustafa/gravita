@@ -216,33 +216,28 @@
   ],
   "provenance": {
     "sources": [
-      "Calisthenicmovement",
       "Cara Kuykens",
       "FitnessFAQs",
-      "GMB Fitness (Praxis)",
-      "Jeremy Ethier",
       "K boges",
       "Renaissance Periodization",
-      "THENX",
       "Upright Health"
     ],
-    "consensusN": 9,
+    "consensusN": 5,
     "status": "harvested_provisional",
-    "derivedJoints": [
-      "elbow",
-      "shoulder",
-      "upper_arm"
-    ],
+    "derivedJoints": [],
     "floorBoundJoints": [
+      "elbow",
       "forearm",
       "hip",
       "knee",
       "shin",
+      "shoulder",
       "thigh",
-      "trunk_tilt"
+      "trunk_tilt",
+      "upper_arm"
     ],
-    "takes": 44,
-    "excludedOutliers": 47,
+    "takes": 37,
+    "excludedOutliers": 34,
     "orderIndependent": false,
     "mirrorAgnostic": true,
     "$note": "ELLE DÜZENLENMEZ — tools/sync_provenance.py referans artefaktından türetir, validate_catalog.py V17 denetler."
