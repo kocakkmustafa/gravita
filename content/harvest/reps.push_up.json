@@ -55,6 +55,19 @@
       ]
     },
     {
+      "source": "I9fsqKE5XHo.full.json",
+      "channel": "Upright Health",
+      "sourceUrl": "https://www.youtube.com/watch?v=I9fsqKE5XHo",
+      "license": "standard-youtube",
+      "reps": 2,
+      "windows": 21,
+      "longestWindowS": 34.6,
+      "extremeAnglesDeg": [
+        82.1,
+        99.8
+      ]
+    },
+    {
       "source": "MO10KOoQx5E.full.json",
       "channel": "Jeremy Ethier",
       "sourceUrl": "https://www.youtube.com/watch?v=MO10KOoQx5E",

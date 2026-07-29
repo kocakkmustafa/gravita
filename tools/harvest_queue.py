@@ -143,8 +143,17 @@ def relevant(title, spec):
 #: push_up: duruş bandını geçen 5 eğitmenin 2'si nitelendi (G-043 sonrası).
 #: %95 Wilson aralığı 0,12-0,77 (n=5) — bu bir TAHMİN değil, kademe boyutu.
 #: Ölçülmemiş hareket muhafazakâr varsayılanı alır.
-YIELD_RATE = {"push_up": 0.40}
-DEFAULT_YIELD_RATE = 0.35
+YIELD_RATE = {"push_up": 0.18}
+DEFAULT_YIELD_RATE = 0.20
+
+#: Kanal başına kaç video alınacağı. M-F-32'nin sayım birimi EĞİTMENDİR, video
+#: değil — "kanal başına tek aday" kuralı bir eğitmeni birden çok kaynak
+#: saymamak içindi, ona tek şans vermek için değil. ÖLÇÜLDÜ (G-049): kimlik
+#: kapısı sonrası tekrar/eğitmen dağılımı [0,0,0,1,1,1,1,2,2,3,4], medyan 1 —
+#: tutorial'lar zaten az tekrar gösterir. Aynı eğitmenin 2-3 videosunu HAVUZLAMAK
+#: (tekrarlar toplanır, eğitmen yine TEK birim sayılır) 28 yeni eğitmen
+#: aramaktan çok daha ucuz ve M-F-32/38 ile tutarlı.
+VIDEOS_PER_INSTRUCTOR = 3
 
 
 def build(movements=None, target_qualified=5):
@@ -187,19 +196,25 @@ def build(movements=None, target_qualified=5):
                                      "reason": why})
                     continue
                 ch = row["channel"]
-                # Kanal başına TEK aday: aynı eğitmenin 4 videosu 4 kaynak
-                # değildir (M-F-32). Alaka eşitse kısa olan tercih edilir —
+                # Aynı eğitmenin videoları AYNI birime yazılır (M-F-32) ama
+                # birden çoğu alınır: tekrarlar havuzlanınca eğitmen M-F-38'in
+                # ≥3 temiz tekrar eşiğine ulaşabilir (G-049). Kısa olan önce —
                 # uzun video genelde derleme/vlog, tek teknik değil.
-                if ch not in by_channel or row["duration_s"] < by_channel[ch]["duration_s"]:
-                    row = dict(row, query=q, url=f"https://www.youtube.com/watch?v={row['id']}")
-                    by_channel[ch] = row
+                row = dict(row, query=q, url=f"https://www.youtube.com/watch?v={row['id']}")
+                vids = by_channel.setdefault(ch, [])
+                if row["id"] not in {v["id"] for v in vids}:
+                    vids.append(row)
+                    vids.sort(key=lambda v: v["duration_s"])
+                    del vids[VIDEOS_PER_INSTRUCTOR:]
             if len(by_channel) >= target_instructors:
                 break
-        picked = list(by_channel.values())
+        picked = [v for vids in by_channel.values() for v in vids]
         result["movements"][mid] = {
             "searchCore": core,
             "rejectedForRelevance": rejected,
-            "instructorCount": len(picked),
+            "instructorCount": len(by_channel),
+            "videoCount": len(picked),
+            "videosPerInstructor": VIDEOS_PER_INSTRUCTOR,
             "targetQualified": target_qualified,
             "assumedYieldRate": rate,
             "discoveryTarget": target_instructors,
@@ -210,9 +225,10 @@ def build(movements=None, target_qualified=5):
         }
         for r in picked:
             print(f"  {r['channel'][:30]:<32} {r['duration_s']:>5}s  {r['title'][:52]}")
-        flag = "✓" if len(picked) >= target_instructors else "~"
-        print(f"  → {len(picked)}/{target_instructors} bağımsız eğitmen {flag}  "
-              f"(beklenen nitelenen ≈ {len(picked) * rate:.1f})")
+        flag = "✓" if len(by_channel) >= target_instructors else "~"
+        print(f"  → {len(by_channel)}/{target_instructors} bağımsız eğitmen {flag}  "
+              f"({len(picked)} video · beklenen nitelenen ≈ "
+              f"{len(by_channel) * rate:.1f})")
 
     return result
 

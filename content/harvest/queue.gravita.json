@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "app": "gravita",
   "rule": "M-F-32: sayım birimi EĞİTMEN; hedef ~5 bağımsız eğitmen/teknik",
-  "discoveredAt": "2026-07-29T05:54:05+00:00",
+  "discoveredAt": "2026-07-29T07:02:02+00:00",
   "tool": "2026.07.04",
   "filters": {
     "min_duration_s": 90,
@@ -12,11 +12,6 @@
     "push_up": {
       "searchCore": "push up technique tutorial",
       "rejectedForRelevance": [
-        {
-          "title": "I Cut My Daily Mobility Routine by 80%",
-          "channel": "GMB Fitness (Praxis)",
-          "reason": "başlıkta yok: ['push']"
-        },
         {
           "title": "Handstand Push-Up Tutorial",
           "channel": "GMB Fitness (Praxis)",
@@ -53,17 +48,17 @@
           "reason": "başlıkta yok: ['push']"
         },
         {
-          "title": "Daily Training- Do it RIGHT!",
-          "channel": "K boges",
-          "reason": "başlıkta yok: ['push']"
-        },
-        {
           "title": "The Simplest Exercise For A  Sculpted Chest, Shoulders, and Triceps",
           "channel": "K boges",
           "reason": "başlıkta yok: ['push']"
         },
         {
-          "title": "HANDSTAND PUSH UP TUTORIAL | Starting Calisthenics",
+          "title": "Daily Training- Do it RIGHT!",
+          "channel": "K boges",
+          "reason": "başlıkta yok: ['push']"
+        },
+        {
+          "title": "Handstand Push Up Training Tips",
           "channel": "Tom Merrick",
           "reason": "varyant/başka hareket: 'handstand'"
         },
@@ -73,9 +68,9 @@
           "reason": "varyant/başka hareket: 'handstand'"
         },
         {
-          "title": "Beginner Planche Routine (SETS & REPS)",
+          "title": "HANDSTAND PUSH UP TUTORIAL | Starting Calisthenics",
           "channel": "Tom Merrick",
-          "reason": "varyant/başka hareket: 'planche'"
+          "reason": "varyant/başka hareket: 'handstand'"
         },
         {
           "title": "Build A STRONG & Muscular Back With Pull Ups (TOP SECRET METHOD)",
@@ -96,17 +91,14 @@
           "title": "Archer Push Ups Tutorial | Progressions From Basic Push Ups",
           "channel": "Minus The Gym",
           "reason": "varyant/başka hareket: 'archer'"
-        },
-        {
-          "title": "Dive Bomber Push Ups & Hindu Push Ups (Full Tutorial)",
-          "channel": "Minus The Gym",
-          "reason": "varyant/başka hareket: 'hindu'"
         }
       ],
-      "instructorCount": 13,
+      "instructorCount": 18,
+      "videoCount": 32,
+      "videosPerInstructor": 3,
       "targetQualified": 5,
-      "assumedYieldRate": 0.4,
-      "discoveryTarget": 13,
+      "assumedYieldRate": 0.18,
+      "discoveryTarget": 28,
       "meetsTarget": null,
       "candidates": [
         {
@@ -118,12 +110,44 @@
           "url": "https://www.youtube.com/watch?v=kKHxpbBGiuM"
         },
         {
+          "id": "ryncZFQCB8I",
+          "channel": "GMB Fitness (Praxis)",
+          "duration_s": 288,
+          "title": "Push-Up Technique Tutorial",
+          "query": "GMB Fitness push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=ryncZFQCB8I"
+        },
+        {
+          "id": "kvlZXLPqE0k",
+          "channel": "GMB Fitness (Praxis)",
+          "duration_s": 307,
+          "title": "20 Advanced Push-Up Variations",
+          "query": "GMB Fitness push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=kvlZXLPqE0k"
+        },
+        {
           "id": "GxW9MAMQSv0",
           "channel": "FitnessFAQs",
           "duration_s": 255,
           "title": "The PERFECT Push-Up Workout (ALL LEVELS)",
           "query": "FitnessFAQs push up technique tutorial",
           "url": "https://www.youtube.com/watch?v=GxW9MAMQSv0"
+        },
+        {
+          "id": "-WXc4E-zcao",
+          "channel": "FitnessFAQs",
+          "duration_s": 283,
+          "title": "Master the Push-Up (BEGINNER TUTORIAL)",
+          "query": "FitnessFAQs push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=-WXc4E-zcao"
+        },
+        {
+          "id": "QqTlnhzku5c",
+          "channel": "FitnessFAQs",
+          "duration_s": 335,
+          "title": "The SECRET PUSH UP Variation (EVERYONE NEEDS)",
+          "query": "strength coach push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=QqTlnhzku5c"
         },
         {
           "id": "yvgp8R0fbWg",
@@ -142,12 +166,36 @@
           "url": "https://www.youtube.com/watch?v=_eKHSsHky5U"
         },
         {
+          "id": "ahJvHMh8494",
+          "channel": "THENX",
+          "duration_s": 708,
+          "title": "STOP DOING PUSHUPS LIKE THIS (What No One Tells You)",
+          "query": "THENX push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=ahJvHMh8494"
+        },
+        {
+          "id": "7wblGkVQx3U",
+          "channel": "THENX",
+          "duration_s": 765,
+          "title": "How To Do More Push Ups (Do It Right)",
+          "query": "THENX push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=7wblGkVQx3U"
+        },
+        {
           "id": "v3sJMaB7q1E",
           "channel": "TappBrothers",
           "duration_s": 171,
           "title": "The PERFECT PUSH UP  In 3 Minutes!!",
           "query": "Tapp Brothers push up technique tutorial",
           "url": "https://www.youtube.com/watch?v=v3sJMaB7q1E"
+        },
+        {
+          "id": "cSPSc59Lq5Q",
+          "channel": "TappBrothers",
+          "duration_s": 515,
+          "title": "How To Push Up - 4 Common Mistakes You Might Be Making",
+          "query": "Tapp Brothers push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=cSPSc59Lq5Q"
         },
         {
           "id": "Ua7B2q21UHg",
@@ -158,6 +206,22 @@
           "url": "https://www.youtube.com/watch?v=Ua7B2q21UHg"
         },
         {
+          "id": "4dF1DOWzf20",
+          "channel": "Antranik Kizirian",
+          "duration_s": 378,
+          "title": "How To Do Push Ups with Antranik",
+          "query": "Antranik push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=4dF1DOWzf20"
+        },
+        {
+          "id": "UG7eYaM87kY",
+          "channel": "Antranik Kizirian",
+          "duration_s": 455,
+          "title": "Top Pushup Mistakes and How To Fix Them FOR GOOD with Antranik!",
+          "query": "Antranik push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=UG7eYaM87kY"
+        },
+        {
           "id": "-w6r23P-fy8",
           "channel": "Calisthenicmovement",
           "duration_s": 150,
@@ -166,12 +230,36 @@
           "url": "https://www.youtube.com/watch?v=-w6r23P-fy8"
         },
         {
+          "id": "fqGd8jUdr2I",
+          "channel": "Calisthenicmovement",
+          "duration_s": 182,
+          "title": "22 Extreme Push Up Exercises",
+          "query": "Calisthenic Movement push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=fqGd8jUdr2I"
+        },
+        {
+          "id": "IODxDxX7oi4",
+          "channel": "Calisthenicmovement",
+          "duration_s": 218,
+          "title": "The Perfect Push Up | Do it right!",
+          "query": "Calisthenic Movement push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=IODxDxX7oi4"
+        },
+        {
           "id": "Ggb2rXUL5kg",
           "channel": "K boges",
           "duration_s": 142,
           "title": "Push Ups For Muscle Growth",
           "query": "Kboges push up technique tutorial",
           "url": "https://www.youtube.com/watch?v=Ggb2rXUL5kg"
+        },
+        {
+          "id": "tIbQYnE9Hv8",
+          "channel": "K boges",
+          "duration_s": 216,
+          "title": "Do Your Push Ups!",
+          "query": "Kboges push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=tIbQYnE9Hv8"
         },
         {
           "id": "Yd1grZkAark",
@@ -190,6 +278,14 @@
           "url": "https://www.youtube.com/watch?v=5aRHy5ZPjwk"
         },
         {
+          "id": "Z88Rl5bpnmI",
+          "channel": "Jeremy Ethier",
+          "duration_s": 467,
+          "title": "How To Unlock Your Push Up Strength (In 5 Minutes)",
+          "query": "strength coach push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=Z88Rl5bpnmI"
+        },
+        {
           "id": "MO10KOoQx5E",
           "channel": "Jeremy Ethier",
           "duration_s": 589,
@@ -206,12 +302,60 @@
           "url": "https://www.youtube.com/watch?v=yCL6iSdAeIA"
         },
         {
+          "id": "AvxRm5kzP5I",
+          "channel": "Minus The Gym",
+          "duration_s": 301,
+          "title": "Improve Push Up Form with 3 Simple Techniques!",
+          "query": "Minus The Gym push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=AvxRm5kzP5I"
+        },
+        {
           "id": "I9fsqKE5XHo",
           "channel": "Upright Health",
           "duration_s": 411,
           "title": "Do Push-Ups with Proper Form!",
           "query": " push up technique tutorial",
           "url": "https://www.youtube.com/watch?v=I9fsqKE5XHo"
+        },
+        {
+          "id": "e22iFFXY8vw",
+          "channel": "The Source Chiropractic",
+          "duration_s": 282,
+          "title": "3 Cues for a Proper PUSH UP: protect your shoulders, wrists and elbows",
+          "query": "physical therapist push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=e22iFFXY8vw"
+        },
+        {
+          "id": "VBz1MqF_Xdw",
+          "channel": "Manhattan Physical Therapy & Pain Center",
+          "duration_s": 131,
+          "title": "How to Do a Proper Push Up",
+          "query": "physical therapist push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=VBz1MqF_Xdw"
+        },
+        {
+          "id": "kM47_kIXGAY",
+          "channel": "CrossFit",
+          "duration_s": 351,
+          "title": "Master Perfect Pushups: The CrossFit Coach's Guide to Proper Form and Basic Scaling Options",
+          "query": "strength coach push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=kM47_kIXGAY"
+        },
+        {
+          "id": "P3D2PPMYWjk",
+          "channel": "Kayla Itsines",
+          "duration_s": 174,
+          "title": "Learn How To Do a Push-Up",
+          "query": "beginner push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=P3D2PPMYWjk"
+        },
+        {
+          "id": "N4TVYoXKk-8",
+          "channel": "Cara Kuykens",
+          "duration_s": 608,
+          "title": "How to Get Your First 10 Push Ups (Beginner Guide From Zero)",
+          "query": "beginner push up technique tutorial",
+          "url": "https://www.youtube.com/watch?v=N4TVYoXKk-8"
         }
       ]
     },
