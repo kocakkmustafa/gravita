@@ -73,6 +73,12 @@
           "metric": "knee_angle_asymmetry",
           "status": "advisory",
           "basis": "G-061: iki bağımsız ölçüm kapı-sınıfı eşiği reddetti. (1) 27 fixture/16 eğitmende eğitmen-başı ortalama 6°(WeShape)-50°(Tom Merrick) arası (>8x), world-koordinatına geçmek farkı yalnız kısmen kapatıyor (25,8°→21,4° genel), pooled histogram tek-tepeli/uzun-kuyruklu (doğal boşluk yok). (2) Koordinatör talimatıyla sınanan bottom-fazı daraltması (yalnız görünen-taraf diz açısı ≤116° kareler) İYİLEŞTİRMEDİ, bazı eğitmenlerde KÖTÜLEŞTİRDİ (K boges 18°→49°) — ayırt edici an (dip) aynı zamanda en kötü ölçülen an (kamera-açısına göre izdüşüm-bükülmesi dipte büyüyor). Kanıt: docs/gates/G-061-DIZ-SIMETRISI-OLCUM-RAPORU.md."
+        },
+        "hipKneeCoupling": {
+          "metric": "pearson(hip_flexion,knee_flexion)",
+          "status": "provisional",
+          "min": 0.2,
+          "basis": "G-064: Lissom'un rig identity'ye yazdığı sinyal (deep_squat, provisional r>=0,20) 27 Gravita bodyweight_squat fixture'ında (16 eğitmen) İLK KEZ tüketildi. 14/15 eğitmen geçti (r=0,15-0,99, çoğu 0,86-0,99); yalnız TappBrothers reddedildi (r=0,150, n=130 küçük örneklem — sınırda). kneeSymmetry'nin 'şüpheli' işaretlediği Tom Merrick (kneeAngleAsymmetry mean=49,8°) hipKneeCoupling'de rahat geçti (r=0,334) — iki sinyal BAĞIMSIZ eksenler: biri kare-içi sol-sağ simetri (kamera-açısına duyarlı), öteki zaman-içi kalça-diz eş-güdümü (kamera-açısından bağımsız, squat'ın asıl tanımlayıcı özelliği). Gravita kendi taraf-agnostik (ADR-003) görünen-taraf açılarını kullandı, Lissom'un RIGHT_* sabit uçları + proximal-frame projeksiyonu YERİNE — kavramsal olarak aynı üçlü nokta seti, sayı birebir aynı olmayabilir. Kanıt: docs/gates/G-064-HIPKNEECOUPLING-ILK-TUKETICI.md, content/harvest/hip_knee_coupling.bodyweight_squat.json."
         }
       }
     },
