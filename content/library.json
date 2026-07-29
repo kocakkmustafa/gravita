@@ -14,10 +14,13 @@
     "     EKSİK ÖLÇÜMÜN adı olmalı.",
     "  6. comingSoon maddeleri gerekçesiz olamaz.",
     "  --- Gravita'ya ÖZEL iki kural (kopya değil, aynı gerekçenin bu ürüne düşen hâli): ---",
-    "  7. gradesFormAgainstReference=true olan bir ders AÇIK olamaz, eğer hareketin",
-    "     provenance.derivedJoints listesi BOŞSA. Gerekçe G-050/G-014: taban-bağlı (floor) tolerans",
-    "     VARYANS-TÜRETİMLİ SAYILMAZ; eğitmenlerin ne kadar ayrıştığı ölçülmemişken form notu vermek,",
-    "     ölçümden değil varsayılandan gelen bir sayıyı kullanıcıya hüküm olarak sunmaktır.",
+    "  7. gradesFormAgainstReference=true olan AÇIK bir ders, `gradedJoints` ile NOTLADIĞI eklemleri",
+    "     BEYAN etmek ve her birinin provenance.derivedJoints içinde olduğunu göstermek zorunda;",
+    "     referansın unreliableJoints'indeki bir eklem de notlanamaz. Gerekçe G-050/G-014: taban-bağlı",
+    "     (floor) tolerans VARYANS-TÜRETİMLİ SAYILMAZ. ⚠️ Kural ilk hâlinde yalnız 'derivedJoints boş mu'",
+    "     diye soruyordu; squat referansı DELİĞİ gösterdi (G-072): squat'ın varyans-türetimli eklemleri",
+    "     KOL, notlayacağı eklemler BACAK. 'Bir yerde varyans var', 'NOTLADIĞIM yerde varyans var'ın",
+    "     yerine geçemez — vekil ölçen kapı sınıfı hata.",
     "  8. status=live olan bir harekette engine.precondition.status DERIVED olmak zorunda.",
     "     Gerekçe G-043: kimlik ön koşulu yoksa tekrar FSM'i hareketi değil salınımı sayar",
     "     (ayakta konuşan birinin dizi de bükülür). ⚠️ Bu kural, `preconditionStatus` beyanının",
@@ -50,7 +53,7 @@
           "Force or load",
           "Muscle activation",
           "Hand pressure distribution",
-          "How your form compares to instructors — we harvested 5 instructors but NONE of the 9 joint tolerances came out of their measured disagreement yet (all 9 are still at the default floor). Until that changes we count and time your reps, we do not grade your shape against a reference."
+          "How your form compares to instructors. We now have an ATTESTED reference from 5 instructors (36 takes) — but not one of the 9 joint tolerances came out of their measured disagreement; all 9 still sit at our default floor. Until that changes we count and time your reps, we do not grade your shape against a reference."
         ]
       },
       "courses": [
@@ -65,7 +68,9 @@
               "id": "push_foundations.reps_and_tempo",
               "displayName": "Reps that count",
               "focus": "rep_count",
-              "errorFocus": ["partial_rom"],
+              "errorFocus": [
+                "partial_rom"
+              ],
               "minutes": 8,
               "gradesFormAgainstReference": false,
               "_why_unlocked": "Bu dersin dayandığı üç ölçüm de CANLI: (1) kimlik ön koşulu DERIVED ve üründe aktif (torso_angle_from_vertical>=60, G-043 — ayakta el hareketi tekrar SAYILMIYOR, testi var); (2) rep FSM 69/69 test yeşil ve replay kapısında push_up'ın 8 biriminin 8'i GERÇEK veride ateşleniyor, 0 ölü; (3) tempo eşik geçişinden değil gerçek dönüş anından ölçülüyor (G-055) — yani sayım eşiği değişse tempo bozulmuyor. partial_rom İSİMLİ ürün eşiği (110°) ve G-054'ten beri gerçek veride ateşleniyor. Hiçbiri referans toleransına bağlı DEĞİL."
@@ -74,17 +79,28 @@
               "id": "push_foundations.form_check",
               "displayName": "Body-line check",
               "focus": "form",
-              "errorFocus": ["hip_sag", "hip_pike", "head_drop", "asymmetric_press"],
+              "errorFocus": [
+                "hip_sag",
+                "hip_pike",
+                "head_drop",
+                "asymmetric_press"
+              ],
               "minutes": 7,
               "gradesFormAgainstReference": true,
               "status": "locked",
-              "lockedReason": "We can see your body line, but we can't grade it yet. We harvested 5 independent instructors — and every one of the 9 joint tolerances still sits at our default floor value, because the instructors' own measured spread came out narrower than that floor. That means a 'good line' number would come from our default, not from real instructors. We won't score you against that. Rep counting and depth are unaffected and stay open."
+              "lockedReason": "We can see your body line, but we can't grade it yet. Our instructor reference is now properly attested (5 instructors, 36 takes) — but every one of the 9 joint tolerances still sits at our default floor value, because the instructors' own measured spread came out narrower than that floor. A 'good line' number would come from our default, not from real instructors. We won't score you against that. Rep counting and depth are unaffected and stay open.",
+              "gradedJoints": [
+                "shoulder",
+                "hip",
+                "trunk_tilt",
+                "upper_arm"
+              ]
             }
           ]
         }
       ],
       "comingSoonInThisMovement": [
-        "Body-line grading (hip sag / pike / head drop / uneven press) — the rules fire correctly on real footage, but no joint tolerance is variance-derived yet (derivedJoints is empty; all 9 floor-bound, G-014/G-050), so we show the cue and never a score",
+        "Body-line grading (hip sag / pike / head drop / uneven press) — the rules fire correctly on real footage and the reference is now ATTESTED, but no joint tolerance is variance-derived yet (derivedJoints empty; all 9 floor-bound, G-014/G-050), so we show the cue and never a score",
         "Side-dependent cues (\"your left arm is...\") — the pose model's left/right labels are not trustworthy in this camera setup, so all rules stay side-agnostic (ADR-003 / G-007)",
         "Hand pressure and load — a single camera cannot see either; this is a permanent limit, not a pending measurement"
       ]
@@ -98,23 +114,25 @@
       "status": "coming_soon",
       "wave": "W1",
       "catalogId": "bodyweight_squat",
-      "blurb": "Squat coaching isn't open yet. We have the movement rules written, but we haven't finished proving them — details below, in plain terms.",
+      "blurb": "Squat coaching isn't open yet. We now have an instructor reference, but two things are still missing before we'd grade you — details below, in plain terms.",
       "honesty": {
         "measured": [],
         "notMeasured": [
-          "Nothing is graded yet. Three separate things are still missing, and each one alone is enough for us to keep this closed.",
-          "We have no instructor reference. Of 27 harvested squat videos only 4 passed source-eligibility, they come from just 3 instructors, and those 3 do not agree with each other — not at our normal tolerance and not at double it. So we cannot yet say what a correct squat looks like (G-069/G-070).",
-          "The engine has no squat identity check. For push-ups we verify your torso is horizontal before counting a rep; the equivalent test for squats hasn't been derived, so nothing stops a rep being counted while you're just standing and moving (G-043).",
+          "Nothing is graded yet. Two things are still missing, and each one alone is enough for us to keep this closed.",
+          "The engine has no squat identity check. For push-ups we verify your torso is horizontal before counting a rep; the equivalent test for squats hasn't been derived, so nothing would stop a rep being counted while you're just standing and moving (G-043).",
           "The squat error rules have never been run against real footage — there is no replay fixture for this movement, so we have no evidence they fire when they should.",
-          "Knee tracking side-to-side (valgus) — that needs a front-facing camera, not this setup. Permanent limit for this setup, not a pending measurement.",
+          "What the reference can and cannot support: it IS attested now (6 instructors, 36 takes, built at our normal tolerance). But the joints a squat actually needs — hip, knee, shin, thigh, torso — are ALL still floor-bound. The only variance-derived joints are the arms (elbow, forearm, shoulder, upper arm), and elbow/forearm are additionally flagged unreliable. Arms are not what a squat is about.",
+          "Left/right comparisons are off the table for squats. Measured left-right difference in the reference is 32.3 degrees (for push-ups it is 5.2), so the reference is NOT mirror-agnostic and we will not make any side-specific claim from it (M-F-46 rule 7).",
+          "Knee tracking side-to-side (valgus) — needs a front-facing camera. Permanent limit for this setup.",
           "Weight distribution across the foot, force, or load — a single camera cannot see these."
         ]
       },
       "courses": [],
       "comingSoonInThisMovement": [
         "Rep counting and depth — blocked on the identity precondition (engine.precondition.status is 'pending', conditions list empty), because counting reps without an identity check counts limb swing, not squats (G-043)",
-        "Depth and torso-angle grading — blocked on having any instructor reference at all; the only 3 eligible instructors disagree beyond twice our clustering tolerance (G-069), and how source-eligibility should be decided is itself under review (G-070)",
-        "Butt wink (lower-back rounding at the bottom) — the lumbar proxy metric carries landmark jitter risk at deep flexion and is marked pendingVerification, so it would not be graded even once a reference exists"
+        "Depth and torso-angle grading — the reference exists and is attested, but hip/knee/shin/thigh/torso tolerances are all floor-bound (only the arm joints are variance-derived), so a depth or lean score would come from our default rather than from measured instructor spread",
+        "Any left-vs-right feedback — the squat reference is not mirror-agnostic (32.3 degrees left-right difference measured), so side-specific judgements are structurally unavailable, not merely pending",
+        "Butt wink (lower-back rounding at the bottom) — the lumbar proxy metric carries landmark jitter risk at deep flexion and is marked pendingVerification, so it would not be graded even once the tolerance question is settled"
       ]
     }
   ]

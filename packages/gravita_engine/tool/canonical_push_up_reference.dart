@@ -36,12 +36,15 @@ import 'harvest_reps.dart' show mandatoryFor, requiredFor;
 /// kalan HER ŞEY (izotropik dönüşüm, güven kapısı, aykırı-kaynak dışlama,
 /// ayna çözümü, tolerans kaynağı) `ReferenceCli.buildArtifact` içindedir.
 ///
-/// Provenance notu: fixture'ların rig-triyaj `referenceEligible` bayrağı
-/// `false` (bu koşum ayrı bir eşiği ölçüyor, rig-triyaj sorusunu YANITLAMIYOR)
-/// — bunu sahte `true` yapmak yerine sentetik tekrar-fixture'larına HİÇ
-/// `referenceEligible` yazılmaz (provenance sourceUrl taşır) → CLI bunları
-/// `unattested` sınıflar, `allowUnattested:true` ile kabul eder VE artefaktı
-/// dürüstçe `PROVISIONAL` damgalar (zaten `harvested_provisional` idi).
+/// Provenance notu (M-F-120'de DÜZELTİLDİ): eskiden bu araç rig-triyaj
+/// `referenceEligible` bayrağını kesilen tekrar-fixture'larına HİÇ yazmıyordu
+/// → CLI onları `unattested` sınıflıyor, `allowUnattested:true` kabul ediyor
+/// ve artefakt `PROVISIONAL` damgalanıyordu. Gerekçe makuldü ama SONUCU
+/// şuydu: rig'in `ineligible` dediği 25 kaynak sessizce referansa giriyordu,
+/// squat ise AYNI bayrağı koruduğu için fail-closed reddediyordu — aynı
+/// app'in iki referansı ZIT disiplin uyguluyordu (G-070). Artık bayrak
+/// BİREBİR KORUNUR; uygunluk kararı rig'in işi (M-F-120 sınıf-düzeyi
+/// muafiyetiyle: push_up YAPISAL-AKTİF, `unknown` klipler uygun).
 void main(List<String> args) {
   final Directory dir = Directory(args.isEmpty
       ? '${Platform.environment['HOME']}/motion-harvest/gravita/landmarks'
@@ -164,7 +167,18 @@ void main(List<String> args) {
           provenance: ProvenanceInfo(
             channel: channel,
             sourceUrl: sourceUrl,
-            raw: <String, dynamic>{'windowRule': windowRule},
+            // M-F-120: ham fixture'ın uygunluk beyanı BİREBİR KORUNUR.
+            // Eskiden bu bayrak KASITLI düşürülüyordu (aşağıdaki eski nota
+            // bak) ve CLI take'leri `unattested` sınıflayıp `allowUnattested`
+            // ile kabul ediyordu — squat aynı bayrağı koruduğu için
+            // fail-closed reddediyordu, yani AYNI app'in iki referansı ZIT
+            // disiplin uyguluyordu (G-070). Tek disiplin: koru.
+            raw: <String, dynamic>{
+              'windowRule': windowRule,
+              if (prov['referenceEligible'] != null)
+                'referenceEligible': prov['referenceEligible'],
+              if (prov['romMode'] != null) 'romMode': prov['romMode'],
+            },
           ),
         );
       }

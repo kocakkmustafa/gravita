@@ -1,8 +1,8 @@
 {
   "schema": "motion-core/reference@1",
   "technique": "push_up",
-  "measurementProvenance": "PROVISIONAL",
-  "generatedAt": "2026-07-29T16:26:20.304354Z",
+  "measurementProvenance": "ATTESTED",
+  "generatedAt": "2026-07-29T21:57:04.009652Z",
   "gates": {
     "minTakes": 3,
     "minSources": 3,
@@ -25,7 +25,7 @@
       "fps": 25,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "excluded": "noMeasurableFrames"
     },
     {
@@ -37,7 +37,7 @@
       "fps": 25,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "excluded": "noMeasurableFrames"
     },
     {
@@ -49,7 +49,7 @@
       "fps": 25,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -61,7 +61,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -73,7 +73,7 @@
       "fps": 24,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -85,7 +85,7 @@
       "fps": 24,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -97,7 +97,7 @@
       "fps": 24,
       "isotropicCorrected": true,
       "cycleCount": 2,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodFrames": 17,
       "periodicity": 0.9236
     },
@@ -110,7 +110,7 @@
       "fps": 24,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -122,7 +122,7 @@
       "fps": 24,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -134,7 +134,7 @@
       "fps": 25,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -146,7 +146,7 @@
       "fps": 25,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -158,7 +158,7 @@
       "fps": 25,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -170,7 +170,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -182,7 +182,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "take too short for the declared period range"
     },
     {
@@ -194,7 +194,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -206,7 +206,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "take too short for the declared period range"
     },
     {
@@ -218,7 +218,7 @@
       "fps": 60,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -230,7 +230,7 @@
       "fps": 60,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "take too short for the declared period range"
     },
     {
@@ -242,7 +242,7 @@
       "fps": 60,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -254,7 +254,7 @@
       "fps": 25,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -266,7 +266,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -278,7 +278,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "take too short for the declared period range"
     },
     {
@@ -290,7 +290,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -302,7 +302,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -314,7 +314,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -326,7 +326,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -338,7 +338,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "excluded": "noMeasurableFrames"
     },
     {
@@ -350,7 +350,7 @@
       "fps": 24,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "take too short for the declared period range"
     },
     {
@@ -362,7 +362,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -374,7 +374,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -386,7 +386,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "periodicity 0.46 below 0.5 — repetition too weak to assert a period"
     },
     {
@@ -398,7 +398,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -410,7 +410,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "too few frames to search for a period"
     },
     {
@@ -422,7 +422,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "periodicity 0.23 below 0.5 — repetition too weak to assert a period"
     },
     {
@@ -434,7 +434,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -446,7 +446,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "too few frames to search for a period"
     },
     {
@@ -458,7 +458,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -470,7 +470,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "take too short for the declared period range"
     },
     {
@@ -482,7 +482,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -494,7 +494,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -506,7 +506,7 @@
       "fps": 60,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "take too short for the declared period range"
     },
     {
@@ -518,7 +518,7 @@
       "fps": 60,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -530,7 +530,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -542,7 +542,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -554,7 +554,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -566,7 +566,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -578,7 +578,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -590,7 +590,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -602,7 +602,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -614,7 +614,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -626,7 +626,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -638,7 +638,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -650,7 +650,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -662,7 +662,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -674,7 +674,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -686,7 +686,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -698,7 +698,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -710,7 +710,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -722,7 +722,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -734,7 +734,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -746,7 +746,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -758,7 +758,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -770,7 +770,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -782,7 +782,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -794,7 +794,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -806,7 +806,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -818,7 +818,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -830,7 +830,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -842,7 +842,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "take too short for the declared period range"
     },
     {
@@ -854,7 +854,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -866,7 +866,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -878,7 +878,7 @@
       "fps": 30,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -890,7 +890,7 @@
       "fps": 25,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     },
     {
@@ -902,7 +902,7 @@
       "fps": 25,
       "isotropicCorrected": true,
       "cycleCount": null,
-      "eligibility": "unattested",
+      "eligibility": "attested",
       "periodUnmeasured": "take too short for the declared period range"
     }
   ],
@@ -3194,6 +3194,6 @@
     "Cara Kuykens": "3 derin tekrar üretti ama M-F-47 anlaşma-kapısında (14° küme toleransı) aykırı sayıldı, excludedOutlierIds içinde",
     "GMB Fitness (Praxis)": "2 derin tekrar üretti ama M-F-47 anlaşma-kapısında (14° küme toleransı) aykırı sayıldı, excludedOutlierIds içinde"
   },
-  "$windowRule": "rep_fsm@6264849 partial_rom=110.0",
+  "$windowRule": "rep_fsm@f3ce523 partial_rom=110.0",
   "$supersedes": "harvested_provisional (9 eğitmen/44 take, build_reference.dart, kanonik-CLI-öncesi) — G-063/G-064 (docs/gates/), koordinatör hükmü M-F-90."
 }

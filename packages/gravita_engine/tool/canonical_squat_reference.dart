@@ -22,23 +22,15 @@ import 'package:motion_core/motion_core.dart' hide MetricCondition, PhaseSpec;
 /// düşük r'ı eşiğin (0,2) ne kadar üstünde olduğunu gösterir (duyarlılık
 /// kanıtı, blok değil).
 ///
-/// **M-F-113 (G-069 sonrası koordinatör hükmü, seçenek c):** 14°'de de
-/// 30°'de de AYNI 3 kaynak (Strength Side/THENX tam, Tom Merrick 2/11)
-/// M-F-47 anlaşma kapısında kilitlendiği ölçüldü (bkz. G-069). Karar:
-/// Strength Side + THENX KAYNAK-düzeyinde dışlanır (`excludedClusterOutlier`
-/// — profil analizi ayrı bir iş, G-070); Tom Merrick TAM girdi olarak kalır
-/// ve onun 2 sapan take'i motorun KENDİ normal M-F-47 take-düzeyi
-/// mekanizmasıyla (push_up'ta da kanıtlanan yol: 71→37, 34 excludedOutlierIds)
-/// elenir — elle filtrelenmez, kaynak-düzeyi ile take-düzeyi dışlama
-/// KARIŞTIRILMAZ (koordinatörün açık talebi).
-const Set<String> _clusterOutlierChannels = <String>{'Strength Side', 'THENX'};
-
+/// **M-F-120 (M-F-113 İPTAL):** G-069/G-070'in kilidi bir kümelenme sorunu
+/// DEĞİLDİ — havuzun 133/233 take'i M-F-47 kapısına hiç ULAŞMIYORDU, çünkü
+/// Gravita'nın hasadı M-F-45'in sınıf-düzeyi muafiyetini TAŞIMAYAN bayat bir
+/// rig kopyasıyla koşmuştu (G-072). Muafiyet uygulandıktan sonra 233 take /
+/// 12 kaynak kapıya ulaşıyor ve M-F-47 İLK KEZ meşru havuzda soruluyor.
+/// Bu yüzden ELLE kaynak-düzeyi dışlama YOK: hangi take'in aykırı olduğuna
+/// motorun kendi M-F-47 mekanizması karar verir ve `excludedOutlierIds`de
+/// ADIYLA raporlar (push_up emsali: 71→37, 34 adlandırılmış dışlama).
 void main(List<String> args) {
-  // `--include-all`: G-069'un ORİJİNAL koşumunu (hiçbir kaynak-düzeyi dışlama
-  // yapmadan) yeniden üretir — bulgunun tekrar-üretilebilir olması için.
-  final bool includeAll = args.contains('--include-all');
-  final Set<String> outlierChannels =
-      includeAll ? <String>{} : _clusterOutlierChannels;
   const String movementId = 'bodyweight_squat';
   final Directory slicedDir = Directory(
       '${Platform.environment['HOME']}/motion-harvest/gravita-squat/landmarks-rep-sliced');
@@ -69,7 +61,6 @@ void main(List<String> args) {
 
   final Map<String, Fixture> eligible = <String, Fixture>{};
   final Map<String, int> countByChannel = <String, int>{};
-  final Map<String, int> excludedClusterOutlierCount = <String, int>{};
   for (final File f in slicedDir
       .listSync()
       .whereType<File>()
@@ -79,43 +70,43 @@ void main(List<String> args) {
     final Fixture fx = Fixture.decode(f.readAsStringSync());
     final String channel = fx.provenance?.channel ?? '?';
     if (!passChannels.contains(channel)) continue;
-    if (outlierChannels.contains(channel)) {
-      excludedClusterOutlierCount[channel] =
-          (excludedClusterOutlierCount[channel] ?? 0) + 1;
-      continue;
-    }
     final String id = f.uri.pathSegments.last.replaceAll('.full.json', '');
     eligible[id] = fx;
     countByChannel[channel] = (countByChannel[channel] ?? 0) + 1;
   }
-  stdout.writeln('uygun (PASS eğitmen, kaynak-kümesi HARİÇ Strength Side/'
-      'THENX — G-069/M-F-113) fixture sayısı: ${eligible.length}');
-  for (final MapEntry<String, int> e in countByChannel.entries) {
-    stdout.writeln('  ${e.key}: ${e.value}');
+  stdout.writeln('uygun (hipKneeCoupling PASS) fixture sayısı: '
+      '${eligible.length} · ${countByChannel.length} kaynak');
+  for (final String ch in countByChannel.keys.toList()..sort()) {
+    stdout.writeln('  $ch: ${countByChannel[ch]}');
   }
-  stdout.writeln('kaynak-düzeyi DIŞLANAN (excludedClusterOutlier): '
-      '${excludedClusterOutlierCount.entries.map((MapEntry<String, int> e) => '${e.key}=${e.value}').join(", ")}');
 
-  // M-F-113: 9 temiz kaynak + Tom Merrick (TAM, 11 take) tek seferde
-  // varsayılan 14°'de denenir. Tom Merrick'in 2 sapan take'i (G-069'da
-  // ölçüldü) motorun KENDİ take-düzeyi M-F-47 mekanizmasıyla elenmesi
-  // beklenir (push_up emsali: 71→37, 34 excludedOutlierIds) — elle
-  // filtrelenmedi. Yine de beklenmedik bir kilitlenme ihtimaline karşı
-  // sessiz çökme yerine adlandırılmış teşhisle dur (aile disiplini).
-  const double clusterToleranceDeg = 14;
+  // G-050 deseni: varsayılan 14° ölçülmeden GENİŞLETİLMEZ. Önce dene; M-F-47
+  // düşerse ÖLÇÜLMÜŞ bir genişletme olarak 30° denenir ve İKİ sonuç da
+  // şeffaf raporlanır. İkisi de düşerse DURULUR (veriye uydurma yapılmaz).
+  late final double clusterToleranceDeg;
   late final Map<String, dynamic> artifact;
   try {
     artifact = ReferenceCli(allowUnattested: true, clusterToleranceDeg: 14)
         .buildArtifact(technique: movementId, fixturesById: eligible);
-    stdout.writeln('\nclusterToleranceDeg=14° ile KÜMELENDİ.');
-  } on ReferenceAgreementError catch (e) {
-    stdout.writeln('\n⚠️ BEKLENMEDİK: 9-kaynak+Tom Merrick havuzu (${eligible.length} '
-        'take) 14°\'de de KÜMELENEMEDİ: $e');
-    stdout.writeln('\nBu, G-069\'un varsaydığından FARKLI bir bulgu olur — '
-        'Strength Side/THENX\'i çıkarmak yetmedi demektir. Körlemesine '
-        'genişletme YOK; artefakt YAZILMADI, koordinatöre yeni bulgu olarak '
-        'bildirilecek.');
-    exit(1);
+    clusterToleranceDeg = 14;
+    stdout.writeln('\n✅ clusterToleranceDeg=14° (varsayılan) ile KÜMELENDİ.');
+  } on ReferenceAgreementError catch (e14) {
+    stdout.writeln('\n⚠️ 14° ile kümelenemedi: $e14');
+    stdout.writeln('\nG-050 deseni: 30° ile YENİDEN deneniyor (ÖLÇÜLMÜŞ '
+        'genişletme — sessizce büyütülmedi)...');
+    try {
+      artifact = ReferenceCli(allowUnattested: true, clusterToleranceDeg: 30)
+          .buildArtifact(technique: movementId, fixturesById: eligible);
+      clusterToleranceDeg = 30;
+      stdout.writeln('✅ clusterToleranceDeg=30° ile KÜMELENDİ.');
+    } on ReferenceAgreementError catch (e30) {
+      stdout.writeln('\n⚠️⚠️ 30° ile de kümelenemedi: $e30');
+      stdout.writeln('\nDURDURULDU — daha fazla genişletme DENENMEDİ (veriye '
+          'uydurma olurdu). Artefakt YAZILMADI. Bu, meşru havuzda (233 take / '
+          '12 kaynak, 0 ineligible) alınmış GERÇEK bir anlaşmazlık bulgusudur '
+          '— koordinatöre bildirilecek.');
+      exit(1);
+    }
   }
 
   final Map<String, dynamic> result = artifact['result'] as Map<String, dynamic>;
@@ -199,13 +190,6 @@ void main(List<String> args) {
       if (e.value <= 2) '${e.key} (${e.value} tekrar)',
   ];
 
-  final List<dynamic> excludedOutlierIds =
-      (result['excludedOutlierIds'] as List<dynamic>?) ?? <dynamic>[];
-  final List<String> tomMerrickTakeOutliers = excludedOutlierIds
-      .cast<String>()
-      .where((String id) => id.startsWith('Tom_Merrick'))
-      .toList();
-
   final Map<String, dynamic> published = <String, dynamic>{
     ...artifact,
     r'$identityGateBasis': 'provisional($gateThreshold)',
@@ -221,33 +205,19 @@ void main(List<String> args) {
     r'$thinEvidenceInstructors': thinEvidence,
     r'$firstReference': true,
     r'$clusterToleranceDegUsed': clusterToleranceDeg,
-    r'$clusterToleranceNote': 'Varsayılan 14° ile kümelendi (Strength Side/'
-        'THENX kaynak-düzeyinde dışlandıktan SONRA) — ölçülmedi diye '
-        'genişletilmedi.',
-    r'$excludedClusterOutlier': excludedClusterOutlierCount.keys.toList(),
-    r'$excludedClusterOutlierNote': 'G-069/M-F-113: Strength Side '
-        '(${excludedClusterOutlierCount['Strength Side'] ?? 0} take) ve THENX '
-        '(${excludedClusterOutlierCount['THENX'] ?? 0} take — hasat-kimlik '
-        'kapısını geçen 12 eğitmenlik havuzun TEK EN BÜYÜK kaynağıydı, ~%29) '
-        'M-F-47 anlaşma kapısında hem 14°\'de hem 2× genişletilmiş 30°\'de '
-        'AYNI takelerle, AYNI sapma dereceleriyle kilitlendiği ÖLÇÜLDÜĞÜ için '
-        '(G-069) kaynak-DÜZEYİNDE dışlandı — kodlama hatası değil, malzeme '
-        'yapısı (bkz. G-069). Bu iki kaynağın hipKneeCoupling KİMLİK kapısını '
-        'GEÇTİĞİ değişmedi (hâlâ 12 PASS eğitmenden ikisi) — yalnız BU '
-        'referansın kümelenme kapısından elendiler; sapma-profili analizi '
-        '(G-070, ayrı iş) hangisinin gerçek stil-varyantı hangisinin '
-        'pipeline sorunu olduğuna karar verecek.',
-    r'$partialSourceOutliers': <String, dynamic>{
-      'Tom Merrick': {
-        'excludedTakes': tomMerrickTakeOutliers,
-        'note': 'Kaynak-düzeyinde DIŞLANMADI (9 temiz kaynak + Tom Merrick '
-            'TAM olarak, 11 take, girdi olarak verildi) — ${tomMerrickTakeOutliers.length} '
-            'take normal M-F-47 take-düzeyi mekanizmasıyla elendi (push_up '
-            'emsali: 71→37, 34 excludedOutlierIds). Kaynak-düzeyi dışlamayla '
-            '(Strength Side/THENX) KARIŞTIRILMASIN — koordinatörün açık '
-            'talebi.',
-      },
-    },
+    r'$clusterToleranceNote': clusterToleranceDeg == 14
+        ? 'Varsayilan 14 derece (push_up ile ayni) ile kumelendi — ELLE kaynak '
+            'dislama YOK; aykiri take\'ler motorun kendi M-F-47 mekanizmasiyla '
+            'secildi ve excludedOutlierIds\'de adiyla duruyor.'
+        : 'G-050 deseni: 14 derece ile ReferenceAgreementError alindi, 30 derece '
+            'ile YENIDEN denendi ve kumelendi — OLCULMUS genisletme, veriye '
+            'uydurulmus degil.',
+    r'$eligibilityBasis': 'M-F-120 sinif-duzeyi muafiyet: bodyweight_squat '
+        'YAPISAL-AKTIF (pasif icrasi biyomekanik olarak imkansiz), bu yuzden '
+        'romMode=unknown klipler referansa UYGUN. Uygunluk kanonik rig '
+        'e882a96 rom_mode.classify() ile yeniden hesaplandi (G-072); '
+        'romMode=passive olan kaynak YINE dislaniyor. M-F-113 IPTAL: elle '
+        'kaynak-duzeyi dislama YOK.',
     r'$windowRule': 'rep_fsm (slice_deep_reps_squat.dart) + '
         'hipKneeCoupling gate (rep-fsm, hip_knee_coupling.bodyweight_squat.json)',
   };
@@ -255,5 +225,4 @@ void main(List<String> args) {
       '${const JsonEncoder.withIndent('  ').convert(published)}\n');
   stdout.writeln('\nyazıldı: content/harvest/reference.bodyweight_squat.json '
       '(ailenin ÜÇÜNCÜ ürün referansı)');
-  stdout.writeln('Tom Merrick take-düzeyi dışlama: $tomMerrickTakeOutliers');
 }

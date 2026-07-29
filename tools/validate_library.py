@@ -8,8 +8,10 @@ Ostinato `validate_library.py` / JabLab `library_test.dart`in ALTI kuralını
 
 Gravita'ya özel iki kural neden var:
   K7 (referans-notu kapısı): G-050/G-014 — taban-bağlı (floor) tolerans
-     varyans-türetimli SAYILMAZ. Eğitmenlerin ne kadar ayrıştığı ölçülmemişken
-     form notu vermek, varsayılan bir sayıyı hüküm olarak sunmaktır.
+     varyans-türetimli SAYILMAZ. Ders NOTLADIĞI eklemleri `gradedJoints` ile
+     beyan eder; hepsi `derivedJoints`te olmalı ve hiçbiri referansın
+     `unreliableJoints`inde olmamalı. (İlk hâli yalnız "derivedJoints boş mu"
+     soruyordu; squat deliği gösterdi — G-072.)
   K8 (kimlik ön koşulu kapısı): G-043 — kimlik ön koşulu yoksa rep FSM'i
      hareketi değil salınımı sayar. ⚠️ Bu kural `engine.precondition.status`
      beyanının ÜRÜN tarafındaki İLK tüketicisidir: o beyanı bugüne dek yalnız
@@ -28,13 +30,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 LIB_PATH = ROOT / "content" / "library.json"
 CATALOG_DIR = ROOT / "content" / "catalog" / "w1"
+HARVEST_DIR = ROOT / "content" / "harvest"
 
 
 def load(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
-def check(lib, catalog_lookup):
+def check(lib, catalog_lookup, reference_lookup):
     """Sekiz değişmezi uygular; ihlal listesi döner (boş = temiz)."""
     violations = []
 
@@ -48,6 +51,15 @@ def check(lib, catalog_lookup):
 
         prov = cat.get("provenance", {})
         derived_joints = prov.get("derivedJoints", [])
+        # Referans artefaktındaki `unreliableJoints` TARAF bazlı
+        # (`left_elbow`); katalog provenance'ı ve dersler ÇİFT bazlı
+        # (`elbow`) konuşuyor — bir tarafı güvenilmezse çift güvenilmez
+        # (M-F-95 zayıf-halka kuralının aynısı).
+        unreliable_pairs = {
+            j.removeprefix("left_").removeprefix("right_")
+            for j in (reference_lookup(m.get("id", mid)) or {})
+            .get("result", {}).get("unreliableJoints", [])
+        }
         precondition = cat.get("engine", {}).get("precondition", {})
         pre_status = precondition.get("status")
         catalog_error_ids = {e["id"] for e in cat.get("formErrors", [])}
@@ -113,14 +125,45 @@ def check(lib, catalog_lookup):
                         f"{lid}: lockedReason var ama status=locked değil "
                         f"(tutarsız beyan)")
 
-                # K7: referansa karşı form notu veren ders, hiçbir eklem
-                # varyans-türetimli değilse AÇIK olamaz (G-050/G-014).
+                # K7: referansa karşı form notu veren AÇIK ders, NOTLADIĞI her
+                # eklemin varyans-türetimli olduğunu göstermek zorunda.
+                #
+                # ⚠️ Bu kural ilk yazıldığında yalnız "derivedJoints BOŞ mu"
+                # diye soruyordu. bodyweight_squat referansı üretilince kuralın
+                # DELİĞİ ortaya çıktı (G-072): squat'ın varyans-türetimli 4
+                # eklemi KOL eklemleri (elbow/forearm/shoulder/upper_arm), buna
+                # karşın squat'ın notlayacağı eklemler BACAK (hip/knee/shin/
+                # thigh/trunk_tilt) ve hepsi TABAN-bağlı. "Bir yerde varyans
+                # var" sorusu, "NOTLADIĞIM yerde varyans var mı" sorusunun
+                # yerine geçemez — vekil ölçen kapı sınıfı hata (bu defterin
+                # gece boyu avladığı desen). Ders artık notladığı eklemleri
+                # `gradedJoints` ile BEYAN eder ve kural kesişimi denetler.
                 if l.get("gradesFormAgainstReference") and not locked:
-                    if not derived_joints:
+                    graded = l.get("gradedJoints")
+                    if not graded:
                         violations.append(
-                            f"{lid}: gradesFormAgainstReference=true ve AÇIK, "
-                            f"ama {mid} provenance.derivedJoints BOŞ — tolerans "
-                            f"tabandan geliyor, ölçümden değil (G-050/G-014)")
+                            f"{lid}: gradesFormAgainstReference=true ve AÇIK "
+                            f"ama `gradedJoints` beyan edilmemiş — hangi eklemi "
+                            f"notladığını söylemeyen bir ders denetlenemez")
+                    else:
+                        not_derived = [j for j in graded
+                                       if j not in derived_joints]
+                        if not_derived:
+                            violations.append(
+                                f"{lid}: AÇIK form-notu ama şu eklem(ler) "
+                                f"varyans-türetimli DEĞİL (taban-bağlı): "
+                                f"{', '.join(sorted(not_derived))} — tolerans "
+                                f"ölçümden değil varsayılandan geliyor "
+                                f"(G-050/G-014)")
+                        unreliable_hit = [j for j in graded
+                                          if j in unreliable_pairs]
+                        if unreliable_hit:
+                            violations.append(
+                                f"{lid}: AÇIK form-notu ama şu eklem(ler) "
+                                f"referansta GÜVENİLMEZ işaretli: "
+                                f"{', '.join(sorted(unreliable_hit))} — "
+                                f"eğitmenlerin anlaşamadığı eklem üzerine "
+                                f"hüküm kurulamaz (G-059/V17)")
 
     return violations
 
@@ -132,6 +175,10 @@ def _self_test():
 
     def lookup(cid):
         return copy.deepcopy(catalogs.get(cid))
+
+    def ref_lookup(mid):
+        p = HARVEST_DIR / f"reference.{mid}.json"
+        return load(p) if p.exists() else None
 
     def live(lib):
         return next(m for m in lib["movements"] if m["status"] == "live")
@@ -165,9 +212,32 @@ def _self_test():
         live(lib)["comingSoonInThisMovement"] = ["soon"]
 
     def mut_k7(lib):
+        # Taban-bağlı eklemi notlayan AÇIK ders.
         l = graded_lesson(lib)
         l.pop("status")
         l.pop("lockedReason")
+
+    def mut_k7_nodecl(lib):
+        # gradesFormAgainstReference AÇIK ama gradedJoints beyan YOK.
+        l = graded_lesson(lib)
+        l.pop("status")
+        l.pop("lockedReason")
+        l.pop("gradedJoints", None)
+
+    def mut_k7_unreliable(lib):
+        # G-072 deliği: eklem VARYANS-türetimli ama referansta GÜVENİLMEZ.
+        # squat: derivedJoints=[elbow,forearm,shoulder,upper_arm],
+        #        unreliableJoints=[left/right_elbow, left/right_forearm]
+        sq = soon(lib)
+        sq["status"] = "live"
+        sq["courses"] = [{
+            "id": "leg_foundations",
+            "lessons": [{
+                "id": "leg_foundations.arm_grade",
+                "gradesFormAgainstReference": True,
+                "gradedJoints": ["elbow"],
+            }],
+        }]
 
     cases = [
         ("K1 coming_soon'da kurs", mut_k1, "coming_soon ama"),
@@ -176,13 +246,17 @@ def _self_test():
         ("K4 boş notMeasured", mut_k4, "notMeasured boş"),
         ("K5 gerekçesiz kilit", mut_k5, "lockedReason yok"),
         ("K6 gerekçesiz comingSoon", mut_k6, "gerekçesiz"),
-        ("K7 dayanaksız form notu", mut_k7, "derivedJoints BOŞ"),
+        ("K7a dayanaksız form notu", mut_k7, "varyans-türetimli DEĞİL"),
+        ("K7b gradedJoints beyansız", mut_k7_nodecl,
+         "`gradedJoints` beyan edilmemiş"),
+        ("K7c güvenilmez eklem notlanıyor", mut_k7_unreliable,
+         "GÜVENİLMEZ işaretli"),
     ]
 
     ok = True
     # Temiz taban ÖNCE: mutasyonsuz kütüphane ihlalsiz olmalı, yoksa
     # aşağıdaki her testin "yakaladı" demesi anlamsızdır.
-    if check(copy.deepcopy(base_lib), lookup):
+    if check(copy.deepcopy(base_lib), lookup, ref_lookup):
         print("   ⛔ TABAN KİRLİ — mutasyonsuz kütüphane ihlal veriyor")
         return 1
     print("   ✅ taban temiz (mutasyonsuz kütüphane ihlalsiz)")
@@ -190,7 +264,7 @@ def _self_test():
     for name, mutate, expect in cases:
         lib = copy.deepcopy(base_lib)
         mutate(lib)
-        found = check(lib, lookup)
+        found = check(lib, lookup, ref_lookup)
         hit = any(expect in v for v in found)
         print(f"   {'✅' if hit else '⛔'} {name}: "
               f"{'yakalandı' if hit else 'YAKALANMADI — SAHTE KAPI'}")
@@ -207,13 +281,13 @@ def _self_test():
             cat["engine"]["precondition"]["status"] = "pending"
         return cat
 
-    found = check(lib, lookup_pending)
+    found = check(lib, lookup_pending, ref_lookup)
     hit = any("DERIVED olmalı" in v for v in found)
     print(f"   {'✅' if hit else '⛔'} K8 pending ön koşulla live: "
           f"{'yakalandı' if hit else 'YAKALANMADI — SAHTE KAPI'}")
     ok = ok and hit
 
-    print("✅ 8/8 kapı ateşlendi" if ok else "⛔ bazı kapılar ateşlenmedi")
+    print("✅ 10/10 kapı ateşlendi" if ok else "⛔ bazı kapılar ateşlenmedi")
     return 0 if ok else 1
 
 
@@ -224,7 +298,11 @@ def main():
 
     lib = load(LIB_PATH)
     catalogs = {p.stem: load(p) for p in CATALOG_DIR.glob("*.json")}
-    violations = check(lib, lambda cid: catalogs.get(cid))
+    def ref_lookup(mid):
+        p = HARVEST_DIR / f"reference.{mid}.json"
+        return load(p) if p.exists() else None
+
+    violations = check(lib, lambda cid: catalogs.get(cid), ref_lookup)
 
     if violations:
         print(f"⛔ {len(violations)} DÜRÜSTLÜK İHLALİ:")
@@ -241,7 +319,7 @@ def main():
     print(f"✅ kütüphane denetimi TEMİZ — {len(lib['movements'])} hareket "
           f"({len(live)} canlı: {live} · {len(soon)} yakında: {soon}) · "
           f"{lessons} ders ({locked} kilitli, hepsi isimli gerekçeli) · "
-          f"8 değişmez")
+          f"8 değişmez (10 kapı dalı)")
     return 0
 
 
