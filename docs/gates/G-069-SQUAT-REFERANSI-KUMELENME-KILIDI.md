@@ -1,5 +1,15 @@
 # G-069 — squat referansı M-F-47 anlaşma kapısında KİLİTLENDİ (14°'de de 30°'de de)
 
+> ## ⛔ TEŞHİS GERİ ÇEKİLDİ — bkz. `G-070-G069-DUZELTMESI-UYGUNLUK-KATMANI.md`
+>
+> Bu belgenin **sayıları geçerli** (sapan take'ler, dereceler, iki toleransta
+> da kilitlenme). **Teşhisi YANLIŞ:** aşağıda "3 kaynak diğer 9'dan sapıyor"
+> deniyor; gerçekte diğer 9 kaynak M-F-47 kapısına **hiç ulaşmadı** — 233
+> take'in 133'ü `referenceEligible: false` olduğu için kapıdan ÖNCE düştü.
+> Kapıya yalnız 100 take / 3 kaynak ulaştı ve sapan set, o uygun setin
+> **birebir tamamı**. Aşağıdaki "yorum" ve "üç seçenek" bölümleri bu yanlış
+> teşhise dayanıyor — G-070'i okumadan kullanılmamalı.
+
 **Bağlam:** G-068'in hazırlık notundaki 3. açık karar ("hipKneeCoupling eşiği
 hâlâ provisional, ilk referans buna dayanırsa risk taşır mı") koordinatör
 M-F-106 hükmüyle KAPATILMIŞ ve yeşil ışık verilmişti: 12 PASS eğitmenin
