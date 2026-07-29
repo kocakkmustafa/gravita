@@ -2,7 +2,7 @@
   "schema": "motion-core/reference@1",
   "technique": "bodyweight_squat",
   "measurementProvenance": "ATTESTED",
-  "generatedAt": "2026-07-29T23:42:41.027655Z",
+  "generatedAt": "2026-07-29T23:54:52.690375Z",
   "gates": {
     "minTakes": 3,
     "minSources": 3,
@@ -3100,6 +3100,7 @@
       "Jeremy_Ethier_w15_r0",
       "Jeremy_Ethier_w4_r0"
     ],
+    "medoidTakeId": "Jeff_Nippard_w13_r0",
     "mirrorConfident": false,
     "mirrorGapMeasured": false,
     "mirrorSearchDecisive": false,
