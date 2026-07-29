@@ -394,6 +394,16 @@
       "noiseBand": 5,
       "source": "provisional",
       "desc": "Kalça menteşesinin derinliği (gövde-uyluk kapanması). Squat'tan farkı: diz açısı korunur."
+    },
+    "knee_angle_asymmetry": {
+      "unit": "deg",
+      "range": [
+        0,
+        180
+      ],
+      "noiseBand": 6,
+      "source": "provisional",
+      "desc": "İki diz açısı arasındaki fark. DİK hareketlerin kimlik sinyali (G-047): gövde açısı ayakta konuşmayı squat'tan ayıramaz, diz simetrisi yürüme/lunge/step-up'tan ayırır. Eşik ÖLÇÜMLE türetilecek — squat hasadı bekliyor."
     }
   }
 }

@@ -78,6 +78,21 @@ final class MovementMetrics {
     return (l - r).abs();
   }
 
+  /// İki bacak arasındaki diz açısı farkı — DİK hareketlerin kimlik sinyali.
+  ///
+  /// Gövde açısı dik hareketlerde ayırt edici DEĞİLDİR (G-047): ayakta konuşmak
+  /// da dik duruştur. Squat'ın gerçek karıştırıcıları yürüme, oturma, lunge ve
+  /// step-up'tır — hepsinde diz çevrimi VAR. Ortak ayırt edici özellikleri
+  /// asimetri: squat'ta iki diz BİRLİKTE bükülür, ötekilerde ayrışır.
+  ///
+  /// Taraf etiketine bağlanmaz; iki zinciri karşılaştırır (ADR-003).
+  double get kneeAngleAsymmetry {
+    final double l = _jointAngle(Lm.leftHip, Lm.leftKnee, Lm.leftAnkle);
+    final double r = _jointAngle(Lm.rightHip, Lm.rightKnee, Lm.rightAnkle);
+    if (l.isNaN || r.isNaN) return double.nan;
+    return (l - r).abs();
+  }
+
   /// Gövde hattının düşeyden sapması (0 = dik).
   double get torsoAngleFromVertical {
     final double sx = (_x(Lm.leftShoulder) + _x(Lm.rightShoulder)) / 2;
@@ -182,6 +197,7 @@ final class MovementMetrics {
         'hip_angle' => hipAngle,
         'shoulder_angle' => shoulderAngle,
         'elbow_angle_asymmetry' => elbowAngleAsymmetry,
+        'knee_angle_asymmetry' => kneeAngleAsymmetry,
         'torso_angle_from_vertical' => torsoAngleFromVertical,
         'line_deviation_deg' => lineDeviationDeg,
         'lumbar_flexion_proxy' => lumbarFlexionProxy,
