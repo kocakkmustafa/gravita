@@ -2,13 +2,14 @@
   "schema": "motion-core/reference@1",
   "technique": "bodyweight_squat",
   "measurementProvenance": "ATTESTED",
-  "generatedAt": "2026-07-29T23:10:52.325650Z",
+  "generatedAt": "2026-07-29T23:23:53.343271Z",
   "gates": {
     "minTakes": 3,
     "minSources": 3,
     "clusterToleranceDeg": 14.0,
     "minVisibleShare": 0.6,
-    "cycleSegmentation": true
+    "cycleSegmentation": true,
+    "agreementGateJoints": "all"
   },
   "cycleSegmentation": {
     "state": "notApplied",
@@ -2820,6 +2821,190 @@
       "periodUnmeasured": "moving but not repeating — no prominent ACF peak (M-C-25)"
     }
   ],
+  "evidenceThickness": {
+    "takes": {
+      "Jeff_Nippard_w11_r0": {
+        "frames": 41,
+        "durationS": 1.83333,
+        "alignedDistinctShare": 0.38317757009345793
+      },
+      "Jeff_Nippard_w13_r0": {
+        "frames": 107,
+        "durationS": 4.41666,
+        "alignedDistinctShare": 1.0
+      },
+      "Jeff_Nippard_w14_r0": {
+        "frames": 68,
+        "durationS": 2.79166,
+        "alignedDistinctShare": 0.6355140186915887
+      },
+      "Jeff_Nippard_w20_r0": {
+        "frames": 137,
+        "durationS": 5.66667,
+        "alignedDistinctShare": 1.0
+      },
+      "Jeff_Nippard_w24_r1": {
+        "frames": 73,
+        "durationS": 4.25,
+        "alignedDistinctShare": 0.616822429906542
+      },
+      "Jeremy_Ethier_w4_r1": {
+        "frames": 198,
+        "durationS": 6.6066,
+        "alignedDistinctShare": 1.0
+      },
+      "K_boges_w0_r10": {
+        "frames": 68,
+        "durationS": 3.003,
+        "alignedDistinctShare": 0.5420560747663551
+      },
+      "K_boges_w0_r14": {
+        "frames": 67,
+        "durationS": 2.96964,
+        "alignedDistinctShare": 0.5233644859813084
+      },
+      "K_boges_w0_r17": {
+        "frames": 67,
+        "durationS": 3.03637,
+        "alignedDistinctShare": 0.5327102803738317
+      },
+      "K_boges_w0_r34": {
+        "frames": 71,
+        "durationS": 3.23657,
+        "alignedDistinctShare": 0.5514018691588785
+      },
+      "K_boges_w0_r35": {
+        "frames": 71,
+        "durationS": 3.16983,
+        "alignedDistinctShare": 0.5607476635514018
+      },
+      "K_boges_w0_r37": {
+        "frames": 68,
+        "durationS": 3.03637,
+        "alignedDistinctShare": 0.5327102803738317
+      },
+      "K_boges_w0_r38": {
+        "frames": 69,
+        "durationS": 3.06973,
+        "alignedDistinctShare": 0.5514018691588785
+      },
+      "K_boges_w0_r39": {
+        "frames": 74,
+        "durationS": 3.1031,
+        "alignedDistinctShare": 0.5700934579439252
+      },
+      "K_boges_w0_r40": {
+        "frames": 69,
+        "durationS": 3.06974,
+        "alignedDistinctShare": 0.5420560747663551
+      },
+      "K_boges_w0_r42": {
+        "frames": 69,
+        "durationS": 3.1031,
+        "alignedDistinctShare": 0.5420560747663551
+      },
+      "K_boges_w0_r9": {
+        "frames": 64,
+        "durationS": 2.9029,
+        "alignedDistinctShare": 0.5046728971962616
+      },
+      "Strength_Side_w8_r13": {
+        "frames": 87,
+        "durationS": 2.86953,
+        "alignedDistinctShare": 0.6355140186915887
+      },
+      "Strength_Side_w8_r14": {
+        "frames": 85,
+        "durationS": 2.8028,
+        "alignedDistinctShare": 0.6074766355140186
+      },
+      "THENX_w3_r2": {
+        "frames": 38,
+        "durationS": 1.48,
+        "alignedDistinctShare": 0.32710280373831774
+      },
+      "THENX_w3_r3": {
+        "frames": 39,
+        "durationS": 1.52,
+        "alignedDistinctShare": 0.3364485981308411
+      },
+      "THENX_w3_r4": {
+        "frames": 40,
+        "durationS": 1.56,
+        "alignedDistinctShare": 0.35514018691588783
+      },
+      "THENX_w5_r3": {
+        "frames": 39,
+        "durationS": 1.52,
+        "alignedDistinctShare": 0.3644859813084112
+      },
+      "THENX_w5_r5": {
+        "frames": 33,
+        "durationS": 1.28,
+        "alignedDistinctShare": 0.308411214953271
+      },
+      "THENX_w5_r6": {
+        "frames": 33,
+        "durationS": 1.28,
+        "alignedDistinctShare": 0.2897196261682243
+      },
+      "THENX_w5_r7": {
+        "frames": 35,
+        "durationS": 1.36,
+        "alignedDistinctShare": 0.3177570093457944
+      },
+      "THENX_w6_r1": {
+        "frames": 38,
+        "durationS": 1.48,
+        "alignedDistinctShare": 0.3364485981308411
+      },
+      "THENX_w6_r2": {
+        "frames": 40,
+        "durationS": 1.56,
+        "alignedDistinctShare": 0.3364485981308411
+      },
+      "THENX_w7_r2": {
+        "frames": 36,
+        "durationS": 1.4,
+        "alignedDistinctShare": 0.3364485981308411
+      },
+      "THENX_w7_r3": {
+        "frames": 38,
+        "durationS": 1.48,
+        "alignedDistinctShare": 0.34579439252336447
+      },
+      "THENX_w7_r4": {
+        "frames": 38,
+        "durationS": 1.48,
+        "alignedDistinctShare": 0.32710280373831774
+      },
+      "THENX_w7_r5": {
+        "frames": 33,
+        "durationS": 1.28,
+        "alignedDistinctShare": 0.308411214953271
+      },
+      "THENX_w7_r7": {
+        "frames": 31,
+        "durationS": 1.2,
+        "alignedDistinctShare": 0.24299065420560748
+      },
+      "WeShape_w10_r3": {
+        "frames": 32,
+        "durationS": 1.29296,
+        "alignedDistinctShare": 0.29906542056074764
+      },
+      "WeShape_w10_r5": {
+        "frames": 31,
+        "durationS": 1.25125,
+        "alignedDistinctShare": 0.2897196261682243
+      },
+      "WeShape_w10_r6": {
+        "frames": 34,
+        "durationS": 1.37638,
+        "alignedDistinctShare": 0.3177570093457944
+      }
+    }
+  },
   "result": {
     "contributingTakes": 36,
     "sources": [
