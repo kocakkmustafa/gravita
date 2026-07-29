@@ -1,0 +1,31 @@
+{
+  "parkedAt": "2026-07-29T16:13:16+03:00",
+  "movement": "bodyweight_squat",
+  "library": "~/motion-harvest/gravita-squat",
+  "$why": "Oturum tazeleniyor; hasat KESİLMEDİ, arka planda sürüyor. Bu not yeniden başlarken nereden devam edileceğini söyler.",
+  "attempted": 21,
+  "landmarksOnDisk": 18,
+  "totalCandidates": 32,
+  "http403_retryNeeded": [
+    "LszCaPOFWHg",
+    "BTfEFDXp-cw",
+    "5z9ibDZ5ZQY",
+    "0V7BtcG7E4Y"
+  ],
+  "notYetAttempted": [
+    "8Kls95w2jFA",
+    "bEv6CCg2BC8",
+    "sdeQjm7avi8",
+    "gcNh17Ckjgg",
+    "ZtzaFmipv1U",
+    "RClKKQqsvXA",
+    "H1H1WKSm5CU",
+    "CGVxvqxUDz8",
+    "9bXKZnMLi6E",
+    "HFnSsLIB7a4",
+    "2t3Ab7a2ZM4"
+  ],
+  "$nextSessionFirstJob": "DİZ-SİMETRİSİ EŞİK TÜRETİMİ. kneeAngleAsymmetry metriği uygulandı ve metrics.json'a kayıtlı; eşik BİLİNÇLİ olarak boş. Squat fixture'larından dağılımı ölç, sonra rig perMovement.identity.kneeSymmetry'de status/basis/max üçlüsünü BİRLİKTE doldur ve orkestratöre commit'le bildir. Ölçmeden eşik yazmak G-043'ün kendisini tekrarlamaktır.",
+  "$blockedUntilThreshold": "bodyweight_squat.engine.precondition.status = pending → V15 ve harvest_reps tekrar çıkarımını ZATEN reddediyor (fail-closed). Kilit doğru yerde.",
+  "$identityDecision": "M-F-60: squat kimliği = diz-simetrisi (bu app'in tanımı) VE kalça-diz fleksiyon bağlaşımı (Lissom türetiyor) BİRLİKTE. Diz-simetrisi tek başına yüzüstü diz bükme sınıfını yakalamaz."
+}
