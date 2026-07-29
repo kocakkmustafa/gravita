@@ -23,6 +23,80 @@ import 'harvest_reps.dart' show mandatoryFor, requiredFor;
 /// çevirdiğinde `left_elbow` adı aynı kalır ama işaret ettiği FİZİKSEL eklem
 /// değişir. Çıktı bu yüzden `lead_*`/`off_*` soyutlamasıyla yazılır: ad, o
 /// referansta hangi tarafın önde olduğuna göre çözülür.
+/// M-F-55(2) — DIŞLANANI ÖLÇ: aykırı take neden aykırı?
+///
+/// Anlaşma kapısı bir take'i eler ama NEDEN elediğini söylemez ve iki neden
+/// taban tabana zıttır:
+///
+///  * **Kurulum/farklı hareket:** sapma BİRÇOK ekleme yayılmış. Take başka bir
+///    şey yapıyor (G-043 sınıfı) — tolerans hakkında bilgi TAŞIMAZ, dışarıda
+///    kalır. Toleransta fail-open, fail-closed'dan kötü sessiz-yanlıştır.
+///  * **Stil:** sapma AZ eklemde yoğunlaşmış ve take BOYUNCA kararlı. Eğitmen
+///    aynı hareketi kendi imzasıyla yapıyor — toleransın ölçmek İSTEDİĞİ şey,
+///    ama otomatik katılmaz (eklem-yetkisi app-side, M-F-51): `styleSpreadDeg`
+///    olarak DANIŞMA amaçlı yayınlanır.
+({String kind, List<String> joints, double maxDevDeg, double stabilityDeg})
+    classifyOutlier(
+  List<JointAngleVector> refFrames,
+  List<JointAngleVector> takeFrames,
+  double toleranceDeg,
+) {
+  const Dtw dtw = Dtw();
+  const AngularSimilarity sim = AngularSimilarity();
+  final DtwResult r = dtw.align(refFrames.length, takeFrames.length,
+      (int i, int j) => sim.distance(refFrames[i], takeFrames[j]));
+  final List<JointSpec> specs = refFrames.first.specs;
+  final List<String> offending = <String>[];
+  double maxDev = 0, stabilityOfWorst = double.nan;
+
+  for (int j = 0; j < specs.length; j++) {
+    final List<double> devs = <double>[];
+    for (int f = 0; f < refFrames.length; f++) {
+      final double a = refFrames[f].values[j];
+      final double b = takeFrames[r.refToLearner[f]].values[j];
+      if (a.isNaN || b.isNaN) continue;
+      // Dairesel fark (G-051): doğrusal çıkarma 179°/-179°'yi 358° sanar.
+      devs.add(math.atan2(math.sin(b - a), math.cos(b - a)) * 180 / math.pi);
+    }
+    if (devs.isEmpty) continue;
+    final double mean = devs.reduce((double x, double y) => x + y) / devs.length;
+    if (mean.abs() <= toleranceDeg) continue;
+    offending.add(specs[j].id);
+    if (mean.abs() > maxDev) {
+      maxDev = mean.abs();
+      // Take İÇİ kararlılık: sapma sabit bir ofset mi (stil), yoksa
+      // savruluyor mu (gürültü/başka hareket)?
+      double v = 0;
+      for (final double d in devs) {
+        v += (d - mean) * (d - mean);
+      }
+      stabilityOfWorst = math.sqrt(v / devs.length);
+    }
+  }
+
+  // BİRİNCİL EKSEN KARARLILIK, eklem sayısı değil.
+  //
+  // Gerekçe hem teorik hem ölçülmüş. Teorik: take BOYUNCA kararlı bir sapma
+  // SİSTEMATİK bir farktır (duruş/kurulum/stil); savrulan bir sapma aynı
+  // hareketin yapılmadığını söyler — kaç eklemde olduğu ikincildir.
+  // Ölçülmüş: bu veride take-içi kararlılık BİMODAL — 5,4/6,2/8,2° kümesi ile
+  // 27/30/38/40/52/67° kümesi arasında temiz bir boşluk var.
+  //
+  // Kararlı olanlar arasında eklem sayısı stili kurulumdan ayırır: birkaç
+  // eklemde yoğunlaşmış = imza; gövdeye yayılmış = kamera açısı/kurulum.
+  final bool stable =
+      !stabilityOfWorst.isNaN && stabilityOfWorst <= toleranceDeg;
+  final String kind = !stable
+      ? 'setup' // savruluyor: aynı hareket değil, tolerans bilgisi taşımaz
+      : (offending.length <= specs.length / 3 ? 'style' : 'setup');
+  return (
+    kind: kind,
+    joints: offending,
+    maxDevDeg: maxDev,
+    stabilityDeg: stabilityOfWorst
+  );
+}
+
 void main(List<String> args) async {
   final Directory dir = Directory(args.isEmpty
       ? '${Platform.environment['HOME']}/motion-harvest/gravita/landmarks'
@@ -195,8 +269,18 @@ void main(List<String> args) async {
   // ---- M-F-48: sıra bağımsızlığı -----------------------------------------
   // Global atama açgözlü-sıralı uzlaşmanın tohum bağımlılığını kaldırdı ama
   // "kaldırıldı" bir iddiadır; BU veride ölçülmeden kabul edilmez.
-  final List<ReferenceTake> shuffled = takes.reversed.toList()
-    ..insert(0, takes[takes.length ~/ 2]);
+  // ⚠️ GERÇEK PERMÜTASYON olmalı: ilk denememde `..insert(0, takes[n~/2])`
+  // yazmıştım — bu bir eleman EKLER, 59 take'i 60 yapıp birini iki kez sayar.
+  // Farklı bir çoklu-küme konsensüsü ve medoid'i haklı olarak kaydırır; ölçtüğü
+  // şey sıra bağımlılığı DEĞİLDİR. Doğrulayıcının kendisi doğrulanmalı.
+  final int k = takes.length ~/ 3;
+  final List<ReferenceTake> shuffled = <ReferenceTake>[
+    ...takes.sublist(k).reversed,
+    ...takes.sublist(0, k).reversed,
+  ];
+  assert(shuffled.length == takes.length &&
+      shuffled.map((ReferenceTake t) => t.id).toSet().length ==
+          takes.map((ReferenceTake t) => t.id).toSet().length);
   final CanonicalReference alt = const ReferenceBuilder().build(shuffled);
   double maxDelta = 0;
   final int n = ref.frames.length < alt.frames.length
@@ -236,6 +320,85 @@ void main(List<String> args) async {
   stdout.writeln('M-F-47: ${ref.excludedOutlierIds.length} aykırı kaynak '
       'dışlandı · çekirdek ayna güveni: ${ref.mirrorConfident}');
 
+  // ---- M-F-55(2): DIŞLANANI SINIFLANDIR ---------------------------------
+  // %34 dışlama M-F-52 sağlık eşiğini tetikliyor; "çok eledi" tek başına iyi
+  // ya da kötü değildir — NEYİ elediği belirler.
+  final Map<String, ReferenceTake> byId = <String, ReferenceTake>{
+    for (final ReferenceTake t in const ReferenceBuilder()
+        .resolveMirroring(takes)
+        .takes)
+      t.id: t,
+  };
+  final Map<String, List<String>> styleJoints = <String, List<String>>{};
+  final List<Map<String, dynamic>> outlierProfile = <Map<String, dynamic>>[];
+  final Map<String, int> kindCount = <String, int>{};
+  for (final String id in ref.excludedOutlierIds) {
+    final ReferenceTake? t = byId[id];
+    if (t == null) continue;
+    final ({String kind, List<String> joints, double maxDevDeg,
+            double stabilityDeg}) c =
+        classifyOutlier(ref.frames, t.frames, 14);
+    kindCount[c.kind] = (kindCount[c.kind] ?? 0) + 1;
+    if (c.kind == 'style') {
+      for (final String j in c.joints) {
+        styleJoints.putIfAbsent(j, () => <String>[]).add(id);
+      }
+    }
+    outlierProfile.add(<String, dynamic>{
+      'id': id,
+      'kind': c.kind,
+      'joints': c.joints,
+      'maxDevDeg': double.parse(c.maxDevDeg.toStringAsFixed(1)),
+      'withinTakeStabilityDeg':
+          c.stabilityDeg.isNaN ? null : double.parse(c.stabilityDeg.toStringAsFixed(1)),
+    });
+  }
+  stdout.writeln('M-F-55 dışlama profili: $kindCount'
+      '  (stil adayı eklemler: ${styleJoints.keys.join(", ")})');
+
+  // ---- G-050 SINAMASI: taban-bağlılığı KAPININ eseri mi? ----------------
+  // İddia şuydu: M-F-47 >14° sapanları elediği için kalanların dağılımı kapıyla
+  // üstten sınırlı, dolayısıyla tolerans yapay dar. Sınaması basit — kapıyı
+  // GENİŞLET ve dağılımın açılıp açılmadığına bak. Açılmıyorsa darlık kapının
+  // eseri DEĞİL, eğitmenler gerçekten o kadar benziyor.
+  final Map<String, dynamic> widened = <String, dynamic>{};
+  try {
+    final CanonicalReference wide =
+        const ReferenceBuilder().build(takes, clusterToleranceDeg: 30);
+    double sum = 0;
+    int cnt = 0;
+    for (int f = 0; f < wide.dispersion.length; f++) {
+      for (final double sd in wide.dispersion[f]) {
+        if (sd.isNaN) continue;
+        sum += sd * radToDeg;
+        cnt++;
+      }
+    }
+    double sumN = 0;
+    int cntN = 0;
+    for (int f = 0; f < ref.dispersion.length; f++) {
+      for (final double sd in ref.dispersion[f]) {
+        if (sd.isNaN) continue;
+        sumN += sd * radToDeg;
+        cntN++;
+      }
+    }
+    widened
+      ..['clusterToleranceDeg'] = 30
+      ..['takes'] = wide.contributingTakes
+      ..['excluded'] = wide.excludedOutlierIds.length
+      ..['meanDispersionDeg'] =
+          double.parse((sum / cnt).toStringAsFixed(2))
+      ..['baselineMeanDispersionDeg'] =
+          double.parse((sumN / cntN).toStringAsFixed(2));
+    stdout.writeln('G-050 sınaması — kapı 14° → 30°: '
+        'take ${ref.contributingTakes}→${wide.contributingTakes} · '
+        'ortalama dağılım ${(sumN / cntN).toStringAsFixed(2)}°→'
+        '${(sum / cnt).toStringAsFixed(2)}°');
+  } on ReferenceAgreementError catch (_) {
+    widened['error'] = 'geniş kapıda da kümelenme yok';
+  }
+
   // ---- Çıktı: J-034 gereği lead/off, MUTLAK taraf adı YOK ----------------
   final List<JointSpec> specs = ref.frames.first.specs;
   final Map<String, dynamic> out = <String, dynamic>{
@@ -251,6 +414,17 @@ void main(List<String> args) async {
     'instructors': qualified,
     'takes': ref.contributingTakes,
     'excludedOutlierIds': ref.excludedOutlierIds,
+    'outlierProfile': outlierProfile,
+    'outlierKindCount': kindCount,
+    r'$outlierProfileNote': 'M-F-55(2): dışlanan take NEDEN dışlandı? '
+        'setup = sapma birçok ekleme yayılmış (farklı hareket/kurulum, '
+        'tolerans bilgisi TAŞIMAZ) · style = az eklemde yoğunlaşmış + take '
+        'içinde kararlı ofset (toleransın ölçmek İSTEDİĞİ şey, ama otomatik '
+        'KATILMAZ — eklem-yetkisi app-side, M-F-51).',
+    'styleExcluded': <String, dynamic>{
+      for (final MapEntry<String, List<String>> e in styleJoints.entries)
+        e.key: e.value,
+    },
     'mirrorConfident': ref.mirrorConfident,
     'priorDisagreements': ref.priorDisagreements,
     'orderIndependenceMaxDeltaDeg': double.parse(maxDelta.toStringAsFixed(3)),
@@ -262,6 +436,7 @@ void main(List<String> args) async {
         'olarak yazılır; skorlayıcı tarafı kare başına görünen-taraf '
         'çözümüyle bağlar, ada göre DEĞİL.',
     'unreliableJoints': ref.unreliableJoints(),
+    'g050WidenedGateProbe': widened,
     'tolerances': <String, dynamic>{},
   };
   final Set<String> pairs = <String>{
