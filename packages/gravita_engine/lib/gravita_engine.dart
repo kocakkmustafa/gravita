@@ -4,5 +4,6 @@ library;
 export 'src/hold_engine.dart';
 export 'src/metrics.dart';
 export 'src/multiphase_engine.dart';
+export 'src/perturbation.dart';
 export 'src/movement_config.dart';
 export 'src/rep_engine.dart';
