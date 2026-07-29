@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "app": "gravita",
   "rule": "M-F-32: sayım birimi EĞİTMEN; hedef ~5 bağımsız eğitmen/teknik",
-  "discoveredAt": "2026-07-29T07:02:02+00:00",
+  "discoveredAt": "2026-07-29T09:14:22+00:00",
   "tool": "2026.07.04",
   "filters": {
     "min_duration_s": 90,
@@ -363,23 +363,73 @@
       "searchCore": "bodyweight squat technique tutorial",
       "rejectedForRelevance": [
         {
-          "title": "The Forgotten Bodyweight Legs Exercise (MOBILITY)",
-          "channel": "FitnessFAQs",
-          "reason": "başlıkta yok: ['squat', 'squats']"
+          "title": "Shrimp Squat vs Pistol Squat: Progressions and Single-Leg Strength Exercises for Balance",
+          "channel": "GMB Fitness (Praxis)",
+          "reason": "varyant/başka hareket: 'pistol'"
         },
         {
-          "title": "15 Most Effective Bodyweight Leg Exercises.",
-          "channel": "Strength Side",
-          "reason": "başlıkta yok: ['squat', 'squats']"
+          "title": "The Problem With Pistol Squats (MOBILITY FIX)",
+          "channel": "FitnessFAQs",
+          "reason": "varyant/başka hareket: 'pistol'"
         },
         {
           "title": "Squat Ankle Mobility Hack (Try This Test)",
           "channel": "Tom Merrick",
           "reason": "varyant/başka hareket: 'hack'"
+        },
+        {
+          "title": "How to Pistol Squat - 4 Beginner Progression Steps - Tapp Brothers",
+          "channel": "TappBrothers",
+          "reason": "varyant/başka hareket: 'pistol'"
+        },
+        {
+          "title": "Get Your First Pull Up - Use These 4 Bodyweight Exercises - Tapp Brothers",
+          "channel": "TappBrothers",
+          "reason": "başlıkta yok: ['squat', 'squats']"
+        },
+        {
+          "title": "Explanation of the /r/bodyweightfitness Recommended Routine by Antranik",
+          "channel": "Antranik Kizirian",
+          "reason": "başlıkta yok: ['squat', 'squats']"
+        },
+        {
+          "title": "Warmup for the r/bodyweightfitness Recommended Routine",
+          "channel": "Antranik Kizirian",
+          "reason": "başlıkta yok: ['squat', 'squats']"
+        },
+        {
+          "title": "Beginners Guide to Pistol Squats with Antranik",
+          "channel": "Antranik Kizirian",
+          "reason": "varyant/başka hareket: 'pistol'"
+        },
+        {
+          "title": "Bodyline Drills with Antranik",
+          "channel": "Antranik Kizirian",
+          "reason": "başlıkta yok: ['squat', 'squats']"
+        },
+        {
+          "title": "I Tried The Hardest Calisthenics Leg Exercise!",
+          "channel": "Calisthenicmovement",
+          "reason": "başlıkta yok: ['squat', 'squats']"
+        },
+        {
+          "title": "How To Train Calisthenics Every Day (The RIGHT Way)",
+          "channel": "Minus The Gym",
+          "reason": "başlıkta yok: ['squat', 'squats']"
+        },
+        {
+          "title": "My Calisthenics Beginner Routine With NO EQUIPMENT",
+          "channel": "Minus The Gym",
+          "reason": "başlıkta yok: ['squat', 'squats']"
         }
       ],
-      "instructorCount": 5,
-      "meetsTarget": true,
+      "instructorCount": 18,
+      "videoCount": 32,
+      "videosPerInstructor": 3,
+      "targetQualified": 5,
+      "assumedYieldRate": 0.2,
+      "discoveryTarget": 25,
+      "meetsTarget": null,
       "candidates": [
         {
           "id": "LszCaPOFWHg",
@@ -390,6 +440,38 @@
           "url": "https://www.youtube.com/watch?v=LszCaPOFWHg"
         },
         {
+          "id": "X5934zhTAQw",
+          "channel": "GMB Fitness (Praxis)",
+          "duration_s": 249,
+          "title": "Ankle Stretches Won't Fix Your Squat (Here's Why)",
+          "query": "GMB Fitness bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=X5934zhTAQw"
+        },
+        {
+          "id": "MnPuHBh48bA",
+          "channel": "GMB Fitness (Praxis)",
+          "duration_s": 293,
+          "title": "Fix Squat Knee Pain - 5 Bodyweight Squat Form Tips",
+          "query": "GMB Fitness bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=MnPuHBh48bA"
+        },
+        {
+          "id": "-W19J4VR7D0",
+          "channel": "FitnessFAQs",
+          "duration_s": 272,
+          "title": "How to Squat Correctly | Lift More Weight!",
+          "query": "FitnessFAQs bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=-W19J4VR7D0"
+        },
+        {
+          "id": "BTfEFDXp-cw",
+          "channel": "FitnessFAQs",
+          "duration_s": 547,
+          "title": "Improve Your Squat Mobility Forever (FULL WORKOUT)",
+          "query": "FitnessFAQs bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=BTfEFDXp-cw"
+        },
+        {
           "id": "gsNoPYwWXeM",
           "channel": "Calisthenicmovement",
           "duration_s": 222,
@@ -398,12 +480,12 @@
           "url": "https://www.youtube.com/watch?v=gsNoPYwWXeM"
         },
         {
-          "id": "jmqbh-i2SGQ",
-          "channel": "Strength Side",
-          "duration_s": 329,
-          "title": "How 100 Bodyweight Squats Changes the Human Physique.",
-          "query": "FitnessFAQs bodyweight squat technique tutorial",
-          "url": "https://www.youtube.com/watch?v=jmqbh-i2SGQ"
+          "id": "X0qC1k0Zi6k",
+          "channel": "Calisthenicmovement",
+          "duration_s": 480,
+          "title": "The Perfect Squat - Do it right!",
+          "query": "Calisthenic Movement bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=X0qC1k0Zi6k"
         },
         {
           "id": "WkdXHQ74khI",
@@ -414,12 +496,196 @@
           "url": "https://www.youtube.com/watch?v=WkdXHQ74khI"
         },
         {
+          "id": "OEsW3S_NAuc",
+          "channel": "Tom Merrick",
+          "duration_s": 659,
+          "title": "Can't Squat? Fix Your Hips! (FULL ROUTINE)",
+          "query": "Tom Merrick bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=OEsW3S_NAuc"
+        },
+        {
+          "id": "tuTjC6u03Lg",
+          "channel": "Tom Merrick",
+          "duration_s": 1109,
+          "title": "15 Minute Beginner Squat Flexibility Routine (FOLLOW ALONG)",
+          "query": "Tom Merrick bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=tuTjC6u03Lg"
+        },
+        {
           "id": "mla-gfQVQyA",
           "channel": "THENX",
           "duration_s": 489,
           "title": "DO 100 SQUATS EVERYDAY| LIFE CHANGING RESULTS",
           "query": "THENX bodyweight squat technique tutorial",
           "url": "https://www.youtube.com/watch?v=mla-gfQVQyA"
+        },
+        {
+          "id": "5z9ibDZ5ZQY",
+          "channel": "THENX",
+          "duration_s": 493,
+          "title": "DO THIS 100 SQUAT HOME WORKOUT | BUILD GLUTES & LEGS",
+          "query": "THENX bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=5z9ibDZ5ZQY"
+        },
+        {
+          "id": "SK-01VhVygg",
+          "channel": "THENX",
+          "duration_s": 700,
+          "title": "DO 200 SQUATS EVERYDAY | LIFE CHANGING RESULTS",
+          "query": "THENX bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=SK-01VhVygg"
+        },
+        {
+          "id": "65mNUsGx4XM",
+          "channel": "TappBrothers",
+          "duration_s": 799,
+          "title": "How To Squat (Do This 3X A Day) Hip & Spine Alignment",
+          "query": "Tapp Brothers bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=65mNUsGx4XM"
+        },
+        {
+          "id": "0KtrNQre5rQ",
+          "channel": "School of Calisthenics",
+          "duration_s": 243,
+          "title": "Fix Your Squat | Correct Bodyweight Squat Technique // School of Calisthenics",
+          "query": "Calisthenic Movement bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=0KtrNQre5rQ"
+        },
+        {
+          "id": "zWXToSCaq-Q",
+          "channel": "K boges",
+          "duration_s": 128,
+          "title": "Build Durable Legs and Strong Lungs With 100 Rep Squats!  (NO Equipment Needed)",
+          "query": "Kboges bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=zWXToSCaq-Q"
+        },
+        {
+          "id": "1MbmdD-qU-w",
+          "channel": "K boges",
+          "duration_s": 184,
+          "title": "Do Your Squats!",
+          "query": "Kboges bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=1MbmdD-qU-w"
+        },
+        {
+          "id": "A42XoqzXowM",
+          "channel": "K boges",
+          "duration_s": 190,
+          "title": "BW Squats Are A POWERFUL Tool For Your Fitness Goals",
+          "query": "Kboges bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=A42XoqzXowM"
+        },
+        {
+          "id": "0V7BtcG7E4Y",
+          "channel": "WeShape",
+          "duration_s": 535,
+          "title": "What Is A Bodyweight Squat ?",
+          "query": "Bodyweight Warrior bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=0V7BtcG7E4Y"
+        },
+        {
+          "id": "my0tLDaWyDU",
+          "channel": "Squat University",
+          "duration_s": 458,
+          "title": "How To Squat Correctly (NO BACK PAIN)",
+          "query": "Squat University bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=my0tLDaWyDU"
+        },
+        {
+          "id": "5alpa1IikQM",
+          "channel": "Squat University",
+          "duration_s": 620,
+          "title": "How To Perform The Perfect Squat (FOR ANY BODY TYPE)",
+          "query": "Squat University bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=5alpa1IikQM"
+        },
+        {
+          "id": "8Kls95w2jFA",
+          "channel": "Squat University",
+          "duration_s": 652,
+          "title": "Perfect Your Squat: Step-By-Step Form Guide",
+          "query": "Squat University bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=8Kls95w2jFA"
+        },
+        {
+          "id": "bEv6CCg2BC8",
+          "channel": "Jeff Nippard",
+          "duration_s": 660,
+          "title": "How To Get A Huge Squat With Perfect Technique (Fix Mistakes)",
+          "query": "Jeff Nippard bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=bEv6CCg2BC8"
+        },
+        {
+          "id": "sdeQjm7avi8",
+          "channel": "Jeff Nippard",
+          "duration_s": 669,
+          "title": "The Fastest Way To Blow Up Your Squat (4 Science-Based Steps)",
+          "query": "Jeff Nippard bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=sdeQjm7avi8"
+        },
+        {
+          "id": "gcNh17Ckjgg",
+          "channel": "Jeremy Ethier",
+          "duration_s": 435,
+          "title": "How to PROPERLY Squat for Growth (4 Easy Steps)",
+          "query": "Jeff Nippard bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=gcNh17Ckjgg"
+        },
+        {
+          "id": "ZtzaFmipv1U",
+          "channel": "Minus The Gym",
+          "duration_s": 266,
+          "title": "How To Hurt Your Back Doing Squats",
+          "query": "Minus The Gym bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=ZtzaFmipv1U"
+        },
+        {
+          "id": "RClKKQqsvXA",
+          "channel": "Buff Dudes Workouts",
+          "duration_s": 225,
+          "title": "How to Perform the Bodyweight Squat - Exercise Tutorial",
+          "query": " bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=RClKKQqsvXA"
+        },
+        {
+          "id": "H1H1WKSm5CU",
+          "channel": "Vast Fitness Academy",
+          "duration_s": 180,
+          "title": "PT TIPS: Correct technique for performing the squat",
+          "query": "physical therapist bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=H1H1WKSm5CU"
+        },
+        {
+          "id": "CGVxvqxUDz8",
+          "channel": "Sebastian Oreb",
+          "duration_s": 535,
+          "title": "How to PROPERLY Squat for Maximum  Growth (In Depth SQUAT Tutorial)",
+          "query": "strength coach bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=CGVxvqxUDz8"
+        },
+        {
+          "id": "9bXKZnMLi6E",
+          "channel": "Sebastian Oreb",
+          "duration_s": 572,
+          "title": "Squat Tutorial",
+          "query": "strength coach bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=9bXKZnMLi6E"
+        },
+        {
+          "id": "HFnSsLIB7a4",
+          "channel": "Strength Side",
+          "duration_s": 372,
+          "title": "Everyone should do this Basic Squat: Here's How",
+          "query": "beginner bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=HFnSsLIB7a4"
+        },
+        {
+          "id": "2t3Ab7a2ZM4",
+          "channel": "Passion.io",
+          "duration_s": 121,
+          "title": "How To Squat Properly - The Perfect Form & Technique by Brittne Babe",
+          "query": "beginner bodyweight squat technique tutorial",
+          "url": "https://www.youtube.com/watch?v=2t3Ab7a2ZM4"
         }
       ]
     }

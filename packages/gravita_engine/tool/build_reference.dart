@@ -356,6 +356,38 @@ void main(List<String> args) async {
   stdout.writeln('M-F-55 dışlama profili: $kindCount'
       '  (stil adayı eklemler: ${styleJoints.keys.join(", ")})');
 
+  final List<JointSpec> specs0 = ref.frames.first.specs;
+
+  // ---- G-056 SINAMASI: ayna sorusu bu MALZEMEDE anlamlı mı? -------------
+  // Hipotez (orkestratör): şınav iki-taraflı SİMETRİK bir harekettir; simetrik
+  // malzemede aynalama açıları neredeyse hiç değiştirmez, dolayısıyla yakın-
+  // beraberlik YAPISALDIR — ayna sorusu hem cevaplanamaz hem ÖNEMSİZ. Kararlılık
+  // kovalamak yanlış hedefi kovalamak olur.
+  //
+  // Sınama: sol-sağ eş eklemlerin açı farkı. Küçükse aynalama kimliğe yakındır.
+  double symSum = 0;
+  int symCnt = 0;
+  for (int f = 0; f < ref.frames.length; f++) {
+    for (int j = 0; j < specs0.length; j++) {
+      final String id = specs0[j].id;
+      if (!id.startsWith('left_')) continue;
+      final int k = specs0.indexWhere(
+          (JointSpec sp) => sp.id == id.replaceFirst('left_', 'right_'));
+      if (k < 0) continue;
+      final double a = ref.frames[f].values[j], b = ref.frames[f].values[k];
+      if (a.isNaN || b.isNaN) continue;
+      symSum += (math.atan2(math.sin(a - b), math.cos(a - b))).abs() * 180 / math.pi;
+      symCnt++;
+    }
+  }
+  final double meanLrDiffDeg = symCnt == 0 ? double.nan : symSum / symCnt;
+  // Sol-sağ farkı skorlama tabanının yarısından küçükse hareket aynalamaya
+  // KARŞI DUYARSIZDIR: ayna kararsızlığı bir kusur değil, malzemenin özelliği.
+  final bool mirrorAgnostic = meanLrDiffDeg < 7;
+  stdout.writeln('G-056 simetri: ortalama sol-sağ eklem farkı '
+      '${meanLrDiffDeg.toStringAsFixed(2)}° → '
+      '${mirrorAgnostic ? "AYNA-DUYARSIZ (kararsızlık YAPISAL, kovalanmaz)" : "aynalama anlamlı"}');
+
   // ---- G-050 SINAMASI: taban-bağlılığı KAPININ eseri mi? ----------------
   // İddia şuydu: M-F-47 >14° sapanları elediği için kalanların dağılımı kapıyla
   // üstten sınırlı, dolayısıyla tolerans yapay dar. Sınaması basit — kapıyı
@@ -400,7 +432,6 @@ void main(List<String> args) async {
   }
 
   // ---- Çıktı: J-034 gereği lead/off, MUTLAK taraf adı YOK ----------------
-  final List<JointSpec> specs = ref.frames.first.specs;
   final Map<String, dynamic> out = <String, dynamic>{
     'movement': movementId,
     'rule': 'M-F-38 + M-F-47; tolerans EĞİTMENLER-ARASI varyanstan türetilir',
@@ -430,6 +461,14 @@ void main(List<String> args) async {
     'orderIndependenceMaxDeltaDeg': double.parse(maxDelta.toStringAsFixed(3)),
     'orderIndependent': orderIndependent,
     'mirrorSetStableAcrossOrder': sameMirrorSet,
+    'meanLeftRightDiffDeg': double.parse(meanLrDiffDeg.toStringAsFixed(2)),
+    'mirrorAgnostic': mirrorAgnostic,
+    r'$mirrorAgnosticNote': 'G-056: şınav iki-taraflı simetrik bir harekettir. '
+        'Sol-sağ eklem farkı skorlama tabanının yarısından küçükse aynalama '
+        'açıları neredeyse değiştirmez — sıra-kararsızlığı bir KUSUR değil, '
+        'malzemenin özelliğidir ve kovalanmaz. Doğru davranış zaten uygulanıyor: '
+        'confident=false + M-F-46 kural 7 (taraf-bağımlı hüküm yok) + J-034 '
+        'çift-düzeyi tolerans.',
     r'$mirrorNote': mirrorNote,
     r'$sideNaming': 'J-034: global ayna-ataması `left_*` adının işaret ettiği '
         'FİZİKSEL eklemi değiştirebilir. Toleranslar bu yüzden eklem-ÇİFTİ '
@@ -440,14 +479,14 @@ void main(List<String> args) async {
     'tolerances': <String, dynamic>{},
   };
   final Set<String> pairs = <String>{
-    for (final JointSpec s in specs)
+    for (final JointSpec s in specs0)
       s.id.replaceFirst('left_', '').replaceFirst('right_', ''),
   };
   for (final String pair in pairs) {
     double free = 0, rawSd = 0;
     int cnt = 0;
-    for (int j = 0; j < specs.length; j++) {
-      if (!specs[j].id.endsWith(pair)) continue;
+    for (int j = 0; j < specs0.length; j++) {
+      if (!specs0[j].id.endsWith(pair)) continue;
       for (int f = 0; f < ref.frames.length; f++) {
         final Tolerance t = ref.toleranceAt(f, j);
         // `Tolerance.free` RADYANDIR (degrees ctor dönüştürür) — derece sanmak
