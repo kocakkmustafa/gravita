@@ -1,0 +1,121 @@
+{
+  "$comment": [
+    "Ders/kurs içerik katmanı — Ostinato library.json / JabLab library_test.dart desenini uyarlar (M-F-103/108).",
+    "Kütüphane -> Hareket sayfası -> Kurs -> Ders (W0-BILGI-MIMARISI §1). Her hareket KENDİ sayfası.",
+    "ELLE YAZILAN İDDİA YOKTUR: her lesson'ın açık/kilitli olması bir ÖLÇÜME dayanır ve",
+    "tools/validate_library.py bunu mekanik olarak denetler (LLM-denetim değil, aile kuralı).",
+    "",
+    "DÜRÜSTLÜK KURALLARI (validate_library.py):",
+    "  1. status=coming_soon olan harekette KURS OLAMAZ (sahte kurs listelenmez).",
+    "  2. Her kursun en az 1 dersi olmak zorunda (boş kurs listelenmez).",
+    "  3. Ders, katalogda BULUNMAYAN formError'a atıf yapamaz.",
+    "  4. Her harekette honesty bloku ZORUNLU (measurementContract'ten türer, elle yazılmaz — W0 §3).",
+    "  5. status=locked olan her ders lockedReason taşımak zorunda; lockedReason EŞİK DEĞERİ değil,",
+    "     EKSİK ÖLÇÜMÜN adı olmalı.",
+    "  6. comingSoon maddeleri gerekçesiz olamaz.",
+    "  --- Gravita'ya ÖZEL iki kural (kopya değil, aynı gerekçenin bu ürüne düşen hâli): ---",
+    "  7. gradesFormAgainstReference=true olan bir ders AÇIK olamaz, eğer hareketin",
+    "     provenance.derivedJoints listesi BOŞSA. Gerekçe G-050/G-014: taban-bağlı (floor) tolerans",
+    "     VARYANS-TÜRETİMLİ SAYILMAZ; eğitmenlerin ne kadar ayrıştığı ölçülmemişken form notu vermek,",
+    "     ölçümden değil varsayılandan gelen bir sayıyı kullanıcıya hüküm olarak sunmaktır.",
+    "  8. status=live olan bir harekette engine.precondition.status DERIVED olmak zorunda.",
+    "     Gerekçe G-043: kimlik ön koşulu yoksa tekrar FSM'i hareketi değil salınımı sayar",
+    "     (ayakta konuşan birinin dizi de bükülür). ⚠️ Bu kural, `preconditionStatus` beyanının",
+    "     ÜRÜN tarafındaki İLK tüketicisidir — beşinci canlılık sorusu (G-059).",
+    "",
+    "Ürün dili İngilizce (PRD §7, V1 yalnız `en`); bu $comment iç dokümandır."
+  ],
+  "schemaVersion": 1,
+  "productName": "Gravita — Skills & Strength",
+  "language": "en",
+  "movements": [
+    {
+      "id": "push_up",
+      "displayName": "Push-up",
+      "family": "push",
+      "level": "beginner",
+      "class": "A",
+      "status": "live",
+      "wave": "W1",
+      "catalogId": "push_up",
+      "blurb": "Set your phone down side-on so it can see you from head to heels. We count your reps, time your tempo, and tell you when a rep didn't go deep enough.",
+      "honesty": {
+        "measured": [
+          "Rep count — the engine refuses to count unless your torso is actually horizontal (identity gate, G-043)",
+          "Tempo (down/up timing) — measured from the real turnaround point, not from a threshold crossing (G-055)",
+          "Elbow range of motion per rep",
+          "Whether a rep was too shallow (partial_rom fires on real footage — replay gate, 8/8 rules live)"
+        ],
+        "notMeasured": [
+          "Force or load",
+          "Muscle activation",
+          "Hand pressure distribution",
+          "How your form compares to instructors — we harvested 5 instructors but NONE of the 9 joint tolerances came out of their measured disagreement yet (all 9 are still at the default floor). Until that changes we count and time your reps, we do not grade your shape against a reference."
+        ]
+      },
+      "courses": [
+        {
+          "id": "push_foundations",
+          "displayName": "Push Foundations",
+          "level": "beginner",
+          "goal": "Get honest rep counting and tempo on your push-up, and learn which depth actually counts.",
+          "estimatedMinutes": 15,
+          "lessons": [
+            {
+              "id": "push_foundations.reps_and_tempo",
+              "displayName": "Reps that count",
+              "focus": "rep_count",
+              "errorFocus": ["partial_rom"],
+              "minutes": 8,
+              "gradesFormAgainstReference": false,
+              "_why_unlocked": "Bu dersin dayandığı üç ölçüm de CANLI: (1) kimlik ön koşulu DERIVED ve üründe aktif (torso_angle_from_vertical>=60, G-043 — ayakta el hareketi tekrar SAYILMIYOR, testi var); (2) rep FSM 69/69 test yeşil ve replay kapısında push_up'ın 8 biriminin 8'i GERÇEK veride ateşleniyor, 0 ölü; (3) tempo eşik geçişinden değil gerçek dönüş anından ölçülüyor (G-055) — yani sayım eşiği değişse tempo bozulmuyor. partial_rom İSİMLİ ürün eşiği (110°) ve G-054'ten beri gerçek veride ateşleniyor. Hiçbiri referans toleransına bağlı DEĞİL."
+            },
+            {
+              "id": "push_foundations.form_check",
+              "displayName": "Body-line check",
+              "focus": "form",
+              "errorFocus": ["hip_sag", "hip_pike", "head_drop", "asymmetric_press"],
+              "minutes": 7,
+              "gradesFormAgainstReference": true,
+              "status": "locked",
+              "lockedReason": "We can see your body line, but we can't grade it yet. We harvested 5 independent instructors — and every one of the 9 joint tolerances still sits at our default floor value, because the instructors' own measured spread came out narrower than that floor. That means a 'good line' number would come from our default, not from real instructors. We won't score you against that. Rep counting and depth are unaffected and stay open."
+            }
+          ]
+        }
+      ],
+      "comingSoonInThisMovement": [
+        "Body-line grading (hip sag / pike / head drop / uneven press) — the rules fire correctly on real footage, but no joint tolerance is variance-derived yet (derivedJoints is empty; all 9 floor-bound, G-014/G-050), so we show the cue and never a score",
+        "Side-dependent cues (\"your left arm is...\") — the pose model's left/right labels are not trustworthy in this camera setup, so all rules stay side-agnostic (ADR-003 / G-007)",
+        "Hand pressure and load — a single camera cannot see either; this is a permanent limit, not a pending measurement"
+      ]
+    },
+    {
+      "id": "bodyweight_squat",
+      "displayName": "Bodyweight squat",
+      "family": "legs",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "bodyweight_squat",
+      "blurb": "Squat coaching isn't open yet. We have the movement rules written, but we haven't finished proving them — details below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is graded yet. Three separate things are still missing, and each one alone is enough for us to keep this closed.",
+          "We have no instructor reference. Of 27 harvested squat videos only 4 passed source-eligibility, they come from just 3 instructors, and those 3 do not agree with each other — not at our normal tolerance and not at double it. So we cannot yet say what a correct squat looks like (G-069/G-070).",
+          "The engine has no squat identity check. For push-ups we verify your torso is horizontal before counting a rep; the equivalent test for squats hasn't been derived, so nothing stops a rep being counted while you're just standing and moving (G-043).",
+          "The squat error rules have never been run against real footage — there is no replay fixture for this movement, so we have no evidence they fire when they should.",
+          "Knee tracking side-to-side (valgus) — that needs a front-facing camera, not this setup. Permanent limit for this setup, not a pending measurement.",
+          "Weight distribution across the foot, force, or load — a single camera cannot see these."
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and depth — blocked on the identity precondition (engine.precondition.status is 'pending', conditions list empty), because counting reps without an identity check counts limb swing, not squats (G-043)",
+        "Depth and torso-angle grading — blocked on having any instructor reference at all; the only 3 eligible instructors disagree beyond twice our clustering tolerance (G-069), and how source-eligibility should be decided is itself under review (G-070)",
+        "Butt wink (lower-back rounding at the bottom) — the lumbar proxy metric carries landmark jitter risk at deep flexion and is marked pendingVerification, so it would not be graded even once a reference exists"
+      ]
+    }
+  ]
+}
