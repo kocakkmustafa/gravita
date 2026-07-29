@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "id": "lateral_raise",
+  "name": "Lateral Raise",
+  "family": "shoulders",
+  "muscleGroups": [
+    "side_delts"
+  ],
+  "equipment": [
+    "dumbbells"
+  ],
+  "wave": 2,
+  "level": "beginner",
+  "class": "D",
+  "classRationale": "Hareket FRONTAL düzlemde → yan kameradan foreshortening'e girer. Bu yüzden kamera ÖNE alınır ve o kadrajda ölçüm dürüsttür; ağırlık tespit edilmediği için sınıf D.",
+  "camera": {
+    "setup": "front",
+    "framing": "upper_body",
+    "calibrationGate": true,
+    "notes": "ÖN kamera zorunlu: kol yana açılması yan görüşten ölçülemez."
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "shoulder",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 80
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 20
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "bottom->top",
+    "minPhaseMs": 250,
+    "timeoutMs": 8000,
+    "tempo": {
+      "reportDescentMs": true,
+      "reportAscentMs": true
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo",
+      "How high you raise (abduction angle)",
+      "Left/right height symmetry",
+      "Torso sway"
+    ],
+    "notMeasured": [
+      "The dumbbells are not detected — load is not measured",
+      "Which part of the deltoid is working",
+      "Force"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "shoulder_abduction_deg"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "swinging",
+      "label": "Using body swing to lift",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "torso_angle_from_vertical",
+        "op": ">",
+        "value": 12
+      },
+      "cue": "Stand still — let your shoulders do the work.",
+      "perturbation": {
+        "metric": "torso_angle_from_vertical",
+        "targetValue": 20,
+        "via": {
+          "segment": "torso",
+          "deltaDeg": 20
+        }
+      }
+    },
+    {
+      "id": "partial_range",
+      "label": "Not raising high enough",
+      "priority": "blocking",
+      "detect": {
+        "metric": "shoulder_abduction_deg",
+        "op": "<",
+        "value": 70
+      },
+      "cue": "Raise until your arms are about shoulder height.",
+      "perturbation": {
+        "metric": "shoulder_abduction_deg",
+        "targetValue": 50,
+        "via": {
+          "clampTopAt": 50
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Face the phone.",
+      "Stand tall."
+    ],
+    "during": [
+      "Lead with your elbows.",
+      "Slow on the way down."
+    ],
+    "success": [
+      "Clean height, no swing."
+    ]
+  },
+  "safety": {
+    "warnings": [],
+    "hardGate": false
+  },
+  "courses": [
+    "shoulder_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

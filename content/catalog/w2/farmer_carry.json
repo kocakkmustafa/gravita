@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "id": "farmer_carry",
+  "name": "Farmer Carry",
+  "family": "carry",
+  "muscleGroups": [
+    "grip",
+    "traps",
+    "core"
+  ],
+  "equipment": [
+    "dumbbells"
+  ],
+  "wave": 2,
+  "level": "beginner",
+  "class": "D",
+  "classRationale": "Yürüme hareketi + ağırlık tespit edilmez. Kadraj YÜRÜME yönergesi ister (kullanıcı kadrajda kalmalı); ölçülen şey gövde dikliği ve omuz seviyesi.",
+  "camera": {
+    "setup": "walking_frame",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Kullanıcı kadraj boyunca yürür; kamera sabit, mesafe geniş."
+  },
+  "engine": {
+    "type": "staticHold",
+    "holdEntry": {
+      "requires": [
+        {
+          "metric": "torso_angle_from_vertical",
+          "op": "<=",
+          "value": 10
+        }
+      ],
+      "stableForMs": 1000
+    },
+    "minHoldMs": 8000,
+    "formBreak": [
+      {
+        "id": "torso_lean",
+        "metric": "torso_angle_from_vertical",
+        "op": ">",
+        "value": 16,
+        "sustainedMs": 1500,
+        "action": "warn",
+        "cue": "Stand taller — you're leaning as you walk."
+      },
+      {
+        "id": "shoulder_drop",
+        "metric": "elbow_angle_asymmetry",
+        "op": ">",
+        "value": 18,
+        "sustainedMs": 2000,
+        "action": "warn",
+        "cue": "Keep both shoulders level."
+      }
+    ],
+    "endsOn": [
+      "form_break_sustained",
+      "user_stop",
+      "confidence_lost"
+    ]
+  },
+  "measurementContract": {
+    "measured": [
+      "Carry duration",
+      "Torso upright over time",
+      "Shoulder level symmetry",
+      "Time until posture starts to break"
+    ],
+    "notMeasured": [
+      "The weights are not detected — load and distance are not measured",
+      "Grip endurance",
+      "Steps or pace"
+    ],
+    "gateableMetrics": [
+      "hold_duration_s",
+      "torso_angle_from_vertical",
+      "time_to_form_break_s"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "torso_lean",
+      "label": "Leaning while walking",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "torso_angle_from_vertical",
+        "op": ">",
+        "value": 16,
+        "sustainedMs": 1500
+      },
+      "cue": "Stand taller — ribs down, shoulders back.",
+      "perturbation": {
+        "metric": "torso_angle_from_vertical",
+        "targetValue": 24,
+        "via": {
+          "segment": "torso",
+          "deltaDeg": 24
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Set the phone wide so you stay in frame the whole walk."
+    ],
+    "during": [
+      "Tall and steady."
+    ],
+    "success": [
+      "Posture held."
+    ]
+  },
+  "safety": {
+    "warnings": [],
+    "hardGate": false
+  },
+  "courses": [
+    "carry_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

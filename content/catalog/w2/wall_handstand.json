@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "id": "wall_handstand",
+  "name": "Chest-to-Wall Handstand",
+  "family": "skill",
+  "muscleGroups": [
+    "shoulders",
+    "core"
+  ],
+  "equipment": [],
+  "wave": 2,
+  "level": "advanced",
+  "class": "A",
+  "classRationale": "TERS-DURUŞ: D1 kapısının konusu. Yönelim-farkında çıkarım (ADR-001) + yapısal denetim (ADR-002) zorunlu; bu iki mekanizma olmadan model kol↔bacak etiketlerini yüksek güvenle takas ediyor (ölçüldü).",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Tam boy + duvar kadrajda; ters-duruşta kullanıcı ekranı GÖRMEZ, akış sesle yürür."
+  },
+  "engine": {
+    "type": "staticHold",
+    "expectedOrientation": "inverted",
+    "structuralCheck": "required",
+    "holdEntry": {
+      "requires": [
+        {
+          "metric": "line_deviation_deg",
+          "op": "<=",
+          "value": 15
+        }
+      ],
+      "stableForMs": 800
+    },
+    "minHoldMs": 3000,
+    "formBreak": [
+      {
+        "id": "banana_back",
+        "metric": "lumbar_flexion_proxy",
+        "op": ">",
+        "value": 18,
+        "sustainedMs": 1200,
+        "action": "warn",
+        "cue": "Squeeze your glutes and ribs down — take the arch out."
+      },
+      {
+        "id": "bent_elbows",
+        "metric": "elbow_angle",
+        "op": "<",
+        "value": 155,
+        "sustainedMs": 1200,
+        "action": "warn",
+        "cue": "Push the floor away and straighten your arms."
+      }
+    ],
+    "endsOn": [
+      "form_break_sustained",
+      "user_stop",
+      "confidence_lost"
+    ]
+  },
+  "measurementContract": {
+    "measured": [
+      "Hold duration",
+      "Body-line alignment while inverted",
+      "Elbow straightness",
+      "Time until form starts to break",
+      "Analysis confidence"
+    ],
+    "notMeasured": [
+      "Wrist torque or how hard you are pressing — the camera cannot measure force",
+      "How close to the wall you are",
+      "Shoulder flexibility"
+    ],
+    "gateableMetrics": [
+      "hold_duration_s",
+      "line_deviation_deg",
+      "elbow_angle"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "banana_back",
+      "label": "Arching through the lower back",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "lumbar_flexion_proxy",
+        "op": ">",
+        "value": 18,
+        "sustainedMs": 1200
+      },
+      "cue": "Ribs down, squeeze your glutes — flatten the line.",
+      "perturbation": {
+        "metric": "lumbar_flexion_proxy",
+        "targetValue": 26,
+        "via": {
+          "segment": "lumbar",
+          "deltaDeg": 22
+        }
+      }
+    },
+    {
+      "id": "bent_elbows",
+      "label": "Elbows bending",
+      "priority": "blocking",
+      "detect": {
+        "metric": "elbow_angle",
+        "op": "<",
+        "value": 155,
+        "sustainedMs": 1200
+      },
+      "cue": "Push the floor away — straighten your arms.",
+      "perturbation": {
+        "metric": "elbow_angle",
+        "targetValue": 135,
+        "via": {
+          "joint": "elbow",
+          "clampAt": 135
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Set the phone side-on. You won't see the screen — listen."
+    ],
+    "during": [
+      "Push tall.",
+      "Ribs down."
+    ],
+    "success": [
+      "Straight line, arms locked."
+    ]
+  },
+  "safety": {
+    "warnings": [
+      "Falling is a real risk. Clear the space, use a wall, and come down the way you went up.",
+      "Build wrist tolerance before long holds."
+    ],
+    "hardGate": true
+  },
+  "courses": [
+    "handstand_path"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  },
+  "skillGraphNode": "chest_to_wall"
+}

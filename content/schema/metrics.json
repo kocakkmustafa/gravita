@@ -354,6 +354,46 @@
       "source": "provisional",
       "desc": "Gövde rotasyonu vekili (2D'de zayıf — dikkatli kullanılır).",
       "pendingVerification": true
+    },
+    "shoulder_abduction_deg": {
+      "unit": "deg",
+      "range": [
+        0,
+        180
+      ],
+      "noiseBand": 5,
+      "source": "provisional",
+      "desc": "Kolun gövdeden yana açılması (frontal düzlem). ⚠️ YAN kameradan ölçülemez — foreshortening; bu metriği kullanan hareket ÖN kamera ister."
+    },
+    "planche_lean_deg": {
+      "unit": "deg",
+      "range": [
+        0,
+        60
+      ],
+      "noiseBand": 4,
+      "source": "provisional",
+      "desc": "Omuzların bilek düşeyinin ÖNÜNE geçme açısı (planche eğimi). Taban 0 = omuz tam bileğin üstünde."
+    },
+    "wrist_stack_offset_torso": {
+      "unit": "torso_length",
+      "range": [
+        0,
+        1
+      ],
+      "noiseBand": 0.03,
+      "source": "provisional",
+      "desc": "Omuz-bilek düşey hizasının yatay kayması, gövdeye normalize."
+    },
+    "hinge_depth_deg": {
+      "unit": "deg",
+      "range": [
+        0,
+        120
+      ],
+      "noiseBand": 5,
+      "source": "provisional",
+      "desc": "Kalça menteşesinin derinliği (gövde-uyluk kapanması). Squat'tan farkı: diz açısı korunur."
     }
   }
 }

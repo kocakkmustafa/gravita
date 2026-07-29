@@ -6,7 +6,7 @@ import 'dart:convert';
 /// Dart tarafıdır; yeni hareket eklemek yeni JSON demektir, yeni kod değil.
 enum MovementClass { a, b, d }
 
-enum EngineType { repFsm, staticHold, multiPhaseFsm, inversion }
+enum EngineType { repFsm, staticHold, multiPhaseFsm }
 
 /// Ölçüm sözleşmesi. Dürüstlük kutusu **buradan üretilir**, elle yazılmaz —
 /// 180 hareketin elle yazılmış metni motorla kaçınılmaz olarak ayrışır.
@@ -342,6 +342,7 @@ final class MovementConfig {
     required this.hold,
     required this.multi,
     required this.cameraSetup,
+    required this.expectedOrientation,
   });
 
   factory MovementConfig.fromJson(Map<String, dynamic> j) {
@@ -349,8 +350,7 @@ final class MovementConfig {
     final EngineType t = switch (e['type'] as String) {
       'repFsm' => EngineType.repFsm,
       'staticHold' => EngineType.staticHold,
-      'multiPhaseFsm' => EngineType.multiPhaseFsm,
-      _ => EngineType.inversion,
+      _ => EngineType.multiPhaseFsm,
     };
     return MovementConfig(
       id: j['id'] as String,
@@ -371,6 +371,7 @@ final class MovementConfig {
       hold: t == EngineType.staticHold ? HoldConfig.fromJson(e) : null,
       multi: t == EngineType.multiPhaseFsm ? MultiPhaseConfig.fromJson(e) : null,
       cameraSetup: (j['camera'] as Map<String, dynamic>)['setup'] as String,
+      expectedOrientation: (e['expectedOrientation'] as String?) ?? 'upright',
     );
   }
 
@@ -388,6 +389,13 @@ final class MovementConfig {
   final HoldConfig? hold;
   final MultiPhaseConfig? multi;
   final String cameraSetup;
+
+  /// Ters-duruş bir motor tipi DEĞİL, bir yönelim niteliğidir: bir tutuş da bir
+  /// tekrar da (HSPU) ters olabilir. `inverted` ise motor ADR-001 yönelim-farkında
+  /// çıkarımını ve ADR-002 yapısal denetimini devreye alır.
+  final String expectedOrientation;
+
+  bool get isInverted => expectedOrientation == 'inverted';
 
   /// B sınıfı form hükmü VERMEZ (blueprint §1/§8) — bu, UI'ın değil motorun
   /// zorladığı bir kuraldır.

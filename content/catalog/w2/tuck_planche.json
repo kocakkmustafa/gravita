@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "id": "tuck_planche",
+  "name": "Tuck Planche",
+  "family": "skill",
+  "muscleGroups": [
+    "shoulders",
+    "core",
+    "chest"
+  ],
+  "equipment": [],
+  "wave": 2,
+  "level": "elite",
+  "class": "A",
+  "classRationale": "Statik · yere yakın · omuz-bilek ilişkisi yan kameradan tam görünür. Aspirasyonel: ROZET VERİLMEZ (blueprint §8), rehberli ilerleme.",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true
+  },
+  "engine": {
+    "type": "staticHold",
+    "holdEntry": {
+      "requires": [
+        {
+          "metric": "planche_lean_deg",
+          "op": ">=",
+          "value": 10
+        },
+        {
+          "metric": "elbow_angle",
+          "op": ">=",
+          "value": 150
+        }
+      ],
+      "stableForMs": 1000
+    },
+    "minHoldMs": 3000,
+    "formBreak": [
+      {
+        "id": "lean_lost",
+        "metric": "planche_lean_deg",
+        "op": "<",
+        "value": 6,
+        "sustainedMs": 1000,
+        "action": "warn_then_end",
+        "cue": "You're sinking back — lean your shoulders past your hands."
+      },
+      {
+        "id": "elbow_bend",
+        "metric": "elbow_angle",
+        "op": "<",
+        "value": 145,
+        "sustainedMs": 1000,
+        "action": "warn",
+        "cue": "Lock your elbows."
+      }
+    ],
+    "endsOn": [
+      "form_break_sustained",
+      "user_stop",
+      "confidence_lost"
+    ]
+  },
+  "measurementContract": {
+    "measured": [
+      "Hold duration",
+      "Shoulder lean past the wrists",
+      "Elbow straightness",
+      "Time until the lean collapses"
+    ],
+    "notMeasured": [
+      "How much of your weight is on the hands — the camera cannot measure load",
+      "Wrist strain",
+      "Scapular position"
+    ],
+    "gateableMetrics": [
+      "hold_duration_s",
+      "planche_lean_deg",
+      "elbow_angle"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "lean_lost",
+      "label": "Losing the forward lean",
+      "priority": "blocking",
+      "detect": {
+        "metric": "planche_lean_deg",
+        "op": "<",
+        "value": 6,
+        "sustainedMs": 1000
+      },
+      "cue": "Push your shoulders further past your hands.",
+      "perturbation": {
+        "metric": "planche_lean_deg",
+        "targetValue": 2,
+        "via": {
+          "clampAt": 2
+        }
+      }
+    },
+    {
+      "id": "elbow_bend",
+      "label": "Elbows bending",
+      "priority": "safety",
+      "detect": {
+        "metric": "elbow_angle",
+        "op": "<",
+        "value": 145,
+        "sustainedMs": 1000
+      },
+      "cue": "Lock your elbows — bent arms put the load on the joint.",
+      "perturbation": {
+        "metric": "elbow_angle",
+        "targetValue": 125,
+        "via": {
+          "joint": "elbow",
+          "clampAt": 125
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Hands under your shoulders, then lean forward."
+    ],
+    "during": [
+      "Lean, don't jump.",
+      "Lock the elbows."
+    ],
+    "success": [
+      "Solid lean, arms straight."
+    ]
+  },
+  "safety": {
+    "warnings": [
+      "High wrist and elbow load. Build the lean gradually; stop at joint pain.",
+      "This is an aspirational skill — progress is guided but not badged."
+    ],
+    "hardGate": true
+  },
+  "courses": [
+    "planche_path"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  },
+  "aspirational": true
+}

@@ -41,7 +41,10 @@
       "type": "object",
       "required": ["type"],
       "properties": {
-        "type": { "enum": ["repFsm", "staticHold", "multiPhaseFsm", "inversion"] }
+        "type": { "enum": ["repFsm", "staticHold", "multiPhaseFsm"] },
+        "expectedOrientation": { "enum": ["upright", "inverted"], "default": "upright",
+          "description": "Ters-duruş bir ZAMAN YAPISI değil YÖNELİMDİR: bir tutuş da bir tekrar da (HSPU) ters olabilir. `inverted` ise ADR-001 yönelim-farkında çıkarımı tetikler ve ADR-002 yapısal denetimi zorunlu olur." },
+        "structuralCheck": { "enum": ["required"] }
       },
       "allOf": [
         {
@@ -90,13 +93,10 @@
           }
         },
         {
-          "if": { "properties": { "type": { "const": "inversion" } } },
+          "if": { "properties": { "expectedOrientation": { "const": "inverted" } } },
           "then": {
-            "required": ["expectedOrientation"],
-            "properties": {
-              "expectedOrientation": { "const": "inverted", "description": "ADR-001 yönelim-farkında çıkarımı tetikler" },
-              "structuralCheck": { "const": "required" }
-            }
+            "required": ["structuralCheck"],
+            "description": "Ters yönelimde yapısal denetim ZORUNLU — güven kapısı kol↔bacak takasını yakalayamıyor (D1'de ölçüldü)"
           }
         }
       ]

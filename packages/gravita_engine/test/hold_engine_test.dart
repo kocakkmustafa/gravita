@@ -114,6 +114,8 @@ void main() {
     });
   });
 
+  _w2();
+
   group('MovementMetrics', () {
     test('düz plankta hat sapması ~0, kalça düşünce POZİTİF', () {
       final MovementMetrics flat =
@@ -131,5 +133,35 @@ void main() {
       expect(m.byName('cadence_spm'), isNull);
       expect(m.byName('line_deviation_deg'), isNotNull);
     });
+  });
+}
+
+/// W2 — ters yönelimli tutuş (chest-to-wall handstand).
+///
+/// D1'in ürüne dönüştüğü yer: `expectedOrientation: inverted` bir MOTOR TİPİ
+/// değil, HoldEngine'in aynı kodla çalıştırdığı bir yönelim niteliği. Motor
+/// yapısal denetime beklentiyi geçirir; geçirmezse model kol↔bacak etiketlerini
+/// yüksek güvenle takas edebilir (D1'de ölçüldü).
+void _w2() {
+  test('wall_handstand ters yönelim BEYAN ediyor ve yapısal denetim şart', () {
+    final MovementConfig c = MovementConfig.parse(
+        File('../../content/catalog/w2/wall_handstand.json').readAsStringSync());
+    expect(c.engineType, EngineType.staticHold,
+        reason: 'ters-duruş bir zaman yapısı değil, yönelim niteliği');
+    expect(c.isInverted, isTrue);
+    expect(c.hold, isNotNull, reason: 'tutuş motoru aynı kodla çalışmalı');
+    expect(c.hold!.formBreaks.map((FormBreak b) => b.id),
+        containsAll(<String>['banana_back', 'bent_elbows']));
+  });
+
+  test('floor_press sınıf B — form hükmü İDDİA ETMİYOR', () {
+    final MovementConfig c = MovementConfig.parse(
+        File('../../content/catalog/w2/floor_press.json').readAsStringSync());
+    expect(c.movementClass, MovementClass.b);
+    expect(c.claimsFormVerdict, isFalse);
+    final ({List<String> measured, List<String> notMeasured}) box = c.honestyBox();
+    expect(box.notMeasured.any((String s) => s.toLowerCase().contains('form verdict')),
+        isTrue, reason: 'B sınıfında "form hükmü yok" kullanıcıya AÇIKÇA söylenir');
+    expect(box.measured.any((String s) => s.toLowerCase().contains('form')), isFalse);
   });
 }

@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "id": "floor_press",
+  "name": "Floor Press",
+  "family": "dbkb",
+  "muscleGroups": [
+    "chest",
+    "triceps",
+    "front_delts"
+  ],
+  "equipment": [
+    "dumbbells"
+  ],
+  "wave": 2,
+  "level": "beginner",
+  "class": "B",
+  "classRationale": "SIRTÜSTÜ ve itiş yolu kameranın DERİNLİK EKSENİNİ kesiyor → foreshortening. Sınıf B adlandırılmış istisnası (blueprint §1/§2): rep + tempo + kurulum koçlanır, FORM HÜKMÜ verilmez ve pazarlamada da iddia edilmez.",
+  "camera": {
+    "setup": "side",
+    "framing": "upper_body",
+    "calibrationGate": true,
+    "notes": "Yan yatış; dirsek açısı kısmen görünür ama derinlik bileşeni ölçülemez."
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "elbow",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 155
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 95
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "bottom->top",
+    "minPhaseMs": 250,
+    "timeoutMs": 9000,
+    "tempo": {
+      "reportDescentMs": true,
+      "reportAscentMs": true
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo (down/up timing)",
+      "Setup checklist before the set starts"
+    ],
+    "notMeasured": [
+      "Form verdict — you press away from the camera, so depth and path can't be judged honestly",
+      "Range of motion",
+      "Whether your elbows flare",
+      "Force or load"
+    ],
+    "gateableMetrics": [
+      "rep_count"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [],
+  "cues": {
+    "setup": [
+      "Lie side-on to the phone so your arms are in frame."
+    ],
+    "during": [
+      "Steady tempo."
+    ],
+    "success": [
+      "Reps counted."
+    ]
+  },
+  "safety": {
+    "warnings": [],
+    "hardGate": false
+  },
+  "courses": [
+    "db_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

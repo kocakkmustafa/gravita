@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "id": "kb_swing",
+  "name": "Kettlebell Swing",
+  "family": "dbkb",
+  "muscleGroups": [
+    "glutes",
+    "hamstrings",
+    "core"
+  ],
+  "equipment": [
+    "kettlebell"
+  ],
+  "wave": 2,
+  "level": "intermediate",
+  "class": "D",
+  "classRationale": "Kettlebell'in kendisi TESPİT EDİLMEZ (sınıf D) — vücut mekaniği (menteşe derinliği, gövde açısı, kadans) koçlanır. Hareket sagittal düzlemde ve yan kameradan tam görünür.",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true,
+    "notes": "Kettlebell kadrajda olsun ama tespit edilmediği kullanıcıya söylenir."
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "hip",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 165
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 100
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "bottom->top",
+    "minPhaseMs": 250,
+    "timeoutMs": 7000,
+    "tempo": {
+      "reportCadence": true
+    },
+    "fastTransition": true,
+    "signalFilter": {
+      "cutoffHz": 8.0,
+      "derivedFrom": "salınım geçiş süresi ~120-200 ms; G3 çekimiyle yeniden türetilecek",
+      "rationale_tr": "J-027: balistik menteşe hızlı geçiştir; çekirdek varsayılan yumuşatması tepe noktasını söndürür. Kesim eşiklerle BİRLİKTE pinlenir."
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Cadence (swings per minute)",
+      "Hip hinge depth",
+      "Torso angle at the top",
+      "Knee bend (hinge vs squat check)"
+    ],
+    "notMeasured": [
+      "The kettlebell itself is not detected — weight, path and height are not measured",
+      "Grip or power output",
+      "Force"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "hinge_depth_deg",
+      "torso_angle_from_vertical"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "squatting_the_swing",
+      "label": "Squatting instead of hinging",
+      "priority": "major_alignment",
+      "detect": {
+        "metric": "knee_angle",
+        "op": "<",
+        "value": 110
+      },
+      "cue": "Push your hips back instead of bending your knees.",
+      "perturbation": {
+        "metric": "knee_angle",
+        "targetValue": 95,
+        "via": {
+          "joint": "knee",
+          "clampAt": 95
+        }
+      }
+    },
+    {
+      "id": "incomplete_extension",
+      "label": "Not standing all the way up",
+      "priority": "blocking",
+      "detect": {
+        "metric": "hip_angle",
+        "op": "<",
+        "value": 165
+      },
+      "cue": "Snap your hips fully straight at the top.",
+      "perturbation": {
+        "metric": "hip_angle",
+        "targetValue": 145,
+        "via": {
+          "clampTopAt": 145
+        }
+      }
+    },
+    {
+      "id": "lumbar_rounding",
+      "label": "Lower back rounding at the bottom",
+      "priority": "safety",
+      "detect": {
+        "metric": "lumbar_flexion_proxy",
+        "op": ">",
+        "value": 20
+      },
+      "cue": "Keep your chest proud — stop the hinge before your back rounds.",
+      "perturbation": {
+        "metric": "lumbar_flexion_proxy",
+        "targetValue": 28,
+        "via": {
+          "segment": "lumbar",
+          "deltaDeg": 22
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Stand side-on, full body in frame."
+    ],
+    "during": [
+      "Hips back, not down.",
+      "Snap at the top."
+    ],
+    "success": [
+      "Sharp hinge, tall finish."
+    ]
+  },
+  "safety": {
+    "warnings": [
+      "Ballistic movement — stop if your lower back complains rather than pushing through."
+    ],
+    "hardGate": true
+  },
+  "courses": [
+    "kb_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

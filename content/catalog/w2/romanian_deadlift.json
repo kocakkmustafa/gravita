@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "id": "romanian_deadlift",
+  "name": "Romanian Deadlift",
+  "family": "dbkb",
+  "muscleGroups": [
+    "hamstrings",
+    "glutes",
+    "spinal_erectors"
+  ],
+  "equipment": [
+    "dumbbells"
+  ],
+  "wave": 2,
+  "level": "intermediate",
+  "class": "D",
+  "classRationale": "Ağırlık tespit edilmez (sınıf D). Menteşe sagittal düzlemde ve yan kameradan tam görünür; ölçülen şey gövde-uyluk kapanması ve bel hattı.",
+  "camera": {
+    "setup": "side",
+    "framing": "full_body",
+    "calibrationGate": true
+  },
+  "engine": {
+    "type": "repFsm",
+    "signal": {
+      "kind": "jointAngle",
+      "joint": "hip",
+      "side": "visible"
+    },
+    "phases": {
+      "top": {
+        "angleMin": 165
+      },
+      "descent": {
+        "direction": "decreasing"
+      },
+      "bottom": {
+        "angleMax": 105
+      },
+      "ascent": {
+        "direction": "increasing"
+      }
+    },
+    "repCountedOn": "bottom->top",
+    "minPhaseMs": 250,
+    "timeoutMs": 10000,
+    "tempo": {
+      "reportDescentMs": true,
+      "reportAscentMs": true
+    }
+  },
+  "measurementContract": {
+    "measured": [
+      "Rep count",
+      "Tempo (eccentric emphasis)",
+      "Hinge depth",
+      "Lower-back position through the range",
+      "Knee bend consistency"
+    ],
+    "notMeasured": [
+      "The dumbbells are not detected — load and bar path are not measured",
+      "Hamstring stretch or effort",
+      "Force"
+    ],
+    "gateableMetrics": [
+      "rep_count",
+      "hinge_depth_deg",
+      "lumbar_flexion_proxy"
+    ],
+    "scoreDisplay": "band"
+  },
+  "formErrors": [
+    {
+      "id": "lumbar_rounding",
+      "label": "Lower back rounding",
+      "priority": "safety",
+      "detect": {
+        "metric": "lumbar_flexion_proxy",
+        "op": ">",
+        "value": 18
+      },
+      "cue": "Stop the hinge where your back is still flat.",
+      "perturbation": {
+        "metric": "lumbar_flexion_proxy",
+        "targetValue": 26,
+        "via": {
+          "segment": "lumbar",
+          "deltaDeg": 22
+        }
+      }
+    },
+    {
+      "id": "turning_into_squat",
+      "label": "Bending the knees too much",
+      "priority": "minor_form",
+      "detect": {
+        "metric": "knee_angle",
+        "op": "<",
+        "value": 140
+      },
+      "cue": "Keep your knees softly bent — push your hips back instead.",
+      "perturbation": {
+        "metric": "knee_angle",
+        "targetValue": 120,
+        "via": {
+          "joint": "knee",
+          "clampAt": 120
+        }
+      }
+    },
+    {
+      "id": "shallow_hinge",
+      "label": "Not hinging far enough",
+      "priority": "blocking",
+      "detect": {
+        "metric": "hinge_depth_deg",
+        "op": "<",
+        "value": 60
+      },
+      "cue": "Push your hips further back until you feel your hamstrings load.",
+      "perturbation": {
+        "metric": "hinge_depth_deg",
+        "targetValue": 42,
+        "via": {
+          "clampAt": 42
+        }
+      }
+    }
+  ],
+  "cues": {
+    "setup": [
+      "Stand side-on, full body in frame."
+    ],
+    "during": [
+      "Hips back.",
+      "Flat back."
+    ],
+    "success": [
+      "Deep hinge, back stayed flat."
+    ]
+  },
+  "safety": {
+    "warnings": [
+      "Reduce range before adding load if your back rounds."
+    ],
+    "hardGate": true
+  },
+  "courses": [
+    "db_foundations"
+  ],
+  "provenance": {
+    "sources": [],
+    "consensusN": 0,
+    "status": "pending_harvest"
+  }
+}

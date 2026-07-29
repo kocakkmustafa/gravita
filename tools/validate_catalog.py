@@ -11,6 +11,7 @@ Denetlenen değişmezler (hepsi bir DEFTER/ADR maddesine bağlı):
   V7  Dürüstlük      : her form hatasının kullanıcıya söylenecek bir `cue`u var
   V8  C sınıfı katalogda yer alamaz (exclusions.json'a gider)
   V9  timeout        : rep/çok-faz motorlarında fiziksel üst sınır zorunlu (JabLab J-009 dersi)
+  V12 ters yönelim   : `expectedOrientation: inverted` -> `structuralCheck: required` ZORUNLU
   V11 uç ayrıklığı   : repFsm'in iki ucu (angleMin/angleMax) ÖRTÜŞEMEZ — örtüşürse her kare
                        her iki uçta sayılır ve motor durmadan "tekrar" üretir
   V10 J-027          : `fastTransition: true` olan motor `signalFilter.cutoffHz` beyan ETMELİ —
@@ -27,7 +28,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 CATALOG = ROOT / "content" / "catalog"
 FAMILIES = {"push", "pull", "legs", "core", "shoulders", "skill", "barbell", "dbkb", "plyo", "carry"}
 PRIORITIES = {"safety", "blocking", "balance", "major_alignment", "minor_form", "optimization"}
-ENGINES = {"repFsm", "staticHold", "multiPhaseFsm", "inversion"}
+ENGINES = {"repFsm", "staticHold", "multiPhaseFsm"}
 # V3: bu metrikler patlayıcı/blur fazlardan gelir -> asla progresyon kapısı olamaz
 NON_GATEABLE = {"jump_height", "power", "force", "kickup_impulse", "exit_control",
                 "punch_velocity", "peak_speed", "explosive_power"}
@@ -160,8 +161,12 @@ def check(path):
     if et == "staticHold":
         if not eng.get("formBreak"):
             err(f, "staticHold: formBreak eksik — form kırılması tespit edilmeden tutuş ölçülmez")
-    if et == "inversion" and eng.get("expectedOrientation") != "inverted":
-        err(f, "inversion: expectedOrientation='inverted' olmalı (ADR-001)")
+    # V12: ters yönelim bir MOTOR TİPİ değil, bir yönelim niteliğidir — bir tutuş
+    # da bir tekrar da (HSPU) ters olabilir. `inverted` ise yapısal denetim ŞART:
+    # güven kapısı kol↔bacak takasını yakalayamıyor (D1'de ölçüldü).
+    if eng.get("expectedOrientation") == "inverted" and eng.get("structuralCheck") != "required":
+        err(f, "expectedOrientation=inverted ama structuralCheck='required' değil "
+               "(ADR-002: ters yönelimde güven kapısı takası kaçırıyor)")
 
     mc = m.get("measurementContract", {})
     if not mc.get("measured"):
