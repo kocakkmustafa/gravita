@@ -2,7 +2,7 @@
   "schema": "motion-core/reference@1",
   "technique": "push_up",
   "measurementProvenance": "ATTESTED",
-  "generatedAt": "2026-07-29T23:30:44.469406Z",
+  "generatedAt": "2026-07-29T23:39:48.504340Z",
   "gates": {
     "minTakes": 3,
     "minSources": 3,
@@ -912,182 +912,218 @@
       "Renaissance Periodization#w6 r1": {
         "frames": 36,
         "durationS": 2.25,
-        "alignedDistinctShare": 0.6545454545454545
+        "alignedDistinctShare": 0.6545454545454545,
+        "capFillShare": 1.0
       },
       "Renaissance Periodization#w6 r2": {
         "frames": 78,
         "durationS": 5.08333,
-        "alignedDistinctShare": 1.0
+        "alignedDistinctShare": 1.0,
+        "capFillShare": 1.0
       },
       "FitnessFAQs#w8 r0": {
         "frames": 27,
         "durationS": 1.8,
-        "alignedDistinctShare": 0.45454545454545453
+        "alignedDistinctShare": 0.45454545454545453,
+        "capFillShare": 0.9259259259259259
       },
       "FitnessFAQs#w8 r1": {
         "frames": 36,
         "durationS": 2.12,
-        "alignedDistinctShare": 0.6181818181818182
+        "alignedDistinctShare": 0.6181818181818182,
+        "capFillShare": 0.9444444444444444
       },
       "FitnessFAQs#w8 r2": {
         "frames": 42,
         "durationS": 2.24,
-        "alignedDistinctShare": 0.6181818181818182
+        "alignedDistinctShare": 0.6181818181818182,
+        "capFillShare": 0.8095238095238094
       },
       "Upright Health#w10 r0": {
         "frames": 24,
         "durationS": 2.4024,
-        "alignedDistinctShare": 0.43636363636363634
+        "alignedDistinctShare": 0.43636363636363634,
+        "capFillShare": 1.0
       },
       "FitnessFAQs#w6 r2": {
         "frames": 19,
         "durationS": 1.5015,
-        "alignedDistinctShare": 0.34545454545454546
+        "alignedDistinctShare": 0.34545454545454546,
+        "capFillShare": 1.0
       },
       "Calisthenicmovement#w5 r3": {
         "frames": 6,
         "durationS": 1.06773,
-        "alignedDistinctShare": 0.10909090909090909
+        "alignedDistinctShare": 0.10909090909090909,
+        "capFillShare": 1.0
       },
       "K boges#w0 r0": {
         "frames": 38,
         "durationS": 2.96963,
-        "alignedDistinctShare": 0.6909090909090909
+        "alignedDistinctShare": 0.6909090909090909,
+        "capFillShare": 1.0
       },
       "K boges#w0 r1": {
         "frames": 52,
         "durationS": 3.33666,
-        "alignedDistinctShare": 0.9454545454545454
+        "alignedDistinctShare": 0.9454545454545454,
+        "capFillShare": 1.0
       },
       "K boges#w0 r2": {
         "frames": 44,
         "durationS": 3.13646,
-        "alignedDistinctShare": 0.8
+        "alignedDistinctShare": 0.8,
+        "capFillShare": 1.0
       },
       "K boges#w0 r3": {
         "frames": 46,
         "durationS": 3.26993,
-        "alignedDistinctShare": 0.8363636363636363
+        "alignedDistinctShare": 0.8363636363636363,
+        "capFillShare": 1.0
       },
       "K boges#w1 r0": {
         "frames": 47,
         "durationS": 3.40339,
-        "alignedDistinctShare": 0.8545454545454545
+        "alignedDistinctShare": 0.8545454545454545,
+        "capFillShare": 1.0
       },
       "K boges#w1 r1": {
         "frames": 49,
         "durationS": 3.23656,
-        "alignedDistinctShare": 0.8909090909090909
+        "alignedDistinctShare": 0.8909090909090909,
+        "capFillShare": 1.0
       },
       "K boges#w1 r2": {
         "frames": 50,
         "durationS": 3.2032,
-        "alignedDistinctShare": 0.9090909090909091
+        "alignedDistinctShare": 0.9090909090909091,
+        "capFillShare": 1.0
       },
       "K boges#w1 r3": {
         "frames": 51,
         "durationS": 3.37003,
-        "alignedDistinctShare": 0.8909090909090909
+        "alignedDistinctShare": 0.8909090909090909,
+        "capFillShare": 0.9607843137254902
       },
       "K boges#w1 r4": {
         "frames": 49,
         "durationS": 3.43676,
-        "alignedDistinctShare": 0.8545454545454545
+        "alignedDistinctShare": 0.8545454545454545,
+        "capFillShare": 0.9591836734693877
       },
       "K boges#w2 r0": {
         "frames": 47,
         "durationS": 3.37003,
-        "alignedDistinctShare": 0.8545454545454545
+        "alignedDistinctShare": 0.8545454545454545,
+        "capFillShare": 1.0
       },
       "K boges#w2 r1": {
         "frames": 52,
         "durationS": 3.47013,
-        "alignedDistinctShare": 0.9454545454545454
+        "alignedDistinctShare": 0.9454545454545454,
+        "capFillShare": 1.0
       },
       "K boges#w2 r2": {
         "frames": 56,
         "durationS": 3.57023,
-        "alignedDistinctShare": 1.0
+        "alignedDistinctShare": 1.0,
+        "capFillShare": 1.0
       },
       "K boges#w2 r3": {
         "frames": 51,
         "durationS": 3.50349,
-        "alignedDistinctShare": 0.9272727272727272
+        "alignedDistinctShare": 0.9272727272727272,
+        "capFillShare": 1.0
       },
       "K boges#w2 r4": {
         "frames": 55,
         "durationS": 3.7037,
-        "alignedDistinctShare": 1.0
+        "alignedDistinctShare": 1.0,
+        "capFillShare": 1.0
       },
       "K boges#w4 r0": {
         "frames": 53,
         "durationS": 3.60359,
-        "alignedDistinctShare": 0.8909090909090909
+        "alignedDistinctShare": 0.8909090909090909,
+        "capFillShare": 0.9245283018867925
       },
       "K boges#w4 r1": {
         "frames": 53,
         "durationS": 3.6036,
-        "alignedDistinctShare": 0.9272727272727272
+        "alignedDistinctShare": 0.9272727272727272,
+        "capFillShare": 0.9622641509433962
       },
       "K boges#w5 r0": {
         "frames": 47,
         "durationS": 3.23657,
-        "alignedDistinctShare": 0.8545454545454545
+        "alignedDistinctShare": 0.8545454545454545,
+        "capFillShare": 1.0
       },
       "K boges#w5 r1": {
         "frames": 45,
         "durationS": 3.30329,
-        "alignedDistinctShare": 0.8181818181818182
+        "alignedDistinctShare": 0.8181818181818182,
+        "capFillShare": 1.0
       },
       "K boges#w5 r2": {
         "frames": 53,
         "durationS": 3.5035,
-        "alignedDistinctShare": 0.9636363636363636
+        "alignedDistinctShare": 0.9636363636363636,
+        "capFillShare": 1.0
       },
       "K boges#w5 r3": {
         "frames": 51,
         "durationS": 3.57023,
-        "alignedDistinctShare": 0.9272727272727272
+        "alignedDistinctShare": 0.9272727272727272,
+        "capFillShare": 1.0
       },
       "K boges#w5 r4": {
         "frames": 52,
         "durationS": 3.53686,
-        "alignedDistinctShare": 0.9454545454545454
+        "alignedDistinctShare": 0.9454545454545454,
+        "capFillShare": 1.0
       },
       "K boges#w5 r5": {
         "frames": 49,
         "durationS": 3.37003,
-        "alignedDistinctShare": 0.8909090909090909
+        "alignedDistinctShare": 0.8909090909090909,
+        "capFillShare": 1.0
       },
       "K boges#w5 r6": {
         "frames": 51,
         "durationS": 3.47012,
-        "alignedDistinctShare": 0.9272727272727272
+        "alignedDistinctShare": 0.9272727272727272,
+        "capFillShare": 1.0
       },
       "K boges#w5 r7": {
         "frames": 59,
         "durationS": 3.8038,
-        "alignedDistinctShare": 1.0
+        "alignedDistinctShare": 1.0,
+        "capFillShare": 1.0
       },
       "K boges#w5 r8": {
         "frames": 54,
         "durationS": 3.70369,
-        "alignedDistinctShare": 0.9636363636363636
+        "alignedDistinctShare": 0.9636363636363636,
+        "capFillShare": 0.9814814814814815
       },
       "K boges#w15 r0": {
         "frames": 25,
         "durationS": 2.63596,
-        "alignedDistinctShare": 0.45454545454545453
+        "alignedDistinctShare": 0.45454545454545453,
+        "capFillShare": 1.0
       },
       "K boges#w15 r1": {
         "frames": 41,
         "durationS": 3.16983,
-        "alignedDistinctShare": 0.7454545454545455
+        "alignedDistinctShare": 0.7454545454545455,
+        "capFillShare": 1.0
       },
       "K boges#w18 r0": {
         "frames": 41,
         "durationS": 3.26993,
-        "alignedDistinctShare": 0.7454545454545455
+        "alignedDistinctShare": 0.7454545454545455,
+        "capFillShare": 1.0
       }
     }
   },
@@ -3731,6 +3767,6 @@
     "Cara Kuykens": "3 derin tekrar üretti ama M-F-47 anlaşma-kapısında (14° küme toleransı) aykırı sayıldı, excludedOutlierIds içinde",
     "GMB Fitness (Praxis)": "2 derin tekrar üretti ama M-F-47 anlaşma-kapısında (14° küme toleransı) aykırı sayıldı, excludedOutlierIds içinde"
   },
-  "$windowRule": "rep_fsm@cb400cb partial_rom=110.0",
+  "$windowRule": "rep_fsm@e481dee partial_rom=110.0",
   "$supersedes": "harvested_provisional (9 eğitmen/44 take, build_reference.dart, kanonik-CLI-öncesi) — G-063/G-064 (docs/gates/), koordinatör hükmü M-F-90."
 }

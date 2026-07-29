@@ -2,7 +2,7 @@
   "schema": "motion-core/reference@1",
   "technique": "bodyweight_squat",
   "measurementProvenance": "ATTESTED",
-  "generatedAt": "2026-07-29T23:34:14.183799Z",
+  "generatedAt": "2026-07-29T23:42:41.027655Z",
   "gates": {
     "minTakes": 3,
     "minSources": 3,
@@ -2826,182 +2826,218 @@
       "Jeff_Nippard_w11_r0": {
         "frames": 41,
         "durationS": 1.83333,
-        "alignedDistinctShare": 0.38317757009345793
+        "alignedDistinctShare": 0.38317757009345793,
+        "capFillShare": 1.0
       },
       "Jeff_Nippard_w13_r0": {
         "frames": 107,
         "durationS": 4.41666,
-        "alignedDistinctShare": 1.0
+        "alignedDistinctShare": 1.0,
+        "capFillShare": 1.0
       },
       "Jeff_Nippard_w14_r0": {
         "frames": 68,
         "durationS": 2.79166,
-        "alignedDistinctShare": 0.6355140186915887
+        "alignedDistinctShare": 0.6355140186915887,
+        "capFillShare": 1.0
       },
       "Jeff_Nippard_w20_r0": {
         "frames": 137,
         "durationS": 5.66667,
-        "alignedDistinctShare": 1.0
+        "alignedDistinctShare": 1.0,
+        "capFillShare": 1.0
       },
       "Jeff_Nippard_w24_r1": {
         "frames": 73,
         "durationS": 4.25,
-        "alignedDistinctShare": 0.616822429906542
+        "alignedDistinctShare": 0.616822429906542,
+        "capFillShare": 0.9041095890410958
       },
       "Jeremy_Ethier_w4_r1": {
         "frames": 198,
         "durationS": 6.6066,
-        "alignedDistinctShare": 1.0
+        "alignedDistinctShare": 1.0,
+        "capFillShare": 1.0
       },
       "K_boges_w0_r10": {
         "frames": 68,
         "durationS": 3.003,
-        "alignedDistinctShare": 0.5420560747663551
+        "alignedDistinctShare": 0.5420560747663551,
+        "capFillShare": 0.8529411764705882
       },
       "K_boges_w0_r14": {
         "frames": 67,
         "durationS": 2.96964,
-        "alignedDistinctShare": 0.5233644859813084
+        "alignedDistinctShare": 0.5233644859813084,
+        "capFillShare": 0.835820895522388
       },
       "K_boges_w0_r17": {
         "frames": 67,
         "durationS": 3.03637,
-        "alignedDistinctShare": 0.5327102803738317
+        "alignedDistinctShare": 0.5327102803738317,
+        "capFillShare": 0.8507462686567164
       },
       "K_boges_w0_r34": {
         "frames": 71,
         "durationS": 3.23657,
-        "alignedDistinctShare": 0.5514018691588785
+        "alignedDistinctShare": 0.5514018691588785,
+        "capFillShare": 0.8309859154929577
       },
       "K_boges_w0_r35": {
         "frames": 71,
         "durationS": 3.16983,
-        "alignedDistinctShare": 0.5607476635514018
+        "alignedDistinctShare": 0.5607476635514018,
+        "capFillShare": 0.8450704225352113
       },
       "K_boges_w0_r37": {
         "frames": 68,
         "durationS": 3.03637,
-        "alignedDistinctShare": 0.5327102803738317
+        "alignedDistinctShare": 0.5327102803738317,
+        "capFillShare": 0.8382352941176471
       },
       "K_boges_w0_r38": {
         "frames": 69,
         "durationS": 3.06973,
-        "alignedDistinctShare": 0.5514018691588785
+        "alignedDistinctShare": 0.5514018691588785,
+        "capFillShare": 0.855072463768116
       },
       "K_boges_w0_r39": {
         "frames": 74,
         "durationS": 3.1031,
-        "alignedDistinctShare": 0.5700934579439252
+        "alignedDistinctShare": 0.5700934579439252,
+        "capFillShare": 0.8243243243243243
       },
       "K_boges_w0_r40": {
         "frames": 69,
         "durationS": 3.06974,
-        "alignedDistinctShare": 0.5420560747663551
+        "alignedDistinctShare": 0.5420560747663551,
+        "capFillShare": 0.8405797101449275
       },
       "K_boges_w0_r42": {
         "frames": 69,
         "durationS": 3.1031,
-        "alignedDistinctShare": 0.5420560747663551
+        "alignedDistinctShare": 0.5420560747663551,
+        "capFillShare": 0.8405797101449275
       },
       "K_boges_w0_r9": {
         "frames": 64,
         "durationS": 2.9029,
-        "alignedDistinctShare": 0.5046728971962616
+        "alignedDistinctShare": 0.5046728971962616,
+        "capFillShare": 0.84375
       },
       "Strength_Side_w8_r13": {
         "frames": 87,
         "durationS": 2.86953,
-        "alignedDistinctShare": 0.6355140186915887
+        "alignedDistinctShare": 0.6355140186915887,
+        "capFillShare": 0.7816091954022988
       },
       "Strength_Side_w8_r14": {
         "frames": 85,
         "durationS": 2.8028,
-        "alignedDistinctShare": 0.6074766355140186
+        "alignedDistinctShare": 0.6074766355140186,
+        "capFillShare": 0.7647058823529411
       },
       "THENX_w3_r2": {
         "frames": 38,
         "durationS": 1.48,
-        "alignedDistinctShare": 0.32710280373831774
+        "alignedDistinctShare": 0.32710280373831774,
+        "capFillShare": 0.9210526315789473
       },
       "THENX_w3_r3": {
         "frames": 39,
         "durationS": 1.52,
-        "alignedDistinctShare": 0.3364485981308411
+        "alignedDistinctShare": 0.3364485981308411,
+        "capFillShare": 0.923076923076923
       },
       "THENX_w3_r4": {
         "frames": 40,
         "durationS": 1.56,
-        "alignedDistinctShare": 0.35514018691588783
+        "alignedDistinctShare": 0.35514018691588783,
+        "capFillShare": 0.95
       },
       "THENX_w5_r3": {
         "frames": 39,
         "durationS": 1.52,
-        "alignedDistinctShare": 0.3644859813084112
+        "alignedDistinctShare": 0.3644859813084112,
+        "capFillShare": 1.0
       },
       "THENX_w5_r5": {
         "frames": 33,
         "durationS": 1.28,
-        "alignedDistinctShare": 0.308411214953271
+        "alignedDistinctShare": 0.308411214953271,
+        "capFillShare": 1.0
       },
       "THENX_w5_r6": {
         "frames": 33,
         "durationS": 1.28,
-        "alignedDistinctShare": 0.2897196261682243
+        "alignedDistinctShare": 0.2897196261682243,
+        "capFillShare": 0.9393939393939393
       },
       "THENX_w5_r7": {
         "frames": 35,
         "durationS": 1.36,
-        "alignedDistinctShare": 0.3177570093457944
+        "alignedDistinctShare": 0.3177570093457944,
+        "capFillShare": 0.9714285714285714
       },
       "THENX_w6_r1": {
         "frames": 38,
         "durationS": 1.48,
-        "alignedDistinctShare": 0.3364485981308411
+        "alignedDistinctShare": 0.3364485981308411,
+        "capFillShare": 0.9473684210526315
       },
       "THENX_w6_r2": {
         "frames": 40,
         "durationS": 1.56,
-        "alignedDistinctShare": 0.3364485981308411
+        "alignedDistinctShare": 0.3364485981308411,
+        "capFillShare": 0.9
       },
       "THENX_w7_r2": {
         "frames": 36,
         "durationS": 1.4,
-        "alignedDistinctShare": 0.3364485981308411
+        "alignedDistinctShare": 0.3364485981308411,
+        "capFillShare": 1.0
       },
       "THENX_w7_r3": {
         "frames": 38,
         "durationS": 1.48,
-        "alignedDistinctShare": 0.34579439252336447
+        "alignedDistinctShare": 0.34579439252336447,
+        "capFillShare": 0.9736842105263158
       },
       "THENX_w7_r4": {
         "frames": 38,
         "durationS": 1.48,
-        "alignedDistinctShare": 0.32710280373831774
+        "alignedDistinctShare": 0.32710280373831774,
+        "capFillShare": 0.9210526315789473
       },
       "THENX_w7_r5": {
         "frames": 33,
         "durationS": 1.28,
-        "alignedDistinctShare": 0.308411214953271
+        "alignedDistinctShare": 0.308411214953271,
+        "capFillShare": 1.0
       },
       "THENX_w7_r7": {
         "frames": 31,
         "durationS": 1.2,
-        "alignedDistinctShare": 0.24299065420560748
+        "alignedDistinctShare": 0.24299065420560748,
+        "capFillShare": 0.8387096774193549
       },
       "WeShape_w10_r3": {
         "frames": 32,
         "durationS": 1.29296,
-        "alignedDistinctShare": 0.29906542056074764
+        "alignedDistinctShare": 0.29906542056074764,
+        "capFillShare": 1.0
       },
       "WeShape_w10_r5": {
         "frames": 31,
         "durationS": 1.25125,
-        "alignedDistinctShare": 0.2897196261682243
+        "alignedDistinctShare": 0.2897196261682243,
+        "capFillShare": 1.0
       },
       "WeShape_w10_r6": {
         "frames": 34,
         "durationS": 1.37638,
-        "alignedDistinctShare": 0.3177570093457944
+        "alignedDistinctShare": 0.3177570093457944,
+        "capFillShare": 1.0
       }
     }
   },
