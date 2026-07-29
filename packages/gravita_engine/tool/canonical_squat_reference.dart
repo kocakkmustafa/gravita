@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 
+import 'package:gravita_engine/gravita_engine.dart' show MirrorSymmetry;
 import 'package:motion_core/motion_core.dart' hide MetricCondition, PhaseSpec;
 
 /// bodyweight_squat referansı — ailenin ÜÇÜNCÜ ürün referansı (M-F-106
@@ -146,35 +147,21 @@ void main(List<String> args) {
   }
   stdout.writeln('(toplam: $varianceCount varyans / $floorCount taban)');
 
-  // mirrorAgnostic — G-056(2)/M-F-57(2) yalnız squat'ın kendi malzemesi
-  // için ölçülmeli; push_up'taki 4,3-5,0° bandını burada VARSAYMIYORUZ.
-  final List<String> joints = (artifact['joints'] as List<dynamic>).cast<String>();
-  final List<dynamic> meanRadRaw =
-      (artifact['frames'] as Map<String, dynamic>)['meanRad'] as List<dynamic>;
-  final List<List<double>> meanRad = meanRadRaw
-      .map((dynamic row) => (row as List<dynamic>)
-          .map((dynamic n) => n == null ? double.nan : (n as num).toDouble())
-          .toList())
-      .toList();
-  double symSum = 0;
-  int symCnt = 0;
-  for (int fi = 0; fi < meanRad.length; fi++) {
-    for (int j = 0; j < joints.length; j++) {
-      if (!joints[j].startsWith('left_')) continue;
-      final int k = joints.indexOf(joints[j].replaceFirst('left_', 'right_'));
-      if (k < 0) continue;
-      final double a = meanRad[fi][j], b = meanRad[fi][k];
-      if (a.isNaN || b.isNaN) continue;
-      final double diff = math.atan2(math.sin(a - b), math.cos(a - b));
-      symSum += diff.abs() * 180 / math.pi;
-      symCnt++;
-    }
-  }
-  final double meanLr = symCnt == 0 ? double.nan : symSum / symCnt;
-  final bool mirrorAgnostic = meanLr < 7;
-  stdout.writeln('\nmeanLeftRightDiffDeg: ${meanLr.toStringAsFixed(2)}° → '
-      'mirrorAgnostic=$mirrorAgnostic (squat İÇİN İLK ölçüm — push_up '
-      'bandını varsaymadık)');
+  // TARAF-SİMETRİSİ (M-F-145): eski `meanLeftRightDiffDeg` ÖLDÜ.
+  // O alan konsensüs üzerinde |ortalama| hesaplıyordu ve İKİ soruyu
+  // karıştırıyordu (büyüklük × take'ler-arası işaret tutarlılığı) — G-078
+  // Bulgu B'de ölçüldü: push_up take-düzeyi 19,25° iken konsensüs 5,16°
+  // gösteriyordu (3,73× işaret-iptali). Artık iki ayrı alan var ve bayrak
+  // YALNIZ BÜYÜKLÜKTEN türüyor. Hesap tek evde (`MirrorSymmetry`), iki
+  // referans aracı da onu çağırıyor — kopya-sürüklenmesi yok.
+  final MirrorSymmetry mirror = MirrorSymmetry.fromTakes(
+      eligible.entries.map((MapEntry<String, Fixture> e) =>
+          ReferenceCli(allowUnattested: true).prepareTake(e.key, e.value).take.frames));
+  stdout.writeln('\ntakeMeanAbsLRDiffDeg: '
+      '${mirror.takeMeanAbsLRDiffDeg.toStringAsFixed(2)}° · '
+      'signConsistencyRatio: '
+      '${mirror.signConsistencyRatio.toStringAsFixed(3)} → '
+      'mirrorAgnostic=${mirror.mirrorAgnostic}');
 
   final List<dynamic> takeReports = artifact['takes'] as List<dynamic>;
   final Map<String, int> repsByChannel = <String, int>{};
@@ -200,8 +187,17 @@ void main(List<String> args) {
         '${(minAcceptedR - gateThreshold).toStringAsFixed(3)} üstünde). '
         'Eşik belirsizliği bu marjda kompozisyonu ETKİLEMİYOR — duyarlılık '
         'kanıtı (M-F-106 hüküm 3), blok değil.',
-    r'$mirrorAgnostic': mirrorAgnostic,
-    r'$meanLeftRightDiffDeg': double.parse(meanLr.toStringAsFixed(2)),
+    r'$mirrorSymmetry': mirror.toJson(),
+    r'$mirrorAgnostic': mirror.mirrorAgnostic,
+    r'$mirrorMetricNote': 'M-F-145: eski `meanLeftRightDiffDeg` (konsensüs '
+        'üzerinde |ortalama|) KALDIRILDI — iki soruyu karıştırıyordu '
+        '(büyüklük × take\'ler-arası işaret tutarlılığı). Yerine iki alan: '
+        '`takeMeanAbsLRDiffDeg` (büyüklük) + `signConsistencyRatio` '
+        '(sistematik tek-yanlılık). `mirrorAgnostic` YALNIZ büyüklükten '
+        'türer — "teknik tarafı ayırt etmiyor" iddiası küçük FARK ister, '
+        'işaret-iptali değil. Eşik (7°) temeli metrik-ayrımı ÖNCESİ döneme '
+        'ait; şu an sınırda vaka yok, bir referans eşiğe YAKLAŞIRSA önce '
+        'temeli yeniden türetilmeli.',
     r'$thinEvidenceInstructors': thinEvidence,
     r'$firstReference': true,
     r'$clusterToleranceDegUsed': clusterToleranceDeg,

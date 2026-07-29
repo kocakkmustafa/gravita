@@ -2,7 +2,7 @@
   "schema": "motion-core/reference@1",
   "technique": "push_up",
   "measurementProvenance": "ATTESTED",
-  "generatedAt": "2026-07-29T21:57:04.009652Z",
+  "generatedAt": "2026-07-29T23:05:54.222294Z",
   "gates": {
     "minTakes": 3,
     "minSources": 3,
@@ -3176,9 +3176,17 @@
       ]
     ]
   },
-  "$mirrorAgnostic": true,
-  "$meanLeftRightDiffDeg": 5.16,
-  "$mirrorAgnosticNote": "G-056/M-F-57(2): şınav iki-taraflı simetrik bir harekettir — sol-sağ eklem farkı skorlama tabanının (7°) altında kalırsa aynalama sıra-kararsızlığı bir kusur değil malzemenin özelliğidir. DÖRT bağımsız pipeline'de doğrulandı (build_reference.dart 5,03° · kanonik-pencere 4,51° · kanonik-tekrar (bu artefakt) 5.16°) — hepsi 4,3-5,0° bandında istikrarlı.",
+  "$mirrorSymmetry": {
+    "takeMeanAbsLRDiffDeg": 14.74,
+    "signedCircularMeanDeg": 0.51,
+    "signConsistencyRatio": 0.034,
+    "pairSamples": 21038,
+    "mirrorAgnostic": false,
+    "thresholdDeg": 7.0
+  },
+  "$mirrorAgnostic": false,
+  "$mirrorMetricNote": "M-F-145 — DEĞİŞİKLİK: eski `meanLeftRightDiffDeg` (konsensüs üzerinde |ortalama|) KALDIRILDI. G-078 Bulgu B: o sayı iki soruyu karıştırıyordu (büyüklük × take'ler-arası işaret tutarlılığı) ve push_up'ta 3,73× işaret-iptali üretiyordu — take düzeyi 19,25° iken konsensüs 5,16° gösteriyordu. ⚠️ O 5,16° gece boyu \"6 bağımsız kez doğrulandı\" diye kayıtlıydı ama ALTI KOŞUM DA AYNI hatalı işlem sırasını kullanmıştı; aynı yanlış niceliğin altı kopyası altı doğrulama DEĞİLDİR (G-052 uzantısı, M-F-145 aile dersi). Yerine iki alan: `takeMeanAbsLRDiffDeg` (büyüklük) + `signConsistencyRatio` (sistematik tek-yanlılık). Bayrak YALNIZ büyüklükten türer. Eşik (7°) temeli metrik-ayrımı ÖNCESİ döneme ait; sınırda vaka yok, bir referans eşiğe YAKLAŞIRSA temeli önce yeniden türetilmeli.",
+  "$mirrorAgnosticNote": "ÖNCEKİ İDDİA GERİ ÇEKİLDİ. Eskiden bu artefakt \"şınav iki-taraflı simetriktir, sol-sağ farkı 7° tabanının altında\" diyordu. G-078A ölçümü bunu çürüttü: model uzak uzvu GÖRDÜĞÜNDE fark ~36,8°, GÖREMEDİĞİNDE 12,75°'e çöküyor (2,9×) — küçük fark simetri kanıtı DEĞİL, MODEL KÖRLÜĞÜNÜN eseri (kopyalama imzası POZİTİF). Taraf-bağlı hüküm bu referanstan çıkarılamaz (M-F-46 kural 7). Ürün etkisi yok: kurallar ADR-003/G-007 gereği zaten taraf-agnostik.",
   "$thinEvidenceInstructors": [
     "Antranik Kizirian (1 tekrar)",
     "Kayla Itsines (1 tekrar)",
@@ -3194,6 +3202,6 @@
     "Cara Kuykens": "3 derin tekrar üretti ama M-F-47 anlaşma-kapısında (14° küme toleransı) aykırı sayıldı, excludedOutlierIds içinde",
     "GMB Fitness (Praxis)": "2 derin tekrar üretti ama M-F-47 anlaşma-kapısında (14° küme toleransı) aykırı sayıldı, excludedOutlierIds içinde"
   },
-  "$windowRule": "rep_fsm@f3ce523 partial_rom=110.0",
+  "$windowRule": "rep_fsm@23b3fb5 partial_rom=110.0",
   "$supersedes": "harvested_provisional (9 eğitmen/44 take, build_reference.dart, kanonik-CLI-öncesi) — G-063/G-064 (docs/gates/), koordinatör hükmü M-F-90."
 }

@@ -239,7 +239,7 @@
     "takes": 36,
     "excludedOutliers": 35,
     "orderIndependent": false,
-    "mirrorAgnostic": true,
+    "mirrorAgnostic": false,
     "$note": "ELLE DÜZENLENMEZ — tools/sync_provenance.py referans artefaktından türetir, validate_catalog.py V17 denetler."
   },
   "passiveExecutionPossible": false,

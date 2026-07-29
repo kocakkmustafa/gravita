@@ -2,7 +2,7 @@
   "schema": "motion-core/reference@1",
   "technique": "bodyweight_squat",
   "measurementProvenance": "ATTESTED",
-  "generatedAt": "2026-07-29T21:56:43.426956Z",
+  "generatedAt": "2026-07-29T23:10:52.325650Z",
   "gates": {
     "minTakes": 3,
     "minSources": 3,
@@ -7233,8 +7233,16 @@
   "$identityGateBasis": "provisional(0.2)",
   "$minAcceptedR": 0.274,
   "$identityGateNote": "hipKneeCoupling eşiği (0,2) PROVISIONAL — ama kabul edilen 12 eğitmenin en düşük r'ı 0.274 (eşiğin 0.074 üstünde). Eşik belirsizliği bu marjda kompozisyonu ETKİLEMİYOR — duyarlılık kanıtı (M-F-106 hüküm 3), blok değil.",
+  "$mirrorSymmetry": {
+    "takeMeanAbsLRDiffDeg": 32.02,
+    "signedCircularMeanDeg": -6.93,
+    "signConsistencyRatio": 0.216,
+    "pairSamples": 118542,
+    "mirrorAgnostic": false,
+    "thresholdDeg": 7.0
+  },
   "$mirrorAgnostic": false,
-  "$meanLeftRightDiffDeg": 32.26,
+  "$mirrorMetricNote": "M-F-145: eski `meanLeftRightDiffDeg` (konsensüs üzerinde |ortalama|) KALDIRILDI — iki soruyu karıştırıyordu (büyüklük × take'ler-arası işaret tutarlılığı). Yerine iki alan: `takeMeanAbsLRDiffDeg` (büyüklük) + `signConsistencyRatio` (sistematik tek-yanlılık). `mirrorAgnostic` YALNIZ büyüklükten türer — \"teknik tarafı ayırt etmiyor\" iddiası küçük FARK ister, işaret-iptali değil. Eşik (7°) temeli metrik-ayrımı ÖNCESİ döneme ait; şu an sınırda vaka yok, bir referans eşiğe YAKLAŞIRSA önce temeli yeniden türetilmeli.",
   "$thinEvidenceInstructors": [
     "Calisthenicmovement (2 tekrar)",
     "GMB Fitness (Praxis) (1 tekrar)",

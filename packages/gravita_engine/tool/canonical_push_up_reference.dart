@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math' as math;
 
 import 'package:gravita_engine/gravita_engine.dart';
 import 'package:motion_core/motion_core.dart' hide MetricCondition, PhaseSpec;
@@ -270,38 +269,22 @@ void main(List<String> args) {
         'floorShare=${(floorShare[joint] as num?)?.toStringAsFixed(2)}$flag');
   }
 
-  // mirrorAgnostic'i kendimiz hesaplıyoruz — canonik artefakt bu alanı taşımaz
-  // (G-056/M-F-57(2) beyanı Gravita-özel bir yorum, çekirdek kavramı değil).
-  final List<String> joints = (artifact['joints'] as List<dynamic>).cast<String>();
-  final List<dynamic> meanRadRaw =
-      (artifact['frames'] as Map<String, dynamic>)['meanRad'] as List<dynamic>;
-  // v0.8.4 görünürlük-kapısı düzeltmesi (J-056): ölçülemeyen hücreler artık
-  // DÜRÜST null — `num`'a zorla cast etmek (eski davranış) bu koşumda
-  // patlıyordu. null → NaN (aile kuralı: ölçülemeyen "hüküm yok" demektir).
-  final List<List<double>> meanRad = meanRadRaw
-      .map((dynamic row) => (row as List<dynamic>)
-          .map((dynamic n) => n == null ? double.nan : (n as num).toDouble())
-          .toList())
-      .toList();
-  double symSum = 0;
-  int symCnt = 0;
-  for (int fi = 0; fi < meanRad.length; fi++) {
-    for (int j = 0; j < joints.length; j++) {
-      if (!joints[j].startsWith('left_')) continue;
-      final int k = joints.indexOf(joints[j].replaceFirst('left_', 'right_'));
-      if (k < 0) continue;
-      final double a = meanRad[fi][j], b = meanRad[fi][k];
-      if (a.isNaN || b.isNaN) continue;
-      final double diff = math.atan2(math.sin(a - b), math.cos(a - b));
-      symSum += diff.abs() * 180 / math.pi;
-      symCnt++;
-    }
-  }
-  final double meanLr = symCnt == 0 ? double.nan : symSum / symCnt;
-  final bool mirrorAgnostic = meanLr < 7;
-  stdout.writeln('\nmeanLeftRightDiffDeg (kendi hesabımız): '
-      '${meanLr.toStringAsFixed(2)}° (eski: 5,03°) → '
-      'mirrorAgnostic=$mirrorAgnostic');
+  // TARAF-SİMETRİSİ (M-F-145): eski `meanLeftRightDiffDeg` ÖLDÜ.
+  // O alan konsensüs üzerinde |ortalama| hesaplıyordu; G-078 Bulgu B'de
+  // ölçüldü ki bu İKİ soruyu karıştırıyor (büyüklük × take'ler-arası işaret
+  // tutarlılığı) ve push_up'ta 3,73× işaret-iptali üretiyordu: take düzeyi
+  // 19,25° iken konsensüs 5,16° gösteriyordu. Bayrak artık YALNIZ
+  // BÜYÜKLÜKTEN türüyor → push_up `mirrorAgnostic` beklentisi FALSE.
+  // Hesap tek evde (`MirrorSymmetry`), squat aracı da aynısını çağırıyor.
+  final MirrorSymmetry mirror = MirrorSymmetry.fromTakes(
+      eligible.entries.map((MapEntry<String, Fixture> e) =>
+          cli.prepareTake(e.key, e.value).take.frames));
+  stdout.writeln('\ntakeMeanAbsLRDiffDeg: '
+      '${mirror.takeMeanAbsLRDiffDeg.toStringAsFixed(2)}° · '
+      'signConsistencyRatio: '
+      '${mirror.signConsistencyRatio.toStringAsFixed(3)} → '
+      'mirrorAgnostic=${mirror.mirrorAgnostic}  '
+      '(ESKİ hatalı |ortalama| metriği 5,16° diyordu)');
 
   // ---- YAYIM (koordinatör hükmü, M-F-90): kanonik artefakt reference.
   // push_up.json'ı DEĞİŞTİRİR — üç şart: mirrorAgnostic beyanı + eğitmen-başı
@@ -322,15 +305,29 @@ void main(List<String> args) {
   };
   final Map<String, dynamic> published = <String, dynamic>{
     ...artifact,
-    r'$mirrorAgnostic': mirrorAgnostic,
-    r'$meanLeftRightDiffDeg': double.parse(meanLr.toStringAsFixed(2)),
-    r'$mirrorAgnosticNote': 'G-056/M-F-57(2): şınav iki-taraflı simetrik bir '
-        'harekettir — sol-sağ eklem farkı skorlama tabanının (7°) altında '
-        'kalırsa aynalama sıra-kararsızlığı bir kusur değil malzemenin '
-        'özelliğidir. DÖRT bağımsız pipeline'
-        "'de doğrulandı (build_reference.dart 5,03° · kanonik-pencere 4,51° "
-        '· kanonik-tekrar (bu artefakt) ${meanLr.toStringAsFixed(2)}°) — '
-        'hepsi 4,3-5,0° bandında istikrarlı.',
+    r'$mirrorSymmetry': mirror.toJson(),
+    r'$mirrorAgnostic': mirror.mirrorAgnostic,
+    r'$mirrorMetricNote': 'M-F-145 — DEĞİŞİKLİK: eski `meanLeftRightDiffDeg` '
+        '(konsensüs üzerinde |ortalama|) KALDIRILDI. G-078 Bulgu B: o sayı '
+        'iki soruyu karıştırıyordu (büyüklük × take\'ler-arası işaret '
+        'tutarlılığı) ve push_up\'ta 3,73× işaret-iptali üretiyordu — take '
+        'düzeyi 19,25° iken konsensüs 5,16° gösteriyordu. ⚠️ O 5,16° gece '
+        'boyu "6 bağımsız kez doğrulandı" diye kayıtlıydı ama ALTI KOŞUM DA '
+        'AYNI hatalı işlem sırasını kullanmıştı; aynı yanlış niceliğin altı '
+        'kopyası altı doğrulama DEĞİLDİR (G-052 uzantısı, M-F-145 aile '
+        'dersi). Yerine iki alan: `takeMeanAbsLRDiffDeg` (büyüklük) + '
+        '`signConsistencyRatio` (sistematik tek-yanlılık). Bayrak YALNIZ '
+        'büyüklükten türer. Eşik (7°) temeli metrik-ayrımı ÖNCESİ döneme '
+        'ait; sınırda vaka yok, bir referans eşiğe YAKLAŞIRSA temeli önce '
+        'yeniden türetilmeli.',
+    r'$mirrorAgnosticNote': 'ÖNCEKİ İDDİA GERİ ÇEKİLDİ. Eskiden bu artefakt '
+        '"şınav iki-taraflı simetriktir, sol-sağ farkı 7° tabanının altında" '
+        'diyordu. G-078A ölçümü bunu çürüttü: model uzak uzvu GÖRDÜĞÜNDE '
+        'fark ~36,8°, GÖREMEDİĞİNDE 12,75°\'e çöküyor (2,9×) — küçük fark '
+        'simetri kanıtı DEĞİL, MODEL KÖRLÜĞÜNÜN eseri (kopyalama imzası '
+        'POZİTİF). Taraf-bağlı hüküm bu referanstan çıkarılamaz (M-F-46 '
+        'kural 7). Ürün etkisi yok: kurallar ADR-003/G-007 gereği zaten '
+        'taraf-agnostik.',
     r'$thinEvidenceInstructors': thinEvidenceInstructors,
     r'$thinEvidenceNote': 'Bu eğitmenler yalnız 1-2 derin tekrarla katkıda '
         'bulunuyor (Choreia'
