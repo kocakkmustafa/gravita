@@ -32,17 +32,20 @@ void main() {
 
   const LessonSurface reps = LessonSurface(
     id: 'push_foundations.reps_and_tempo',
+    displayName: 'Reps that count',
     unitLabel: 'rep',
     gradedToday: false,
   );
   const LessonSurface formLocked = LessonSurface(
     id: 'push_foundations.form_check',
+    displayName: 'Body-line check',
     unitLabel: 'rep',
     gradedToday: false,
     lockedReason: 'Nine joint tolerances still sit at our default floor.',
   );
   const LessonSurface plank = LessonSurface(
     id: 'hold_foundations.plank',
+    displayName: 'Plank',
     unitLabel: 'second',
     gradedToday: false,
   );
@@ -81,6 +84,7 @@ void main() {
         lesson.keys.toSet(),
         <String>{
           'lessonId',
+          'displayName',
           'state',
           'unitLabel',
           'sessionCount',
@@ -128,6 +132,7 @@ void main() {
       expect(
         () => LessonSurface(
           id: 'x',
+          displayName: 'X',
           unitLabel: 'rep',
           gradedToday: true,
           lockedReason: 'ölçüm yok',
@@ -153,6 +158,7 @@ void main() {
     test('ders bugün not veriyor ama eski seanslar ölçüm-olarak yapılmıştı', () {
       const LessonSurface promoted = LessonSurface(
         id: 'push_foundations.form_check',
+        displayName: 'Body-line check',
         unitLabel: 'rep',
         gradedToday: true,
       );

@@ -1,0 +1,59 @@
+name: gravita
+description: "Gravita — Skills & Strength. Kamera-tabanlı kuvvet ve beceri antrenmanı, cihazda."
+publish_to: none
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Motor AYRI paket ve Flutter bağımlılığı YOK (M-F-160, JabLab/Choreia
+  # yerleşim aynası): ölçüm/hüküm mantığı widget ağacı olmadan test edilebilir
+  # kalmalı, kabuk da motora yandan uzanamamalı. `gravita_engine` `motion_core`u
+  # TAG-pinli tüketiyor (M-F-154 rejimi) — kabuk çekirdeğe DOĞRUDAN dokunmuyor,
+  # o yüzden burada `motion_core` bildirilmiyor. Kamera köprüsü (`motion_camera`)
+  # bağlanınca TAM-40-SHA zeyli ve pin-eşitliği testi GEREKECEK (JabLab J-071);
+  # bugün kamera KAPSAM DIŞI, o yüzden sahte bir pin de yazmıyorum.
+  gravita_engine:
+    path: packages/gravita_engine
+
+  # YALNIZ uygulama-özel dizini bulmak için. Depolama BİÇİMİ motorda
+  # (`JsonlSessionStore`, append-only JSONL) ve kurucusu bir `File` alıyor —
+  # `path_provider` KABLOLAMA katmanında kalıyor. Bu ayrım terfi-arayüzünün
+  # 1. şartı (Choreia'nın "port yapılamaz" hükmü tam bunu görmediği için
+  # verilmişti). 3. taraf DB BİLEREK YOK: sorgu ihtiyacı ÖLÇÜLÜNCE gelir (J-064).
+  path_provider: ^2.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lints: ^4.0.0
+  # `test/shell_contract_test.dart` pubspec'i ve motor pubspec'ini OKUYOR
+  # (paketleme + pin nöbetleri). Regex'le yaml ayrıştırmak yerine ayrıştırıcı
+  # kullanıyoruz: nöbetin kendisi kırılgan olmasın.
+  yaml: ^3.1.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    # İçerik çalışma-zamanında yorumlanan sürümlü JSON'dur (ADR-004):
+    # yeni hareket = yeni JSON, kod değişmez.
+    - content/library.json
+    # Katalog DALGA DALGA listelenir. Dizinler ELLE yazılıyor çünkü
+    # `content/catalog/` kökünde `exclusions.json` var ve o bir DERLEME
+    # defteridir — çalışma-zamanı okuyucusu YOK, uygulamaya girmemeli.
+    # ⚠️ W3 eklenirse buraya SATIR EKLENECEK; unutulursa yükleme GÜRÜLTÜLÜ
+    # patlar (tercih edilen arıza yönü) ve `test/content_assets_test.dart`
+    # bunu zaten önce yakalar.
+    - content/catalog/w1/
+    - content/catalog/w2/
+    # ⚠️ `content/harvest/` BİLEREK YOK. 18 dosyanın 16'sı derleme defteri
+    # (`decisions.bodyweight_squat.json` HÜKÜM kaydı, `queue.*.json`,
+    # sonda çıktıları). Dizin olarak eklemek hepsini uygulamaya sokardı.
+    # Referans artefaktları (`reference.push_up.json`,
+    # `reference.bodyweight_squat.json`) da HENÜZ eklenmedi: bu kabukta onları
+    # OKUYAN kod yok. Gecenin dersi tam buydu — "beyan var, okuyanı yok";
+    # okuyucu geldiği gün satırı da gelir.

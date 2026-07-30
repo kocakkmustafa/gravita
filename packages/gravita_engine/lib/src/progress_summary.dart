@@ -138,13 +138,66 @@ final class ProgressSummary {
 final class LessonSurface {
   const LessonSurface({
     required this.id,
+    required this.displayName,
     required this.unitLabel,
     required this.gradedToday,
     this.lockedReason,
   }) : assert(lockedReason == null || !gradedToday,
             'Kilitli ders notlanıyor sayılamaz — K9 lockClass:measurement.');
 
+  /// Yüzey listesini içerikten TÜRETİR — **tek ev**.
+  ///
+  /// Hem üretim kabuğu (`lib/app/content_repository.dart`) hem içerik-kablolama
+  /// testi bu fonksiyonu çağırır. İki ayrı türetme yazmak, G-079'un dersini
+  /// (aynı ölçümün iki evi tutarsızlaşır) yüzey tarafında tekrarlamak olurdu:
+  /// biri `status: locked`i okumayı unutsa kilitli ders üretimde AÇIK görünürdü.
+  ///
+  /// [library] `library.json`ın çözümlenmiş hâli; [catalogFor] hareketin
+  /// `catalogId`sini alıp katalog config'ini döndürür (dosyayı nereden
+  /// bulacağı ÇAĞIRANIN işi — motor dosya sistemi bilmez).
+  static List<LessonSurface> deriveAll({
+    required Map<String, dynamic> library,
+    required MovementConfig Function(String catalogId) catalogFor,
+  }) {
+    final List<LessonSurface> out = <LessonSurface>[];
+    for (final Map<String, dynamic> m
+        in (library['movements'] as List<dynamic>).cast<Map<String, dynamic>>()) {
+      final List<dynamic> courses =
+          (m['courses'] as List<dynamic>?) ?? const <dynamic>[];
+      // K1: `coming_soon` harekette kurs OLAMAZ — sahte kurs listelenmez.
+      if (courses.isEmpty) continue;
+      final String unit =
+          unitLabelForEngineType(catalogFor((m['catalogId'] ?? m['id']) as String)
+              .engineType);
+      for (final Map<String, dynamic> c in courses.cast<Map<String, dynamic>>()) {
+        for (final Map<String, dynamic> l
+            in (c['lessons'] as List<dynamic>).cast<Map<String, dynamic>>()) {
+          final bool locked = l['status'] == 'locked';
+          out.add(LessonSurface(
+            id: l['id'] as String,
+            displayName: l['displayName'] as String,
+            unitLabel: unit,
+            gradedToday:
+                (l['gradesFormAgainstReference'] as bool? ?? false) && !locked,
+            lockedReason: locked ? l['lockedReason'] as String : null,
+          ));
+        }
+      }
+    }
+    return out;
+  }
+
   final String id;
+
+  /// Kullanıcıya GÖSTERİLECEK ad — `library.json`dan gelir.
+  ///
+  /// ⚠️ Bu alan, kabuğu SİMÜLATÖRDE koşturunca eklendi: ekranda ders adı yerine
+  /// `push_foundations.reps_and_tempo` yazıyordu. 16 test yeşildi ve hiçbiri
+  /// yakalamadı, çünkü testleri `lessonId` üzerinden yazmıştım — yani
+  /// kullanıcıya GÖSTERİLMEMESİ gereken şeyi iddia ediyordum. Ders: yüzey
+  /// testleri, yüzeyin göstermesi GEREKENİ iddia etmeli; kimliği iddia eden
+  /// test, kimliğin sızmasını kutsar.
+  final String displayName;
 
   /// `rep` · `second`. Yüzeyin bu dersi hangi birimde göstereceği.
   final String unitLabel;
@@ -176,6 +229,7 @@ enum LessonProgressState {
 final class LessonProgress {
   const LessonProgress._({
     required this.lessonId,
+    required this.displayName,
     required this.state,
     required this.unitLabel,
     required this.sessionCount,
@@ -221,6 +275,7 @@ final class LessonProgress {
 
     return LessonProgress._(
       lessonId: s.id,
+      displayName: s.displayName,
       state: state,
       unitLabel: s.unitLabel,
       sessionCount: rs.length,
@@ -239,6 +294,10 @@ final class LessonProgress {
   }
 
   final String lessonId;
+
+  /// Kullanıcıya gösterilecek ad. `lessonId` YALNIZ kayıt eşlemesi içindir.
+  final String displayName;
+
   final LessonProgressState state;
   final String unitLabel;
   final int sessionCount;
@@ -279,6 +338,7 @@ final class LessonProgress {
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'lessonId': lessonId,
+        'displayName': displayName,
         'state': state.name,
         'unitLabel': unitLabel,
         'sessionCount': sessionCount,

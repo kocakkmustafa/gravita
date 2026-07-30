@@ -36,32 +36,18 @@ void main() {
     throw StateError('Katalogda yok: $id (hiçbir dalgada)');
   }
 
-  /// Yüzey listesini içerikten TÜRETİR — ürünün yapacağı işin aynısı.
-  List<LessonSurface> deriveSurfaces() {
-    final List<LessonSurface> out = <LessonSurface>[];
-    for (final Map<String, dynamic> m
-        in (library['movements'] as List<dynamic>).cast<Map<String, dynamic>>()) {
-      final List<dynamic> courses =
-          (m['courses'] as List<dynamic>?) ?? const <dynamic>[];
-      if (courses.isEmpty) continue; // coming_soon: kurs yok (K1).
-      final MovementConfig cfg = MovementConfig.parse(
-          catalogFile((m['catalogId'] ?? m['id']) as String).readAsStringSync());
-      final String unit = unitLabelForEngineType(cfg.engineType);
-      for (final Map<String, dynamic> c in courses.cast<Map<String, dynamic>>()) {
-        for (final Map<String, dynamic> l
-            in (c['lessons'] as List<dynamic>).cast<Map<String, dynamic>>()) {
-          final bool locked = l['status'] == 'locked';
-          out.add(LessonSurface(
-            id: l['id'] as String,
-            unitLabel: unit,
-            gradedToday: (l['gradesFormAgainstReference'] as bool? ?? false) && !locked,
-            lockedReason: locked ? l['lockedReason'] as String : null,
-          ));
-        }
-      }
-    }
-    return out;
-  }
+  /// Yüzey listesini ÜRETİM yoluyla türetir — `LessonSurface.deriveAll`.
+  ///
+  /// Testin kendi türetmesini yazması cazipti; yazmadım. İki türetme
+  /// tutarsızlaşır (G-079 dersi): test `status: locked`i okur, üretim okumaz ve
+  /// kilitli ders üretimde AÇIK görünür — test YEŞİL kalarak. Bu yüzden test
+  /// üretimin çağırdığı fonksiyonun AYNISINI çağırıyor; buradaki tek fark
+  /// katalog dosyasının nereden okunduğu.
+  List<LessonSurface> deriveSurfaces() => LessonSurface.deriveAll(
+        library: library,
+        catalogFor: (String cid) =>
+            MovementConfig.parse(catalogFile(cid).readAsStringSync()),
+      );
 
   test('yüzey listesi gerçek içerikten türetilebiliyor', () {
     final List<LessonSurface> s = deriveSurfaces();
