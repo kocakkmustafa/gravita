@@ -60,8 +60,34 @@ void main(List<String> args) {
   stdout.writeln('minAcceptedR=$minAcceptedR (eşik=$gateThreshold, '
       'fark=${(minAcceptedR - gateThreshold).toStringAsFixed(3)})\n');
 
+  // KARAR KAYDI (M-F-175/1(a), Choreia decisions.json deseni): take-düzeyi
+  // HÜKÜMLER burada yaşar ve BUILD onları taşır. Artefakta elle yazmak her
+  // regen'de kaybolur — Choreia'da bu tuzak üç kez ısırdı. Dosya yoksa SESSİZ
+  // GEÇMEZ, gürültü yapar: dışlamaların sessizce geri dönmesi G-089'un tüm
+  // ölçümünü boşa çıkarır.
+  final File decisionsFile =
+      File('../../content/harvest/decisions.bodyweight_squat.json');
+  if (!decisionsFile.existsSync()) {
+    stderr.writeln('⛔ karar kaydı YOK: ${decisionsFile.path}\n'
+        '   G-089 varyant-dışlamaları bu dosyada yaşıyor; onsuz 6 barbell '
+        'take SESSİZCE referansa geri döner. Kurulum DURDURULDU.');
+    exit(78);
+  }
+  final Map<String, dynamic> decisions =
+      jsonDecode(decisionsFile.readAsStringSync()) as Map<String, dynamic>;
+  final List<Map<String, dynamic>> variantExcluded =
+      (decisions['excludedVariantMismatch'] as List<dynamic>)
+          .cast<Map<String, dynamic>>();
+  final Set<String> variantExcludedIds = variantExcluded
+      .map((Map<String, dynamic> e) => e['takeId'] as String)
+      .toSet();
+  stdout.writeln('karar kaydı: ${variantExcludedIds.length} take VARYANT '
+      'uyuşmazlığından dışlanıyor (M-F-175/1) — '
+      '${variantExcludedIds.join(", ")}');
+
   final Map<String, Fixture> eligible = <String, Fixture>{};
   final Map<String, int> countByChannel = <String, int>{};
+  final List<String> variantExcludedSeen = <String>[];
   for (final File f in slicedDir
       .listSync()
       .whereType<File>()
@@ -72,8 +98,23 @@ void main(List<String> args) {
     final String channel = fx.provenance?.channel ?? '?';
     if (!passChannels.contains(channel)) continue;
     final String id = f.uri.pathSegments.last.replaceAll('.full.json', '');
+    if (variantExcludedIds.contains(id)) {
+      variantExcludedSeen.add(id);
+      continue;
+    }
     eligible[id] = fx;
     countByChannel[channel] = (countByChannel[channel] ?? 0) + 1;
+  }
+  // Kayıt BAYATLAMIŞ olabilir: dilim adları değişirse dışlama sessizce
+  // etkisizleşir. Sessiz etkisizlik, dışlamanın kendisinden daha tehlikeli.
+  final Set<String> missing = variantExcludedIds.difference(
+      variantExcludedSeen.toSet());
+  if (missing.isNotEmpty) {
+    stderr.writeln('⛔ karar kaydı BAYAT: şu take\'ler dilim havuzunda '
+        'BULUNAMADI, yani dışlama etkisizleşti: ${missing.join(", ")}\n'
+        '   Dilim adları değişmiş olabilir — kayıt güncellenmeden kurulum '
+        'yapılmaz.');
+    exit(78);
   }
   stdout.writeln('uygun (hipKneeCoupling PASS) fixture sayısı: '
       '${eligible.length} · ${countByChannel.length} kaynak');
@@ -227,6 +268,18 @@ void main(List<String> args) {
         'e882a96 rom_mode.classify() ile yeniden hesaplandi (G-072); '
         'romMode=passive olan kaynak YINE dislaniyor. M-F-113 IPTAL: elle '
         'kaynak-duzeyi dislama YOK.',
+    r'$excludedVariantMismatch': variantExcluded,
+    r'$excludedVariantMismatchNote': 'M-F-175/1: 6 take VARYANT uyuşmazlığından '
+        '(yüklü barbell squat, `bodyweight_squat` havuzunda yanlış varyant) '
+        'ADIYLA dışlandı — biri ESKİ MEDOİDDİ (Jeff_Nippard_w13_r0, kaynağı '
+        '198 kg top-set). Bu bir eşik icadı DEĞİL, ölçülmüş-bozuk numunenin '
+        'isimli dışlanması: %17 katkı-kirlenmesi · gövde eğimi farkı 8,2° '
+        '(= freeFloorDeg tabanının TAMAMI) · 18,2° daha sığ · göz-doğrulaması '
+        'tartışmasız. Karar kaydı `content/harvest/decisions.bodyweight_squat'
+        '.json`da YAŞAR ve bu build onu OKUR (elle yazılsa regen\'de kaybolurdu '
+        '— Choreia\'da üç kez ısıran tuzak, M-F-174). Take\'ler ÇÖP DEĞİL: '
+        '`barbell_squat` tag\'iyle gelecekteki barbell referansının meşru '
+        'malzemesi.',
     r'$windowRule': 'rep_fsm (slice_deep_reps_squat.dart) + '
         'hipKneeCoupling gate (rep-fsm, hip_knee_coupling.bodyweight_squat.json)',
   };

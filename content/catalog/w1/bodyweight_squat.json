@@ -192,28 +192,27 @@
     "sources": [
       "Jeff Nippard",
       "Jeremy Ethier",
-      "K boges",
       "Strength Side",
       "THENX",
       "WeShape"
     ],
-    "consensusN": 6,
+    "consensusN": 5,
     "status": "harvested_provisional",
     "derivedJoints": [
       "elbow",
       "forearm",
+      "hip",
       "shoulder",
+      "thigh",
       "upper_arm"
     ],
     "floorBoundJoints": [
-      "hip",
       "knee",
       "shin",
-      "thigh",
       "trunk_tilt"
     ],
-    "takes": 36,
-    "excludedOutliers": 197,
+    "takes": 25,
+    "excludedOutliers": 202,
     "orderIndependent": false,
     "mirrorAgnostic": false,
     "$note": "ELLE DÜZENLENMEZ — tools/sync_provenance.py referans artefaktından türetir, validate_catalog.py V17 denetler."

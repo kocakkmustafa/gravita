@@ -1,0 +1,114 @@
+{
+  "$comment": [
+    "KAYNAK/TAKE-DÜZEYİ KARARLAR — canonical_squat_reference.dart bunları OKUR ve artefakta yazar.",
+    "Neden ayrı dosya (Choreia decisions.json deseni, M-F-174): bunlar ÖLÇÜM değil HÜKÜM",
+    "(koordinatör kararı), otomatik türetilemez. Artefakta ELLE yazılırsa her regen'de KAYBOLUR.",
+    "Choreia'da bu tuzak ÜÇ KEZ ısırdı (namedVariant sessizce · excludedIdentityAmbiguous",
+    "regen'de · excludedNotLesson girdisi havuzdan çıktığı için). Dersi aynen alıyorum:",
+    "kayıt kaynaktan UZUN yaşar ve build onu TAŞIR — iki yerde tutulan gerçek tutarsızlaşır.",
+    "",
+    "⚠️ Bu dosyayı silmek ya da build'in okumasını kaldırmak, 6 barbell take'inin",
+    "SESSİZCE referansa geri dönmesi demektir. G-089'un tüm ölçümü o sessiz dönüşe karşıdır."
+  ],
+  "schemaVersion": 1,
+  "technique": "bodyweight_squat",
+  "excludedVariantMismatch": [
+    {
+      "takeId": "Jeff_Nippard_w13_r0",
+      "videoId": "sdeQjm7avi8",
+      "channel": "Jeff Nippard",
+      "wasMedoid": true,
+      "variantTag": "barbell_squat",
+      "why": "Yüklü BARBELL sırt squat'ı — `bodyweight_squat` havuzunda yanlış VARYANT (M-F-175/3 varyant-kimliği sınıfı). Bu take AYNI ZAMANDA referansın MEDOİDİYDİ, yani tüm take'lerin DTW ile büküldüğü hizalama tabanı 198 kg'lık bir top-set'ti.",
+      "evidence": [
+        "ekranda açık altyazı: 'SQUAT [TOP SET] 435 LBS (198 KG) x 3 REPS'",
+        "kemer + squat rack + WALKOUTS/PIN SQUATS bölümleri (9-kare göz taraması)",
+        "yük-işaretleri (başlık+açıklama): 1rm, bar, lbs, powerlift, pr, rack",
+        "bodyweight işareti YOK",
+        "grup ölçümü: barbell take'leri dip anında gövde eğimi medyan -4,8 derece vs diğerleri +3,4 (fark 8,2 = freeFloorDeg tabanının TAMAMI) ve diz 77,7 vs 59,5 (18,2 derece DAHA SIĞ)",
+        "medoid 107 kare / 4,42 sn iken take medyanı ~52 kare — 198 kg triple YAVAŞTIR (M-F-155 'yavaş medoid' bilmecesinin kök nedeni)"
+      ],
+      "measuredAt": "2026-07-30",
+      "decidedBy": "koordinatör hükmü M-F-175/1 (Gravita G-089 ölçümü üzerine)",
+      "carried": true
+    },
+    {
+      "takeId": "Jeff_Nippard_w20_r0",
+      "videoId": "sdeQjm7avi8",
+      "channel": "Jeff Nippard",
+      "wasMedoid": false,
+      "variantTag": "barbell_squat",
+      "why": "Aynı klip (sdeQjm7avi8) — yüklü barbell squat.",
+      "evidence": ["aynı klip: 'SQUAT [TOP SET] 435 LBS (198 KG) x 3 REPS'"],
+      "measuredAt": "2026-07-30",
+      "decidedBy": "koordinatör hükmü M-F-175/1",
+      "carried": true
+    },
+    {
+      "takeId": "Jeff_Nippard_w11_r0",
+      "videoId": "bEv6CCg2BC8",
+      "channel": "Jeff Nippard",
+      "wasMedoid": false,
+      "variantTag": "barbell_squat",
+      "why": "Yüklü barbell rack squat'ı — yanlış varyant.",
+      "evidence": [
+        "kemerli rack squat kareleri (göz taraması)",
+        "'...of the Barbell Squat' başlıklı EMG makalesi kareleri",
+        "yük-işaretleri: lbs, powerlift, weight; bodyweight işareti YOK"
+      ],
+      "measuredAt": "2026-07-30",
+      "decidedBy": "koordinatör hükmü M-F-175/1",
+      "carried": true
+    },
+    {
+      "takeId": "Jeff_Nippard_w14_r0",
+      "videoId": "bEv6CCg2BC8",
+      "channel": "Jeff Nippard",
+      "wasMedoid": false,
+      "variantTag": "barbell_squat",
+      "why": "Aynı klip (bEv6CCg2BC8) — yüklü barbell squat.",
+      "evidence": ["aynı klip: kemerli rack squat + barbell EMG makalesi"],
+      "measuredAt": "2026-07-30",
+      "decidedBy": "koordinatör hükmü M-F-175/1",
+      "carried": true
+    },
+    {
+      "takeId": "Jeff_Nippard_w24_r1",
+      "videoId": "bEv6CCg2BC8",
+      "channel": "Jeff Nippard",
+      "wasMedoid": false,
+      "variantTag": "barbell_squat",
+      "why": "Aynı klip (bEv6CCg2BC8) — yüklü barbell squat.",
+      "evidence": ["aynı klip: kemerli rack squat + barbell EMG makalesi"],
+      "measuredAt": "2026-07-30",
+      "decidedBy": "koordinatör hükmü M-F-175/1",
+      "carried": true
+    },
+    {
+      "takeId": "Jeremy_Ethier_w4_r1",
+      "videoId": "gcNh17Ckjgg",
+      "channel": "Jeremy Ethier",
+      "wasMedoid": false,
+      "variantTag": "barbell_squat",
+      "why": "Yüklü barbell rack squat'ı — yanlış varyant. ⚠️ Jeremy Ethier bu referansa TEK take veriyordu; dışlanmasıyla kaynak sayısı 6→5'e iner (minSources=3'ün rahat üstünde, M-F-38 tabanı korunur).",
+      "evidence": [
+        "yüklü rack squat kareleri + bar-sırtta overlay okları (göz taraması)",
+        "yük-işaretleri: back squat, bar, barbell, plates, rack, weight; bodyweight işareti YOK"
+      ],
+      "measuredAt": "2026-07-30",
+      "decidedBy": "koordinatör hükmü M-F-175/1",
+      "carried": true
+    }
+  ],
+  "$variantTagNote": [
+    "M-F-175/2(a): bu 6 take ÇÖP DEĞİL — `barbell_squat` FARKLI bir tekniktir ve",
+    "gelecekteki olası bir barbell_squat referansının MEŞRU malzemesidir.",
+    "Kural: TAG'lenir, asla bodyweight havuzuna KATILMAZ, asla ATILMAZ."
+  ],
+  "$markerScanNote": [
+    "M-F-175/2(b): yük-işareti taraması İŞARETÇİDİR, hüküm değil — başlık+açıklama",
+    "kanıtı ZAYIF (bu havuzda transkript YOK). Zincir: marker → GÖZ-DOĞRULAMA → tag.",
+    "Zayıf metin kanıtıyla otomatik ret YAPILMAZ; yukarıdaki 6 dışlamanın hepsi",
+    "göz-doğrulamasından geçti."
+  ]
+}
