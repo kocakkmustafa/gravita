@@ -1,0 +1,22 @@
+{
+  "$measurement": "phases below declared minPhaseMs — REPORT ONLY",
+  "$ruling": "M-F-162 hüküm 3: beyan edilen taban RAPORLANIR, ZORLANMAZ. Zorlama kararı ancak ölçülmüş dağılımdan verilir (G-054: sayım eşiği CÖMERT DIŞ SINIR olmalı).",
+  "movements": {
+    "push_up": {
+      "minPhaseMs": 200,
+      "clips": 27,
+      "reps": 157,
+      "phasesCounted": 314,
+      "phasesBelowMinMs": 12,
+      "shareBelow": 0.0382
+    },
+    "bodyweight_squat": {
+      "minPhaseMs": 250,
+      "clips": 27,
+      "reps": 420,
+      "phasesCounted": 840,
+      "phasesBelowMinMs": 59,
+      "shareBelow": 0.0702
+    }
+  }
+}

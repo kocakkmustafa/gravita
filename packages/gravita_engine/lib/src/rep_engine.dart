@@ -180,6 +180,27 @@ final class RepEngine {
   /// Hüküm verilemeyen kare sayısı — "analiz edemedim" oranının kaynağı.
   int skippedFrames = 0;
 
+  /// Beyan edilen `minPhaseMs` tabanının ALTINA düşen faz sayısı (M-F-162).
+  ///
+  /// **SALT RAPOR — hiçbir tekrar bu yüzden reddedilmez.** Sebep G-054:
+  /// sayım eşiği CÖMERT DIŞ SINIR olmak zorunda; sıkılaştırmak hata
+  /// kuralını ulaşılamaz kılar ve kullanıcıyı sıfır-tekrar + sıfır-geri-
+  /// bildirim durumunda bırakır (o hata bir kez yapıldı ve 5 harekette
+  /// birden bulundu). Zorlama kararı ancak ölçülmüş dağılımdan verilir.
+  ///
+  /// Neden bu sayaç VAR: `minPhaseMs` config'de beyan ediliyor ve
+  /// `MovementConfig` onu `minPhaseUs` olarak ayrıştırıyordu, ama
+  /// **hiçbir motor/araç/test OKUMUYORDU** (G-081 — dördüncü ölü-config
+  /// vakası, `preconditionStatus`/`unreliableJoints` ile aynı sınıf).
+  /// Beyanı silmek yerine TÜKETİCİ verildi: taban artık ölçülüyor,
+  /// zorlanmıyor.
+  int phasesBelowMinMs = 0;
+
+  /// Sayılan toplam faz (her tamamlanan tekrar 2 faz: iniş + çıkış).
+  /// `phasesBelowMinMs / phasesCounted` oranı, zorlama kararının dayanağı
+  /// olacak dağılımın kendisidir.
+  int phasesCounted = 0;
+
   _End? _current;
   _End? _cycleStart;
   bool _visitedOther = false;
@@ -309,6 +330,16 @@ final class RepEngine {
         extremeAngleDeg: _extreme,
         startedAtOpenEnd: _cycleStart == _End.open,
       ));
+      // Beyan edilen taban SALT-RAPOR olarak ölçülür (M-F-162) — tekrar
+      // eklendikten SONRA, çünkü hüküm değişmiyor, yalnız gözlem yazılıyor.
+      final Rep justAdded = _reps.last;
+      for (final int phaseUs in <int>[
+        justAdded.descentUs,
+        justAdded.ascentUs,
+      ]) {
+        phasesCounted++;
+        if (phaseUs < c.minPhaseUs) phasesBelowMinMs++;
+      }
       _cycleStart = here;
       _cycleStartUs = tUs;
       _visitedOther = false;

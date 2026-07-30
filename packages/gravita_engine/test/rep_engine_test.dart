@@ -276,6 +276,42 @@ void main() {
     });
   });
 
+  group('M-F-162 — minPhaseMs RAPORLANIR, ZORLANMAZ', () {
+    /// G-081'de ölçüldü: `minPhaseMs` config'de beyan ediliyor, `RepConfig`
+    /// onu `minPhaseUs` olarak ayrıştırıyor ama HİÇBİR motor/araç/test
+    /// okumuyordu — dördüncü ölü-config vakası. Beyanı silmek yerine
+    /// tüketici verildi; ama ZORLAMA yasak (G-054: sayım eşiği cömert dış
+    /// sınır olmalı, sıkılaştırmak hata kuralını ulaşılamaz kılar).
+    ///
+    /// Bu iki test o dengeyi kilitler: sayaç GÖRÜR, kapı KAPANMAZ.
+    test('taban altı fazlar SAYILIR ama tekrar REDDEDİLMEZ', () {
+      final MovementConfig c = load('push_up');
+      // push_up minPhaseMs=200 → 200_000 µs. 120 ms'lik fazlarla 3 tekrar:
+      // taban ALTINDA ama sayılmaları GEREKİR.
+      final RepEngine e = RepEngine(c);
+      for (final PoseFrame f in pushUpSequence(3, msPerPhase: 120)) {
+        e.addFrame(f, kSynthSize);
+      }
+      expect(e.repCount, 3,
+          reason: 'ZORLAMA YOK: taban altı faz tekrarı öldürmez (G-054)');
+      expect(e.phasesCounted, 6, reason: 'her tekrar 2 faz (iniş + çıkış)');
+      expect(e.phasesBelowMinMs, greaterThan(0),
+          reason: 'sayaç GÖRMELİ — görmezse beyanın tüketicisi yine yok');
+    });
+
+    test('taban üstü fazlarda sayaç SIFIR kalır (sahte alarm yok)', () {
+      final RepEngine e = RepEngine(load('push_up'));
+      for (final PoseFrame f in pushUpSequence(3, msPerPhase: 800)) {
+        e.addFrame(f, kSynthSize);
+      }
+      expect(e.repCount, 3);
+      expect(e.phasesCounted, 6);
+      expect(e.phasesBelowMinMs, 0,
+          reason: 'her zaman ateşleyen bir sayaç, hiç ateşlemeyen kadar '
+              'işe yaramaz');
+    });
+  });
+
   group('M-F-122 hüküm 1 — ön koşul BEYAN EDİLMEMİŞSE motor saymaz', () {
     /// G-071 ölçümü: motor kimlik kapısını `precondition.isNotEmpty` ile
     /// kuruyordu, yani koşul LİSTESİ boş olan bir harekette (squat:

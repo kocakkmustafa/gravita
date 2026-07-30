@@ -66,7 +66,7 @@
               },
               "phases": { "type": "object" },
               "repCountedOn": { "type": "string" },
-              "minPhaseMs": { "type": "integer", "minimum": 0 },
+              "minPhaseMs": { "type": "integer", "minimum": 0, "description": "Faz başına beyan edilen alt süre sınırı. ⚠️ M-F-162: bu taban RAPORLANIR, ZORLANMAZ — RepEngine faz süresi bunun altına düşen vakaları SAYAR (phasesBelowMinMs) ama tekrarı reddetmez. Gerekçe G-054: sayım eşiği CÖMERT DIŞ SINIR olmalı; sıkılaştırmak, hata kuralını ulaşılamaz kılıp kullanıcıyı sıfır-tekrar+sıfır-geri-bildirim durumunda bırakır. Zorlama kararı ancak ölçülmüş dağılımdan verilir. G-081: alan bugüne dek ayrıştırılıp HİÇ okunmuyordu (ölü config)." },
               "timeoutMs": { "type": "integer", "description": "Fiziksel üst sınır — JabLab J-009 dersi: sınırsız faz, yaslanmayı 'rep' sayar" },
               "romTarget": { "type": "object" },
               "tempo": { "type": "object" }
