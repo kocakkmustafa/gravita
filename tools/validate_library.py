@@ -12,6 +12,11 @@ Gravita'ya özel iki kural neden var:
      beyan eder; hepsi `derivedJoints`te olmalı ve hiçbiri referansın
      `unreliableJoints`inde olmamalı. (İlk hâli yalnız "derivedJoints boş mu"
      soruyordu; squat deliği gösterdi — G-072.)
+  K9 (kilit izlenebilirliği): kilitli ders `lockClass: measurement` +
+     `blockedBy` taşımalı; her bloker DOĞRULANIR ve artık bloklamıyorsa
+     BAYAT KİLİT hatası verir (JabLab kilit-testi deseni). Bir kilidin sebebi
+     ölürse kilit kendiliğinden görünür olmalı — "okuyanı olmayan beyan"ın
+     aynası: beyan var, dayanağı ölmüş.
   K8 (kimlik ön koşulu kapısı): G-043 — kimlik ön koşulu yoksa rep FSM'i
      hareketi değil salınımı sayar. ⚠️ Bu kural `engine.precondition.status`
      beyanının ÜRÜN tarafındaki İLK tüketicisidir: o beyanı bugüne dek yalnız
@@ -35,6 +40,38 @@ HARVEST_DIR = ROOT / "content" / "harvest"
 
 def load(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
+
+
+
+def _blocker_active(key, cat, reference_lookup, mid):
+    """Adlandırılmış blokerin ŞU AN gerçekten blokladığını doğrular (K9).
+
+    Dönüş: (tanınıyor mu, hâlâ blokluyor mu, açıklama).
+
+    Neden gerekli (JabLab kilit-testi deseni, M-F-179/1): bir kilit, sebebi
+    ORTADAN KALKTIKTAN SONRA da durabilir — ve kimse fark etmez. Bu, gece
+    boyu avladığım "okuyanı olmayan beyan"ın AYNASI: bu kez beyan (kilit)
+    var ama DAYANAĞI ölmüş. Kilit ancak adlandırılmış bir ölçüm-boşluğuna
+    İZLENEBİLİRSE denetlenebilir; izlenebilirse de bayatlığı MEKANİK
+    yakalanır.
+    """
+    prov = cat.get("provenance", {})
+    if key.startswith("provenance.derivedJoints:excludes:"):
+        joint = key.rsplit(":", 1)[1]
+        derived = prov.get("derivedJoints", [])
+        return True, joint not in derived, (
+            f"`{joint}` derivedJoints'te {'YOK (blokluyor)' if joint not in derived else 'VAR → BLOKLAMIYOR'}")
+    if key == "engine.precondition.status!=derived":
+        st = cat.get("engine", {}).get("precondition", {}).get("status")
+        return True, st != "derived", f"precondition.status={st}"
+    if key == "replayFixture:missing":
+        # Replay fixture'ı varsa hata kuralları gerçek veride sınanabilir.
+        fx = ROOT / "packages" / "gravita_engine" / "test" / "fixtures"
+        present = any(p.name.startswith(mid) for p in fx.glob("*.json")) \
+            if fx.is_dir() else False
+        return True, not present, (
+            f"replay fixture {'YOK (blokluyor)' if not present else 'VAR → BLOKLAMIYOR'}")
+    return False, False, "TANINMAYAN bloker anahtarı"
 
 
 def check(lib, catalog_lookup, reference_lookup):
@@ -82,6 +119,17 @@ def check(lib, catalog_lookup, reference_lookup):
                     f"görünüyor: '{item}'")
 
         if m.get("status") != "live":
+            # coming_soon hareket de blokerlerini ADLANDIRMALI ve onlar HÂLÂ
+            # bloklamalı — yoksa "yakında" beyanı dayanağını kaybetmiş olur.
+            for key in (m.get("blockedBy") or []):
+                known, active, expl = _blocker_active(
+                    key, cat, reference_lookup, mid)
+                if not known:
+                    violations.append(f"{mid}: tanınmayan bloker: '{key}'")
+                elif not active:
+                    violations.append(
+                        f"{mid}: BAYAT 'coming_soon' — bloker '{key}' artık "
+                        f"bloklamıyor ({expl})")
             continue
 
         # K8: live hareket DERIVED ön koşul taşımak zorunda (G-043).
@@ -124,6 +172,33 @@ def check(lib, catalog_lookup, reference_lookup):
                     violations.append(
                         f"{lid}: lockedReason var ama status=locked değil "
                         f"(tutarsız beyan)")
+
+                # K9: KİLİTLİ ders, kilidini ADLANDIRILMIŞ ve DOĞRULANABİLİR
+                # bir ölçüm-boşluğuna izlemek zorunda; bloker artık
+                # bloklamıyorsa kilit BAYATTIR (yapısal kilit de yasak).
+                if locked:
+                    if l.get("lockClass") != "measurement":
+                        violations.append(
+                            f"{lid}: kilitli ama `lockClass` 'measurement' "
+                            f"değil ({l.get('lockClass')!r}) — yapı/ekran "
+                            f"kilidi ÖLÇÜM kilidi gibi sunulamaz")
+                    blockers = l.get("blockedBy") or []
+                    if not blockers:
+                        violations.append(
+                            f"{lid}: kilitli ama `blockedBy` YOK — kilidi "
+                            f"adlandırılmış bir ölçüm-boşluğuna izlenemeyen "
+                            f"kilit denetlenemez")
+                    for key in blockers:
+                        known, active, expl = _blocker_active(
+                            key, cat, reference_lookup, mid)
+                        if not known:
+                            violations.append(
+                                f"{lid}: tanınmayan bloker anahtarı: '{key}'")
+                        elif not active:
+                            violations.append(
+                                f"{lid}: BAYAT KİLİT — bloker '{key}' artık "
+                                f"BLOKLAMIYOR ({expl}); kilit gözden "
+                                f"geçirilmeli")
 
                 # K7: referansa karşı form notu veren AÇIK ders, NOTLADIĞI her
                 # eklemin varyans-türetimli olduğunu göstermek zorunda.
@@ -224,6 +299,26 @@ def _self_test():
         l.pop("lockedReason")
         l.pop("gradedJoints", None)
 
+    def mut_k9_nolockclass(lib):
+        graded_lesson(lib).pop("lockClass", None)
+
+    def mut_k9_noblockedby(lib):
+        graded_lesson(lib).pop("blockedBy", None)
+
+    def mut_k9_stale(lib):
+        # GERÇEK BAYAT KİLİT: push_up'ın `precondition.status` DERIVED'dir,
+        # yani "precondition != derived" blokeri BLOKLAMAZ. Kilit dayanağını
+        # yitirmiş olur ve K9 bunu yakalamak ZORUNDA — bu, K9'un asıl varlık
+        # sebebi (sebebi ölmüş kilit sessizce durmasın).
+        graded_lesson(lib)["blockedBy"] = [
+            "engine.precondition.status!=derived"]
+
+    def mut_k9_unknown(lib):
+        graded_lesson(lib)["blockedBy"] = ["ekran_henuz_yapilmadi"]
+
+    def mut_k9_structural(lib):
+        graded_lesson(lib)["lockClass"] = "structural"
+
     def mut_k7_unreliable(lib):
         # G-072 deliği: eklem VARYANS-türetimli ama referansta GÜVENİLMEZ.
         # squat: derivedJoints=[elbow,forearm,shoulder,upper_arm],
@@ -251,6 +346,13 @@ def _self_test():
          "`gradedJoints` beyan edilmemiş"),
         ("K7c güvenilmez eklem notlanıyor", mut_k7_unreliable,
          "GÜVENİLMEZ işaretli"),
+        ("K9a lockClass yok", mut_k9_nolockclass, "lockClass"),
+        ("K9b blockedBy yok", mut_k9_noblockedby, "`blockedBy` YOK"),
+        ("K9c tanınmayan bloker", mut_k9_unknown, "tanınmayan bloker"),
+        ("K9e BAYAT KİLİT (bloker artık bloklamıyor)", mut_k9_stale,
+         "BAYAT KİLİT"),
+        ("K9d yapı-kilidi ölçüm gibi sunuluyor", mut_k9_structural,
+         "ÖLÇÜM kilidi gibi sunulamaz"),
     ]
 
     ok = True
@@ -287,7 +389,7 @@ def _self_test():
           f"{'yakalandı' if hit else 'YAKALANMADI — SAHTE KAPI'}")
     ok = ok and hit
 
-    print("✅ 10/10 kapı ateşlendi" if ok else "⛔ bazı kapılar ateşlenmedi")
+    print("✅ 15/15 kapı ateşlendi" if ok else "⛔ bazı kapılar ateşlenmedi")
     return 0 if ok else 1
 
 
@@ -319,7 +421,7 @@ def main():
     print(f"✅ kütüphane denetimi TEMİZ — {len(lib['movements'])} hareket "
           f"({len(live)} canlı: {live} · {len(soon)} yakında: {soon}) · "
           f"{lessons} ders ({locked} kilitli, hepsi isimli gerekçeli) · "
-          f"8 değişmez (10 kapı dalı)")
+          f"9 değişmez (15 kapı dalı)")
     return 0
 
 
