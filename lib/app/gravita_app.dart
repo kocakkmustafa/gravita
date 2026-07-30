@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gravita_engine/gravita_engine.dart';
 
+import 'content_failure.dart';
+import 'content_failure_screen.dart';
 import 'content_repository.dart';
 import 'progress_view.dart';
 
@@ -23,6 +25,17 @@ class GravitaApp extends StatelessWidget {
       );
 }
 
+/// Yükleme sonucu — İKİ başarısızlık AYRI taşınır.
+///
+/// Tek bir `Object? error` alanı bu ayrımı yok ederdi: geçmiş hatası bütün
+/// uygulamayı bloklardı, ya da daha kötüsü sessizce boş geçmiş gösterirdi
+/// (bkz. [HistoryFailure] gerekçesi).
+final class _Loaded {
+  const _Loaded({required this.summary, this.historyFailure});
+  final ProgressSummary summary;
+  final HistoryFailure? historyFailure;
+}
+
 /// İlerleme ekranı — veriyi toplar, YAPIyı [ProgressView]'a bırakır.
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -32,42 +45,70 @@ class ProgressScreen extends StatefulWidget {
 }
 
 class _ProgressScreenState extends State<ProgressScreen> {
-  Future<ProgressSummary>? _future;
+  Future<_Loaded>? _future;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _future ??= _load(DefaultAssetBundle.of(context));
+    _future ??= _load();
   }
 
-  Future<ProgressSummary> _load(AssetBundle bundle) async {
-    final ContentRepository content = await ContentRepository.load(bundle);
-    final SessionStore store = await ContentRepository.openSessionStore();
-    return ProgressSummary.build(
-      lessonSurfaces: content.lessonSurfaces,
-      records: await store.recent(),
+  Future<_Loaded> _load() async {
+    // İÇERİK hatası fırlar ve BLOKLAR — yakalanmıyor, `FutureBuilder`a gidiyor.
+    final ContentRepository content =
+        await ContentRepository.load(DefaultAssetBundle.of(context));
+
+    // GEÇMİŞ ayrı ele alınır: içerik sağlamsa dersler açılabilir. Ama hata
+    // YUTULMAZ — `historyFailure` yüzeye taşınır ve orada BEYAN EDİLİR.
+    // `catch` içinde boş liste dönüp devam etmek, kullanıcının geçmişini
+    // "yok" ilan etmek olurdu (Gravita deltası, `content_failure.dart`).
+    List<SessionRecord> records = const <SessionRecord>[];
+    HistoryFailure? historyFailure;
+    try {
+      records = await (await ContentRepository.openSessionStore()).recent();
+    } on Object catch (e) {
+      historyFailure = HistoryFailure(e.toString());
+    }
+
+    return _Loaded(
+      summary: ProgressSummary.build(
+        lessonSurfaces: content.lessonSurfaces,
+        records: records,
+      ),
+      historyFailure: historyFailure,
     );
   }
 
+  Future<void> _retry() async => setState(() => _future = _load());
+
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text('Gravita')),
-        body: FutureBuilder<ProgressSummary>(
-          future: _future,
-          builder: (BuildContext context,
-              AsyncSnapshot<ProgressSummary> snapshot) {
-            // Üç durumun ÜÇÜ de var. Hata durumunu atlamak, içerik yüklenmezse
-            // BOŞ bir ilerleme ekranı göstermek olurdu — "hiç çalışmadın"
-            // diyen bir yalan. Metin ham: tasarım turu biçimlendirecek.
-            if (snapshot.hasError) {
-              return Center(child: Text('Could not load: ${snapshot.error}'));
-            }
-            final ProgressSummary? summary = snapshot.data;
-            if (summary == null) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            return ProgressView(summary: summary);
-          },
-        ),
-      );
+  Widget build(BuildContext context) {
+    return FutureBuilder<_Loaded>(
+      future: _future,
+      builder: (BuildContext context, AsyncSnapshot<_Loaded> snapshot) {
+        // İçerik hatası tipli ekrana gider (JabLab J-079 deseni). Eski hâli
+        // `Text('Could not load: ${snapshot.error}')`ti — yani kullanıcıya
+        // `StateError` gövdesi gösteriyordu: "çökmüyor" ile "dürüstçe
+        // açıklıyor" aynı şey değil.
+        if (snapshot.hasError) {
+          return ContentFailureScreen(
+            failure: ContentFailure.from(snapshot.error!),
+            onRetry: _retry,
+          );
+        }
+        final _Loaded? loaded = snapshot.data;
+        if (loaded == null) {
+          return const Scaffold(
+              body: Center(child: CircularProgressIndicator()));
+        }
+        return Scaffold(
+          appBar: AppBar(title: const Text('Gravita')),
+          body: ProgressView(
+            summary: loaded.summary,
+            historyFailure: loaded.historyFailure,
+          ),
+        );
+      },
+    );
+  }
 }

@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'
     show ByteData, CachingAssetBundle, rootBundle;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gravita/app/content_failure_screen.dart';
 import 'package:gravita/app/content_repository.dart';
+import 'package:gravita/app/gravita_app.dart';
+import 'package:gravita/app/progress_strings.dart';
 import 'package:gravita/app/progress_view.dart';
 import 'package:gravita_engine/gravita_engine.dart';
 
@@ -119,38 +122,52 @@ void main() {
     expect(summary.withheldRetroactiveCredit, 0);
   });
 
-  testWidgets('içerik yüklenmezse BOŞ ilerleme değil HATA gösterilir',
+  testWidgets('GERÇEK ProgressScreen: bozuk bundle → tipli HATA ekranı',
       (WidgetTester tester) async {
-    // "Hiç çalışmadın" diyen boş bir ekran, yükleme hatasının en kötü
-    // görünümüdür. Kabuk bunu ayırt ediyor mu?
+    // ⚠️ Bu testin ilk hâli `_ProbeScreen` adında, yükleme yolunun KOPYASI olan
+    // küçük bir widget kullanıyordu — yani ürünün kablolamasını değil kendi
+    // taklidini sınıyordu. Aynı "iki ev tutarsızlaşır" riski (G-079). Artık
+    // GERÇEK ekran pump ediliyor; mümkün oldu çünkü geçmiş hatası artık
+    // ölümcül değil (Gravita deltası): `path_provider` testte yok, ama bu
+    // içerik yolunu bloklamıyor.
     await tester.pumpWidget(MaterialApp(
       home: DefaultAssetBundle(
         bundle: _BrokenBundle(),
-        child: const Scaffold(body: _ProbeScreen()),
+        child: const ProgressScreen(),
       ),
     ));
     await tester.pumpAndSettle();
-    expect(find.textContaining('Could not load'), findsOneWidget);
-    expect(find.text('No sessions yet.'), findsNothing);
+    expect(find.byType(ContentFailureScreen), findsOneWidget);
+    expect(find.text(ProgressStrings.emptyHistory), findsNothing,
+        reason: '"Hiç seans yok" ekranı, yükleme hatasının en kötü görünümü.');
+    // Asset okunamadı → unreadable sınıfı → retry SUNULUR.
+    expect(find.byKey(ContentFailureScreen.retryKey), findsOneWidget);
   });
-}
 
-/// `ProgressScreen`in yükleme yolunu taklit eden en küçük prob: bozuk bundle
-/// verildiğinde hata dalını gösterdiğini kanıtlar.
-class _ProbeScreen extends StatelessWidget {
-  const _ProbeScreen();
-
-  @override
-  Widget build(BuildContext context) => FutureBuilder<ContentRepository>(
-        future: ContentRepository.load(DefaultAssetBundle.of(context)),
-        builder: (BuildContext context,
-            AsyncSnapshot<ContentRepository> snapshot) {
-          if (snapshot.hasError) {
-            return Text('Could not load: ${snapshot.error}');
-          }
-          return const Text('No sessions yet.');
-        },
-      );
+  testWidgets('POZİTİF İKİZ: GERÇEK bundle ile hata ekranı HİÇ açılmıyor',
+      (WidgetTester tester) async {
+    // M-F-194. Üstteki iddia, `ContentFailureScreen` her koşulda çizilseydi de
+    // geçerdi; bu ikiz onu kapatıyor. Ayrıca burada geçmiş GERÇEKTEN
+    // okunamıyor (testte path_provider yok) ve yüzey bunu BEYAN ediyor —
+    // "Not started" demiyor.
+    tester.view.physicalSize = const Size(1200, 4000);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(const MaterialApp(home: ProgressScreen()));
+    // ⚠️ `pumpAndSettle()` BURADA KULLANILAMAZ ve ilk yazışımda timeout verdi:
+    // GERÇEK asset okuması gerçek saate bağlı, `testWidgets` gövdesi ise sahte
+    // saatli — yükleyici sonsuza kadar dönüyor. FakeAsync tuzağının ÜÇÜNCÜ
+    // görünüşü (birincisi depo e2e testi, ikincisi buydu). Widget'ın ARKASINDA
+    // gerçek G/Ç varsa: pump → runAsync ile gerçek işi bitir → pump.
+    await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 100)));
+    await tester.pump();
+    expect(find.byType(ContentFailureScreen), findsNothing);
+    expect(find.byKey(ProgressView.measuredSectionKey), findsOneWidget);
+    expect(find.byKey(ProgressView.historyFailureKey), findsOneWidget,
+        reason: 'path_provider testte yok → geçmiş okunamadı → BEYAN edilmeli.');
+    expect(find.text(ProgressStrings.notStarted), findsNothing);
+  });
 }
 
 class _BrokenBundle extends CachingAssetBundle {

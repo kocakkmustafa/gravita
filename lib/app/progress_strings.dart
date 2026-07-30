@@ -70,6 +70,15 @@ abstract final class ProgressStrings {
       'Some sessions below are for a lesson that is locked again. We kept your '
       'work; we pulled back the measurement.';
 
+  /// ⭐ GRAVITA DELTASI: geçmiş okunamadı. **"Not started" DEMEK YASAK** —
+  /// o cümle "hiç çalışmadın" demektir ve okunamayan bir geçmişte bunu
+  /// bilmiyoruz. Sayı da gösterilmez: bilmediğimiz sayıyı sıfır yazmak,
+  /// gecenin bütün dersinin tersi olurdu.
+  static const String historyUnavailable =
+      "We could not read your training history on this device. Your lessons "
+      "still work, but we won't guess what you have done — nothing below is a "
+      "count of your work. If this keeps happening, reinstalling should fix it.";
+
   /// Yüzeyde karşılığı olmayan kayıtlar. Sayı SÖYLENİR — sessizlik yalandır.
   static String orphanRecords(int n) =>
       'We also have $n lesson(s) of history that no current lesson matches. '

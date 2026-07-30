@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:gravita_engine/gravita_engine.dart';
 
+import 'content_failure.dart';
 import 'progress_strings.dart';
 
 /// İlerleme yüzeyinin **YAPISI** — görsel tasarım BİLEREK yok.
@@ -36,13 +37,20 @@ import 'progress_strings.dart';
 /// iddia edebilsin. "Metin bir yerde var" diyen test, iki bölüm birleştirilse
 /// bile geçerdi — `ProgressSummary`'nin tip ayrımı tam bunu önlemek için var.
 class ProgressView extends StatelessWidget {
-  const ProgressView({required this.summary, super.key});
+  const ProgressView({required this.summary, this.historyFailure, super.key});
 
   static const Key measuredSectionKey = Key('progress.measured');
   static const Key lockedSectionKey = Key('progress.locked');
   static const Key notesSectionKey = Key('progress.notes');
+  static const Key historyFailureKey = Key('progress.historyUnavailable');
 
   final ProgressSummary summary;
+
+  /// ⭐ GRAVITA DELTASI (bkz. `content_failure.dart`): geçmiş okunamadıysa
+  /// BLOKLAMIYORUZ (içerik sağlam) ama ölçüm bölümü sayı GÖSTERMEZ — yerine
+  /// ne olduğunu söyler. Aksi hâlde her ders "Not started" görünür ve bu
+  /// "hiç çalışmadın" demektir.
+  final HistoryFailure? historyFailure;
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +80,14 @@ class ProgressView extends StatelessWidget {
           key: measuredSectionKey,
           title: ProgressStrings.measuredSection,
           subtitle: ProgressStrings.measuredSubtitle,
-          children: open.isEmpty
-              ? const <Widget>[Text(ProgressStrings.emptyHistory)]
-              : open.map(_measuredRow).toList(growable: false),
+          children: historyFailure != null
+              ? const <Widget>[
+                  Text(ProgressStrings.historyUnavailable,
+                      key: historyFailureKey)
+                ]
+              : open.isEmpty
+                  ? const <Widget>[Text(ProgressStrings.emptyHistory)]
+                  : open.map(_measuredRow).toList(growable: false),
         ),
         if (locked.isNotEmpty)
           _section(
