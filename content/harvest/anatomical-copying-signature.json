@@ -1,0 +1,97 @@
+{
+  "$probe": "copying signature under camera vs ANATOMICAL frame (M-F-172 hüküm 3) — REPORT ONLY",
+  "$signature": "|L-R| SHRINKS as far-limb visibility DROPS => manufactured agreement (model copies the unseen limb).",
+  "$leftMetricNote": "Lissom dosyasında yalnız `_right` var; ikisi de `mirror: true` beyanı taşıdığı için sol ikiz landmark ADLARI RIGHT_→LEFT_ çevrilerek kuruldu — aynı formül, aynalanmış küme. Formül İCAT EDİLMEDİ.",
+  "$bands": [
+    0.0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.01
+  ],
+  "movements": {
+    "push_up": {
+      "bands": [
+        {
+          "band": "0.0-0.2",
+          "camera": 8.6,
+          "cameraSamples": 13162,
+          "anatomical": 6.05,
+          "anatomicalSamples": 13160
+        },
+        {
+          "band": "0.2-0.4",
+          "camera": 15.65,
+          "cameraSamples": 5056,
+          "anatomical": 11.39,
+          "anatomicalSamples": 5050
+        },
+        {
+          "band": "0.4-0.6",
+          "camera": 31.17,
+          "cameraSamples": 4697,
+          "anatomical": 17.96,
+          "anatomicalSamples": 4757
+        },
+        {
+          "band": "0.6-0.8",
+          "camera": 24.69,
+          "cameraSamples": 19478,
+          "anatomical": 16.4,
+          "anatomicalSamples": 20131
+        },
+        {
+          "band": "0.8-1.0",
+          "camera": 22.67,
+          "cameraSamples": 17472,
+          "anatomical": 25.22,
+          "anatomicalSamples": 18036
+        }
+      ],
+      "cameraTrend": "KÜÇÜLÜYOR (8.60° → 22.67°) → imza POZİTİF",
+      "anatomicalTrend": "KÜÇÜLÜYOR (6.05° → 25.22°) → imza POZİTİF"
+    },
+    "bodyweight_squat": {
+      "bands": [
+        {
+          "band": "0.0-0.2",
+          "camera": null,
+          "cameraSamples": 0,
+          "anatomical": null,
+          "anatomicalSamples": 0
+        },
+        {
+          "band": "0.2-0.4",
+          "camera": null,
+          "cameraSamples": 0,
+          "anatomical": null,
+          "anatomicalSamples": 0
+        },
+        {
+          "band": "0.4-0.6",
+          "camera": 45.25,
+          "cameraSamples": 183,
+          "anatomical": 37.62,
+          "anatomicalSamples": 195
+        },
+        {
+          "band": "0.6-0.8",
+          "camera": 20.56,
+          "cameraSamples": 6469,
+          "anatomical": 22.03,
+          "anatomicalSamples": 6751
+        },
+        {
+          "band": "0.8-1.0",
+          "camera": 12.03,
+          "cameraSamples": 26796,
+          "anatomical": 11.49,
+          "anatomicalSamples": 27129
+        }
+      ],
+      "cameraTrend": "BÜYÜYOR (45.25° → 12.03°) → imza NEGATİF",
+      "anatomicalTrend": "BÜYÜYOR (37.62° → 11.49°) → imza NEGATİF"
+    }
+  }
+}
