@@ -49,9 +49,20 @@ değil.** Katalogda üç motor tipi var ve birimleri AYNI APP İÇİNDE farklı:
 
 | motor tipi | hareket örneği | birim |
 |---|---|---|
-| `repFsm` (14) | push_up · bodyweight_squat · pull_up | **tekrar** |
-| `staticHold` (5) | plank · wall_sit · hollow_hold · side_plank · superman_hold | **saniye** |
+| `repFsm` (22) | push_up · bodyweight_squat · pull_up · db_row | **tekrar** |
+| `staticHold` (8) | plank · wall_sit · hollow_hold · side_plank · superman_hold · farmer_carry · tuck_planche · wall_handstand | **saniye** |
 | `multiPhaseFsm` (1) | burpee | **tekrar** |
+
+> ⚠️ **DÜZELTME (kalem 3 sırasında ölçüldü):** bu tablo ilk hâlinde `14/5/1`
+> yazıyordu — o sayılar `content/catalog/w1`in sayılarıydı, kataloğun DEĞİL.
+> Gerçek katalog **31 hareket** (W1: 20, W2: 11). Kök neden ilginç ve kendi
+> başına bir bulgu: `catalog_smoke_test.dart` da yalnız `w1` okuyordu, yani
+> *"motor kataloğun TAMAMINI tüketebilmeli"* iddiası 20/31 hareketle
+> sınanıyordu ve ben sayımı o kapıdan devraldım. Kapı genişletildi (artık
+> `content/catalog/w*` taranıyor + dalga-körlüğü nöbeti olarak sayı çivilendi)
+> ve **W2'nin 11 hareketi de sorunsuz yükleniyor** — gizli bir kusur yoktu,
+> ama iddia doğru olmadan geçiyordu. Delta 1'in SONUCU değişmiyor, GÜÇLENİYOR:
+> saniye-birimli hareket 5 değil 8.
 
 Bir plank seansının "birimi" saniyedir, bir şınav seansının tekrardır. Tek bir
 app-düzeyi `unitLabel` bunu ifade EDEMEZ.

@@ -6,6 +6,7 @@ export 'src/metrics.dart';
 export 'src/mirror_symmetry.dart';
 export 'src/multiphase_engine.dart';
 export 'src/perturbation.dart';
+export 'src/progress_summary.dart';
 export 'src/movement_config.dart';
 export 'src/rep_engine.dart';
 export 'src/session_store.dart';

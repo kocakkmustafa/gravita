@@ -34,12 +34,31 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 LIB_PATH = ROOT / "content" / "library.json"
-CATALOG_DIR = ROOT / "content" / "catalog" / "w1"
+CATALOG_ROOT = ROOT / "content" / "catalog"
 HARVEST_DIR = ROOT / "content" / "harvest"
 
 
 def load(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
+
+
+def load_catalogs():
+    """Katalog girdileri — DALGA-BAĞIMSIZ (`content/catalog/w*`).
+
+    ⚠️ Bu fonksiyon bir DÜZELTMENİN ürünü: burada `w1` SABİTLENMİŞTİ, yani
+    K1-K9 değişmezleri kataloğun yalnız 20/31 hareketini görebiliyordu.
+    Bugün ısırmıyordu çünkü `library.json`daki iki hareket de W1'de; ama bir
+    W2 hareketi (wall_handstand, goblet_squat, ...) kütüphaneye girdiği gün
+    kapı "katalog girdisi YOK" diye YANLIŞ ihlal üretecekti — sessiz geçiş
+    değil, sahte alarm. Aynı dalga-körlüğü `catalog_smoke_test.dart`ta ve
+    delta belgesinin motor-tipi sayımında da vardı (üçü tek kök: W2 eklendi,
+    okuyucular genişletilmedi).
+    """
+    out = {}
+    for wave in sorted(p for p in CATALOG_ROOT.iterdir() if p.is_dir()):
+        for entry in sorted(wave.glob("*.json")):
+            out[entry.stem] = load(entry)
+    return out
 
 
 
@@ -83,7 +102,7 @@ def check(lib, catalog_lookup, reference_lookup):
         cat = catalog_lookup(m.get("catalogId", mid))
         if cat is None:
             violations.append(f"{mid}: katalog girdisi YOK "
-                              f"(content/catalog/w1/{m.get('catalogId', mid)}.json)")
+                              f"(content/catalog/w*/{m.get('catalogId', mid)}.json)")
             continue
 
         prov = cat.get("provenance", {})
@@ -246,7 +265,7 @@ def check(lib, catalog_lookup, reference_lookup):
 def _self_test():
     """Sekiz kuralı kasıtlı ihlalle ateşle. Ateşlenmeyen kapı = sahte kapı."""
     base_lib = load(LIB_PATH)
-    catalogs = {p.stem: load(p) for p in CATALOG_DIR.glob("*.json")}
+    catalogs = load_catalogs()
 
     def lookup(cid):
         return copy.deepcopy(catalogs.get(cid))
@@ -399,7 +418,7 @@ def main():
         return _self_test()
 
     lib = load(LIB_PATH)
-    catalogs = {p.stem: load(p) for p in CATALOG_DIR.glob("*.json")}
+    catalogs = load_catalogs()
     def ref_lookup(mid):
         p = HARVEST_DIR / f"reference.{mid}.json"
         return load(p) if p.exists() else None

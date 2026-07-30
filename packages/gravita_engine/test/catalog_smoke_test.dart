@@ -7,15 +7,34 @@ import 'package:test/test.dart';
 ///
 /// Bu test "yeni hareket = yeni JSON" iddiasının (ADR-004) kanıtıdır: kod
 /// değişmeden her girdi yüklenebiliyorsa motor gerçekten jeneriktir.
+///
+/// ⚠️ **DALGA KAPSAMI:** bu test uzun süre YALNIZ `w1`i okudu; W2 eklendiğinde
+/// (11 hareket) okuyucu genişletilmedi, yani "kataloğun TAMAMI" iddiası 20/31
+/// hareketle sınanıyordu. `replay_gate`/`harvest_reps`/`build_reference` iki
+/// dalgayı da okuyordu — sapma tam da bu yüzden görünmedi. Bu yüzden dizinler
+/// artık ELLE sayılmıyor: `content/catalog/` altındaki HER `w*` dizini taranır,
+/// yani W3 eklendiğinde kapı kendiliğinden genişler.
 void main() {
-  final List<File> files = Directory('../../content/catalog/w1')
+  final List<File> files = Directory('../../content/catalog')
       .listSync()
-      .whereType<File>()
+      .whereType<Directory>()
+      .where((Directory d) => d.uri.pathSegments.reversed
+          .firstWhere((String s) => s.isNotEmpty)
+          .startsWith('w'))
+      .expand((Directory d) => d.listSync().whereType<File>())
       .where((File f) => f.path.endsWith('.json'))
       .toList()
     ..sort((File a, File b) => a.path.compareTo(b.path));
 
   test('katalogda hareket var', () => expect(files, isNotEmpty));
+
+  // Kapsam SAYIYLA sabitlenir: dalga dizini gözden kaçarsa test düşer.
+  test('kapı TÜM dalgaları okuyor (dalga-körlüğü nöbeti)', () {
+    expect(files.length, 31,
+        reason: 'Katalog büyüdü/küçüldü. Yeni bir dalga dizini eklendiyse '
+            'bu sayı bilerek güncellenmeli — sessizce daralan kapı, '
+            "W2'nin 11 hareketini 20/31 iddiasının arkasında sakladı.");
+  });
 
   for (final File f in files) {
     final String id = f.uri.pathSegments.last.replaceAll('.json', '');
