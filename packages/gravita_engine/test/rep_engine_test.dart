@@ -357,4 +357,90 @@ void main() {
           reason: 'push_up ön koşulu türetilmiş — red yok');
     });
   });
+
+  group('M-F-184/1 fallback canlılık — kimlik kapısı KARE düzeyinde (G-103)', () {
+    // Reçetenin ADIM-4 KALICI testi. Sentetik girdi burada MEŞRU: gerçek-girdi
+    // ölçümü ayrı yapıldı (27 kalça-hareketliliği videosu → 25 tekrar, 9'u
+    // kimlik boşluklu; `tool/fallback_liveness_probe.dart`). Bu test o bulgunun
+    // REGRESYON nöbeti.
+    //
+    // Mevcut yardımcılar kullanılıyor: `pushUpPose` gövdeyi YATAY kuruyor
+    // (kapı AÇIK), aşağıdaki `uprightPose` DİK kuruyor (kapı KAPALI) — yani
+    // "kapı-açık uç → kapısız boşluk → kapı-açık uç" dizisi gerçek mekanizmayı
+    // birebir taklit ediyor.
+    SyntheticPose uprightPose(double elbowDeg) {
+      final double upper = math.pi / 2;
+      final double fore = upper + (math.pi - elbowDeg * math.pi / 180);
+      return SyntheticPose(
+        trunkAngle: -math.pi / 2, // omuzlar kalçanın ÜSTÜNDE = dik
+        leftUpperArm: upper,
+        rightUpperArm: upper,
+        leftForearm: fore,
+        rightForearm: fore,
+        leftThigh: math.pi / 2,
+        rightThigh: math.pi / 2,
+        leftShin: math.pi / 2,
+        rightShin: math.pi / 2,
+        rootY: 0.5,
+      );
+    }
+
+    RepEngine run(List<PoseFrame> frames) {
+      final RepEngine e = RepEngine(load('push_up'));
+      for (final PoseFrame f in frames) {
+        e.addFrame(f, kSynthSize);
+      }
+      return e;
+    }
+
+    test('kapı-KAPALI kareler bir çevrimin İÇİNDE kalıyor — ölçülüyor', () {
+      // Davranış BİLEREK değişmedi: zorlama (çevrimi sıfırlamak mı, pay eşiği
+      // mi) bir KAPI TASARIMIdır ve koordinatör hükmü bekler — M-F-162'nin
+      // `minPhaseMs` emsali. Bu test yalnız sayacın CANLI olduğunu tutuyor.
+      final List<PoseFrame> fs = <PoseFrame>[];
+      int tUs = 0;
+      const int step = 40000;
+      void push(double deg) {
+        fs.add(builder.build(pushUpPose(deg), tUs: tUs));
+        tUs += step;
+      }
+      void upright(double deg) {
+        fs.add(builder.build(uprightPose(deg), tUs: tUs));
+        tUs += step;
+      }
+
+      push(170); // açık uç — çevrim AÇILIR (kapı AÇIK)
+      for (int i = 0; i < 10; i++) {
+        upright(120); // kapı KAPALI: kareler atlanır, çevrim durumu KALIR
+      }
+      push(80); // kapalı uç (kapı AÇIK)
+      push(170); // açık uca dönüş → tekrar TAMAMLANIR
+
+      final RepEngine e = run(fs);
+      expect(e.identityClosedFramesInCycle, 10,
+          reason: 'Çevrim açıkken kapanan kapı SAYILMIYOR → sayaç dekoratif.');
+      expect(e.skippedFrames, greaterThanOrEqualTo(10));
+      if (e.repCount > 0) {
+        expect(e.repsWithIdentityGap, greaterThan(0),
+            reason: 'Tekrar sayıldı ama kimlik boşluğu İŞARETLENMEDİ — '
+                'ölçüm gerçek maruziyeti gizler.');
+      }
+    });
+
+    test('POZİTİF İKİZ: kapı hep AÇIKken boşluk sayacı SIFIR kalır', () {
+      // M-F-194: üstteki iddia, sayaç her koşulda artıyor olsaydı da geçerdi.
+      final List<PoseFrame> fs = <PoseFrame>[];
+      int tUs = 0;
+      for (final double deg in <double>[170, 140, 110, 80, 110, 140, 170]) {
+        fs.add(builder.build(pushUpPose(deg), tUs: tUs));
+        tUs += 40000;
+      }
+      final RepEngine e = run(fs);
+      expect(e.identityClosedFramesInCycle, 0,
+          reason: 'Kapı hiç kapanmadı ama boşluk sayıldı → sahte alarm.');
+      expect(e.repsWithIdentityGap, 0);
+      expect(e.repCount, greaterThan(0),
+          reason: 'İkizin kendisi de anlamlı olmalı: bu dizi tekrar ÜRETMELİ.');
+    });
+  });
 }

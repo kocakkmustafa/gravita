@@ -1,0 +1,277 @@
+{
+  "$recipe": "FALLBACK-CANLILIK-RECETESI.md (M-F-184/1) adım 1-4",
+  "vocabulary": {
+    "movement": "push_up",
+    "preconditionStatus": "derived",
+    "preconditionDerived": true,
+    "$refusalReachableInProduction": "NO — precondition is derived, so refusalReason cannot fire for the only live movement. Declared, not reachable today.",
+    "$fallbackPath": "identity gate (movementConfig.precondition) → skippedFrames"
+  },
+  "outOfVocabulary": {
+    "label": "squat footage → push_up config",
+    "files": 27,
+    "detectedFrames": 386074,
+    "reps": 25,
+    "judgedFrames": 7642,
+    "skippedFrames": 139824,
+    "refused": 0,
+    "repsWithIdentityGap": 9,
+    "identityClosedFramesInsideCycles": 18855,
+    "filesWithReps": 6,
+    "torsoVisibilityMedianOverRepWindows": 1.0,
+    "perFile": [
+      {
+        "file": "OEsW3S_NAuc",
+        "reps": 17,
+        "windowStartsS": [
+          361.9,
+          524.0,
+          539.3,
+          572.1
+        ],
+        "torsoVisibilityMedian": 1.0
+      },
+      {
+        "file": "my0tLDaWyDU",
+        "reps": 3,
+        "windowStartsS": [
+          199.9,
+          259.3
+        ],
+        "torsoVisibilityMedian": 0.999
+      },
+      {
+        "file": "5alpa1IikQM",
+        "reps": 2,
+        "windowStartsS": [
+          197.0,
+          309.8
+        ],
+        "torsoVisibilityMedian": 1.0
+      },
+      {
+        "file": "8Kls95w2jFA",
+        "reps": 1,
+        "windowStartsS": [
+          401.8
+        ],
+        "torsoVisibilityMedian": 0.994
+      },
+      {
+        "file": "X0qC1k0Zi6k",
+        "reps": 1,
+        "windowStartsS": [
+          103.0
+        ],
+        "torsoVisibilityMedian": 0.999
+      },
+      {
+        "file": "tuTjC6u03Lg",
+        "reps": 1,
+        "windowStartsS": [
+          761.1
+        ],
+        "torsoVisibilityMedian": 1.0
+      }
+    ]
+  },
+  "positiveControl": {
+    "label": "push_up footage → push_up config",
+    "files": 27,
+    "detectedFrames": 279194,
+    "reps": 97,
+    "judgedFrames": 18436,
+    "skippedFrames": 78005,
+    "refused": 0,
+    "repsWithIdentityGap": 19,
+    "identityClosedFramesInsideCycles": 6958,
+    "filesWithReps": 20,
+    "torsoVisibilityMedianOverRepWindows": 1.0,
+    "perFile": [
+      {
+        "file": "tIbQYnE9Hv8",
+        "reps": 31,
+        "windowStartsS": [
+          0.7,
+          16.9,
+          41.3,
+          66.5,
+          80.4,
+          161.5,
+          177.1,
+          187.1
+        ],
+        "torsoVisibilityMedian": 1.0
+      },
+      {
+        "file": "fqGd8jUdr2I",
+        "reps": 17,
+        "windowStartsS": [
+          25.0,
+          49.5,
+          74.2,
+          79.3
+        ],
+        "torsoVisibilityMedian": 0.999
+      },
+      {
+        "file": "QqTlnhzku5c",
+        "reps": 10,
+        "windowStartsS": [
+          0.0,
+          116.0,
+          256.8,
+          295.9
+        ],
+        "torsoVisibilityMedian": 0.999
+      },
+      {
+        "file": "5aRHy5ZPjwk",
+        "reps": 6,
+        "windowStartsS": [
+          65.1,
+          184.2
+        ],
+        "torsoVisibilityMedian": 1.0
+      },
+      {
+        "file": "GxW9MAMQSv0",
+        "reps": 5,
+        "windowStartsS": [
+          88.6,
+          153.3
+        ],
+        "torsoVisibilityMedian": 0.999
+      },
+      {
+        "file": "I9fsqKE5XHo",
+        "reps": 5,
+        "windowStartsS": [
+          174.9,
+          217.0,
+          345.0,
+          351.9
+        ],
+        "torsoVisibilityMedian": 0.999
+      },
+      {
+        "file": "-WXc4E-zcao",
+        "reps": 3,
+        "windowStartsS": [
+          49.0
+        ],
+        "torsoVisibilityMedian": 0.999
+      },
+      {
+        "file": "N4TVYoXKk-8",
+        "reps": 3,
+        "windowStartsS": [
+          40.3,
+          326.1,
+          384.3
+        ],
+        "torsoVisibilityMedian": 0.999
+      },
+      {
+        "file": "kvlZXLPqE0k",
+        "reps": 3,
+        "windowStartsS": [
+          75.6,
+          90.0,
+          170.0
+        ],
+        "torsoVisibilityMedian": 1.0
+      },
+      {
+        "file": "Z88Rl5bpnmI",
+        "reps": 2,
+        "windowStartsS": [
+          364.1
+        ],
+        "torsoVisibilityMedian": 0.999
+      },
+      {
+        "file": "ahJvHMh8494",
+        "reps": 2,
+        "windowStartsS": [
+          273.8,
+          335.7
+        ],
+        "torsoVisibilityMedian": 0.999
+      },
+      {
+        "file": "yvgp8R0fbWg",
+        "reps": 2,
+        "windowStartsS": [
+          341.8
+        ],
+        "torsoVisibilityMedian": 0.998
+      },
+      {
+        "file": "-w6r23P-fy8",
+        "reps": 1,
+        "windowStartsS": [
+          128.7
+        ],
+        "torsoVisibilityMedian": 0.999
+      },
+      {
+        "file": "4dF1DOWzf20",
+        "reps": 1,
+        "windowStartsS": [
+          178.3
+        ],
+        "torsoVisibilityMedian": 1.0
+      },
+      {
+        "file": "7wblGkVQx3U",
+        "reps": 1,
+        "windowStartsS": [
+          29.2
+        ],
+        "torsoVisibilityMedian": 0.998
+      },
+      {
+        "file": "MO10KOoQx5E",
+        "reps": 1,
+        "windowStartsS": [
+          145.2
+        ],
+        "torsoVisibilityMedian": 0.998
+      },
+      {
+        "file": "P3D2PPMYWjk",
+        "reps": 1,
+        "windowStartsS": [
+          20.8
+        ],
+        "torsoVisibilityMedian": 1.0
+      },
+      {
+        "file": "_eKHSsHky5U",
+        "reps": 1,
+        "windowStartsS": [
+          50.2
+        ],
+        "torsoVisibilityMedian": 0.997
+      },
+      {
+        "file": "cSPSc59Lq5Q",
+        "reps": 1,
+        "windowStartsS": [
+          289.3
+        ],
+        "torsoVisibilityMedian": 1.0
+      },
+      {
+        "file": "v3sJMaB7q1E",
+        "reps": 1,
+        "windowStartsS": [
+          108.2
+        ],
+        "torsoVisibilityMedian": 0.999
+      }
+    ]
+  },
+  "diagnosis": "INDETERMINATE (not A) — 25 reps from only 6 of 27 files: concentrated, not systematic. Per-event ground truth is absent, so these reps are UNATTRIBUTED — the distribution argues they are real horizontal-torso segments inside those videos rather than the target movement miscounted. Separately measured and REAL: 9 of 25 reps span frames where the identity gate was CLOSED (frame-level gate, rep-level claim)."
+}

@@ -196,6 +196,29 @@ final class RepEngine {
   /// zorlanmıyor.
   int phasesBelowMinMs = 0;
 
+  /// AÇIK BİR ÇEVRİM SIRASINDA kimlik kapısının KAPALI olduğu kare sayısı
+  /// (M-F-184/1 fallback canlılık ölçümü, G-103).
+  ///
+  /// **SALT RAPOR — hiçbir tekrar bu yüzden reddedilmez.** Sebep, ölçülmüş bir
+  /// açık: kimlik kapısı KARE düzeyinde uygulanıyor (`addFrame` adım 3), ama
+  /// iddia TEKRAR düzeyinde. Kapı kapalı bir kare `skippedFrames`e yazılıp
+  /// `return` ediyor ve **çevrim durumu OLDUĞU GİBİ KALIYOR** — yani bir tekrar,
+  /// aralarında yüzlerce kapısız kare olan iki kapı-açık parçadan
+  /// birleştirilebilir. Tek sınır `timeoutUs`.
+  ///
+  /// Ölçüm (G-103): 27 gerçek KALÇA HAREKETLİLİĞİ videosu `push_up` config'iyle
+  /// koşuldu ve **25 tekrar** üretti; o pencerelerde gövde-dikeyden-açı medyanı
+  /// **8-41°**, yani kapının kendi eşiğinin (60°) ALTINDA. Gövde görünürlüğü
+  /// 1,0 — yani model tahmin etmiyordu, kapı gerçekten böyle geçiyordu.
+  /// Aile sınıfı: *yanlış granülerite yanlış güvence.*
+  ///
+  /// Zorlama (çevrimi sıfırlamak mı, pay eşiği mi) bir KAPI TASARIMIdır ve
+  /// koordinatör hükmü bekler — M-F-162'nin `minPhaseMs` emsali: önce ölç.
+  int identityClosedFramesInCycle = 0;
+
+  /// Kimlik boşluğu İÇEREN tamamlanmış tekrar sayısı — maruziyetin büyüklüğü.
+  int repsWithIdentityGap = 0;
+
   /// Sayılan toplam faz (her tamamlanan tekrar 2 faz: iniş + çıkış).
   /// `phasesBelowMinMs / phasesCounted` oranı, zorlama kararının dayanağı
   /// olacak dağılımın kendisidir.
@@ -203,6 +226,7 @@ final class RepEngine {
 
   _End? _current;
   _End? _cycleStart;
+  int _gapAtCycleStart = 0;
   bool _visitedOther = false;
   int? _cycleStartUs;
   int? _midpointUs;
@@ -269,6 +293,9 @@ final class RepEngine {
         // Ölçülemeyen ön koşul "geçti" sayılmaz — hüküm yok (fail-closed).
         if (v == null || v.isNaN || !c.holds(v)) {
           skippedFrames++;
+          // Çevrim AÇIKKEN kapı kapandı: bu tekrar kapısız zaman içeriyor.
+          // Durum sıfırlanmıyor (davranış DEĞİŞMEDİ) — yalnız sayılıyor.
+          if (_cycleStart != null) identityClosedFramesInCycle++;
           return;
         }
       }
@@ -316,6 +343,9 @@ final class RepEngine {
       _cycleStartUs = tUs;
       _extreme = deg;
       _extremeUs = tUs;
+      // Çevrim başlangıcında kimlik-boşluğu sayacının o anki değeri: tekrar
+      // kapanınca fark alınır (G-103, salt rapor).
+      _gapAtCycleStart = identityClosedFramesInCycle;
     } else if (here != _cycleStart) {
       _visitedOther = true;
       _midpointUs = tUs;
@@ -330,6 +360,8 @@ final class RepEngine {
         extremeAngleDeg: _extreme,
         startedAtOpenEnd: _cycleStart == _End.open,
       ));
+      // Bu tekrar, kapı KAPALIYKEN geçen kareler içeriyor muydu?
+      if (identityClosedFramesInCycle > _gapAtCycleStart) repsWithIdentityGap++;
       // Beyan edilen taban SALT-RAPOR olarak ölçülür (M-F-162) — tekrar
       // eklendikten SONRA, çünkü hüküm değişmiyor, yalnız gözlem yazılıyor.
       final Rep justAdded = _reps.last;
