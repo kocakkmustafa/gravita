@@ -8,3 +8,4 @@ export 'src/multiphase_engine.dart';
 export 'src/perturbation.dart';
 export 'src/movement_config.dart';
 export 'src/rep_engine.dart';
+export 'src/session_store.dart';
