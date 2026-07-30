@@ -117,8 +117,8 @@ class ProgressView extends StatelessWidget {
           if (l.unitsUnmeasured > 0)
             Text(ProgressStrings.unmeasured(
                 l.unitsUnmeasured, l.unitLabel, l.unmeasuredReasons)),
-          if (l.measurementOnlySessions > 0)
-            Text(ProgressStrings.measurementOnly(l.measurementOnlySessions)),
+          if (l.unscoredSessions > 0)
+            Text(ProgressStrings.unscored(l.unscoredSessions)),
         ],
       ],
     );

@@ -65,7 +65,7 @@ void main() {
         unitsCompleted: 6,
         plannedUnits: 8,
         unitLabel: 'rep',
-        lessonClass: LessonClass.measurementOnly,
+        lessonClass: 'measurementOnly',
         unmeasuredUnits: 1,
         unmeasuredReason: 'framing',
       ));
@@ -76,7 +76,7 @@ void main() {
         unitsCompleted: 9,
         plannedUnits: 8,
         unitLabel: 'rep',
-        lessonClass: LessonClass.measurementOnly,
+        lessonClass: 'measurementOnly',
       ));
       expect(file.readAsLinesSync().length, 2,
           reason: 'Dosyaya GERÇEKTEN yazıldı.');

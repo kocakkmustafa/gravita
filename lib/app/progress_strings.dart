@@ -54,8 +54,11 @@ abstract final class ProgressStrings {
 
   /// Ders o gün ölçülüyordu ama NOTLANMIYORDU. `—` değil AÇIK cümle: boşluk
   /// "eksik değer" gibi okunur, oysa söylenecek şey hükmün YOKLUĞUdur.
-  static String measurementOnly(int n) =>
-      '${sessions(n)} counted, not graded.';
+  ///
+  /// Ad `unscored`: çekirdek 0.9.0'dan beri sınıf açık sözlük ve `'scored'`
+  /// dışındaki HER sözcük (app'in `measurementOnly`'si, Choreia'nın
+  /// `demoOnly`'si, boş, bilinmeyen) buraya düşer.
+  static String unscored(int n) => '${sessions(n)} counted, not graded.';
 
   /// Retroaktif kredi yasağının kullanıcıya dönük hâli (M-F-168 kural 3).
   static String retroactiveWithheld(int n) =>

@@ -45,7 +45,7 @@ void main() {
     int done = 5,
     int unmeasured = 0,
     String? reason,
-    LessonClass lessonClass = LessonClass.measurementOnly,
+    String lessonClass = 'measurementOnly',
   }) =>
       SessionRecord(
         lessonId: lessonId,
@@ -162,7 +162,7 @@ void main() {
         lessonSurfaces: const <LessonSurface>[promoted],
         records: <SessionRecord>[
           rec(lessonId: promoted.id),
-          rec(lessonId: promoted.id, lessonClass: LessonClass.scored),
+          rec(lessonId: promoted.id, lessonClass: 'scored'),
         ],
       ),
     );
@@ -173,7 +173,7 @@ void main() {
     // Satırın kendisi de "sayıldı, notlanmadı" diyor — not YOKLUĞU açık cümle.
     expect(
         inSection(ProgressView.measuredSectionKey,
-            ProgressStrings.measurementOnly(1)),
+            ProgressStrings.unscored(1)),
         findsOneWidget);
   });
 

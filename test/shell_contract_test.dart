@@ -57,6 +57,9 @@ void main() {
       // `decisions.bodyweight_squat.json` (HÜKÜM kaydı), `queue.*.json`, sonda
       // çıktıları. Dizin olarak bildirilse hepsi uygulamaya girerdi — Choreia'nın
       // aynı tuzağa dair kaydı bu satırın gerekçesi.
+      // POZİTİF İKİZ: liste okunuyor mu?
+      expect(assets, isNotEmpty);
+      expect(assets.contains('content/library.json'), isTrue);
       expect(assets.contains('content/harvest/'), isFalse,
           reason: 'harvest DİZİN olarak bildirilmiş: derleme defterleri '
               'uygulamaya sızar. Gereken referansı DOSYA DOSYA ekle.');
@@ -74,6 +77,12 @@ void main() {
       // bir derleme defteri ve çalışma-zamanı okuyucusu YOK.
       expect(File('content/catalog/exclusions.json').existsSync(), isTrue);
       expect(declared('content/catalog/exclusions.json'), isFalse);
+      // POZİTİF İKİZ (M-F-194): `declared()` her zaman false dönseydi bu
+      // grubun BÜTÜN yokluk-iddiaları geçerdi. Bildiğimiz iki varlık:
+      expect(declared('content/library.json'), isTrue);
+      expect(declared('content/catalog/w1/push_up.json'), isTrue,
+          reason: 'Dizin-önekli eşleşme çalışmıyor → yokluk iddiaları da '
+              'anlamsız olurdu.');
     });
   });
 
@@ -95,19 +104,46 @@ void main() {
           reason: 'ref bir SÜRÜM TAG\'i olmalı. Bulunan: $ref');
     });
 
-    test('kabuk motion_core\'a DOĞRUDAN dokunmuyor', () {
-      // Bugün kabuk çekirdek tiplerini kullanmıyor; kullanmaya başlarsa
-      // `motion_core` BURADA da bildirilmek zorunda (transitif paketten tip
-      // almak bağımlılığı görünmez kılar). Kamera köprüsü bağlanınca
-      // motion_camera + pin EŞİTLİĞİ testi de gerekecek (JabLab J-071).
+    test('kabuk motion_core\'u BİLDİRİYOR ve pin motorla EŞİT (J-071)', () {
+      // Kabuk `SessionRecord`ı doğrudan kullanıyor (SessionStore 0.9.0'da
+      // çekirdeğe terfi etti), o yüzden bağımlılığı BİLDİRMEK zorunda:
+      // transitif paketten tip almak bağımlılığı görünmez kılar ve motor
+      // yarın çekirdeği bırakırsa kabuk sessizce kırılır.
+      //
+      // ⚠️ Daha önemlisi EŞİTLİK: iki farklı ref, pub'a aynı paket için iki
+      // kaynak gösterir (JabLab J-071). Bu testin ilk hâli "kabuk core
+      // BİLDİRMİYOR" diyordu ve adopsiyon turunda AŞIRDI — kapı işini yaptı,
+      // yerine geçen kural bu.
       final YamlMap deps = pubspec['dependencies'] as YamlMap;
-      expect(deps.containsKey('motion_core'), isFalse,
-          reason: 'Kabuk motion_core bildirdi. Doğrudan kullanılıyorsa pin '
-              'motion_camera ile AYNI COMMIT olmak zorunda — bu testi o '
-              'kurala göre güncelle, silme.');
+      final YamlMap? shellCore = deps['motion_core'] as YamlMap?;
+      expect(shellCore, isNotNull,
+          reason: 'Kabuk SessionRecord kullanıyor ama motion_core bildirmiyor.');
+      final String shellRef =
+          (shellCore!['git'] as YamlMap)['ref'] as String;
+      final String engineRef = (((enginePubspec['dependencies']
+              as YamlMap)['motion_core'] as YamlMap)['git']
+          as YamlMap)['ref'] as String;
+      expect(shellRef, engineRef,
+          reason: 'Pin EŞİTSİZ (kabuk $shellRef · motor $engineRef). '
+              'Aynı paket için iki kaynak = çözülemeyen bağımlılık.');
+    });
+
+    test('motion_camera HENÜZ yok — bağlandığı gün pin-eşitliği ŞART', () {
+      // Yokluk kapısı. POZİTİF İKİZİ hemen altında (M-F-194).
+      final YamlMap deps = pubspec['dependencies'] as YamlMap;
       expect(deps.containsKey('motion_camera'), isFalse,
           reason: 'Kamera köprüsü bağlandı: TAM-40-SHA zeyli + pin-eşitliği '
               'testi ŞART (J-071). Bu nöbeti onunla değiştir.');
+    });
+
+    test('POZİTİF İKİZ: yokluk-kapısı gerçekten VARLIĞI görebiliyor', () {
+      // M-F-194: "X yok" kapısı, kendi okuma hatasını göremez. Yukarıdaki
+      // `containsKey('motion_camera') == false` iddiası, `deps` boş bir map
+      // olsaydı da geçerdi. Bu satır okuyucunun ÇALIŞTIĞINI gösteriyor:
+      // BİLDİĞİMİZ bir bağımlılık gerçekten görünüyor.
+      final YamlMap deps = pubspec['dependencies'] as YamlMap;
+      expect(deps.containsKey('gravita_engine'), isTrue);
+      expect(deps.containsKey('path_provider'), isTrue);
     });
   });
 }

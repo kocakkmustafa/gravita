@@ -12,13 +12,25 @@ dependencies:
 
   # Motor AYRI paket ve Flutter bağımlılığı YOK (M-F-160, JabLab/Choreia
   # yerleşim aynası): ölçüm/hüküm mantığı widget ağacı olmadan test edilebilir
-  # kalmalı, kabuk da motora yandan uzanamamalı. `gravita_engine` `motion_core`u
-  # TAG-pinli tüketiyor (M-F-154 rejimi) — kabuk çekirdeğe DOĞRUDAN dokunmuyor,
-  # o yüzden burada `motion_core` bildirilmiyor. Kamera köprüsü (`motion_camera`)
-  # bağlanınca TAM-40-SHA zeyli ve pin-eşitliği testi GEREKECEK (JabLab J-071);
-  # bugün kamera KAPSAM DIŞI, o yüzden sahte bir pin de yazmıyorum.
+  # kalmalı, kabuk da motora yandan uzanamamalı.
   gravita_engine:
     path: packages/gravita_engine
+
+  # SessionStore ÇEKİRDEĞE TERFİ ETTİ (0.9.0, M-F-193) ve kabuk `SessionRecord`
+  # tipini DOĞRUDAN kullanıyor → burada BİLDİRİLMEK zorunda. Transitif bir
+  # paketten tip almak (`depend_on_referenced_packages`) bağımlılığı görünmez
+  # kılar: motor yarın çekirdeği bıraksa kabuk sessizce kırılırdı.
+  #
+  # ⚠️ PİN EŞİTLİĞİ: bu ref, `packages/gravita_engine`in ref'iyle AYNI olmak
+  # ZORUNDA — farklı ref'ler pub'a aynı paket için iki kaynak gösterir
+  # (JabLab J-071 bulgusu). `test/shell_contract_test.dart` eşitliği zorluyor.
+  # Kamera köprüsü (`motion_camera`) bağlanınca TAM-40-SHA zeyli gelecek;
+  # bugün kamera KAPSAM DIŞI, o yüzden sahte pin yazmıyorum.
+  motion_core:
+    git:
+      url: https://github.com/kocakkmustafa/motion-core.git
+      path: packages/motion_core
+      ref: motion_core-v0.9.0
 
   # YALNIZ uygulama-özel dizini bulmak için. Depolama BİÇİMİ motorda
   # (`JsonlSessionStore`, append-only JSONL) ve kurucusu bir `File` alıyor —

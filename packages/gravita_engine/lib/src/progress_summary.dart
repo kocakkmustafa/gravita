@@ -1,5 +1,6 @@
+import 'package:motion_core/motion_core.dart';
+
 import 'movement_config.dart';
-import 'session_store.dart';
 
 /// Bir dersin birim etiketi — **ÜRETİCİSİ katalogdur**, elle yazılmaz.
 ///
@@ -238,7 +239,7 @@ final class LessonProgress {
     required this.unitsUnmeasured,
     required this.unmeasuredReasons,
     required this.scoredSessions,
-    required this.measurementOnlySessions,
+    required this.unscoredSessions,
     required this.withheldRetroactiveCredit,
     required this.hasRecordsWhileLocked,
     required this.lockedReason,
@@ -249,7 +250,7 @@ final class LessonProgress {
     int measured = 0;
     int unmeasured = 0;
     int scored = 0;
-    int measurementOnly = 0;
+    int unscored = 0;
     final Set<String> reasons = <String>{};
     for (final SessionRecord r in rs) {
       worked += r.workedSeconds;
@@ -259,11 +260,16 @@ final class LessonProgress {
         reasons.add(r.unmeasuredReason!);
       }
       // KAYDIN kendi sınıfı okunur — dersin bugünkü hâli DEĞİL (kural 3).
-      switch (r.lessonClass) {
-        case LessonClass.scored:
-          scored++;
-        case LessonClass.measurementOnly:
-          measurementOnly++;
+      // Çekirdek 0.9.0'dan beri sınıf AÇIK SÖZLÜK (`String`): app'ler kendi
+      // sözcüklerini kullanır. Okuma EN AZ YETKİLİ: yalnız `'scored'`
+      // skorlanmış sayılır; bilinmeyen/boş/app-özel sınıf ASLA. Bu yüzden
+      // ayrım ikili — `scored` ve `unscored` — ve alan adı da öyle:
+      // `measurementOnlySessions` demek, `demoOnly` taşıyan bir kaydı yanlış
+      // adla saymak olurdu (bir sözcüğü tüm bir sınıfın adı sanmak).
+      if (r.isScoredClass) {
+        scored++;
+      } else {
+        unscored++;
       }
     }
 
@@ -284,10 +290,10 @@ final class LessonProgress {
       unitsUnmeasured: unmeasured,
       unmeasuredReasons: List<String>.unmodifiable(reasons.toList()..sort()),
       scoredSessions: scored,
-      measurementOnlySessions: measurementOnly,
+      unscoredSessions: unscored,
       // Ders bugün not veriyor ama bu seanslar ölçüm-olarak yapılmıştı →
       // geriye dönük not YOK. Ders bugün not vermiyorsa withheld anlamsızdır (0).
-      withheldRetroactiveCredit: s.gradedToday ? measurementOnly : 0,
+      withheldRetroactiveCredit: s.gradedToday ? unscored : 0,
       hasRecordsWhileLocked: s.isLocked && rs.isNotEmpty,
       lockedReason: s.lockedReason,
     );
@@ -315,7 +321,11 @@ final class LessonProgress {
   final List<String> unmeasuredReasons;
 
   final int scoredSessions;
-  final int measurementOnlySessions;
+
+  /// SKORLANMAMIŞ seans sayısı — `'scored'` DIŞINDAKİ her sınıf (en az yetkili
+  /// okuma, çekirdek `isScoredClass`). Eski adı `measurementOnlySessions`'dı;
+  /// açık sözlükte bir app `demoOnly` yazabildiği için o ad yanlış olurdu.
+  final int unscoredSessions;
 
   /// Bugün notlanan bir derste, geçmişte ölçüm-olarak yapılmış seans sayısı.
   final int withheldRetroactiveCredit;
@@ -347,7 +357,7 @@ final class LessonProgress {
         'unitsUnmeasured': unitsUnmeasured,
         'unmeasuredReasons': unmeasuredReasons,
         'scoredSessions': scoredSessions,
-        'measurementOnlySessions': measurementOnlySessions,
+        'unscoredSessions': unscoredSessions,
         'withheldRetroactiveCredit': withheldRetroactiveCredit,
         'hasRecordsWhileLocked': hasRecordsWhileLocked,
         if (lockedReason != null) 'lockedReason': lockedReason,

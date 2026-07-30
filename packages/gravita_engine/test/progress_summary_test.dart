@@ -13,7 +13,7 @@ void main() {
     int done = 5,
     int planned = 5,
     String unit = 'rep',
-    LessonClass lessonClass = LessonClass.measurementOnly,
+    String lessonClass = 'measurementOnly',
     int unmeasured = 0,
     String? reason,
     DateTime? at,
@@ -93,7 +93,7 @@ void main() {
           'unitsUnmeasured',
           'unmeasuredReasons',
           'scoredSessions',
-          'measurementOnlySessions',
+          'unscoredSessions',
           'withheldRetroactiveCredit',
           'hasRecordsWhileLocked',
         },
@@ -166,12 +166,12 @@ void main() {
         lessonSurfaces: const <LessonSurface>[promoted],
         records: <SessionRecord>[
           rec(lessonId: promoted.id), // measurementOnly (dün)
-          rec(lessonId: promoted.id, lessonClass: LessonClass.scored), // bugün
+          rec(lessonId: promoted.id, lessonClass: 'scored'), // bugün
         ],
       );
       final LessonProgress lp = s.lessons.single;
       expect(lp.scoredSessions, 1);
-      expect(lp.measurementOnlySessions, 1);
+      expect(lp.unscoredSessions, 1);
       expect(lp.withheldRetroactiveCredit, 1,
           reason: 'Dün ölçülen seans, form notu bugün açıldı diye '
               'geçmişte notlanmış hâle gelmez.');
@@ -183,7 +183,7 @@ void main() {
         lessonSurfaces: const <LessonSurface>[reps],
         records: <SessionRecord>[rec(), rec()],
       );
-      expect(s.lessons.single.measurementOnlySessions, 2);
+      expect(s.lessons.single.unscoredSessions, 2);
       expect(s.lessons.single.withheldRetroactiveCredit, 0);
     });
   });
