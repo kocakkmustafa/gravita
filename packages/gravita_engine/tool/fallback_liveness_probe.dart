@@ -151,6 +151,7 @@ Map<String, dynamic> _run(Directory dir, MovementConfig cfg, String label) {
 
   int files = 0, reps = 0, judged = 0, skipped = 0, refused = 0, detected = 0;
   int identityGapReps = 0, identityGapFrames = 0;
+  final List<double> gapShares = <double>[];
   // Reçete §4 kapısı: "X videosu" ≠ "X olayı". Dosya-başına dağılım, ZAMAN
   // DAMGASI ile birlikte kaydedilir — YOĞUNLAŞMA tek başına ucuz bir ayırt
   // edici: 27 videoya yayılmış tekrarlar sistematik yanlış-sınıflamayı
@@ -234,6 +235,9 @@ Map<String, dynamic> _run(Directory dir, MovementConfig cfg, String label) {
       fileReps += e.repCount;
       identityGapReps += e.repsWithIdentityGap;
       identityGapFrames += e.identityClosedFramesInCycle;
+      // M-F-209/1 (c): damganın DAĞILIMI — eşik bir gün buradan türetilecek,
+      // o yüzden tek bir ortalama değil TÜM paylar toplanıyor.
+      gapShares.addAll(e.reps.map((Rep r) => r.identityGapShare));
       skipped += e.skippedFrames;
       judged += w.length - e.skippedFrames;
       if (e.refusalReason != null) refused++;
@@ -281,6 +285,15 @@ Map<String, dynamic> _run(Directory dir, MovementConfig cfg, String label) {
     'refused': refused,
     // G-103: kimlik kapısı KARE düzeyinde, iddia TEKRAR düzeyinde.
     'repsWithIdentityGap': identityGapReps,
+    'identityGapShareMedian': gapShares.isEmpty
+        ? null
+        : ((gapShares..sort())[gapShares.length ~/ 2] * 1000).round() / 1000,
+    'identityGapShareP90': gapShares.isEmpty
+        ? null
+        : ((gapShares..sort())[(gapShares.length * 0.9).floor().clamp(0, gapShares.length - 1)] * 1000).round() / 1000,
+    'identityGapShareMax': gapShares.isEmpty
+        ? null
+        : (((gapShares..sort()).last) * 1000).round() / 1000,
     'identityClosedFramesInsideCycles': identityGapFrames,
     'filesWithReps': perFile.length,
     'torsoVisibilityMedianOverRepWindows': allTorsoVis.isEmpty

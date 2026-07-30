@@ -83,6 +83,42 @@ granülerite açığı.** Aile sınıfı: *yanlış granülerite yanlış güven
 (G-088'in `minPhaseMs` vakasıyla aynı aile — take-düzeyi taban geçiyordu,
 faz-düzeyi geçmiyordu).
 
+## 🟠 HÜKÜM GELDİ (M-F-209/1): seçenek (c) — İŞARETLE, ZORLAMA
+
+Koordinatör iki zorlama seçeneğini de bugün için reddetti ve **eşiksiz üçüncü
+yolu** hükme bağladı: **tekrar OLAYINA pay damgası** —
+`Rep.identityGapShare` (rapor-only). Sayım cömert DIŞ sınır kalır (G-054),
+kalite çizgisi **kaydın İÇİNDE** beyan edilir: `unmeasuredUnits` dürüstlük
+deseninin tekrar düzeyi. Zorlama İSİMLİ tetiklerle ertelendi — cihaz-günü
+göz-doğrulamaları gerçek-tekrar ↔ birleştirilmiş-tekrar iki popülasyonunu
+biriktirince eşik ÖLÇÜLMÜŞ ayrışmadan türetilecek.
+
+### Damganın dağılımı ölçüldü — ve damga, bayraktan ÇOK daha iyi ayırıyor
+
+| ölçüm | sözlük-dışı | pozitif kontrol | ayırma gücü |
+|---|---|---|---|
+| boşluk içeren tekrar ORANI (ikili bayrak) | %36 (9/25) | %19,6 (19/97) | 1,8× |
+| `identityGapShare` **medyan** | 0,000 | 0,000 | **ayırmıyor** |
+| `identityGapShare` **p90** | **0,832** | **0,123** | **6,8×** |
+| `identityGapShare` **maks** | 0,864 | 0,894 | **ayırmıyor** |
+
+Üç sonuç, üçü de eşik kararı için doğrudan girdi:
+
+1. **İkili bayrak zayıf, PAY güçlü.** "Boşluk var mı" 1,8× ayırıyor; "ne kadar
+   boşluk" **6,8×**. Koordinatörün damga hükmü yalnız daha dürüst değil, daha
+   BİLGİLİ çıktı.
+2. **Ne medyan ne maks ayırıyor — KUYRUK ayırıyor.** Her iki popülasyonda
+   tekrarların çoğu temiz (medyan 0) ve en kötü tek tekrar benzer (~0,87).
+   Eşik konacaksa **kuyruk istatistiğinden** konur; ortalamaya bakan bir eşik
+   bu ayrışmayı GÖRMEZ.
+3. **Kontrolde de çıkması** (%19,6 · p90 0,123) hattın genel açığını
+   doğruluyor: yalnız sözlük-dışını ölçen bir tur bunu "sözlük-dışı sorunu"
+   sanardı. Pozitif kontrol (M-F-194) o yanlış teşhisi önledi.
+
+Reçeteye **sınıf C** olarak eklendi (`motion-core/workspace/
+FALLBACK-CANLILIK-RECETESI.md`): *"kapı POPÜLASYON düzeyinde tutar ama
+GRANÜLERİTESİ iddiasıyla uyuşmaz."*
+
 ## Ne YAPTIM / ne YAPMADIM
 
 **Yaptım — SALT RAPOR (M-F-162 emsali):** `RepEngine.identityClosedFramesInCycle`

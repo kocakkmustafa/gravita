@@ -424,6 +424,15 @@ void main() {
         expect(e.repsWithIdentityGap, greaterThan(0),
             reason: 'Tekrar sayıldı ama kimlik boşluğu İŞARETLENMEDİ — '
                 'ölçüm gerçek maruziyeti gizler.');
+        // M-F-209/1 (c): DAMGA olayın kendisinde. 3 hükümlü + 10 kapalı kare
+        // → pay 10/13. Payda ikisinin TOPLAMI (kapalı kareler hükümlü sayıya
+        // girmiyor; yalnız birini paydaya koymak payı şişirirdi).
+        final Rep r = e.reps.first;
+        expect(r.hasIdentityGap, isTrue);
+        expect(r.identityGapShare, closeTo(10 / 13, 0.001),
+            reason: 'Damga payı yanlış: gap=${r.identityGapShare}');
+        // Ve tekrar YİNE SAYILDI: bu bir DAMGA, hüküm değil (davranış aynı).
+        expect(e.repCount, greaterThan(0));
       }
     });
 
@@ -441,6 +450,12 @@ void main() {
       expect(e.repsWithIdentityGap, 0);
       expect(e.repCount, greaterThan(0),
           reason: 'İkizin kendisi de anlamlı olmalı: bu dizi tekrar ÜRETMELİ.');
+      for (final Rep r in e.reps) {
+        expect(r.identityGapShare, 0.0,
+            reason: 'Kapı hep açıkken damga sıfır DEĞİL → damga gürültü üretir '
+                've yarın eşik bu gürültüden türetilir.');
+        expect(r.hasIdentityGap, isFalse);
+      }
     });
   });
 }

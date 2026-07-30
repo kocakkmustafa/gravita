@@ -44,6 +44,7 @@ final class Rep {
     required this.ascentUs,
     required this.extremeAngleDeg,
     required this.startedAtOpenEnd,
+    required this.identityGapShare,
   });
 
   final int index;
@@ -67,7 +68,37 @@ final class Rep {
   /// Çevrim açık uçtan mı başladı? [extremeAngleDeg]'in anlamını belirler.
   final bool startedAtOpenEnd;
 
+  /// ⭐ Bu tekrarın karelerinden, KİMLİK KAPISI KAPALIYKEN geçenlerin PAYI
+  /// (0,0 = kapı çevrim boyunca hiç kapanmadı · 1,0'a yaklaştıkça tekrar
+  /// "kapı-açık parçalardan birleştirilmiş" demektir).
+  ///
+  /// **Koordinatör hükmü M-F-209/1, seçenek (c): İŞARETLE, ZORLAMA.** Sebep
+  /// G-103'te ölçüldü: kimlik kapısı KARE düzeyinde uygulanıyor ama iddia
+  /// TEKRAR düzeyinde; kapalı kare `skippedFrames`e yazılıp `return` ediyor ve
+  /// çevrim durumu KALIYOR, yani bir tekrar aralarında yüzlerce kapısız kare
+  /// olan iki parçadan birleşebiliyor.
+  ///
+  /// İki zorlama seçeneği de BUGÜN kusurluydu ve bu yüzden reddedildi:
+  ///  * *kapı kapanınca çevrimi sıfırla* → G-054 sınıfı: gerçek bir seansta
+  ///    kadraj dışına çıkan TEK kare tekrarı iptal eder ve kullanıcı
+  ///    sıfır-sayım + sıfır-geri-bildirim durumunda kalır.
+  ///  * *pay eşiği* → eşik ÖLÇÜLMÜŞ dağılımdan gelmek zorunda; bugün
+  ///    gerçek-tekrar ↔ birleştirilmiş-tekrar iki popülasyonu yok.
+  ///
+  /// Üçüncü yol yapısal ve EŞİKSİZ: sayım cömert DIŞ sınır kalır (G-054) ve
+  /// kalite çizgisi KAYDIN İÇİNDE beyan edilir — `unmeasuredUnits` dürüstlük
+  /// deseninin tekrar düzeyi. Zorlama, İSİMLİ tetiklerle ertelendi: cihaz-günü
+  /// göz-doğrulamaları iki popülasyonu biriktirince eşik ÖLÇÜLMÜŞ ayrışmadan
+  /// türetilir.
+  ///
+  /// ⚠️ Bu alan bir HÜKÜM DEĞİL, bir DAMGA: hiçbir tekrar bu yüzden
+  /// reddedilmiyor ve hiçbir yüzey bunu bugün kullanıcıya göstermiyor.
+  final double identityGapShare;
+
   int get durationUs => endUs - startUs;
+
+  /// Kapı, bu tekrarın herhangi bir karesinde kapandı mı?
+  bool get hasIdentityGap => identityGapShare > 0;
 }
 
 enum _End { open, closed }
@@ -227,6 +258,11 @@ final class RepEngine {
   _End? _current;
   _End? _cycleStart;
   int _gapAtCycleStart = 0;
+
+  /// Kapıların TAMAMINI geçmiş kare sayısı (kümülatif). Çevrim başındaki
+  /// değerle farkı, o tekrarın "hükümlü kare" sayısını verir.
+  int _judgedFramesTotal = 0;
+  int _judgedAtCycleStart = 0;
   bool _visitedOther = false;
   int? _cycleStartUs;
   int? _midpointUs;
@@ -311,7 +347,18 @@ final class RepEngine {
       return;
     }
 
+    _judgedFramesTotal++;
     _advance(deg, frame.tUs, c);
+  }
+
+  /// Çevrim boyunca kapı-kapalı kare payı. Payda ikisinin TOPLAMI: kapalı
+  /// kareler `skippedFrames`e gittiği için hükümlü sayıya dahil DEĞİL, o yüzden
+  /// yalnız birini paydaya koymak payı sistematik olarak şişirirdi.
+  double _gapShareForCycle() {
+    final int gap = identityClosedFramesInCycle - _gapAtCycleStart;
+    final int judged = _judgedFramesTotal - _judgedAtCycleStart;
+    final int total = gap + judged;
+    return total == 0 ? 0 : gap / total;
   }
 
   _End? _endAt(double deg, RepConfig c) {
@@ -346,6 +393,9 @@ final class RepEngine {
       // Çevrim başlangıcında kimlik-boşluğu sayacının o anki değeri: tekrar
       // kapanınca fark alınır (G-103, salt rapor).
       _gapAtCycleStart = identityClosedFramesInCycle;
+      // Bu kare çevrimi AÇAN kare: hükümlü sayımına dahil olsun diye
+      // taban bir eksiğe kurulur (kare sayacı bu çağrıdan ÖNCE arttı).
+      _judgedAtCycleStart = _judgedFramesTotal - 1;
     } else if (here != _cycleStart) {
       _visitedOther = true;
       _midpointUs = tUs;
@@ -359,6 +409,7 @@ final class RepEngine {
         ascentUs: tUs - (_extremeUs ?? _midpointUs ?? tUs),
         extremeAngleDeg: _extreme,
         startedAtOpenEnd: _cycleStart == _End.open,
+        identityGapShare: _gapShareForCycle(),
       ));
       // Bu tekrar, kapı KAPALIYKEN geçen kareler içeriyor muydu?
       if (identityClosedFramesInCycle > _gapAtCycleStart) repsWithIdentityGap++;
