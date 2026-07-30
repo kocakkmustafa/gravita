@@ -1,0 +1,23 @@
+{
+  "$measurement": "barbell-sourced vs other contributing takes, trunk tilt and knee angle at the deepest frame — REPORT ONLY",
+  "$barbellVideos": [
+    "sdeQjm7avi8",
+    "bEv6CCg2BC8",
+    "gcNh17Ckjgg"
+  ],
+  "groups": {
+    "barbell": {
+      "takes": 6,
+      "trunkTiltMedianDeg": -4.78,
+      "trunkTiltMeanDeg": -9.88,
+      "kneeMedianDeg": 77.7
+    },
+    "other": {
+      "takes": 31,
+      "trunkTiltMedianDeg": 3.44,
+      "trunkTiltMeanDeg": -5.91,
+      "kneeMedianDeg": 59.5
+    }
+  },
+  "trunkTiltMedianDeltaDeg": -8.22
+}
