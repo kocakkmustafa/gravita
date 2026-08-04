@@ -174,6 +174,85 @@ void main() {
               '($engineCoreRef) AYNI commit olmalı.');
     });
 
+    test('ÜÇÜNCÜ ÇAPA: pin DOĞRU şeyde eşit — dış sabitle çivili (M-F-265)', () {
+      // ⚠️ Üçlü eşitlik testi "iki kilit aynı mı" der, "DOĞRU şeyde mi aynı"
+      // DEMEZ: üç ref'i birden yanlış bir commit'e taşıyan bir düzenleme
+      // eşitliği bozmaz ve sessizce geçer. Çapa bu yüzden DIŞARIDA — hem
+      // mühürlü ref hem KİLİTTEN ÇÖZÜLEN sürümler.
+      //
+      // Bu test bir pin bump'ta KIRILIR ve kırılması DOĞRUDUR: bump bilinçli
+      // bir karardır, sessiz bir kayma değil. Kıran kişi buradaki sabitleri
+      // de günceller ve böylece bump kayda geçer.
+      const String sealedRef = 'f13bdc93b2eae2f741bfcdb4c9270a88e5d75e5d';
+      const String sealedCoreVersion = '0.11.0';
+      const String sealedCameraVersion = '0.1.2';
+
+      final YamlMap deps = pubspec['dependencies'] as YamlMap;
+      for (final String pkg in <String>['motion_core', 'motion_camera']) {
+        final String ref =
+            ((deps[pkg] as YamlMap)['git'] as YamlMap)['ref'] as String;
+        expect(ref, sealedRef,
+            reason: '$pkg pini mühürlü ref\'den kaymış. Bump bilinçliyse '
+                'bu testteki sabiti de güncelle.');
+      }
+
+      // Kilitten ÇÖZÜLEN sürüm: ref doğru yazılmış olsa bile yanlış paketi
+      // gösteriyorsa burada yakalanır. Kilit bloğu SATIR SATIR okunuyor —
+      // regex'e göre daha az kırılgan ve hangi alanı sınadığı okunur.
+      final List<String> lock =
+          File('pubspec.lock').readAsLinesSync();
+      Map<String, String> lockBlock(String pkg) {
+        final int i = lock.indexOf('  $pkg:');
+        expect(i, isNot(-1), reason: '$pkg pubspec.lock\'ta yok.');
+        final Map<String, String> out = <String, String>{};
+        for (int j = i + 1; j < lock.length; j++) {
+          final String line = lock[j];
+          // Bir sonraki paket bloğu iki boşlukla başlar.
+          if (RegExp(r'^  [a-z_]+:').hasMatch(line)) break;
+          final Match? kv = RegExp(r'^\s+([a-z_-]+): "?([^"]*)"?\s*$')
+              .firstMatch(line);
+          if (kv != null) out[kv.group(1)!] = kv.group(2)!;
+        }
+        return out;
+      }
+
+      final Map<String, String> core = lockBlock('motion_core');
+      expect(core['version'], sealedCoreVersion,
+          reason: 'motion_core kilitte beklenen sürüm değil — ref doğru '
+              'yazılmış olsa bile çözülen paket başka.');
+      expect(core['resolved-ref'], sealedRef,
+          reason: 'motion_core çözülen commit mühürlü ref değil.');
+
+      final Map<String, String> cam = lockBlock('motion_camera');
+      expect(cam['version'], sealedCameraVersion,
+          reason: 'motion_camera kilitte beklenen sürüm değil.');
+      expect(cam['resolved-ref'], sealedRef,
+          reason: 'motion_camera çözülen commit mühürlü ref değil.');
+    });
+
+    test('kısa-SHA YASAK — pub ref\'leri METİN olarak karşılaştırıyor', () {
+      // Choreia ölçtü (M-F-265): `motion_camera` kendi `motion_core`
+      // bağımlılığını TAM-40-SHA bildiriyor. Kısa SHA yazarsak aynı commit
+      // İKİ AYRI KAYNAK sayılır ve pub reddeder. Eşitlik aynı COMMIT değil
+      // aynı DİZE meselesidir.
+      //
+      // ⚠️ SINANDI (G-121): kısa SHA yazınca bu test ATEŞLENMEDİ çünkü pub
+      // DAHA ÖNCE durdu — `flutter pub get` çözümlemede düşüyor:
+      //   "...at f13bdc9..., motion_camera from git is forbidden."
+      // Yani asıl kapı çözümleyicide ve testten ÖNCE geliyor; bu test
+      // savunma derinliği (lock önceden çözülmüşken pubspec'e kısa SHA
+      // sızarsa yakalar), tek kapı DEĞİL. Ölü test değil ama tek başına
+      // güvenilecek kapı da değil — hangi kapının önce ötüğü kayıtlı.
+      final YamlMap deps = pubspec['dependencies'] as YamlMap;
+      for (final String pkg in <String>['motion_core', 'motion_camera']) {
+        final String ref =
+            ((deps[pkg] as YamlMap)['git'] as YamlMap)['ref'] as String;
+        expect(ref.length, 40,
+            reason: '$pkg ref uzunluğu ${ref.length} — kısa SHA pub '
+                'tarafında ayrı kaynak sayılır.');
+      }
+    });
+
     test('model pini asset olarak PAKETLİ ve git dışında', () {
       // Yokluk+varlık ikizi tek testte: dosya asset listesinde OLMALI ama
       // git'te OLMAMALI (aile kuralı: 9 MB ikili izlenmez, pin SHA olarak
