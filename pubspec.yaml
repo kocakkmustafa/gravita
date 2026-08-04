@@ -26,11 +26,28 @@ dependencies:
   # (JabLab J-071 bulgusu). `test/shell_contract_test.dart` eşitliği zorluyor.
   # Kamera köprüsü (`motion_camera`) bağlanınca TAM-40-SHA zeyli gelecek;
   # bugün kamera KAPSAM DIŞI, o yüzden sahte pin yazmıyorum.
+  # ⚠️ PİN TAG DEĞİL TAM-40-SHA (J-071 bulgusu, M-F-154 zeyli): plugin
+  # `motion_core`u PATH ile çekiyor; pub onun transitif core'unu ÇÖZÜLMÜŞ
+  # SHA, buradaki pini TAG ADI olarak görür ve aynı commit olsalar bile
+  # descriptor'ları FARKLI sayar ("incompatible with ... from path").
+  #   f13bdc93b2eae2f741bfcdb4c9270a88e5d75e5d
+  #     == motion_core-v0.11.0 VE motion_camera-v0.1.2 (tek commit, M-F-260)
+  # Tag'ler ayrı commit'lerde durur; f13bdc9 İKİSİNİ birden taşır.
   motion_core:
     git:
       url: https://github.com/kocakkmustafa/motion-core.git
       path: packages/motion_core
-      ref: motion_core-v0.10.0
+      ref: f13bdc93b2eae2f741bfcdb4c9270a88e5d75e5d
+  # KAMERA KÖPRÜSÜ (M-F-263). Pin motion_core ile AYNI commit olmak ZORUNDA
+  # — `shell_contract_test` eşitliği zorluyor (eski "motion_camera YOK"
+  # nöbeti bu teste DÖNÜŞTÜ, silinmedi).
+  motion_camera:
+    git:
+      url: https://github.com/kocakkmustafa/motion-core.git
+      path: packages/motion_camera
+      ref: f13bdc93b2eae2f741bfcdb4c9270a88e5d75e5d
+  # Kamera izni: reddedilme DÜRÜST bir hâldir, sessizce boş ekran değil.
+  permission_handler: ^12.0.3
 
   # YALNIZ uygulama-özel dizini bulmak için. Depolama BİÇİMİ motorda
   # (`JsonlSessionStore`, append-only JSONL) ve kurucusu bir `File` alıyor —
@@ -62,6 +79,10 @@ flutter:
     # bunu zaten önce yakalar.
     - content/catalog/w1/
     - content/catalog/w2/
+    # Poz modeli — git'te DEĞİL (aile kuralı, .gitignore); `tool/fetch_pose_model.sh`
+    # indirir ve SHA-256 DOĞRULAR. Asset olarak paketlenir, çalışma-zamanında
+    # dosyaya yazılır (plugin dosya yolu ister, bundle değil).
+    - assets/models/
     # ⚠️ `content/harvest/` BİLEREK YOK. 18 dosyanın 16'sı derleme defteri
     # (`decisions.bodyweight_squat.json` HÜKÜM kaydı, `queue.*.json`,
     # sonda çıktıları). Dizin olarak eklemek hepsini uygulamaya sokardı.

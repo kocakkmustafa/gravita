@@ -7,3 +7,7 @@ __pycache__/
 .flutter-plugins-dependencies
 .idea/
 *.iml
+
+# Poz modeli ikilisi git DIŞINDA (aile kuralı; motion-core/.gitignore ile aynı).
+# Pin URL + SHA olarak yaşar: `tool/fetch_pose_model.sh` indirir ve DOĞRULAR.
+assets/models/*.task

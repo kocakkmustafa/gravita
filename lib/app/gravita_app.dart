@@ -4,6 +4,8 @@ import 'package:gravita_engine/gravita_engine.dart';
 import 'content_failure.dart';
 import 'content_failure_screen.dart';
 import 'content_repository.dart';
+import 'live_session_screen.dart';
+import 'live_strings.dart';
 import 'progress_view.dart';
 
 /// Uygulama kabuğu — bugün TEK yüzey: ilerleme.
@@ -31,13 +33,25 @@ class GravitaApp extends StatelessWidget {
 /// uygulamayı bloklardı, ya da daha kötüsü sessizce boş geçmiş gösterirdi
 /// (bkz. [HistoryStatus] gerekçesi).
 final class _Loaded {
-  const _Loaded({required this.summary, required this.historyStatus});
+  const _Loaded({
+    required this.summary,
+    required this.historyStatus,
+    this.liveConfig,
+  });
   final ProgressSummary summary;
   final HistoryStatus historyStatus;
+
+  /// Canlı seansın koşabileceği hareket — `null` ise giriş ÇİZİLMEZ.
+  /// Bugün yalnız `push_up` (tek `derived` ön koşullu hareket).
+  final MovementConfig? liveConfig;
 }
 
 /// İlerleme ekranı — veriyi toplar, YAPIyı [ProgressView]'a bırakır.
 class ProgressScreen extends StatefulWidget {
+  /// Canlı seans girişinin nöbet anahtarı — testler bu butonun VARLIĞINI ve
+  /// YOKLUĞUNU ayrı ayrı sınıyor (M-F-194).
+  static const Key liveFabKey = Key('progress.liveFab');
+
   const ProgressScreen({super.key});
 
   @override
@@ -76,7 +90,19 @@ class _ProgressScreenState extends State<ProgressScreen> {
       historyStatus = HistoryUnavailable(e.toString());
     }
 
+    // Canlı yol YALNIZ kimlik ön koşulu TÜRETİLMİŞ harekette açılır.
+    // Bu, K8'in (kütüphane kapısı) çalışma-zamanı ikizi: kapı içerikte
+    // "live" demeyi engelliyor, bu satır da yüzeyde butonu engelliyor.
+    MovementConfig? liveConfig;
+    for (final MovementConfig c in content.movementConfigs) {
+      if (c.preconditionDerived) {
+        liveConfig = c;
+        break;
+      }
+    }
+
     return _Loaded(
+      liveConfig: liveConfig,
       summary: ProgressSummary.build(
         lessonSurfaces: content.lessonSurfaces,
         records: records,
@@ -113,6 +139,24 @@ class _ProgressScreenState extends State<ProgressScreen> {
             summary: loaded.summary,
             historyStatus: loaded.historyStatus,
           ),
+          // CANLI seans girişi. ⚠️ "Ölü buton YOK" kuralı gereği bu buton
+          // ancak arkasında ÇALIŞAN bir ölçüm varken çizilir: canlı yol
+          // yalnız `precondition.status == derived` olan hareketler için
+          // açılır (K8'in ürün tarafındaki karşılığı — kimlik kapısı
+          // olmayan bir harekette sayım salınımı sayardı, G-043).
+          floatingActionButton: loaded.liveConfig == null
+              ? null
+              : FloatingActionButton.extended(
+                  key: ProgressScreen.liveFabKey,
+                  onPressed: () => Navigator.of(context).push<void>(
+                    MaterialPageRoute<void>(
+                      builder: (_) =>
+                          LiveSessionScreen(config: loaded.liveConfig!),
+                    ),
+                  ),
+                  icon: const Icon(Icons.videocam_outlined),
+                  label: const Text(LiveStrings.title),
+                ),
         );
       },
     );

@@ -100,8 +100,15 @@ void main() {
       final YamlMap git = core['git'] as YamlMap;
       final String? ref = git['ref'] as String?;
       expect(ref, isNotNull, reason: 'ref YOK — pin yok demektir.');
-      expect(ref, matches(RegExp(r'^motion_core-v\d+\.\d+\.\d+$')),
-          reason: 'ref bir SÜRÜM TAG\'i olmalı. Bulunan: $ref');
+      // ⚠️ NÖBET DEĞİŞTİ (M-F-263, J-071 zeyli), SİLİNMEDİ: eskiden SÜRÜM
+      // TAG'i isteniyordu. Kamera köprüsü bağlanınca tag ADI ÇALIŞMIYOR —
+      // plugin `motion_core`u PATH ile çekiyor, pub transitif core'u ÇÖZÜLMÜŞ
+      // SHA olarak görüyor ve tag adıyla yazılmış pini FARKLI descriptor
+      // sayıyor ("incompatible ... from path"). Kural yerini TAM-40-SHA'ya
+      // bıraktı; hangi tag olduğu pubspec YORUMUNDA duruyor.
+      expect(ref, matches(RegExp(r'^[0-9a-f]{40}$')),
+          reason: 'ref TAM-40-SHA olmalı (tag adı pub tarafında çözülmüyor). '
+              'Bulunan: $ref');
     });
 
     test('kabuk motion_core\'u BİLDİRİYOR ve pin motorla EŞİT (J-071)', () {
@@ -141,12 +148,46 @@ void main() {
           reason: 'Üçüncü hâl yüzeyde dallanmıyor — ikili model sürüyor.');
     });
 
-    test('motion_camera HENÜZ yok — bağlandığı gün pin-eşitliği ŞART', () {
-      // Yokluk kapısı. POZİTİF İKİZİ hemen altında (M-F-194).
+    test('motion_camera BAĞLI ve pin ÜÇLÜ eşitlikte (J-071 · M-F-263)', () {
+      // ⚠️ Bu test, eski 'motion_camera HENÜZ yok' YOKLUK nöbetinin YERİNE
+      // GEÇTİ — kapı görevini yaptı (kamera bağlanınca kırıldı) ve kendi
+      // yazdığı kuralla değiştirildi, silinmedi.
+      //
+      // Üç ref birden eşit olmak ZORUNDA: kabuk core · kabuk camera · motor
+      // core. Plugin core'u PATH ile çekiyor, yani farklı bir ref pub'a aynı
+      // paket için iki kaynak gösterir ve çözülemez.
       final YamlMap deps = pubspec['dependencies'] as YamlMap;
-      expect(deps.containsKey('motion_camera'), isFalse,
-          reason: 'Kamera köprüsü bağlandı: TAM-40-SHA zeyli + pin-eşitliği '
-              'testi ŞART (J-071). Bu nöbeti onunla değiştir.');
+      final YamlMap? cam = deps['motion_camera'] as YamlMap?;
+      expect(cam, isNotNull,
+          reason: 'Kamera köprüsü bildirilmiyor — canlı yol pluginsiz olamaz.');
+      final String camRef = (cam!['git'] as YamlMap)['ref'] as String;
+      final String shellCoreRef =
+          ((deps['motion_core'] as YamlMap)['git'] as YamlMap)['ref'] as String;
+      final String engineCoreRef = (((enginePubspec['dependencies']
+              as YamlMap)['motion_core'] as YamlMap)['git']
+          as YamlMap)['ref'] as String;
+      expect(camRef, shellCoreRef,
+          reason: 'motion_camera ($camRef) ile kabuk motion_core '
+              '($shellCoreRef) AYNI commit olmalı.');
+      expect(camRef, engineCoreRef,
+          reason: 'motion_camera ($camRef) ile MOTOR motion_core '
+              '($engineCoreRef) AYNI commit olmalı.');
+    });
+
+    test('model pini asset olarak PAKETLİ ve git dışında', () {
+      // Yokluk+varlık ikizi tek testte: dosya asset listesinde OLMALI ama
+      // git'te OLMAMALI (aile kuralı: 9 MB ikili izlenmez, pin SHA olarak
+      // yaşar ve `tool/fetch_pose_model.sh` her build'de doğrular).
+      expect(File('tool/fetch_pose_model.sh').existsSync(), isTrue,
+          reason: 'Model fetch/doğrulama betiği yok — pin doğrulanamaz.');
+      expect(File('.gitignore').readAsStringSync(),
+          contains('assets/models/*.task'),
+          reason: '.task git\'e girerse pin iki yerde yaşar ve ayrışır.');
+      final YamlList assets =
+          (pubspec['flutter'] as YamlMap)['assets'] as YamlList;
+      expect(assets.map((Object? e) => e.toString()),
+          contains('assets/models/'),
+          reason: 'Model asset listesinde yok — plugin dosyayı bulamaz.');
     });
 
     test('POZİTİF İKİZ: yokluk-kapısı gerçekten VARLIĞI görebiliyor', () {
