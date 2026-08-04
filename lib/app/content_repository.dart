@@ -64,6 +64,12 @@ final class ContentRepository {
 
   final Map<String, MovementConfig> _catalog;
 
+  /// Yüklenen tüm hareket config'leri — canlı yol seçimi için (kimlik ön
+  /// koşulu türetilmiş olanı arar). Kopya döner: katalog dışarıdan
+  /// değiştirilemez.
+  List<MovementConfig> get movementConfigs =>
+      List<MovementConfig>.unmodifiable(_catalog.values);
+
   MovementConfig? movementConfig(String catalogId) => _catalog[catalogId];
 
   /// Seans geçmişi deposu. Dosya uygulama-özel dizinde; biçim motorda.
