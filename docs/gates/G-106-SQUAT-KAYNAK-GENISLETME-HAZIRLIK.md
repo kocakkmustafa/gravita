@@ -118,8 +118,16 @@ M-F-200'ün kanonik dersi: *"kaynak yok" izlenimi yanlıştı; kaynak vardı, se
 yöntemi kördü.* Squat'ta bu birebir geçerli — ham landmark havuzu **diskte**:
 
 ```
-~/motion-harvest/gravita/landmarks/   674 MB · 27 kaynak dosyası
+~/motion-harvest/gravita-squat/landmarks-rep-sliced/   41 MB · 234 dosya
 ```
+
+> ⚠️ **DÜZELTME (G-109 §4):** bu satırda önce
+> `~/motion-harvest/gravita/landmarks/ 674 MB · 27 dosya` yazıyordu — **o
+> push_up havuzudur.** Squat referansının girdisi yukarıdaki rep-FSM dilimli
+> dizindir (`canonical_squat_reference.dart`). Sonuç değişmedi (indirme/slot
+> gerekmiyor; G-109 turu bunu koşarak kanıtladı), ama sayı yanlıştı: aracın
+> girdi yolunu okumadan komşu dizinden devraldım — kendi defterimdeki G-087
+> "dar kapıdan devralınan sayı" deseni.
 
 Yani aşağıdaki adayların hiçbiri indirme, slot veya ağ erişimi gerektirmez.
 

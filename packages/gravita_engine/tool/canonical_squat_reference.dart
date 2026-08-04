@@ -31,21 +31,66 @@ import 'package:motion_core/motion_core.dart' hide MetricCondition, PhaseSpec;
 /// Bu yüzden ELLE kaynak-düzeyi dışlama YOK: hangi take'in aykırı olduğuna
 /// motorun kendi M-F-47 mekanizması karar verir ve `excludedOutlierIds`de
 /// ADIYLA raporlar (push_up emsali: 71→37, 34 adlandırılmış dışlama).
+/// ⚙️ İKİ OPSİYONEL PARAMETRE (koordinatör onayı 2026-08-04) — ikisi de
+/// VERİLMEZSE davranış BİT-AYNI kalır; varsayılan yol ve varsayılan kaynak
+/// kümesi değişmedi (golden test: `test/tool_args_test.dart`).
+///
+///   --out=<yol>              çıktı dosyası (varsayılan: yayımlı artefakt yolu)
+///   --exclude-source=<A,B>   `passChannels`'tan ADIYLA çıkarılacak kaynaklar
+///
+/// `--exclude-source` bir ÜRÜN yolu değil PROBE yoludur (A4, G-108): leave-one-out
+/// "farklı mod"u "gürültü"den ayıramaz, bu yüzden çıktısı DIŞLAMA kararına
+/// gerekçe YAPILAMAZ (M-F-47: "kalanların uyuşması gerekçe değildir").
+/// Kullanıldığında artefakta `$probeExcludedSources` damgası düşer — damgasız
+/// bir artefaktın probe çıktısı olduğu sonradan anlaşılamazdı.
+String? _argValue(List<String> args, String name) {
+  for (final String a in args) {
+    if (a.startsWith('$name=')) return a.substring(name.length + 1);
+  }
+  return null;
+}
+
 void main(List<String> args) {
   const String movementId = 'bodyweight_squat';
   final Directory slicedDir = Directory(
       '${Platform.environment['HOME']}/motion-harvest/gravita-squat/landmarks-rep-sliced');
+
+  final String outPath = _argValue(args, '--out') ??
+      '../../content/harvest/reference.bodyweight_squat.json';
+  final Set<String> excludeSources = (_argValue(args, '--exclude-source') ?? '')
+      .split(',')
+      .map((String s) => s.trim())
+      .where((String s) => s.isNotEmpty)
+      .toSet();
 
   final Map<String, dynamic> gateDoc = jsonDecode(
       File('../../content/harvest/hip_knee_coupling.bodyweight_squat.json')
           .readAsStringSync()) as Map<String, dynamic>;
   final Map<String, dynamic> gateInstructors =
       gateDoc['instructors'] as Map<String, dynamic>;
-  final Set<String> passChannels = gateInstructors.entries
+  final Set<String> gatePassChannels = gateInstructors.entries
       .where((MapEntry<String, dynamic> e) =>
           (e.value as Map<String, dynamic>)['gate'] == 'pass')
       .map((MapEntry<String, dynamic> e) => e.key)
       .toSet();
+  // PROBE filtresi kapının SONRASINA uygulanır: kapı kararı olduğu gibi
+  // kalsın, çıkarma ayrı ve görünür bir adım olsun.
+  final Set<String> passChannels =
+      gatePassChannels.difference(excludeSources);
+  final Set<String> unknownExclusions =
+      excludeSources.difference(gatePassChannels);
+  if (unknownExclusions.isNotEmpty) {
+    // Sessiz no-op yasağı (M-F-230): var olmayan bir kaynağı "çıkardım"
+    // sanmak, filtreyi bağlanmamış saymakla aynı sınıf hatadır.
+    stderr.writeln('DURDU: --exclude-source tanınmayan kaynak(lar): '
+        '${unknownExclusions.join(", ")} — kapıdan geçen kaynaklar: '
+        '${gatePassChannels.join(", ")}');
+    exit(64);
+  }
+  if (excludeSources.isNotEmpty) {
+    stdout.writeln('⚠️  PROBE MODU — çıkarılan kaynak(lar): '
+        '${excludeSources.join(", ")} · kalan ${passChannels.length} eğitmen');
+  }
   final double minAcceptedR = passChannels
       .map((String ch) =>
           ((gateInstructors[ch] as Map<String, dynamic>)['pearsonHipKnee'] as num)
@@ -283,8 +328,21 @@ void main(List<String> args) {
     r'$windowRule': 'rep_fsm (slice_deep_reps_squat.dart) + '
         'hipKneeCoupling gate (rep-fsm, hip_knee_coupling.bodyweight_squat.json)',
   };
-  File('../../content/harvest/reference.bodyweight_squat.json').writeAsStringSync(
+  if (excludeSources.isNotEmpty) {
+    // Damga ARTEFAKTIN İÇİNDE durur: dosya adı değişse, kopyalansa veya
+    // alıntılansa bile "bu bir probe çıktısıdır" beyanı onunla gider.
+    published[r'$probeExcludedSources'] = excludeSources.toList()..sort();
+    published[r'$probeNote'] =
+        'PROBE ÇIKTISI — ürün referansı DEĞİLDİR. Kaynak leave-one-out (A4, '
+        'G-108) ile üretildi; M-F-47 gereği bu çıktı hiçbir DIŞLAMA kararına '
+        'gerekçe yapılamaz ("kalanların uyuşması gerekçe değildir").';
+    // ⚠️ YALNIZ probe modunda: yayımlı artefaktın anahtar kümesi ÇİVİLİ
+    // (`artifact_keyset_gate`), koşulsuz alan eklemek "davranış değişmedi"
+    // beyanını çiğner ve keyset kapısını kırardı.
+    published[r'$frameBasis'] = 'camera';
+  }
+  File(outPath).writeAsStringSync(
       '${const JsonEncoder.withIndent('  ').convert(published)}\n');
-  stdout.writeln('\nyazıldı: content/harvest/reference.bodyweight_squat.json '
-      '(ailenin ÜÇÜNCÜ ürün referansı)');
+  stdout.writeln('\nyazıldı: $outPath'
+      '${excludeSources.isEmpty ? " (ailenin ÜÇÜNCÜ ürün referansı)" : " (PROBE)"}');
 }
