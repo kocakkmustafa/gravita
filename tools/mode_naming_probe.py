@@ -22,6 +22,18 @@ OVL_SEP, AUC_SEP = 0.40, 0.30      # AYRIŞTIRICI
 OVL_NULL, AUC_NULL = 0.70, 0.10    # AYRIŞTIRMAYAN
 N_PERM = 200
 
+# --- Fiziksel aralık beyanları (M-F-244 madde 3, L-107 sınıfı) ---
+# G-115'te B4'te 5,27 ölçüldü: gövde uzunluğu ~0'a düşünce oran patlıyor.
+# Aralık beyanı olmayan türetilmiş ölçü, izleme artefaktını sonuca sızdırır.
+# Açılar için sınır ANATOMİK ([0,180] üç-noktalı açı tanımı), oranlar için
+# cömert-ama-sonlu; ikisi de gerekçeli, icat değil.
+VALUE_RANGE = {
+    "B1_stance_width": (0.0, 4.0),         # ayak arası ÷ omuz arası
+    "B2_depth_knee_deg": (0.0, 180.0),     # üç-noktalı açı tanımı
+    "B3_hip_knee_ratio": (0.0, 5.0),       # açı ÷ açı
+    "B4_shoulder_foreshortening": (0.05, 2.0),  # G-115'te türetildi
+}
+
 # MediaPipe landmark indeksleri
 L_SH, R_SH, L_HIP, R_HIP = 11, 12, 23, 24
 L_KNEE, R_KNEE, L_ANK, R_ANK = 25, 26, 27, 28
@@ -92,7 +104,15 @@ def take_dims(path, space="world"):
         "B3_hip_knee_ratio": hip_f / best_knee if best_knee > 1e-9 else float("nan"),
         "B4_shoulder_foreshortening": sh_w / torso if torso > 1e-9 else float("nan"),
     }
-    return {k: v for k, v in out.items() if not math.isnan(v)}
+    clean = {}
+    for k, v in out.items():
+        if math.isnan(v):
+            continue
+        lo, hi = VALUE_RANGE.get(k, (float("-inf"), float("inf")))
+        if not (lo <= v <= hi):
+            continue  # aralık dışı = izleme artefaktı, sonuca KATILMAZ
+        clean[k] = v
+    return clean
 
 
 def auc(xs, ys):
