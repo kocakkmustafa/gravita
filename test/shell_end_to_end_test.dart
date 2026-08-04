@@ -122,6 +122,85 @@ void main() {
     expect(summary.withheldRetroactiveCredit, 0);
   });
 
+  // --- ÇEKİRDEK 0.10.0: kayıp-satır sayımı GERÇEK dosyayla ---
+  //
+  // Widget testleri `HistoryPartial`ı ELLE kuruyor; bu test onu KİMSE
+  // kurmadan, gerçek bozuk satırlardan doğurtuyor. İkisi farklı şeyi
+  // kanıtlar: orada yüzeyin davranışı, burada çekirdeğin sayımının
+  // gerçekten çalıştığı ve kabuğun onu doğru okuduğu.
+  testWidgets('GERÇEK JSONL: 1 sağlam + 3 bozuk satır → kayıp SAYILIYOR',
+      (WidgetTester tester) async {
+    late int unreadable;
+    late List<SessionRecord> records;
+    await tester.runAsync(() async {
+      final File f = File('${tmp.path}/mixed.jsonl');
+      final JsonlSessionStore store = JsonlSessionStore(f);
+      await store.append(SessionRecord(
+        lessonId: 'push_foundations.reps_and_tempo',
+        completedAt: DateTime.utc(2026, 8, 4),
+        workedSeconds: 60,
+        unitsCompleted: 5,
+        plannedUnits: 5,
+        unitLabel: 'rep',
+        lessonClass: 'measurementOnly',
+      ));
+      // Üç ayrı bozulma sınıfı — hepsi "çözülemedi" sayılmalı.
+      await f.writeAsString(
+        '{bu json değil\n'                       // sözdizimi bozuk
+        '{"schemaVersion":999,"lessonId":"x"}\n' // bilinmeyen sürüm
+        '{"schemaVersion":2}\n',                 // alanları eksik
+        mode: FileMode.append,
+      );
+      records = await store.recent();
+      unreadable = await store.unreadableRecords();
+    });
+
+    // Sağlam satır OKUNDU: kayıp, okunabileni götürmüyor.
+    expect(records, hasLength(1));
+    expect(records.single.unitsCompleted, 5);
+    // Ve kayıp ADIYLA sayıldı.
+    expect(unreadable, 3,
+        reason: 'Bozuk satırlar sessizce atlanırsa yüzey eksik geçmişi TAM '
+            'sayım gibi gösterir.');
+  });
+
+  testWidgets('POZİTİF İKİZ: GERÇEK JSONL tamamen sağlamsa kayıp SIFIR',
+      (WidgetTester tester) async {
+    // Bu ikiz olmadan üstteki test, sayaç HER ZAMAN 3 dönse de geçerdi.
+    late int unreadable;
+    await tester.runAsync(() async {
+      final File f = File('${tmp.path}/clean.jsonl');
+      final JsonlSessionStore store = JsonlSessionStore(f);
+      await store.append(SessionRecord(
+        lessonId: 'push_foundations.reps_and_tempo',
+        completedAt: DateTime.utc(2026, 8, 4),
+        workedSeconds: 60,
+        unitsCompleted: 5,
+        plannedUnits: 5,
+        unitLabel: 'rep',
+        lessonClass: 'measurementOnly',
+      ));
+      unreadable = await store.unreadableRecords();
+    });
+    expect(unreadable, 0);
+  });
+
+  testWidgets('dosya HİÇ yoksa kayıp 0 — ilk açılış "kayıp geçmiş" DEĞİL',
+      (WidgetTester tester) async {
+    late int unreadable;
+    late List<SessionRecord> records;
+    await tester.runAsync(() async {
+      final JsonlSessionStore store =
+          JsonlSessionStore(File('${tmp.path}/hicyok.jsonl'));
+      records = await store.recent();
+      unreadable = await store.unreadableRecords();
+    });
+    expect(records, isEmpty);
+    expect(unreadable, 0,
+        reason: 'İlk açılışta kayıp>0 dönseydi yüzey yeni kullanıcıya '
+            '"geçmişinin bir kısmı okunamadı" derdi.');
+  });
+
   testWidgets('GERÇEK ProgressScreen: bozuk bundle → tipli HATA ekranı',
       (WidgetTester tester) async {
     // ⚠️ Bu testin ilk hâli `_ProbeScreen` adında, yükleme yolunun KOPYASI olan
