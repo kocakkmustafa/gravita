@@ -64,6 +64,21 @@ def num(v):
 METRICS = json.loads((ROOT / "content" / "schema" / "metrics.json").read_text())["metrics"]
 
 
+def check_gateable_metrics(f, doc):
+    """ATIF SINIFI S10 (G-119): `gateableMetrics` metrics.json'a atıftır.
+
+    Sabotaj sınamasında sessiz geçiyordu: tanımsız bir metrik "kapıya
+    alınabilir" diye beyan edilebiliyordu ve hiçbir yer okumuyordu — beyan
+    var, karşılığı yok.
+    """
+    for m in (doc.get("measurementContract") or {}).get("gateableMetrics") or []:
+        if m in NON_GATEABLE:
+            continue
+        if m not in METRICS:
+            err(f, f"gateableMetrics '{m}' metrics.json'da tanımlı değil — "
+                   f"var olmayan bir metrik kapıya alınamaz")
+
+
 def check_perturbation(f, fe):
     """V6: bozulmuş fixture'ın ULAŞTIĞI değer, hatayı tetikleyen eşiği marjla aşmalı.
 
@@ -86,6 +101,15 @@ def check_perturbation(f, fe):
     if metric not in METRICS:
         err(f, f"form hatası '{fid}': '{metric}' metrics.json'da tanımlı değil — "
                f"tanımsız metrik üzerine eşik yazılamaz")
+        return
+    # ATIF SINIFI S6 (G-119): `perturbation.metric` AYRI bir alandır ve buraya
+    # kadar HİÇ okunmuyordu — `detect.metric` doğrulanırken aynı adı taşıyan
+    # komşusu sessiz geçiyordu. Fixture'ı bozan metrik budur: tanımsızsa
+    # üretilecek fixture'ın neyi bozduğu bilinmez.
+    pmetric = pert.get("metric")
+    if pmetric is not None and pmetric not in METRICS:
+        err(f, f"form hatası '{fid}': perturbasyon metriği '{pmetric}' "
+               f"metrics.json'da tanımlı değil — fixture neyi bozacağını bilmiyor")
         return
     spec = METRICS[metric]
     band = spec.get("noiseBand", 0)
@@ -314,6 +338,8 @@ def check(path):
         for word in ("form verdict", "form score", "alignment"):
             if word in joined:
                 err(f, f"B sınıfı '{word}' iddia ediyor — B'de form hükmü YOK (blueprint §1/§8)")
+
+    check_gateable_metrics(f, m)                                       # S10
 
     for fe in m.get("formErrors", []):
         fid = fe.get("id", "?")
