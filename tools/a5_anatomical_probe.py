@@ -9,6 +9,7 @@ kodundan gelir (yerel checkout, salt okuma). Metrik TANIMLARI burada kurulur.
 """
 import json
 import math
+import os
 import random
 import sys
 from pathlib import Path
@@ -23,25 +24,37 @@ from mode_naming_probe import auc, ovl, pct, HARVEST  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 N_PERM = 200
+# L-197 süpürmesi: varsayılan STRICT (valid okunur). STRICT=0 eski kirli
+# davranışı geri getirir — yalnız kontrollü karşılaştırma için.
+STRICT = os.environ.get("A5_STRICT", "1") == "1"
 
 # --- G-112 çapaları (ÖLÇÜLÜ, icat edilmedi) ---
 ALT_SEP, ALT_OVL = 0.077, 0.40      # ayrışmayan bant (B3)
 UST_SEP, UST_OVL = 0.30, 0.40       # ayrışan bant (B4 sınıfı)
 
 METRICS = [
+    # value_range: L-107 sınıfı fiziksel aralık beyanı (M-F-244 madde 3).
+    # ÜÇ EKLEM AÇISI için sınır ANATOMİK: üç noktalı açı tanım gereği
+    # [0,180]; bu bir eşik değil, geometrinin kendisi — icat edilmedi.
     mz.MetricDef(id="hip_flexion", kind="angle3",
                  points=("LEFT_SHOULDER", "LEFT_HIP", "LEFT_KNEE"),
-                 plane="sagittal", frame_ref="proximal"),
+                 plane="sagittal", frame_ref="proximal",
+                 value_range=(0.0, 180.0)),
     mz.MetricDef(id="knee_flexion", kind="angle3",
                  points=("LEFT_HIP", "LEFT_KNEE", "LEFT_ANKLE"),
-                 plane="sagittal", frame_ref="none"),
+                 plane="sagittal", frame_ref="none",
+                 value_range=(0.0, 180.0)),
     mz.MetricDef(id="trunk_tilt", kind="angle_vertical",
                  points=("LEFT_HIP", "LEFT_SHOULDER"),
-                 plane="sagittal", frame_ref="gravityYaw"),
+                 plane="sagittal", frame_ref="gravityYaw",
+                 value_range=(0.0, 180.0)),
     # POZİTİF KONTROL — anatomik çerçevede TANIM GEREĞİ sabitleşmeli (A9).
+    # Oransal ölçü: omuz arası ÷ gövde — üst sınır 3,0 cömert ama sonlu
+    # (gövde uzunluğu ~0'a düşünce oran patlar; G-115'te 5,27 ölçüldü).
     mz.MetricDef(id="POSCTL_shoulder_foreshortening", kind="distance_norm",
                  points=("LEFT_SHOULDER", "RIGHT_SHOULDER"),
-                 plane="frontal", frame_ref="camera"),
+                 plane="frontal", frame_ref="camera",
+                 value_range=(0.0, 3.0)),
 ]
 
 
@@ -90,10 +103,12 @@ def main():
     ov = A & B
     A, B = A - ov, B - ov
     print(f"küme M-THENX={len(A)} · M-KBOGES={len(B)} (örtüşen {len(ov)} çıkarıldı)")
+    print(f"valid kapısı: {'AÇIK (STRICT)' if STRICT else 'KAPALI (kirli — kontrol koşumu)'}")
     print(f"mocore: {MOCORE}\n")
 
     vals = {m.id: {"M-THENX": {False: [], True: []},
                    "M-KBOGES": {False: [], True: []}} for m in METRICS}
+    invalid = {m.id: 0 for m in METRICS}
     unmeasurable = 0
     for label, ids in (("M-THENX", A), ("M-KBOGES", B)):
         for tid in sorted(ids):
@@ -112,6 +127,14 @@ def main():
                     except Exception:
                         continue
                     v = float(r.value)
+                    # L-197: `evaluate` güven eşiği altında da DEĞER üretir ama
+                    # `valid=False` döner ve çağıran taraf onu skora KATMAMALIDIR
+                    # (doc'un kendi cümlesi). İlk yazışımda bu okunmuyordu;
+                    # STRICT=0 ile eski (kirli) davranış kontrollü karşılaştırma
+                    # için korunuyor — L-187 tarzı kirli↔temiz tablosu.
+                    if STRICT and not r.valid:
+                        invalid[m.id] += 1
+                        continue
                     if math.isfinite(v):
                         vals[m.id][label][anat].append(v)
     if unmeasurable:
@@ -200,6 +223,8 @@ def main():
                      "$source": "G-112 ön-kayıt (B3/B4 ölçümleri), değiştirilmedi"},
         "clusters": {"M-THENX": len(A), "M-KBOGES": len(B),
                      "unmeasurable": unmeasurable},
+        "strictValid": STRICT,
+        "invalidDropped": invalid,
         "positiveControl": out_posctl,
         "$positiveControlNote": (
             "G-112 ön-kaydındaki POSCTL tasarımı hatalıydı: camera frame_ref'li "
