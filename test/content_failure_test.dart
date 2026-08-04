@@ -146,7 +146,9 @@ void main() {
       gradedToday: false,
     );
 
-    Future<void> pump(WidgetTester tester, {HistoryFailure? failure}) async {
+    Future<void> pump(WidgetTester tester,
+        {HistoryStatus status = const HistoryOk(),
+        List<SessionRecord> records = const <SessionRecord>[]}) async {
       tester.view.physicalSize = const Size(1200, 4000);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(tester.view.reset);
@@ -155,9 +157,9 @@ void main() {
           body: ProgressView(
             summary: ProgressSummary.build(
               lessonSurfaces: const <LessonSurface>[reps],
-              records: const <SessionRecord>[],
+              records: records,
             ),
-            historyFailure: failure,
+            historyStatus: status,
           ),
         ),
       ));
@@ -168,7 +170,7 @@ void main() {
       // Bu testin varlık sebebi kendi kodumdaki bir yalandı: kayıt listesi boş
       // gelince her ders `notStarted` oluyor ve yüzey "Not started" yazıyor —
       // depo okunamadığında bu cümle "hiç çalışmadın" demektir.
-      await pump(tester, failure: const HistoryFailure('permission denied'));
+      await pump(tester, status: const HistoryUnavailable('permission denied'));
       expect(find.byKey(ProgressView.historyFailureKey), findsOneWidget);
       expect(find.text(ProgressStrings.notStarted), findsNothing);
       expect(find.text(ProgressStrings.emptyHistory), findsNothing);
@@ -180,12 +182,67 @@ void main() {
       // çizilmiyorsa da geçerdi. Bu ikiz o boşluğu kapatıyor.
       await pump(tester);
       expect(find.byKey(ProgressView.historyFailureKey), findsNothing);
+      expect(find.byKey(ProgressView.historyPartialKey), findsNothing);
       expect(find.text(ProgressStrings.notStarted), findsOneWidget);
+    });
+
+    // --- ÜÇÜNCÜ HÂL: kısmi okuma (çekirdek 0.10.0 `unreadableRecords`) ---
+
+    testWidgets('KISMİ: sayı GÖSTERİLİYOR ama taban eksik DİYE beyan ediliyor',
+        (WidgetTester tester) async {
+      // İkili modelde bu vaka ya "ok" sayılıp eksiklik gizlenirdi ya
+      // "unavailable" sayılıp OKUNABİLEN gerçek iş çöpe atılırdı.
+      await pump(tester,
+          status: const HistoryPartial(2),
+          records: <SessionRecord>[
+            SessionRecord(
+              lessonId: 'push_foundations.reps_and_tempo',
+              completedAt: DateTime.utc(2026, 8, 4),
+              workedSeconds: 60,
+              unitsCompleted: 5,
+              plannedUnits: 5,
+              unitLabel: 'rep',
+              lessonClass: 'measurementOnly',
+            ),
+          ]);
+      expect(find.byKey(ProgressView.historyPartialKey), findsOneWidget);
+      // Sayı DÜŞMÜYOR: okunabilen iş gerçektir.
+      expect(find.text(ProgressStrings.units(5, 'rep')), findsOneWidget);
+      // Ve uç-değer cümlesi burada DEĞİL — ikisi ayrı olgu.
+      expect(find.byKey(ProgressView.historyFailureKey), findsNothing);
+    });
+
+    testWidgets('POZİTİF İKİZ: kayıp YOKKEN kısmi beyanı GÖRÜNMÜYOR',
+        (WidgetTester tester) async {
+      // İkizsiz hâlde yukarıdaki test, beyan HER ZAMAN çizilse de geçerdi.
+      await pump(tester,
+          status: const HistoryOk(),
+          records: <SessionRecord>[
+            SessionRecord(
+              lessonId: 'push_foundations.reps_and_tempo',
+              completedAt: DateTime.utc(2026, 8, 4),
+              workedSeconds: 60,
+              unitsCompleted: 5,
+              plannedUnits: 5,
+              unitLabel: 'rep',
+              lessonClass: 'measurementOnly',
+            ),
+          ]);
+      expect(find.byKey(ProgressView.historyPartialKey), findsNothing);
+      expect(find.text(ProgressStrings.units(5, 'rep')), findsOneWidget);
+    });
+
+    testWidgets('kısmi beyan KAYIP SAYISINI söylüyor — "bir şeyler eksik" demiyor',
+        (WidgetTester tester) async {
+      await pump(tester, status: const HistoryPartial(3));
+      final Finder f = find.byKey(ProgressView.historyPartialKey);
+      expect(f, findsOneWidget);
+      expect(tester.widget<Text>(f).data, contains('3'));
     });
 
     testWidgets('beyan SAYI göstermiyor — bilmediğimizi sıfır yazmıyoruz',
         (WidgetTester tester) async {
-      await pump(tester, failure: const HistoryFailure('io'));
+      await pump(tester, status: const HistoryUnavailable('io'));
       final RegExp anyCount = RegExp(r'\b\d+\s+(reps?|seconds?|sessions?)\b');
       for (final Text t in tester.widgetList<Text>(find.byType(Text))) {
         expect(anyCount.hasMatch(t.data ?? ''), isFalse,

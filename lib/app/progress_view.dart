@@ -37,12 +37,20 @@ import 'progress_strings.dart';
 /// iddia edebilsin. "Metin bir yerde var" diyen test, iki bölüm birleştirilse
 /// bile geçerdi — `ProgressSummary`'nin tip ayrımı tam bunu önlemek için var.
 class ProgressView extends StatelessWidget {
-  const ProgressView({required this.summary, this.historyFailure, super.key});
+  const ProgressView({
+    required this.summary,
+    this.historyStatus = const HistoryOk(),
+    super.key,
+  });
 
   static const Key measuredSectionKey = Key('progress.measured');
   static const Key lockedSectionKey = Key('progress.locked');
   static const Key notesSectionKey = Key('progress.notes');
   static const Key historyFailureKey = Key('progress.historyUnavailable');
+
+  /// Kısmi okuma beyanı — `historyFailureKey`den AYRI anahtar: iki hâl
+  /// yüzeyde de ayrı ayrı sınanabilsin (biri ötekinin yerine geçemez).
+  static const Key historyPartialKey = Key('progress.historyPartial');
 
   final ProgressSummary summary;
 
@@ -50,7 +58,7 @@ class ProgressView extends StatelessWidget {
   /// BLOKLAMIYORUZ (içerik sağlam) ama ölçüm bölümü sayı GÖSTERMEZ — yerine
   /// ne olduğunu söyler. Aksi hâlde her ders "Not started" görünür ve bu
   /// "hiç çalışmadın" demektir.
-  final HistoryFailure? historyFailure;
+  final HistoryStatus historyStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -80,14 +88,26 @@ class ProgressView extends StatelessWidget {
           key: measuredSectionKey,
           title: ProgressStrings.measuredSection,
           subtitle: ProgressStrings.measuredSubtitle,
-          children: historyFailure != null
-              ? const <Widget>[
-                  Text(ProgressStrings.historyUnavailable,
-                      key: historyFailureKey)
-                ]
-              : open.isEmpty
-                  ? const <Widget>[Text(ProgressStrings.emptyHistory)]
-                  : open.map(_measuredRow).toList(growable: false),
+          // ÜÇ HÂL (çekirdek 0.10.0). Sıra önemli: `unavailable` sayıyı
+          // GÖSTERMEZ, `partial` GÖSTERİR ama tabanın eksik olduğunu söyler.
+          // İki beyan AYRI cümledir — biri ötekini susturmaz.
+          children: switch (historyStatus) {
+            HistoryUnavailable() => const <Widget>[
+                Text(ProgressStrings.historyUnavailable,
+                    key: historyFailureKey)
+              ],
+            HistoryPartial(:final int unreadableRecords) => <Widget>[
+                Text(ProgressStrings.historyPartial(unreadableRecords),
+                    key: historyPartialKey),
+                if (open.isEmpty)
+                  const Text(ProgressStrings.emptyHistory)
+                else
+                  ...open.map(_measuredRow),
+              ],
+            HistoryOk() => open.isEmpty
+                ? const <Widget>[Text(ProgressStrings.emptyHistory)]
+                : open.map(_measuredRow).toList(growable: false),
+          },
         ),
         if (locked.isNotEmpty)
           _section(

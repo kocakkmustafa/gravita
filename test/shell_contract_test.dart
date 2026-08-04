@@ -128,6 +128,19 @@ void main() {
               'Aynı paket için iki kaynak = çözülemeyen bağımlılık.');
     });
 
+    test('çekirdek 0.10.0 `unreadableRecords` ÜRÜNDE tüketiliyor', () {
+      // Pin bump'ı tek başına "adopsiyon" değildir: yeni zorunlu üye
+      // bildirilip OKUNMAZSA yüzey eski ikili modelde kalır ve kısmi geçmiş
+      // sessizce "tam" görünür. Bu, defterdeki "okuyanı olmayan beyan"
+      // sınıfının aynası — beyan çekirdekte, tüketici yok.
+      final String app = File('lib/app/gravita_app.dart').readAsStringSync();
+      expect(app, contains('unreadableRecords()'),
+          reason: 'Pin 0.10.0 ama kayıp-satır sayımı hiç okunmuyor.');
+      final String view = File('lib/app/progress_view.dart').readAsStringSync();
+      expect(view, contains('HistoryPartial'),
+          reason: 'Üçüncü hâl yüzeyde dallanmıyor — ikili model sürüyor.');
+    });
+
     test('motion_camera HENÜZ yok — bağlandığı gün pin-eşitliği ŞART', () {
       // Yokluk kapısı. POZİTİF İKİZİ hemen altında (M-F-194).
       final YamlMap deps = pubspec['dependencies'] as YamlMap;

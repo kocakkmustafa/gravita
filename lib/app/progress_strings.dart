@@ -21,6 +21,17 @@ abstract final class ProgressStrings {
   static const String notesSection = 'Notes';
 
   static const String emptyHistory = 'No sessions yet.';
+
+  /// Kısmi okuma (çekirdek 0.10.0 `unreadableRecords`). Sayı GÖSTERİLİR ama
+  /// tabanın tam olmadığı söylenir. `unavailable` metninden AYRI durur: uç
+  /// değer kısmi dalı susturamaz, ikisi farklı olguyu anlatır.
+  static String historyPartial(int unreadable) {
+    final String what =
+        unreadable == 1 ? '1 saved session' : '$unreadable saved sessions';
+    return 'Numbers below are a floor, not a full count: $what could not be '
+        'read back, so your real totals are at least this high.';
+  }
+
   static const String notStarted = 'Not started';
 
   /// Sayı + birim TEK PARÇA. `unitLabel` katalogdan gelir (`rep` · `second`),

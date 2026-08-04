@@ -87,8 +87,47 @@ final class ContentFailure {
 /// **Bu sınıf BLOKLAYICI DEĞİL** (içerik sağlam, dersler açılabilir) ama
 /// **BEYAN EDİLMEK zorunda**: ölçüm bölümü sayı göstermez, yerine ne olduğunu
 /// söyler. Sessizlik yalandır (J-066 disiplini).
-final class HistoryFailure {
-  const HistoryFailure(this.detail);
+///
+/// ## Neden ÜÇ hâl (çekirdek 0.10.0 adopsiyonu)
+///
+/// İlk model ikiliydi: geçmiş ya okundu ya okunmadı. Çekirdek
+/// `unreadableRecords()` zorunlu üye olunca üçüncü hâl ÖLÇÜLEBİLİR oldu ve
+/// ikili model onu taşıyamıyor:
+///
+/// * bir kısmı okunduysa eldeki sayılar **gerçektir** — `unavailable` demek
+///   kullanıcının okunabilmiş işini çöpe atardı;
+/// * ama taban eksiktir — `ok` demek eksikliği gizler ve sayıyı **tam sayım**
+///   gibi sunar.
+///
+/// Üçüncü hâl tam bu "doğru ama eksik" durumu için var: sayı gösterilir,
+/// yanında tabanın tam olmadığı söylenir. `partial` ile `unavailable` AYRI
+/// cümlelerdir — uç değer (hiç okunamadı) kısmi dalı susturamaz.
+sealed class HistoryStatus {
+  const HistoryStatus();
+}
+
+/// Geçmiş TAM okundu: kayıp satır yok, hata yok. Yüzeyde beyan gerektirmez —
+/// beyan edilecek bir şey olmadığı için (gürültü, dürüstlük değildir).
+final class HistoryOk extends HistoryStatus {
+  const HistoryOk();
+}
+
+/// Geçmiş okundu ama [unreadableRecords] kayıt ÇÖZÜLEMEDİ (bozuk satır ya da
+/// bilinmeyen şema sürümü; v1 göçü kayıp SAYILMAZ — çekirdeğin sayımı).
+///
+/// Sayılar gösterilir çünkü doğrudur; **alt sınır** oldukları söylenir.
+final class HistoryPartial extends HistoryStatus {
+  const HistoryPartial(this.unreadableRecords)
+      : assert(unreadableRecords > 0,
+            'kayıp yoksa hâl HistoryOk — sıfırlı "kısmi" beyan yalan olur');
+
+  final int unreadableRecords;
+}
+
+/// Depo HİÇ okunamadı (izin, `path_provider`, dosya erişimi). Sayı
+/// GÖSTERİLMEZ: bilmediğimizi sıfır yazmıyoruz.
+final class HistoryUnavailable extends HistoryStatus {
+  const HistoryUnavailable(this.detail);
 
   final String detail;
 }

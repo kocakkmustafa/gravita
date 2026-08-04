@@ -29,11 +29,11 @@ class GravitaApp extends StatelessWidget {
 ///
 /// Tek bir `Object? error` alanı bu ayrımı yok ederdi: geçmiş hatası bütün
 /// uygulamayı bloklardı, ya da daha kötüsü sessizce boş geçmiş gösterirdi
-/// (bkz. [HistoryFailure] gerekçesi).
+/// (bkz. [HistoryStatus] gerekçesi).
 final class _Loaded {
-  const _Loaded({required this.summary, this.historyFailure});
+  const _Loaded({required this.summary, required this.historyStatus});
   final ProgressSummary summary;
-  final HistoryFailure? historyFailure;
+  final HistoryStatus historyStatus;
 }
 
 /// İlerleme ekranı — veriyi toplar, YAPIyı [ProgressView]'a bırakır.
@@ -59,15 +59,21 @@ class _ProgressScreenState extends State<ProgressScreen> {
         await ContentRepository.load(DefaultAssetBundle.of(context));
 
     // GEÇMİŞ ayrı ele alınır: içerik sağlamsa dersler açılabilir. Ama hata
-    // YUTULMAZ — `historyFailure` yüzeye taşınır ve orada BEYAN EDİLİR.
+    // YUTULMAZ — `historyStatus` yüzeye taşınır ve orada BEYAN EDİLİR.
     // `catch` içinde boş liste dönüp devam etmek, kullanıcının geçmişini
     // "yok" ilan etmek olurdu (Gravita deltası, `content_failure.dart`).
     List<SessionRecord> records = const <SessionRecord>[];
-    HistoryFailure? historyFailure;
+    HistoryStatus historyStatus = const HistoryOk();
     try {
-      records = await (await ContentRepository.openSessionStore()).recent();
+      final SessionStore store = await ContentRepository.openSessionStore();
+      records = await store.recent();
+      // Çekirdek 0.10.0: kayıp satır sayısı ARTIK ÖLÇÜLEBİLİR. Aynı depodan
+      // okunur ki sayılar ile kayıp aynı ana ait olsun.
+      final int unreadable = await store.unreadableRecords();
+      historyStatus =
+          unreadable > 0 ? HistoryPartial(unreadable) : const HistoryOk();
     } on Object catch (e) {
-      historyFailure = HistoryFailure(e.toString());
+      historyStatus = HistoryUnavailable(e.toString());
     }
 
     return _Loaded(
@@ -75,7 +81,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
         lessonSurfaces: content.lessonSurfaces,
         records: records,
       ),
-      historyFailure: historyFailure,
+      historyStatus: historyStatus,
     );
   }
 
@@ -105,7 +111,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
           appBar: AppBar(title: const Text('Gravita')),
           body: ProgressView(
             summary: loaded.summary,
-            historyFailure: loaded.historyFailure,
+            historyStatus: loaded.historyStatus,
           ),
         );
       },
