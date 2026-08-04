@@ -22,8 +22,16 @@ Gravita'ya özel iki kural neden var:
      beyanının ÜRÜN tarafındaki İLK tüketicisidir: o beyanı bugüne dek yalnız
      hasat araçları (`harvest_reps`, `build_reference`) okuyordu, ürün hiç
      sormuyordu — beşinci canlılık sorusu (G-059).
+  K10 (K1'in İKİZİ — M-F-194): K1 "coming_soon'da kurs OLAMAZ" der; ikizi
+     "live'da kurs OLMALI"dır. İkiz olmadan kapı YARIM: `live` bir hareketin
+     kursu HEM kütüphaneden HEM katalogdan düşerse iki kaynak birbiriyle
+     TUTARLI kalır (çelişki kapısı susar) ve hareket "canlı" etiketiyle
+     BOŞ açılır — ölü butonun kütüphane sınıfı. Ölçüldü: mutasyon MUT-A
+     eklemeden önce YAKALANMIYORDU, MUT-B (tek taraf) yakalanıyordu (G-105).
+     `live` = "girebileceğin bir şey var" iddiasıdır; girilecek şey yoksa
+     hareketin durumu `coming_soon`dur.
 
-`--self-test`: sekiz kuralın her birini KASITLI ihlalle sınar. Hiç ateşlenmemiş
+`--self-test`: on kuralın her birini KASITLI ihlalle sınar. Hiç ateşlenmemiş
 bir kapıya güvenmek, bu defterde defalarca avlanan desenin ta kendisidir
 (G-037/G-052) — o yüzden kapılar burada ateşlenerek kanıtlanıyor.
 """
@@ -150,6 +158,16 @@ def check(lib, catalog_lookup, reference_lookup):
                         f"{mid}: BAYAT 'coming_soon' — bloker '{key}' artık "
                         f"bloklamıyor ({expl})")
             continue
+
+        # K10: live hareket EN AZ 1 kurs taşımak zorunda — K1'in ikizi
+        # (M-F-194). Aşağıdaki çelişki kapısı iki kaynağın BİRBİRİNE
+        # uymasını ister; bu kapı iddianın DÜNYAYA uymasını ister. İkisi
+        # aynı şey değil: iki kaynak birlikte boşalırsa çelişki yoktur ama
+        # kullanıcı "canlı" yazan boş bir sayfa görür (G-105).
+        if not m.get("courses"):
+            violations.append(
+                f"{mid}: status=live ama SIFIR kurs — 'canlı' girilebilir bir "
+                f"şey olduğu iddiasıdır; yoksa durum coming_soon olmalı")
 
         # K8: live hareket DERIVED ön koşul taşımak zorunda (G-043).
         if pre_status != "derived":
@@ -408,7 +426,32 @@ def _self_test():
           f"{'yakalandı' if hit else 'YAKALANMADI — SAHTE KAPI'}")
     ok = ok and hit
 
-    print("✅ 15/15 kapı ateşlendi" if ok else "⛔ bazı kapılar ateşlenmedi")
+    # K10 GERÇEK deliği İKİ kaynağı birlikte boşaltmakla ortaya çıkar; tek
+    # taraf boşaltmak yalnız çelişki kapısını ateşler ve K10'u kanıtlamaz
+    # (ölçüm: MUT-A sessizdi, MUT-B yakalanıyordu — G-105). Bu yüzden K8
+    # gibi katalog+kütüphane birlikte mutasyona sokuluyor.
+    lib = copy.deepcopy(base_lib)
+    live(lib)["courses"] = []
+
+    def lookup_nocourse(cid):
+        cat = copy.deepcopy(catalogs.get(cid))
+        if cat is not None and cid == live_id:
+            cat["courses"] = []
+        return cat
+
+    found = check(lib, lookup_nocourse, ref_lookup)
+    hit = any("SIFIR kurs" in v for v in found)
+    print(f"   {'✅' if hit else '⛔'} K10 live ama kurssuz (K1'in ikizi): "
+          f"{'yakalandı' if hit else 'YAKALANMADI — SAHTE KAPI'}")
+    ok = ok and hit
+    # NEGATİF İKİZ: mutasyon ÇELİŞKİ kapısını ateşlememeli, yoksa yukarıdaki
+    # "yakalandı" K10'u değil eski kapıyı ölçmüş olur (vekil-ölçüm sınıfı).
+    proxy = any("katalog courses[]" in v for v in found)
+    print(f"   {'✅' if not proxy else '⛔'} K10 vekil-ölçüm değil "
+          f"(çelişki kapısı SUSUYOR): {'temiz' if not proxy else 'VEKİL ÖLÇÜM'}")
+    ok = ok and not proxy
+
+    print("✅ 17/17 kapı ateşlendi" if ok else "⛔ bazı kapılar ateşlenmedi")
     return 0 if ok else 1
 
 
@@ -440,7 +483,7 @@ def main():
     print(f"✅ kütüphane denetimi TEMİZ — {len(lib['movements'])} hareket "
           f"({len(live)} canlı: {live} · {len(soon)} yakında: {soon}) · "
           f"{lessons} ders ({locked} kilitli, hepsi isimli gerekçeli) · "
-          f"9 değişmez (15 kapı dalı)")
+          f"10 değişmez (17 kapı dalı)")
     return 0
 
 
