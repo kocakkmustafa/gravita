@@ -79,8 +79,8 @@
     "gateableMetrics": [
       "rep_count",
       "rom_bottom_angle",
-      "torso_angle",
-      "heel_lift"
+      "torso_angle_from_vertical",
+      "heel_rise_torso_norm"
     ],
     "scoreDisplay": "band"
   },

@@ -195,6 +195,20 @@ def check(lib, catalog_lookup, reference_lookup):
                 lid = l["id"]
                 locked = l.get("status") == "locked"
 
+                # ATIF SINIFI S7 (G-119): `focus` serbest metin DEĞİL, katalog
+                # `gateableMetrics`ine atıftır (ya da formErrors'a işaret eden
+                # 'form'). Sabotaj sınamasında sessiz geçiyordu: uydurma bir
+                # odak yazılabiliyor ve ders "neyi ölçtüğünü" yanlış beyan
+                # ederken hiçbir kapı ötmüyordu.
+                gateable = set((cat.get('measurementContract') or {})
+                               .get('gateableMetrics') or [])
+                focus = l.get('focus')
+                if focus is not None and focus != 'form' and focus not in gateable:
+                    violations.append(
+                        f"{lid}: focus '{focus}' katalogun gateableMetrics'inde "
+                        f"YOK ({sorted(gateable)}) ve 'form' da değil — ders "
+                        f"ölçmediği bir şeyi odak ilan ediyor")
+
                 # K3: ders, katalogda olmayan formError'a atıf yapamaz.
                 for eid in l.get("errorFocus", []):
                     if eid not in catalog_error_ids:
@@ -236,6 +250,21 @@ def check(lib, catalog_lookup, reference_lookup):
                                 f"{lid}: BAYAT KİLİT — bloker '{key}' artık "
                                 f"BLOKLAMIYOR ({expl}); kilit gözden "
                                 f"geçirilmeli")
+
+                # ATIF SINIFI S8 (G-119): `gradedJoints` KİLİTLİ derste de
+                # DOĞRULANIR. Sabotaj sınamasında sessiz geçiyordu: K7 yalnız
+                # açık dersleri görüyordu, yani kilitli bir dersin eklem
+                # beyanı çürük kalabilir ve KİLİT AÇILDIĞI GÜN çürük beyanla
+                # açılırdı. Kilit bir muafiyet değil, geçici bir kapıdır.
+                known_joints = (set(derived_joints) | unreliable_pairs
+                                | set(prov.get('floorBoundJoints') or []))
+                for j in (l.get('gradedJoints') or []):
+                    if j not in known_joints:
+                        violations.append(
+                            f"{lid}: gradedJoints '{j}' katalogda TANINMIYOR "
+                            f"(derivedJoints/floorBoundJoints/unreliable "
+                            f"kümelerinin hiçbirinde yok) — var olmayan bir "
+                            f"eklemi notlamayı beyan ediyor")
 
                 # K7: referansa karşı form notu veren AÇIK ders, NOTLADIĞI her
                 # eklemin varyans-türetimli olduğunu göstermek zorunda.
@@ -356,6 +385,13 @@ def _self_test():
     def mut_k9_structural(lib):
         graded_lesson(lib)["lockClass"] = "structural"
 
+    def mut_s7_focus(lib):
+        live(lib)["courses"][0]["lessons"][0]["focus"] = "uydurma_odak"
+
+    def mut_s8_graded(lib):
+        # KİLİTLİ derste çürük eklem beyanı — K7 bunu görmüyordu.
+        graded_lesson(lib)["gradedJoints"] = ["yok_boyle_eklem"]
+
     def mut_k7_unreliable(lib):
         # G-072 deliği: eklem VARYANS-türetimli ama referansta GÜVENİLMEZ.
         # squat: derivedJoints=[elbow,forearm,shoulder,upper_arm],
@@ -372,6 +408,10 @@ def _self_test():
         }]
 
     cases = [
+        ("S7 focus katalogda YOK (G-119)", mut_s7_focus,
+         "gateableMetrics'inde"),
+        ("S8 KİLİTLİ derste çürük gradedJoints (G-119)", mut_s8_graded,
+         "katalogda TANINMIYOR"),
         ("K1 coming_soon'da kurs", mut_k1, "coming_soon ama"),
         ("K2 boş kurs", mut_k2, "boş kurs"),
         ("K3 olmayan formError", mut_k3, "var olmayan formError"),
@@ -451,7 +491,7 @@ def _self_test():
           f"(çelişki kapısı SUSUYOR): {'temiz' if not proxy else 'VEKİL ÖLÇÜM'}")
     ok = ok and not proxy
 
-    print("✅ 17/17 kapı ateşlendi" if ok else "⛔ bazı kapılar ateşlenmedi")
+    print("✅ 19/19 kapı ateşlendi" if ok else "⛔ bazı kapılar ateşlenmedi")
     return 0 if ok else 1
 
 
@@ -483,7 +523,7 @@ def main():
     print(f"✅ kütüphane denetimi TEMİZ — {len(lib['movements'])} hareket "
           f"({len(live)} canlı: {live} · {len(soon)} yakında: {soon}) · "
           f"{lessons} ders ({locked} kilitli, hepsi isimli gerekçeli) · "
-          f"10 değişmez (17 kapı dalı)")
+          f"12 değişmez (19 kapı dalı)")
     return 0
 
 
