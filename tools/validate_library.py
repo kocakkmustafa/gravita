@@ -98,6 +98,23 @@ def _blocker_active(key, cat, reference_lookup, mid):
             if fx.is_dir() else False
         return True, not present, (
             f"replay fixture {'YOK (blokluyor)' if not present else 'VAR → BLOKLAMIYOR'}")
+    if key == "provenance.sources:empty":
+        # ÜÇÜNCÜ bloker sınıfı (2026-08-06, terfi turu). Hiç eğitmen kaynağı
+        # HASAT EDİLMEMİŞ bir harekette her tolerans TABAN değerindedir —
+        # yani hareketin bütün eşikleri varsayılandan gelir, ölçümden değil
+        # (G-014/G-050'nin bir adım öncesi: orada kaynak VAR ama varyans
+        # türetmemiş, burada kaynak HİÇ YOK).
+        #
+        # ⚠️ Bu anahtar YENİ BİR EŞİK DEĞİL: `provenance.sources` zaten her
+        # katalog girdisinde duran bir alan ve `validate_catalog.py` onun
+        # boşluğunu bugün de UYARI olarak basıyor. Buradaki tek yenilik, o
+        # zaten-doğru olguyu MAKİNEYLE DOĞRULANABİLİR bir kilit gerekçesine
+        # çevirmek — yani K9'un asıl amacı: kaynak hasat edildiği gün bu
+        # bloker ölür ve kilit BAYAT diye öter, kimse hatırlamak zorunda
+        # kalmaz.
+        sources = prov.get("sources") or []
+        return True, not sources, (
+            f"provenance.sources {'BOŞ (blokluyor)' if not sources else f'{len(sources)} kaynak → BLOKLAMIYOR'}")
     return False, False, "TANINMAYAN bloker anahtarı"
 
 
@@ -379,6 +396,14 @@ def _self_test():
         graded_lesson(lib)["blockedBy"] = [
             "engine.precondition.status!=derived"]
 
+    def mut_k9_stale_sources(lib):
+        # ÜÇÜNCÜ bloker sınıfının BAYAT dalı: push_up'ın provenance'ında 5
+        # kaynak VAR, yani "sources boş" blokeri onu BLOKLAMAZ. Anahtarın
+        # yalnız TANINMASI yetmez — hasat geldiği gün ölüp ötmesi gerekir,
+        # ki terfi kuyruğundaki 30 hareketin kilidi kendiliğinden gözden
+        # geçirilsin. Tanınırlık ile canlılık AYRI iki kapı.
+        graded_lesson(lib)["blockedBy"] = ["provenance.sources:empty"]
+
     def mut_k9_unknown(lib):
         graded_lesson(lib)["blockedBy"] = ["ekran_henuz_yapilmadi"]
 
@@ -428,11 +453,18 @@ def _self_test():
         ("K9c tanınmayan bloker", mut_k9_unknown, "tanınmayan bloker"),
         ("K9e BAYAT KİLİT (bloker artık bloklamıyor)", mut_k9_stale,
          "BAYAT KİLİT"),
+        ("K9f BAYAT KİLİT — sources dolu (terfi turu anahtarı)",
+         mut_k9_stale_sources, "BAYAT KİLİT"),
         ("K9d yapı-kilidi ölçüm gibi sunuluyor", mut_k9_structural,
          "ÖLÇÜM kilidi gibi sunulamaz"),
     ]
 
     ok = True
+    # Ateşlenen dal SAYISI sayaçtan gelir, elle yazılmaz. Önceki hâli
+    # `"19/19 kapı ateşlendi"` diye SABİT metindi: yeni bir dal eklendiğinde
+    # sessizce yanlışa döner ve "kaç kapım var" sorusunu yanlış cevaplardı —
+    # bu defterin kendi avladığı desen (elle tutulan türetimli sayı).
+    fired = [0]
     # Temiz taban ÖNCE: mutasyonsuz kütüphane ihlalsiz olmalı, yoksa
     # aşağıdaki her testin "yakaladı" demesi anlamsızdır.
     if check(copy.deepcopy(base_lib), lookup, ref_lookup):
@@ -448,6 +480,7 @@ def _self_test():
         print(f"   {'✅' if hit else '⛔'} {name}: "
               f"{'yakalandı' if hit else 'YAKALANMADI — SAHTE KAPI'}")
         ok = ok and hit
+        fired[0] += 1
 
     # K8 katalog tarafından ihlal edilir (ön koşul pending), kütüphaneden değil:
     # canlı hareketin kataloğunu pending'e çevir.
@@ -465,6 +498,7 @@ def _self_test():
     print(f"   {'✅' if hit else '⛔'} K8 pending ön koşulla live: "
           f"{'yakalandı' if hit else 'YAKALANMADI — SAHTE KAPI'}")
     ok = ok and hit
+    fired[0] += 1
 
     # K10 GERÇEK deliği İKİ kaynağı birlikte boşaltmakla ortaya çıkar; tek
     # taraf boşaltmak yalnız çelişki kapısını ateşler ve K10'u kanıtlamaz
@@ -484,14 +518,17 @@ def _self_test():
     print(f"   {'✅' if hit else '⛔'} K10 live ama kurssuz (K1'in ikizi): "
           f"{'yakalandı' if hit else 'YAKALANMADI — SAHTE KAPI'}")
     ok = ok and hit
+    fired[0] += 1
     # NEGATİF İKİZ: mutasyon ÇELİŞKİ kapısını ateşlememeli, yoksa yukarıdaki
     # "yakalandı" K10'u değil eski kapıyı ölçmüş olur (vekil-ölçüm sınıfı).
     proxy = any("katalog courses[]" in v for v in found)
     print(f"   {'✅' if not proxy else '⛔'} K10 vekil-ölçüm değil "
           f"(çelişki kapısı SUSUYOR): {'temiz' if not proxy else 'VEKİL ÖLÇÜM'}")
     ok = ok and not proxy
+    fired[0] += 1
 
-    print("✅ 19/19 kapı ateşlendi" if ok else "⛔ bazı kapılar ateşlenmedi")
+    print(f"✅ {fired[0]}/{fired[0]} kapı ateşlendi" if ok
+          else "⛔ bazı kapılar ateşlenmedi")
     return 0 if ok else 1
 
 

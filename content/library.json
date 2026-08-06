@@ -42,7 +42,7 @@
   "movements": [
     {
       "id": "push_up",
-      "displayName": "Push-up",
+      "displayName": "Push-Up",
       "family": "push",
       "level": "beginner",
       "class": "A",
@@ -119,11 +119,624 @@
         "Body-line grading (hip sag / pike / head drop / uneven press) — the rules fire correctly on real footage and the reference is now ATTESTED, but no joint tolerance is variance-derived yet (derivedJoints empty; all 9 floor-bound, G-014/G-050), so we show the cue and never a score",
         "Side-dependent cues (\"your left arm is...\") — the pose model's left/right labels are not trustworthy in this camera setup, so all rules stay side-agnostic (ADR-003 / G-007)",
         "Hand pressure and load — a single camera cannot see either; this is a permanent limit, not a pending measurement"
+      ],
+      "honestySource": "curated",
+      "equipment": [],
+      "muscleGroups": [
+        "chest",
+        "triceps",
+        "front_delts",
+        "core"
+      ],
+      "aliases": [
+        "Press-Up"
+      ],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [
+        "Stop if you feel sharp shoulder or wrist pain — that is different from muscular effort."
       ]
     },
     {
+      "id": "farmer_carry",
+      "displayName": "Farmer Carry",
+      "family": "carry",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W2",
+      "catalogId": "farmer_carry",
+      "equipment": [
+        "dumbbells"
+      ],
+      "muscleGroups": [
+        "grip",
+        "traps",
+        "core"
+      ],
+      "aliases": [],
+      "engineType": "staticHold",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [],
+      "blurb": "Farmer Carry is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the farmer carry are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the farmer carry has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 1 error rule have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "The weights are not detected — load and distance are not measured",
+          "Grip endurance",
+          "Steps or pace"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Hold timing and body-line tracking — this movement's rules are written to measure carry duration, torso upright over time, shoulder level symmetry and time until posture starts to break, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "bird_dog",
+      "displayName": "Bird Dog",
+      "family": "core",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "bird_dog",
+      "equipment": [],
+      "muscleGroups": [
+        "core",
+        "glutes",
+        "spinal_erectors"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [],
+      "blurb": "Bird Dog is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the bird dog are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the bird dog has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "Side-to-side hip rotation — hard to judge from a side view",
+          "Force or load"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, extension range, alignment of the extended arm and leg with your torso and hold time at the top, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "dead_bug",
+      "displayName": "Dead Bug",
+      "family": "core",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "dead_bug",
+      "equipment": [],
+      "muscleGroups": [
+        "core",
+        "hip_flexors"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [
+        "If your lower back lifts, reduce the range rather than pushing through."
+      ],
+      "blurb": "Dead Bug is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the dead bug are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the dead bug has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "Actual pressure between your back and the floor",
+          "Breathing",
+          "Force or load"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, limb extension range, lower-back contact (via pelvis angle proxy) and left/right timing symmetry, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "hanging_leg_raise",
+      "displayName": "Hanging Leg Raise",
+      "family": "core",
+      "level": "intermediate",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "hanging_leg_raise",
+      "equipment": [
+        "pull_up_bar"
+      ],
+      "muscleGroups": [
+        "core",
+        "hip_flexors",
+        "lats"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [],
+      "blurb": "Hanging Leg Raise is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the hanging leg raise are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the hanging leg raise has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 3 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "\"Toes to bar\" — the bar is not detected, so we judge range by your hip angle",
+          "Grip or forearm fatigue",
+          "Force or load"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, hip range of motion, swing between reps and knee bend, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "hollow_hold",
+      "displayName": "Hollow Body Hold",
+      "family": "core",
+      "level": "intermediate",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "hollow_hold",
+      "equipment": [],
+      "muscleGroups": [
+        "core",
+        "hip_flexors"
+      ],
+      "aliases": [],
+      "engineType": "staticHold",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [
+        "If your lower back lifts, tuck your knees — a smaller shape you can hold beats a big one you can't."
+      ],
+      "skillGraphNode": "hollow_body",
+      "blurb": "Hollow Body Hold is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the hollow body hold are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the hollow body hold has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "Actual pressure between your back and the floor",
+          "How hard it feels",
+          "Breathing"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Hold timing and body-line tracking — this movement's rules are written to measure hold duration, lower-back position over time, leg height over time and time until form starts to break, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "mountain_climber",
+      "displayName": "Mountain Climber",
+      "family": "core",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "mountain_climber",
+      "equipment": [],
+      "muscleGroups": [
+        "core",
+        "hip_flexors",
+        "shoulders"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [],
+      "blurb": "Mountain Climber is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the mountain climber are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the mountain climber has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "Which foot is which — we count drives, not sides",
+          "Force or load",
+          "Ground contact time"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, cadence (reps per minute), plank body line while you drive the knees and pace consistency, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "plank",
+      "displayName": "Plank",
+      "family": "core",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "plank",
+      "equipment": [],
+      "muscleGroups": [
+        "core",
+        "shoulders",
+        "glutes"
+      ],
+      "aliases": [
+        "Front Plank",
+        "Forearm Plank"
+      ],
+      "engineType": "staticHold",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [
+        "Stop if your lower back starts to ache — end the hold rather than pushing through."
+      ],
+      "blurb": "Plank is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the plank are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the plank has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 3 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "Muscle activation or how hard it feels",
+          "Breathing",
+          "Force through the forearms"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Hold timing and body-line tracking — this movement's rules are written to measure hold duration, body-line alignment over time, time until form starts to break and shoulder position over elbows, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "side_plank",
+      "displayName": "Side Plank",
+      "family": "core",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "side_plank",
+      "equipment": [],
+      "muscleGroups": [
+        "obliques",
+        "core",
+        "shoulders"
+      ],
+      "aliases": [],
+      "engineType": "staticHold",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [],
+      "blurb": "Side Plank is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the side plank are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the side plank has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 1 error rule have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "How hard it feels",
+          "Exact shoulder loading",
+          "Force"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Hold timing and body-line tracking — this movement's rules are written to measure hold duration, hip height over time and time until form starts to break, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "superman_hold",
+      "displayName": "Superman Hold",
+      "family": "core",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "superman_hold",
+      "equipment": [],
+      "muscleGroups": [
+        "spinal_erectors",
+        "glutes"
+      ],
+      "aliases": [],
+      "engineType": "staticHold",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [
+        "Stop if your lower back pinches — a small lift you can hold is the goal."
+      ],
+      "blurb": "Superman Hold is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the superman hold are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the superman hold has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 1 error rule have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "How hard it feels",
+          "Force"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Hold timing and body-line tracking — this movement's rules are written to measure hold duration, lift height over time and time until you start to drop, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "toes_to_bar",
+      "displayName": "Toes to Bar",
+      "family": "core",
+      "level": "advanced",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "toes_to_bar",
+      "equipment": [
+        "pull_up_bar"
+      ],
+      "muscleGroups": [
+        "core",
+        "lats",
+        "hip_flexors"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [],
+      "blurb": "Toes to Bar is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the toes to bar are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the toes to bar has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "Whether your toes actually touched the bar — the bar is not detected",
+          "Kipping efficiency",
+          "Force or load"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, hip range of motion and swing between reps, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "floor_press",
+      "displayName": "Floor Press",
+      "family": "dbkb",
+      "level": "beginner",
+      "class": "B",
+      "status": "coming_soon",
+      "wave": "W2",
+      "catalogId": "floor_press",
+      "equipment": [
+        "dumbbells"
+      ],
+      "muscleGroups": [
+        "chest",
+        "triceps",
+        "front_delts"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Reps & tempo",
+      "safetyWarnings": [],
+      "blurb": "Floor Press is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the floor press are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the floor press has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 0 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "Form verdict — you press away from the camera, so depth and path can't be judged honestly",
+          "Range of motion",
+          "Whether your elbows flare",
+          "Force or load",
+          "Form verdict — the camera looks down the movement path, so depth and bar path can't be judged honestly"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo (down/up timing) and setup checklist before the set starts, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "kb_swing",
+      "displayName": "Kettlebell Swing",
+      "family": "dbkb",
+      "level": "intermediate",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W2",
+      "catalogId": "kb_swing",
+      "equipment": [
+        "kettlebell"
+      ],
+      "muscleGroups": [
+        "glutes",
+        "hamstrings",
+        "core"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [
+        "Ballistic movement — stop if your lower back complains rather than pushing through."
+      ],
+      "blurb": "Kettlebell Swing is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the kettlebell swing are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the kettlebell swing has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 3 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "The kettlebell itself is not detected — weight, path and height are not measured",
+          "Grip or power output",
+          "Force"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, cadence (swings per minute), hip hinge depth, torso angle at the top and knee bend (hinge vs squat check), and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "romanian_deadlift",
+      "displayName": "Romanian Deadlift",
+      "family": "dbkb",
+      "level": "intermediate",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W2",
+      "catalogId": "romanian_deadlift",
+      "equipment": [
+        "dumbbells"
+      ],
+      "muscleGroups": [
+        "hamstrings",
+        "glutes",
+        "spinal_erectors"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [
+        "Reduce range before adding load if your back rounds."
+      ],
+      "blurb": "Romanian Deadlift is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the romanian deadlift are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the romanian deadlift has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 3 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "The dumbbells are not detected — load and bar path are not measured",
+          "Hamstring stretch or effort",
+          "Force"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo (eccentric emphasis), hinge depth, lower-back position through the range and knee bend consistency, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
       "id": "bodyweight_squat",
-      "displayName": "Bodyweight squat",
+      "displayName": "Bodyweight Squat",
       "family": "legs",
       "level": "beginner",
       "class": "A",
@@ -154,7 +767,766 @@
         "engine.precondition.status!=derived",
         "replayFixture:missing"
       ],
+      "blockClass": "measurement",
+      "honestySource": "curated",
+      "equipment": [],
+      "muscleGroups": [
+        "quads",
+        "glutes",
+        "hamstrings",
+        "core"
+      ],
+      "aliases": [
+        "Air Squat"
+      ],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [
+        "Stop at the depth you can control with a neutral spine."
+      ]
+    },
+    {
+      "id": "glute_bridge",
+      "displayName": "Glute Bridge",
+      "family": "legs",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "glute_bridge",
+      "equipment": [],
+      "muscleGroups": [
+        "glutes",
+        "hamstrings",
+        "core"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [],
+      "blurb": "Glute Bridge is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the glute bridge are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the glute bridge has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "Glute activation — we see the shape, not the muscle",
+          "Force or load"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, hip extension range at the top, hold time at the top and lower-back position, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "goblet_squat",
+      "displayName": "Goblet Squat",
+      "family": "legs",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W2",
+      "catalogId": "goblet_squat",
+      "equipment": [
+        "kettlebell"
+      ],
+      "muscleGroups": [
+        "quads",
+        "glutes",
+        "core"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [],
+      "blurb": "Goblet Squat is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the goblet squat are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the goblet squat has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "The kettlebell is not detected — load is not measured",
+          "Knee tracking side-to-side — that needs a front-facing setup",
+          "Force"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, squat depth (knee angle), torso angle and heel lift, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "lunge",
+      "displayName": "Lunge",
+      "family": "legs",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "lunge",
+      "equipment": [],
+      "muscleGroups": [
+        "quads",
+        "glutes",
+        "hamstrings"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [
+        "Stop if your front knee complains — shorten the range before adding reps."
+      ],
+      "blurb": "Lunge is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the lunge are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the lunge has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 3 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "Knee tracking side-to-side — that needs a front-facing setup",
+          "Weight distribution across the feet",
+          "Force or load"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, front-knee depth, torso angle and back-knee travel, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "calf_raise",
+      "displayName": "Standing Calf Raise",
+      "family": "legs",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "calf_raise",
+      "equipment": [],
+      "muscleGroups": [
+        "calves"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [],
+      "blurb": "Standing Calf Raise is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the standing calf raise are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the standing calf raise has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "Which part of the calf is working",
+          "Force or load",
+          "Balance assistance from a wall"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, ankle range of motion and pause at the top, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "step_up",
+      "displayName": "Step-Up",
+      "family": "legs",
+      "level": "beginner",
+      "class": "D",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "step_up",
+      "equipment": [
+        "box"
+      ],
+      "muscleGroups": [
+        "quads",
+        "glutes"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching · equipment not tracked",
+      "safetyWarnings": [
+        "Use a box height you can control — step down, don't jump down."
+      ],
+      "blurb": "Step-Up is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the step-up are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the step-up has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "Box height — the box is not detected",
+          "Whether you pushed off the trailing foot",
+          "Force or load",
+          "The equipment itself — box height, rope, band tension or bar position are not detected"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, knee range of motion, torso angle and which leg leads (by frame position, not by model l/r labels), and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "wall_sit",
+      "displayName": "Wall Sit",
+      "family": "legs",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "wall_sit",
+      "equipment": [],
+      "muscleGroups": [
+        "quads",
+        "glutes"
+      ],
+      "aliases": [],
+      "engineType": "staticHold",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [],
+      "blurb": "Wall Sit is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the wall sit are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the wall sit has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 1 error rule have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "How hard it feels",
+          "Force through the feet"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Hold timing and body-line tracking — this movement's rules are written to measure hold duration, knee angle over time and time until you start to rise, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "burpee",
+      "displayName": "Burpee",
+      "family": "plyo",
+      "level": "intermediate",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "burpee",
+      "equipment": [],
+      "muscleGroups": [
+        "full_body",
+        "chest",
+        "quads",
+        "core"
+      ],
+      "aliases": [],
+      "engineType": "multiPhaseFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [
+        "High-impact movement. Land softly and stop if your knees or lower back complain."
+      ],
+      "blurb": "Burpee is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the burpee are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the burpee has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 4 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "Jump height — the jump is 1-2 frames at phone frame rates, so we check that it happened and how you landed, not how high",
+          "Power or force output",
+          "Whether your chest actually touched the floor (unless you pick the chest-to-floor variant, where we check elbow bend)"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Phase-by-phase tracking — this movement's rules are written to measure rep count, phase timing (how long each part takes), plank-position body line, landing softness and pace consistency across the set, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "db_curl",
+      "displayName": "Dumbbell Curl",
+      "family": "pull",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W2",
+      "catalogId": "db_curl",
+      "equipment": [
+        "dumbbells"
+      ],
+      "muscleGroups": [
+        "biceps",
+        "forearms"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [],
+      "blurb": "Dumbbell Curl is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the dumbbell curl are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the dumbbell curl has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "The dumbbells are not detected — load is not measured",
+          "Which part of the biceps is working",
+          "Force"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo (up/down), elbow range of motion, torso sway (cheating check) and left/right symmetry, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "db_row",
+      "displayName": "Dumbbell Row",
+      "family": "pull",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W2",
+      "catalogId": "db_row",
+      "equipment": [
+        "dumbbells"
+      ],
+      "muscleGroups": [
+        "lats",
+        "mid_back",
+        "biceps"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [],
+      "blurb": "Dumbbell Row is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the dumbbell row are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the dumbbell row has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "The dumbbell is not detected — load is not measured",
+          "Scapular retraction quality",
+          "Force"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, elbow range of motion, torso angle stability (no rotating up) and working-side chain, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "inverted_row",
+      "displayName": "Inverted Row",
+      "family": "pull",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "inverted_row",
+      "equipment": [
+        "low_bar"
+      ],
+      "muscleGroups": [
+        "mid_back",
+        "lats",
+        "biceps"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [],
+      "blurb": "Inverted Row is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the inverted row are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the inverted row has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "\"Chest touched the bar\" — the bar is not detected",
+          "Grip width",
+          "Force or load"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, elbow range of motion, body-line alignment and hip sag, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "pull_up",
+      "displayName": "Pull-Up",
+      "family": "pull",
+      "level": "intermediate",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "pull_up",
+      "equipment": [
+        "pull_up_bar"
+      ],
+      "muscleGroups": [
+        "lats",
+        "biceps",
+        "mid_back",
+        "core"
+      ],
+      "aliases": [
+        "Chin-Up (supinated variant)"
+      ],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [
+        "Build up gradually — sudden high volume is a common shoulder and elbow irritant."
+      ],
+      "blurb": "Pull-Up is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the pull-up are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the pull-up has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 4 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "\"Chin over bar\" — the bar itself is not detected, so we judge your range by your own body, not by the bar",
+          "Grip width or grip type",
+          "Force or load"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo (pull/lower), elbow range of motion, vertical travel relative to your own torso length and swing and body line, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "dip",
+      "displayName": "Dip",
+      "family": "push",
+      "level": "intermediate",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W1",
+      "catalogId": "dip",
+      "equipment": [
+        "parallel_bars"
+      ],
+      "muscleGroups": [
+        "chest",
+        "triceps",
+        "front_delts"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [
+        "Dips load the shoulder at end range — build depth gradually and stop at pinching pain."
+      ],
+      "blurb": "Dip is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the dip are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the dip has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 3 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "The bars themselves are not detected",
+          "Force or load",
+          "How far your chest travels relative to the bars"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, elbow range of motion, torso lean and shoulder position at the bottom, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "db_shoulder_press",
+      "displayName": "Dumbbell Shoulder Press",
+      "family": "shoulders",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W2",
+      "catalogId": "db_shoulder_press",
+      "equipment": [
+        "dumbbells"
+      ],
+      "muscleGroups": [
+        "front_delts",
+        "triceps",
+        "upper_chest"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [],
+      "blurb": "Dumbbell Shoulder Press is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the dumbbell shoulder press are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the dumbbell shoulder press has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "The dumbbells are not detected — load is not measured",
+          "Shoulder joint stress",
+          "Force"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, elbow range of motion, torso lean (arching check) and left/right symmetry, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "lateral_raise",
+      "displayName": "Lateral Raise",
+      "family": "shoulders",
+      "level": "beginner",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W2",
+      "catalogId": "lateral_raise",
+      "equipment": [
+        "dumbbells"
+      ],
+      "muscleGroups": [
+        "side_delts"
+      ],
+      "aliases": [],
+      "engineType": "repFsm",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [],
+      "blurb": "Lateral Raise is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the lateral raise are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the lateral raise has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "The dumbbells are not detected — load is not measured",
+          "Which part of the deltoid is working",
+          "Force"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, how high you raise (abduction angle), left/right height symmetry and torso sway, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "wall_handstand",
+      "displayName": "Chest-to-Wall Handstand",
+      "family": "skill",
+      "level": "advanced",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W2",
+      "catalogId": "wall_handstand",
+      "equipment": [],
+      "muscleGroups": [
+        "shoulders",
+        "core"
+      ],
+      "aliases": [],
+      "engineType": "staticHold",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [
+        "Falling is a real risk. Clear the space, use a wall, and come down the way you went up.",
+        "Build wrist tolerance before long holds."
+      ],
+      "skillGraphNode": "chest_to_wall",
+      "blurb": "Chest-to-Wall Handstand is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the chest-to-wall handstand are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the chest-to-wall handstand has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "Wrist torque or how hard you are pressing — the camera cannot measure force",
+          "How close to the wall you are",
+          "Shoulder flexibility"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Hold timing and body-line tracking — this movement's rules are written to measure hold duration, body-line alignment while inverted, elbow straightness, time until form starts to break and analysis confidence, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
+      "blockClass": "measurement"
+    },
+    {
+      "id": "tuck_planche",
+      "displayName": "Tuck Planche",
+      "family": "skill",
+      "level": "elite",
+      "class": "A",
+      "status": "coming_soon",
+      "wave": "W2",
+      "catalogId": "tuck_planche",
+      "equipment": [],
+      "muscleGroups": [
+        "shoulders",
+        "core",
+        "chest"
+      ],
+      "aliases": [],
+      "engineType": "staticHold",
+      "classBadge": "Form coaching",
+      "safetyWarnings": [
+        "High wrist and elbow load. Build the lean gradually; stop at joint pain.",
+        "This is an aspirational skill — progress is guided but not badged."
+      ],
+      "skillGraphNode": "tuck_planche",
+      "blurb": "Tuck Planche is in our catalogue but not open yet. 3 measurements are missing before we would coach it — named below, in plain terms.",
+      "honesty": {
+        "measured": [],
+        "notMeasured": [
+          "Nothing is measured here yet. The rules for the tuck planche are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "There is no identity check for this movement yet. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the tuck planche has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
+          "Its 2 error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.",
+          "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement.",
+          "How much of your weight is on the hands — the camera cannot measure load",
+          "Wrist strain",
+          "Scapular position"
+        ]
+      },
+      "courses": [],
+      "comingSoonInThisMovement": [
+        "Hold timing and body-line tracking — this movement's rules are written to measure hold duration, shoulder lean past the wrists, elbow straightness and time until the lean collapses, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference."
+      ],
+      "_source": "generated",
+      "blockedBy": [
+        "engine.precondition.status!=derived",
+        "replayFixture:missing",
+        "provenance.sources:empty"
+      ],
       "blockClass": "measurement"
     }
+  ],
+  "$curatedNote": [
+    "honestySource: curated → dürüstlük kutusu / blurb / comingSoon metni HASAT",
+    "ARTEFAKTLARINDAN gelen gerçek sayılar taşır (sol-sağ farkı, eğitmen/çekim",
+    "sayıları, barbell-kirlenmesi düzeltmesi). Katalogda o sayılar YOK; üretilmiş",
+    "metinle ezmek İÇERİK KAYBI olurdu. tools/promote_library.py --check bu iki",
+    "girdinin PROSE'unu denetlemez, TÜRETİMLİ ALANLARINI (equipment/level/...)",
+    "denetler. Muafiyet SESSİZ değil, BEYAN EDİLMİŞ ve okunuyor."
   ]
 }
