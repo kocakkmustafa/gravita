@@ -344,6 +344,35 @@ def _self_test():
     def soon(lib):
         return next(m for m in lib["movements"] if m["status"] == "coming_soon")
 
+    def soon_with_reference(lib):
+        """KONUMLA değil ÖZELLİKLE seçer — K7c'nin ihtiyacı olan hareket.
+
+        ⚠️ Bu fonksiyon bir REGRESYONUN ürünü. K7c ("varyans-türetimli ama
+        referansta GÜVENİLMEZ işaretli eklem notlanamaz") mutasyonu `soon()`
+        kullanıyordu, yani **listedeki İLK** `coming_soon` hareketi. Kütüphane
+        iki hareketliyken o hep `bodyweight_squat`tı ve testin ihtiyacı olan
+        iki özelliği (referans artefaktı VAR + `derivedJoints` DOLU) taşıyordu.
+
+        Kütüphane 31'e çıkınca ilk sıradaki `farmer_carry` oldu — referansı da
+        türetilmiş eklemi de YOK. Mutasyon hiçbir şey ihlal edemedi ve kapı
+        **SESSİZCE SAHTE OLDU**: hata vermedi, sadece ölçmeyi bıraktı.
+
+        Bu, bu defterin 4. dersinin (*"yapısal kaldırma, yokluk iddialarını
+        vakum-doğru yapar"*) EKLEME yönündeki ikizi: veri BÜYÜYÜNCE de bir
+        kapı ölçmeyi bırakabiliyor. Fixture konumla seçilirse, fixture'ın
+        kendisi kayabilir.
+        """
+        for m in lib["movements"]:
+            if m["status"] != "coming_soon":
+                continue
+            cat = catalogs.get(m.get("catalogId", m["id"])) or {}
+            prov = cat.get("provenance", {})
+            if prov.get("derivedJoints") and ref_lookup(m["id"]):
+                return m
+        raise AssertionError(
+            "K7c için gereken hareket YOK: referans artefaktı olan ve "
+            "derivedJoints'i dolu bir `coming_soon` hareket bulunamadı")
+
     def graded_lesson(lib):
         for c in live(lib)["courses"]:
             for l in c["lessons"]:
@@ -421,7 +450,10 @@ def _self_test():
         # G-072 deliği: eklem VARYANS-türetimli ama referansta GÜVENİLMEZ.
         # squat: derivedJoints=[elbow,forearm,shoulder,upper_arm],
         #        unreliableJoints=[left/right_elbow, left/right_forearm]
-        sq = soon(lib)
+        # ⚠️ `soon()` DEĞİL: fixture ÖZELLİKLE seçilir, konumla değil
+        # (bkz. `soon_with_reference` gerekçesi — kütüphane 31'e çıkınca bu
+        # kapı sessizce sahte olmuştu).
+        sq = soon_with_reference(lib)
         sq["status"] = "live"
         sq["courses"] = [{
             "id": "leg_foundations",
