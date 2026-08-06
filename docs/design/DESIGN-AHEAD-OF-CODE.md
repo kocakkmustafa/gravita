@@ -55,6 +55,14 @@ Design'ın `progress` ekranı yalnız TEK bir "1 attempt missing, not estimated"
 
 Design'ın TEK canlı-seans örneği tutuş/handstand dilinde. `push_up`'ın rep-sayan UI'ı (`LiveStrings.reps(n)`, `noRepsYet`, `noPerson`, `framesSeen`) design'da hiçbir karşılığı olmayan bir kalıp. Koordinatör hükmü: görsel dili uygula (tipografi/kart/renk), tutuş-şablonunu ZORLAMA. Bu turda `framesSeen` sayacı ve "confidence" YOKLUĞU bilerek korundu — motor confidence ÖLÇMÜYOR, ekran da UYDURMADI.
 
+### 2.5 🔧 DÜZELTME (koordinatör, 2026-08-06) — kamera önizlemesi "kalıcı sınır" DEĞİL
+
+Bu belgenin kendisinde geçmiyor ama kod yorumlarında (`live_session_screen.dart`) ve bu turun raporlarında **fazla geniş** bir iddia vardı: "kamera önizlemesi mimari olarak imkânsız, ailenin hiçbir uygulamasında hiçbir zaman eklenemez." Yalnız `motion_camera.dart`'ın barrel-dosya yorumuna ("Dart tarafı asla görüntü görmez") bakılarak yazılmıştı — asıl sözleşme belgesi (`70-KAMERA-KOPRUSU-SOZLESMESI.md`) OKUNMADAN.
+
+**Doğrusu (koordinatör ölçtü):** §preview, `Texture`-tabanlı önizlemeyi **bilinçli ERTELİYOR**, yasaklamıyor. Erteleme koşulu ("zarf hattı canlanmadan") kamera artık bağlı olduğuna göre (G-120) karşılanmış olabilir. Preview'ı açmak bir ÇEKİRDEK yetenek kararı, koordinatör kuyruğunda — bu ekranın/turun kapsamı değil. `docs/design/PLACEHOLDER-REGISTER.md`'ye `flow` kaydı olarak taşındı (`unblocked by`: çekirdek karar).
+
+Ders: bir sözleşmenin İZİN VERDİĞİ şeyi ölçerken barrel-dosya yorumu yetmez, dosyanın kendisi okunmalı.
+
 ---
 
 ## 3. Ayrıca ölçülenler (delta değil, ama bağlayıcı)

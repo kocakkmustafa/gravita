@@ -34,12 +34,14 @@ import 'theme.dart';
 /// hâli tasarımın GÖRSEL diliyle giydir, 5-faz modelini UYGULAMA — o inşadır
 /// (bkz. `docs/design/DESIGN-AHEAD-OF-CODE.md`, tasarım>kod).
 ///
-/// Kamera önizlemesi de bilerek YOK: `motion_camera`'nın kendi sözleşmesi
-/// ("Dart tarafı asla görüntü görmez, yalnızca landmark zarfları görür" —
-/// `70-KAMERA-KOPRUSU-SOZLESMESI.md`) bunu MİMARİ olarak imkânsız kılıyor,
-/// yalnız bu ekranda değil ailenin hiçbir uygulamasında. Koyu zemin tasarımın
-/// "ekran ikincil, ses birincil" diliyle tutarlı ama sahte bir kamera akışı
-/// İDDİA ETMİYOR — aynı ilke `LiveRunning`in var olmayan bir "confidence"
+/// Kamera önizlemesi de bilerek YOK — ama bu KALICI bir sınır DEĞİL
+/// (koordinatör düzeltmesi, 2026-08-06): `70-KAMERA-KOPRUSU-SOZLESMESI.md`
+/// §preview, `Texture`-tabanlı önizlemeyi ("kullanıcı kendini görmeli")
+/// **bilinçli ERTELİYOR**, yasaklamıyor — erteleme koşulu ("zarf hattı
+/// canlanmadan") artık karşılanmış olabilir. Preview'ı açmak bir ÇEKİRDEK
+/// yetenek kararı ve koordinatörün kuyruğunda; bu ekranın kapsamı değil.
+/// Bugün YOK olduğu için koyu zemin sahte bir kamera akışı İDDİA ETMİYOR —
+/// aynı ilke `LiveRunning`in var olmayan bir "confidence"
 /// alanını UYDURMAMASINDA da geçerli: motor bunu ölçmüyor, ekran da çizmiyor.
 class LiveSessionScreen extends StatefulWidget {
   const LiveSessionScreen({

@@ -4,7 +4,7 @@
 > unblocked by: <ne bekliyor>` (`asset`·`copy`·`data`·`flow`), koddan
 > üretilecek bir kapı: `unblocked by` yoksa FAIL.
 
-## Bu turda (2026-08-06 giydirme): SIFIR placeholder
+## Bu turda (2026-08-06 giydirme): 1 kayıtlı placeholder (`flow`, düzeltme sonrası)
 
 `lib/app/theme.dart`, `progress_view.dart`, `live_session_screen.dart`,
 `content_failure_screen.dart` — dördü de **var olan, gerçek içerikli**
@@ -14,12 +14,23 @@ bir asset/kopya/veri yerine geçici bir dolgu koymadı — bu yüzden koda
 `// PLACEHOLDER(...)` yorumu EKLENMEDİ. `grep -r "PLACEHOLDER(" lib/` boş
 döner; bu doğru ve beklenen sonuç, atlanmış bir adım değil.
 
-**Not — `LiveSessionScreen`'in koyu kamera-alanı bir placeholder DEĞİL:**
-`motion_camera`'nın kendi sözleşmesi ("Dart tarafı asla görüntü görmez")
-kamera önizlemesini MİMARİ olarak imkânsız kılıyor — bu "henüz eklenmedi,
-sonra eklenecek" değil, "hiçbir zaman eklenemez" durumu. Placeholder kaydı
-*"unblocked by"* varsayar; burada açacak bir kilit yok, o yüzden kayda
-girmiyor. Bkz. `DESIGN-AHEAD-OF-CODE.md` §2.4.
+Tek istisna aşağıda (`flow` — kamera önizlemesi): ilk yazışım bunu "kilit
+yok" diye kayıt DIŞI bırakmıştı, koordinatör düzeltmesiyle gerçekten açılabilir
+bir kilidi olduğu ortaya çıktı.
+
+### `flow` — `LiveSessionScreen`'in koyu kamera-alanı
+
+**DÜZELTME (koordinatör, 2026-08-06):** ilk yazışım "mimari olarak imkânsız,
+hiçbir zaman eklenemez" diyordu — FAZLA GENİŞ bir iddiaydı. Gerçek:
+`70-KAMERA-KOPRUSU-SOZLESMESI.md` §preview, `Texture`-tabanlı önizlemeyi
+**bilinçli ERTELİYOR**, yasaklamıyor; erteleme koşulu ("zarf hattı
+canlanmadan") kamera artık bağlı olduğuna göre karşılanmış olabilir. Yani
+burada gerçekten açılabilecek bir kilit VAR — placeholder kaydı doğru yer.
+
+**unblocked by:** çekirdek `Texture`-tabanlı önizleme kararı (koordinatör
+kuyruğunda, `docs/70-KAMERA-KOPRUSU-SOZLESMESI.md` §preview) — bu ekranın
+kapsamı değil, motion-core seviyesinde bir yetenek kararı. Bkz.
+`DESIGN-AHEAD-OF-CODE.md` §2.4 (düzeltme eki).
 
 ## İleriye dönük — 8 eksik yüzey inşa edilirse beklenen placeholder'lar
 
