@@ -49,6 +49,11 @@ dependencies:
   # Kamera izni: reddedilme DÜRÜST bir hâldir, sessizce boş ekran değil.
   permission_handler: ^12.0.3
 
+  # Tasarım paneli tipografisi (Public Sans + Roboto Mono). Choreia ile aynı
+  # pin (M-F-282 giydirme turu, `lib/app/theme.dart`) — STİL katmanı, motora
+  # veya test edilen davranışa dokunmaz.
+  google_fonts: ^6.2.1
+
   # YALNIZ uygulama-özel dizini bulmak için. Depolama BİÇİMİ motorda
   # (`JsonlSessionStore`, append-only JSONL) ve kurucusu bir `File` alıyor —
   # `path_provider` KABLOLAMA katmanında kalıyor. Bu ayrım terfi-arayüzünün

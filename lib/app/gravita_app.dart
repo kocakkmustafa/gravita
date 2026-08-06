@@ -7,6 +7,7 @@ import 'content_repository.dart';
 import 'live_session_screen.dart';
 import 'live_strings.dart';
 import 'progress_view.dart';
+import 'theme.dart';
 
 /// Uygulama kabuğu — bugün TEK yüzey: ilerleme.
 ///
@@ -20,9 +21,10 @@ class GravitaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'Gravita',
-        // Tema BİLEREK varsayılan: renk/tipografi tasarım turunun işi
-        // (M-F-168 sınır beyanı). Burada "seçilmiş" gibi görünen bir tema
-        // bırakmak, tasarımın devralacağı yapıyı gizlerdi.
+        // M-F-282 giydirme turu: tema artık design panel v1'den (`theme.dart`).
+        // Yapıyı DEVRALDI, icat etmedi — bkz. `progress_view.dart` dosya
+        // yorumu ve `docs/design/DESIGN-AHEAD-OF-CODE.md`.
+        theme: GravitaTheme.light,
         home: const ProgressScreen(),
       );
 }

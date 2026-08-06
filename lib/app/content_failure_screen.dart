@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'content_failure.dart';
+import 'theme.dart';
 
 /// DÜRÜST HATA EKRANI — JabLab `6601b1b` uyarlaması.
 ///
@@ -18,6 +19,17 @@ import 'content_failure.dart';
 ///
 /// Gravita metni kendi vaadinden konuşuyor (ölçüm dürüstlüğü); yapı ve
 /// kararlar JabLab'ın. Farklar: `docs/design/CONTENT-FAILURE-DELTA.md`.
+///
+/// ## Giydirme turu (M-F-282, 2026-08-06)
+///
+/// Bu ekranın design panelinde KARŞILIĞI YOK — panel `integrity`/`unreadable`
+/// ayrımını, retry-yalnız-retryable kuralını bilmiyor (bkz.
+/// `docs/design/DESIGN-AHEAD-OF-CODE.md`, kod>tasarım). Koordinatör hükmü:
+/// bu ekranı panele GERİ GÖNDERME, kendi dürüstlük dilimle tasarla — DAVRANIŞ
+/// GERİLEMEZ. Görsel dil [GravitaCard]/[GravitaType]'tan, ama üç ayrım
+/// (integrity/unreadable · retry sınıfı · ayrıntı-katlanmış) test edilen
+/// hâliyle AYNEN duruyor; `test/content_failure_test.dart` bu dosyaya tek
+/// satır dokunmadan geçti.
 class ContentFailureScreen extends StatelessWidget {
   const ContentFailureScreen({
     super.key,
@@ -40,42 +52,62 @@ class ContentFailureScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     return Scaffold(
+      backgroundColor: GravitaColors.page,
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
           children: <Widget>[
-            const SizedBox(height: 24),
-            Icon(Icons.report_outlined,
-                size: 48, color: theme.colorScheme.error),
-            const SizedBox(height: 16),
-            Text(_headline, key: headlineKey, style: theme.textTheme.headlineSmall),
+            const Icon(Icons.report_outlined,
+                size: 44, color: GravitaColors.honestySeal),
+            const SizedBox(height: 18),
+            Text(_headline,
+                key: headlineKey,
+                style: GravitaType.display(size: 24, weight: FontWeight.w600)),
             const SizedBox(height: 12),
-            Text(_body, key: bodyKey, style: theme.textTheme.bodyLarge),
-            const SizedBox(height: 20),
-            if (_retryable && onRetry != null)
+            Text(_body,
+                key: bodyKey,
+                style: GravitaType.body(
+                    size: 14.5, color: GravitaColors.textSecondary, height: 1.6)),
+            const SizedBox(height: 24),
+            if (_retryable && onRetry != null) ...<Widget>[
               FilledButton(
                 key: retryKey,
                 onPressed: () => onRetry!(),
                 child: const Text('Try again'),
               ),
-            const SizedBox(height: 24),
-            Card(
-              child: ExpansionTile(
-                title: const Text('Technical detail'),
-                subtitle: const Text('What to send us if you report this'),
-                childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                children: <Widget>[
-                  SelectableText(
-                    failure.detail.isEmpty
-                        ? '(no detail reported)'
-                        : failure.detail,
-                    key: detailKey,
-                    style: theme.textTheme.bodySmall
-                        ?.copyWith(fontFamily: 'monospace'),
+              const SizedBox(height: 24),
+            ],
+            GravitaCard(
+              padding: EdgeInsets.zero,
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                  dividerColor: Colors.transparent,
+                  listTileTheme: const ListTileThemeData(
+                    iconColor: GravitaColors.textTertiary,
                   ),
-                ],
+                ),
+                child: ExpansionTile(
+                  backgroundColor: Colors.transparent,
+                  collapsedBackgroundColor: Colors.transparent,
+                  tilePadding: const EdgeInsets.symmetric(horizontal: 18),
+                  childrenPadding: const EdgeInsets.fromLTRB(18, 0, 18, 18),
+                  title: Text('Technical detail',
+                      style: GravitaType.body(size: 14, weight: FontWeight.w500)),
+                  subtitle: Text('What to send us if you report this',
+                      style: GravitaType.mono(
+                          size: 10.5, color: GravitaColors.textTertiary)),
+                  children: <Widget>[
+                    SelectableText(
+                      failure.detail.isEmpty
+                          ? '(no detail reported)'
+                          : failure.detail,
+                      key: detailKey,
+                      style: GravitaType.mono(
+                          size: 11.5, color: GravitaColors.textSecondary),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
