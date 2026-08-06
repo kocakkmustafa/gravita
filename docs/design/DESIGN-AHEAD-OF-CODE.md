@@ -59,11 +59,30 @@ Design'ın TEK canlı-seans örneği tutuş/handstand dilinde. `push_up`'ın rep
 
 ## 3. Ayrıca ölçülenler (delta değil, ama bağlayıcı)
 
-### 3.1 🔴 Kardeş-ayrışması çelişkisi — kurucu kararı bekliyor
+### 3.1 🔴 Kardeş-ayrışması — CAM KALIYOR (kurucu, 2026-08-06) — KAPALI KARAR
 
-`DESIGN-PANEL-PROMPT.md` §1 bağlayıcı: *"rafine düz kart, cam DEĞİL"* (JabLab'dan ayrışma ekseni). Delivered `GravitaScreen.dc.html` bunu ihlal ediyor: nerdeyse her kart `backdrop-filter: blur(26px) saturate(165%)` kullanıyor (frosted glass). Bu turda **tasarım OLDUĞU GİBİ uygulandı** (glass kalır) ama malzeme TEK bir token'da izole edildi: `lib/app/theme.dart` → `GravitaMaterial.cardBlur` / `.cardSaturation`. Kurucu düzleştirme kararı verirse bu **iki sabiti** `0`/`1.0` yapmak TÜM kartları tek seferde düzleştirir — 40+ kart taraması gerekmez.
+`DESIGN-PANEL-PROMPT.md` §1 bağlayıcı: *"rafine düz kart, cam DEĞİL"* (JabLab'dan ayrışma ekseni). Delivered `GravitaScreen.dc.html` bunu ihlal ediyordu: nerdeyse her kart `backdrop-filter: blur(26px) saturate(165%)` kullanıyor (frosted glass). Koordinatöre taşındı, koordinatör kurucuya taşıdı. **Kurucu hükmü: CAM KALSIN — brief §1'in "cam değil" satırı SÜPERSEDE.** Tasarım olduğu gibi uygulanıyor.
 
-**Ek gözlem (screen kanıtından):** Gravita'nın zemini neredeyse düz/tek-renkli (`#F2EFEE` civarı) olduğu için, arkada bulanıklaşacak DOKULU bir içerik yok — glass-vs-flat farkı bu app'te GÖZLE neredeyse FARK EDİLMİYOR (JabLab'ın koyu+canlı arka planının aksine). Yani bu kararın Gravita'daki görsel bedeli düşük; token izolasyonu yine de doğru çünkü Movement/Library gibi gelecekteki yüzeyler (fotoğraf/video referans küçük resimleri arkada) farkı görünür kılabilir.
+Malzeme yine de TEK bir token'da izole tutuluyor (kapalı karar bunu gereksiz kılmıyor — bağımsız bir hijyen): `lib/app/theme.dart` → `GravitaMaterial.cardBlur` / `.cardSaturation`. Tema yeniden değişirse bu **iki sabiti** `0`/`1.0` yapmak TÜM kartları tek seferde düzleştirir.
+
+#### Sonuç doğrulaması — malzeme düşünce ayrışma yükü diğer 4 eksene taşındı
+
+Malzeme JabLab'dan ayrışmanın 5 ekseninden biriydi (§1 tablosu: Zemin ·
+Kırmızı · **Malzeme** · Yoğunluk · Hareket). O eksen artık ikisinde de AYNI
+(cam) — kalan 4 (+ koordinatörün eklediği 5.'si, Tipografi) `GravitaScreen.dc.html`'in
+GERÇEK içeriğinden (brief'in SÖZÜNDEN değil) sayısal olarak tekrar ölçüldü:
+
+| Eksen | Gravita'da GERÇEKTEN ölçülen | Kanıt sınıfı |
+|---|---|---|
+| **Zemin** | Kök gradient `linear-gradient(158deg,#F8F5F4→#EDE6E5→#F5EFEE)` — dosyada TEK tanım, bileşen şablonu olduğu için ekranların 9/10'una uygulanıyor. Koyu (`#171212`/`#221B1B`/`#100C0C`) yalnız `session`'a ÖZGÜ, 3 hex-değer, 1/10 ekran. | **DOĞRULANDI**, dosyadan sayıldı |
+| **Kırmızının rejimi** | `background:#A11019` **19 kullanım — HEPSİ küçük öğede**: 9 CTA pill-buton (52-54px yükseklik) · 2 küçük rozet · 3× 11×11px "confidence dot" · 1 grafik çubuğu. **Büyük alan/kart/bölüm dolgusu SIFIR.** Nötr ton kullanımı (`#7A6C69`+`#6E6260` = 142) kırmızı-aile toplamını (`#A11019`+rgba varyantları+`#6E0A10`+`#5A3A38` ≈ 90) fazlasıyla gölgede bırakıyor. `rgba(161,16,25,.1)` (soluk rozet-zemini) 9× — en sık rgba varyantı, en DÜŞÜK doygunlukta. | **DOĞRULANDI, sayıyla** — "mühür vuruşu" iddiası dosyada tutuyor |
+| **Yoğunluk** | Kart padding'leri 18-24px, kartlar-arası boşluk 16-34px aralığında — dosya boyunca tutarlı, sıkışık HUD deseni (birbirine değen öğe) YOK. | Doğrulandı, JabLab'ın kendi dosyasıyla YAN YANA sayılmadı (kapsam dışı) |
+| **Tipografi** *(koordinatörün eklediği 5. eksen)* | 'Public Sans' 71 kullanım · **'Roboto Mono' 161 kullanım — mono, prose'un 2 katından fazla.** Ölçüm-dili (kriter/sayı/durum) görsel olarak BASKIN, süsleyici prose İKİNCİL — ürünün kendi "sayı ve kriter, slogan değil" iddiasının TİPOGRAFİK karşılığı. | Doğrulandı (Gravita tarafı); JabLab'ın "ağır geniş sans" iddiası koordinatörün karakterizasyonu, kendi dosyasını OKUMADIM (kapsam dışı) |
+| **Hareket** | Brief §7 NİTELİKSEL yön veriyor ("ağır, yerleşen, fırlamaz") ama SAYISAL süre/eğri YOK (Choreia'nın `ChoreiaMotion` sabitleriyle karşılaştır — orada gerçek ms/curve değerleri var). Bu turda hiçbir özel animasyon KODU da yazılmadı (Flutter'ın varsayılan sayfa-geçişi değişmedi). | **DOĞRULANAMADI — ne dosyada sayı var ne kodda uygulama.** En zayıf eksen. |
+
+**Net:** ≥3 eksen kuralı **en az 3'ü sıkı kanıtla** (Zemin·Kırmızı-rejimi·Tipografi), **4.'sü** (Yoğunluk) niteliksel-ama-tutarlı kanıtla karşılanıyor. **Hareket doğrulanamadı** — isimli açık, icat edilmedi. JabLab'ın KENDİ dosyası bu turda okunmadı; yukarıdaki "Gravita GERÇEKTEN böyle" iddiaları dosyadan, "JabLab şöyle" iddiaları koordinatörün kendi karakterizasyonundan geliyor — ikisi karıştırılmasın.
+
+**Ek gözlem (screen kanıtından):** Gravita'nın zemini neredeyse düz/tek-renkli olduğu için arkada bulanıklaşacak DOKULU içerik yok — glass-vs-flat farkı GÖZLE bu app'te neredeyse fark edilmiyor (bkz. ekran kanıtı). Movement/Library gibi gelecekteki yüzeyler (foto/video referans küçük resimleri) farkı görünür kılabilir.
 
 ### 3.2 İçerik ölçeği — design'ın "31 hareket" iddiası hiçbir veriyle tam örtüşmüyor
 

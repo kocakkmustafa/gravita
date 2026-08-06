@@ -13,22 +13,22 @@ import 'package:google_fonts/google_fonts.dart';
 /// and [ContentFailureScreen] wrap their existing state, Keys and copy in.
 /// Those files keep their structure from before this file existed.
 ///
-/// ## The card-material conflict (M-F-282 coordinator note, 2026-08-06)
+/// ## The card material — CLOSED, founder decision (2026-08-06)
 ///
-/// The design panel's own brief (§1, "kardeş ayrışması" — binding) says
-/// Gravita's cards are *"rafine düz kart, cam DEĞİL"* (refined flat card,
-/// NOT glass) — the axis that is supposed to separate this app from JabLab's
-/// frosted glass. The delivered `GravitaScreen.dc.html` contradicts its own
-/// brief: nearly every card uses `backdrop-filter: blur(26px) saturate(165%)`,
-/// which *is* frosted glass.
+/// The design panel's own brief (§1, "kardeş ayrışması") had said Gravita's
+/// cards are *"rafine düz kart, cam DEĞİL"* (refined flat card, NOT glass),
+/// but the delivered `GravitaScreen.dc.html` uses `backdrop-filter:
+/// blur(26px) saturate(165%)` on nearly every card — frosted glass. Flagged
+/// up; **founder ruled GLASS STAYS** — the brief's "not glass" line is
+/// superseded, not the delivered file. Implemented as delivered.
 ///
-/// This is a founder-level call (material language = design language), not
-/// mine to resolve. Per coordinator ruling: implement the design AS DELIVERED
-/// (glass stays) for this round, but hold the blur/saturate values in exactly
-/// ONE place — [GravitaMaterial.cardBlur] / [GravitaMaterial.cardSaturation]
-/// — so that if the founder later sides with the brief instead of the
-/// delivered file, flattening every card is a one-line change here, not a
-/// hunt through every screen. See `docs/design/DESIGN-AHEAD-OF-CODE.md`.
+/// The blur/saturate values stay in exactly ONE place — [GravitaMaterial.
+/// cardBlur] / [GravitaMaterial.cardSaturation] — regardless: a settled
+/// decision doesn't retire the hygiene of a single material definition, and
+/// it keeps a future theme change one line instead of a hunt through every
+/// screen. Consequence this decision has for sibling-differentiation and how
+/// it was re-verified against the delivered file (not just the brief's
+/// words): `docs/design/DESIGN-AHEAD-OF-CODE.md` §3.1.
 
 // ── Colour ───────────────────────────────────────────────────────────────
 
