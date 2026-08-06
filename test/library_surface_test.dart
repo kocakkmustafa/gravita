@@ -405,6 +405,20 @@ void main() {
       }
     });
 
+    testWidgets('HAM katalog anahtarı yüzeye sızmıyor (alt çizgi yok)',
+        (WidgetTester tester) async {
+      // Gerçek bir kusurun nöbeti: simülatörde kütüphane kartı ve hareket
+      // sayfası **"Parallel_bars"** yazıyordu — ham `equipment` anahtarı.
+      // 78 test yeşilken kaçtı çünkü hepsi metnin VARLIĞINI sınıyordu.
+      // Bu nöbet DESENE yazılıyor: 31 hareketin HEPSİ, tek tek değil.
+      final ContentRepository c = await loadReal(tester);
+      for (final MovementEntry m in c.catalogue.movements) {
+        expect(LibraryStrings.metaLine(m).contains('_'), isFalse,
+            reason: '${m.id}: ham anahtar yüzeyde — '
+                '"${LibraryStrings.metaLine(m)}"');
+      }
+    });
+
     test('üretilmiş metinde DEFTER KODU sızıntısı YOK', () {
       // Gerçek bir kusurun nöbeti: ilk üretimde kullanıcı cümlesine "(G-043)"
       // yazılmıştı. Kod kimliği iç izlenebilirliğin işidir (`blockedBy`),

@@ -178,9 +178,15 @@ abstract final class LibraryStrings {
         _ => 'Class A — everything the camera needs is visible from the side.',
       };
 
+  /// ⚠️ Alt çizgi TEMİZLENİR. Simülatörde ölçüldü: hareket sayfası ve
+  /// kütüphane kartı kullanıcıya **"Parallel_bars"** yazıyordu — ham katalog
+  /// anahtarının ta kendisi. 78 test yeşildi ve hiçbiri yakalamadı, çünkü
+  /// hepsi metnin VARLIĞINI sınıyordu, BİÇİMİNİ değil. Aynı sınıf altı ham
+  /// değer var (`low_bar`, `pull_up_bar`, `parallel_bars`…), o yüzden
+  /// düzeltme tek tek değil DESENE yazıldı.
   static String equipmentLine(List<String> equipment) => equipment.isEmpty
       ? 'No equipment'
-      : equipment.map(_titleCase).join(' · ');
+      : equipment.map((String e) => _titleCase(e.replaceAll('_', ' '))).join(' · ');
 
   static String metaLine(MovementEntry m) => <String>[
         LibraryCatalogue.labelFor(m.family),

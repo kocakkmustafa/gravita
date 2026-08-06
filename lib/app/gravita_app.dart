@@ -127,7 +127,11 @@ class _GravitaShellState extends State<GravitaShell> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // ⚠️ `centerDocked` DEĞİL. Simülatörde ölçüldü: `centerDocked` bir
+      // `BottomAppBar`ın çentiğine oturmak için tasarlanmış; `NavigationBar`
+      // ile birlikte düğme çubuğun ÜSTÜNE BİNİYOR ve "Library"/"Progress"
+      // etiketlerini kapatıyordu. `centerFloat` çubuğun hemen üstünde durur.
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       // ⚠️ "Ölü buton YOK" kuralının çalışma-zamanı hâli: seans düğmesi ancak
       // İKİ bağımsız iddia birlikte tuttuğunda çizilir — kütüphane "live"
       // diyor VE kataloğun kimlik ön koşulu gerçekten `derived`
@@ -137,6 +141,14 @@ class _GravitaShellState extends State<GravitaShell> {
           ? null
           : FloatingActionButton.extended(
               key: GravitaShell.startSessionKey,
+              // ⚠️ Renkler AÇIKÇA veriliyor. Material 3'ün varsayılanı
+              // `colorScheme.primaryContainer` — tohumlanmış paletten gelen
+              // SOLGUN pembe; simülatörde ürünün TEK birincil eylemi arka
+              // planda kaybolmuş görünüyordu. Vurgu rengi burada "ölçülen
+              // kriter / kapı / mühür" kuralının dışında bir dördüncü iş
+              // yapmıyor: bu düğme canlı ölçümün TEK girişi.
+              backgroundColor: GravitaColors.accent,
+              foregroundColor: Colors.white,
               onPressed: () => Navigator.of(context).push<void>(
                 MaterialPageRoute<void>(
                   builder: (_) => LiveSessionScreen(config: live),
