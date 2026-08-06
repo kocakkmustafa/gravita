@@ -90,6 +90,10 @@ GERÇEK içeriğinden (brief'in SÖZÜNDEN değil) sayısal olarak tekrar ölç�
 
 **Net:** ≥3 eksen kuralı **en az 3'ü sıkı kanıtla** (Zemin·Kırmızı-rejimi·Tipografi), **4.'sü** (Yoğunluk) niteliksel-ama-tutarlı kanıtla karşılanıyor. **Hareket doğrulanamadı** — isimli açık, icat edilmedi. JabLab'ın KENDİ dosyası bu turda okunmadı; yukarıdaki "Gravita GERÇEKTEN böyle" iddiaları dosyadan, "JabLab şöyle" iddiaları koordinatörün kendi karakterizasyonundan geliyor — ikisi karıştırılmasın.
 
+**Hareket ekseni — kök-neden ölçüldü (koordinatör talebi, 2026-08-06):** brief §10 "Teslim" listesinde *"Geçiş animasyonları + hareket spec'i"* AÇIKÇA isteniyor (§7'nin niteliksel yönüyle ÇELİŞMİYOR — §7 karakteri tarif ediyor, §10 o karakterin somut spec'ini talep ediyor, ikisi tutarlı). Üç delivered dosya (`GravitaScreen.dc.html`, `Gravita States.dc.html`, `Gravita.dc.html`) `transition`/`duration`/`cubic-bezier`/`@keyframes`/`ms` deseni için tek tek tarandı — **SIFIR eşleşme, üçünde de.** Palet/tipografi/kart aynı §10 listesinde YANINDA duruyordu ve TESLİM EDİLDİ (bu belgede sayıyla doğrulandı); hareket YALNIZ o kalemde eksik. **Sınıf (b): tasarım açığı, brief'in kendi teslim listesine göre panele dönmesi gerekir** — kod tarafının ya da bu turun eksiği değil.
+
+Aile-çapında ek gözlem (koordinatör ölçtü, buraya not düşülüyor): `lib/` tema katmanlarında hareket sabiti yalnız Choreia'nın `ChoreiaMotion`'ında var; Gravita/Ostinato/JabLab'da yok — yani beş taneden dört giydirme turu motion tokenleştirmeden kapandı. `GravitaMotion` dosyasının kaynağı (tasarımdan çıkar / panele döner / elle yazılır) koordinatörün kuyruğunda.
+
 **Ek gözlem (screen kanıtından):** Gravita'nın zemini neredeyse düz/tek-renkli olduğu için arkada bulanıklaşacak DOKULU içerik yok — glass-vs-flat farkı GÖZLE bu app'te neredeyse fark edilmiyor (bkz. ekran kanıtı). Movement/Library gibi gelecekteki yüzeyler (foto/video referans küçük resimleri) farkı görünür kılabilir.
 
 ### 3.2 İçerik ölçeği — design'ın "31 hareket" iddiası hiçbir veriyle tam örtüşmüyor
