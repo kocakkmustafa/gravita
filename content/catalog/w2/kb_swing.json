@@ -56,7 +56,7 @@
     },
     "precondition": {
       "status": "pending",
-      "rationale": "HENÜZ TÜRETİLMEDİ (G-043). Bu hareketin kimlik ön koşulu ölçümle türetilmedi; hasat sırası gelmedi. Üründe camera.calibrationGate kısmi koruma sağlar (kullanıcı hareketi seçer ve pozisyona girer) ama hasatta böyle bir beyan YOKTUR — bu yüzden V15 hasat kuyruğuna giren her harekette status=derived şart koşar.",
+      "rationale": "HENÜZ TÜRETİLMEDİ — Kettlebell Swing kimlik ön koşulu ölçümle kurulmadı. Motor tarafı: tekrar sayacı `hip` eklem açısının salınımını izliyor (`bottom->top` geçişinde sayıyor). Sinyalin kendisi KİMLİK DEĞİLDİR: aynı eklem/ölçü başka bir bağlamda da aynı biçimde salınır, ve kimlik kapısı olmadan motor hareketi değil salınımı sayar (G-043). Eksik olan şey İSİMLİDİR: bu hareketin kimliğinin HANGİ ölçünün üstüne kurulacağı ve o ölçünün eşiği, hasat ölçümünden türetilmedi. ⛔ Eşik BURADA UYDURULMAZ (G-014/G-050): taban değeri varsayılandır, ölçüm değil. Bugünkü kısmi koruma `camera.calibrationGate` (side): kullanıcı hareketi KENDİ seçiyor ve pozisyona giriyor. Kapı bu yüzden `status=derived` şart koşuyor. [üretilmiş: tools/name_preconditions.py]",
       "conditions": []
     }
   },
