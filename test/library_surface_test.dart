@@ -369,13 +369,20 @@ void main() {
   });
 
   group('dil nöbeti — VAAT dili yasak (M-F-186)', () {
-    test('kullanıcıya giden hiçbir metinde açık vaat ifadesi YOK', () {
-      // ⚠️ KAPSAM: yalnız TARTIŞMASIZ vaat kalıpları. "yet" sözcüğü bu turda
-      // BİLEREK kapsam dışı ve koordinatöre soru olarak taşınıyor: aile
-      // defteri onu yasaklılar arasında sayıyor, ama bu üründe kurucu/
-      // koordinatör onayından geçmiş MEVCUT metin ("Squat coaching isn't open
-      // yet") onu kullanıyor. İkisinden birini sessizce seçmek, kapıyı benim
-      // kanaatimle doldurmak olurdu.
+    test('kullanıcıya giden hiçbir metinde VAAT ifadesi YOK — "yet" DAHİL', () {
+      // ⚠️ Bu kapı GENİŞLETİLDİ (koordinatör hükmü 2026-08-07). Önceki hâli
+      // "yet"i BİLEREK kapsam dışı bırakıyordu çünkü aile defteri onu
+      // yasaklarken bu üründe onaydan geçmiş mevcut metin kullanıyordu ve
+      // ikisinden birini kendi kanaatimle seçmek istemedim. Koordinatör
+      // hükmü geldi: **"yet" yasaklı.** Ölçülen: 103 örnek (87 üretilmiş +
+      // 3 curated + 13 Dart string).
+      //
+      // KAPSAM da genişledi ve asıl düzeltme bu: eski kapı yalnız
+      // `library.json`ın hareket bloklarına + exclusions'a bakıyordu. Yani
+      // ders `lockedReason`'ı, `progress_strings`, `live_strings` ve
+      // `library_strings` HİÇ TARANMIYORDU — kapı vardı ama yarısı kördü.
+      // Ölçüldü: "yet"in bir örneği tam da o kör noktada (`lockedReason`)
+      // duruyordu. Kapının kapsamı, kapının varlığı kadar önemli.
       const List<String> forbidden = <String>[
         'coming soon',
         'yakında',
@@ -385,24 +392,51 @@ void main() {
         'we plan to',
       ];
 
-      final Map<String, dynamic> lib = (jsonDecode(
-              File('content/library.json').readAsStringSync()) as Map)
-          .cast<String, dynamic>();
-      final String userFacing = <String>[
-        for (final Map<String, dynamic> m
-            in (lib['movements'] as List<dynamic>).cast<Map<String, dynamic>>())
-          jsonEncode(<String, dynamic>{
-            'blurb': m['blurb'],
-            'honesty': m['honesty'],
-            'comingSoonInThisMovement': m['comingSoonInThisMovement'],
-          }),
-        File('content/exclusions.page.json').readAsStringSync(),
-      ].join(' ').toLowerCase();
+      // TÜM `library.json` (dersler + kilit gerekçeleri dahil) + kapsam-dışı
+      // sayfası + kullanıcı metni taşıyan HER Dart dosyası.
+      final StringBuffer buf = StringBuffer()
+        ..write(File('content/library.json').readAsStringSync())
+        ..write(File('content/exclusions.page.json').readAsStringSync());
+      for (final String path in <String>[
+        'lib/app/library_strings.dart',
+        'lib/app/progress_strings.dart',
+        'lib/app/live_strings.dart',
+      ]) {
+        // Yorum satırları HARİÇ: bu dosyaların doküman yorumları kuralın
+        // KENDİSİNİ tarif ediyor ve içinde "yet" geçiyor. Kuralı anlatan
+        // cümleyi ihlal saymak, kapıyı kendi belgesine düşman eder.
+        buf.write(File(path)
+            .readAsLinesSync()
+            .where((String l) =>
+                !l.trimLeft().startsWith('///') && !l.trimLeft().startsWith('//'))
+            .join('\n'));
+      }
+      final String userFacing = buf.toString().toLowerCase();
 
       for (final String phrase in forbidden) {
         expect(userFacing.contains(phrase), isFalse,
             reason: 'Kullanıcı metninde vaat ifadesi: "$phrase"');
       }
+
+      // "yet" SÖZCÜK SINIRIYLA aranır: `yet` içeren meşru sözcükler
+      // (ör. bir marka adı) yanlış alarm vermesin.
+      final RegExp yet = RegExp(r'\byet\b');
+      final Iterable<Match> hits = yet.allMatches(userFacing);
+      expect(hits, isEmpty,
+          reason: '"yet" VAAT dilidir (M-F-186): '
+              '${hits.take(3).map((Match m) => userFacing.substring(
+                  (m.start - 60).clamp(0, userFacing.length),
+                  (m.end + 20).clamp(0, userFacing.length))).join(" ||| ")}');
+    });
+
+    test('rozet ETİKETİ gerekçeli — "Coming soon" sınıfı etiket YOK', () {
+      // Koordinatör hükmü ③: `status: coming_soon` bir VERİ MODELİ kodudur
+      // ve serbesttir; ama o durumun GÖRÜNEN etiketi vaat olamaz. Rozet
+      // "MEASURING" diyor ve kartın alt satırı gerekçeyi sayıyor
+      // ("3 measurements missing") — durum, söz değil.
+      expect(LibraryStrings.queuedBadge.toLowerCase().contains('soon'), isFalse);
+      expect(LibraryStrings.queuedBadge.toLowerCase().contains('yakında'), isFalse);
+      expect(LibraryStrings.blockerCount(3), contains('missing'));
     });
 
     testWidgets('HAM katalog anahtarı yüzeye sızmıyor (alt çizgi yok)',

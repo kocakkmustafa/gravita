@@ -7,8 +7,11 @@ import 'library_model.dart';
 ///
 /// **Değişemeyen YAPI (sözcükler değişebilir):**
 /// - Sayı asla birimsiz/bağlamsız çıkmaz.
-/// - "yakında"/"coming soon"/"yet" gibi VAAT dili YOK (M-F-186). Bir şey
-///   yoksa NEDEN yok olduğu söylenir; ne zaman geleceği söylenmez.
+/// - VAAT dili YOK (M-F-186 · koordinatör hükmü 2026-08-07): "coming soon",
+///   "yakında" ve **"yet"**. Bir şey yoksa NEDEN yok olduğu söylenir; ne zaman
+///   geleceği söylenmez. *"not open yet"* bir SÖZ verir, *"closed"* bir DURUM
+///   bildirir — cümlenin geri kalanı (kaç ölçüm eksik, adları) dürüstlüğü
+///   zaten taşıyor, "yet" hiçbir bilgi eklemiyordu.
 /// - Türetimli hiçbir liste burada YAZILMAZ; buradaki fonksiyonlar yalnız
 ///   veriden gelen parçaları CÜMLEYE dizer.
 abstract final class LibraryStrings {
@@ -106,7 +109,7 @@ abstract final class LibraryStrings {
 
   /// Bugünün BASKIN hâli (31'in 30'u). Onurlu bir cümle, hata hâli değil.
   static const String honestyMeasuresNothing =
-      'Nothing yet. Everything this movement would measure is listed below as '
+      'Nothing. Everything this movement would measure is listed below as '
       'still missing, with the reason.';
 
   static const String howToTitle = 'How it is done';
@@ -121,8 +124,8 @@ abstract final class LibraryStrings {
 
   static const String formErrorsTitle = 'What the rules watch for';
   static String formErrorsBody(int n) => n == 1
-      ? 'One rule is written for this movement. It does not run yet.'
-      : '$n rules are written for this movement. They do not run yet.';
+      ? 'One rule is written for this movement. It does not run.'
+      : '$n rules are written for this movement. They do not run.';
   static String formErrorsBodyLive(int n) =>
       n == 1 ? 'One rule runs during a session.' : '$n rules run during a session.';
 
@@ -130,7 +133,7 @@ abstract final class LibraryStrings {
   static const String coursesTitle = 'Courses';
   static const String coursesNone =
       'No course is open for this movement. A course would be a list of '
-      'lessons you could actually do; there is nothing behind one here yet, '
+      'lessons you could actually do; there is nothing behind one here, '
       'so we are not listing an empty shell.';
   static String coursesCount(int courses, int lessons) =>
       '$courses ${courses == 1 ? 'course' : 'courses'} · '
@@ -146,12 +149,12 @@ abstract final class LibraryStrings {
   /// Kanıtlanabilir olan şey içerikten okunur: burada kaydedilecek bir ders
   /// YOK. Söylenebilecek en güçlü doğru cümle odur.
   static const String trendNoLesson =
-      'There is no lesson here yet, so there is nothing a session could have '
+      'There is no lesson here, so there is nothing a session could have '
       'been recorded against. No chart, because there is nothing to chart — we '
       'do not draw an empty axis to fill the space.';
 
   static const String trendNoSessions =
-      'No sessions recorded for this movement yet.';
+      'No sessions recorded for this movement.';
 
   /// Geçmiş OKUNAMADI. "Hiç seansın yok" demek yasak — bilmediğimizi sıfır
   /// yazmak, bu ürünün tam olarak reddettiği şey (`ProgressStrings`
@@ -200,10 +203,11 @@ abstract final class LibraryStrings {
   /// Tasarımın Profil ekranında kamera/veri AYARLARI var. Ayar YOK — bir
   /// ayar düğmesi arkasında değiştirilecek bir şey olmadan çizilirse ölü
   /// butondur. Bu ekran bugün yalnız DOĞRU olan şeyleri söylüyor.
-  static const String profileNoSettings = 'Nothing to configure yet';
+  static const String profileNoSettings = 'Nothing to configure';
   static const String profileNoSettingsBody =
       'There are no settings on this screen because there is nothing here you '
-      'can change yet. When a real choice exists, it will appear here.';
+      'can change. A settings screen with nothing behind it would be a screen '
+      'that lies about what you control.';
 
   static const String profileDataTitle = 'Your data';
   static const String profileDataBody =

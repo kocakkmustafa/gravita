@@ -15,12 +15,12 @@ abstract final class ProgressStrings {
 
   static const String lockedSection = 'Locked';
   static const String lockedSubtitle =
-      "What we can't grade yet, and why. These are limits in our measurement, "
+      "What we can't grade, and why. These are limits in our measurement, "
       'not in you.';
 
   static const String notesSection = 'Notes';
 
-  static const String emptyHistory = 'No sessions yet.';
+  static const String emptyHistory = 'No sessions recorded.';
 
   /// Kısmi okuma (çekirdek 0.10.0 `unreadableRecords`). Sayı GÖSTERİLİR ama
   /// tabanın tam olmadığı söylenir. `unavailable` metninden AYRI durur: uç

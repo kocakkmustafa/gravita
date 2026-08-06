@@ -21,7 +21,7 @@ abstract final class LiveStrings {
   /// ⚠️ Kamera çalışıyor ama kimse görünmüyor. Bu bir ARIZA DEĞİL ve öyle
   /// yazılmaz — kullanıcı yalnızca kadrajın dışında.
   static const String noPerson =
-      "We can't see anyone yet. Step into frame, head to heels.";
+      "We can't see anyone. Step into frame, head to heels.";
 
   static String reps(int n) => n == 1 ? '1 rep' : '$n reps';
 
@@ -29,7 +29,7 @@ abstract final class LiveStrings {
   static const String countingNote = 'Counted, not scored.';
 
   /// Tekrar henüz yokken — "0" yazmak yerine ne beklediğimizi söylüyoruz.
-  static const String noRepsYet = 'No full rep yet.';
+  static const String noRepsYet = 'No full rep counted.';
 
   /// Arıza başlıkları — her ret ADIYLA anlatılır, ham kod gösterilmez.
   static String failureTitle(CameraFailure? f) => switch (f) {

@@ -133,14 +133,21 @@ def _blocker_sentence(key, mid, name, cat):
     kendi kataloğundan alır: "üç kural" diyen bir cümle, üç kuralı olmayan
     bir harekette YANLIŞ olurdu.
     """
-    # ⚠️ HİÇBİR CÜMLEDE DEFTER KODU YOK. İlk yazışımda buraya "(G-043)"
+    # ⚠️ HİÇBİR CÜMLEDE "yet" YOK (M-F-186, koordinatör hükmü 2026-08-07).
+    # "not open yet" bir SÖZ verir; "closed" bir DURUM bildirir. Cümlenin geri
+    # kalanı (kaç ölçüm eksik, adları) dürüstlüğü zaten taşıyor — "yet" hiçbir
+    # bilgi eklemiyordu, yalnız zamanlama vaat ediyordu. Aynı hatayı Ostinato
+    # bu gece elle 7 yerde temizledi; burada şablon TEK yer olduğu için 30
+    # hareket tek düzeltmeyle kapanıyor. Şablonun kaldıracı iki yönlü çalışır.
+    #
+    # ⚠️ HİÇBİR CÜMLEDE DEFTER KODU DA YOK. İlk yazışımda buraya "(G-043)"
     # koymuştum — kullanıcıya hiçbir şey söylemeyen bir iç-kayıt kimliği.
     # Aynı sınıf kural zaten var ("ham detail/hata kodu yüzeye sızmaz"); iz
     # sürülebilirlik `blockedBy` anahtarında ve katalogun `rationale`ında
     # duruyor, kullanıcı cümlesinde değil. İzlenebilirlik iç tarafın işidir.
     if key == "engine.precondition.status!=derived":
         return (
-            f"There is no identity check for this movement yet. For push-ups we "
+            f"There is no identity check for this movement. For push-ups we "
             f"verify your torso is actually horizontal before a rep counts; the "
             f"equivalent test for the {name.lower()} has not been derived from "
             f"measurement, so nothing would stop us counting a movement that "
@@ -229,7 +236,7 @@ def generate_entry(mid, cat, classes):
     else:
         n = len(keys)
         lead = (
-            f"Nothing is measured here yet. The rules for the {name.lower()} are "
+            f"Nothing is measured here. The rules for the {name.lower()} are "
             f"written, but {n} {'thing is' if n == 1 else 'things are'} still "
             f"missing before we would run them — and each one alone is enough "
             f"for us to keep this closed."
@@ -304,7 +311,7 @@ def _prose_list(items):
     """`a, b and c` — Oxford'suz, boş listede dürüst bir sözcük."""
     items = [str(i).rstrip(".").lower() for i in items if str(i).strip()]
     if not items:
-        return "nothing yet"
+        return "nothing"
     if len(items) == 1:
         return items[0]
     return ", ".join(items[:-1]) + " and " + items[-1]
@@ -315,7 +322,7 @@ def _blurb(name, live, keys):
         return f"{name} — open, with what we measure listed below."
     n = len(keys)
     return (
-        f"{name} is in our catalogue but not open yet. "
+        f"{name} is in our catalogue and closed. "
         f"{n} {'measurement is' if n == 1 else 'measurements are'} missing "
         f"before we would coach it — named below, in plain terms."
     )
