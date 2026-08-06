@@ -40,9 +40,16 @@ import 'theme.dart';
 /// **bilinçli ERTELİYOR**, yasaklamıyor — erteleme koşulu ("zarf hattı
 /// canlanmadan") artık karşılanmış olabilir. Preview'ı açmak bir ÇEKİRDEK
 /// yetenek kararı ve koordinatörün kuyruğunda; bu ekranın kapsamı değil.
-/// Bugün YOK olduğu için koyu zemin sahte bir kamera akışı İDDİA ETMİYOR —
-/// aynı ilke `LiveRunning`in var olmayan bir "confidence"
-/// alanını UYDURMAMASINDA da geçerli: motor bunu ölçmüyor, ekran da çizmiyor.
+/// Bugün YOK olduğu için koyu zemin sahte bir kamera akışı İDDİA ETMİYOR.
+///
+/// 🔧 DÜZELTME (2026-08-07, 5-faz ölçümü sırasında): bu yorumun eski hâli
+/// *"motor confidence ÖLÇMÜYOR"* diyordu. **FAZLA GENİŞ ve YANLIŞ.** Ölçüldü:
+/// çekirdeğin `ConfidenceGate`'i ÜÇ motorun da (`rep_engine` · `hold_engine` ·
+/// `multiphase_engine`) ilk kapısı ve `judgeable` üretiyor; hüküm veremeyen
+/// kareler `skippedFrames`e sayılıyor. Yani ölçüm VAR — **kabuğa TAŞINMIYOR.**
+/// Doğru sınır: bu ekran güveni GÖSTERMİYOR çünkü `LiveRunning` onu taşımıyor;
+/// "ölçülemiyor" DEĞİL, "yüzeye çıkarılmamış". Kamera-önizlemesi iddiasıyla
+/// aynı sınıf hata (bir sınırı geniş yazmak, dar yazmak kadar pahalı — ders 5).
 class LiveSessionScreen extends StatefulWidget {
   const LiveSessionScreen({
     required this.config,
@@ -274,8 +281,11 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
                 _sheetNote(LiveStrings.countingNote),
               ],
               const SizedBox(height: 10),
-              // Motor "confidence" ÖLÇMÜYOR — burada UYDURULMUYOR. Görünen
-              // tek ek bilgi zaten var olan kare sayacı.
+              // Güven DEĞERİ burada UYDURULMUYOR — ama "ölçülmüyor" da değil:
+              // motor `ConfidenceGate` ile hüküm veremediği kareleri
+              // `skippedFrames`e sayıyor. O sayacı yüzeye taşımak bir ÜRÜN
+              // kararı (koordinatör kuyruğunda, 5-faz ölçümüyle birlikte);
+              // bugün görünen tek ek bilgi zaten var olan kare sayacı.
               Text('$framesSeen frames',
                   style: GravitaType.mono(
                       size: 10.5, color: GravitaColors.textTertiary)),
