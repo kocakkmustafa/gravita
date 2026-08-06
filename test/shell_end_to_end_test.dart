@@ -201,18 +201,23 @@ void main() {
             '"geçmişinin bir kısmı okunamadı" derdi.');
   });
 
-  testWidgets('GERÇEK ProgressScreen: bozuk bundle → tipli HATA ekranı',
+  testWidgets('GERÇEK içerik kapısı: bozuk bundle → tipli HATA ekranı',
       (WidgetTester tester) async {
     // ⚠️ Bu testin ilk hâli `_ProbeScreen` adında, yükleme yolunun KOPYASI olan
     // küçük bir widget kullanıyordu — yani ürünün kablolamasını değil kendi
     // taklidini sınıyordu. Aynı "iki ev tutarsızlaşır" riski (G-079). Artık
-    // GERÇEK ekran pump ediliyor; mümkün oldu çünkü geçmiş hatası artık
+    // GERÇEK kapı pump ediliyor; mümkün oldu çünkü geçmiş hatası artık
     // ölümcül değil (Gravita deltası): `path_provider` testte yok, ama bu
     // içerik yolunu bloklamıyor.
+    //
+    // 2026-08-06: dört-sekmeli kabukla birlikte içerik yükleme `ProgressScreen`
+    // içinden `GravitaRoot`a taşındı. Test de ürünün YENİ kapısını pump ediyor
+    // — eski adı korumak için kabuk-dışı bir yol bırakmak, tam olarak yukarıda
+    // sökülen "test-özel ikinci ev"i geri getirirdi.
     await tester.pumpWidget(MaterialApp(
       home: DefaultAssetBundle(
         bundle: _BrokenBundle(),
-        child: const ProgressScreen(),
+        child: const GravitaRoot(),
       ),
     ));
     await tester.pumpAndSettle();
@@ -232,7 +237,7 @@ void main() {
     tester.view.physicalSize = const Size(1200, 4000);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
-    await tester.pumpWidget(const MaterialApp(home: ProgressScreen()));
+    await tester.pumpWidget(const MaterialApp(home: GravitaRoot()));
     // ⚠️ `pumpAndSettle()` BURADA KULLANILAMAZ ve ilk yazışımda timeout verdi:
     // GERÇEK asset okuması gerçek saate bağlı, `testWidgets` gövdesi ise sahte
     // saatli — yükleyici sonsuza kadar dönüyor. FakeAsync tuzağının ÜÇÜNCÜ
@@ -242,6 +247,15 @@ void main() {
         () => Future<void>.delayed(const Duration(milliseconds: 100)));
     await tester.pump();
     expect(find.byType(ContentFailureScreen), findsNothing);
+
+    // İlerleme sekmesine GEÇ. `IndexedStack` dört sekmeyi de inşa ettiği için
+    // "widget ağacında var mı" sorusu bu kabukta ZAYIF bir sorudur — sekmeye
+    // gerçekten gidilebildiğini sınamak gerekiyor.
+    await tester.tap(find.text('Progress'));
+    await tester.pump();
+    await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 100)));
+    await tester.pump();
     expect(find.byKey(ProgressView.measuredSectionKey), findsOneWidget);
     expect(find.byKey(ProgressView.historyFailureKey), findsOneWidget,
         reason: 'path_provider testte yok → geçmiş okunamadı → BEYAN edilmeli.');

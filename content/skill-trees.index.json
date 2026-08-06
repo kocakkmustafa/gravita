@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "$generatedBy": "tools/build_skill_tree_index.py — ELLE DÜZENLEME. Kaynak: content/skill-graph/*.json",
+  "trees": [
+    {
+      "packId": "gravita.handstand",
+      "displayName": "Handstand",
+      "packVersion": "1.0.0-draft",
+      "nodeCount": 15,
+      "thresholdsValidated": false,
+      "nodeIds": [
+        "wrist_prep",
+        "shoulder_flexion",
+        "hollow_body",
+        "arch_body",
+        "wall_plank",
+        "wall_walk",
+        "chest_to_wall",
+        "heel_pulls",
+        "kick_up_control",
+        "freestanding",
+        "shape_refinement",
+        "crow_pose",
+        "headstand",
+        "l_sit_prep",
+        "pistol_prep"
+      ]
+    },
+    {
+      "packId": "gravita.planche",
+      "displayName": "Planche",
+      "packVersion": "1.0.0-draft",
+      "nodeCount": 6,
+      "thresholdsValidated": false,
+      "nodeIds": [
+        "wrist_prep_planche",
+        "planche_lean",
+        "tuck_planche",
+        "advanced_tuck_planche",
+        "straddle_planche",
+        "full_planche"
+      ]
+    }
+  ]
+}

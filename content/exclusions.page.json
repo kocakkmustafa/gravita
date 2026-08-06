@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "$generatedBy": "tools/build_exclusions_page.py — ELLE DÜZENLEME. Kaynak: content/catalog/exclusions.json",
+  "pageTitle": "What's not in Gravita — and why",
+  "pageIntro": "We'd rather do fewer movements properly than list hundreds we can't actually coach. Here's what we left out and the honest reason.",
+  "sections": [
+    {
+      "id": "machines",
+      "title": "Gym machines",
+      "examples": [
+        "Leg press",
+        "Lat pulldown",
+        "Chest press machine",
+        "Leg extension",
+        "Cable crossover",
+        "Smith machine",
+        "Pec deck",
+        "Seated row machine",
+        "Hack squat",
+        "Leg curl"
+      ],
+      "userReason": "Machines already fix the path your body travels, so there is very little form left for a camera to judge — and the frame usually hides your torso behind the machine. We would be guessing, so we don't include them.",
+      "movementClass": "C",
+      "searchTerms": [
+        "cable",
+        "cable crossover",
+        "chest",
+        "chest press machine",
+        "crossover",
+        "curl",
+        "deck",
+        "extension",
+        "gym",
+        "gym machines",
+        "hack",
+        "hack squat",
+        "lat",
+        "lat pulldown",
+        "leg",
+        "leg curl",
+        "leg extension",
+        "leg press",
+        "machine",
+        "machines",
+        "pec",
+        "pec deck",
+        "press",
+        "pulldown",
+        "row",
+        "seated",
+        "seated row machine",
+        "smith",
+        "smith machine",
+        "squat"
+      ]
+    },
+    {
+      "id": "flips_aerials",
+      "title": "Flips, aerials and tumbling",
+      "examples": [
+        "Backflip",
+        "Frontflip",
+        "Aerial cartwheel",
+        "Back handspring",
+        "Round-off"
+      ],
+      "userReason": "These carry a real risk of a catastrophic fall. An app that cannot spot you should not be the thing that tells you you're ready.",
+      "searchTerms": [
+        "aerial",
+        "aerial cartwheel",
+        "aerials",
+        "and",
+        "back",
+        "back handspring",
+        "backflip",
+        "cartwheel",
+        "flips",
+        "flips, aerials and tumbling",
+        "frontflip",
+        "handspring",
+        "off",
+        "round",
+        "round-off",
+        "tumbling"
+      ]
+    },
+    {
+      "id": "one_rep_max",
+      "title": "One-rep max and strength testing",
+      "examples": [
+        "1RM squat test",
+        "Max deadlift",
+        "Estimated strength score"
+      ],
+      "userReason": "A camera cannot measure force. We can count your reps and track them over time, and you can compare those numbers to published strength standards — but we will never tell you we measured your strength.",
+      "searchTerms": [
+        "1rm",
+        "1rm squat test",
+        "and",
+        "deadlift",
+        "estimated",
+        "estimated strength score",
+        "max",
+        "max deadlift",
+        "one",
+        "one-rep max and strength testing",
+        "rep",
+        "score",
+        "squat",
+        "strength",
+        "test",
+        "testing"
+      ]
+    },
+    {
+      "id": "medical",
+      "title": "Injury diagnosis and rehab prescriptions",
+      "examples": [
+        "Diagnosing pain",
+        "Post-surgery protocols",
+        "Physio treatment plans"
+      ],
+      "userReason": "Gravita is a movement-practice tool, not a medical service. If something hurts, we tell you to stop — we don't tell you why.",
+      "searchTerms": [
+        "and",
+        "diagnosing",
+        "diagnosing pain",
+        "diagnosis",
+        "injury",
+        "injury diagnosis and rehab prescriptions",
+        "pain",
+        "physio",
+        "physio treatment plans",
+        "plans",
+        "post",
+        "post-surgery protocols",
+        "prescriptions",
+        "protocols",
+        "rehab",
+        "surgery",
+        "treatment"
+      ]
+    },
+    {
+      "id": "multi_person",
+      "title": "Training with a partner in frame",
+      "examples": [
+        "Partner workouts",
+        "Group classes",
+        "Spotter in the frame"
+      ],
+      "userReason": "We analyse one person per session. A second body in the frame makes the analysis unreliable, so we ask you to clear the frame instead of quietly guessing which skeleton is yours.",
+      "searchTerms": [
+        "classes",
+        "frame",
+        "group",
+        "group classes",
+        "partner",
+        "partner workouts",
+        "spotter",
+        "spotter in the frame",
+        "the",
+        "training",
+        "training with a partner in frame",
+        "with",
+        "workouts"
+      ]
+    },
+    {
+      "id": "equipment_tracking",
+      "title": "Tracking the equipment itself",
+      "examples": [
+        "Box height in box jumps",
+        "Rope in jump rope",
+        "Band tension",
+        "Ab-wheel distance",
+        "Bar position in muscle-ups"
+      ],
+      "userReason": "We coach your body, not your gear. For these movements we watch your mechanics — the landing, the hinge, the line — but we don't detect the box, the rope or the bar.",
+      "movementClass": "D",
+      "searchTerms": [
+        "ab-wheel distance",
+        "band",
+        "band tension",
+        "bar",
+        "bar position in muscle-ups",
+        "box",
+        "box height in box jumps",
+        "distance",
+        "equipment",
+        "height",
+        "itself",
+        "jump",
+        "jumps",
+        "muscle",
+        "position",
+        "rope",
+        "rope in jump rope",
+        "tension",
+        "the",
+        "tracking",
+        "tracking the equipment itself",
+        "ups",
+        "wheel"
+      ]
+    },
+    {
+      "id": "bench_form",
+      "title": "Form scoring on bench press (and similar lying pressing)",
+      "examples": [
+        "Barbell bench press",
+        "Dumbbell bench press",
+        "Incline press"
+      ],
+      "userReason": "You lie down and press away from the camera, so the phone is looking straight down the path of the movement. Depth and bar path can't be judged honestly from that angle. We count your reps, time your tempo and check your setup — and we say so on the movement page.",
+      "movementClass": "B",
+      "searchTerms": [
+        "and",
+        "barbell",
+        "barbell bench press",
+        "bench",
+        "dumbbell",
+        "dumbbell bench press",
+        "form",
+        "form scoring on bench press (and similar lying pressing)",
+        "incline",
+        "incline press",
+        "lying",
+        "press",
+        "pressing",
+        "scoring",
+        "similar"
+      ]
+    }
+  ]
+}

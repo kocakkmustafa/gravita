@@ -5,6 +5,8 @@ import 'package:flutter/services.dart' show AssetBundle;
 import 'package:gravita_engine/gravita_engine.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'library_model.dart';
+
 /// İçerik + kalıcılık KABLOLAMASI — kabuğun motora bakan tek yüzü.
 ///
 /// **Neden burada:** motor (`gravita_engine`) saf Dart'tır ve dosya sistemini de
@@ -15,12 +17,27 @@ import 'package:path_provider/path_provider.dart';
 /// `JsonlSessionStore` bir `File` alır; `path_provider` çağrısı BU katmanda
 /// kalır. Terfi-arayüzünün 1. şartı budur (`docs/design/SESSION-STORE-DELTA.md`
 /// §0): depo saf Dart, KABLOLAMA Flutter.
+///
+/// ## Katalog yüklemesi neden TEMBEL (2026-08-06 terfi turu)
+///
+/// Kütüphane 2 hareketten 31'e çıktı. Eski hâl açılışta HER hareketin katalog
+/// dosyasını açıyordu — 31 JSON ayrıştırması, hepsi bir LİSTE ekranı çizmek
+/// için. Liste ekranının ihtiyacı olan her alan (`displayName`, `equipment`,
+/// rozet, dürüstlük kutusu) zaten `library.json`'da ÜRETİLMİŞ hâlde duruyor
+/// (`tools/promote_library.py`), yani katalog yalnız ÖLÇÜM tarafı için gerekli.
+///
+/// Bu yüzden açılışta yalnız **kursu olan** hareketlerin kataloğu okunur
+/// (`LessonSurface.deriveAll`in ihtiyacı bu) — bugün bir tane. Kalanı hareket
+/// sayfası açıldığında [catalogFor] ile gelir.
 final class ContentRepository {
   ContentRepository._({
     required this.library,
+    required this.catalogue,
     required this.lessonSurfaces,
-    required Map<String, MovementConfig> catalog,
-  }) : _catalog = catalog;
+    required Map<String, MovementConfig> eagerCatalog,
+    required AssetBundle bundle,
+  })  : _catalog = eagerCatalog,
+        _bundle = bundle;
 
   /// İçeriği asset bundle'dan yükler.
   ///
@@ -33,44 +50,108 @@ final class ContentRepository {
         (jsonDecode(await bundle.loadString('content/library.json')) as Map)
             .cast<String, dynamic>();
 
-    final Map<String, MovementConfig> catalog = <String, MovementConfig>{};
-    for (final Map<String, dynamic> m
-        in (lib['movements'] as List<dynamic>).cast<Map<String, dynamic>>()) {
-      final String catalogId = (m['catalogId'] ?? m['id']) as String;
-      final String? wave = m['wave'] as String?;
-      if (wave == null) {
-        throw StateError(
-            'library.json: ${m['id']} `wave` bildirmiyor — katalog adresi '
-            'kurulamaz. Dalga beyanı zorunlu.');
+    final List<Map<String, dynamic>> raw =
+        (lib['movements'] as List<dynamic>).cast<Map<String, dynamic>>();
+
+    final Map<String, MovementConfig> eager = <String, MovementConfig>{};
+    for (final Map<String, dynamic> m in raw) {
+      // Kursu olmayan hareketin DERSİ de yoktur (kütüphane kapısı K1/K10);
+      // `deriveAll` ona bakmaz, o yüzden kataloğu şimdi okunmaz.
+      if (((m['courses'] as List<dynamic>?) ?? const <dynamic>[]).isEmpty) {
+        continue;
       }
-      catalog[catalogId] = MovementConfig.parse(await bundle
-          .loadString('content/catalog/${wave.toLowerCase()}/$catalogId.json'));
+      final String catalogId = (m['catalogId'] ?? m['id']) as String;
+      eager[catalogId] = await _loadCatalog(bundle, m, catalogId);
     }
 
     return ContentRepository._(
       library: lib,
-      catalog: catalog,
+      bundle: bundle,
+      eagerCatalog: eager,
+      catalogue: LibraryCatalogue(
+        movements: raw
+            .map((Map<String, dynamic> m) => MovementEntry.fromJson(m))
+            .toList(growable: false),
+        exclusions: ExclusionsPage.parse(
+            await bundle.loadString('content/exclusions.page.json')),
+        skillTrees: SkillTreeIndex.parse(
+            await bundle.loadString('content/skill-trees.index.json')),
+      ),
       lessonSurfaces: LessonSurface.deriveAll(
         library: lib,
-        catalogFor: (String id) => catalog[id]!,
+        catalogFor: (String id) => eager[id]!,
       ),
     );
   }
 
+  static Future<MovementConfig> _loadCatalog(
+      AssetBundle bundle, Map<String, dynamic> movement, String catalogId) async {
+    final String? wave = movement['wave'] as String?;
+    if (wave == null) {
+      throw StateError(
+          'library.json: ${movement['id']} `wave` bildirmiyor — katalog adresi '
+          'kurulamaz. Dalga beyanı zorunlu.');
+    }
+    return MovementConfig.parse(await bundle
+        .loadString('content/catalog/${wave.toLowerCase()}/$catalogId.json'));
+  }
+
   final Map<String, dynamic> library;
+
+  /// Kütüphane yüzeyinin okuduğu tipli hâl (31 hareket + "Neden yok?").
+  final LibraryCatalogue catalogue;
 
   /// Yüzeyin BUGÜN bildiği dersler — kilitliler DAHİL (M-F-168 kural 2).
   final List<LessonSurface> lessonSurfaces;
 
   final Map<String, MovementConfig> _catalog;
+  final AssetBundle _bundle;
 
-  /// Yüklenen tüm hareket config'leri — canlı yol seçimi için (kimlik ön
-  /// koşulu türetilmiş olanı arar). Kopya döner: katalog dışarıdan
-  /// değiştirilemez.
-  List<MovementConfig> get movementConfigs =>
+  /// Açılışta okunmuş config'ler — kursu olan hareketler.
+  ///
+  /// ⚠️ Adı bilerek `movementConfigs` DEĞİL: eski ad "hepsi" diye okunuyordu
+  /// ve tembel yüklemeyle birlikte o okuma YANLIŞ olurdu. Bir alanın kapsamı
+  /// daraldığında adının da daralması gerekir, yoksa çağıran taraf eski
+  /// varsayımla devam eder.
+  List<MovementConfig> get eagerlyLoadedConfigs =>
       List<MovementConfig>.unmodifiable(_catalog.values);
 
-  MovementConfig? movementConfig(String catalogId) => _catalog[catalogId];
+  MovementConfig? loadedCatalog(String catalogId) => _catalog[catalogId];
+
+  /// Bir hareketin ölçüm config'i — gerekiyorsa ŞİMDİ okunur ve saklanır.
+  ///
+  /// Hareket sayfası bunu çağırır: form hataları, ipuçları ve kamera kurulumu
+  /// ölçüm tarafındadır ve `library.json`'a kopyalanmadı (kopyalansa iki ev
+  /// olurdu — G-079).
+  Future<MovementConfig> catalogFor(String movementId) async {
+    final MovementConfig? cached = _catalog[movementId];
+    if (cached != null) return cached;
+    final Map<String, dynamic> m = (library['movements'] as List<dynamic>)
+        .cast<Map<String, dynamic>>()
+        .firstWhere((Map<String, dynamic> e) => e['id'] == movementId,
+            orElse: () => throw StateError(
+                'library.json: `$movementId` diye bir hareket YOK'));
+    final MovementConfig config = await _loadCatalog(
+        _bundle, m, (m['catalogId'] ?? m['id']) as String);
+    _catalog[config.id] = config;
+    return config;
+  }
+
+  /// Canlı seansın koşabileceği hareket — İKİ bağımsız iddia birlikte.
+  ///
+  /// `library.json` "live" diyor (kütüphane kapısı K8/K10 orada denetlendi) VE
+  /// kataloğun kimlik ön koşulu gerçekten `derived`. Tek başına ilki bir
+  /// BEYAN, tek başına ikincisi bir ÖLÇÜM; ikisini birden istemek, birinin
+  /// diğerinden sessizce ayrışmasını yüzeyde yakalar. Buton yalnız ikisi de
+  /// tuttuğunda çizilir (ölü buton yasağının çalışma-zamanı hâli).
+  MovementConfig? get liveConfig {
+    for (final MovementEntry m in catalogue.movements) {
+      if (!m.isLive) continue;
+      final MovementConfig? c = _catalog[m.catalogId];
+      if (c != null && c.preconditionDerived) return c;
+    }
+    return null;
+  }
 
   /// Seans geçmişi deposu. Dosya uygulama-özel dizinde; biçim motorda.
   static Future<SessionStore> openSessionStore() async {

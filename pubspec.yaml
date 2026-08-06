@@ -76,6 +76,19 @@ flutter:
     # İçerik çalışma-zamanında yorumlanan sürümlü JSON'dur (ADR-004):
     # yeni hareket = yeni JSON, kod değişmez.
     - content/library.json
+    # "Neden yok?" sayfasının KULLANICI altkümesi — `tools/build_exclusions_page.py`
+    # ile `content/catalog/exclusions.json`'dan ÜRETİLİR. Kaynağın kendisi
+    # PAKETLENMEZ: içinde `internalRule_tr` (Türkçe iç kural) ve `reconsiderIf`
+    # (yol haritası dili) var, ikisi de kullanıcı metni değil.
+    # ⚠️ Aşağıdaki `harvest` yorumunun kuralı burada İŞLEDİ: "okuyucu geldiği
+    # gün satırı da gelir" — okuyucu bugün geldi (LibraryScreen/WhyNotHere).
+    - content/exclusions.page.json
+    # Beceri ağacı ÖZETİ — `tools/build_skill_tree_index.py`. Paketlerin
+    # kendisi (`content/skill-graph/`) PAKETLENMEZ: `nodes[]` doğrulanmamış
+    # eşik değerleri taşıyor (`status: DRAFT`) ve onları uygulamaya sokmak,
+    # ölçülmemiş bir sayıyı kapı gibi çizmeye davet olurdu. İndeks yalnız
+    # "ne var, hangi durumda" der.
+    - content/skill-trees.index.json
     # Katalog DALGA DALGA listelenir. Dizinler ELLE yazılıyor çünkü
     # `content/catalog/` kökünde `exclusions.json` var ve o bir DERLEME
     # defteridir — çalışma-zamanı okuyucusu YOK, uygulamaya girmemeli.
