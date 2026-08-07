@@ -267,6 +267,53 @@ void main() {
     });
   });
 
+  group('KAÇIŞ KAZASI — interpolasyon LİTERAL olarak sevk edilemez', () {
+    test('kullanıcı metninde çözülmemiş `\$` yok', () {
+      // ⚠️ Bu kapı GERÇEK bir kusurdan doğdu ve kusur BENİMDİ: bir düzeltmeyi
+      // yeniden uygularken `\\$treeName` yazdım ve Dart onu **literal** metin
+      // olarak sevk etti — kullanıcı *"our drafted \\$treeName progression"*
+      // görecekti.
+      //
+      // Ve hiçbir mevcut nöbet yakalamadı: ham-anahtar nöbeti ALT ÇİZGİ
+      // arıyor (`\\$treeName`de yok), sessizlik nöbeti metnin çizildiğini
+      // sınıyor (çiziliyordu — yanlış hâliyle). Kusur, kapılarımın
+      // ARASINDAN geçti.
+      //
+      // Sınıf: kaçış kazası. Ucuz, sessiz, ve yalnız gözle ya da bu kapıyla
+      // yakalanır.
+      final List<String> rendered = <String>[
+        LibraryStrings.skillTreeIn('Handstand'),
+        LibraryStrings.skillTreeUnknown,
+        LibraryStrings.homeQueueBody(30, 31),
+        LibraryStrings.homeOpenBody(1),
+        LibraryStrings.libraryCount(31, 1),
+        LibraryStrings.blockerCount(3),
+        LibraryStrings.searchMovementHeading(2),
+        LibraryStrings.searchNothing('leg press'),
+        LibraryStrings.skillTreesBody(2, 'Handstand and Planche'),
+        LibraryStrings.formErrorsBody(3),
+        LibraryStrings.formErrorsBodyLive(3),
+        LibraryStrings.coursesCount(1, 2),
+        LibraryStrings.trendSummary(2, 12, 'rep'),
+        LibraryStrings.howToReferenceNotDrawable(5),
+        LibraryStrings.classBadgeExplainer('A'),
+        LibraryStrings.equipmentLine(<String>['parallel_bars']),
+        ProgressStrings.units(3, 'rep'),
+        ProgressStrings.sessions(2),
+        ProgressStrings.worked(95),
+        ProgressStrings.unscored(2),
+        ProgressStrings.retroactiveWithheld(1),
+        ProgressStrings.orphanRecords(2),
+        ProgressStrings.historyPartial(1),
+        ProgressStrings.freeSessions(2, 12),
+      ];
+      for (final String s in rendered) {
+        expect(s.contains(r'$'), isFalse,
+            reason: 'ÇÖZÜLMEMİŞ interpolasyon sevk edilmiş: "$s"');
+      }
+    });
+  });
+
   group('kontrast kapısı fazla genişlerse', () {
     test('NON-TEXT tokeni metin eşiğine ZORLANMAMALI', () {
       // Biri *"her token 4.5'i geçsin"* derse `textTertiary` ya koyulaşır

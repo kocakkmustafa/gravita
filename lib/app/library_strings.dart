@@ -242,7 +242,7 @@ abstract final class LibraryStrings {
   /// taslak olduğu aynı cümlede söyleniyor — kütüphanedeki beceri-ağacı
   /// bölümüyle tutarlı.
   static String skillTreeIn(String treeName) =>
-      'This movement is one step in our drafted \$treeName progression. We are '
+      'This movement is one step in our drafted $treeName progression. We are '
       'not drawing that progression: its unlock criteria have not been '
       'through a movement-science review.';
 
