@@ -230,8 +230,26 @@ abstract final class LibraryStrings {
 
   static const String queueTitle = 'What is missing';
   static const String skillTreeLinkTitle = 'Part of a progression';
-  static String skillTreeNode(String node) =>
-      'This movement is node "$node" in a drafted progression tree.';
+  /// ⚠️ HAM DÜĞÜM KİMLİĞİ GÖSTERİLMİYOR — ve bu bir düzeltmenin ürünü.
+  ///
+  /// Eski hâli *'This movement is node "hollow_body" in a drafted
+  /// progression tree.'* diyordu: `hollow_body` bir İÇ ANAHTAR ve
+  /// `Parallel_bars` bulgusunun **farklı biçimdeki** hâli. Üstelik ağaç
+  /// zaten ÇİZİLMİYOR — kullanıcıya göremeyeceği bir ağacın düğüm adı
+  /// veriliyordu.
+  ///
+  /// Şimdi ait olduğu PROGRESYON adlandırılıyor (indeksten türetilir) ve
+  /// taslak olduğu aynı cümlede söyleniyor — kütüphanedeki beceri-ağacı
+  /// bölümüyle tutarlı.
+  static String skillTreeIn(String treeName) =>
+      'This movement is one step in our drafted \$treeName progression. We are '
+      'not drawing that progression: its unlock criteria have not been '
+      'through a movement-science review.';
+
+  /// Ağaç bulunamadıysa — indeks ile katalog ayrışmışsa.
+  static const String skillTreeUnknown =
+      'This movement is marked as part of a progression, but we could not '
+      'find which one. We are not guessing.';
 
   static String classBadgeExplainer(String cls) => switch (cls) {
         'B' => 'Class B — the camera looks down this movement\'s path, so we '

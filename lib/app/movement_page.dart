@@ -474,7 +474,11 @@ class _MovementPageState extends State<MovementPage> {
         children: <Widget>[
           NoteCard(
             icon: Icons.account_tree_outlined,
-            text: LibraryStrings.skillTreeNode(m.skillGraphNode!),
+            text: switch (widget.content.catalogue.skillTrees
+                .treeFor(m.skillGraphNode!)) {
+              final SkillTree t => LibraryStrings.skillTreeIn(t.displayName),
+              null => LibraryStrings.skillTreeUnknown,
+            },
           ),
         ],
       );

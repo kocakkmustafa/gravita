@@ -329,18 +329,23 @@ final class SkillTree {
     required this.displayName,
     required this.nodeCount,
     required this.thresholdsValidated,
+    required this.nodeIds,
   });
 
   factory SkillTree.fromJson(Map<String, dynamic> j) => SkillTree(
         packId: j['packId'] as String,
         displayName: j['displayName'] as String,
         nodeCount: (j['nodeCount'] as num?)?.toInt() ?? 0,
+        nodeIds: _strings(j['nodeIds']),
         thresholdsValidated: (j['thresholdsValidated'] as bool?) ?? false,
       );
 
   final String packId;
   final String displayName;
   final int nodeCount;
+
+  /// Bu pakette geçen düğüm kimlikleri — hareket → AĞAÇ eşlemesi için.
+  final List<String> nodeIds;
 
   /// ⭐ Ekranın "ağacı ÇİZME" kararı buna dayanır — bir yorum satırına değil.
   /// Paketlerin `status` alanı DRAFT dediği sürece `false`; doğrulama geçişi
@@ -361,6 +366,19 @@ final class SkillTreeIndex {
       );
 
   final List<SkillTree> trees;
+
+  /// Bir düğüm kimliğinin ait olduğu ağaç — `null` ise hiçbir pakette yok.
+  ///
+  /// ⚠️ Bu eşleme, hareket sayfasının kullanıcıya **HAM DÜĞÜM KİMLİĞİ**
+  /// (`hollow_body`) göstermesini bitirdi: kullanıcı bir iç anahtarı değil
+  /// ait olduğu PROGRESYONU merak eder, ve zaten çizilmeyen bir ağacın
+  /// düğüm adı ona hiçbir şey söylemiyordu.
+  SkillTree? treeFor(String nodeId) {
+    for (final SkillTree t in trees) {
+      if (t.nodeIds.contains(nodeId)) return t;
+    }
+    return null;
+  }
 
   List<SkillTree> get drafted =>
       trees.where((SkillTree t) => !t.thresholdsValidated).toList(growable: false);

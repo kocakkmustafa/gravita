@@ -1115,11 +1115,33 @@ void main() {
       // sayfası **"Parallel_bars"** yazıyordu — ham `equipment` anahtarı.
       // 78 test yeşilken kaçtı çünkü hepsi metnin VARLIĞINI sınıyordu.
       // Bu nöbet DESENE yazılıyor: 31 hareketin HEPSİ, tek tek değil.
+      // ⚠️ KAPSAM GENİŞLETİLDİ — BİÇİM ekseni (J-155 aktarımı).
+      //
+      // Eski hâli yalnız `metaLine`a bakıyordu ve `Parallel_bars`ı orada
+      // yakalamıştı. Ama aynı kusur **başka bir biçimde** başka bir yerde
+      // yaşıyordu: hareket sayfası *'This movement is node "hollow_body"…'*
+      // diyerek HAM DÜĞÜM KİMLİĞİNİ çiziyordu. Nöbet oraya hiç bakmadı.
+      //
+      // > Bir kusuru bulduğun BİÇİMDE düzeltmek, onu bulduğun YERDE
+      // > düzeltmek değildir.
+      //
+      // Artık sayfanın ÇİZDİĞİ metnin tamamı taranıyor — tek bir alan değil.
+      // Kapsam kusurunun dört ekseni: dizin · katman · yüzey · **biçim**.
       final ContentRepository c = await loadReal(tester);
+      useNarrowTall(tester);
+      final RegExp rawKey = RegExp(r'\b[a-z]+_[a-z_]+\b');
       for (final MovementEntry m in c.catalogue.movements) {
-        expect(LibraryStrings.metaLine(m).contains('_'), isFalse,
-            reason: '${m.id}: ham anahtar yüzeyde — '
-                '"${LibraryStrings.metaLine(m)}"');
+        await tester.pumpWidget(host(MovementPage(movement: m, content: c)));
+        await tester.pump();
+        for (final Element e in find.byType(Text, skipOffstage: false)
+            .evaluate()) {
+          final String? t = (e.widget as Text).data;
+          if (t == null) continue;
+          final RegExpMatch? hit = rawKey.firstMatch(t);
+          expect(hit, isNull,
+              reason: '${m.id}: HAM ANAHTAR yüzeyde — "${hit?.group(0)}" '
+                  '(cümle: "${t.length > 90 ? '${t.substring(0, 90)}…' : t}")');
+        }
       }
     });
 
