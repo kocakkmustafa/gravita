@@ -4796,5 +4796,11 @@
     }
   ],
   "$excludedVariantMismatchNote": "M-F-175/1: 6 take VARYANT uyuşmazlığından (yüklü barbell squat, `bodyweight_squat` havuzunda yanlış varyant) ADIYLA dışlandı — biri ESKİ MEDOİDDİ (Jeff_Nippard_w13_r0, kaynağı 198 kg top-set). Bu bir eşik icadı DEĞİL, ölçülmüş-bozuk numunenin isimli dışlanması: %17 katkı-kirlenmesi · gövde eğimi farkı 8,2° (= freeFloorDeg tabanının TAMAMI) · 18,2° daha sığ · göz-doğrulaması tartışmasız. Karar kaydı `content/harvest/decisions.bodyweight_squat.json`da YAŞAR ve bu build onu OKUR (elle yazılsa regen'de kaybolurdu — Choreia'da üç kez ısıran tuzak, M-F-174). Take'ler ÇÖP DEĞİL: `barbell_squat` tag'iyle gelecekteki barbell referansının meşru malzemesi.",
-  "$windowRule": "rep_fsm (slice_deep_reps_squat.dart) + hipKneeCoupling gate (rep-fsm, hip_knee_coupling.bodyweight_squat.json)"
+  "$windowRule": "rep_fsm (slice_deep_reps_squat.dart) + hipKneeCoupling gate (rep-fsm, hip_knee_coupling.bodyweight_squat.json)",
+  "modelProvenance": {
+    "modelId": null,
+    "status": "UNRECORDED",
+    "$note": "⚠️ BU ARTEFAKTIN HANGİ MODEL VARYANTIYLA ÜRETİLDİĞİ HİÇBİR YERDE YAZMIYOR. Geriye dönük TAHMİN EDİLMEDİ — çünkü tahmin, kaydın yerine geçtiği anda 'ölçüldü' sanılır. Choreia'nın (C-198) ölçtüğü kusur bu alanın YOKLUĞUNDA doğuyor: referans `heavy` ile, uygulama `full` ile koşarsa kullanıcının ölçümü referansla kıyaslanamaz.\nDOLAYLI KANIT (kayıt DEĞİL): D1 kapısı birincil model olarak `full` kullandı (`docs/gates/G1-D1-RAPOR.md` §Model), `heavy` yalnız çapraz kontroldü; depodaki tek indirme betiği `tool/fetch_pose_model.sh` yalnız `pose_landmarker_full` çekiyor; pakette tek `.task` var ve o `full`. Yine de bu ÇIKARIM, kayıt değil.\nKAPI: yeni üretilen her referans artefaktı `modelId` YAZMAK ZORUNDA (tools/validate_reference_model.py). Bu iki artefakt eski olduğu için UNRECORDED olarak MUAF — ve muafiyet bir LİSTE değil, `status` alanında okunan bir KOŞUL.",
+    "appShips": "pose_landmarker_full/float16/1"
+  }
 }

@@ -67,6 +67,8 @@ run "dart test" bash -c "cd packages/gravita_engine && dart test"
 
 line; echo "SÜİT 3 — içerik kapıları (6)"; line
 gate() { py_total=$((py_total+1)); if run "$@"; then py_ok=$((py_ok+1)); fi; }
+gate "reference_model"             python3 tools/validate_reference_model.py
+gate "reference_model --self-test" python3 tools/validate_reference_model.py --self-test
 gate "validate_library"            python3 tools/validate_library.py
 gate "validate_library --self-test" python3 tools/validate_library.py --self-test
 gate "validate_catalog"            python3 tools/validate_catalog.py
