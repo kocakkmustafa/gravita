@@ -237,8 +237,19 @@ void main() {
       // 30/31 hareketin kutusu bugün 7+ madde taşıyor ve en uzunu bir
       // paragraf. Hepsinin AĞAÇTA olduğunu sınıyoruz: sabit yükseklikli bir
       // kart bunların bir kısmını sessizce yutardı.
-      expect(plank.honesty.notMeasured.length, greaterThanOrEqualTo(5));
-      for (final String item in plank.honesty.notMeasured) {
+      //
+      // ⚠️ İKİ liste birden geziliyor: kutu artık KUYRUK ile KALICI sınırı
+      // ayrı başlıklarda çiziyor. Yalnız birini gezen test, ötekinin
+      // sessizce düşmesini göremezdi — kapsamın yarısını kaybetmek,
+      // kapının kendisini kaybetmekle aynı sınıf.
+      final List<String> allItems = <String>[
+        ...plank.honesty.waitingOnMeasurement,
+        ...plank.honesty.notMeasured,
+      ];
+      expect(plank.honesty.waitingOnMeasurement, isNotEmpty);
+      expect(plank.honesty.notMeasured, isNotEmpty);
+      expect(allItems.length, greaterThanOrEqualTo(5));
+      for (final String item in allItems) {
         expect(find.text(item, skipOffstage: false), findsOneWidget,
             reason: 'Dürüstlük maddesi ekranda YOK: "$item"');
       }
@@ -735,6 +746,58 @@ void main() {
               .any((String s) => s.contains('discarded')),
           isFalse,
           reason: 'Seans artık kaydediliyor; "atılıyor" beyanı BAYAT.');
+    });
+
+    testWidgets('KUYRUK ile KALICI sınır AYRI başlıklarda çiziliyor',
+        (WidgetTester tester) async {
+      // JabLab aktarımı: M-F-287 sınırın SINIFINI yazmayı söylüyordu; bu,
+      // sınıfın hangi KUYRUĞA gittiğini de yazıyor.
+      //   · ölçülmemiş → bir gün kapanır (ölçüm kapatır)
+      //   · kamera göremez → ASLA kapanmaz
+      // Tek listede toplandıklarında kullanıcı ürünü yanlış anlıyordu:
+      // kalıcı sınır "yakında" sanılıyor, kuyruk da umutsuz görünüyordu.
+      useNarrowTall(tester);
+      final ContentRepository c = await loadReal(tester);
+      final MovementEntry m = c.catalogue.movements
+          .firstWhere((MovementEntry x) => !x.isLive);
+
+      expect(m.honesty.waitingOnMeasurement, isNotEmpty);
+      expect(m.honesty.notMeasured, isNotEmpty);
+      // İKİ küme AYRIK olmalı — aynı cümle iki kuyruğa birden giremez.
+      expect(
+          m.honesty.waitingOnMeasurement
+              .toSet()
+              .intersection(m.honesty.notMeasured.toSet()),
+          isEmpty,
+          reason: '${m.id}: aynı madde hem kuyrukta hem kalıcı sınırda.');
+
+      await tester.pumpWidget(host(MovementPage(movement: m, content: c)));
+      await tester.pump();
+      // İKİ başlık da EKRANDA — veride ayrılıp yüzeyde birleşirse ayrım yok.
+      expect(find.text(LibraryStrings.honestyWaitingLabel.toUpperCase(),
+          skipOffstage: false), findsOneWidget);
+      expect(find.text(LibraryStrings.honestyNotMeasuredLabel.toUpperCase(),
+          skipOffstage: false), findsOneWidget);
+    });
+
+    test('KOD kuyruğu ÖLÇÜM kuyruğu gibi sunulmuyor', () {
+      // Ölçüldü: `floor_press`in HİÇ kural seti yok. Üretilmiş cümle
+      // "0 kural hiç koşturulmadı" diyordu — teknik olarak doğru ama YANLIŞ
+      // KUYRUĞU gösteriyor: orada eksik olan ÖLÇÜM değil KOD. Yanlış kuyruk,
+      // kapanmayacak bir şeyi kovalatır ya da kapanacak bir şeyi bekletir.
+      final Map<String, dynamic> lib = (jsonDecode(
+              File('content/library.json').readAsStringSync()) as Map)
+          .cast<String, dynamic>();
+      final Map<String, dynamic> fp = (lib['movements'] as List<dynamic>)
+          .cast<Map<String, dynamic>>()
+          .firstWhere((Map<String, dynamic> m) => m['id'] == 'floor_press');
+      final String queue =
+          ((fp['honesty'] as Map)['waitingOnMeasurement'] as List<dynamic>)
+              .join(' ');
+      expect(queue.contains('No error rules have been written'), isTrue,
+          reason: 'Kuralsız hareket, kural-koşturulmamış gibi sunuluyor.');
+      expect(queue.contains('have never been run against real footage'), isFalse,
+          reason: 'KOD boşluğu ÖLÇÜM boşluğu gibi anlatılıyor.');
     });
 
     testWidgets('J-124: Progress SERBEST seansı görüyor — "Not started" DEMİYOR',

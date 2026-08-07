@@ -124,7 +124,15 @@ abstract final class LibraryStrings {
   // ── Hareket sayfası ────────────────────────────────────────────────────
   static const String honestyTitle = 'What we measure — and what we do not';
   static const String honestyMeasuredLabel = 'Measured';
-  static const String honestyNotMeasuredLabel = 'Not measured';
+  /// KALICI sınırlar başlığı — "henüz" değil, HİÇ.
+  static const String honestyNotMeasuredLabel =
+      'A single camera cannot see this';
+
+  /// KUYRUK başlığı — bir gün kapanabilir olanlar.
+  ///
+  /// ⚠️ Vaat DEĞİL: *"waiting on"* bir DURUM bildirir, *"coming"* bir söz
+  /// verirdi. Her maddenin altında neyin beklendiği İSİMLİ duruyor.
+  static const String honestyWaitingLabel = 'Waiting on a measurement';
 
   /// Bugünün BASKIN hâli (31'in 30'u). Onurlu bir cümle, hata hâli değil.
   static const String honestyMeasuresNothing =

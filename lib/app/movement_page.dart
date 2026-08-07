@@ -257,14 +257,31 @@ class _MovementPageState extends State<MovementPage> {
                     ),
                   ),
                 ],
-                const SizedBox(height: 20),
-                _honestyHeading(LibraryStrings.honestyNotMeasuredLabel),
-                const SizedBox(height: 10),
-                ReasonList(
-                  items: m.honesty.notMeasured,
-                  color: GravitaColors.honestyText,
-                  bulletColor: GravitaColors.honestySeal,
-                ),
+                // ⭐ İKİ AYRI KUYRUK, İKİ AYRI BAŞLIK. Tek listede
+                // toplandıklarında kullanıcı *"henüz ölçmedik"* ile *"tek
+                // kamera bunu göremez"* arasındaki farkı göremiyordu — biri
+                // bir gün kapanır, öteki asla, ve ürünü doğru anlamak tam
+                // olarak bu farka bağlı.
+                if (m.honesty.waitingOnMeasurement.isNotEmpty) ...<Widget>[
+                  const SizedBox(height: 20),
+                  _honestyHeading(LibraryStrings.honestyWaitingLabel),
+                  const SizedBox(height: 10),
+                  ReasonList(
+                    items: m.honesty.waitingOnMeasurement,
+                    color: GravitaColors.honestyText,
+                    bulletColor: GravitaColors.honestySeal,
+                  ),
+                ],
+                if (m.honesty.notMeasured.isNotEmpty) ...<Widget>[
+                  const SizedBox(height: 20),
+                  _honestyHeading(LibraryStrings.honestyNotMeasuredLabel),
+                  const SizedBox(height: 10),
+                  ReasonList(
+                    items: m.honesty.notMeasured,
+                    color: GravitaColors.honestyText,
+                    bulletColor: GravitaColors.honestySeal,
+                  ),
+                ],
               ],
             ),
           ),

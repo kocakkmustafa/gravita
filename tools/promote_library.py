@@ -166,6 +166,18 @@ def _blocker_sentence(key, mid, name, cat):
         )
     if key == "replayFixture:missing":
         n = len(cat.get("formErrors") or [])
+        # ⚠️ SIFIR kural AYRI bir kuyruktur (JabLab aktarımı, 2026-08-07).
+        # "0 kural hiç koşturulmadı" cümlesi teknik olarak doğru ama YANLIŞ
+        # KUYRUĞU gösterir: burada eksik olan ÖLÇÜM değil KODdur. Sınırın
+        # sınıfını yazmak yetmiyor — hangi kuyruğa gittiğini de yazmak
+        # gerekiyor, yoksa kapanmayacak şey kovalanır ya da kapanacak şey
+        # bekletilir. Ölçüldü: `floor_press`in hiç kuralı yok.
+        if n == 0:
+            return (
+                "No error rules have been written for this movement at all. "
+                "Anything we said about its form would be a guess, because "
+                "there is nothing defined to look for."
+            )
         rules = "rule" if n == 1 else "rules"
         return (
             f"Its {n} error {rules} have never been run against real footage. "
@@ -302,9 +314,17 @@ def generate_entry(mid, cat, classes, grading_lessons_open=0):
             # başlığı altına koymak vaat dili olurdu (M-F-186) — kuyruğa
             # gidiyor, aşağıya.
             "measured": [],
-            "notMeasured": [lead]
-                + [_blocker_sentence(k, mid, name, cat) for k in keys]
-                + permanent,
+            # ⭐ İKİ AYRI KUYRUK, İKİ AYRI ALAN (JabLab aktarımı, 2026-08-07).
+            #
+            # Eskiden ikisi TEK listede duruyordu ve kullanıcı *"henüz
+            # ölçmedik"* ile *"tek kamera bunu göremez"* arasındaki farkı
+            # GÖREMİYORDU. Oysa biri bir gün kapanır, öteki ASLA kapanmaz —
+            # ve bir kullanıcının ürünü doğru anlaması tam olarak bu farka
+            # bağlı. M-F-287 sınırın SINIFINI yazmayı söylüyordu; bu, sınıfın
+            # hangi KUYRUĞA gittiğini de yazıyor.
+            "waitingOnMeasurement": [lead]
+                + [_blocker_sentence(k, mid, name, cat) for k in keys],
+            "notMeasured": permanent,
         }
         designed = list(mc.get("measured") or [])
         headline = _UNIT_NOUN.get(cat.get("engine", {}).get("type"), "Measurement")

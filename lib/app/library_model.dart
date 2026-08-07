@@ -45,17 +45,32 @@ final class HonestyBox {
   const HonestyBox({
     required this.measured,
     required this.notMeasured,
+    this.waitingOnMeasurement = const <String>[],
     this.scoring,
   });
 
   factory HonestyBox.fromJson(Map<String, dynamic> j) => HonestyBox(
         measured: _strings(j['measured']),
         notMeasured: _strings(j['notMeasured']),
+        waitingOnMeasurement: _strings(j['waitingOnMeasurement']),
         scoring: j['scoring'] as String?,
       );
 
   final List<String> measured;
+
+  /// **KALICI** sınırlar — tek kamera bunları ASLA göremez (kuvvet, kas
+  /// aktivasyonu, ekipman). Kapanmazlar; kod da ölçüm de kapatmaz.
   final List<String> notMeasured;
+
+  /// ⭐ **KUYRUK** — bugün ölçülmemiş ama bir gün kapanabilir.
+  ///
+  /// İki listenin AYRI olması, M-F-287'nin bir katman ötesi: sınırın
+  /// SINIFINI yazmak yetmiyor, hangi KUYRUĞA gittiğini de yazmak gerekiyor.
+  /// *"Henüz ölçmedik"* ile *"tek kamera bunu göremez"* aynı cümle değil —
+  /// biri bir gün kapanır, öteki asla. Tek listede toplandıklarında kullanıcı
+  /// ürünü yanlış anlıyordu: kalıcı sınır "yakında" sanılıyor, kuyruk da
+  /// umutsuz görünüyordu.
+  final List<String> waitingOnMeasurement;
 
   /// ⭐ TESPİT/KOÇLUK ↔ PUANLAMA ayrımı — ÜRETİLİR (`promote_library.py`).
   ///
