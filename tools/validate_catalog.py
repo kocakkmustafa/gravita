@@ -382,7 +382,135 @@ def _skill_graph_nodes():
     return ids
 
 
+def _self_test():
+    """Değişmezleri KASITLI ihlalle ateşler.
+
+    ## Neden bu fonksiyon var (kapı envanteri, 2026-08-07)
+
+    Bu betik **18 isimli değişmez** taşıyor ve 31 katalog dosyasını
+    denetliyor — ama bugüne dek kurallarının **hiçbiri hiç ateşlenmemişti.**
+    Kardeşi `validate_library.py` kendini 20 mutasyonla kanıtlıyor; bu
+    yapmıyordu.
+
+    Kapı envanterinin bulduğu **tek gerçek boşluk** buydu, ve bu deftere
+    defalarca yazılmış kuralın ta kendisi: *hiç ateşlenmemiş bir kapıya
+    güvenmek, avlanan desenin kendisidir* (G-037/G-052).
+
+    Her vaka GERÇEK bir katalog dosyasını kopyalayıp bozar ve `check()`in
+    ötüp ötmediğine bakar. Sahte bir sözlük kurmuyoruz: kapının gerçek veriyi
+    reddettiğini görmek istiyoruz.
+    """
+    import copy as _copy
+    import tempfile
+
+    base_path = CATALOG / "w1" / "push_up.json"
+    base = json.loads(base_path.read_text())
+
+    def fire(name, mutate, expect):
+        """Mutasyonu diske yazıp `check()`i koşturur; ihlal bekler."""
+        doc = _copy.deepcopy(base)
+        mutate(doc)
+        errors.clear()
+        warnings.clear()
+        with tempfile.TemporaryDirectory() as d:
+            p = pathlib.Path(d) / "push_up.json"
+            p.write_text(json.dumps(doc, ensure_ascii=False), encoding="utf-8")
+            check(p)
+        hit = any(expect in e for e in errors)
+        print(f"   {'✅' if hit else '⛔'} {name}: "
+              f"{'yakalandı' if hit else 'YAKALANMADI — SAHTE KAPI'}")
+        return hit
+
+    def m_v1(d):
+        d.pop("family")
+
+    def m_v2(d):
+        d["engine"]["signal"]["side"] = "left"
+
+    def m_v4(d):
+        d["measurementContract"]["scoreDisplay"] = "numeric"
+
+    def m_v5(d):
+        d["class"] = "B"
+
+    def m_v7(d):
+        d["formErrors"][0].pop("cue")
+
+    def m_v8(d):
+        d["class"] = "C"
+
+    def m_v9(d):
+        d["engine"].pop("timeoutMs")
+
+    def m_v11(d):
+        # İki uç ÖRTÜŞÜYOR: top.angleMin, bottom.angleMax'ın altına iniyor.
+        d["engine"]["phases"]["top"]["angleMin"] = 10
+
+    def m_v14(d):
+        d.pop("passiveExecutionPossible")
+
+    def m_v15(d):
+        d["engine"]["precondition"]["status"] = "uydurma"
+
+    cases = [
+        ("V1  zorunlu alan eksik", m_v1, "family"),
+        ("V2  rep sinyali `visible` değil", m_v2, "side"),
+        ("V4  kalibrasyonsuz numeric skor", m_v4, "numeric"),
+        ("V5  B sınıfı form hükmü iddia ediyor", m_v5, "B"),
+        ("V7  cue'suz form hatası", m_v7, "cue"),
+        ("V8  C sınıfı katalogda", m_v8, "C"),
+        ("V9  timeout yok", m_v9, "timeout"),
+        ("V11 repFsm uçları örtüşüyor", m_v11, "angle"),
+        ("V14 passiveExecutionPossible beyansız", m_v14, "passive"),
+        ("V15 tanınmayan precondition durumu", m_v15, "precondition"),
+    ]
+
+    print("kapı ateşleme sınaması (kasıtlı ihlaller):")
+    # TABAN ÖNCE: mutasyonsuz dosya ihlalsiz olmalı, yoksa aşağıdaki her
+    # "yakalandı" anlamsızdır.
+    errors.clear()
+    warnings.clear()
+    check(base_path)
+    if errors:
+        print("   ⛔ TABAN KİRLİ — mutasyonsuz katalog ihlal veriyor:")
+        for e in errors:
+            print(f"      {e}")
+        return 1
+    print("   ✅ taban temiz (mutasyonsuz katalog ihlalsiz)")
+
+    ok = True
+    for name, mutate, expect in cases:
+        ok = fire(name, mutate, expect) and ok
+
+    # ⚠️ SESSİZ KAPSAM YOK. 17 değişmezin 10'u ateşlendi; kalan 7'si
+    # ateşlenMEDİ ve bu AÇIKÇA basılıyor. "10/10 geçti" demek, kapsamı
+    # kapsamaymış gibi sunmak olurdu — bu defterin avladığı desen.
+    #
+    # Ateşlenmeyenler ve NEDEN (hepsi kapsam kararı, unutma değil):
+    #   V3/V6/V16 → perturbasyon/eşik aritmetiği; mutasyonu anlamlı kurmak
+    #               metrik sözlüğünü de bozmayı gerektiriyor (ayrı tur)
+    #   V10/V12   → yalnız belirli motor/yönelim birleşimlerinde doğuyor;
+    #               push_up tabanı o dalları hiç girmiyor (başka taban gerek)
+    #   V13       → dosya-ötesi (beceri ağacı indeksi); `check()` içinde değil
+    #               `main()`de, bu koşumun dışında
+    #   V17       → hasat artefaktı gerektiriyor (referans dosyası)
+    uncovered = sorted(
+        set(INVARIANTS) - {"V1", "V2", "V4", "V5", "V7", "V8", "V9", "V11",
+                           "V14", "V15"},
+        key=lambda v: int(v[1:]))
+    print(f"{'✅' if ok else '⛔'} {len(cases)}/{len(cases)} ateşlenen kapı "
+          f"{'geçti' if ok else 'GEÇMEDİ'} · "
+          f"{len(INVARIANTS)} değişmezin {len(cases)}'i sınandı")
+    print(f"   ⚠️ ATEŞLENMEYEN {len(uncovered)} değişmez: "
+          f"{', '.join(uncovered)} — kanıtsız, kapsam kararı")
+    errors.clear()
+    warnings.clear()
+    return 0 if ok else 1
+
+
 def main():
+    if "--self-test" in sys.argv:
+        return _self_test()
     files = sorted(CATALOG.rglob("*.json"))
     files = [p for p in files if p.name != "exclusions.json"]
     if not files:

@@ -32,7 +32,7 @@ dışında) · `ölçüm yöntemi` (kapı yanlış şeyi ölçüyor).
 
 | Kapı | ÖLÇMÜYOR | Kanıt | Sınıf | Durum |
 |---|---|---|---|---|
-| **`validate_catalog.py`** | **Kendini.** 18 isimli değişmez var, **`--self-test` YOK, `--check` YOK** — kuralların hiçbiri hiç ateşlenmedi. 31 dosyayı denetliyor ve kendi doğruluğu kanıtsız. | `grep -c '"V[0-9]'` → 18 kural; `grep -c 'self-test'` → **0**. Kardeşi `validate_library` 20 mutasyonla kendini kanıtlıyor. | ölçüm yöntemi | 🔴 **AÇIK** — en büyük boşluk |
+| **`validate_catalog.py`** | ~~Kendini~~ → şimdi **17 değişmezin 10'unu** ateşliyor. **Kalan 7'si (V3·V6·V10·V12·V13·V16·V17) HÂLÂ KANITSIZ.** | Envanter yazılırken ölçüldü: `self-test` **0** eşleşme, kardeşi `validate_library` 20 mutasyonla kendini kanıtlıyordu. Eklendi: taban-temiz kontrolü + 10 gerçek dosya mutasyonu. | ölçüm yöntemi | 🟡 **KISMİ** — 10/17, kalanı isimli |
 | **Kontrast kapısı** | **Yerinde tanımlanmış rengi.** Kapı `GravitaColors` tokenlarını tarıyordu; `live_session_screen.dart` mühürlü zemini `const Color(0xFFFFF4F3)` diye YERİNDE tanımlıyordu → kapının dışındaydı. | Ölçtüm: zemin bugün güvenli (honestyText **9.29:1**) ama **hiç ölçülmüyordu.** J-126'nın birebir karşılığı. | kod | ✅ token'a terfi + **literal renk yasağı** kapısı |
 | **Taşma süpürmesi** | ~~Sayfanın ilk ekranından sonrasını~~ · ~~Hareket sayfası dışındaki yüzeyleri~~ | `ListView` ekran-dışını mount etmez → layout etmez → taşma oluşmaz. Ve süpürme yalnız `MovementPage` pump ediyordu. | ölçüm yöntemi | ✅ 5 yüzey × 2 yükseklik; 110pt sabotajıyla sınandı |
 | **K7c (kütüphane)** | ~~Fixture'ı konumla seçtiği için kütüphane büyüyünce hiçbir şeyi~~ | Self-test 20/20'den 19/20'ye düştü; fixture `bodyweight_squat`tan `farmer_carry`e kaydı. | ölçüm yöntemi | ✅ fixture özellikle seçiliyor |
@@ -70,8 +70,18 @@ tam küme geziyor (`_surfacedClaims`, dil, kontrast, kapsam).
 **③ *"Hangi türetim kapısı yalnız çıktıyı ölçüyor?"***
 Dört `--check` kapısı **türetimin kendisini** ölçüyor (yeniden üretip
 diff'liyor) — çıktı değil. `validate_library` çıktıyı ölçüyor **ama kendini
-20 mutasyonla kanıtlıyor.** **`validate_catalog` ikisini de yapmıyor** —
-tek gerçek boşluk.
+20 mutasyonla kanıtlıyor.** **`validate_catalog` ikisini de yapmıyordu** —
+envanterin bulduğu tek gerçek boşluk.
+
+**Kapatıldı — ama TAMAMEN DEĞİL ve bu açıkça basılıyor:** 17 değişmezin
+**10'u** gerçek dosya mutasyonuyla ateşlendi (+ taban-temiz kontrolü).
+Kalan **7'si (V3·V6·V10·V12·V13·V16·V17) hâlâ kanıtsız** ve betiğin
+çıktısı bunu her koşumda yazıyor — *"10/10 geçti"* demek, kapsamı kapsamaymış
+gibi sunmak olurdu. Neden ateşlenmedikleri de isimli: perturbasyon aritmetiği
+metrik sözlüğünü bozmayı gerektiriyor (V3/V6/V16) · yalnız belirli
+motor/yönelim birleşimlerinde doğuyor, `push_up` tabanı o dalları girmiyor
+(V10/V12) · dosya-ötesi, `check()` dışında (V13) · hasat artefaktı gerekiyor
+(V17).
 
 ---
 
