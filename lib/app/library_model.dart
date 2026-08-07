@@ -42,15 +42,31 @@ enum MovementStatus {
 /// Boşluk bir hata hâli değildir: "henüz hiçbir şey ölçmüyoruz" tam olarak
 /// söylenmesi gereken şeydir.
 final class HonestyBox {
-  const HonestyBox({required this.measured, required this.notMeasured});
+  const HonestyBox({
+    required this.measured,
+    required this.notMeasured,
+    this.scoring,
+  });
 
   factory HonestyBox.fromJson(Map<String, dynamic> j) => HonestyBox(
         measured: _strings(j['measured']),
         notMeasured: _strings(j['notMeasured']),
+        scoring: j['scoring'] as String?,
       );
 
   final List<String> measured;
   final List<String> notMeasured;
+
+  /// ⭐ TESPİT/KOÇLUK ↔ PUANLAMA ayrımı — ÜRETİLİR (`promote_library.py`).
+  ///
+  /// J-113 aktarımı: *"ölçülenler"* başlığı İKİ AYRI iddiayı topluyor —
+  /// *"tespit edip koçluyoruz"* ile *"puanlıyoruz"* — ve kullanıcı ikincisini
+  /// okuyor. Ölçüldü: Gravita'da 30/31 hareket ipucu veren 71 kural taşıyor
+  /// ama **bugün puanlayan ders 0**. Sınıf VAR ve BASKIN; eksik olan ADIYDI.
+  ///
+  /// `null` ise [measured] zaten boştur: ölçülen hiçbir şey yokken "bu bir
+  /// puan değil" demek, olmayan bir şeyi nitelemek olurdu.
+  final String? scoring;
 
   /// Bugünün baskın hâli: hiçbir şey ölçülmüyor. Ekran bunu ONURLU bir hâl
   /// olarak çizer — boş/hata gibi değil.

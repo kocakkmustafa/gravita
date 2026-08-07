@@ -45,6 +45,7 @@ class MovementPage extends StatefulWidget {
   });
 
   static const Key honestyKey = Key('movement.honesty');
+  static const Key scoringKey = Key('movement.scoring');
   static const Key howToKey = Key('movement.howTo');
   static const Key formErrorsKey = Key('movement.formErrors');
   static const Key safetyKey = Key('movement.safety');
@@ -226,6 +227,28 @@ class _MovementPageState extends State<MovementPage> {
                     color: GravitaColors.honestyText,
                     bulletColor: GravitaColors.honestySeal,
                   ),
+                // ⭐ Ayrım, `measured` listesinin HEMEN ALTINDA duruyor —
+                // "not measured" başlığından ÖNCE. Aşağı atmak onu ikinci
+                // sınıf bir dipnot yapardı, oysa okuyucunun `measured`ı
+                // yanlış okuduğu an tam burası.
+                if (m.honesty.scoring != null) ...<Widget>[
+                  const SizedBox(height: 14),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(12, 11, 12, 12),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: GravitaColors.honestySeal.withValues(alpha: 0.07),
+                    ),
+                    child: Text(
+                      m.honesty.scoring!,
+                      key: MovementPage.scoringKey,
+                      style: GravitaType.body(
+                          size: 12.5,
+                          color: GravitaColors.honestyText,
+                          height: 1.55),
+                    ),
+                  ),
+                ],
                 const SizedBox(height: 20),
                 _honestyHeading(LibraryStrings.honestyNotMeasuredLabel),
                 const SizedBox(height: 10),

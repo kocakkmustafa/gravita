@@ -194,7 +194,43 @@ def _dedupe(items):
     return out
 
 
-def generate_entry(mid, cat, classes):
+def scoring_statement(grading_lessons_open):
+    """⭐ TESPİT/KOÇLUK ile PUANLAMA ayrımı — ÜRETİLİR (J-113 aktarımı).
+
+    JabLab'ın bulgusu: *"ölçülenler"* listesi İKİ AYRI iddiayı tek başlıkta
+    topluyor — *"tespit edip koçluyoruz"* ile *"puanlıyoruz"*. Kullanıcı
+    ikincisini okuyor. **M-F-287'nin TERS yönü:** bir SINIRI değil bir
+    YETENEĞİ olduğundan geniş yazmak — ve bu daha tehlikeli, çünkü hata
+    kullanıcının ALEYHİNE.
+
+    Gravita'da ölçüldü (2026-08-07): 30/31 hareket ipucu veren **71 kural**
+    taşıyor (tespit + koçluk) ama **bugün gerçekten puanlayan ders 0** — tek
+    form-notu dersi kilitli ve `scoreDisplay` 31/31 `band`. Yani sınıf VAR ve
+    üstelik BASKIN; eksik olan ADI.
+
+    Cümle ARTEFAKTTAN türer (`grading_lessons_open` sayısı), elle yazılmaz:
+    ilk ders notlamaya başladığı gün kendiliğinden değişir. Sabit yazılsaydı
+    o gün sessizce yalan olurdu.
+    """
+    if grading_lessons_open == 0:
+        return (
+            "None of this is a score. We count and time what is listed above, "
+            "and when a rule fires we tell you what to change — but no number "
+            "grades your form, on this movement or any other in Gravita. Form "
+            "grading stays shut until joint tolerances come from measured "
+            "disagreement between real instructors rather than from our "
+            "default floor."
+        )
+    return (
+        f"{grading_lessons_open} "
+        f"{'lesson' if grading_lessons_open == 1 else 'lessons'} in Gravita "
+        f"now grade form against a measured instructor reference. Everything "
+        f"listed above that is not part of one of those lessons is counted or "
+        f"timed and cued, not scored."
+    )
+
+
+def generate_entry(mid, cat, classes, grading_lessons_open=0):
     """Katalog girdisinden kütüphane girdisi — TEK bir cümle elle yazılmadan.
 
     Dürüstlük kutusunun kaynağı W0 §3'ün sözleşmesi: `measurementContract`
@@ -242,6 +278,11 @@ def generate_entry(mid, cat, classes):
         honesty = {
             "measured": list(mc.get("measured") or []),
             "notMeasured": permanent,
+            # ⭐ Terfi eden HER hareket bu ayrımı taşır. Taşımasaydı, katalogun
+            # `measured` satırları ("Body-line alignment over time", "Time
+            # until form starts to break") 31 harekette birden PUANLAMA
+            # iddiası gibi okunurdu — koordinatörün uyardığı çoğalma tam bu.
+            "scoring": scoring_statement(grading_lessons_open),
         }
         coming_soon = []
     else:
@@ -253,6 +294,9 @@ def generate_entry(mid, cat, classes):
             f"for us to keep this closed."
         )
         honesty = {
+            # `scoring` YOK: ölçülen hiçbir şey yokken "bu bir puan değil"
+            # demek, olmayan bir şeyi nitelemek olurdu. Ayrım ancak bir
+            # `measured` iddiası VARSA anlamlıdır — kapı da bunu böyle sorar.
             # ⚠️ BOŞ: katalogun `measured` listesi bu hareketin ölçüldüğünü
             # DEĞİL, ölçülmek üzere YAZILDIĞINI anlatır. Onu "measured"
             # başlığı altına koymak vaat dili olurdu (M-F-186) — kuyruğa
@@ -341,20 +385,46 @@ def _blurb(name, live, keys):
 
 # ── Uygulama ───────────────────────────────────────────────────────────────
 
+def count_open_grading_lessons(lib):
+    """BUGÜN gerçekten form notu veren ders sayısı — kilitliler HARİÇ.
+
+    `scoring_statement` bunun üstüne kuruluyor. Kilitli bir dersi saymak,
+    henüz verilmeyen bir hükmü verilmiş göstermek olurdu.
+    """
+    return sum(
+        1
+        for m in lib["movements"]
+        for c in (m.get("courses") or [])
+        for l in (c.get("lessons") or [])
+        if l.get("gradesFormAgainstReference") and l.get("status") != "locked"
+    )
+
+
 def apply(lib, catalogs, classes):
     """Kütüphaneyi katalogla uzlaştırır; (yeni_lib, rapor) döner."""
+    grading_open = count_open_grading_lessons(lib)
     by_id = {m["id"]: m for m in lib["movements"]}
     added, refreshed, drifted = [], [], []
 
     for mid in sorted(catalogs):
         cat = catalogs[mid]
-        fresh = generate_entry(mid, cat, classes)
+        fresh = generate_entry(mid, cat, classes, grading_open)
         existing = by_id.get(mid)
 
         if existing is None:
             by_id[mid] = fresh
             added.append(mid)
             continue
+
+        # ⚠️ `scoring` TÜRETİMLİ bir alandır, prose değil — daraltılmış
+        # muafiyetin tam da tarif ettiği sınıf: curated girdi PROSE'undan
+        # muaftır, DEĞİŞMEZLERDEN ve türetimli alanlardan değil. Bu yüzden
+        # curated girdilerin dürüstlük kutusuna da BURADAN yazılıyor.
+        if existing.get("honesty", {}).get("measured"):
+            existing.setdefault("honesty", {})["scoring"] = \
+                scoring_statement(grading_open)
+        elif existing.get("honesty", {}).get("scoring") is not None:
+            existing["honesty"].pop("scoring")
 
         curated = existing.get("honestySource") == "curated"
         fields = DERIVED_FIELDS if curated else DERIVED_FIELDS + (

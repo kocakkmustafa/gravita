@@ -462,6 +462,49 @@ void main() {
       }
     });
 
+    testWidgets(
+        '⭐ J-113: `measured` iddiası TESPİT/PUANLAMA ayrımını taşıyor',
+        (WidgetTester tester) async {
+      // JabLab'ın bulgusu: "ölçülenler" başlığı İKİ AYRI iddiayı topluyor —
+      // "tespit edip koçluyoruz" ile "puanlıyoruz" — ve kullanıcı ikincisini
+      // okuyor. M-F-287'nin TERS yönü: bir SINIRI değil bir YETENEĞİ
+      // olduğundan geniş yazmak; hata kullanıcının ALEYHİNE.
+      //
+      // Gravita'da ölçüldü: 30/31 hareket ipucu veren 71 kural taşıyor
+      // (tespit + koçluk), bugün gerçekten puanlayan ders 0, scoreDisplay
+      // 31/31 `band`. Sınıf VAR ve BASKIN — eksik olan ADIYDI.
+      useNarrowTall(tester);
+      final ContentRepository c = await loadReal(tester);
+
+      for (final MovementEntry m in c.catalogue.movements) {
+        if (m.honesty.measured.isEmpty) {
+          // Ölçülen yoksa ayrım da olmamalı: olmayan bir şeyi nitelemek.
+          expect(m.honesty.scoring, isNull, reason: m.id);
+          continue;
+        }
+        expect(m.honesty.scoring, isNotNull,
+            reason: '${m.id}: `measured` iddiası var ama TESPİT/PUANLAMA '
+                'ayrımı YOK — okuyucu "puanlanıyor" diye okur (J-113).');
+        // ⚠️ İFADEYE değil KAVRAMA bağlanıyor. İlk yazışımda `'not a score'`
+        // tam metnini arıyordum ve üreteç "None of this is a score" yazınca
+        // düştü — nöbetin kendisi bir yeniden-yazıma karşı kırılgandı.
+        // Az önce `movement:<id>` iddiasında düzelttiğim hatanın aynısı:
+        // sözleşme, cümlenin harfleri değil TAŞIDIĞI ayrım.
+        expect(m.honesty.scoring!.toLowerCase(), contains('score'),
+            reason: '${m.id}: ayrım cümlesi puanlamadan hiç söz etmiyor');
+      }
+
+      // Ayrım EKRANDA da çiziliyor — içerikte olması yetmez.
+      final MovementEntry live =
+          c.catalogue.movements.firstWhere((MovementEntry m) => m.isLive);
+      await tester.pumpWidget(host(MovementPage(movement: live, content: c)));
+      await tester.pump();
+      expect(find.byKey(MovementPage.scoringKey, skipOffstage: false),
+          findsOneWidget);
+      expect(find.text(live.honesty.scoring!, skipOffstage: false),
+          findsOneWidget);
+    });
+
     test('canlı seans AYRI KOVAYA yazılıyor — ders trendine karışmıyor', () {
       // ⚠️ Bu nöbet TERS ÇEVRİLDİ ve çevrilme sebebi kayda değer. Önceki hâli
       // bir KUSURU sabitliyordu ("kabukta hiç `.append(` yok") ve ikinci yönü
