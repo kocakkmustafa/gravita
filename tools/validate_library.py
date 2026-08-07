@@ -648,21 +648,81 @@ def product_claims(lib):
         for m in lib["movements"] if m.get("status") == "live"
         for line in m.get("honesty", {}).get("measured", []))
 
-    # Yalnız olumlu yetenek beyanı: "we <verb>" / "we can <verb>".
+    # ⭐ TERS İKİZ DERSİ: ilk hâli yalnız "we <verb>" arıyordu ve ÜÇ
+    # koşumda ölçüldü — *"Knee angle **is watched**"* ve *"**Gravita
+    # watches** your knee angle"* kapıdan GEÇİYORDU. Yani kapı, iddiayı
+    # SİLMEYİ değil ÖZNEYİ GİZLEMEYİ ödüllendiriyordu.
+    #
+    # > *Bir kapı, kendisini geçmenin YANLIŞ yolunu da kapatmalı.*
+    #
+    # Düzeltme: ürün öznesi AÇIK olsun (biz/Gravita/uygulama/motor) ya da
+    # GİZLİ (edilgen) — ikisi de tutulur. Alan iddiası serbest kalır çünkü
+    # o kendi öznesini ADLANDIRIR ("most instructors", "coaches").
+    #: Kendi kendini SINIRLAYAN cümle: yetenekten söz eder ama kullanıcının
+    #: onu almadığını AYNI satırda söyler.
+    BOUNDED = re.compile(
+        r"no screen|nothing in (?:the|this) app|nothing actually tells you|"
+        r"we do not count it|never a score|does not (?:show|display)|"
+        r"is not shown|permanent limit", re.I)
+
+    PRODUCT = r"(?:we|our|gravita|the app|the engine|the camera|it)"
     pat = re.compile(
-        r"\bwe(?:\s+can|\s+do|\s+would)?\s+(" + "|".join(CAPABILITY_VERBS) + r")\b",
-        re.I)
+        rf"\b{PRODUCT}(?:\s+(?:can|do|does|would|will))?\s+("
+        + "|".join(CAPABILITY_VERBS) + r")(?:e?s)?\b", re.I)
+    # Edilgen: özne SİLİNMİŞ hâl. Okuyan boşluğa "uygulama"yı koyar.
+    passive = re.compile(
+        r"\b(?:is|are|was|were|be|been|gets?|being)\s+(?:\w+\s+){0,2}("
+        + "|".join(v + "ed" if not v.endswith("e") else v + "d"
+                   for v in CAPABILITY_VERBS) + r")\b", re.I)
 
     out = []
     for m in lib["movements"]:
         for field in ("comingSoonInThisMovement",):
             for line in m.get(field, []):
-                for verb in pat.findall(line):
+                # ⚠️ OLUMSUZLUK İDDİAYI TERSİNE ÇEVİRİR. İlk taslak
+                # *"...so it would **not** be graded even once the tolerance
+                # question is settled"* cümlesini yakaladı — o cümle
+                # yeteneği iddia etmiyor, REDDEDİYOR. Bu gecenin 12.
+                # fazla-geniş ilk taslağı; ölçüt yine DARALTILDI.
+                # ⭐ 13. daraltma — ve bu sefer bir SINIFI KORUMAK için.
+                #
+                # Kapı şu cümleyi yakalıyordu: *"Tempo — the engine measures
+                # it from the real turnaround point… **But no screen in this
+                # app shows it to you, so we do not count it as something
+                # you get.**"* Bu dosyadaki EN DİKKATLİ cümle, ve kapı onu
+                # ihlal sayıyordu.
+                #
+                # Kusur benim ölçütümdeydi: dayanağı yalnız
+                # `honesty.measured` (kullanıcının ALDIĞI) saymıştım. Motorun
+                # YAPABİLDİĞİ ayrı bir gerçek — cümle kullanıcının onu
+                # ALMADIĞINI açıkça söylüyorsa iddia ölçümden geniş DEĞİL,
+                # tam sınırında.
+                #
+                # > Dürüstlük kapısı, dürüst cümleyi cezalandırıyorsa
+                # > ölçütü yanlıştır.
+                if BOUNDED.search(line):
+                    continue
+
+                def claimed(rx, label):
+                    out = []
+                    for mt in rx.finditer(line):
+                        before = line[max(0, mt.start() - 24):mt.start()].lower()
+                        if re.search(r"\b(not|never|no|cannot|won't|don't|"
+                                     r"doesn't|without)\b", before):
+                            continue
+                        out.append((mt.group(1), label))
+                    return out
+
+                found = claimed(pat, "açık özne")
+                found += [(v[:-2] if v.endswith("ed") else v[:-1],
+                           "EDİLGEN — özne gizlenmiş")
+                          for v, _ in claimed(passive, "")]
+                for verb, how in found:
                     if verb.lower() not in measured:
                         out.append(
-                            f"{m['id']}: '{verb}' yeteneği iddia ediliyor ama "
-                            f"canlı hareketlerin ölçülenler listesinde YOK — "
-                            f"ölçümden geniş ürün iddiası")
+                            f"{m['id']}: '{verb}' yeteneği iddia ediliyor "
+                            f"({how}) ama canlı hareketlerin ölçülenler "
+                            f"listesinde YOK — ölçümden geniş ürün iddiası")
     return out
 
 
