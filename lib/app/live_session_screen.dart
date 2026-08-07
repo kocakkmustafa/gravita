@@ -344,7 +344,7 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
               // bugün görünen tek ek bilgi zaten var olan kare sayacı.
               Text('$framesSeen frames',
                   style: GravitaType.mono(
-                      size: 10.5, color: GravitaColors.textTertiary)),
+                      size: 10.5, color: GravitaColors.sessionInkMutedOnDark)),
               const SizedBox(height: 22),
               FilledButton(
                 key: LiveSessionScreen.stopButtonKey,

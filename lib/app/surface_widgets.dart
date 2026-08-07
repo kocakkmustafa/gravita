@@ -41,7 +41,7 @@ class SurfaceSection extends StatelessWidget {
                   title,
                   style: GravitaType.mono(
                       size: 11,
-                      color: GravitaColors.textTertiary,
+                      color: GravitaColors.textSecondary,
                       weight: FontWeight.w600,
                       letterSpacingEm: 0.12),
                 ),
@@ -118,7 +118,8 @@ class MovementCard extends StatelessWidget {
               label: live
                   ? LibraryStrings.openBadge
                   : LibraryStrings.queuedBadge,
-              tone: live ? GravitaColors.accent : GravitaColors.textTertiary,
+              // Pill ETİKETİ metindir (mono 10) → non-text token kullanılamaz.
+              tone: live ? GravitaColors.accent : GravitaColors.textSecondary,
               filled: live,
             ),
           ],

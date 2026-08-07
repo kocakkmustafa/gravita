@@ -96,7 +96,7 @@ class ContentFailureScreen extends StatelessWidget {
                       style: GravitaType.body(size: 14, weight: FontWeight.w500)),
                   subtitle: Text('What to send us if you report this',
                       style: GravitaType.mono(
-                          size: 10.5, color: GravitaColors.textTertiary)),
+                          size: 10.5, color: GravitaColors.textSecondary)),
                   children: <Widget>[
                     SelectableText(
                       failure.detail.isEmpty

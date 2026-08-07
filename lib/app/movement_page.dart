@@ -153,13 +153,13 @@ class _MovementPageState extends State<MovementPage> {
                     : LibraryStrings.queuedBadge,
                 tone: m.isLive
                     ? GravitaColors.accent
-                    : GravitaColors.textTertiary,
+                    : GravitaColors.textSecondary,
                 filled: m.isLive,
               ),
               if (m.classBadge != null)
                 GravitaPill(
                   label: m.classBadge!.toUpperCase(),
-                  tone: GravitaColors.textTertiary,
+                  tone: GravitaColors.textSecondary,
                   filled: false,
                 ),
             ],
@@ -167,7 +167,7 @@ class _MovementPageState extends State<MovementPage> {
           const SizedBox(height: 12),
           Text(LibraryStrings.metaLine(m),
               style: GravitaType.mono(
-                  size: 11, color: GravitaColors.textTertiary)),
+                  size: 11, color: GravitaColors.textSecondary)),
           const SizedBox(height: 12),
           Text(m.blurb,
               style: GravitaType.body(
@@ -237,7 +237,15 @@ class _MovementPageState extends State<MovementPage> {
                     padding: const EdgeInsets.fromLTRB(12, 11, 12, 12),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: GravitaColors.honestySeal.withValues(alpha: 0.07),
+                      // ⚠️ 0.07 DEĞİL 0.05 — ölçümle ayarlandı (WCAG nöbeti,
+                      // J-114 aktarımı). 0.07'de zemin `#EED9D9` oluyor ve
+                      // `textSecondary` orada **4.35:1**'e düşüyordu: eşik
+                      // altı. Bugün bu kutuda yalnız `honestyText` (7.42)
+                      // çiziliyor, yani kusur BUGÜN ısırmıyordu — ama zemin
+                      // herhangi bir ikincil tonu eşik altına düşürüyorsa,
+                      // o zemin bir TUZAKTIR ve ilk yeniden düzenlemede
+                      // ısırır. Zemin düzeltildi, ton değil.
+                      color: GravitaColors.honestySeal.withValues(alpha: 0.05),
                     ),
                     child: Text(
                       m.honesty.scoring!,

@@ -78,7 +78,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             LibraryStrings.libraryCount(
                 _catalogue.movements.length, _catalogue.liveCount),
             style: GravitaType.mono(
-                size: 11, color: GravitaColors.textTertiary),
+                size: 11, color: GravitaColors.textSecondary),
           ),
           const SizedBox(height: 14),
           _searchField(),
@@ -99,8 +99,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
         style: GravitaType.body(size: 15),
         decoration: InputDecoration(
           hintText: LibraryStrings.searchHint,
+          // İpucu metni de METİNDİR — placeholder olması WCAG'den muaf
+          // tutmaz; kullanıcı onu okuyup ne yazacağını anlıyor.
           hintStyle: GravitaType.body(
-              size: 15, color: GravitaColors.textTertiary),
+              size: 15, color: GravitaColors.textSecondary),
           prefixIcon:
               const Icon(Icons.search, color: GravitaColors.textTertiary),
           suffixIcon: _query.text.isEmpty
@@ -181,7 +183,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
         trailing: Text(
           '${f.movements.length}',
           style: GravitaType.mono(
-              size: 11, color: GravitaColors.textTertiary),
+              size: 11, color: GravitaColors.textSecondary),
         ),
         children: f.movements
             .map((MovementEntry m) =>

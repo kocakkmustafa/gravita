@@ -50,7 +50,31 @@ abstract final class GravitaColors {
   static const Color ink = Color(0xFF1E1817);
   static const Color inkMuted = Color(0xFF4A403E);
   static const Color textSecondary = Color(0xFF6E6260);
+
+  /// ⚠️ **METİN İÇİN KULLANMA — bu bir NON-TEXT tokenidir.**
+  ///
+  /// Ölçüldü (WCAG 2.2 · 2026-08-07, J-114 aktarımı): `#7A6C69` sayfa
+  /// zemininde (`#F2EFEE`) **4.40:1**, mühür kartının alt ucunda **4.26:1**
+  /// veriyor — ikisi de normal metin eşiği **4.5**'in ALTINDA. Kusur küçük
+  /// mono ölçüm-dilinde oluşuyordu ve bu üründe mono metin BASKIN (tasarımın
+  /// kendi sayımı: 161 mono ↔ 71 prose).
+  ///
+  /// İkon/kenarlık/ayraç için MEŞRU: WCAG 1.4.11 metin-dışı eşiği **3.0** ve
+  /// bu renk kart üstünde 4.56 veriyor — rahatça geçiyor.
+  ///
+  /// Metin gerektiğinde [textSecondary] kullan (sayfada 5.13, mühürde 4.98).
+  /// Token DEĞİŞTİRİLMEDİ, KULLANIMI ayrıldı: ikisi de tasarımın teslim ettiği
+  /// palette içinde (delta belgesi §3.1 ikisini de sayıyor), o yüzden bu bir
+  /// palet ihlali değil, aynı paletin doğru yerde kullanılması.
   static const Color textTertiary = Color(0xFF7A6C69);
+
+  /// KOYU zemin (seans ekranı) için ikincil metin.
+  ///
+  /// Ölçüldü: hem [textTertiary] (3.37) hem [textSecondary] (2.88)
+  /// `sessionCamera` üstünde eşiğin ALTINDA — koyu zeminde açık ton gerekiyor,
+  /// açık-zemin tokeni ters çevrilerek kullanılamıyor. Bu değer
+  /// `sessionCamera` üstünde 7.60, `sessionStage` üstünde 8.33 veriyor.
+  static const Color sessionInkMutedOnDark = Color(0xFFB8ABA8);
 
   /// The ONLY accent colour (design brief §1: "kırmızı yalnız üç işte:
   /// ölçülen kriter, kapı/kilit, dürüstlük mührü" — measured criterion,
@@ -127,7 +151,11 @@ abstract final class GravitaType {
         fontSize: size,
         fontWeight: weight,
         letterSpacing: letterSpacingEm * size,
-        color: color ?? GravitaColors.textTertiary,
+        // ⚠️ VARSAYILAN metin rengi [textSecondary] — [textTertiary] DEĞİL.
+        // Eskiden tertiary'ydi ve bu, rengi ELLE vermeyen her çağıranı
+        // sessizce eşik-altı bir metne düşürüyordu: kusurun varsayılan
+        // olması, en kolay çoğalma yolu.
+        color: color ?? GravitaColors.textSecondary,
       );
 }
 

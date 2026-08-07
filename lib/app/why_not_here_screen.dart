@@ -85,7 +85,7 @@ class WhyNotHereScreen extends StatelessWidget {
                   const SizedBox(width: 10),
                   GravitaPill(
                     label: 'CLASS ${s.movementClass}',
-                    tone: GravitaColors.textTertiary,
+                    tone: GravitaColors.textSecondary,
                     filled: false,
                   ),
                 ],
@@ -111,7 +111,7 @@ class WhyNotHereScreen extends StatelessWidget {
                 children: s.examples
                     .map((String e) => GravitaPill(
                           label: e,
-                          tone: GravitaColors.textTertiary,
+                          tone: GravitaColors.textSecondary,
                           filled: false,
                         ))
                     .toList(growable: false),

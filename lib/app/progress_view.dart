@@ -178,7 +178,7 @@ class ProgressView extends StatelessWidget {
               const SizedBox(height: 8),
               Text(ProgressStrings.unscored(l.unscoredSessions),
                   style: GravitaType.mono(
-                      size: 10.5, color: GravitaColors.textTertiary)),
+                      size: 10.5, color: GravitaColors.textSecondary)),
             ],
           ],
         ],
@@ -313,7 +313,7 @@ class ProgressView extends StatelessWidget {
         Text(title,
             style: GravitaType.mono(
                 size: 11,
-                color: GravitaColors.textTertiary,
+                color: GravitaColors.textSecondary,
                 weight: FontWeight.w600,
                 letterSpacingEm: 0.12)),
         if (subtitle != null) ...<Widget>[
