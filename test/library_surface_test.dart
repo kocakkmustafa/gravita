@@ -462,14 +462,53 @@ void main() {
       }
     });
 
-    test('canlı seans KAYDEDİLMİYOR — bu boşluk İÇERİKTE beyan edilmiş', () {
-      // ⚠️ Nöbet bir KUSURU sabitliyor, bir doğruyu değil. Ölçüldü: kabukta
-      // hiçbir `store.append(...)` yok — `_stop()` tekrarları atıyor. Yani
-      // Progress ekranı hiçbir zaman gerçek bir seans göremez.
+    test('canlı seans AYRI KOVAYA yazılıyor — ders trendine karışmıyor', () {
+      // ⚠️ Bu nöbet TERS ÇEVRİLDİ ve çevrilme sebebi kayda değer. Önceki hâli
+      // bir KUSURU sabitliyordu ("kabukta hiç `.append(` yok") ve ikinci yönü
+      // şunu diyordu: *kabuk yazmaya başlarsa bu test öter, çünkü içerikteki
+      // "seansın atılıyor" beyanı BAYAT olur.* Koordinatör G-132 hükmünü
+      // verdi, yazma yolu eklendi, ve test **tam da tasarlandığı gibi öttü**.
+      // Beyan içerikten kaldırıldı, nöbet yeni gerçeği tutuyor.
       //
-      // Kusur bu turda KAPANMADI (seansın hangi derse yazılacağı bir ürün
-      // kararı, koordinatörde). Kapanana kadar en azından SÖYLENİYOR — ve bu
-      // test, beyanın içerikten sessizce düşmesini engelliyor.
+      // Hüküm (G-132): seans başlatıldığı DERSİN kaydına yazılır — çünkü
+      // farklı `focus`lu dersleri tek trendde toplamak, "tek genel skor yok"
+      // yasağının ZAMAN eksenindeki hâlidir. Dar-kapsam şartı ölçüldü ve
+      // DEVREDE: bugün `LiveSessionScreen`e tek giriş kabuktaki seans düğmesi
+      // ve o giriş HAREKET düzeyinde — ders bağlamlı başlatma yolu YOK.
+      // O yüzden her seans serbesttir ve AYRI DOSYAYA yazılır.
+      final List<File> dart = Directory('lib')
+          .listSync(recursive: true)
+          .whereType<File>()
+          .where((File f) => f.path.endsWith('.dart'))
+          .toList();
+
+      // ① Yazma yolu VAR.
+      expect(dart.any((File f) => f.readAsStringSync().contains('.append(')),
+          isTrue,
+          reason: 'Seans yazma yolu kayboldu — tekrarlar yine atılıyor olur.');
+
+      // ② Yazma SERBEST kovaya gidiyor, ders kovasına DEĞİL. Bu, hükmün
+      //    "karışmaz" şartının mekanik hâli: karışma unutulmadığı için değil,
+      //    yazan taraf öteki dosyayı hiç açmadığı için imkânsız.
+      final String live =
+          File('lib/app/live_session_screen.dart').readAsStringSync();
+      expect(live.contains('openFreeSessionStore'), isTrue);
+      expect(live.contains('openSessionStore()'), isFalse,
+          reason: 'Canlı ekran DERS kovasına yazıyor — serbest seans ders '
+              'trendine karışır ve 7-bileşen ayrımı zaman ekseninde çöker.');
+
+      // ③ Anahtar ön eki: kova karışsa bile kaydın kendisi hareket olduğunu
+      //    SÖYLÜYOR (`movement:<id>`), sessizce ders gibi görünmüyor.
+      //
+      // ⚠️ Bu iddia önce `content_repository.dart` içinde METİN olarak
+      // aranıyordu ve tanımı `live_session.dart`a taşıyınca DÜŞTÜ — nöbet
+      // doğru öttü ama yanlış şeyi ölçüyordu: bir sabitin hangi DOSYADA
+      // yazıldığı sözleşme değil, ÜRETTİĞİ DEĞER sözleşme. Artık davranış
+      // sınanıyor, konum değil.
+      expect(ContentRepository.freeSessionKey('push_up'), 'movement:push_up');
+
+      // ④ İçerikteki "atılıyor" beyanı KALDIRILMIŞ olmalı — kusur kapandıysa
+      //    beyanı durmak, kapanmadığında durmaması kadar yanlış.
       final Map<String, dynamic> lib = (jsonDecode(
               File('content/library.json').readAsStringSync()) as Map)
           .cast<String, dynamic>();
@@ -480,20 +519,8 @@ void main() {
           (pushUp['comingSoonInThisMovement'] as List<dynamic>)
               .cast<String>()
               .any((String s) => s.contains('discarded')),
-          isTrue,
-          reason: 'Seansın kaydedilmediği gerçeği içerikten düşmüş — kusur '
-              'duruyorsa beyanı da durmalı.');
-
-      // Kaynağın kendisi: kabukta yazma yolu YOK. Bu satır düşerse (yani
-      // append eklenirse) beyan da gözden geçirilmeli.
-      final bool writes = Directory('lib')
-          .listSync(recursive: true)
-          .whereType<File>()
-          .where((File f) => f.path.endsWith('.dart'))
-          .any((File f) => f.readAsStringSync().contains('.append('));
-      expect(writes, isFalse,
-          reason: 'Kabuk artık seans YAZIYOR — içerikteki "discarded" beyanı '
-              'BAYAT. Beyanı güncelle, sonra bu nöbeti kaldır.');
+          isFalse,
+          reason: 'Seans artık kaydediliyor; "atılıyor" beyanı BAYAT.');
     });
 
     test('rozet ETİKETİ gerekçeli — "Coming soon" sınıfı etiket YOK', () {

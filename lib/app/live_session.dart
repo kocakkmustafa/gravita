@@ -120,3 +120,46 @@ final class LiveSessionRunner {
         framesSeen: _framesSeen,
       );
 }
+
+/// Biten bir serbest seansın KAYDI — ya da `null` (kaydedilmeyecek).
+///
+/// **Neden ekrandan ayrı:** "ne yazılır ve ne zaman HİÇ yazılmaz" bir ÜRÜN
+/// kararıdır, bir çizim değil. Ekranın içinde kalsaydı yalnız widget testiyle
+/// ve sahte kamerayla sınanabilirdi; burada saf Dart olarak sınanıyor. Bu,
+/// `LiveSessionRunner`ın ayrı sınıf olma gerekçesinin aynısı.
+///
+/// **Kaydedilmeme kuralı — kare YOKSA seans YOKTUR.** Kamera hiç kare
+/// vermediyse ortada bir seans değil, başlatılamamış bir deneme vardır;
+/// sıfır-kareli kayıt geçmişi gürültüyle doldurur ve kullanıcıya "bir şey
+/// yaptım" izlenimi verir.
+///
+/// **Sıfır TEKRAR ama kare VARSA kaydedilir:** kamera çalıştı, hiç tam tekrar
+/// sayılmadı — bu GERÇEK bir sonuçtur. Silmek, ölçümü beğenmediğimiz için
+/// saklamak olurdu.
+SessionRecord? buildFreeSessionRecord({
+  required String movementId,
+  required LiveState state,
+  required DateTime startedAt,
+  required DateTime endedAt,
+}) {
+  if (state is! LiveRunning || state.framesSeen == 0) return null;
+  final int worked = endedAt.difference(startedAt).inSeconds;
+  return SessionRecord(
+    // Ders DEĞİL hareket anahtarı — bu kayıt ders trendine karışamaz.
+    lessonId: freeSessionKeyFor(movementId),
+    completedAt: endedAt,
+    // Negatif süre YAZILMAZ: saat geri alınmışsa 0 yazmak, eksi bir "çalışma"
+    // yazmaktan dürüst.
+    workedSeconds: worked < 0 ? 0 : worked,
+    unitsCompleted: state.repCount,
+    // Serbest seansın PLANI yoktur. 0, "hedefini tutturamadın" değil
+    // "hedef konmadı" demektir.
+    plannedUnits: 0,
+    unitLabel: 'rep',
+    // Sayıyoruz, NOT VERMİYORUZ — bugünkü gerçek bu.
+    lessonClass: 'measurementOnly',
+  );
+}
+
+/// Serbest seans kaydının hareket anahtarı — TEK ev.
+String freeSessionKeyFor(String movementId) => 'movement:$movementId';

@@ -9,6 +9,7 @@ import 'package:motion_core/motion_core.dart' show FrameSize;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'content_repository.dart';
 import 'live_session.dart';
 import 'live_strings.dart';
 import 'pose_model.dart';
@@ -54,6 +55,7 @@ class LiveSessionScreen extends StatefulWidget {
   const LiveSessionScreen({
     required this.config,
     this.controller,
+    this.onSessionEnd,
     super.key,
   });
 
@@ -61,6 +63,12 @@ class LiveSessionScreen extends StatefulWidget {
 
   /// Testlerin/harness'ın kendi denetleyicisini vermesi için. Üretimde null.
   final MotionCameraController? controller;
+
+  /// Biten seansı yazan işlev — üretimde SERBEST kovaya
+  /// (`ContentRepository.openFreeSessionStore`). Enjekte edilebilir olması
+  /// testin `path_provider` olmadan yazılan KAYDIN İÇERİĞİNİ okuyabilmesi
+  /// için: "yazma denendi mi" ile "doğru şey mi yazıldı" farklı sorular.
+  final Future<void> Function(SessionRecord record)? onSessionEnd;
 
   static const Key startButtonKey = Key('live.start');
   static const Key stopButtonKey = Key('live.stop');
@@ -79,6 +87,10 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
   LiveState _state = const LiveIdle();
   StreamSubscription<CameraFrameEnvelope>? _sub;
   bool _running = false;
+
+  /// Seansın GERÇEKTEN başladığı an — çalışılan süre buradan ölçülür.
+  /// `LiveRunning` bunu taşımıyor; taşısaydı her karede kopyalanırdı.
+  DateTime? _startedAt;
 
   @override
   void dispose() {
@@ -99,6 +111,10 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
   }
 
   Future<void> _start() async {
+    // Çalışılan süre BURADAN ölçülür: kullanıcı başlat'a bastığı andan
+    // durdurduğu ana. Kamera açılış gecikmesi de dahil — "çalıştığın süre"
+    // iddiası ancak ölçülebilir bir çıpaya dayanırsa dürüsttür.
+    _startedAt = DateTime.now();
     setState(() => _state = const LiveStarting());
     try {
       // İzin ÖNCE ve AÇIKÇA: reddedilirse adı olan bir hâl doğar, boş bir
@@ -160,11 +176,51 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
     } on Object catch (_) {
       // Durdurmada arıza kullanıcıyı ilgilendirmez: oturum zaten bitiyor.
     }
+    // ⭐ G-132: seans KAYDEDİLİR. Bu satırlardan önce `_stop()` aboneliği
+    // iptal edip `LiveIdle`a dönüyordu ve o seansın tekrarları ATILIYORDU —
+    // yani Progress ekranı hiçbir zaman gerçek bir seans göremezdi ve
+    // `HistoryStatus` makinesinin tamamı hiçbir şeyin yazmadığı bir dosyayı
+    // okuyordu.
+    await _persist();
     if (!mounted) return;
     setState(() {
       _running = false;
       _state = const LiveIdle();
+      _startedAt = null;
     });
+  }
+
+  /// Biten seansı SERBEST kovaya yazar (koordinatör hükmü G-132 + dar-kapsam).
+  ///
+  /// **Ne zaman YAZILMAZ:** kamera hiç kare vermediyse. O bir seans değil,
+  /// başlatılamamış bir denemedir; sıfır-kareli kayıt geçmişi gürültüyle
+  /// doldurur ve "bir şey yaptım" izlenimi verir.
+  ///
+  /// **Sıfır TEKRAR ama kare VARSA yazılır:** kamera çalıştı, kişi göründü,
+  /// hiç tam tekrar sayılmadı — bu GERÇEK bir sonuçtur ve saklanması,
+  /// silinmesinden dürüsttür.
+  Future<void> _persist() async {
+    final SessionRecord? record = buildFreeSessionRecord(
+      movementId: widget.config.id,
+      state: _state,
+      startedAt: _startedAt ?? DateTime.now(),
+      endedAt: DateTime.now(),
+    );
+    if (record == null) return;
+    try {
+      final Future<void> Function(SessionRecord)? sink = widget.onSessionEnd;
+      if (sink != null) {
+        await sink(record);
+      } else {
+        final SessionStore store =
+            await ContentRepository.openFreeSessionStore();
+        await store.append(record);
+      }
+    } on Object catch (_) {
+      // Yazma başarısızlığı seansı BLOKLAMAZ ve sessizce "kaydedildi" de
+      // demez: kullanıcı zaten sayacı gördü. Kalıcılık arızasının kendi
+      // yüzeyi `HistoryStatus`ta (okuma tarafında) zaten var.
+    }
   }
 
   @override

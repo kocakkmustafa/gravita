@@ -6,6 +6,7 @@ import 'package:gravita_engine/gravita_engine.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'library_model.dart';
+import 'live_session.dart';
 
 /// İçerik + kalıcılık KABLOLAMASI — kabuğun motora bakan tek yüzü.
 ///
@@ -153,9 +154,43 @@ final class ContentRepository {
     return null;
   }
 
-  /// Seans geçmişi deposu. Dosya uygulama-özel dizinde; biçim motorda.
+  /// DERS seansı geçmişi. `ProgressSummary` YALNIZ bunu okur.
   static Future<SessionStore> openSessionStore() async {
     final Directory dir = await getApplicationSupportDirectory();
     return JsonlSessionStore(File('${dir.path}/sessions.jsonl'));
   }
+
+  /// ⭐ SERBEST seans kovası — AYRI DOSYA, koordinatör hükmü (G-132, 08-07).
+  ///
+  /// **Hüküm:** *"seans, başlatıldığı DERSİN kaydına yazılır"* — gerekçesi
+  /// ürünün kendi sınırı: **7 bileşen ayrıdır, asla toplanmaz.** Farklı
+  /// `focus`lu dersleri (rep sayımı ↔ derinlik ↔ tempo) tek trendde toplamak,
+  /// "tek genel skor yok" yasağının ZAMAN eksenindeki hâli olurdu.
+  ///
+  /// **Dar-kapsam şartı ölçüldü ve DEVREDE:** hükmün *"ders bağlamı dışında
+  /// bir seans yolu VARSA ayrı kovaya yazılır"* maddesi bu üründe geçerli —
+  /// çünkü bugün `LiveSessionScreen`'e **tek giriş** kabuktaki seans düğmesi
+  /// ve o giriş HAREKET düzeyinde (`gravita_app.dart`). Ders bağlamlı bir
+  /// başlatma yolu HENÜZ YOK (kurs sayfası inşa edilmedi). Yani bugün her
+  /// seans serbest seanstır.
+  ///
+  /// Bu yüzden ayrı DOSYA: `ProgressSummary` bu kovayı hiç görmez, serbest
+  /// seanslar ders trendine KARIŞAMAZ. Karışma "unutulmadı" diye değil,
+  /// okuyucu o dosyayı hiç açmadığı için imkânsız.
+  ///
+  /// ⚠️ `SessionRecord.lessonId` burada `movement:<id>` biçiminde bir HAREKET
+  /// anahtarı taşır. Alan adı "lesson" diyor ama bu kovada ders yok; ad
+  /// çekirdeğin ve değiştirilemez, o yüzden anlam BURADA beyan ediliyor.
+  /// Kovaları karıştıran biri, bu ön eki görünce durur.
+  static Future<SessionStore> openFreeSessionStore() async {
+    final Directory dir = await getApplicationSupportDirectory();
+    return JsonlSessionStore(File('${dir.path}/free_sessions.jsonl'));
+  }
+
+  /// Serbest seans kaydının hareket anahtarı. Gerçek tanım
+  /// `live_session.dart`ta (kayıt kararıyla AYNI evde); burası yalnız
+  /// okuma tarafının erişimi için delege ediyor — iki ayrı ön ek üretmek,
+  /// kovayı yazanla okuyanı sessizce ayırırdı.
+  static String freeSessionKey(String movementId) =>
+      freeSessionKeyFor(movementId);
 }

@@ -64,20 +64,32 @@ class _MovementPageState extends State<MovementPage> {
   late final Future<MovementConfig> _config =
       widget.content.catalogFor(widget.movement.id);
 
-  /// Geçmiş YALNIZ dersi olan harekette okunur. Dersi olmayanda okumak, hiç
-  /// sorulmayacak bir soruya G/Ç harcamak olurdu — ve cevabı da yüzeye
-  /// çıkamazdı (bkz. [LibraryStrings.trendNoLesson] gerekçesi).
+  /// Geçmiş YALNIZ **canlı** harekette okunur.
+  ///
+  /// ⚠️ Koşul `lessonCount == 0` İDİ ve G-132'den sonra YANLIŞ oldu: serbest
+  /// seans DERSE değil HAREKETE yazılıyor, yani dersi olmayan bir hareketin
+  /// de geçmişi olabilir. Ama girilebilir olmayan bir harekette seans
+  /// başlatılamaz, o yüzden doğru koşul CANLI olmak.
   late final Future<_Trend>? _trend =
-      widget.movement.lessonCount == 0 ? null : _loadTrend();
+      widget.movement.isLive ? _loadTrend() : null;
 
   Future<_Trend> _loadTrend() async {
     try {
-      final SessionStore store = await ContentRepository.openSessionStore();
-      final List<SessionRecord> all = await store.recent();
+      // İKİ KOVA, AYRI dosyalar (G-132): ders seansları + serbest seanslar.
+      // Burada birleştirmek MEŞRU çünkü soru HAREKET düzeyinde ("bu hareketle
+      // geçmişin"). Yasak olan, farklı `focus`lu DERSLERİ tek trendde
+      // toplamaktı; bu sayfa ders trendi çizmiyor.
+      final SessionStore lessons = await ContentRepository.openSessionStore();
+      final SessionStore free = await ContentRepository.openFreeSessionStore();
       final Set<String> mineIds = widget.movement.lessonIds.toSet();
-      final List<SessionRecord> mine = all
-          .where((SessionRecord r) => mineIds.contains(r.lessonId))
-          .toList(growable: false);
+      final String freeKey =
+          ContentRepository.freeSessionKey(widget.movement.id);
+      final List<SessionRecord> mine = <SessionRecord>[
+        ...(await lessons.recent())
+            .where((SessionRecord r) => mineIds.contains(r.lessonId)),
+        ...(await free.recent())
+            .where((SessionRecord r) => r.lessonId == freeKey),
+      ];
       return _Trend(records: mine, readable: true);
     } on Object {
       // Okunamadı ≠ boş. Bu ayrımın kaybolması, bu üründe defalarca

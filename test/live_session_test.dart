@@ -195,4 +195,62 @@ void main() {
       expect(r.repCount, 0);
     });
   });
+
+  group('G-132 — biten seansın KAYDI (serbest kova)', () {
+    final DateTime t0 = DateTime.utc(2026, 8, 7, 4, 0);
+    final DateTime t1 = DateTime.utc(2026, 8, 7, 4, 3, 20);
+
+    SessionRecord? build(LiveState state, {DateTime? end}) =>
+        buildFreeSessionRecord(
+          movementId: 'push_up',
+          state: state,
+          startedAt: t0,
+          endedAt: end ?? t1,
+        );
+
+    test('kare YOKSA kayıt YOK — başlatılamamış deneme seans değildir', () {
+      expect(
+          build(const LiveRunning(
+              reps: <Rep>[], personVisible: false, framesSeen: 0)),
+          isNull);
+      expect(build(const LiveIdle()), isNull);
+      expect(build(const LiveStarting()), isNull);
+      expect(build(const LiveFailed(null)), isNull);
+    });
+
+    test('kare VAR ama tekrar YOK → KAYDEDİLİR (gerçek bir sonuçtur)', () {
+      // ⚠️ Bu, "beğenmediğimiz ölçümü saklamama" kuralının somut hâli:
+      // kamera çalıştı ve hiç tam tekrar sayılmadı. Kaydı düşürmek, kötü
+      // giden seansı geçmişten silmek olurdu.
+      final SessionRecord? r = build(const LiveRunning(
+          reps: <Rep>[], personVisible: true, framesSeen: 42));
+      expect(r, isNotNull);
+      expect(r!.unitsCompleted, 0);
+      expect(r.workedSeconds, 200);
+    });
+
+    test('kayıt SERBEST kova anahtarı taşır — ders gibi görünmez', () {
+      final SessionRecord? r = build(const LiveRunning(
+          reps: <Rep>[], personVisible: true, framesSeen: 10));
+      expect(r!.lessonId, 'movement:push_up');
+      expect(r.lessonId.startsWith('movement:'), isTrue,
+          reason: 'Kova karışsa bile kaydın KENDİSİ hareket olduğunu '
+              'söylemeli; sessizce ders gibi görünmemeli (G-132).');
+    });
+
+    test('plan YOK → plannedUnits 0, ve bu "başarısız" DEMEK DEĞİL', () {
+      final SessionRecord? r = build(const LiveRunning(
+          reps: <Rep>[], personVisible: true, framesSeen: 10));
+      expect(r!.plannedUnits, 0);
+      // Sayılıyor, NOT VERİLMİYOR — bugünkü gerçek.
+      expect(r.lessonClass, 'measurementOnly');
+    });
+
+    test('saat geri alınmışsa NEGATİF süre yazılmaz', () {
+      final SessionRecord? r = build(
+          const LiveRunning(reps: <Rep>[], personVisible: true, framesSeen: 5),
+          end: t0.subtract(const Duration(minutes: 5)));
+      expect(r!.workedSeconds, 0);
+    });
+  });
 }

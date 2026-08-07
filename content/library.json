@@ -116,7 +116,6 @@
         "Tempo (down/up timing) — the engine measures it from the real turnaround point, not from a threshold crossing, and that is proven on recorded footage. But no screen in this app shows it to you, so we do not count it as something you get.",
         "Elbow range of motion per rep — same situation: the engine computes it for every rep, and nothing in the app displays it.",
         "Being told a rep was too shallow — the shallow-rep rule fires correctly on recorded footage (8 of 8 rules live in the replay gate), but during a live session no cue appears on screen, so nothing actually tells you.",
-        "Keeping your session — when you stop a live session, the reps you just did are discarded. They are not written to your history, so Progress will not show them.",
         "Body-line grading (hip sag / pike / head drop / uneven press) — the rules fire correctly on real footage and the reference is now ATTESTED, but no joint tolerance is variance-derived (derivedJoints empty; all 9 floor-bound, G-014/G-050), so we show the cue and never a score",
         "Side-dependent cues (\"your left arm is...\") — the pose model's left/right labels are not trustworthy in this camera setup, so all rules stay side-agnostic (ADR-003 / G-007)",
         "Hand pressure and load — a single camera cannot see either; this is a permanent limit, not a pending measurement"
