@@ -429,6 +429,73 @@ void main() {
                   (m.end + 20).clamp(0, userFacing.length))).join(" ||| ")}');
     });
 
+    testWidgets(
+        '⭐ O-040 AKTARIMI: `measured` iddiasının kabukta CANLI YOLU var mı',
+        (WidgetTester tester) async {
+      // Koordinatörün Ostinato'dan aktardığı soru: `honesty.measured`
+      // dürüstlük kutusunun ÜST YARISIDIR ve oradaki yanlış en pahalısıdır.
+      // Motorun bir şeyi FIXTURE üzerinde ölçmesi, kullanıcının o ölçümü
+      // ALDIĞI anlamına gelmiyor.
+      //
+      // Ölçüldü (2026-08-07): push_up 4 iddia taşıyordu; kabukta canlı yolu
+      // olan **1** tanesiydi. `Rep` nesnesi `descentUs`/`ascentUs` (tempo) ve
+      // `extremeAngleDeg` (ROM) taşıyor ama canlı ekran YALNIZ `reps.length`
+      // çiziyor; `partial_rom` için canlı bir cue yolu HİÇ yok. Üçü kuyruğa
+      // taşındı.
+      //
+      // Bu test o düzeltmeyi SABİTLİYOR: canlı ekranın sayısal yüzeyi rep
+      // sayacından ibaret olduğu sürece, `measured` de tek iddiadan ibaret
+      // kalmalı. Biri büyürse öteki de büyümek zorunda — ve büyümezse bu
+      // kapı öter.
+      final ContentRepository c = await loadReal(tester);
+      for (final MovementEntry m in c.catalogue.movements) {
+        if (m.honesty.measured.isEmpty) continue;
+        expect(m.isLive, isTrue,
+            reason: '${m.id}: canlı DEĞİL ama `measured` iddiası taşıyor — '
+                'girilemeyen bir hareket ölçüm veremez');
+        expect(m.honesty.measured.length, 1,
+            reason: '${m.id}: canlı ekran bugün YALNIZ rep sayacı çiziyor '
+                '(live_session_screen `repCountKey`). Yeni bir `measured` '
+                'iddiası eklendiyse onu GÖSTEREN yüzey de eklenmiş olmalı; '
+                'yoksa iddia kabukta karşılıksızdır (O-040 sınıfı).');
+        expect(m.honesty.measured.single.startsWith('Rep count'), isTrue);
+      }
+    });
+
+    test('canlı seans KAYDEDİLMİYOR — bu boşluk İÇERİKTE beyan edilmiş', () {
+      // ⚠️ Nöbet bir KUSURU sabitliyor, bir doğruyu değil. Ölçüldü: kabukta
+      // hiçbir `store.append(...)` yok — `_stop()` tekrarları atıyor. Yani
+      // Progress ekranı hiçbir zaman gerçek bir seans göremez.
+      //
+      // Kusur bu turda KAPANMADI (seansın hangi derse yazılacağı bir ürün
+      // kararı, koordinatörde). Kapanana kadar en azından SÖYLENİYOR — ve bu
+      // test, beyanın içerikten sessizce düşmesini engelliyor.
+      final Map<String, dynamic> lib = (jsonDecode(
+              File('content/library.json').readAsStringSync()) as Map)
+          .cast<String, dynamic>();
+      final Map<String, dynamic> pushUp = (lib['movements'] as List<dynamic>)
+          .cast<Map<String, dynamic>>()
+          .firstWhere((Map<String, dynamic> m) => m['id'] == 'push_up');
+      expect(
+          (pushUp['comingSoonInThisMovement'] as List<dynamic>)
+              .cast<String>()
+              .any((String s) => s.contains('discarded')),
+          isTrue,
+          reason: 'Seansın kaydedilmediği gerçeği içerikten düşmüş — kusur '
+              'duruyorsa beyanı da durmalı.');
+
+      // Kaynağın kendisi: kabukta yazma yolu YOK. Bu satır düşerse (yani
+      // append eklenirse) beyan da gözden geçirilmeli.
+      final bool writes = Directory('lib')
+          .listSync(recursive: true)
+          .whereType<File>()
+          .where((File f) => f.path.endsWith('.dart'))
+          .any((File f) => f.readAsStringSync().contains('.append('));
+      expect(writes, isFalse,
+          reason: 'Kabuk artık seans YAZIYOR — içerikteki "discarded" beyanı '
+              'BAYAT. Beyanı güncelle, sonra bu nöbeti kaldır.');
+    });
+
     test('rozet ETİKETİ gerekçeli — "Coming soon" sınıfı etiket YOK', () {
       // Koordinatör hükmü ③: `status: coming_soon` bir VERİ MODELİ kodudur
       // ve serbesttir; ama o durumun GÖRÜNEN etiketi vaat olamaz. Rozet
