@@ -122,6 +122,82 @@ void main() {
             'ilan et, ya da bu testteki `declaredUnread`e GEREKÇESİYLE ekle.');
   });
 
+  test('KATALOG katmanında PROSE taşıyan anahtar öksüz kalamaz', () {
+    // ⭐ KATMAN sorusu (koordinatör aktarımı): *"kapı yazarken ilk soru
+    // 'hangi kelimeler' değil, 'hangi KATMANLAR'."* Öksüz-anahtar kapım
+    // yalnız `library.json`a bakıyordu — oysa terfi `content/catalog/*`ten
+    // besleniyor ve J-129 riski ORADA da var.
+    //
+    // Ölçüldü: katalogda **`cues`** anahtarı 31/31 harekette duruyor ve
+    // ~150 satır KULLANICI KOÇLUK METNİ taşıyor (`setup` · `during` ·
+    // `success`). **Hiçbir parser okumuyor, hiçbir ekran çizmiyor.**
+    //
+    // Yanlış DEĞİL — ama `cues.during` tam da ürünün *"canlı seansta hiçbir
+    // ipucu ekranda görünmüyor"* dediği şey. Yani içerik hazır, yol yok.
+    // Bu meşru bir hazırlık havuzudur (katalogun kendisi gibi) — ama
+    // BEYAN EDİLMİŞ olmalı, sessizce öksüz değil.
+    //
+    // ⚠️ Kapı DAR tutuluyor: yalnız PROSE taşıyan anahtarlar. Bütün
+    // anahtarları taramak sahte alarm üretirdi, çünkü `phases`/`via`/`axis`
+    // gibi yapılar sarmalayıcısıyla birlikte DİNAMİK okunuyor ve kaynak
+    // taraması onları göremiyor. Fazla geniş bir kapı, doğru şeyi öldürür
+    // (ters-ikiz dersi) — o yüzden kapsam kasten dar.
+    const Map<String, String> proseKeys = <String, String>{
+      // Motor/ürün tarafından OKUNAN prose
+      'cue': 'MovementConfig.formErrors[].cue → hareket sayfası',
+      'label': 'MovementConfig.formErrors[].label → hareket sayfası',
+      'measured': 'measurementContract → promote_library → dürüstlük kutusu',
+      'notMeasured': 'measurementContract → promote_library → kalıcı sınırlar',
+      'name': 'MovementConfig.name → displayName',
+      'aliases': 'library.json aliases → Library araması',
+      'warnings': 'safety.warnings → hareket sayfası (kırpılamaz)',
+      'rationale': 'precondition.rationale → iç kayıt (name_preconditions)',
+      // OKUNMAYAN — beklediği yüzey ADIYLA
+      'setup': 'ÖKSÜZ: kurulum ipuçları — kalibrasyon sihirbazı inşa edilmedi',
+      'during': 'ÖKSÜZ: canlı koçluk ipuçları — canlı seansta cue yolu YOK '
+          '(ürün bunu zaten dürüstlük kutusunda BEYAN ediyor)',
+      'success': 'ÖKSÜZ: seans-sonu ipuçları — deneme özeti ekranı '
+          '(tasarım `attempt`) inşa edilmedi',
+      'notes': 'ÖKSÜZ: kamera kurulum notu — kalibrasyon sihirbazı yok',
+    };
+
+    final RegExp internal = RegExp(r'_tr$|Rationale$|Note$|note$');
+    final Set<String> found = <String>{};
+    void walk(Object? node, [String? key]) {
+      if (node is Map) {
+        node.forEach((Object? k, Object? v) => walk(v, k! as String));
+      } else if (node is List) {
+        for (final Object? v in node) {
+          walk(v, key);
+        }
+      } else if (node is String && key != null) {
+        if (key.startsWith('_') || key.startsWith(r'$')) return;
+        if (internal.hasMatch(key)) return;
+        if (node.split(' ').length >= 3 &&
+            node.isNotEmpty &&
+            node[0].toUpperCase() == node[0]) {
+          found.add(key);
+        }
+      }
+    }
+    for (final FileSystemEntity d
+        in Directory('content/catalog').listSync()) {
+      if (d is! Directory) continue;
+      for (final FileSystemEntity f in d.listSync()) {
+        if (f is File && f.path.endsWith('.json')) {
+          walk(jsonDecode(f.readAsStringSync()));
+        }
+      }
+    }
+
+    final List<String> undeclared =
+        found.where((String k) => !proseKeys.containsKey(k)).toList()..sort();
+    expect(undeclared, isEmpty,
+        reason: 'KATALOGDA beyansız prose anahtarı: $undeclared. Kullanıcı '
+            'metni taşıyan her anahtar ya bir tüketiciye bağlı olmalı ya da '
+            'beklediği yüzeyi ADIYLA beyan etmeli (J-129 · katman sorusu).');
+  });
+
   test('VAKUM İKİZİ: kapı gerçekten anahtar topluyor', () {
     // ⚠️ Üstteki test, `read` kümesi yanlışlıkla HER ŞEYİ toplasaydı da
     // geçerdi — ve o hâlde kapı hiçbir şey ölçmezdi. Bu ikiz onu kapatıyor:
