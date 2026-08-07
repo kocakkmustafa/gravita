@@ -181,6 +181,30 @@ def check(lib, catalog_lookup, reference_lookup):
                 f"{mid}: dürüstlük kutusu 'kurallar YAZILMIŞ' diyor ama "
                 f"katalogda SIFIR kural var — cümle kaynağıyla çelişiyor")
 
+        # ⭐ K14 — CANLI hareketin de blokerleri ÖLÇÜLÜR.
+        #
+        # Bulunuş: `push_up` `live`, ama terfi ölçütüme göre
+        # `replayFixture:missing` taşıyor. Nasıl olabildi: curated girdilerde
+        # `status` ve `blockedBy` YENİDEN TÜRETİLMİYOR (muafiyet listesi),
+        # ve bu denetim yalnız `status != live` olanlara bakıyordu.
+        #
+        # Yani uygulamanın TEK açık hareketinin açık olduğu iddiası,
+        # hiçbir kapının yeniden ölçmediği ELLE YAZILMIŞ bir değerdi.
+        #
+        # > *Muafiyet bir LİSTE ise, terfi eden hareket listede kalır ve
+        # > kimse fark etmez.* Buradaki hâli daha ağır: muafiyet, ölçütün
+        # > kendisini atlatıyordu.
+        if m.get("status") == "live":
+            unmet = [k for k in ("engine.precondition.status!=derived",
+                                 "replayFixture:missing",
+                                 "provenance.sources:empty")
+                     if _blocker_active(k, cat, reference_lookup, mid)[1]]
+            if unmet:
+                violations.append(
+                    f"{mid}: LIVE ama terfi ölçütü karşılanmıyor — {unmet}. "
+                    f"Bu değer curated muafiyeti yüzünden yeniden "
+                    f"türetilmiyor, yani ÖLÇÜLMEDEN 'açık' diyor")
+
         if m.get("status") != "live":
             # ⚠️ K11 (2026-08-07): BOŞ bloker listesi de bir BAYAT gerekçedir.
             #
