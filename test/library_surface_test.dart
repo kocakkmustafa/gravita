@@ -780,6 +780,47 @@ void main() {
           skipOffstage: false), findsOneWidget);
     });
 
+    test('her bloklu hareket KUYRUĞUNU beyan ediyor — ve kuyruk TÜRETİMLİ', () {
+      // ⭐ Koordinatörün sorusunun kapı hâli: *"kod bekleyenler bu gece
+      // açılabilir, ölçüm bekleyenler açılamaz."* Ölçüldü: bugün 30/30
+      // hareket ÖLÇÜM kuyruğunda, yani kod yazarak açılabilecek hareket YOK.
+      //
+      // Bu test o durumu SABİTLEMİYOR — tersine, DEĞİŞTİĞİ gün görünür
+      // olmasını sağlıyor: yalnız kod bekleyen bir hareket doğarsa,
+      // `--queues` onu yeşil satırda listeler ve bu test kuyruk beyanının
+      // türetimli kaldığını doğrular.
+      const Map<String, String> queueOf = <String, String>{
+        'engine.precondition.status!=derived': 'measurement',
+        'replayFixture:missing': 'measurement',
+        'provenance.sources:empty': 'measurement',
+      };
+      final Map<String, dynamic> lib = (jsonDecode(
+              File('content/library.json').readAsStringSync()) as Map)
+          .cast<String, dynamic>();
+
+      for (final Map<String, dynamic> m
+          in (lib['movements'] as List<dynamic>).cast<Map<String, dynamic>>()) {
+        final List<String> blockers =
+            ((m['blockedBy'] as List<dynamic>?) ?? const <dynamic>[])
+                .cast<String>();
+        if (blockers.isEmpty) {
+          expect(m['blockedByQueue'], isNull,
+              reason: '${m['id']}: engeli yok ama kuyruk beyanı var');
+          continue;
+        }
+        // Kuyruk ELLE yazılamaz: bloker anahtarlarından TÜREMELİ.
+        final Set<String> expected =
+            blockers.map((String b) => queueOf[b]!).toSet();
+        expect(
+            ((m['blockedByQueue'] as List<dynamic>?) ?? const <dynamic>[])
+                .cast<String>()
+                .toSet(),
+            expected,
+            reason: '${m['id']}: kuyruk beyanı blokerlerinden türemiyor — '
+                'elle yazılmış ya da bayatlamış.');
+      }
+    });
+
     test('KOD kuyruğu ÖLÇÜM kuyruğu gibi sunulmuyor', () {
       // Ölçüldü: `floor_press`in HİÇ kural seti yok. Üretilmiş cümle
       // "0 kural hiç koşturulmadı" diyordu — teknik olarak doğru ama YANLIŞ

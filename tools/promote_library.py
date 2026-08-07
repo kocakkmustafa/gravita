@@ -368,8 +368,31 @@ def generate_entry(mid, cat, classes, grading_lessons_open=0):
     if not live:
         entry["blockedBy"] = keys
         entry["blockClass"] = "measurement"
+        # Kuyruklar TÜRETİLİR, elle yazılmaz — bloker anahtarından.
+        entry["blockedByQueue"] = sorted({BLOCKER_QUEUE[k] for k in keys})
     return entry
 
+
+#: Her bloker anahtarı hangi KUYRUĞA gider (J-125 aktarımı, 2026-08-07).
+#:
+#: M-F-287 sınırın SINIFINI yazmayı söylüyordu; bu, sınıfın hangi kuyruğa
+#: gittiğini ekliyor — ve fark PRATİK: kuyruk, o engeli **kimin** kapatacağını
+#: söyler.
+#:
+#:   `measurement` → kapatması ÖLÇÜM (hasat/çekim). Kod yazarak açılmaz.
+#:   `code`        → kapatması KOD. Bu gece açılabilir.
+#:   `impossible`  → hiçbir kod ve hiçbir ölçüm kapatmaz (fiziksel sınır).
+#:
+#: ⚠️ Bu sözlük bir İDDİAYI komuta çeviriyor: *"bu gece hangi hareket
+#: açılabilir?"* sorusu artık prose değil, `--queues` çıktısı.
+BLOCKER_QUEUE = {
+    # Kimlik ön koşulu ölçümle TÜRETİLİR — eşiği kod yazarak uyduramayız.
+    "engine.precondition.status!=derived": "measurement",
+    # Replay fixture KAYIT gerektirir (gerçek görüntü + beklenen çıktı).
+    "replayFixture:missing": "measurement",
+    # Eğitmen referansı HASAT işidir.
+    "provenance.sources:empty": "measurement",
+}
 
 _BLOCKER_SHORT = {
     "engine.precondition.status!=derived": "deriving an identity check from measurement",
@@ -449,8 +472,14 @@ def apply(lib, catalogs, classes):
         curated = existing.get("honestySource") == "curated"
         fields = DERIVED_FIELDS if curated else DERIVED_FIELDS + (
             "blurb", "honesty", "comingSoonInThisMovement", "status",
-            "blockedBy", "blockClass",
+            "blockedBy", "blockClass", "blockedByQueue",
         )
+        # Kuyruk TÜRETİMLİ alandır — curated girdilerde de yazılır
+        # (daraltılmış muafiyet: prose muaf, türetim değil).
+        if curated and "blockedBy" in existing:
+            existing["blockedByQueue"] = sorted(
+                {BLOCKER_QUEUE[k] for k in existing["blockedBy"]
+                 if k in BLOCKER_QUEUE})
         for f in fields:
             # OPSİYONEL alanlar: üretimde YOKSA, mevcutta da OLMAMALI —
             # `None` yazmak alanı "var ama boş" hâline getirirdi. `in` ile
@@ -485,6 +514,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
     ap.add_argument("--check", action="store_true")
+    ap.add_argument("--queues", action="store_true",
+                    help="hangi hareket HANGİ kuyrukta bekliyor — ve bu gece "
+                         "KOD yazarak hangisi açılabilir")
     args = ap.parse_args()
 
     lib = load(LIB_PATH)
@@ -493,6 +525,33 @@ def main():
 
     missing = sorted(set(catalogs) - {m["id"] for m in lib["movements"]})
     _, report = apply(json.loads(json.dumps(lib)), catalogs, classes)
+
+    if args.queues:
+        # ⭐ Koordinatörün sorusunun KOMUT hâli: *"kod bekleyenler bu gece
+        # açılabilir, ölçüm bekleyenler açılamaz."* Cevabı artık prose değil.
+        by_queue = {}
+        openable = []
+        for m in lib["movements"]:
+            qs = set(m.get("blockedByQueue") or [])
+            if not qs:
+                continue
+            for q in qs:
+                by_queue.setdefault(q, []).append(m["id"])
+            # ÖLÇÜM kuyruğunda HİÇ engeli olmayan hareket, kod yazarak açılır.
+            if "measurement" not in qs:
+                openable.append(m["id"])
+        for q in sorted(by_queue):
+            print(f"   {q:12} {len(by_queue[q]):2} hareket")
+        print()
+        if openable:
+            print(f"🟢 KOD yazarak açılabilecek {len(openable)} hareket: "
+                  f"{', '.join(sorted(openable))}")
+        else:
+            print("⛔ KOD yazarak açılabilecek hareket YOK — bloklu her "
+                  "hareket en az bir ÖLÇÜM engeli taşıyor.")
+            print("   Yani kuyruk ayrımı KULLANICI anlayışını düzeltir, "
+                  "terfi kapısını AÇMAZ.")
+        return 0
 
     if args.check:
         problems = []

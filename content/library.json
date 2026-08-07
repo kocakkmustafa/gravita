@@ -184,7 +184,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "bird_dog",
@@ -229,7 +232,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "dead_bug",
@@ -276,7 +282,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "hanging_leg_raise",
@@ -324,7 +333,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "hollow_hold",
@@ -372,7 +384,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "mountain_climber",
@@ -418,7 +433,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "plank",
@@ -469,7 +487,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "side_plank",
@@ -515,7 +536,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "superman_hold",
@@ -561,7 +585,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "toes_to_bar",
@@ -609,7 +636,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "floor_press",
@@ -659,7 +689,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "kb_swing",
@@ -709,7 +742,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "romanian_deadlift",
@@ -759,7 +795,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "bodyweight_squat",
@@ -810,6 +849,9 @@
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "Stop at the depth you can control with a neutral spine."
+      ],
+      "blockedByQueue": [
+        "measurement"
       ]
     },
     {
@@ -855,7 +897,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "goblet_squat",
@@ -903,7 +948,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "lunge",
@@ -951,7 +999,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "calf_raise",
@@ -995,7 +1046,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "step_up",
@@ -1045,7 +1099,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "wall_sit",
@@ -1089,7 +1146,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "burpee",
@@ -1138,7 +1198,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "db_curl",
@@ -1185,7 +1248,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "db_row",
@@ -1233,7 +1299,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "inverted_row",
@@ -1281,7 +1350,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "pull_up",
@@ -1334,7 +1406,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "dip",
@@ -1384,7 +1459,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "db_shoulder_press",
@@ -1432,7 +1510,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "lateral_raise",
@@ -1478,7 +1559,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "wall_handstand",
@@ -1527,7 +1611,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     },
     {
       "id": "tuck_planche",
@@ -1577,7 +1664,10 @@
         "replayFixture:missing",
         "provenance.sources:empty"
       ],
-      "blockClass": "measurement"
+      "blockClass": "measurement",
+      "blockedByQueue": [
+        "measurement"
+      ]
     }
   ],
   "$curatedNote": [
