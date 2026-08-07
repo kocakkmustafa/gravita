@@ -225,6 +225,35 @@ void main() {
             isFalse,
             reason: '$f içinde dalga jetonu görünüyor.');
       }
+
+      // ⚠️ ASIL SORU JETON DEĞİL TÜRETİM (koordinatör düzeltmesi, 10:17):
+      // *"bulgunun varlığı, çözümün taşınabilirliği demek değildir."*
+      // JabLab'ın vakasında `wave`den HİÇBİR ŞEY türemiyordu; burada
+      // ÖLÇÜLDÜ ve türeyen şeyler var — ama hepsi ALTYAPI:
+      //   · katalog dosya YOLU (`content/catalog/w1/…`)
+      //   · şema zorunlu-alan kontrolü (`validate_catalog`)
+      //   · `MovementConfig.wave` (tek tüketicisi yine bir dosya yolu)
+      // Kullanıcıya görünen GRUPLAMA · SIRALAMA · FİLTRE · ROZET: SIFIR.
+      //
+      // J-150'nin ayırıcı sorusuyla: `w1/`·`w2/` dizinleri VAR OLANI tarif
+      // ediyor (hangi hareket hangi partide yazıldı), GELECEK BİR DÜZENİ
+      // ilan etmiyor. Bu yüzden vaka ②: içerikte kalır, render yok — ve
+      // render zaten HİÇ olmadı, yani değişiklik gerekmedi.
+      for (final String f in <String>[
+        'lib/app/library_model.dart',
+        'lib/app/library_screen.dart',
+        'lib/app/home_screen.dart',
+      ]) {
+        final String src = File(f).readAsStringSync();
+        for (final String derive in <String>[
+          'sortByWave', 'groupByWave', 'filterWave', 'waveOrder', '.wave',
+        ]) {
+          expect(src.contains(derive), isFalse,
+              reason: '$f: `wave`den TÜRETİM belirdi ($derive). Altyapı '
+                  'türetimi (dosya yolu) meşru; kullanıcıya görünen '
+                  'gruplama/sıralama bir SIRA VAADİ olur.');
+        }
+      }
     });
 
     test('TERS İKİZ: DURUM sözcükleri yasaklanmadı', () {
