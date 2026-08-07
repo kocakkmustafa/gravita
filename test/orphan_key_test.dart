@@ -225,12 +225,46 @@ void main() {
         (jsonDecode(File('content/library.json').readAsStringSync()) as Map)
             .cast<String, dynamic>()['movements']).toLowerCase();
 
-    for (final (String claim, String why) in <(String, String)>[
-      ('and tempo on', 'tempo hiçbir ekranda çizilmiyor (ae8a14d)'),
-      ('which depth actually counts', 'sığ-tekrar için canlı cue YOK'),
+    // ⚠️ YASAK KOŞULLU — ve bu bir DÜZELTMENİN ürünü.
+    //
+    // İlk hâli bu iki cümleyi **sonsuza dek** yasaklıyordu. Ama tempoyu
+    // yüzeye çıkarmak DOĞRU bir ürün ilerlemesi; o gün geldiğinde iddiayı
+    // geri eklemek gerekecek ve bu test **kırmızı yanacaktı** — yani
+    // kırmızı bir KUSURU değil, bir KORUMAYI gösterecekti. *"Terfi
+    // sırasında kırmızı yanan şey kusur değil koruma olur"* riski.
+    //
+    // Doğrusu: iddia, onu ÇİZEN yüzey VARSA serbesttir. Kural bu; "tempo
+    // yasak" bir OLGU'ydu, ve olgular ürün ilerledikçe değişir.
+    final String liveScreen =
+        File('lib/app/live_session_screen.dart').readAsStringSync();
+
+    for (final (String claim, String surfaceKey, String why)
+        in <(String, String, String)>[
+      ('and tempo on', 'tempoKey', 'tempo hiçbir ekranda çizilmiyor'),
+      ('which depth actually counts', 'shallowCueKey',
+          'sığ-tekrar için canlı cue yolu yok'),
     ]) {
+      final bool surfaced = liveScreen.contains(surfaceKey);
+      if (surfaced) continue; // Yüzey geldi → iddia meşru.
       expect(prose.contains(claim), isFalse,
-          reason: 'ÇÜRÜTÜLMÜŞ iddia hayatta: "$claim" — $why');
+          reason: 'YÜZEYSİZ iddia hayatta: "$claim" — $why. Ya iddiayı '
+              'kaldır, ya da onu çizen yüzeyi ekleyip anahtarını '
+              '`$surfaceKey` olarak adlandır; o zaman bu kapı kendiliğinden '
+              'susar.');
     }
+  });
+
+  test('TERS İKİZ: yasak KOŞULLU — yüzey gelince kapı susuyor', () {
+    // ⚠️ Üstteki kapı, koşulu hiç okumasa da (yani yasak MUTLAK olsa da)
+    // bugün geçerdi — çünkü yüzey bugün YOK. Bu ikiz, koşulun gerçekten
+    // okunduğunu kanıtlıyor: kapı, kaynağa bakmadan karar veremiyor.
+    //
+    // Olmadan: "yasak koşullu" bir yorum satırı olurdu, bir davranış değil.
+    final String src = File('test/orphan_key_test.dart').readAsStringSync();
+    expect(src.contains('if (surfaced) continue;'), isTrue,
+        reason: 'Yasak MUTLAK hâle dönmüş — tempo yüzeye çıktığı gün doğru '
+            'ürün ilerlemesi kırmızı yanacak.');
+    expect(src.contains("File('lib/app/live_session_screen.dart')"), isTrue,
+        reason: 'Kapı yüzey kaynağını hiç okumuyor: koşul ölü.');
   });
 }

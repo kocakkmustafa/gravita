@@ -33,40 +33,59 @@ cd "$(dirname "$0")/.."
 
 fail=0
 line() { printf '%s\n' "────────────────────────────────────────────"; }
+# Süit sayaçları — HER BİRİ AYRI. Tek toplam sayı, ikinci bir süitin
+# kırmızısını gizleyebilir; bu betiğin varlık sebebi tam olarak o gizlenme.
+app_n="?"; eng_n="?"; py_ok=0; py_total=0
+
 run() {                       # run <ad> <komut...>
   local name="$1"; shift
   local out
   if out="$("$@" 2>&1)"; then
-    printf '  ✅ %-34s %s\n' "$name" "$(printf '%s' "$out" | tail -1 | cut -c1-60)"
+    printf '  ✅ %-34s %s\n' "$name" "$(printf '%s' "$out" | tail -1 | cut -c1-58)"
+    return 0
   else
-    printf '  ❌ %-34s %s\n' "$name" "$(printf '%s' "$out" | tail -1 | cut -c1-60)"
+    printf '  ❌ %-34s %s\n' "$name" "$(printf '%s' "$out" | tail -1 | cut -c1-58)"
     fail=1
+    return 1
   fi
 }
 
+# Dart süitlerinin GEÇEN TEST SAYISINI çıkarır ("00:06 +127: All tests…").
+count_dart() {
+  local out
+  out="$("$@" 2>&1)" || { printf 'KIRMIZI'; return 1; }
+  printf '%s' "$out" | tail -1 | sed -n 's/.*+\([0-9]*\).*/\1/p'
+}
+
 line; echo "SÜİT 1 — app kabuğu ($(ls test/*.dart | wc -l | tr -d ' ') dosya)"; line
+app_n="$(count_dart flutter test)" || fail=1
 run "flutter test" flutter test
 
 line; echo "SÜİT 2 — gravita_engine ($(ls packages/gravita_engine/test/*.dart | wc -l | tr -d ' ') dosya)"; line
+eng_n="$(count_dart bash -c "cd packages/gravita_engine && dart test")" || fail=1
 run "dart test" bash -c "cd packages/gravita_engine && dart test"
 
 line; echo "SÜİT 3 — içerik kapıları (6)"; line
-run "validate_library"            python3 tools/validate_library.py
-run "validate_library --self-test" python3 tools/validate_library.py --self-test
-run "validate_catalog"            python3 tools/validate_catalog.py
-run "validate_catalog --self-test" python3 tools/validate_catalog.py --self-test
-run "promote_library --check"     python3 tools/promote_library.py --check
-run "exclusions_page --check"     python3 tools/build_exclusions_page.py --check
-run "skill_tree_index --check"    python3 tools/build_skill_tree_index.py --check
-run "name_preconditions --check"  python3 tools/name_preconditions.py --check
+gate() { py_total=$((py_total+1)); if run "$@"; then py_ok=$((py_ok+1)); fi; }
+gate "validate_library"            python3 tools/validate_library.py
+gate "validate_library --self-test" python3 tools/validate_library.py --self-test
+gate "validate_catalog"            python3 tools/validate_catalog.py
+gate "validate_catalog --self-test" python3 tools/validate_catalog.py --self-test
+gate "promote_library --check"     python3 tools/promote_library.py --check
+gate "exclusions_page --check"     python3 tools/build_exclusions_page.py --check
+gate "skill_tree_index --check"    python3 tools/build_skill_tree_index.py --check
+gate "name_preconditions --check"  python3 tools/name_preconditions.py --check
 
 line
 if [ "$fail" -eq 0 ]; then
   echo "✅ ÜÇ SÜİTİN ÜÇÜ DE YEŞİL"
+  echo "   app ${app_n}/${app_n} · engine ${eng_n}/${eng_n} · python ${py_ok}/${py_total}"
   echo "   ⚠️ Kapsam dışı (bilerek): 8 hasat aracı · cihaz davranışı ·"
   echo "      görsel ayırt edilebilirlik · validate_catalog'un 7 kanıtsız değişmezi"
 else
-  echo "❌ EN AZ BİR SÜİT KIRMIZI — yukarıdaki ❌ satırlarına bak"
+  echo "❌ EN AZ BİR SÜİT KIRMIZI"
+  echo "   app ${app_n} · engine ${eng_n} · python ${py_ok}/${py_total}"
+  echo "   ⚠️ Tek toplam sayıya BAKMA — yukarıdaki ❌ satırı hangi süit olduğunu söyler."
 fi
 line
 exit "$fail"
