@@ -36,7 +36,18 @@ Bugün 31/31 hareketin **1'i** (push_up) bunların hepsini geçiyor. Kalan 30
 gelen GERÇEK SAYILAR taşıyor (14.7°/32.0° sol-sağ farkı, 5 eğitmen/36 çekim,
 barbell-kirlenmesi hikâyesi). Katalogda o sayılar YOK. Onları üretilmiş
 metinle ezmek İÇERİK KAYBI olurdu — bu yüzden ikisi `honestySource: curated`
-işaretlidir ve `--check` onların prose'unu DENETLEMEZ.
+işaretlidir ve `--check` onların prose'unu DRIFT açısından denetlemez.
+
+⚠️ **MUAFİYETİN SINIRI DARALTILDI (2026-08-07, JabLab aktarımı).** Muafiyet
+YALNIZ drift'e uygulanır — *"bu prose yeniden üretilenle aynı mı"* sorusuna.
+Her girdiye uygulanan DEĞİŞMEZLERE (vaat dili · defter kodu · `measured`
+iddiasının kabukta yolu var mı) **uygulanmaz.**
+
+Gerekçe ölçümle: eski geniş muafiyet iki gerçek kusuru sakladı — (a) push_up'ın
+3 yanlış `measured` iddiası, (b) curated prose'taki 8 defter kodu. İkisi de
+TAMAMEN muaf alanların içindeydi; ikisini de bir kapı değil insan sorusu
+buldu. *Muafiyet, kapının kendi kör noktasını üretir* — muafiyet ne kadar
+GENİŞSE kör nokta o kadar büyük.
 
 ⚠️ Muafiyet SESSİZ değil BEYAN EDİLMİŞ: bu defterin gece boyu avladığı desen
 "beyan var, okuyanı yok"tu; muafiyeti dosyaya yazıp okutmak onun aynası.

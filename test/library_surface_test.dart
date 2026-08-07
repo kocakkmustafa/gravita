@@ -547,24 +547,48 @@ void main() {
       }
     });
 
-    test('üretilmiş metinde DEFTER KODU sızıntısı YOK', () {
+    test('HİÇBİR kullanıcı metninde DEFTER KODU yok — curated DAHİL', () {
       // Gerçek bir kusurun nöbeti: ilk üretimde kullanıcı cümlesine "(G-043)"
       // yazılmıştı. Kod kimliği iç izlenebilirliğin işidir (`blockedBy`),
       // kullanıcı cümlesinin değil.
       final Map<String, dynamic> lib = (jsonDecode(
               File('content/library.json').readAsStringSync()) as Map)
           .cast<String, dynamic>();
+      // ⚠️ MUAFİYET DARALTILDI (JabLab aktarımı, 2026-08-07). Bu kapı
+      // `honestySource: curated` girdileri ATLIYORDU ve tam orada bir kör
+      // nokta üretiyordu: ölçüldü, curated prose'ta **8 defter kodu**
+      // (ADR-003 · G-007 · G-014 · G-043 · G-050 · M-F-46) kullanıcı
+      // yüzeyinde duruyordu ve kapı hiç ötmüyordu.
+      //
+      // Aynı kör nokta O-040 kusurunu da saklamıştı: push_up'ın 3 yanlış
+      // `measured` iddiası TAMAMEN muaf alanların içindeydi ve onu hiçbir
+      // kapı değil, koordinatörün insan sorusu buldu.
+      //
+      // Doğru sınır: muafiyet yalnız **DRIFT**e (prose ≠ yeniden üretilen
+      // prose) uygulanır — her girdiye uygulanan DEĞİŞMEZLERE asla.
+      // `_` ile başlayan alanlar (`_why_unlocked`) iç gerekçe kaydıdır ve
+      // yüzeye hiç okunmaz; onlar hariç.
       final RegExp code = RegExp(r'\b[GMJ]-\d{2,3}\b|\bADR-\d+\b');
       for (final Map<String, dynamic> m
           in (lib['movements'] as List<dynamic>).cast<Map<String, dynamic>>()) {
-        if (m['honestySource'] == 'curated') continue;
         final String blob = jsonEncode(<String, dynamic>{
           'blurb': m['blurb'],
           'honesty': m['honesty'],
           'comingSoonInThisMovement': m['comingSoonInThisMovement'],
+          // Kilit gerekçesi KULLANICIYA gider — ilerleme ekranı onu aynen
+          // çiziyor. Eski kapı buraya hiç bakmıyordu.
+          'lockedReason': <String>[
+            for (final dynamic c in (m['courses'] as List<dynamic>? ??
+                const <dynamic>[]))
+              for (final dynamic l in ((c as Map)['lessons'] as List<dynamic>? ??
+                  const <dynamic>[]))
+                if ((l as Map)['lockedReason'] != null)
+                  l['lockedReason'] as String,
+          ],
         });
         expect(code.hasMatch(blob), isFalse,
-            reason: '${m['id']}: üretilmiş metinde defter kodu var');
+            reason: '${m['id']}: kullanıcı metninde defter kodu var '
+                '(curated olması muafiyet DEĞİL — muafiyet yalnız drift için)');
       }
     });
   });
