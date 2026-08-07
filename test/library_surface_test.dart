@@ -630,6 +630,16 @@ void main() {
       for (final ExclusionSection s in page.sections) {
         expect(find.byKey(WhyNotHereScreen.sectionKey(s.id), skipOffstage: false),
             findsOneWidget);
+        // ⭐ SINIF cümlesi de EKRANDA (J-153): sınıf olmadan yedi kalem tek
+        // çerçevede okunuyor ve `authority` olanlar *"teknoloji çözer"* diye
+        // anlaşılıyor. Ölçüldü: 7 kalemin 3'ü authority — yani çoğunluk
+        // değil ama azınlık da değil, ve hepsi yanlış okunuyordu.
+        expect(
+            find.text(LibraryStrings.limitClassLine(s.limitClass),
+                skipOffstage: false),
+            findsWidgets,
+            reason: '${s.id}: sınır SINIFI ekranda yok — "kamera göremiyor" '
+                'örtük bir vaat taşır, "bu bir çizgi" taşımaz.');
         expect(find.text(s.userReason, skipOffstage: false), findsOneWidget,
             reason: '${s.id} gerekçesi kırpıldı ya da çizilmedi');
       }

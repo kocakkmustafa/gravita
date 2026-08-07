@@ -21,6 +21,7 @@
       ],
       "userReason": "Machines already fix the path your body travels, so there is very little form left for a camera to judge — and the frame usually hides your torso behind the machine. We would be guessing, so we don't include them.",
       "movementClass": "C",
+      "limitClass": "capability",
       "searchTerms": [
         "cable",
         "cable crossover",
@@ -65,6 +66,7 @@
         "Round-off"
       ],
       "userReason": "These carry a real risk of a catastrophic fall. An app that cannot spot you should not be the thing that tells you you're ready.",
+      "limitClass": "authority",
       "searchTerms": [
         "aerial",
         "aerial cartwheel",
@@ -93,6 +95,7 @@
         "Estimated strength score"
       ],
       "userReason": "A camera cannot measure force. We can count your reps and track them over time, and you can compare those numbers to published strength standards — but we will never tell you we measured your strength.",
+      "limitClass": "equipment",
       "searchTerms": [
         "1rm",
         "1rm squat test",
@@ -121,6 +124,7 @@
         "Physio treatment plans"
       ],
       "userReason": "Gravita is a movement-practice tool, not a medical service. If something hurts, we tell you to stop — we don't tell you why.",
+      "limitClass": "authority",
       "searchTerms": [
         "and",
         "diagnosing",
@@ -150,6 +154,7 @@
         "Spotter in the frame"
       ],
       "userReason": "We analyse one person per session. A second body in the frame makes the analysis unreliable, so we ask you to clear the frame instead of quietly guessing which skeleton is yours.",
+      "limitClass": "capability",
       "searchTerms": [
         "classes",
         "frame",
@@ -178,6 +183,7 @@
       ],
       "userReason": "We coach your body, not your gear. For these movements we watch your mechanics — the landing, the hinge, the line — but we don't detect the box, the rope or the bar.",
       "movementClass": "D",
+      "limitClass": "authority",
       "searchTerms": [
         "ab-wheel distance",
         "band",
@@ -214,6 +220,7 @@
       ],
       "userReason": "You lie down and press away from the camera, so the phone is looking straight down the path of the movement. Depth and bar path can't be judged honestly from that angle. We count your reps, time your tempo and check your setup — and we say so on the movement page.",
       "movementClass": "B",
+      "limitClass": "equipment",
       "searchTerms": [
         "and",
         "barbell",

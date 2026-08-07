@@ -5,68 +5,123 @@
   "purpose_tr": "Blueprint §2 'Neden yok?' sayfasının KAYNAĞI. Kapsam dışı bırakılan her şey burada gerekçesiyle durur; sayfa bu dosyadan üretilir. Destek yanıtları ve pazarlama da aynı metni kullanır — üç yerde üç farklı gerekçe olmaz.",
   "pageTitle": "What's not in Gravita — and why",
   "pageIntro": "We'd rather do fewer movements properly than list hundreds we can't actually coach. Here's what we left out and the honest reason.",
-
   "sections": [
     {
       "id": "machines",
       "title": "Gym machines",
       "movementClass": "C",
-      "examples": ["Leg press", "Lat pulldown", "Chest press machine", "Leg extension", "Cable crossover", "Smith machine", "Pec deck", "Seated row machine", "Hack squat", "Leg curl"],
+      "examples": [
+        "Leg press",
+        "Lat pulldown",
+        "Chest press machine",
+        "Leg extension",
+        "Cable crossover",
+        "Smith machine",
+        "Pec deck",
+        "Seated row machine",
+        "Hack squat",
+        "Leg curl"
+      ],
       "userReason": "Machines already fix the path your body travels, so there is very little form left for a camera to judge — and the frame usually hides your torso behind the machine. We would be guessing, so we don't include them.",
       "internalRule_tr": "Sınıf C blanket kuralı (blueprint §1). Tek tek makine tartışılmaz. Destek/pazarlama da vaat etmez.",
-      "reconsiderIf": "Never for form coaching. Rep counting alone is not the product."
+      "reconsiderIf": "Never for form coaching. Rep counting alone is not the product.",
+      "limitClass": "capability"
     },
     {
       "id": "flips_aerials",
       "title": "Flips, aerials and tumbling",
-      "examples": ["Backflip", "Frontflip", "Aerial cartwheel", "Back handspring", "Round-off"],
+      "examples": [
+        "Backflip",
+        "Frontflip",
+        "Aerial cartwheel",
+        "Back handspring",
+        "Round-off"
+      ],
       "userReason": "These carry a real risk of a catastrophic fall. An app that cannot spot you should not be the thing that tells you you're ready.",
       "internalRule_tr": "Felaket-düşüş sorumluluğu (blueprint §2). Güvenlik gerekçesi; ölçüm gerekçesi değil.",
-      "reconsiderIf": "No — this is a safety line, not a capability line."
+      "reconsiderIf": "No — this is a safety line, not a capability line.",
+      "limitClass": "authority"
     },
     {
       "id": "one_rep_max",
       "title": "One-rep max and strength testing",
-      "examples": ["1RM squat test", "Max deadlift", "Estimated strength score"],
+      "examples": [
+        "1RM squat test",
+        "Max deadlift",
+        "Estimated strength score"
+      ],
       "userReason": "A camera cannot measure force. We can count your reps and track them over time, and you can compare those numbers to published strength standards — but we will never tell you we measured your strength.",
       "internalRule_tr": "Kamera kuvvet ölçemez (blueprint §2/§8). StrengthLevel tablolarına LOGLA-KARŞILAŞTIR sunulabilir; 'ölçtük' denmez.",
-      "reconsiderIf": "Only with real force hardware, which is out of scope."
+      "reconsiderIf": "Only with real force hardware, which is out of scope.",
+      "limitClass": "equipment"
     },
     {
       "id": "medical",
       "title": "Injury diagnosis and rehab prescriptions",
-      "examples": ["Diagnosing pain", "Post-surgery protocols", "Physio treatment plans"],
+      "examples": [
+        "Diagnosing pain",
+        "Post-surgery protocols",
+        "Physio treatment plans"
+      ],
       "userReason": "Gravita is a movement-practice tool, not a medical service. If something hurts, we tell you to stop — we don't tell you why.",
       "internalRule_tr": "Wellness sınırı, aile geneli (00-AILE-MIMARISI §5). Klinik/tanı dili YASAK.",
-      "reconsiderIf": "No."
+      "reconsiderIf": "No.",
+      "limitClass": "authority"
     },
     {
       "id": "multi_person",
       "title": "Training with a partner in frame",
-      "examples": ["Partner workouts", "Group classes", "Spotter in the frame"],
+      "examples": [
+        "Partner workouts",
+        "Group classes",
+        "Spotter in the frame"
+      ],
       "userReason": "We analyse one person per session. A second body in the frame makes the analysis unreliable, so we ask you to clear the frame instead of quietly guessing which skeleton is yours.",
       "internalRule_tr": "num_poses=1; kalibrasyon sihirbazı tek-kişi kapısı. D1 elemesinde çok-kişili görüntüler bu yüzden elendi.",
-      "reconsiderIf": "V2+ — needs a person-identity layer we don't have."
+      "reconsiderIf": "V2+ — needs a person-identity layer we don't have.",
+      "limitClass": "capability"
     },
     {
       "id": "equipment_tracking",
       "title": "Tracking the equipment itself",
       "movementClass": "D",
-      "examples": ["Box height in box jumps", "Rope in jump rope", "Band tension", "Ab-wheel distance", "Bar position in muscle-ups"],
+      "examples": [
+        "Box height in box jumps",
+        "Rope in jump rope",
+        "Band tension",
+        "Ab-wheel distance",
+        "Bar position in muscle-ups"
+      ],
       "userReason": "We coach your body, not your gear. For these movements we watch your mechanics — the landing, the hinge, the line — but we don't detect the box, the rope or the bar.",
       "internalRule_tr": "Sınıf D. Prop-metriği ayrı R&D (blueprint §4.6). Başarısız olursa fallback: 'ekipman-görünür kadraj yönergesi + gövde-tek analiz'.",
-      "reconsiderIf": "Bar/edge detection R&D is scheduled in W3; if it lands, muscle-up and lever variants get more precise phase checkpoints."
+      "reconsiderIf": "Bar/edge detection R&D is scheduled in W3; if it lands, muscle-up and lever variants get more precise phase checkpoints.",
+      "limitClass": "authority"
     },
     {
       "id": "bench_form",
       "title": "Form scoring on bench press (and similar lying pressing)",
       "movementClass": "B",
-      "examples": ["Barbell bench press", "Dumbbell bench press", "Incline press"],
+      "examples": [
+        "Barbell bench press",
+        "Dumbbell bench press",
+        "Incline press"
+      ],
       "userReason": "You lie down and press away from the camera, so the phone is looking straight down the path of the movement. Depth and bar path can't be judged honestly from that angle. We count your reps, time your tempo and check your setup — and we say so on the movement page.",
       "internalRule_tr": "Sınıf B adlandırılmış istisnası (blueprint §2/W3). PAZARLAMADA da 'form analizi' iddia edilmez.",
-      "reconsiderIf": "A second camera or a fixed overhead rig would change this — neither is in scope."
+      "reconsiderIf": "A second camera or a fixed overhead rig would change this — neither is in scope.",
+      "limitClass": "equipment"
     }
   ],
-
-  "uiContract_tr": "Bu sayfa aramada bulunabilir olmalı: kullanıcı 'leg press' aradığında sonuç boş dönmez, ilgili 'Neden yok?' bölümüne düşer. Blueprint §2 IA kuralı — dar app algısı yaratma yasağının karşılığı."
+  "uiContract_tr": "Bu sayfa aramada bulunabilir olmalı: kullanıcı 'leg press' aradığında sonuç boş dönmez, ilgili 'Neden yok?' bölümüne düşer. Blueprint §2 IA kuralı — dar app algısı yaratma yasağının karşılığı.",
+  "$limitClassNote": [
+    "limitClass — J-153 aktarımı (2026-08-07). Bir kapsam-dışı kalemin SINIFI,",
+    "gerekçesi kadar önemli: 'kamera göremiyor' örtük bir VAAT taşır ('daha iyi",
+    "teknoloji çözer'), 'bu bir çizgi' taşımaz. Sınıflar reconsiderIf'ten",
+    "TÜRETİLDİ, icat edilmedi:",
+    "  authority  = çizdiğimiz bir sınır. Mükemmel kamerayla da değişmez.",
+    "  capability = tek kameranın göremediği şey.",
+    "  equipment  = başka donanım gerektiren şey.",
+    "reconsiderIf SHIPPED SAYFAYA GİRMEZ (yol haritası dili taşıyor: 'V2+',",
+    "'W3'de planlı') — yalnız SINIF çıkar."
+  ]
 }

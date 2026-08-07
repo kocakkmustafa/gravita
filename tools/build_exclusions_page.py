@@ -40,7 +40,16 @@ OUT = ROOT / "content" / "exclusions.page.json"
 #: Kullanıcıya GİDEN alanlar. Bu listede olmayan her alan iç kalır — beyaz
 #: liste, kara liste değil: yarın `exclusions.json`'a eklenecek yeni bir iç
 #: alan sessizce sızmasın (kara liste olsaydı sızardı).
-USER_FIELDS = ("id", "title", "examples", "userReason", "movementClass")
+USER_FIELDS = ("id", "title", "examples", "userReason", "movementClass",
+               # ⭐ SINIF kullanıcıya GİDER (J-153): "kamera göremiyor" örtük
+               # bir VAAT taşır, "bu bir çizgi" taşımaz. Sınıf olmadan yedi
+               # kalem tek çerçevede okunuyor ve AUTHORITY olanlar
+               # "teknoloji çözer" diye anlaşılıyor.
+               #
+               # ⚠️ `reconsiderIf` YİNE GİRMİYOR: sınıfı ondan türettik ama
+               # kendisi yol haritası dili taşıyor ("V2+", "W3'de planlı") —
+               # yani YAPISAL VAAT (J-150). Sınıf çıkar, takvim çıkmaz.
+               "limitClass")
 
 
 def _search_terms(section):

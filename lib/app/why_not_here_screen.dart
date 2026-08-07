@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'library_model.dart';
+import 'library_strings.dart';
 import 'theme.dart';
 
 /// "Neden yok?" — kapsamın SINIRI, gerekçesiyle.
@@ -100,6 +101,19 @@ class WhyNotHereScreen extends StatelessWidget {
                   color: focused
                       ? GravitaColors.honestyText
                       : GravitaColors.inkMuted),
+            ),
+            const SizedBox(height: 10),
+            // ⭐ SINIF cümlesi gerekçenin HEMEN ALTINDA. Yukarıya koymak onu
+            // başlık gibi okuturdu; aşağıya atmak dipnot yapardı. Okuyucu
+            // *"demek teknoloji gelişince eklenir"* diye düşündüğü an tam
+            // burası.
+            Text(
+              LibraryStrings.limitClassLine(s.limitClass),
+              key: Key('whyNot.class.${s.id}'),
+              style: GravitaType.mono(
+                  size: 11,
+                  color: GravitaColors.honestySeal,
+                  letterSpacingEm: 0.02),
             ),
             if (s.examples.isNotEmpty) ...<Widget>[
               const SizedBox(height: 14),

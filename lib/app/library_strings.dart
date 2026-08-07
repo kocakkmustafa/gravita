@@ -93,6 +93,17 @@ abstract final class LibraryStrings {
 
   static const String whyNotLink = "Why isn't a movement here?";
 
+  /// Sınır sınıfının kullanıcı cümlesi (J-153). Rozet DEĞİL cümle: tek
+  /// sözcüklük bir etiket ("AUTHORITY") kullanıcıya hiçbir şey söylemez.
+  static String limitClassLine(String limitClass) => switch (limitClass) {
+        'authority' =>
+          'This is a line we drew, not a limit we hit. Better technology '
+              'would not change it.',
+        'equipment' =>
+          'This needs hardware we do not ask you to own.',
+        _ => 'A single phone camera cannot see what this would need.',
+      };
+
   static const String openBadge = 'OPEN';
 
   /// ⚠️ `MEASURING` DEĞİL. Ölçüldü (yayın envanteri, J-124 sınıfı): o sözcük

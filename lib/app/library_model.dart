@@ -219,6 +219,7 @@ final class ExclusionSection {
     required this.examples,
     required this.userReason,
     required this.searchTerms,
+    required this.limitClass,
     this.movementClass,
   });
 
@@ -228,6 +229,7 @@ final class ExclusionSection {
         examples: _strings(j['examples']),
         userReason: j['userReason'] as String,
         searchTerms: _strings(j['searchTerms']),
+        limitClass: (j['limitClass'] as String?) ?? 'capability',
         movementClass: j['movementClass'] as String?,
       );
 
@@ -240,6 +242,19 @@ final class ExclusionSection {
   /// (`tools/build_exclusions_page.py`), burada değil: aynı sözlüğün iki
   /// evi olursa ayrışır.
   final List<String> searchTerms;
+
+  /// ⭐ Sınırın SINIFI — `authority` · `capability` · `equipment` (J-153).
+  ///
+  /// *"Kamera bunu göremiyor"* örtük bir **VAAT** taşır: *"daha iyi teknoloji
+  /// bunu çözer."* Oysa kalemlerin **3'ü** öyle değil — **mükemmel bir
+  /// kamerayla da o hükmü vermeyiz**, çünkü bu bir veri sorunu değil bir
+  /// **YETKİ** kararı (felaket-düşüş sorumluluğu · tıbbi sınır · "gövdeyi
+  /// koçlarız, ekipmanı değil").
+  ///
+  /// Sınıf olmadan yedi kalem tek çerçevede okunuyor ve **hiçbir cümle yalan
+  /// söylemeden sayfa yanlış anlaşılıyor** — çerçeve, kümenin kendisi
+  /// hakkında bir iddiadır ve hiçbir öğesinde yazılı değildir.
+  final String limitClass;
   final String? movementClass;
 }
 
