@@ -84,7 +84,7 @@ GENERATED_MARK = "generated"
 #: yalnız `honestySource != curated` olan girdilerde bu kümededir.
 DERIVED_FIELDS = (
     "displayName", "family", "level", "class", "wave", "catalogId",
-    "equipment", "muscleGroups", "aliases", "engineType", "classBadge",
+    "equipment", "muscleGroups", "aliases", "classBadge",
     "safetyWarnings", "skillGraphNode",
 )
 
@@ -350,7 +350,11 @@ def generate_entry(mid, cat, classes, grading_lessons_open=0):
         "equipment": list(cat.get("equipment") or []),
         "muscleGroups": list(cat.get("muscleGroups") or []),
         "aliases": list(cat.get("aliases") or []),
-        "engineType": cat.get("engine", {}).get("type"),
+        # ⚠️ `engineType` KALDIRILDI (öksüz-anahtar kapısı, J-129). Üretiliyordu
+        # ama hiçbir parser okumuyordu — "beyan var, okuyanı yok"un ta kendisi,
+        # ve bu turda tam o deseni avlıyordum. Bir yüzey ihtiyaç duyduğu gün
+        # katalogdan gelir (`MovementConfig.engineType`), kütüphaneye kopya
+        # gerekmiyor.
         "classBadge": class_copy.get("badge"),
         "safetyWarnings": list((cat.get("safety") or {}).get("warnings") or []),
         # Yalnız GERÇEKTEN bir düğüme bağlıysa yazılır (3/31). `null` taşımak

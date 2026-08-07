@@ -68,7 +68,7 @@
           "id": "push_foundations",
           "displayName": "Push Foundations",
           "level": "beginner",
-          "goal": "Get honest rep counting and tempo on your push-up, and learn which depth actually counts.",
+          "goal": "Learn what an honest rep count is: the engine refuses to count a rep unless it can see your torso is actually horizontal, so a movement that only looks like a push-up does not add to your total.",
           "estimatedMinutes": 15,
           "lessons": [
             {
@@ -132,7 +132,6 @@
       "aliases": [
         "Press-Up"
       ],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "Stop if you feel sharp shoulder or wrist pain — that is different from muscular effort."
@@ -156,7 +155,6 @@
         "core"
       ],
       "aliases": [],
-      "engineType": "staticHold",
       "classBadge": "Form coaching",
       "safetyWarnings": [],
       "blurb": "Farmer Carry is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -205,7 +203,6 @@
         "spinal_erectors"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [],
       "blurb": "Bird Dog is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -252,7 +249,6 @@
         "hip_flexors"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "If your lower back lifts, reduce the range rather than pushing through."
@@ -305,7 +301,6 @@
         "lats"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [],
       "blurb": "Hanging Leg Raise is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -353,7 +348,6 @@
         "hip_flexors"
       ],
       "aliases": [],
-      "engineType": "staticHold",
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "If your lower back lifts, tuck your knees — a smaller shape you can hold beats a big one you can't."
@@ -405,7 +399,6 @@
         "shoulders"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [],
       "blurb": "Mountain Climber is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -457,7 +450,6 @@
         "Front Plank",
         "Forearm Plank"
       ],
-      "engineType": "staticHold",
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "Stop if your lower back starts to ache — end the hold rather than pushing through."
@@ -508,7 +500,6 @@
         "shoulders"
       ],
       "aliases": [],
-      "engineType": "staticHold",
       "classBadge": "Form coaching",
       "safetyWarnings": [],
       "blurb": "Side Plank is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -556,7 +547,6 @@
         "glutes"
       ],
       "aliases": [],
-      "engineType": "staticHold",
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "Stop if your lower back pinches — a small lift you can hold is the goal."
@@ -608,7 +598,6 @@
         "hip_flexors"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [],
       "blurb": "Toes to Bar is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -659,7 +648,6 @@
         "front_delts"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Reps & tempo",
       "safetyWarnings": [],
       "blurb": "Floor Press is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -712,7 +700,6 @@
         "core"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "Ballistic movement — stop if your lower back complains rather than pushing through."
@@ -765,7 +752,6 @@
         "spinal_erectors"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "Reduce range before adding load if your back rounds."
@@ -845,7 +831,6 @@
       "aliases": [
         "Air Squat"
       ],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "Stop at the depth you can control with a neutral spine."
@@ -870,7 +855,6 @@
         "core"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [],
       "blurb": "Glute Bridge is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -920,7 +904,6 @@
         "core"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [],
       "blurb": "Goblet Squat is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -969,7 +952,6 @@
         "hamstrings"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "Stop if your front knee complains — shorten the range before adding reps."
@@ -1018,7 +1000,6 @@
         "calves"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [],
       "blurb": "Standing Calf Raise is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -1068,7 +1049,6 @@
         "glutes"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching · equipment not tracked",
       "safetyWarnings": [
         "Use a box height you can control — step down, don't jump down."
@@ -1119,7 +1099,6 @@
         "glutes"
       ],
       "aliases": [],
-      "engineType": "staticHold",
       "classBadge": "Form coaching",
       "safetyWarnings": [],
       "blurb": "Wall Sit is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -1168,7 +1147,6 @@
         "core"
       ],
       "aliases": [],
-      "engineType": "multiPhaseFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "High-impact movement. Land softly and stop if your knees or lower back complain."
@@ -1220,7 +1198,6 @@
         "forearms"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [],
       "blurb": "Dumbbell Curl is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -1271,7 +1248,6 @@
         "biceps"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [],
       "blurb": "Dumbbell Row is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -1322,7 +1298,6 @@
         "biceps"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [],
       "blurb": "Inverted Row is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -1376,7 +1351,6 @@
       "aliases": [
         "Chin-Up (supinated variant)"
       ],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "Build up gradually — sudden high volume is a common shoulder and elbow irritant."
@@ -1429,7 +1403,6 @@
         "front_delts"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "Dips load the shoulder at end range — build depth gradually and stop at pinching pain."
@@ -1482,7 +1455,6 @@
         "upper_chest"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [],
       "blurb": "Dumbbell Shoulder Press is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -1531,7 +1503,6 @@
         "side_delts"
       ],
       "aliases": [],
-      "engineType": "repFsm",
       "classBadge": "Form coaching",
       "safetyWarnings": [],
       "blurb": "Lateral Raise is in our catalogue and closed. 3 measurements are missing before we would coach it — named below, in plain terms.",
@@ -1579,7 +1550,6 @@
         "core"
       ],
       "aliases": [],
-      "engineType": "staticHold",
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "Falling is a real risk. Clear the space, use a wall, and come down the way you went up.",
@@ -1632,7 +1602,6 @@
         "chest"
       ],
       "aliases": [],
-      "engineType": "staticHold",
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "High wrist and elbow load. Build the lean gradually; stop at joint pain.",

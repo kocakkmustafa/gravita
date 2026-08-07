@@ -30,6 +30,9 @@ import 'live_session.dart';
 /// Bu yüzden açılışta yalnız **kursu olan** hareketlerin kataloğu okunur
 /// (`LessonSurface.deriveAll`in ihtiyacı bu) — bugün bir tane. Kalanı hareket
 /// sayfası açıldığında [catalogFor] ile gelir.
+/// Kabuğun ayrıştırabileceği `library.json` şema sürümü.
+const int _librarySchemaVersion = 1;
+
 final class ContentRepository {
   ContentRepository._({
     required this.library,
@@ -50,6 +53,18 @@ final class ContentRepository {
     final Map<String, dynamic> lib =
         (jsonDecode(await bundle.loadString('content/library.json')) as Map)
             .cast<String, dynamic>();
+
+    // ⚠️ `schemaVersion` bir ÖKSÜZ ANAHTARdı: dosyada duruyordu, kimse
+    // okumuyordu (J-129 kapısı yakaladı). Bir sürüm işareti okunmadığı sürece
+    // işaret değildir — şema değişip kabuk eski varsayımla ayrıştığında
+    // sessizce yanlış ayrıştırırdı. Artık ÖNCE bu doğrulanıyor: uyuşmazlık
+    // GÜRÜLTÜLÜ patlar ve tipli içerik-hatası ekranına gider.
+    final int schema = (lib['schemaVersion'] as num?)?.toInt() ?? 0;
+    if (schema != _librarySchemaVersion) {
+      throw StateError(
+          'library.json şema sürümü $schema; bu kabuk '
+          '$_librarySchemaVersion bekliyor. İçerik ile kod ayrışmış.');
+    }
 
     final List<Map<String, dynamic>> raw =
         (lib['movements'] as List<dynamic>).cast<Map<String, dynamic>>();
