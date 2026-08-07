@@ -35,7 +35,17 @@ abstract final class LibraryStrings {
       'coach right now, and the honest state of everything else.';
 
   static const String homeOpenNowTitle = 'Open right now';
-  static const String homeQueueTitle = 'In the measurement queue';
+  /// ⚠️ *"In the measurement queue"* DEĞİL — ve bu bir YAPISAL VAAT
+  /// düzeltmesidir (J-150 sınıfı).
+  ///
+  /// Vaat her zaman bir SÖZCÜKTE olmuyor: *"kuyruk"* bir **sıra** ve
+  /// **işlenecekleri** ima eder — *"sıranız gelecek"*. Hiçbir hareketin
+  /// işleneceği garanti değil; 30'u da hasat kararına bağlı.
+  ///
+  /// Dil nöbetim `yet`/`coming soon`/`will be` arıyor ve bu sınıfa
+  /// **tanımı gereği kör**: metafor bir kelime listesine yakalanmaz.
+  /// Rozetle aynı sözcüğe geçildi (`CLOSED`) — durum bildirir, sıra kurmaz.
+  static const String homeQueueTitle = 'Closed movements';
 
   /// Kuyruğun cümlesi — sayılar VERİDEN gelir, elle yazılmaz.
   static String homeQueueBody(int queued, int total) =>

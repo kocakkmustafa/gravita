@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gravita/app/library_strings.dart';
+import 'package:gravita/app/progress_strings.dart';
 import 'package:gravita/app/theme.dart';
 
 /// ⭐ TERS NEGATİF İKİZLER — JabLab aktarımı (2026-08-07).
@@ -121,6 +122,119 @@ void main() {
           reason: 'Hiçbir hareket bir şey ölçtüğünü söylemiyor — kapı fazla '
               'daraltılmış olabilir. Yüzeyi OLAN bir iddia yasak değildir.');
       expect(claims.every((String c) => c.trim().isNotEmpty), isTrue);
+    });
+  });
+
+  group('YAPISAL VAAT — vaat her zaman bir SÖZCÜKTE değil', () {
+    test('kullanıcı metninde SIRA/BORU HATTI metaforu yok', () {
+      // ⭐ J-150 sınıfı: dil nöbeti `yet`·`coming soon`·`will be` arıyor ve
+      // bu sınıfa TANIMI GEREĞİ kör — vaat bir NUMARALANDIRMA ŞEMASINDA ya
+      // da bir METAFORDA olabilir.
+      //
+      // Bende bulunanı ben yazmıştım: *"In the measurement queue"*.
+      // "Kuyruk" bir SIRA ve İŞLENECEKLERİ ima eder; hiçbir hareketin
+      // işleneceği garanti değil.
+      //
+      // ⚠️ Kapsam DAR (ters-ikiz dersi): *"waiting"* · *"missing"* ·
+      // *"closed"* YASAK DEĞİL — onlar DURUM bildirir. Yasak olan SIRA
+      // kuran metafor.
+      const List<String> ordering = <String>[
+        'queue', 'roadmap', 'pipeline', 'next up', 'phase 1', 'wave 1',
+        'first batch', 'in line',
+      ];
+      // KAYNAK TARAMASI BIRAKILDI - gercek sabitler CAGRILIYOR.
+      //
+      // Bu kapi UC kez daraltildi ve ucu de ayni kokten geliyordu: kaynak
+      // taramasi bir VEKILDIR, olcmek istedigim sey degil.
+      //   1. tum dosya tarandi  -> `homeQueueTitle` TANIMLAYICISI ottu
+      //   2. dize degismezleri  -> `'$queued ...'` INTERPOLASYONU ottu
+      //   3. interpolasyon soküldü -> "Why isn't a movement here?" icindeki
+      //      KESME ISARETI tek-tirnak eslesmesini bozdu ve araya giren
+      //      KODU dize sandi
+      //
+      // Ucunde de kusur metinde degil ARACTAYDI. Gecenin iki kez ogrettigi
+      // ders burada ucuncu kez gecerli: VEKILI DEGIL GARANTININ KENDISINI
+      // OLC. Sabitleri cagirmak tam olarak kullanicinin gordugu seydir --
+      // ayristirma yok, kacis yok, yanlis alarm yok.
+      final String userText = <String>[
+        LibraryStrings.homeNoPlanTitle,
+        LibraryStrings.homeNoPlanBody,
+        LibraryStrings.homeOpenNowTitle,
+        LibraryStrings.homeOpenBody(1),
+        LibraryStrings.homeQueueTitle,
+        LibraryStrings.homeQueueBody(30, 31),
+        LibraryStrings.libraryCount(31, 1),
+        LibraryStrings.searchHint,
+        LibraryStrings.searchExclusionHeading,
+        LibraryStrings.searchNothing('x'),
+        LibraryStrings.whyNotLink,
+        LibraryStrings.openBadge,
+        LibraryStrings.queuedBadge,
+        LibraryStrings.blockerCount(3),
+        LibraryStrings.skillTreesTitle,
+        LibraryStrings.skillTreesBody(2, 'A and B'),
+        LibraryStrings.honestyTitle,
+        LibraryStrings.honestyNotMeasuredLabel,
+        LibraryStrings.honestyWaitingLabel,
+        LibraryStrings.honestyMeasuresNothing,
+        LibraryStrings.howToNoReference,
+        LibraryStrings.howToReferenceNotDrawable(5),
+        LibraryStrings.formErrorsBody(3),
+        LibraryStrings.coursesNone,
+        LibraryStrings.trendNoLesson,
+        LibraryStrings.trendNoSessions,
+        LibraryStrings.trendUnreadable,
+        LibraryStrings.queueTitle,
+        LibraryStrings.profileNoSettings,
+        LibraryStrings.profileNoSettingsBody,
+        LibraryStrings.profileDataBody,
+        LibraryStrings.profileWontBody,
+        ProgressStrings.freeSection,
+        ProgressStrings.freeSubtitle,
+        ProgressStrings.lockedSubtitle,
+        ProgressStrings.historyUnavailable,
+      ].join(' ').toLowerCase();
+
+      for (final String o in ordering) {
+        expect(userText.contains(o), isFalse,
+            reason: 'Kullanıcı metninde SIRA metaforu: "$o". Sıra bir '
+                'VAATTİR — kelime yasağı bu sınıfa kör, o yüzden ayrı '
+                'kapı (J-150).');
+      }
+    });
+
+    test('`wave` iç jetonu YÜZEYE çıkmıyor', () {
+      // `W1`/`W2` iç yol-haritası jetonu: kullanıcıya bilgi değeri SIFIR,
+      // vaat değeri POZİTİF (W1→W2 bir sıra kurar). Sıfır bilgi + pozitif
+      // vaat = yüzeye çıkmaz.
+      //
+      // ⚠️ *"W1 ne demek"i AÇIKLAMAK daha kötü olurdu — örtük yol haritası
+      // vaadini AÇIK hâle getirirdi.* Üçüncü seçenek çözüm değil, ihlalin
+      // büyütülmüş hâli.
+      expect(
+          File('lib/app/library_model.dart').readAsStringSync().contains("'wave'"),
+          isFalse,
+          reason: 'MovementEntry `wave` taşıyor — bir ekranın onu çizmesi '
+              'bir satır uzaklıkta.');
+      for (final String f in <String>[
+        'lib/app/library_strings.dart',
+        'lib/app/library_screen.dart',
+        'lib/app/movement_page.dart',
+      ]) {
+        expect(RegExp(r'\bW[1-9]\b').hasMatch(File(f).readAsStringSync()),
+            isFalse,
+            reason: '$f içinde dalga jetonu görünüyor.');
+      }
+    });
+
+    test('TERS İKİZ: DURUM sözcükleri yasaklanmadı', () {
+      // Sıra metaforu yasağı genişletilirse *"waiting on a measurement"*
+      // ölür — oysa o bir BAĞIMLILIK bildirir, bir SIRA değil. Fark:
+      // "waiting on X" neyin eksik olduğunu söyler; "in the queue" nerede
+      // durduğunu söyler ve ilerleyeceğini ima eder.
+      expect(LibraryStrings.honestyWaitingLabel.toLowerCase(),
+          contains('waiting'));
+      expect(LibraryStrings.queuedBadge, 'CLOSED');
     });
   });
 
