@@ -100,6 +100,18 @@ abstract final class GravitaColors {
   static const Color sessionStageDeep = Color(0xFF100C0C);
   static const Color sessionCamera = Color(0xFF221B1B);
   static const Color sessionInkOnDark = Color(0xFFFFFDFC);
+
+  /// Seans alt-sayfasının MÜHÜRLÜ hâli (arıza/dürüstlük beyanı).
+  ///
+  /// ⚠️ Bu renk `live_session_screen.dart` içinde **yerinde yazılmış bir
+  /// literal**di (`const Color(0xFFFFF4F3)`) ve tam da bu yüzden kontrast
+  /// kapısının **DIŞINDAYDI**: kapı `GravitaColors`taki tokenları tarıyor,
+  /// yerinde tanımlanmış bir zemini göremiyor. Ölçüldü — bugün güvenli
+  /// (honestyText 9.29:1), ama **ölçülmeyen bir alan üretiyordu.**
+  ///
+  /// J-126 aktarımının bende karşılığı: *yeşil bir kapı, bakılmayan bir alan
+  /// üretir.* Token'a terfi etmek, alanı kapının içine alır.
+  static const Color sessionSheetSealed = Color(0xFFFFF4F3);
 }
 
 // ── Type ─────────────────────────────────────────────────────────────────

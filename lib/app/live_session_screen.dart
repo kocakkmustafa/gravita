@@ -381,7 +381,9 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(22, 20, 22, 22),
       decoration: BoxDecoration(
-        color: sealed ? const Color(0xFFFFF4F3) : GravitaColors.surfaceTop,
+        color: sealed
+            ? GravitaColors.sessionSheetSealed
+            : GravitaColors.surfaceTop,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
         border: sealed
             ? const Border(

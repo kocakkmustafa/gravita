@@ -199,7 +199,7 @@ void main() {
       const Set<String> asNonText = <String>{'textTertiary', 'hairline'};
       const Set<String> asSurface = <String>{
         'page', 'surfaceTop', 'surfaceBottom', 'sessionStage',
-        'sessionStageDeep', 'sessionCamera',
+        'sessionStageDeep', 'sessionCamera', 'sessionSheetSealed',
       };
 
       final Set<String> classified = <String>{
@@ -250,6 +250,39 @@ void main() {
             reason: 'GravitaType varsayılanı sabitten KOPMUŞ ($d) — kontrast '
                 'ölçümü artık gerçek çağrıyı temsil etmiyor.');
       }
+    });
+
+    test('YERİNDE tanımlanmış renk YOK — kapının dışında zemin kalamaz', () {
+      // ⭐ J-126 aktarımının yapısal hâli. JabLab kontrast kapısının token
+      // varsayılanlarını ölçtüğünü, ama yüzeylerin rengi YERİNDE geçtiğini
+      // buldu — o yol kapının DIŞINDAYDI ve içinde iki canlı ihlal vardı.
+      //
+      // Bende ölçüldü: `live_session_screen.dart` mühürlü alt-sayfanın
+      // zeminini `const Color(0xFFFFF4F3)` diye YERİNDE tanımlıyordu. Bugün
+      // güvenliydi (honestyText 9.29:1) ama kapı onu HİÇ ölçmüyordu —
+      // *yeşil bir kapı, bakılmayan bir alan üretir.*
+      //
+      // Bu test sınıfı kapatıyor: renk tanımı TEK evde (`theme.dart`)
+      // olmak zorunda, çünkü kapı yalnız orayı tarayabiliyor.
+      final RegExp literal = RegExp(r'Color\(0x[0-9A-Fa-f]{8}\)');
+      final List<String> offenders = <String>[];
+      for (final FileSystemEntity f
+          in Directory('lib/app').listSync(recursive: true)) {
+        if (f is! File || !f.path.endsWith('.dart')) continue;
+        if (f.path.endsWith('theme.dart')) continue;
+        if (literal.hasMatch(f.readAsStringSync())) offenders.add(f.path);
+      }
+      expect(offenders, isEmpty,
+          reason: 'Yerinde tanımlanmış renk kontrast kapısının DIŞINDA kalır. '
+              'theme.dart\'a token olarak taşı: ${offenders.join(", ")}');
+    });
+
+    test('mühürlü seans zemini de ölçülüyor', () {
+      // Token'a terfi etmenin karşılığı: artık ölçülebiliyor.
+      expectText('honestyText / mühürlü seans sayfası',
+          GravitaColors.honestyText, GravitaColors.sessionSheetSealed);
+      expectText('ink / mühürlü seans sayfası', GravitaColors.ink,
+          GravitaColors.sessionSheetSealed);
     });
 
     test('HİYERARŞİ korunuyor — okunurluk uğruna feda edilmedi', () {
