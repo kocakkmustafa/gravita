@@ -50,10 +50,11 @@
         "Max deadlift",
         "Estimated strength score"
       ],
-      "userReason": "A camera cannot measure force. We can count your reps and track them over time, and you can compare those numbers to published strength standards — but we will never tell you we measured your strength.",
+      "userReason": "A camera cannot measure force. On the movements that are open we count your reps and track them over time, and you can compare those numbers to published strength standards — but we will never tell you we measured your strength.",
       "internalRule_tr": "Kamera kuvvet ölçemez (blueprint §2/§8). StrengthLevel tablolarına LOGLA-KARŞILAŞTIR sunulabilir; 'ölçtük' denmez.",
       "reconsiderIf": "Only with real force hardware, which is out of scope.",
-      "limitClass": "equipment"
+      "limitClass": "equipment",
+      "$claimNote": "ÖZNE DÜZELTMESİ (2026-08-07): eski metin ÜRÜN iddiası taşıyordu ve ölçüm desteklemiyordu — 31 hareketin 1'i açık, dürüstlük kutusunda YALNIZ tekrar sayımı 'measured'. 'we watch your mechanics' ise Home'daki sevk edilmiş cümleyle DOĞRUDAN çelişiyordu: 'We do not grade your form — not here, not anywhere.'"
     },
     {
       "id": "medical",
@@ -92,11 +93,12 @@
         "Ab-wheel distance",
         "Bar position in muscle-ups"
       ],
-      "userReason": "We coach your body, not your gear. For these movements we watch your mechanics — the landing, the hinge, the line — but we don't detect the box, the rope or the bar.",
+      "userReason": "We coach your body, not your gear. Even where these movements were open, we would watch your position and count your reps — we would not detect the box, the rope or the bar.",
       "internalRule_tr": "Sınıf D. Prop-metriği ayrı R&D (blueprint §4.6). Başarısız olursa fallback: 'ekipman-görünür kadraj yönergesi + gövde-tek analiz'.",
       "reconsiderIf": "Bar/edge detection R&D is scheduled in W3; if it lands, muscle-up and lever variants get more precise phase checkpoints.",
       "limitClass": "capability",
-      "$classNote": "SINIF DÜZELTMESİ (pozitif test): `authority` yazılmıştı. O kutudaki diğer iki kalem *'No.'* / *'No — this is a safety line'* diyor; bu kalem *'R&D planlı; gelirse daha kesin kontrol noktaları'* diyor. Yani KOŞULLU — yani çizgi değil, bugünkü YETENEK sınırı. Kullanıcı `authority` okuduğunda *'daha iyi teknoloji bunu değiştirmez'* cümlesini görüyordu; kaynak bunun tersini söylüyor."
+      "$classNote": "SINIF DÜZELTMESİ (pozitif test): `authority` yazılmıştı. O kutudaki diğer iki kalem *'No.'* / *'No — this is a safety line'* diyor; bu kalem *'R&D planlı; gelirse daha kesin kontrol noktaları'* diyor. Yani KOŞULLU — yani çizgi değil, bugünkü YETENEK sınırı. Kullanıcı `authority` okuduğunda *'daha iyi teknoloji bunu değiştirmez'* cümlesini görüyordu; kaynak bunun tersini söylüyor.",
+      "$claimNote": "ÖZNE DÜZELTMESİ (2026-08-07): eski metin ÜRÜN iddiası taşıyordu ve ölçüm desteklemiyordu — 31 hareketin 1'i açık, dürüstlük kutusunda YALNIZ tekrar sayımı 'measured'. 'we watch your mechanics' ise Home'daki sevk edilmiş cümleyle DOĞRUDAN çelişiyordu: 'We do not grade your form — not here, not anywhere.'"
     },
     {
       "id": "bench_form",
@@ -107,10 +109,11 @@
         "Dumbbell bench press",
         "Incline press"
       ],
-      "userReason": "You lie down and press away from the camera, so the phone is looking straight down the path of the movement. Depth and bar path can't be judged honestly from that angle. We count your reps, time your tempo and check your setup — and we say so on the movement page.",
+      "userReason": "You lie down and press away from the camera, so the phone is looking straight down the path of the movement. Depth and bar path can't be judged honestly from that angle. Each movement page names exactly what we do and do not measure there.",
       "internalRule_tr": "Sınıf B adlandırılmış istisnası (blueprint §2/W3). PAZARLAMADA da 'form analizi' iddia edilmez.",
       "reconsiderIf": "A second camera or a fixed overhead rig would change this — neither is in scope.",
-      "limitClass": "equipment"
+      "limitClass": "equipment",
+      "$claimNote": "ÖZNE DÜZELTMESİ (2026-08-07): eski metin ÜRÜN iddiası taşıyordu ve ölçüm desteklemiyordu — 31 hareketin 1'i açık, dürüstlük kutusunda YALNIZ tekrar sayımı 'measured'. 'we watch your mechanics' ise Home'daki sevk edilmiş cümleyle DOĞRUDAN çelişiyordu: 'We do not grade your form — not here, not anywhere.'"
     }
   ],
   "uiContract_tr": "Bu sayfa aramada bulunabilir olmalı: kullanıcı 'leg press' aradığında sonuç boş dönmez, ilgili 'Neden yok?' bölümüne düşer. Blueprint §2 IA kuralı — dar app algısı yaratma yasağının karşılığı.",

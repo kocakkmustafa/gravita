@@ -623,6 +623,49 @@ def _self_test():
 
 
 
+#: ⭐ K13 — ÖZNE TESTİ (J-177 aktarımı).
+#:
+#: > *Ölü kod sessizdir, ÖLÜ BEYAN KONUŞUR.* Bir alanın etkisi onu okuyan
+#: > KODLA sınırlı değil; onu okuyan YAZARI da sayar.
+#:
+#: Ayırıcı ölçüt ÖZNE: *"çoğu eğitmen…"* alan iddiasıdır, sorun yok.
+#: *"BİZ ölçeriz / BİZ izleriz / en çok BİZ…"* ÜRÜN iddiasıdır ve dayanak
+#: ister. Dayanak burada tek yerde: canlı hareketlerin `honesty.measured`
+#: listesi. Orada yoksa, iddia ölçümden GENİŞTİR.
+#:
+#: ⚠️ Ölçüt DAR: yalnız birinci çoğul + YETENEK fiili. "we will never tell
+#: you" gibi SINIR cümleleri serbest — onlar iddiayı daraltır, genişletmez.
+CAPABILITY_VERBS = ("watch", "grade", "judge", "detect", "measure", "score",
+                    "time", "check", "track", "count")
+
+
+def product_claims(lib):
+    """Ölçümden GENİŞ ürün iddiaları — üretilmiş ve curated metinlerde."""
+    import re
+
+    measured = " ".join(
+        line.lower()
+        for m in lib["movements"] if m.get("status") == "live"
+        for line in m.get("honesty", {}).get("measured", []))
+
+    # Yalnız olumlu yetenek beyanı: "we <verb>" / "we can <verb>".
+    pat = re.compile(
+        r"\bwe(?:\s+can|\s+do|\s+would)?\s+(" + "|".join(CAPABILITY_VERBS) + r")\b",
+        re.I)
+
+    out = []
+    for m in lib["movements"]:
+        for field in ("comingSoonInThisMovement",):
+            for line in m.get(field, []):
+                for verb in pat.findall(line):
+                    if verb.lower() not in measured:
+                        out.append(
+                            f"{m['id']}: '{verb}' yeteneği iddia ediliyor ama "
+                            f"canlı hareketlerin ölçülenler listesinde YOK — "
+                            f"ölçümden geniş ürün iddiası")
+    return out
+
+
 def main():
     if "--self-test" in sys.argv:
         print("kapı ateşleme sınaması (kasıtlı ihlaller):")
@@ -648,6 +691,11 @@ def main():
                   for m in lib["movements"] for c in m.get("courses", []))
     locked = sum(1 for m in lib["movements"] for c in m.get("courses", [])
                  for l in c.get("lessons", []) if l.get("status") == "locked")
+    if claims := product_claims(lib):
+        for c in claims:
+            print(f"⛔ ÖZNE: {c}")
+        return 1
+
     print(f"✅ kütüphane denetimi TEMİZ — {len(lib['movements'])} hareket "
           f"({len(live)} canlı: {live} · {len(soon)} yakında: {soon}) · "
           f"{lessons} ders ({locked} kilitli, hepsi isimli gerekçeli) · "

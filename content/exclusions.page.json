@@ -94,7 +94,7 @@
         "Max deadlift",
         "Estimated strength score"
       ],
-      "userReason": "A camera cannot measure force. We can count your reps and track them over time, and you can compare those numbers to published strength standards — but we will never tell you we measured your strength.",
+      "userReason": "A camera cannot measure force. On the movements that are open we count your reps and track them over time, and you can compare those numbers to published strength standards — but we will never tell you we measured your strength.",
       "limitClass": "equipment",
       "searchTerms": [
         "1rm",
@@ -181,7 +181,7 @@
         "Ab-wheel distance",
         "Bar position in muscle-ups"
       ],
-      "userReason": "We coach your body, not your gear. For these movements we watch your mechanics — the landing, the hinge, the line — but we don't detect the box, the rope or the bar.",
+      "userReason": "We coach your body, not your gear. Even where these movements were open, we would watch your position and count your reps — we would not detect the box, the rope or the bar.",
       "movementClass": "D",
       "limitClass": "capability",
       "searchTerms": [
@@ -218,7 +218,7 @@
         "Dumbbell bench press",
         "Incline press"
       ],
-      "userReason": "You lie down and press away from the camera, so the phone is looking straight down the path of the movement. Depth and bar path can't be judged honestly from that angle. We count your reps, time your tempo and check your setup — and we say so on the movement page.",
+      "userReason": "You lie down and press away from the camera, so the phone is looking straight down the path of the movement. Depth and bar path can't be judged honestly from that angle. Each movement page names exactly what we do and do not measure there.",
       "movementClass": "B",
       "limitClass": "equipment",
       "searchTerms": [
