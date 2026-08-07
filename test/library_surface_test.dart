@@ -6,10 +6,12 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/gravita_app.dart';
+import 'package:gravita/app/home_screen.dart';
 import 'package:gravita/app/library_model.dart';
 import 'package:gravita/app/library_screen.dart';
 import 'package:gravita/app/library_strings.dart';
 import 'package:gravita/app/movement_page.dart';
+import 'package:gravita/app/profile_screen.dart';
 import 'package:gravita/app/theme.dart';
 import 'package:gravita/app/why_not_here_screen.dart';
 
@@ -340,6 +342,63 @@ void main() {
               reason: '${m.id} hareket sayfası ${surface.width.toInt()}×'
                   '${surface.height.toInt()}\'te taştı');
         }
+      }
+    });
+
+    testWidgets('taşma YOK — 375pt\'te, BEŞ yüzeyin HEPSİNDE',
+        (WidgetTester tester) async {
+      // ⚠️ Bu test, JabLab\'ın dersinin bende DOĞRULANMASIDIR:
+      // *"bir kusur sınıfını teşhis etmek, onu aynı commit\'te üretmene engel
+      // değil."* G-139\'da taşma süpürmesinin sayfanın yalnız ilk ekranını
+      // ölçtüğünü buldum ve düzelttim — ama düzeltmeyi **tek ekrana**
+      // uyguladım. Library · Home · Profile · "Neden yok?" hiç 375pt\'te
+      // ölçülmemişti. Sınıfı teşhis edip örneği düzeltmişim; tam da uyarılan
+      // desen.
+      //
+      // Kapı 110pt\'e daraltılarak SINANDI: "Home 110×4000\'te taştı" diye
+      // öttü, yani beş yüzey gerçekten pump ediliyor ve arıza adıyla geliyor.
+      final ContentRepository c = await loadReal(tester);
+      final ExclusionsPage page = c.catalogue.exclusions;
+
+      for (final Size surface in <Size>[
+        const Size(375, 4000),
+        const Size(375, 812),
+      ]) {
+        tester.view.physicalSize = surface;
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.reset);
+
+        final Map<String, Widget> surfaces = <String, Widget>{
+          'Home': HomeScreen(content: c, onBrowseLibrary: () {}),
+          'Library': LibraryScreen(content: c),
+          'Profile': ProfileScreen(content: c),
+          'WhyNotHere': WhyNotHereScreen(page: page),
+          // Vurgulu hâl AYRI layout (mühürlü kart + farklı tipografi).
+          'WhyNotHere(odakli)': WhyNotHereScreen(
+              page: page, focusSectionId: page.sections.first.id),
+        };
+
+        for (final MapEntry<String, Widget> e in surfaces.entries) {
+          await tester.pumpWidget(host(e.value));
+          await tester.pump();
+          expect(tester.takeException(), isNull,
+              reason: '${e.key} ${surface.width.toInt()}×'
+                  '${surface.height.toInt()}\'te taştı');
+        }
+
+        // Library\'nin ARAMA hâli — EN UZUN kapsam-dışı gerekçesiyle.
+        // Gezinme hâlinden tamamen farklı bir layout ve en uzun prose orada.
+        await tester.pumpWidget(host(LibraryScreen(content: c)));
+        await tester.pump();
+        final ExclusionSection longest = page.sections.reduce(
+            (ExclusionSection a, ExclusionSection b) =>
+                a.userReason.length >= b.userReason.length ? a : b);
+        await tester.enterText(find.byKey(LibraryScreen.searchFieldKey),
+            longest.examples.isEmpty ? longest.title : longest.examples.first);
+        await tester.pump();
+        expect(tester.takeException(), isNull,
+            reason: 'Library ARAMA hâli ${surface.width.toInt()}pt\'te taştı '
+                '(en uzun gerekçe: ${longest.id})');
       }
     });
 
