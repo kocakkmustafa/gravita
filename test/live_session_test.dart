@@ -229,6 +229,39 @@ void main() {
       expect(r.workedSeconds, 200);
     });
 
+    test('⭐ SIFIR-OLMAYAN tekrar sayısı KAYDA TAŞINIYOR', () {
+      // ⚠️ Bu test bir KAPSAM BOŞLUĞUNU kapatıyor ve boşluk tam da aktarılan
+      // sınıftı (J-156): *"olan bir şeyi kaybetmek"* — ve kaybın sonucu
+      // sessiz değil, **`0` diye konuşuyor.**
+      //
+      // Ölçüldü: bu grubun ALTI vakasının altısı da `reps: <Rep>[]`
+      // kullanıyordu, yani `unitsCompleted` YALNIZ 0 olarak sınanmıştı.
+      // Biri `unitsCompleted: 0` diye SABİTLESE hepsi geçerdi — JabLab'ın
+      // `eventCount: 0`ının birebir aynısı.
+      //
+      // *"Ölçmediğimiz sayıyı göstermeyiz"* diyen bir ürün, ölçtüğü sayıyı
+      // atıp yerine yanlışını gösteremez.
+      const Rep rep = Rep(
+        index: 0,
+        startUs: 0,
+        endUs: 2000000,
+        descentUs: 900000,
+        ascentUs: 1100000,
+        extremeAngleDeg: 92,
+        startedAtOpenEnd: true,
+        identityGapShare: 0,
+      );
+      final SessionRecord? r = build(LiveRunning(
+        reps: List<Rep>.filled(7, rep),
+        personVisible: true,
+        framesSeen: 300,
+      ));
+      expect(r, isNotNull);
+      expect(r!.unitsCompleted, 7,
+          reason: 'Sayılan tekrarlar kayda TAŞINMIYOR — kullanıcı 7 tekrar '
+              'yapıp geçmişinde başka bir sayı görür.');
+    });
+
     test('kayıt SERBEST kova anahtarı taşır — ders gibi görünmez', () {
       final SessionRecord? r = build(const LiveRunning(
           reps: <Rep>[], personVisible: true, framesSeen: 10));
