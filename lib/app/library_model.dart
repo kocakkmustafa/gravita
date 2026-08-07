@@ -120,8 +120,20 @@ final class MovementEntry {
       id: j['id'] as String,
       displayName: j['displayName'] as String,
       family: (j['family'] as String?) ?? 'other',
-      level: (j['level'] as String?) ?? 'beginner',
-      movementClass: (j['class'] as String?) ?? 'A',
+      // ⚠️ VARSAYILAN YOK — ve bu bir düzeltmenin ürünü (O-070 sınıfı).
+      //
+      // Eskiden `?? 'beginner'` ve `?? 'A'` yazıyordu. Savunmacı görünüyor
+      // ama ikisi de KULLANICI İDDİASINA dönüşüyordu: eksik veri "Beginner"
+      // diye çiziliyor, ve eksik sınıf **EN OLUMLU** sınıfı (`A` = *"kameranın
+      // ihtiyacı olan her şey yandan görünür"*) iddia ediyordu.
+      //
+      // > Savunmacı bir varsayılan, ölçülmemiş bir iddiaya dönüşür.
+      //
+      // Doğrusu: veri yoksa İDDİA DA YOK. `null` → yüzey o satırı hiç
+      // çizmiyor. Eksikliğin kendisi de kapıyla yakalanıyor (içerik hatası
+      // render'da yamanmaz).
+      level: j['level'] as String?,
+      movementClass: j['class'] as String?,
       status: MovementStatus.parse(j['status'] as String?),
       catalogId: (j['catalogId'] ?? j['id']) as String,
       equipment: _strings(j['equipment']),
@@ -154,11 +166,15 @@ final class MovementEntry {
   final String id;
   final String displayName;
   final String family;
-  final String level;
+  /// `null` = içerikte YOK. Uydurulmuş bir seviye çizilmez.
+  final String? level;
 
   /// A/B/D — hareketin ZORLUĞU değil, KAMERANIN NE GÖREBİLDİĞİ
   /// (`movement-classes.json` §principle).
-  final String movementClass;
+  ///
+  /// `null` = içerikte YOK. **Varsayılan `A` KOYULMUYOR:** o, üç sınıfın
+  /// EN OLUMLUSU ve eksik veriyle *"her şey görünür"* iddia etmek olurdu.
+  final String? movementClass;
   final MovementStatus status;
   final String catalogId;
   final List<String> equipment;
@@ -229,7 +245,10 @@ final class ExclusionSection {
         examples: _strings(j['examples']),
         userReason: j['userReason'] as String,
         searchTerms: _strings(j['searchTerms']),
-        limitClass: (j['limitClass'] as String?) ?? 'capability',
+        // ⚠️ Varsayılan `capability` KOYULMUYOR: G-163'te ölçüldü ki o sınıf
+        // ÖRTÜK BİR VAAT taşıyor (*"daha iyi teknoloji çözer"*). Eksik veriyle
+        // teknik-kısıt iddia etmek, `authority` bir kalemi yanlış anlatır.
+        limitClass: j['limitClass'] as String?,
         movementClass: j['movementClass'] as String?,
       );
 
@@ -254,7 +273,7 @@ final class ExclusionSection {
   /// Sınıf olmadan yedi kalem tek çerçevede okunuyor ve **hiçbir cümle yalan
   /// söylemeden sayfa yanlış anlaşılıyor** — çerçeve, kümenin kendisi
   /// hakkında bir iddiadır ve hiçbir öğesinde yazılı değildir.
-  final String limitClass;
+  final String? limitClass;
   final String? movementClass;
 }
 

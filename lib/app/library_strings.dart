@@ -95,7 +95,10 @@ abstract final class LibraryStrings {
 
   /// Sınır sınıfının kullanıcı cümlesi (J-153). Rozet DEĞİL cümle: tek
   /// sözcüklük bir etiket ("AUTHORITY") kullanıcıya hiçbir şey söylemez.
-  static String limitClassLine(String limitClass) => switch (limitClass) {
+  /// `null` → BOŞ. Sınıfı bilinmeyen bir sınır hakkında *"kamera göremiyor"*
+  /// demek, üç sınıftan **vaat taşıyanını** varsaymak olurdu (G-163).
+  static String limitClassLine(String? limitClass) => switch (limitClass) {
+        null => '',
         'authority' =>
           'This is a line we drew, not a limit we hit. Better technology '
               'would not change it.',
@@ -251,7 +254,10 @@ abstract final class LibraryStrings {
       'This movement is marked as part of a progression, but we could not '
       'find which one. We are not guessing.';
 
-  static String classBadgeExplainer(String cls) => switch (cls) {
+  /// `null` → BOŞ. Sınıfı bilinmeyen bir harekette kamera-görünürlüğü
+  /// hakkında cümle kurmak, ölçülmemiş bir iddiadır.
+  static String classBadgeExplainer(String? cls) => switch (cls) {
+        null => '',
         'B' => 'Class B — the camera looks down this movement\'s path, so we '
             'count and time it but never judge its shape.',
         'D' => 'Class D — we coach your body; the equipment itself is not '
@@ -269,9 +275,10 @@ abstract final class LibraryStrings {
       ? 'No equipment'
       : equipment.map((String e) => _titleCase(e.replaceAll('_', ' '))).join(' · ');
 
+  /// Eksik alan SATIRDAN DÜŞER, uydurulmuş bir değerle doldurulmaz.
   static String metaLine(MovementEntry m) => <String>[
         LibraryCatalogue.labelFor(m.family),
-        _titleCase(m.level),
+        if (m.level != null) _titleCase(m.level!),
         equipmentLine(m.equipment),
       ].join(' · ');
 

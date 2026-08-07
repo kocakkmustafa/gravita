@@ -102,6 +102,9 @@ class WhyNotHereScreen extends StatelessWidget {
                       ? GravitaColors.honestyText
                       : GravitaColors.inkMuted),
             ),
+            // ⚠️ Sınıf yoksa satır ÇİZİLMEZ (O-070): "kamera göremiyor"
+            // varsayılanı, vaat taşıyan sınıfı uydurmak olurdu.
+            if (s.limitClass != null) ...<Widget>[
             const SizedBox(height: 10),
             // ⭐ SINIF cümlesi gerekçenin HEMEN ALTINDA. Yukarıya koymak onu
             // başlık gibi okuturdu; aşağıya atmak dipnot yapardı. Okuyucu
@@ -115,6 +118,7 @@ class WhyNotHereScreen extends StatelessWidget {
                   color: GravitaColors.honestySeal,
                   letterSpacingEm: 0.02),
             ),
+            ],
             if (s.examples.isNotEmpty) ...<Widget>[
               const SizedBox(height: 14),
               // Örnekler ARAMANIN eşleştiği sözcüklerdir; göstermek, "bunu

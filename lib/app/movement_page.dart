@@ -172,12 +172,16 @@ class _MovementPageState extends State<MovementPage> {
           Text(m.blurb,
               style: GravitaType.body(
                   size: 14.5, color: GravitaColors.inkMuted, height: 1.6)),
-          const SizedBox(height: 12),
-          Text(LibraryStrings.classBadgeExplainer(m.movementClass),
-              style: GravitaType.body(
-                  size: 12.5,
-                  color: GravitaColors.textSecondary,
-                  height: 1.5)),
+          // ⚠️ Sınıf bilinmiyorsa SATIR HİÇ ÇİZİLMEZ — boş bir cümle
+          // yerine hiçbir cümle. Eksik veri bir iddiaya dönüşmesin (O-070).
+          if (m.movementClass != null) ...<Widget>[
+            const SizedBox(height: 12),
+            Text(LibraryStrings.classBadgeExplainer(m.movementClass),
+                style: GravitaType.body(
+                    size: 12.5,
+                    color: GravitaColors.textSecondary,
+                    height: 1.5)),
+          ],
         ],
       );
 

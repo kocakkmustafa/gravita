@@ -209,6 +209,67 @@ void main() {
     });
   });
 
+  group('⛔ SAVUNMACI VARSAYILAN, ÖLÇÜLMEMİŞ İDDİAYA DÖNÜŞEMEZ (O-070)', () {
+    // > Savunmacı bir varsayılan, ölçülmemiş bir iddiaya dönüşür.
+    //
+    // Ostinato'nun bulgusu: `sampleCount == 0 ? 1 : …` → sıfır ölçüm
+    // **1.0** → *"Steady."* Kod düzeyinde masum bir bölme-sıfır koruması,
+    // ürün düzeyinde ölçülmemiş bir OLUMLU hüküm.
+    //
+    // Bende üç tane vardı ve üçü de KULLANICI İDDİASINA dönüşüyordu:
+    //   `level ?? 'beginner'`  → uydurulmuş zorluk
+    //   `class ?? 'A'`         → **EN OLUMLU** sınıf ("her şey görünür")
+    //   `limitClass ?? 'capability'` → **vaat taşıyan** sınıf (G-163)
+    //
+    // Üçü de kaldırıldı: veri yoksa İDDİA DA YOK. Ama o zaman eksikliğin
+    // kendisi görünmez olur — bu kapı onu görünür tutuyor: içerik bu
+    // alanları HER ZAMAN taşımalı, ve eksiklik RENDER'DA YAMANMAZ.
+    test('her hareket sınıfını ve seviyesini BEYAN ediyor', () {
+      final Map<String, dynamic> lib =
+          (jsonDecode(File('content/library.json').readAsStringSync()) as Map)
+              .cast<String, dynamic>();
+      for (final Map<String, dynamic> m
+          in (lib['movements'] as List<dynamic>).cast<Map<String, dynamic>>()) {
+        expect(m['class'], isNotNull, reason: '${m['id']}: sınıf beyanı YOK');
+        expect(m['level'], isNotNull, reason: '${m['id']}: seviye beyanı YOK');
+      }
+    });
+
+    test('her kapsam-dışı bölüm SINIRIN SINIFINI beyan ediyor', () {
+      final Map<String, dynamic> page = (jsonDecode(
+              File('content/exclusions.page.json').readAsStringSync()) as Map)
+          .cast<String, dynamic>();
+      for (final dynamic s
+          in (page['sections'] as List<dynamic>?) ?? const <dynamic>[]) {
+        expect((s as Map)['limitClass'], isNotNull,
+            reason: '${s['id']}: sınır sınıfı YOK — eksikse "kamera '
+                'göremiyor" varsayılırdı ve o sınıf VAAT taşıyor.');
+      }
+    });
+
+    test('varsayılan-ile-iddia deseni KODDA kalmadı', () {
+      // Kaynak taraması burada meşru: sorulan şey davranış değil, DESENİN
+      // varlığı. `?? 'A'` gibi bir satır geri gelirse kapı öter.
+      // ⚠️ YORUM SATIRLARI ÇIKARILIYOR — ve bu bir düzeltmenin ürünü. Kapının
+      // ilk hâli kendi düzeltme YORUMUMDA öttü: o satır kaldırdığım deseni
+      // *anlatıyordu*, uygulamıyordu. Aynı sınıf bu gece üçüncü kez:
+      // `unlock` ANAHTARI · *"not badged"* CÜMLESİ · ve şimdi KODU ANLATAN
+      // yorum. Kapı, kodu ondan bahseden metinden ayırmak zorunda.
+      final String model = File('lib/app/library_model.dart')
+          .readAsLinesSync()
+          .where((String l) =>
+              !l.trimLeft().startsWith('//') && !l.trimLeft().startsWith('///'))
+          .join('\n');
+      for (final String bad in <String>[
+        "?? 'A'", "?? 'beginner'", "?? 'capability'",
+      ]) {
+        expect(model.contains(bad), isFalse,
+            reason: 'Savunmacı varsayılan geri gelmiş ($bad) — eksik veri '
+                'yine bir iddiaya dönüşüyor.');
+      }
+    });
+  });
+
   group('⛔ identityGapShare RAPOR-ONLY kalır', () {
     test('kabuk onu HİÇ okumuyor — hüküm kurmuyor', () {
       // Sınıf ①→ KAPALI. Alan motorda hesaplanıyor (`Rep.identityGapShare`)
