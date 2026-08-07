@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show ByteData, rootBundle;
 import 'package:gravita_engine/gravita_engine.dart';
 import 'package:motion_camera/motion_camera.dart';
+
+import 'camera_release_latch.dart';
 import 'package:motion_core/motion_core.dart' show FrameSize;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -81,6 +83,7 @@ class LiveSessionScreen extends StatefulWidget {
 }
 
 class _LiveSessionScreenState extends State<LiveSessionScreen> {
+
   late final MotionCameraController _camera =
       widget.controller ?? MotionCameraController();
 
@@ -95,7 +98,9 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
   @override
   void dispose() {
     unawaited(_sub?.cancel());
-    if (_running) unawaited(_camera.stop().catchError((Object _) {}));
+    // ⭐ C-195: kapanış nöbeti BURADA kuruluyor — senkron, çünkü `dispose`
+    // senkron ve kilit bir sonraki `start`tan ÖNCE görünür olmalı.
+    if (_running) CameraReleaseLatch.hold(_camera.stop());
     super.dispose();
   }
 
@@ -127,6 +132,10 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
             detail: 'permission_handler: denied'));
         return;
       }
+
+      // ⚠️ ÖNCE uçmakta olan kapanışı bekle. Bu satır olmadan ikinci seans,
+      // birincinin kapanışıyla yarışır ve `already-running` alır.
+      await CameraReleaseLatch.awaitRelease();
 
       final CameraSessionInfo info = await _camera.start(
         modelPath: await _modelPath(),
