@@ -25,8 +25,8 @@
 # bir çıktı üretirler. Kapı gibi koşturmak, koştuğu için doğru sanılan bir
 # şey üretirdi.
 #
-# Ayrıca ÖLÇMEZ: cihaz davranışı (sim'de kamera yok) · görsel ayırt
-# edilebilirlik (WCAG luminans ölçer) · `validate_catalog`ın 7 kanıtsız
+# Ayrıca ÖLÇMEZ: cihaz davranışı (sim'de kamera yok) · biçim/konum
+# karışıklığı (ΔE renk uzaklığı ölçer, YERLEŞİM değil) · `validate_catalog`ın 7 kanıtsız
 # değişmezi (betiğin kendi çıktısı onları her koşumda basar).
 set -uo pipefail
 cd "$(dirname "$0")/.."
@@ -81,7 +81,7 @@ if [ "$fail" -eq 0 ]; then
   echo "✅ ÜÇ SÜİTİN ÜÇÜ DE YEŞİL"
   echo "   app ${app_n}/${app_n} · engine ${eng_n}/${eng_n} · python ${py_ok}/${py_total}"
   echo "   ⚠️ Kapsam dışı (bilerek): 8 hasat aracı · cihaz davranışı ·"
-  echo "      görsel ayırt edilebilirlik · validate_catalog'un 7 kanıtsız değişmezi"
+  echo "      biçim/konum karışıklığı · validate_catalog'un 7 kanıtsız değişmezi"
 else
   echo "❌ EN AZ BİR SÜİT KIRMIZI"
   echo "   app ${app_n} · engine ${eng_n} · python ${py_ok}/${py_total}"

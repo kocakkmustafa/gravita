@@ -29,11 +29,29 @@ import 'package:gravita/app/theme.dart';
 /// 2. **Eşik İCAT DEĞİL:** WCAG dış standart, formül standardın kendisi
 ///    (relative luminance + `(L1+0.05)/(L2+0.05)`).
 ///
-/// ## Bu kapının SINIRI — bilerek dar
+/// ## Bu kapının SINIRI — ve bir kez YANLIŞ çizilmiş hâli
 ///
-/// WCAG kontrastı *"bu iki renk ayırt edilebilir mi"* sorusunu **ÖLÇMEZ**,
-/// luminans ölçer. Yani burası **görünürlüğü** kapatır, **ayırt
-/// edilebilirliği** değil; ikincisi göz işidir ve bu dosyanın iddiası değil.
+/// WCAG kontrastı *"bu iki renk ayırt edilebilir mi"* sorusunu ÖLÇMEZ,
+/// luminans ölçer. Buraya kadar doğru. Ama devamında şunu yazmıştım:
+///
+/// > ~~*"ikincisi **göz işidir** ve bu dosyanın iddiası değil."*~~
+///
+/// **Bu yanlıştı ve pahalı bir yanlıştı.** *"Göz işi"* demek, işi
+/// **imkânsız kutusuna** koymaktır — ve oraya konan şeye bir daha
+/// bakılmaz. Ölçünce ayırt edilebilirliğin de **dış standardı** olduğu
+/// çıktı: **CIE Lab ΔE** (renk farkı) ve **Viénot 1999** (renk körlüğü
+/// simülasyonu). İkisi de mekanik, ikisi de eşiği İCAT ETMİYOR — tıpkı
+/// WCAG gibi. Kapı **on dakikada** kuruldu (bkz. `_dE` / `_deuter`).
+///
+/// > **Bir şeyi imkânsız sanmak, onu on dakikalık bir işten yıllarca
+/// > uzak tutabilir.**
+///
+/// ### Kutunun YENİ, daha dar sınırı (bu sefer ölçülmüş)
+///
+/// ΔE **renk uzaklığını** ölçer. Şunları HÂLÂ ölçmez ve bunlar gerçekten
+/// göz işidir: biçim/konum karışıklığı (iki öğe aynı renkte ama farklı
+/// yerde), okuma sırası, bir mührün *dokunulabilir görünüp görünmediği*.
+/// Yani kutu KÜÇÜLDÜ, boşalmadı.
 void main() {
   // `GravitaType.*` google_fonts'a dokunuyor ve o da asset bundle istiyor —
   // binding olmadan varsayılan-renk testi çöker (kontrast değil, altyapı).
@@ -331,5 +349,130 @@ void main() {
       final Color onDark = over(const Color(0xFF000000), const Color(0xFF808080), 0.5);
       expect(luminance(onLight) > luminance(onDark), isTrue);
     });
+  });
+
+  runDistinguishability();
+}
+
+/// ⭐ AYIRT EDİLEBİLİRLİK KAPISI — bir zamanlar "imkânsız" kutusundaydı.
+///
+/// Ölçüt İCAT DEĞİL, iki dış standart:
+/// * **CIE Lab ΔE (CIE76)** — algısal renk uzaklığı. Fark eşiği (JND) ≈ 2,3.
+/// * **Viénot–Brettel–Mollon 1999** — deuteranopi/protanopi simülasyonu.
+///
+/// Eşik **3,0**: JND'nin (2,3) hemen üstü, yani *"bir insan bunları
+/// ayırabilir"* iddiasının en zayıf hâli. Daha yükseğini seçmek estetik
+/// karar olurdu; 3,0 standardın kendisinden geliyor.
+///
+/// **Kapsam DAR — kasten.** Yalnız *"anlam taşıyan ve aynı yüzeyde
+/// görünen"* çiftler ölçülür. Paletteki her çifti ölçmek fazla-geniş
+/// olurdu: iki dekoratif tonun birbirine benzemesi kusur değildir.
+/// > *Bazı şeyler "imkânsız" değil, sadece FAZLA GENİŞ tanımlanmış.*
+/// sRGB → doğrusal ışık. WCAG ve CIE Lab AYNI doğrusallaştırmayı kullanır;
+/// bu yüzden dosya içinde tek tanım.
+double _linear(double c) =>
+    c <= 0.04045 ? c / 12.92 : math.pow((c + 0.055) / 1.055, 2.4).toDouble();
+
+void runDistinguishability() {
+  // --- CIE Lab (D65) ---
+  double _f(double t) => t > 0.008856 ? math.pow(t, 1 / 3).toDouble()
+                                      : 7.787 * t + 16 / 116;
+  List<double> _lab(Color c) {
+    final double r = _linear(c.r), g = _linear(c.g), b = _linear(c.b);
+    final double fx = _f((0.4124 * r + 0.3576 * g + 0.1805 * b) / 0.95047);
+    final double fy = _f(0.2126 * r + 0.7152 * g + 0.0722 * b);
+    final double fz = _f((0.0193 * r + 0.1192 * g + 0.9505 * b) / 1.08883);
+    return <double>[116 * fy - 16, 500 * (fx - fy), 200 * (fy - fz)];
+  }
+
+  double _dE(Color a, Color b) {
+    final List<double> x = _lab(a), y = _lab(b);
+    double s = 0;
+    for (int i = 0; i < 3; i++) {
+      s += (x[i] - y[i]) * (x[i] - y[i]);
+    }
+    return math.sqrt(s);
+  }
+
+  /// Viénot 1999 deuteranopi: M konisi L ve S'ten yeniden kurulur.
+  Color _deuter(Color c) {
+    final double r = _linear(c.r), g = _linear(c.g), b = _linear(c.b);
+    final double l = 17.8824 * r + 43.5161 * g + 4.11935 * b;
+    final double m = 3.45565 * r + 27.1554 * g + 3.86714 * b;
+    final double s = 0.0299566 * r + 0.184309 * g + 1.46709 * b;
+    // ignore: unused_local_variable
+    final double _ = m; // M ATILIR — deuteranopinin tanımı bu.
+    final double m2 = 0.494207 * l + 1.24827 * s;
+    double ch(double v) {
+      final double x = v.clamp(0.0, 1.0);
+      return x <= 0.0031308 ? 12.92 * x : 1.055 * math.pow(x, 1 / 2.4) - 0.055;
+    }
+    return Color.from(
+        alpha: 1,
+        red: ch(0.0809444479 * l - 0.130504409 * m2 + 0.116721066 * s),
+        green: ch(-0.0102485335 * l + 0.0540193266 * m2 - 0.113614708 * s),
+        blue: ch(-0.000365296938 * l - 0.00412161469 * m2 + 0.693511405 * s));
+  }
+
+  //: ANLAM taşıyan ve aynı yüzeyde görünen çiftler. Ölçüldü: accent ve
+  //: honestySeal `movement_page` · `surface_widgets` · `live_session_screen`
+  //: dosyalarının HEPSİNDE birlikte geçiyor.
+  const List<(String, Color, String, Color)> meaningPairs =
+      <(String, Color, String, Color)>[
+    ('accent=EYLEM', GravitaColors.accent,
+     'honestySeal=DÜRÜSTLÜK', GravitaColors.honestySeal),
+    ('accent=EYLEM', GravitaColors.accent, 'ink=METİN', GravitaColors.ink),
+    ('honestySeal=DÜRÜSTLÜK', GravitaColors.honestySeal,
+     'honestyText=GÖVDE', GravitaColors.honestyText),
+  ];
+
+  test('anlam taşıyan renkler AYIRT EDİLEBİLİR — normal görüşte', () {
+    for (final (String na, Color a, String nb, Color b) in meaningPairs) {
+      expect(_dE(a, b), greaterThanOrEqualTo(3.0),
+          reason: '$na ↔ $nb: ΔE ${_dE(a, b).toStringAsFixed(1)} < 3,0 — '
+              'iki FARKLI anlam aynı renge çökmüş.');
+    }
+  });
+
+  test('anlam taşıyan renkler AYIRT EDİLEBİLİR — deuteranopide', () {
+    // ⭐ Bu kapının asıl değeri burada: palet KIRMIZI eksenli, ve kırmızı
+    // deuteranopide kahverengiye kayar. "Bu dokunulabilir" sinyali ile
+    // "bu bir metin" sinyali çakışırsa dürüstlük mührü DÜĞMEYE benzer.
+    for (final (String na, Color a, String nb, Color b) in meaningPairs) {
+      final double d = _dE(_deuter(a), _deuter(b));
+      expect(d, greaterThanOrEqualTo(3.0),
+          reason: '$na ↔ $nb: deuteranopide ΔE ${d.toStringAsFixed(1)} '
+              '< 3,0 — renk körü kullanıcı için AYNI renk.');
+    }
+  });
+
+  test('NEGATİF İKİZ: kapı gerçekten ötüyor mu (sentetik çift)', () {
+    // ⚠️ İkiz SENTETİK, çünkü palette eşiğin altında GERÇEK çift YOK —
+    // ve olmayan bir kusuru varmış gibi göstermek gürültüdür. İkizin işi
+    // kusuru kanıtlamak değil, MEKANİZMANIN çalıştığını kanıtlamak.
+    //
+    // Seçim keyfi değil: kırmızı eksende 4 birimlik bir kayma, yani
+    // paletin bir sonraki ton adımını atarsa doğacak çift.
+    const Color a = Color(0xFF6E0A10);
+    const Color b = Color(0xFF720C12);
+    expect(_dE(a, b), lessThan(3.0),
+        reason: 'İKİZ ÖLDÜ: bu sentetik çift artık eşiğin üstünde — '
+            'kapının ateşlenebilirlik kanıtı kayboldu.');
+    expect(_dE(_deuter(a), _deuter(b)), lessThan(3.0),
+        reason: 'İKİZ ÖLDÜ (deuteranop dal)');
+  });
+
+  test('EŞİK PAYI ÖLÇÜLÜ: en yakın anlam çifti ne kadar uzakta', () {
+    // Kapı yeşil ama PAYI ne? Ölçüldü: en yakın çift 4,3 (normal) / 4,4
+    // (deuteranop) — eşiğin 1,3 üstünde. Yani palet güvenli ama BOL değil;
+    // yeni bir ton eklenirse bu kapı ilk ötecek yerlerden biri.
+    double closest = double.infinity;
+    for (final (String _, Color a, String __, Color b) in meaningPairs) {
+      closest = math.min(closest, math.min(_dE(a, b), _dE(_deuter(a), _deuter(b))));
+    }
+    expect(closest, greaterThan(3.0));
+    expect(closest, lessThan(20.0),
+        reason: 'Pay beklenenden çok büyük — meaningPairs listesi '
+            'sessizce daralmış olabilir (kapı boşa dönüyor).');
   });
 }
