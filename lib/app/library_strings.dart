@@ -43,11 +43,20 @@ abstract final class LibraryStrings {
       'gap we forgot about — each one names the measurement it is waiting on, '
       'on its own page.';
 
+  /// ⚠️ *"to be coached"* iddiası KALDIRILDI (yayın envanteri, J-124 sınıfı).
+  ///
+  /// Bu satır *"koçlanmak için gereken her şeye sahip"* diyordu; aynı
+  /// hareketin sayfası ise *"canlı seansta hiçbir ipucu ekranda görünmüyor,
+  /// yani hiçbir şey sana söylemiyor"* diyor. **İki yüzey birbiriyle
+  /// çelişiyordu ve daha görünür olanı yanlıştı** — J-113'ün aynı şekli.
+  ///
+  /// Yeni cümle yalnız KABUĞUN TESLİM ETTİĞİNİ anlatıyor: sayma, ve saymanın
+  /// dayandığı kimlik kapısı.
   static String homeOpenBody(int live) => live == 1
-      ? 'One movement has everything it needs to be coached: an identity '
-          'check derived from measurement, rules proven against real footage, '
-          'and a real instructor reference.'
-      : '$live movements have everything they need to be coached.';
+      ? 'One movement is open: we count your reps during a live session, and '
+          'the engine refuses to count unless it can see you are actually in '
+          'position. We do not grade your form — not here, not anywhere.'
+      : '$live movements are open for live rep counting.';
 
   // ── Library ────────────────────────────────────────────────────────────
   static const String libraryTitle = 'Library';
@@ -75,7 +84,17 @@ abstract final class LibraryStrings {
   static const String whyNotLink = "Why isn't a movement here?";
 
   static const String openBadge = 'OPEN';
-  static const String queuedBadge = 'MEASURING';
+
+  /// ⚠️ `MEASURING` DEĞİL. Ölçüldü (yayın envanteri, J-124 sınıfı): o sözcük
+  /// *"uygulama seni ölçüyor"* diye okunuyordu — oysa gerçek TAM TERSİ:
+  /// ölçülmemiş olan ÜRÜNÜN kendisi, kullanıcı değil. Rozet doğru sonucu
+  /// (girilemez) YANLIŞ gerekçeyle söylüyordu; ve doğru sonucu yanlış
+  /// gerekçeyle söylemek en zor yakalanan hatadır.
+  ///
+  /// `CLOSED` bir DURUM bildirir ve üretilmiş blurb ile aynı sözcüğü kullanır
+  /// (*"is in our catalogue and closed"*). Gerekçe zaten kartın alt
+  /// satırında: *"3 measurements missing"*.
+  static const String queuedBadge = 'CLOSED';
 
   /// Hareket kartının alt satırı — bloker SAYISI, ham anahtar DEĞİL.
   static String blockerCount(int n) =>

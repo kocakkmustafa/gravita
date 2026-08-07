@@ -10,6 +10,8 @@ import 'package:gravita/app/home_screen.dart';
 import 'package:gravita/app/library_model.dart';
 import 'package:gravita/app/library_screen.dart';
 import 'package:gravita/app/library_strings.dart';
+import 'package:gravita/app/progress_view.dart';
+import 'package:gravita_engine/gravita_engine.dart';
 import 'package:gravita/app/movement_page.dart';
 import 'package:gravita/app/profile_screen.dart';
 import 'package:gravita/app/theme.dart';
@@ -735,6 +737,72 @@ void main() {
           reason: 'Seans artık kaydediliyor; "atılıyor" beyanı BAYAT.');
     });
 
+    testWidgets('J-124: Progress SERBEST seansı görüyor — "Not started" DEMİYOR',
+        (WidgetTester tester) async {
+      // ⚠️ Yayın envanterinin en ağır satırı. Ölçüldü: seanslar SERBEST kovaya
+      // yazılıyordu (`free_sessions.jsonl`) ama Progress yalnız DERS kovasını
+      // okuyordu. Yani kullanıcı gerçek bir seans yapıp Progress'e geldiğinde
+      // ekran ona **"Not started"** diyordu — eksik bilgi değil, YANLIŞ bilgi.
+      //
+      // Bu, koordinatörün sevk ettiği J-124 sınıfı: *üretici yok ama beyan
+      // onu ANLATIYOR* — burada üretici VARDI, beyan onu okumuyordu.
+      useNarrowTall(tester);
+      final ContentRepository c = await loadReal(tester);
+      final SessionRecord free = SessionRecord(
+        lessonId: ContentRepository.freeSessionKey('push_up'),
+        completedAt: DateTime.utc(2026, 8, 7, 5),
+        workedSeconds: 180,
+        unitsCompleted: 12,
+        plannedUnits: 0,
+        unitLabel: 'rep',
+        lessonClass: 'measurementOnly',
+      );
+
+      await tester.pumpWidget(host(Scaffold(
+        body: ProgressView(
+          summary: ProgressSummary.build(
+            lessonSurfaces: c.lessonSurfaces,
+            records: const <SessionRecord>[],
+          ),
+          freeSessions: <SessionRecord>[free],
+        ),
+      )));
+      await tester.pump();
+
+      expect(find.byKey(ProgressView.freeSectionKey, skipOffstage: false),
+          findsOneWidget,
+          reason: 'Gerçek seans yapılmış ama Progress onu GÖRMÜYOR.');
+      expect(find.textContaining('12 reps', skipOffstage: false),
+          findsOneWidget);
+
+      // ⚠️ KARIŞMIYOR: serbest seans ders satırına GİRMEZ. `summary` boş
+      // kayıtla kuruldu, yani ders satırları hâlâ "Not started" — ve bu
+      // DOĞRU, çünkü o derse ait bir seans gerçekten yok. Yanlış olan,
+      // serbest seansın HİÇ görünmemesiydi.
+      expect(find.byKey(ProgressView.measuredSectionKey, skipOffstage: false),
+          findsOneWidget);
+    });
+
+    testWidgets('POZİTİF İKİZ: serbest seans YOKKEN bölüm ÇİZİLMEZ',
+        (WidgetTester tester) async {
+      // Bölüm koşulsuz çizilseydi üstteki test yine geçerdi; bu ikiz onu
+      // kapatıyor. Boş bir "Sessions outside a lesson" başlığı, altı boşken
+      // tutulmayan bir söz olurdu (aynı gerekçe `notes` bölümünde de var).
+      useNarrowTall(tester);
+      final ContentRepository c = await loadReal(tester);
+      await tester.pumpWidget(host(Scaffold(
+        body: ProgressView(
+          summary: ProgressSummary.build(
+            lessonSurfaces: c.lessonSurfaces,
+            records: const <SessionRecord>[],
+          ),
+        ),
+      )));
+      await tester.pump();
+      expect(find.byKey(ProgressView.freeSectionKey, skipOffstage: false),
+          findsNothing);
+    });
+
     test('rozet ETİKETİ gerekçeli — "Coming soon" sınıfı etiket YOK', () {
       // Koordinatör hükmü ③: `status: coming_soon` bir VERİ MODELİ kodudur
       // ve serbesttir; ama o durumun GÖRÜNEN etiketi vaat olamaz. Rozet
@@ -742,6 +810,11 @@ void main() {
       // ("3 measurements missing") — durum, söz değil.
       expect(LibraryStrings.queuedBadge.toLowerCase().contains('soon'), isFalse);
       expect(LibraryStrings.queuedBadge.toLowerCase().contains('yakında'), isFalse);
+      // ⚠️ `MEASURING` de yasak — "uygulama seni ölçüyor" diye okunuyordu,
+      // oysa ölçülmemiş olan ÜRÜNÜN kendisi. Doğru sonuç, yanlış gerekçe.
+      expect(LibraryStrings.queuedBadge.toLowerCase().contains('measuring'),
+          isFalse,
+          reason: 'Rozet, ölçümü KULLANICIYA atfediyor (J-124 sınıfı).');
       expect(LibraryStrings.blockerCount(3), contains('missing'));
     });
 

@@ -202,15 +202,31 @@ class ProgressTab extends StatefulWidget {
 }
 
 class _ProgressTabState extends State<ProgressTab> {
-  late final Future<({ProgressSummary summary, HistoryStatus status})>
-      _future = _load();
+  late final Future<
+      ({
+        ProgressSummary summary,
+        HistoryStatus status,
+        List<SessionRecord> free
+      })> _future = _load();
 
-  Future<({ProgressSummary summary, HistoryStatus status})> _load() async {
+  Future<
+      ({
+        ProgressSummary summary,
+        HistoryStatus status,
+        List<SessionRecord> free
+      })> _load() async {
     List<SessionRecord> records = const <SessionRecord>[];
+    // ⭐ SERBEST kova AYRI okunuyor ve `ProgressSummary`'ye HİÇ verilmiyor
+    // (G-132: farklı `focus`lu dersler tek trendde toplanamaz). Ama ekranda
+    // GÖRÜNÜYOR — çünkü okunmadığı sürece kullanıcı gerçek bir seans yapıp
+    // buraya geldiğinde ekran ona "Not started" diyordu (J-124 sınıfı:
+    // eksik bilgi değil, YANLIŞ bilgi).
+    List<SessionRecord> free = const <SessionRecord>[];
     HistoryStatus status = const HistoryOk();
     try {
       final SessionStore store = await ContentRepository.openSessionStore();
       records = await store.recent();
+      free = await (await ContentRepository.openFreeSessionStore()).recent();
       // Çekirdek 0.10.0: kayıp satır sayısı ÖLÇÜLEBİLİR. Aynı depodan okunur
       // ki sayılar ile kayıp aynı ana ait olsun.
       final int unreadable = await store.unreadableRecords();
@@ -224,16 +240,32 @@ class _ProgressTabState extends State<ProgressTab> {
         records: records,
       ),
       status: status,
+      free: free,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<({ProgressSummary summary, HistoryStatus status})>(
+    return FutureBuilder<
+        ({
+          ProgressSummary summary,
+          HistoryStatus status,
+          List<SessionRecord> free
+        })>(
       future: _future,
       builder: (BuildContext context,
-          AsyncSnapshot<({ProgressSummary summary, HistoryStatus status})> s) {
-        final ({ProgressSummary summary, HistoryStatus status})? data = s.data;
+          AsyncSnapshot<
+                  ({
+                    ProgressSummary summary,
+                    HistoryStatus status,
+                    List<SessionRecord> free
+                  })>
+              s) {
+        final ({
+          ProgressSummary summary,
+          HistoryStatus status,
+          List<SessionRecord> free
+        })? data = s.data;
         if (data == null) {
           return const Scaffold(
               body: Center(child: CircularProgressIndicator()));
@@ -244,6 +276,7 @@ class _ProgressTabState extends State<ProgressTab> {
           body: ProgressView(
             summary: data.summary,
             historyStatus: data.status,
+            freeSessions: data.free,
           ),
         );
       },

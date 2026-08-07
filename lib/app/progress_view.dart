@@ -43,12 +43,14 @@ class ProgressView extends StatelessWidget {
   const ProgressView({
     required this.summary,
     this.historyStatus = const HistoryOk(),
+    this.freeSessions = const <SessionRecord>[],
     super.key,
   });
 
   static const Key measuredSectionKey = Key('progress.measured');
   static const Key lockedSectionKey = Key('progress.locked');
   static const Key notesSectionKey = Key('progress.notes');
+  static const Key freeSectionKey = Key('progress.free');
   static const Key historyFailureKey = Key('progress.historyUnavailable');
 
   /// Kısmi okuma beyanı — `historyFailureKey`den AYRI anahtar: iki hâl
@@ -62,6 +64,13 @@ class ProgressView extends StatelessWidget {
   /// ne olduğunu söyler. Aksi hâlde her ders "Not started" görünür ve bu
   /// "hiç çalışmadın" demektir.
   final HistoryStatus historyStatus;
+
+  /// Ders bağlamı DIŞINDA yapılmış seanslar (G-132 serbest kovası).
+  ///
+  /// ⚠️ `summary`ye HİÇ verilmez — ders trendine karışamaz. Ama ayrı bölümde
+  /// GÖRÜNÜR: okunmadığı sürece bu ekran, gerçek bir seans yapmış kullanıcıya
+  /// "Not started" diyordu.
+  final List<SessionRecord> freeSessions;
 
   @override
   Widget build(BuildContext context) {
@@ -124,6 +133,26 @@ class ProgressView extends StatelessWidget {
         // başlık bir SÖZ verir, altı boşsa söz tutulmaz. Choreia'nın "boş bölüm
         // bir CÜMLEDİR" kaydının tersten hâli — orada boşluğun İÇİNE gerekçe
         // konmuştu, burada söylenecek bir şey YOK, o yüzden bölüm de yok.
+        if (freeSessions.isNotEmpty) ...<Widget>[
+          const SizedBox(height: 32),
+          _section(
+            key: freeSectionKey,
+            title: ProgressStrings.freeSection,
+            subtitle: ProgressStrings.freeSubtitle,
+            children: <Widget>[
+              GravitaCard(
+                child: Text(
+                  ProgressStrings.freeSessions(
+                    freeSessions.length,
+                    freeSessions.fold<int>(
+                        0, (int n, SessionRecord r) => n + r.unitsCompleted),
+                  ),
+                  style: GravitaType.mono(size: 11.5, color: GravitaColors.ink),
+                ),
+              ),
+            ],
+          ),
+        ],
         if (notes.isNotEmpty) ...<Widget>[
           const SizedBox(height: 32),
           _section(

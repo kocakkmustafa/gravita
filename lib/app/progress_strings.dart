@@ -20,6 +20,26 @@ abstract final class ProgressStrings {
 
   static const String notesSection = 'Notes';
 
+  /// ⭐ SERBEST seans bölümü — G-132 hükmünün yüzey tarafı.
+  ///
+  /// ⚠️ Bu bölümün varlık sebebi ölçülmüş bir kusur (J-124 sınıfı): seanslar
+  /// AYRI kovaya yazılıyor ve bu ekran yalnız DERS kovasını okuyordu. Sonuç:
+  /// kullanıcı gerçek bir seans yapıp buraya geliyor ve ekran ona **"Not
+  /// started"** diyordu. Eksik bilgi değil, YANLIŞ bilgi.
+  ///
+  /// Ders trendine KARIŞMIYOR ve karışamaz: ayrı bölüm, ayrı dosya, ayrı
+  /// cümle. Hüküm *"7 bileşen ayrıdır, asla toplanmaz"* — bu bölüm o ayrımı
+  /// bozmadan seansın var olduğunu söylüyor.
+  static const String freeSection = 'Sessions outside a lesson';
+  static const String freeSubtitle =
+      'You started these from the session button, not from a lesson. They are '
+      'kept separately and they do not count toward any lesson above — a '
+      'lesson measures one specific thing, and these were not measured '
+      'against it.';
+
+  static String freeSessions(int count, int reps) =>
+      '${sessions(count)} · $reps ${reps == 1 ? 'rep' : 'reps'} counted';
+
   static const String emptyHistory = 'No sessions recorded.';
 
   /// Kısmi okuma (çekirdek 0.10.0 `unreadableRecords`). Sayı GÖSTERİLİR ama
