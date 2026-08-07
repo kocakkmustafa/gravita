@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -304,8 +305,63 @@ void main() {
           findsOneWidget);
       expect(find.text(LibraryStrings.howToNoReference, skipOffstage: false),
           findsOneWidget);
-      // Sayfada hiçbir görsel/figür yok — "uydurmadık" iddiasının nöbeti.
-      expect(find.byType(Image, skipOffstage: false), findsNothing);
+      // ⚠️ Bu nöbet VAKUM-DOĞRU'ydu ve bir aktarım (Flutter tuzağı #5)
+      // gösterdi. Eski hâli yalnız `Image` arıyordu — ama bir iskelet-avatar
+      // **en makul olarak `CustomPaint` ile çizilir**, `Image` ile değil.
+      // Yani nöbet, engellemeye çalıştığı şeyin EN OLASI biçimini hiç
+      // görmüyordu ve `findsNothing` her zaman geçiyordu.
+      //
+      // > Sıfır bekleyen bir kapı, bozuk aracı asla göstermez.
+      //
+      // Şimdi üç tipin üçü de sorgulanıyor ve AŞAĞIDA pozitif ikizi var:
+      // bulucunun gerçekten çalıştığı kanıtlanmadan `findsNothing` bir şey
+      // ifade etmiyor.
+      // ⚠️ İKİ AYRI ÖLÇÜ, çünkü tek tip yetmiyor.
+      //
+      // (a) GÖRSEL tipleri: bir demo/foto `Image` ya da `RawImage` olurdu.
+      //     Bunlar sayfada YOK ve pozitif ikizle bulucunun çalıştığı
+      //     kanıtlanıyor.
+      // (b) ⚠️ `CustomPaint` tip olarak SORULAMIYOR: Flutter'ın kendi
+      //     bileşenleri (kaydırma çubuğu, geri düğmesi dalgası) onu
+      //     kullanıyor ve sayfada zaten BİR tane var. Onu yasaklamak
+      //     bu gecenin dördüncü "fazla geniş kapı"sı olurdu.
+      //     Asıl garanti KAYNAK düzeyinde ve daha güçlü: uygulamada
+      //     HİÇBİR `CustomPainter` YOK — yani hiçbir şey çizilmiyor,
+      //     sahte bir iskelet çizilemez de.
+      for (final Type figure in <Type>[Image, RawImage]) {
+        expect(find.byType(figure, skipOffstage: false), findsNothing,
+            reason: 'Sayfada $figure var — uydurulmuş bir figür olabilir.');
+      }
+      final bool paints = Directory('lib')
+          .listSync(recursive: true)
+          .whereType<File>()
+          .where((File f) => f.path.endsWith('.dart'))
+          .any((File f) => f.readAsStringSync().contains('CustomPainter'));
+      expect(paints, isFalse,
+          reason: 'Uygulamada bir `CustomPainter` belirdi — sahte iskelet '
+              'avatarı çizilebilir hâle geldi. Referans dizisi gerçekten '
+              'geldiyse bu meşru; o zaman bu nöbeti gerekçesiyle güncelle.');
+    });
+
+    testWidgets('POZİTİF İKİZ: figür bulucusu GERÇEKTEN çalışıyor',
+        (WidgetTester tester) async {
+      // ⚠️ Üstteki testin tamamı `findsNothing` — yani bulucu BOZUK olsa da
+      // geçerdi. Bu ikiz onu kapatıyor: aynı bulucu, figür VARKEN onu
+      // bulmalı. Bu kanıt olmadan "sahte avatar yok" bir ölçüm değil,
+      // bir temenni.
+      useNarrowPhone(tester);
+      await tester.pumpWidget(host(Scaffold(
+        body: Column(children: <Widget>[
+          const RawImage(width: 4, height: 4),
+          Image.memory(Uint8List.fromList(_tinyPng), width: 4, height: 4),
+        ]),
+      )));
+      await tester.pump();
+      for (final Type figure in <Type>[Image, RawImage]) {
+        expect(find.byType(figure, skipOffstage: false), findsWidgets,
+            reason: '$figure bulucusu figür VARKEN de bulamıyor — '
+                'üstteki `findsNothing` vakum-doğru demektir.');
+      }
     });
 
     testWidgets(
@@ -1171,3 +1227,11 @@ void _reachability() {
     }
   });
 }
+
+/// 1×1 saydam PNG — `Image` tipini ağaca sokmak için en küçük geçerli veri.
+const List<int> _tinyPng = <int>[
+  137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82,
+  0, 0, 0, 1, 0, 0, 0, 1, 8, 6, 0, 0, 0, 31, 21, 196, 137,
+  0, 0, 0, 10, 73, 68, 65, 84, 120, 156, 99, 0, 1, 0, 0, 5, 0, 1,
+  13, 10, 45, 180, 0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130,
+];
