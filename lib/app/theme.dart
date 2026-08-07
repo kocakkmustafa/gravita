@@ -111,6 +111,21 @@ abstract final class GravitaColors {
 abstract final class GravitaType {
   GravitaType._();
 
+  // ── Varsayılan METİN renkleri ────────────────────────────────────────
+  //
+  // ⚠️ Ayrı sabit olmalarının sebebi ölçülmüş: bunlar bir FONT kararı değil
+  // bir TOKEN kararıdır, ve paylaşılan bir varsayılanın eşik altına düşmesi
+  // (J-116) rengi elle vermeyen HER çağıranı sessizce bozar. Sabit olarak
+  // durunca kontrast nöbeti onları `google_fonts`a hiç dokunmadan ölçebiliyor
+  // — ki bu şart: fontlar paketlenmediği için `GravitaType.mono()` çağırmak
+  // testte ağ istiyor ve bu makinenin önbelleğine bağımlı (G-126, açık kök).
+  //
+  // Bağ YAPISALDIR, iddia değil: yardımcılar `color ?? <sabit>` diyor, yani
+  // sabiti ölçmek çağrının aldığı rengi ölçmektir.
+  static const Color defaultDisplayColor = GravitaColors.ink;
+  static const Color defaultBodyColor = GravitaColors.ink;
+  static const Color defaultMonoColor = GravitaColors.textSecondary;
+
   static TextStyle display({
     double size = 27,
     Color? color,
@@ -122,7 +137,7 @@ abstract final class GravitaType {
         height: height,
         fontWeight: weight,
         letterSpacing: -0.02 * size,
-        color: color ?? GravitaColors.ink,
+        color: color ?? defaultDisplayColor,
       );
 
   static TextStyle body({
@@ -135,7 +150,7 @@ abstract final class GravitaType {
         fontSize: size,
         height: height,
         fontWeight: weight,
-        color: color ?? GravitaColors.ink,
+        color: color ?? defaultBodyColor,
       );
 
   /// Measurement/status language — criteria, units, timers, section
@@ -151,11 +166,10 @@ abstract final class GravitaType {
         fontSize: size,
         fontWeight: weight,
         letterSpacing: letterSpacingEm * size,
-        // ⚠️ VARSAYILAN metin rengi [textSecondary] — [textTertiary] DEĞİL.
-        // Eskiden tertiary'ydi ve bu, rengi ELLE vermeyen her çağıranı
-        // sessizce eşik-altı bir metne düşürüyordu: kusurun varsayılan
-        // olması, en kolay çoğalma yolu.
-        color: color ?? GravitaColors.textSecondary,
+        // ⚠️ VARSAYILAN [defaultMonoColor] — eskiden [textTertiary] idi ve
+        // bu, rengi ELLE vermeyen her çağıranı sessizce eşik-altı bir metne
+        // düşürüyordu: kusurun varsayılan olması, en kolay çoğalma yolu.
+        color: color ?? defaultMonoColor,
       );
 }
 

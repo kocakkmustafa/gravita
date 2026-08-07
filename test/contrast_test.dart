@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui' show Color;
 
@@ -34,6 +35,10 @@ import 'package:gravita/app/theme.dart';
 /// luminans ölçer. Yani burası **görünürlüğü** kapatır, **ayırt
 /// edilebilirliği** değil; ikincisi göz işidir ve bu dosyanın iddiası değil.
 void main() {
+  // `GravitaType.*` google_fonts'a dokunuyor ve o da asset bundle istiyor —
+  // binding olmadan varsayılan-renk testi çöker (kontrast değil, altyapı).
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   /// WCAG 2.2 bağıl parlaklık.
   double luminance(Color c) {
     double ch(double v) =>
@@ -151,6 +156,126 @@ void main() {
           GravitaColors.sessionInkMutedOnDark, GravitaColors.sessionCamera);
       expectText('sessionInkMutedOnDark / sahne',
           GravitaColors.sessionInkMutedOnDark, GravitaColors.sessionStage);
+    });
+  });
+
+  group('KAPSAM — kapı örneği mi tokenı mı ölçüyor', () {
+    // ⚠️ Bu grup, koordinatörün sorusunun ve JabLab J-116'nın ürünü.
+    //
+    // J-116: JabLab bir ikonu düzeltip "kapandı" dedi; aynı renk BİR DOSYA
+    // ÖTEDE altyazıda duruyordu ve en ağırı `JText.mono`nun VARSAYILANIYDI —
+    // paylaşılan token, yani mono'yu çıplak kullanan HER yüzey. Kendi
+    // cümlesi: *"örüntüyü değil örneği düzeltmişim."*
+    //
+    // Bende `mono` varsayılanı ZATEN düzeltilmişti (G-137) — ama kapının
+    // kendisi hâlâ ELLE SAYILMIŞ bir token listesine bakıyordu: 17 token
+    // tanımlıyken 7'si ölçülüyordu. Yani kapı da örnek düzeyindeydi.
+    // Aşağıdaki üç test bunu kapatıyor.
+
+    test('theme.dart\'taki HER renk tokeni sınıflandırılmış', () {
+      // Kaynak taraması burada MEŞRU: sorulan şey davranış değil KAPSAM —
+      // "ölçmediğim bir token var mı". Yeni bir token eklendiği gün bu test
+      // öter ve ekleyeni bir KARAR vermeye zorlar: metin mi, metin-dışı mı,
+      // yoksa zemin mi. Sessizce ölçülmeden kalamaz.
+      final RegExp decl =
+          RegExp(r'static const Color (\w+) =', multiLine: true);
+      final Set<String> declared = decl
+          .allMatches(File('lib/app/theme.dart').readAsStringSync())
+          .map((RegExpMatch m) => m.group(1)!)
+          .toSet();
+
+      // Testin kendi kayıt defteri — her token ÜÇ kovadan birinde olmalı.
+      const Set<String> asText = <String>{
+        'ink', 'inkMuted', 'textSecondary', 'accent', 'accentHover',
+        'honestySeal', 'honestyText', 'sessionInkOnDark',
+        'sessionInkMutedOnDark',
+        // `GravitaType` varsayılanları — palet tokeni değil, ONLARA işaret
+        // eden takma adlar; yine de METİN olarak ölçülüyorlar (yukarıdaki
+        // varsayılan testi). Kapı bunları da istedi ve bu doğru: regex'i
+        // daraltıp "şu sınıfın dışındakine bakma" demek, kapsam kapısının
+        // kendisine muafiyet açmak olurdu.
+        'defaultDisplayColor', 'defaultBodyColor', 'defaultMonoColor',
+      };
+      const Set<String> asNonText = <String>{'textTertiary', 'hairline'};
+      const Set<String> asSurface = <String>{
+        'page', 'surfaceTop', 'surfaceBottom', 'sessionStage',
+        'sessionStageDeep', 'sessionCamera',
+      };
+
+      final Set<String> classified = <String>{
+        ...asText, ...asNonText, ...asSurface
+      };
+      expect(declared.difference(classified), isEmpty,
+          reason: 'theme.dart\'ta SINIFLANDIRILMAMIŞ token var — kontrast '
+              'kapısı onu ölçmüyor. Metin mi, ikon mu, zemin mi: karar ver '
+              've bu listeye ekle. (J-116: örüntüyü düzelt, örneği değil.)');
+      expect(classified.difference(declared), isEmpty,
+          reason: 'Listede olan ama theme.dart\'ta OLMAYAN token — kayıt '
+              'defteri bayatlamış.');
+    });
+
+    test('GravitaType VARSAYILANLARI eşiği geçiyor — çıplak çağrı güvenli', () {
+      // J-116'nın en ağır bulgusu buydu: paylaşılan bir tip yardımcısının
+      // VARSAYILAN rengi eşik altındaysa, rengi elle vermeyen her çağıran
+      // sessizce kusurlu olur. Kusurun varsayılan olması en kolay çoğalma
+      // yolu — o yüzden varsayılan AYRI sınanıyor, tokenlardan bağımsız.
+      // ⚠️ `GravitaType.mono()` ÇAĞRILMIYOR ve bu bilinçli: o çağrı
+      // `google_fonts`a gidiyor, fontlar paketlenmediği için ağ deniyor ve
+      // bu makinenin önbelleğine bağımlı hâle geliyor (G-126 — açık kök,
+      // burada İKİNCİ kez ısırdı). Varsayılan renk zaten ayrı bir sabit ve
+      // yardımcılar `color ?? <sabit>` diyor: bağ YAPISAL, o yüzden sabiti
+      // ölçmek çağrının aldığı rengi ölçmektir.
+      for (final (String name, Color c) in <(String, Color)>[
+        ('mono()', GravitaType.defaultMonoColor),
+        ('body()', GravitaType.defaultBodyColor),
+        ('display()', GravitaType.defaultDisplayColor),
+      ]) {
+        expectText('GravitaType.$name varsayılanı / sayfa', c,
+            GravitaColors.page);
+        expectText('GravitaType.$name varsayılanı / kart-alt', c, cardBottom);
+        expectText('GravitaType.$name varsayılanı / mühür-alt', c,
+            sealedBottom);
+      }
+
+      // Yapısal bağın GERÇEKTEN kurulu olduğunu kaynak üzerinden doğrula:
+      // biri `color ?? GravitaColors.xxx` diye geri yazarsa sabit atlanır
+      // ve yukarıdaki ölçüm sessizce anlamsızlaşır.
+      final String theme = File('lib/app/theme.dart').readAsStringSync();
+      for (final String d in <String>[
+        'color ?? defaultDisplayColor',
+        'color ?? defaultBodyColor',
+        'color ?? defaultMonoColor',
+      ]) {
+        expect(theme.contains(d), isTrue,
+            reason: 'GravitaType varsayılanı sabitten KOPMUŞ ($d) — kontrast '
+                'ölçümü artık gerçek çağrıyı temsil etmiyor.');
+      }
+    });
+
+    test('HİYERARŞİ korunuyor — okunurluk uğruna feda edilmedi', () {
+      // JabLab'ın ikinci kapısı, ve bende özellikle kritik: kontrastı
+      // yükseltmenin ucuz yolu her şeyi en koyu tona çekmektir, o da
+      // hiyerarşiyi öldürür. *"Referans YOK"* hâli 31 hareketin 30'unda
+      // BASKIN ve tasarımı gereği sönük — ama sönüklüğün ALT sınırı (WCAG)
+      // kadar ÜST sınırı da (hiyerarşi) artık bir sayı.
+      double ratio(Color primary, Color muted, Color bg) =>
+          contrast(primary, bg) / contrast(muted, bg);
+
+      for (final (String name, Color bg) in <(String, Color)>[
+        ('sayfa', GravitaColors.page),
+        ('kart-alt', cardBottom),
+        ('mühür-alt', sealedBottom),
+      ]) {
+        final double r =
+            ratio(GravitaColors.ink, GravitaColors.textSecondary, bg);
+        expect(r >= 2.0, isTrue,
+            reason: '$name: birincil ↔ sönük ayrımı ${r.toStringAsFixed(2)}× '
+                '— 2×\'in altına inerse metin okunur ama HİYERARŞİ ölür.');
+      }
+      final double dark = ratio(GravitaColors.sessionInkOnDark,
+          GravitaColors.sessionInkMutedOnDark, GravitaColors.sessionCamera);
+      expect(dark >= 2.0, isTrue,
+          reason: 'koyu yüzey: ${dark.toStringAsFixed(2)}×');
     });
   });
 
