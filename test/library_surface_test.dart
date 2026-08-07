@@ -967,11 +967,23 @@ void main() {
       // olmasını sağlıyor: yalnız kod bekleyen bir hareket doğarsa,
       // `--queues` onu yeşil satırda listeler ve bu test kuyruk beyanının
       // türetimli kaldığını doğrular.
-      const Map<String, String> queueOf = <String, String>{
-        'engine.precondition.status!=derived': 'measurement',
-        'replayFixture:missing': 'measurement',
-        'provenance.sources:empty': 'measurement',
-      };
+      // ⚠️ Bu harita `promote_library.py`nin BAĞIMSIZ AYNASIdır — kasten iki
+      // yerde. Tek kaynak yapsaydım üretici kendi kendini doğrulardı; iki
+      // bağımsız türetim ise AYRIŞTIĞI an bağırır. Nitekim bağırdı:
+      // `queue_for` harekete-bağlı hâle geldiğinde bu test kırmızıya döndü
+      // ve ayrımı ben değil KAPI hatırlattı.
+      String queueOf(String blocker, List<dynamic> rules) {
+        // Fixture normalde ÖLÇÜM işidir: gerçek görüntü kaydı gerekir.
+        // AMA kuralsız bir harekette test edilecek bir şey yoktur — orada
+        // engel KOD. Yanlış kuyruk yanlış İŞ verir: biri gidip görüntü
+        // çeker ve hiçbir şey değişmez.
+        if (blocker == 'replayFixture:missing' && rules.isEmpty) return 'code';
+        return const <String, String>{
+          'engine.precondition.status!=derived': 'measurement',
+          'replayFixture:missing': 'measurement',
+          'provenance.sources:empty': 'measurement',
+        }[blocker]!;
+      }
       final Map<String, dynamic> lib = (jsonDecode(
               File('content/library.json').readAsStringSync()) as Map)
           .cast<String, dynamic>();
@@ -987,8 +999,13 @@ void main() {
           continue;
         }
         // Kuyruk ELLE yazılamaz: bloker anahtarlarından TÜREMELİ.
+        // Kural sayısı KATALOGDAN okunuyor — kuyruk kararının girdisi orada.
+        final List<dynamic> rules = ((jsonDecode(File(
+                        'content/catalog/${m['wave']}/${m['id']}.json')
+                    .readAsStringSync()) as Map)['formErrors'] as List<dynamic>?) ??
+            const <dynamic>[];
         final Set<String> expected =
-            blockers.map((String b) => queueOf[b]!).toSet();
+            blockers.map((String b) => queueOf(b, rules)).toSet();
         expect(
             ((m['blockedByQueue'] as List<dynamic>?) ?? const <dynamic>[])
                 .cast<String>()

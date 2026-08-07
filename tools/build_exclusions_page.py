@@ -69,6 +69,28 @@ def _search_terms(section):
     return sorted(terms)
 
 
+#: `authority` = *"bu bir çizgi; daha iyi teknoloji değiştirmez"*. Bir kalem
+#: bu kutuda VE `reconsiderIf`i koşulluysa, kutu kendi içinde tutarsızdır.
+#:
+#: > **Sınıflandırma da bir araçtır ve araçlar da yanılır.** Bu kapı,
+#: > sınıflandırmanın DOĞRU-POZİTİF testidir: *"bu kutuya koyduğum başka ne
+#: > var, ve gerçekten aynı mı?"* — `equipment_tracking` bu testle düştü.
+_CONDITIONAL = ("if ", "scheduled", "planned", "would change", "may ",
+                "when ", "once ")
+
+
+def check_class_coherence(src):
+    bad = []
+    for s in src["sections"]:
+        if s.get("limitClass") != "authority":
+            continue
+        why = (s.get("reconsiderIf") or "").lower()
+        hits = [w for w in _CONDITIONAL if w in why]
+        if hits:
+            bad.append((s["id"], hits, s.get("reconsiderIf")))
+    return bad
+
+
 def build(src):
     return {
         "schemaVersion": 1,
@@ -90,7 +112,16 @@ def main():
     ap.add_argument("--check", action="store_true")
     args = ap.parse_args()
 
-    page = build(json.loads(SRC.read_text(encoding="utf-8")))
+    src = json.loads(SRC.read_text(encoding="utf-8"))
+    if bad := check_class_coherence(src):
+        for sid, hits, why in bad:
+            print(f"⛔ SINIF TUTARSIZ: '{sid}' limitClass=authority ama gerekçesi "
+                  f"KOŞULLU ({', '.join(hits)}): {why!r}\n"
+                  f"   authority = 'daha iyi teknoloji değiştirmez'. Koşullu bir "
+                  f"gerekçe bunun TERSİNİ söyler → sınıf capability olmalı.")
+        return 1
+
+    page = build(src)
     text = json.dumps(page, ensure_ascii=False, indent=2) + "\n"
 
     if args.check:

@@ -299,9 +299,22 @@ def generate_entry(mid, cat, classes, grading_lessons_open=0):
         coming_soon = []
     else:
         n = len(keys)
+        # ⚠️ *"kurallar YAZILMIŞ"* iddiası KOŞULLU — ve bu bir düzeltmenin
+        # ürünü (J-163 sınıfı). Cümle koşulsuzdu ve `floor_press`te YANLIŞTI:
+        # o hareketin **hiç kuralı yok** (0 formError) ama sayfa
+        # *"The rules for the floor press ARE WRITTEN"* diyordu.
+        #
+        # Fixture cümlesini G-143'te sıfır-kural için düzeltmiştim; LEAD
+        # cümlesini atlamıştım. Aynı olgu, iki cümle, biri düzeltildi.
+        ruleCount = len(cat.get("formErrors") or [])
+        written = (
+            f"The rules for the {name.lower()} are written, but "
+            if ruleCount else
+            f"No rules have been written for the {name.lower()} at all, and "
+        )
         lead = (
-            f"Nothing is measured here. The rules for the {name.lower()} are "
-            f"written, but {n} {'thing is' if n == 1 else 'things are'} still "
+            f"Nothing is measured here. {written}"
+            f"{n} {'thing is' if n == 1 else 'things are'} still "
             f"missing before we would run them — and each one alone is enough "
             f"for us to keep this closed."
         )
@@ -380,7 +393,7 @@ def generate_entry(mid, cat, classes, grading_lessons_open=0):
         entry["blockedBy"] = keys
         entry["blockClass"] = "measurement"
         # Kuyruklar TÜRETİLİR, elle yazılmaz — bloker anahtarından.
-        entry["blockedByQueue"] = sorted({BLOCKER_QUEUE[k] for k in keys})
+        entry["blockedByQueue"] = sorted({queue_for(k, cat) for k in keys})
     return entry
 
 
@@ -400,10 +413,29 @@ BLOCKER_QUEUE = {
     # Kimlik ön koşulu ölçümle TÜRETİLİR — eşiği kod yazarak uyduramayız.
     "engine.precondition.status!=derived": "measurement",
     # Replay fixture KAYIT gerektirir (gerçek görüntü + beklenen çıktı).
+    # ⚠️ AMA kuralsız bir harekette değil: orada test edilecek KURAL yok,
+    # yani engel ölçüm değil KOD. `queue_for` bunu ayırıyor.
     "replayFixture:missing": "measurement",
     # Eğitmen referansı HASAT işidir.
     "provenance.sources:empty": "measurement",
 }
+
+
+def queue_for(key, cat):
+    """Bir blokerin kuyruğu — HAREKETE BAĞLI olabilir (J-163 dersi).
+
+    Sabit bir sözlük, `floor_press`i yanlış kuyruğa koyuyordu: fixture
+    blokeri normalde ÖLÇÜM işidir (görüntü kaydı), ama o hareketin **hiç
+    kuralı yok** — test edilecek bir şey olmadan fixture yazılamaz. Oradaki
+    engel KOD.
+
+    > *İçerik bekleyen YAZILABİLİR; yetenek bekleyen BEKLER.*
+    > Yanlış kuyruk yanlış İŞ verir: biri gidip görüntü çeker ve hiçbir şey
+    > değişmez.
+    """
+    if key == "replayFixture:missing" and not (cat.get("formErrors") or []):
+        return "code"
+    return BLOCKER_QUEUE[key]
 
 _BLOCKER_SHORT = {
     "engine.precondition.status!=derived": "deriving an identity check from measurement",

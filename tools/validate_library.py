@@ -162,6 +162,25 @@ def check(lib, catalog_lookup, reference_lookup):
                     f"{mid}: comingSoonInThisMovement maddesi gerekçesiz "
                     f"görünüyor: '{item}'")
 
+        # ⚠️ K12 (2026-08-07): DÜRÜSTLÜK CÜMLESİ KATALOGLA ÇELİŞEMEZ.
+        #
+        # Bulunuş: `floor_press` sayfası *"The rules for the floor press ARE
+        # WRITTEN, but 3 things are still missing"* diyordu. O hareketin
+        # **hiç kuralı yok** — sıfır `formError`. Cümle koşulsuz yazılmıştı.
+        #
+        # Neden hiçbir kapı görmedi: dil nöbeti SÖZCÜKLERE bakar ve bu cümle
+        # kibar; drift kapısı üretilenle diski karşılaştırır ve ikisi de aynı
+        # yanlıştı. *Yanlış ama kibar bir cümle her kapıdan geçer* —
+        # doğruluğu ancak KAYNAĞA karşı ölçülür.
+        rules = cat.get("formErrors") or []
+        claims_rules = any(
+            "rules for the" in line and "are written" in line
+            for line in m.get("honesty", {}).get("waitingOnMeasurement", []))
+        if claims_rules and not rules:
+            violations.append(
+                f"{mid}: dürüstlük kutusu 'kurallar YAZILMIŞ' diyor ama "
+                f"katalogda SIFIR kural var — cümle kaynağıyla çelişiyor")
+
         if m.get("status") != "live":
             # ⚠️ K11 (2026-08-07): BOŞ bloker listesi de bir BAYAT gerekçedir.
             #
@@ -448,6 +467,21 @@ def _self_test():
         # geçirilsin. Tanınırlık ile canlılık AYRI iki kapı.
         graded_lesson(lib)["blockedBy"] = ["provenance.sources:empty"]
 
+    def mut_k12_rule_claim(lib):
+        # Gerçek kusurun aynası: KURALSIZ bir harekete *"kurallar yazılmış"*
+        # cümlesini geri koyar. Yani bu twin, düzeltilen cümlenin GERİ
+        # DÖNMESİNİ ölçüyor — üretici şablonu yarın koşulsuzlaşırsa öter.
+        for m in lib["movements"]:
+            cat = catalogs.get(m["catalogId"]) or {}
+            if not (cat.get("formErrors") or []):
+                m["honesty"]["waitingOnMeasurement"] = [
+                    f"Nothing is measured here. The rules for the "
+                    f"{m['displayName'].lower()} are written, but 3 things "
+                    f"are still missing."
+                ]
+                return
+        raise AssertionError("kuralsız hareket yok — fikstür seçilemedi")
+
     def mut_k11_no_blockers(lib):
         # BOŞ bloker listesi: hareket "kapalı" diyor ama neden kapalı
         # olduğunu söylemiyor. Kapı bunu sessizce geçiyordu.
@@ -505,6 +539,8 @@ def _self_test():
         ("K9c tanınmayan bloker", mut_k9_unknown, "tanınmayan bloker"),
         ("K11 gerekçesiz kapalılık (BOŞ bloker listesi)", mut_k11_no_blockers,
          "HİÇ bloker adlandırmıyor"),
+        ("K12 cümle katalogla çelişiyor (kural yok ama 'yazılmış' diyor)",
+         mut_k12_rule_claim, "SIFIR kural"),
         ("K9e BAYAT KİLİT (bloker artık bloklamıyor)", mut_k9_stale,
          "BAYAT KİLİT"),
         ("K9f BAYAT KİLİT — sources dolu (terfi turu anahtarı)",
@@ -584,6 +620,7 @@ def _self_test():
     print(f"✅ {fired[0]}/{fired[0]} kapı ateşlendi" if ok
           else "⛔ bazı kapılar ateşlenmedi")
     return 0 if ok else 1
+
 
 
 def main():

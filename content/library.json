@@ -665,7 +665,7 @@
       "honesty": {
         "measured": [],
         "waitingOnMeasurement": [
-          "Nothing is measured here. The rules for the floor press are written, but 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
+          "Nothing is measured here. No rules have been written for the floor press at all, and 3 things are still missing before we would run them — and each one alone is enough for us to keep this closed.",
           "There is no identity check for this movement. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the floor press has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.",
           "No error rules have been written for this movement at all. Anything we said about its form would be a guess, because there is nothing defined to look for.",
           "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement."
@@ -690,6 +690,7 @@
       ],
       "blockClass": "measurement",
       "blockedByQueue": [
+        "code",
         "measurement"
       ],
       "referenceSources": 0

@@ -95,7 +95,8 @@
       "userReason": "We coach your body, not your gear. For these movements we watch your mechanics — the landing, the hinge, the line — but we don't detect the box, the rope or the bar.",
       "internalRule_tr": "Sınıf D. Prop-metriği ayrı R&D (blueprint §4.6). Başarısız olursa fallback: 'ekipman-görünür kadraj yönergesi + gövde-tek analiz'.",
       "reconsiderIf": "Bar/edge detection R&D is scheduled in W3; if it lands, muscle-up and lever variants get more precise phase checkpoints.",
-      "limitClass": "authority"
+      "limitClass": "capability",
+      "$classNote": "SINIF DÜZELTMESİ (pozitif test): `authority` yazılmıştı. O kutudaki diğer iki kalem *'No.'* / *'No — this is a safety line'* diyor; bu kalem *'R&D planlı; gelirse daha kesin kontrol noktaları'* diyor. Yani KOŞULLU — yani çizgi değil, bugünkü YETENEK sınırı. Kullanıcı `authority` okuduğunda *'daha iyi teknoloji bunu değiştirmez'* cümlesini görüyordu; kaynak bunun tersini söylüyor."
     },
     {
       "id": "bench_form",
