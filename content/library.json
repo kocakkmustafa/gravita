@@ -1185,9 +1185,9 @@
           "No instructor reference has been harvested for this movement, so every tolerance in its rules sits at our default floor rather than coming from measured disagreement between real instructors. A number from a default is not a measurement."
         ],
         "notMeasured": [
-          "Jump height — the jump is 1-2 frames at phone frame rates, so we check that it happened and how you landed, not how high",
+          "Jump height — the jump is 1-2 frames at phone frame rates, so the rule would confirm it happened and how you landed, not how high",
           "Power or force output",
-          "Whether your chest actually touched the floor (unless you pick the chest-to-floor variant, where we check elbow bend)"
+          "Whether your chest actually touched the floor (unless you pick the chest-to-floor variant, where the rule would look at elbow bend)"
         ]
       },
       "courses": [],

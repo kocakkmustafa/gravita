@@ -677,8 +677,21 @@ def product_claims(lib):
 
     out = []
     for m in lib["movements"]:
-        for field in ("comingSoonInThisMovement",):
-            for line in m.get(field, []):
+        # ⭐ Choreia aktarımı: *kusur cümlenin KONUSUNDA değil,
+        # ÖNVARSAYIMINDA.* Bir yanlış iddianın yaşayabileceği en ucuz yer
+        # yan cümledir, çünkü kimse konu olmayan cümleciği tekrar okumaz.
+        # İlk hâlim yalnız `comingSoonInThisMovement`a bakıyordu; dürüstlük
+        # kutusunun kendisi ve ön koşul gerekçeleri DIŞARIDAYDI — yani
+        # kapı, korumak için kurulduğu metnin çoğunu hiç görmüyordu.
+        lines = list(m.get("comingSoonInThisMovement", []))
+        for key in ("measured", "notMeasured", "waitingOnMeasurement"):
+            lines += m.get("honesty", {}).get(key, [])
+        if isinstance(m.get("honesty", {}).get("scoring"), str):
+            lines.append(m["honesty"]["scoring"])
+        if isinstance((m.get("precondition") or {}).get("rationale"), str):
+            lines.append(m["precondition"]["rationale"])
+        for field in ("_",):
+            for line in lines:
                 # ⚠️ OLUMSUZLUK İDDİAYI TERSİNE ÇEVİRİR. İlk taslak
                 # *"...so it would **not** be graded even once the tolerance
                 # question is settled"* cümlesini yakaladı — o cümle
@@ -706,9 +719,20 @@ def product_claims(lib):
                 def claimed(rx, label):
                     out = []
                     for mt in rx.finditer(line):
-                        before = line[max(0, mt.start() - 24):mt.start()].lower()
-                        if re.search(r"\b(not|never|no|cannot|won't|don't|"
-                                     r"doesn't|without)\b", before):
+                        # ⚠️ Olumsuzluk İKİ yerde durabilir ve ilk taslak
+                        # ikisini de kaçırdı: (a) *"**Nothing** is measured
+                        # here"* — "Nothing"/"None"/"neither" olumsuz sözcük
+                        # listemde yoktu; (b) *"load and distance are **not**
+                        # measured"* — "not", edilgen kalıbın KENDİ boşluğuna
+                        # düşüyor, yani öncesine bakan pencere onu göremiyor.
+                        # Bu yüzden pencere + eşleşmenin KENDİSİ birlikte
+                        # taranıyor.
+                        span = (line[max(0, mt.start() - 24):mt.start()]
+                                + mt.group(0)).lower()
+                        if re.search(r"\b(not|never|no|nothing|none|neither|"
+                                     r"cannot|without)\b|"
+                                     r"n[''\u2019]t\b",
+                                     span):
                             continue
                         out.append((mt.group(1), label))
                     return out
