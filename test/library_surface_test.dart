@@ -286,19 +286,94 @@ void main() {
               'iddia. İçerikten kanıtlanabilir olan söylenir.');
     });
 
-    testWidgets('EN DAR cihazda taşma YOK — 31 hareketin hepsinde',
+    testWidgets('taşma YOK — 375pt\'te, HER hareketin TÜM sayfasında',
         (WidgetTester tester) async {
-      useNarrowPhone(tester);
       final ContentRepository c = await loadReal(tester);
 
-      // Tek bir hareketi denemek yetmez: en uzun metin hangi harekette
-      // olduğunu BİLMİYORUZ ve "gerçek metin fixture'dan uzundur" dersinin
-      // tamamı bu. Flutter taşmada istisna atar; bu döngü onu 31 kez sorar.
-      for (final MovementEntry m in c.catalogue.movements) {
-        await tester.pumpWidget(host(MovementPage(movement: m, content: c)));
-        await tester.pump();
-        expect(tester.takeException(), isNull,
-            reason: '${m.id} hareket sayfası 375pt genişlikte taştı');
+      // ⚠️ İKİ YÜKSEKLİKTE koşuyor ve bu bir DÜZELTMENİN ürünü (J-118).
+      //
+      // Eski hâli yalnız 375×812'de pump ediyordu ve **sayfanın yalnız ilk
+      // ekranını ölçüyordu**: `ListView` görünmeyen çocuğu MOUNT ETMEZ, yani
+      // LAYOUT DA ETMEZ — alt yarıdaki bir taşma hiç oluşmuyordu, test de
+      // onu göremiyordu. G-124'ün ("skipOffstage yetmez") taşma tarafındaki
+      // ikizi; aynı kökten ikinci kez ısırdı.
+      //
+      // 4000pt'lik geçiş her bloğu GERÇEKTEN 375pt genişlikte layout'a sokar
+      // — dürüstlük kutusu, kuyruk, form kuralları, güvenlik, trend dahil.
+      // 812pt'lik geçiş gerçek cihaz yüksekliğini korur (yükseklik-kısıtlı
+      // bir kusur varsa orada doğar).
+      for (final Size surface in <Size>[
+        const Size(375, 4000),
+        const Size(375, 812),
+      ]) {
+        tester.view.physicalSize = surface;
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.reset);
+
+        // İçerik büyüdükçe kapsam KENDİLİĞİNDEN büyür: liste `library.json`
+        // canlı okunuyor, sabit bir fixture yok. 32. hareket eklendiği gün
+        // bu döngü onu da ölçer, elle güncellenecek bir sayı yoktur.
+        for (final MovementEntry m in c.catalogue.movements) {
+          await tester.pumpWidget(host(MovementPage(movement: m, content: c)));
+          await tester.pump();
+          expect(tester.takeException(), isNull,
+              reason: '${m.id} hareket sayfası ${surface.width.toInt()}×'
+                  '${surface.height.toInt()}\'te taştı');
+        }
+      }
+    });
+
+    testWidgets('taşma süpürmesi SESSİZCE küçülemez', (WidgetTester tester) async {
+      // ⚠️ Üstteki süpürme "hepsi" diyor; bu test "hepsi"nin KAÇ olduğunu
+      // katalogla karşılaştırıyor. Kütüphane bir gün yanlışlıkla daralırsa
+      // süpürme de daralır ve **yeşil kalır** — kapsamın sessizce küçülmesi,
+      // bu defterin defalarca avladığı desen (G-129: kapı büyümeyle sahte
+      // oldu; bu onun küçülme yönü).
+      final ContentRepository c = await loadReal(tester);
+      final int catalogued = Directory('content/catalog')
+          .listSync()
+          .whereType<Directory>()
+          .expand((Directory d) => d.listSync())
+          .whereType<File>()
+          .where((File f) => f.path.endsWith('.json'))
+          .length;
+      expect(c.catalogue.movements.length, catalogued,
+          reason: 'Taşma süpürmesinin kapsamı katalogdan AYRIŞTI — '
+              'kütüphanede $catalogued yerine ${c.catalogue.movements.length} '
+              'hareket var.');
+    });
+
+    testWidgets('EN UZUN dürüstlük kutusu da 375pt\'te taşmıyor',
+        (WidgetTester tester) async {
+      // Koordinatörün ② maddesi: sabit fixture yerine `library.json`daki EN
+      // UZUN metinden beslen. Süpürme zaten HEPSİNİ ölçüyor (bu daha güçlü),
+      // ama en uzunu AYRICA adlandırmak iki şey kazandırıyor: ölçümün neye
+      // dayandığı görünür olur, ve en uzun metin küçülürse (yani içerik
+      // sessizce kırpılırsa) burada fark edilir.
+      final ContentRepository c = await loadReal(tester);
+      final MovementEntry longest = c.catalogue.movements.reduce(
+          (MovementEntry a, MovementEntry b) =>
+              _honestyLength(a) >= _honestyLength(b) ? a : b);
+
+      // Bugünkü en uzun `push_up` (curated, hasat sayılarıyla). Kimliği
+      // SABİTLENMİYOR — terfi ettikçe başka bir hareket öne geçebilir ve
+      // test onu ölçmeye devam etmeli.
+      expect(_honestyLength(longest), greaterThan(1000),
+          reason: 'En uzun dürüstlük kutusu 1000 karakterin altına düştü — '
+              'içerik kırpılmış olabilir.');
+
+      tester.view.physicalSize = const Size(375, 4000);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(host(MovementPage(movement: longest, content: c)));
+      await tester.pump();
+      expect(tester.takeException(), isNull,
+          reason: '${longest.id}: en uzun dürüstlük kutusu 375pt\'te taştı');
+      // Kutunun her maddesi GERÇEKTEN çizilmiş olmalı — taşmama, kırpılarak
+      // da sağlanabilir ve o "geçti" en kötü geçiştir.
+      for (final String item in longest.honesty.notMeasured) {
+        expect(find.text(item, skipOffstage: false), findsOneWidget,
+            reason: '${longest.id}: madde çizilmedi — "$item"');
       }
     });
   });
@@ -636,3 +711,9 @@ void main() {
     });
   });
 }
+
+/// Bir hareketin dürüstlük kutusunun toplam karakter uzunluğu.
+int _honestyLength(MovementEntry m) =>
+    m.honesty.measured.join().length +
+    m.honesty.notMeasured.join().length +
+    (m.honesty.scoring?.length ?? 0);
