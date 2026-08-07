@@ -813,13 +813,15 @@
       "honesty": {
         "measured": [],
         "notMeasured": [
-          "Nothing is graded. Two things are still missing, and each one alone is enough for us to keep this closed.",
-          "The engine has no squat identity check. For push-ups we verify your torso is horizontal before counting a rep; the equivalent test for squats hasn't been derived, so nothing would stop a rep being counted while you're just standing and moving.",
-          "The squat error rules have never been run against real footage — there is no replay fixture for this movement, so we have no evidence they fire when they should.",
-          "What the reference can and cannot support: it is attested (5 instructors, 25 takes). Hip and thigh tolerances now come from measured instructor spread — but knee, shin and torso are still at our default floor, and knee depth plus torso lean are exactly what a squat coach would grade. We rebuilt this reference after finding that six of its takes were loaded BARBELL squats, one of them the alignment basis for everything else; removing them is what let hip and thigh become measurement-backed.",
           "Left/right comparisons are off the table — for squats AND push-ups. Measured left-right joint difference is 32.0 degrees for squats and 14.7 degrees for push-ups; neither reference is mirror-agnostic, so we make no side-specific claim from eitherrule 7). We previously reported 5.2 degrees for push-ups and treated it as evidence of symmetry — that was wrong twice over: the number averaged differences that cancelled out instead of measuring how big they are, and the small difference itself came from the model copying the limb it cannot see rather than from real symmetry.",
           "Knee tracking side-to-side (valgus) — needs a front-facing camera. Permanent limit for this setup.",
           "Weight distribution across the foot, force, or load — a single camera cannot see these."
+        ],
+        "waitingOnMeasurement": [
+          "Nothing is graded. Two things are still missing, and each one alone is enough for us to keep this closed.",
+          "The engine has no squat identity check. For push-ups we verify your torso is horizontal before counting a rep; the equivalent test for squats hasn't been derived, so nothing would stop a rep being counted while you're just standing and moving.",
+          "The squat error rules have never been run against real footage — there is no replay fixture for this movement, so we have no evidence they fire when they should.",
+          "What the reference can and cannot support: it is attested (5 instructors, 25 takes). Hip and thigh tolerances now come from measured instructor spread — but knee, shin and torso are still at our default floor, and knee depth plus torso lean are exactly what a squat coach would grade. We rebuilt this reference after finding that six of its takes were loaded BARBELL squats, one of them the alignment basis for everything else; removing them is what let hip and thigh become measurement-backed."
         ]
       },
       "courses": [],

@@ -906,6 +906,26 @@ void main() {
       // kalıcı sınır "yakında" sanılıyor, kuyruk da umutsuz görünüyordu.
       useNarrowTall(tester);
       final ContentRepository c = await loadReal(tester);
+      // ⚠️ TEK hareket değil HEPSİ — ve bu bir düzeltmenin ürünü. Kapı
+      // `firstWhere` ile ilk bloklu hareketi alıyordu; `bodyweight_squat`
+      // **curated** olduğu için yapısal ayrımı HİÇ ALMAMIŞTI ve kapı onu
+      // hiç görmedi. Muafiyet (prose'dan muaf) sessizce bir YAPISAL
+      // iyileştirmeyi de dışarıda bırakmıştı — G-134'ün tam tekrarı.
+      for (final MovementEntry m
+          in c.catalogue.movements.where((MovementEntry x) => !x.isLive)) {
+        expect(m.honesty.waitingOnMeasurement, isNotEmpty,
+            reason: '${m.id}: kuyruk/kalıcı ayrımı YOK — kullanıcı '
+                '"henüz ölçmedik" ile "kamera asla göremez" farkını '
+                'göremiyor.');
+        expect(m.honesty.notMeasured, isNotEmpty, reason: m.id);
+        expect(
+            m.honesty.waitingOnMeasurement
+                .toSet()
+                .intersection(m.honesty.notMeasured.toSet()),
+            isEmpty,
+            reason: '${m.id}: aynı madde hem kuyrukta hem kalıcı sınırda.');
+      }
+
       final MovementEntry m = c.catalogue.movements
           .firstWhere((MovementEntry x) => !x.isLive);
 
