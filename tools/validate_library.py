@@ -163,9 +163,24 @@ def check(lib, catalog_lookup, reference_lookup):
                     f"görünüyor: '{item}'")
 
         if m.get("status") != "live":
-            # coming_soon hareket de blokerlerini ADLANDIRMALI ve onlar HÂLÂ
-            # bloklamalı — yoksa "yakında" beyanı dayanağını kaybetmiş olur.
-            for key in (m.get("blockedBy") or []):
+            # ⚠️ K11 (2026-08-07): BOŞ bloker listesi de bir BAYAT gerekçedir.
+            #
+            # Eski hâl yalnız listedeki anahtarları geziyordu — liste BOŞSA
+            # sıfır tur dönüyor ve kapı SUSUYORDU. Ölçüldü: curated bir
+            # hareketin `blockedBy`sini boşalttım, `validate_library` ve
+            # `promote --check` İKİSİ DE yeşil kaldı; hareket hâlâ
+            # "2 ölçüm eksik" diyordu ve hiçbir şey eksik değildi.
+            #
+            # Ölçüt (koordinatör aktarımı): *sevk edilmiş bir dürüstlük
+            # cümlesini yanlışa çevirecek en MAKUL değişiklik neyse, kapı
+            # onu tutmalı.* Burada o değişiklik "hasat geldi, bloker öldü" —
+            # hiç uçuk değil, gecenin ASIL HEDEFİ.
+            blockers = m.get("blockedBy") or []
+            if not blockers:
+                violations.append(
+                    f"{mid}: coming_soon ama HİÇ bloker adlandırmıyor — "
+                    f"gerekçesiz bir kapalılık, dayanağı olmayan bir beyandır")
+            for key in blockers:
                 known, active, expl = _blocker_active(
                     key, cat, reference_lookup, mid)
                 if not known:
@@ -433,6 +448,11 @@ def _self_test():
         # geçirilsin. Tanınırlık ile canlılık AYRI iki kapı.
         graded_lesson(lib)["blockedBy"] = ["provenance.sources:empty"]
 
+    def mut_k11_no_blockers(lib):
+        # BOŞ bloker listesi: hareket "kapalı" diyor ama neden kapalı
+        # olduğunu söylemiyor. Kapı bunu sessizce geçiyordu.
+        soon(lib)["blockedBy"] = []
+
     def mut_k9_unknown(lib):
         graded_lesson(lib)["blockedBy"] = ["ekran_henuz_yapilmadi"]
 
@@ -483,6 +503,8 @@ def _self_test():
         ("K9a lockClass yok", mut_k9_nolockclass, "lockClass"),
         ("K9b blockedBy yok", mut_k9_noblockedby, "`blockedBy` YOK"),
         ("K9c tanınmayan bloker", mut_k9_unknown, "tanınmayan bloker"),
+        ("K11 gerekçesiz kapalılık (BOŞ bloker listesi)", mut_k11_no_blockers,
+         "HİÇ bloker adlandırmıyor"),
         ("K9e BAYAT KİLİT (bloker artık bloklamıyor)", mut_k9_stale,
          "BAYAT KİLİT"),
         ("K9f BAYAT KİLİT — sources dolu (terfi turu anahtarı)",

@@ -109,7 +109,7 @@ class _MovementPageState extends State<MovementPage> {
         children: <Widget>[
           _header(m),
           const SizedBox(height: 24),
-          _howTo(),
+          _howTo(m),
           const SizedBox(height: 28),
           // ⭐ Dürüstlük kutusu sayfanın ÜST YARISINDA. Aşağıya atmak onu
           // "küçük yazı" hâline getirirdi; ürünün iddiası tam olarak bu kutu.
@@ -187,13 +187,20 @@ class _MovementPageState extends State<MovementPage> {
   /// bir referans dizisi yok (`provenance.referenceId` üretimi hasat işi).
   /// Kod bu gerçeği KOŞULLU yazıyor — referans geldiği gün burası bir demo
   /// bloku hâline gelir ve bu metin kendiliğinden düşer.
-  Widget _howTo() => SurfaceSection(
+  Widget _howTo(MovementEntry m) => SurfaceSection(
         key: MovementPage.howToKey,
         title: LibraryStrings.howToTitle.toUpperCase(),
-        children: const <Widget>[
+        children: <Widget>[
           NoteCard(
             icon: Icons.videocam_off_outlined,
-            text: LibraryStrings.howToNoReference,
+            // ⚠️ KOŞULLU — ve bu bir DÜZELTMENİN ürünü. Cümle koşulsuzdu:
+            // `push_up`ta üstte *"hiç kayıtlı eğitmen referansımız yok"*
+            // yazarken, iki blok altındaki dürüstlük kutusu *"5 eğitmen,
+            // 36 çekim ATTESTED"* diyordu. Aynı sayfanın iki bloğu
+            // birbiriyle çelişiyordu.
+            text: m.referenceSources == 0
+                ? LibraryStrings.howToNoReference
+                : LibraryStrings.howToReferenceNotDrawable(m.referenceSources),
           ),
         ],
       );

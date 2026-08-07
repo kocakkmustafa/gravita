@@ -85,7 +85,7 @@ GENERATED_MARK = "generated"
 DERIVED_FIELDS = (
     "displayName", "family", "level", "class", "wave", "catalogId",
     "equipment", "muscleGroups", "aliases", "classBadge",
-    "safetyWarnings", "skillGraphNode",
+    "safetyWarnings", "skillGraphNode", "referenceSources",
 )
 
 
@@ -357,6 +357,13 @@ def generate_entry(mid, cat, classes, grading_lessons_open=0):
         # gerekmiyor.
         "classBadge": class_copy.get("badge"),
         "safetyWarnings": list((cat.get("safety") or {}).get("warnings") or []),
+        # ⚠️ Hasat edilmiş eğitmen SAYISI — yüzeyin "referans yok" cümlesini
+        # KOŞULLU kurabilmesi için. Ölçüldü: o cümle KOŞULSUZ çiziliyordu ve
+        # `push_up`ta aynı sayfanın iki bloğu birbiriyle ÇELİŞİYORDU —
+        # üstte *"hiç kayıtlı eğitmen referansımız yok"*, altta *"5 eğitmen,
+        # 36 çekim ATTESTED"*. Cümle yazıldığında doğruydu; hasat geldi,
+        # cümle yerinde kaldı.
+        "referenceSources": len(cat.get("provenance", {}).get("sources") or []),
         # Yalnız GERÇEKTEN bir düğüme bağlıysa yazılır (3/31). `null` taşımak
         # "bağ var ama boş" gibi okunur; alanın YOKLUĞU daha dürüst.
         **({"skillGraphNode": cat["skillGraphNode"]}

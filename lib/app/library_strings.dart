@@ -149,6 +149,18 @@ abstract final class LibraryStrings {
       'no demonstration to show you. We would rather show you nothing than '
       'draw a figure we made up.';
 
+  /// Referans VAR ama gösterilebilir bir gösterim YOK — AYRI cümle.
+  ///
+  /// ⚠️ İkisini tek cümlede toplamak `push_up`ta sayfanın kendisiyle
+  /// çelişmesine yol açıyordu. Eğitmen çekimi ile ÇİZİLEBİLİR gösterim
+  /// farklı artefaktlar; kullanıcı ikisini aynı sanıyor, o yüzden fark
+  /// AÇIKÇA söyleniyor.
+  static String howToReferenceNotDrawable(int instructors) =>
+      'We have footage from $instructors instructors for this movement, but we '
+      'have not built a demonstration you can watch from it — what we derived '
+      'was measurement, not a sequence to play back. We would rather show you '
+      'nothing than draw a figure we made up.';
+
   static const String formErrorsTitle = 'What the rules watch for';
   static String formErrorsBody(int n) => n == 1
       ? 'One rule is written for this movement. It does not run.'

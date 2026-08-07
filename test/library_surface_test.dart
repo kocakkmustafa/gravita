@@ -255,6 +255,40 @@ void main() {
       }
     });
 
+    testWidgets('"referans yok" cümlesi KOŞULLU — sayfa kendiyle çelişmiyor',
+        (WidgetTester tester) async {
+      // ⚠️ Ölçüt (koordinatör aktarımı): *sevk edilmiş bir dürüstlük cümlesini
+      // yanlışa çevirecek en MAKUL değişiklik neyse, kapı onu tutmalı.*
+      //
+      // Burada o değişiklik ZATEN OLMUŞTU: cümle *"hiç kayıtlı eğitmen
+      // referansımız yok"* diyor ve KOŞULSUZ çiziliyordu; `push_up`ın
+      // referansı hasat edildi (5 eğitmen, 36 çekim) ve cümle yerinde kaldı.
+      // Aynı sayfanın dürüstlük kutusu *"ATTESTED"* diyordu — **iki blok
+      // birbiriyle çelişiyordu.** Kimse yalan söylemeye karar vermedi;
+      // hasat yapıldı ve sevk edilmiş bir cümle sessizce yanlış oldu.
+      useNarrowTall(tester);
+      final ContentRepository c = await loadReal(tester);
+
+      for (final MovementEntry m in c.catalogue.movements) {
+        await tester.pumpWidget(host(MovementPage(movement: m, content: c)));
+        await tester.pump();
+        if (m.referenceSources > 0) {
+          expect(find.text(LibraryStrings.howToNoReference, skipOffstage: false),
+              findsNothing,
+              reason: '${m.id}: ${m.referenceSources} eğitmen hasat edilmiş '
+                  'ama sayfa "hiç referans yok" diyor.');
+          expect(
+              find.text(
+                  LibraryStrings.howToReferenceNotDrawable(m.referenceSources),
+                  skipOffstage: false),
+              findsOneWidget);
+        } else {
+          expect(find.text(LibraryStrings.howToNoReference, skipOffstage: false),
+              findsOneWidget);
+        }
+      }
+    });
+
     testWidgets('referans YOK hâli: sahte iskelet-avatar ÇİZİLMİYOR',
         (WidgetTester tester) async {
       useNarrowTall(tester);

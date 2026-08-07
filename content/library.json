@@ -135,7 +135,8 @@
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "Stop if you feel sharp shoulder or wrist pain — that is different from muscular effort."
-      ]
+      ],
+      "referenceSources": 5
     },
     {
       "id": "farmer_carry",
@@ -185,7 +186,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "bird_dog",
@@ -232,7 +234,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "dead_bug",
@@ -281,7 +284,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "hanging_leg_raise",
@@ -331,7 +335,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "hollow_hold",
@@ -381,7 +386,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "mountain_climber",
@@ -429,7 +435,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "plank",
@@ -482,7 +489,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "side_plank",
@@ -530,7 +538,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "superman_hold",
@@ -578,7 +587,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "toes_to_bar",
@@ -628,7 +638,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "floor_press",
@@ -680,7 +691,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "kb_swing",
@@ -732,7 +744,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "romanian_deadlift",
@@ -784,7 +797,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "bodyweight_squat",
@@ -837,7 +851,8 @@
       ],
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 5
     },
     {
       "id": "glute_bridge",
@@ -884,7 +899,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "goblet_squat",
@@ -934,7 +950,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "lunge",
@@ -984,7 +1001,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "calf_raise",
@@ -1030,7 +1048,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "step_up",
@@ -1082,7 +1101,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "wall_sit",
@@ -1128,7 +1148,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "burpee",
@@ -1179,7 +1200,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "db_curl",
@@ -1228,7 +1250,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "db_row",
@@ -1278,7 +1301,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "inverted_row",
@@ -1328,7 +1352,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "pull_up",
@@ -1383,7 +1408,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "dip",
@@ -1435,7 +1461,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "db_shoulder_press",
@@ -1485,7 +1512,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "lateral_raise",
@@ -1533,7 +1561,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "wall_handstand",
@@ -1584,7 +1613,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     },
     {
       "id": "tuck_planche",
@@ -1636,7 +1666,8 @@
       "blockClass": "measurement",
       "blockedByQueue": [
         "measurement"
-      ]
+      ],
+      "referenceSources": 0
     }
   ],
   "$curatedNote": [

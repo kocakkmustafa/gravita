@@ -103,6 +103,7 @@ final class MovementEntry {
     required this.aliases,
     required this.classBadge,
     required this.safetyWarnings,
+    required this.referenceSources,
     required this.blurb,
     required this.honesty,
     required this.comingSoon,
@@ -128,6 +129,7 @@ final class MovementEntry {
       aliases: _strings(j['aliases']),
       classBadge: j['classBadge'] as String?,
       safetyWarnings: _strings(j['safetyWarnings']),
+      referenceSources: (j['referenceSources'] as num?)?.toInt() ?? 0,
       blurb: (j['blurb'] as String?) ?? '',
       honesty:
           HonestyBox.fromJson((j['honesty'] as Map?)?.cast<String, dynamic>() ??
@@ -164,6 +166,14 @@ final class MovementEntry {
   final List<String> aliases;
   final String? classBadge;
   final List<String> safetyWarnings;
+
+  /// Hasat edilmiş EĞİTMEN sayısı (`provenance.sources`).
+  ///
+  /// ⚠️ Yüzeyin *"referans yok"* cümlesini KOŞULLU kurması için var. O cümle
+  /// koşulsuzdu ve `push_up`ta sayfanın iki bloğu çelişiyordu: üstte
+  /// *"hiç kayıtlı eğitmen referansımız yok"*, altta *"5 eğitmen, 36 çekim
+  /// ATTESTED"*. Cümle yazıldığında doğruydu — sonra hasat geldi.
+  final int referenceSources;
   final String blurb;
   final HonestyBox honesty;
 
