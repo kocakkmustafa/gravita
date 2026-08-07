@@ -10,6 +10,7 @@ import 'package:gravita/app/home_screen.dart';
 import 'package:gravita/app/library_model.dart';
 import 'package:gravita/app/library_screen.dart';
 import 'package:gravita/app/library_strings.dart';
+import 'package:gravita/app/progress_strings.dart';
 import 'package:gravita/app/progress_view.dart';
 import 'package:gravita_engine/gravita_engine.dart';
 import 'package:gravita/app/movement_page.dart';
@@ -463,6 +464,61 @@ void main() {
               'hareket var.');
     });
 
+    testWidgets(
+        '⭐ SESSİZLİK NÖBETİ: her kullanıcı metni GERÇEKTEN çiziliyor',
+        (WidgetTester tester) async {
+      // ⚠️ Bu test, negatif ikizin ÜÇÜNCÜ yönü (JabLab aktarımı).
+      //
+      // Normal ikiz: *"düzeltme kaldırılırsa kırılır mı?"*
+      // Ters ikiz:   *"kapı fazla genişlerse kırılır mı?"* (G-146)
+      // Üçüncüsü:    ***"korunan cümle SİLİNİRSE kırılır mı?"***
+      //
+      // > Bir dürüstlük kapısı, korumaya çalıştığı cümlenin SİLİNMESİNİ de
+      // > geçerli sayarsa, dürüstlüğü değil **SESSİZLİĞİ** korur.
+      //
+      // Ölçüldü: `comingSoonInThisMovement` hiçbir testte *ekranda çiziliyor
+      // mu* diye SORULMUYORDU — iki referans da JSON içeriğine bakıyordu.
+      // Yani hareket sayfasının "What is missing" bloğu TAMAMEN SİLİNSE
+      // 117 testin hepsi yeşil kalırdı. Kuyruk metni ürünün en çok
+      // konuştuğu yer (30/31 hareket) ve hiç korunmuyordu.
+      //
+      // Nöbet DESENE yazılıyor: hareketin TAŞIDIĞI her kullanıcı metni
+      // ekranda BULUNMAK zorunda — tek tek alan saymak yerine.
+      // ⚠️ 4000pt YETMEDİ ve nöbet bunu İLK KOŞUMDA gösterdi: `push_up`ın
+      // güvenlik uyarısı "içerikte var, ekranda yok" diye öttü. Ölçtüm —
+      // GERÇEK kusur değil, MOUNT sınırı: o sayfa 2134 karakter taşıyor ve
+      // güvenlik bloğu en altta. Yani nöbetin kendisi doğru çalıştı, ölçü
+      // aleti kısaydı.
+      //
+      // Ders (G-125'in üçüncü tekrarı): "ekranda yok" iddiası ancak yüzey
+      // HER ŞEYİ mount edecek kadar uzunken kurulabilir. Genişlik 375
+      // KALIYOR (taşma ona duyarlı), yükseklik içeriğe göre.
+      tester.view.physicalSize = const Size(375, 12000);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+      final ContentRepository c = await loadReal(tester);
+
+      for (final MovementEntry m in c.catalogue.movements) {
+        await tester.pumpWidget(host(MovementPage(movement: m, content: c)));
+        await tester.pump();
+
+        final List<String> mustAppear = <String>[
+          ...m.honesty.measured,
+          ...m.honesty.waitingOnMeasurement,
+          ...m.honesty.notMeasured,
+          ...m.comingSoon,
+          ...m.safetyWarnings,
+          if (m.honesty.scoring != null) m.honesty.scoring!,
+          m.blurb,
+        ];
+        for (final String text in mustAppear) {
+          expect(find.text(text, skipOffstage: false), findsOneWidget,
+              reason: '${m.id}: içerikte VAR, ekranda YOK — "$text". '
+                  'Kapı bir sessizliği koruyor.');
+        }
+      }
+    });
+
     testWidgets('EN UZUN dürüstlük kutusu da 375pt\'te taşmıyor',
         (WidgetTester tester) async {
       // Koordinatörün ② maddesi: sabit fixture yerine `library.json`daki EN
@@ -568,6 +624,8 @@ void main() {
       expect(find.byKey(GravitaShell.startSessionKey), findsOneWidget);
     });
   });
+
+  _reachability();
 
   group('dil nöbeti — VAAT dili yasak (M-F-186)', () {
     test('kullanıcıya giden hiçbir metinde VAAT ifadesi YOK — "yet" DAHİL', () {
@@ -912,6 +970,15 @@ void main() {
           reason: 'Gerçek seans yapılmış ama Progress onu GÖRMÜYOR.');
       expect(find.textContaining('12 reps', skipOffstage: false),
           findsOneWidget);
+      // ⚠️ SESSİZLİK NÖBETİ: açıklayıcı cümle de EKRANDA olmalı. Nöbetin
+      // eski hâli yalnız bölümün VARLIĞINI ve sayıyı sınıyordu — o cümle
+      // (*"ayrı tutuluyor, hiçbir derse SAYILMIYOR"*) silinse kapı yeşil
+      // kalırdı. Ve o cümle, G-132 hükmünün kullanıcıya ANLATILDIĞI tek yer:
+      // sayı olmadan da bölüm görünür, ama ayrımın SEBEBİ kaybolur.
+      expect(find.text(ProgressStrings.freeSubtitle, skipOffstage: false),
+          findsOneWidget,
+          reason: 'Serbest seans bölümünün GEREKÇESİ ekranda yok — bölüm '
+              'görünüyor ama neden ayrı tutulduğu söylenmiyor.');
 
       // ⚠️ KARIŞMIYOR: serbest seans ders satırına GİRMEZ. `summary` boş
       // kayıtla kuruldu, yani ders satırları hâlâ "Not started" — ve bu
@@ -1058,3 +1125,49 @@ int _catalogFileCount() => Directory('content/catalog')
     .whereType<File>()
     .where((File f) => f.path.endsWith('.json'))
     .length;
+
+/// ⚠️ JabLab aktarımı: *"erişilemez bir sayfayı sabitleyen test, kapsam
+/// sayarken kapsama benzer ama kullanıcıya ulaşan hiçbir şeyi ölçmez."*
+///
+/// Bu, bu hattın `c3cb694` bulgusunun GENEL hâli — 79 test yeşilken
+/// simülatörde iki gerçek kusur vardı. **Test sayısı bir kapsam ölçüsü
+/// değildir**, ve büyüme turlarında yanlış güven üretir: 28 hareket terfi
+/// ederken test sayısı artacak, ama artan sayı kullanıcıya ULAŞAN yüzeyi
+/// ölçmüyor olabilir.
+///
+/// Bu kapı ayrımı mekanikleştiriyor: her ekran ÜRETİM kodundan inşa
+/// edilmeli. Yalnız testlerden çağrılan bir ekran, kapsam sayısını şişirir
+/// ve kullanıcıya hiçbir şey vermez.
+void _reachability() {
+  test('her ekran ÜRETİM kodundan inşa ediliyor — test-only yüzey YOK', () {
+    const List<String> screens = <String>[
+      'HomeScreen', 'LibraryScreen', 'ProgressTab', 'ProfileScreen',
+      'MovementPage', 'WhyNotHereScreen', 'LiveSessionScreen',
+      'ContentFailureScreen',
+    ];
+    final List<File> prod = Directory('lib')
+        .listSync(recursive: true)
+        .whereType<File>()
+        .where((File f) => f.path.endsWith('.dart'))
+        .toList();
+
+    for (final String screen in screens) {
+      // ⚠️ Kural bir DÜZELTMENİN ürünü. İlk hâli *"sınıfı tanımlayan
+      // dosyayı komple atla"* diyordu ve `ProgressTab`te YANLIŞ ALARM
+      // verdi: o sınıf `gravita_app.dart` içinde hem tanımlanıyor HEM
+      // inşa ediliyor — yani kapı, doğru çalışan bir şeyi kırmızıya
+      // döndürdü. Ters-ikiz dersinin (G-146) kendi kapımdaki hâli:
+      // fazla geniş bir kural doğru şeyi öldürür.
+      //
+      // Doğrusu dosyayı değil KULLANIMI ayırmak: `X({` bir kurucu
+      // TANIMIDIR, `X(` + argüman bir ÇAĞRIDIR.
+      final RegExp call = RegExp('$screen\\s*\\((?!\\s*\\{)');
+      final bool built = prod.any((File f) => call.hasMatch(
+          f.readAsStringSync().replaceAll('class $screen extends', '')));
+      expect(built, isTrue,
+          reason: '$screen yalnız testlerden çağrılıyor — kullanıcı ona '
+              'ULAŞAMIYOR. Onu sabitleyen testler kapsam sayıyor ama '
+              'kullanıcıya ulaşan hiçbir şeyi ölçmüyor.');
+    }
+  });
+}
