@@ -112,6 +112,14 @@ void main() {
 
   testWidgets('GEZİLEBİLİR EKRAN SAYIMI — kapıdan, gözden değil',
       (WidgetTester tester) async {
+    // ⚠️ 4000pt YÜKSEKLİK KASITLI ve bir MODELDİR: gerçek cihazda
+    // kaydırarak ulaşılan her şey burada tek ekranda duruyor. Kaydırarak
+    // ulaşılabilen bir ekran GEZİLEBİLİRDİR, o yüzden bu şişirme değil.
+    //
+    // Ölçüldü: `hitTestable` + merkez-görünür süzgeci eklendikten sonra
+    // sayı DEĞİŞMEDİ (4/7) — yani bu yükseklikte hayalet dokunuş yok.
+    // Süzgeç yine de duruyor: yükseklik bir gün gerçekçileşirse kapı
+    // sessizce şişmesin.
     tester.view.physicalSize = const Size(375, 4000);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
@@ -132,6 +140,23 @@ void main() {
 
     /// Ekranda GÖRÜNEN ve basılabilir olan her şey — tip listesi değil,
     /// `hitTestable` ile gerçekten dokunulabilir olanlar.
+    /// ⚠️ `hitTestable()` TEK BAŞINA YETMİYOR (Choreia aktarımı, ölçüldü):
+    /// tembel `ListView` `cacheExtent` kadar **görünür alanın ALTINDA**
+    /// widget kuruyor. `find` onları buluyor, `hitTestable` da geçiriyor
+    /// (ağaçta ve hit-test edilebilirler), ama merkezleri ekranın DIŞINDA —
+    /// `tap` boşluğa iner ve `warnIfMissed:false` bunu SESSİZCE yutar.
+    ///
+    /// > *Yürüyüş `find`de değil, gerçekten dokunulabilirlikte dursun.*
+    ///
+    /// Bu yüzden ek süzgeç: widget'ın merkezi görünür alanın İÇİNDE olmalı.
+    bool onScreen(Element e) {
+      final RenderObject? r = e.renderObject;
+      if (r is! RenderBox || !r.hasSize) return false;
+      final Offset c = r.localToGlobal(r.size.center(Offset.zero));
+      final Size v = tester.view.physicalSize / tester.view.devicePixelRatio;
+      return c.dx >= 0 && c.dy >= 0 && c.dx <= v.width && c.dy <= v.height;
+    }
+
     List<Element> tappables() => <Element>[
           ...find.byType(InkWell, skipOffstage: true).hitTestable().evaluate(),
           ...find
@@ -141,7 +166,7 @@ void main() {
           ...find
               .byType(NavigationDestination, skipOffstage: true)
               .evaluate(),
-        ];
+        ].where(onScreen).toList();
 
     // ---- Katman 1: sekmeler ----
     final int tabCount =
