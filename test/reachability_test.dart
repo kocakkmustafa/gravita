@@ -47,6 +47,13 @@ void main() {
   }
 
   /// O an ağaçta MONTE olan ekranlar — "görünür" değil, "monte".
+  bool pushed(WidgetTester tester) {
+    final Iterable<Element> navs = find.byType(Navigator).evaluate();
+    if (navs.isEmpty) return false;
+    return (tester.state(find.byType(Navigator).first) as NavigatorState)
+        .canPop();
+  }
+
   Set<String> mounted(WidgetTester tester, Set<String> candidates) => tester
       .allWidgets
       .map((Widget w) => w.runtimeType.toString())
@@ -84,6 +91,25 @@ void main() {
   /// KAPISININ kendi ekranları (yükleniyor / `ContentFailureScreen`) bu
   /// sayının DIŞINDA. Onlar kullanıcının gördüğü ekranlar ama "gezilebilir"
   /// değil — kullanıcı onlara BASARAK gitmez, sistem onları gösterir.
+  /// ⚖️ KATI okuma: itilen her AYRI ROTA. Sekmeler tek `Scaffold` içinde
+  /// değişen gövdelerdir — rota değil, KABUK içi geçiş.
+  ///
+  /// > *Bir sayı, hangi kuralla çıktığı yazılmadan hatlar arasında
+  /// > karşılaştırılamaz.* Bu yüzden kapı İKİSİNİ de basıyor.
+  ///
+  /// ⚠️ `NavigatorObserver` ile ölçmeyi DENEDİM ve düştü: rota nesnesi
+  /// kendi içeriğini söylemiyor, hepsi `MaterialPageRoute<void>` görünüyor
+  /// ve sayaç sessizce **1** derdi. Bu adsız-rota tuzağı bu gecenin
+  /// "yüzeyi değil proxy'yi ölçme" desenidir. Onun yerine ROTA DERİNLİĞİ
+  /// ölçülüyor: bir ekran ancak `canPop()` doğruyken monte olduysa
+  /// AYRI ROTADIR.
+  final Set<String> routeScreens = <String>{};
+
+  /// Kabuk, itilen rotanın ALTINDA monte kalır — bu yüzden "derinlik>0'da
+  /// monte" tek başına yetmiyor, kabukta da görülenler ÇIKARILMALI.
+  /// (İlk ölçüm bu yüzden 8 dedi: dört sekme gövdesi rota sanılmıştı.)
+  final Set<String> shellScreens = <String>{};
+
   testWidgets('GEZİLEBİLİR EKRAN SAYIMI — kapıdan, gözden değil',
       (WidgetTester tester) async {
     tester.view.physicalSize = const Size(375, 4000);
@@ -98,9 +124,11 @@ void main() {
         () async => content = await ContentRepository.load(rootBundle));
 
     await tester.pumpWidget(MaterialApp(
-        theme: GravitaTheme.light, home: GravitaShell(content: content)));
+        theme: GravitaTheme.light,
+        home: GravitaShell(content: content)));
     await settle(tester);
     reached.addAll(mounted(tester, candidates));
+    shellScreens.addAll(mounted(tester, candidates));
 
     /// Ekranda GÖRÜNEN ve basılabilir olan her şey — tip listesi değil,
     /// `hitTestable` ile gerçekten dokunulabilir olanlar.
@@ -124,6 +152,7 @@ void main() {
       await tester.tap(dest, warnIfMissed: false);
       await settle(tester);
       reached.addAll(mounted(tester, candidates));
+      shellScreens.addAll(mounted(tester, candidates));
 
       // ---- Katman 2: o sekmedeki ilk basılabilir kontroller ----
       final int n = tappables().length;
@@ -133,6 +162,7 @@ void main() {
         await tester.tap(find.byWidget(live[k].widget), warnIfMissed: false);
         await settle(tester);
         reached.addAll(mounted(tester, candidates));
+        if (pushed(tester)) routeScreens.addAll(mounted(tester, candidates));
 
         // ---- Katman 3: açılan ekrandaki kontroller ----
         final List<Element> deep = tappables();
@@ -143,6 +173,7 @@ void main() {
               warnIfMissed: false);
           await settle(tester);
           reached.addAll(mounted(tester, candidates));
+          if (pushed(tester)) routeScreens.addAll(mounted(tester, candidates));
           // Geri dön; kök route'ta pop yoksa sessizce yut.
           final NavigatorState nav =
               tester.state(find.byType(Navigator).first);
@@ -163,8 +194,14 @@ void main() {
       ..sort();
     final List<String> reachedSorted = reached.toList()..sort();
 
+    final List<String> routes =
+        routeScreens.difference(shellScreens).toList()..sort();
+
     debugPrint('── GEZİLEBİLİRLİK ÖLÇÜMÜ ──');
-    debugPrint('   GEZİLEBİLİR: ${reached.length} — ${reachedSorted.join(' · ')}');
+    debugPrint('   ⚖️ KATI (ayrı ROTA): ${routes.length + 1} — '
+        'kabuk(1: 4 sekme) + ${routes.join(' · ')}');
+    debugPrint('   ⚖️ GEVŞEK (ayrı YÜZEY): ${reached.length}');
+    debugPrint('   yüzeyler: ${reachedSorted.join(' · ')}');
     debugPrint('   ULAŞILAMIYOR AMA VAR: ${unreachable.length}'
         '${unreachable.isEmpty ? '' : ' — ${unreachable.join(' · ')}'}');
 
@@ -181,8 +218,14 @@ void main() {
     // Bugün TEK kalem bekleniyor: `ContentFailureScreen` — sistemin
     // gösterdiği hata hâli, kullanıcının BASARAK gitmediği bir ekran.
     // Sayı artarsa yeni bir ekran bağlanmadan yazılmış demektir.
+    // KATI sayı da küçülemez: bir rota tetiği silinirse burası öter.
+    expect(routes.length + 1, greaterThanOrEqualTo(4),
+        reason: 'Ayrı rota sayısı düştü — bir push tetiği kaybolmuş '
+            'olabilir. Ulaşılan rotalar: ${routes.join(', ')}');
+
     expect(unreachable.length, lessThanOrEqualTo(1),
         reason: 'Bağlanmamış ekran sayısı arttı: ${unreachable.join(', ')} — '
             'repliğin varlığı tetiğinin varlığı DEĞİLDİR.');
   });
 }
+
