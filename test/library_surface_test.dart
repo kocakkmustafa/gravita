@@ -62,20 +62,36 @@ void main() {
       useNarrowPhone(tester);
       final ContentRepository c = await loadReal(tester);
 
-      // Katalogla kütüphane aynı büyüklükte olmak ZORUNDA — terfi kapısının
-      // (`promote_library.py --check`) yüzey tarafındaki ikizi.
-      expect(c.catalogue.movements.length, 31);
-      expect(c.catalogue.families.length, 9);
-      expect(c.catalogue.liveCount, 1);
+      // ⚠️ SAYI DEĞİL KURAL ölçülüyor — ve bu bir DÜZELTMENİN ürünü.
+      //
+      // Eski hâli `movements.length == 31`, `families.length == 9`,
+      // `liveCount == 1` diyordu. Üçü de ürün DOĞRU ilerlediğinde kırmızıya
+      // dönerdi: 32. hareket katalogdan geldiğinde, yeni bir aile açıldığında
+      // ve — en kötüsü — **bir hareket terfi kazandığında.** Yani gecenin
+      // asıl hedefi gerçekleştiği an test "kusur" diye bağıracaktı, ve bir
+      // süre sonra kırmızı "yine o test" diye okunacaktı.
+      //
+      // Kural: kütüphane katalogla AYNI büyüklükte (terfi kapısının yüzey
+      // ikizi) · aile listesi veriden türer · canlı/bekleyen ayrımı
+      // BLOKER durumundan türer, sabit bir sayıdan değil.
+      final int catalogued = _catalogFileCount();
+      expect(c.catalogue.movements.length, catalogued);
+      expect(c.catalogue.families.length,
+          c.catalogue.movements.map((MovementEntry m) => m.family).toSet().length);
+      expect(c.catalogue.liveCount,
+          c.catalogue.movements.where((MovementEntry m) => m.isLive).length);
 
       await tester.pumpWidget(host(LibraryScreen(content: c)));
       await tester.pump();
 
-      // Sayaç: toplam VE açık VE bekleyen. Yalnız toplamı göstermek 31'i
-      // vitrin gibi sunardı; yalnız açığı göstermek kapsamı saklardı.
-      expect(find.textContaining('31 movements'), findsOneWidget);
-      expect(find.textContaining('1 open'), findsOneWidget);
-      expect(find.textContaining('30 waiting'), findsOneWidget);
+      // Sayaç metni de VERİDEN kuruluyor: üç sayının da GÖSTERİLDİĞİ kural,
+      // hangi sayı olduğu değil. Yalnız toplamı göstermek kataloğu vitrin
+      // gibi sunardı; yalnız açığı göstermek kapsamı saklardı.
+      final int live = c.catalogue.liveCount;
+      final int waiting = c.catalogue.movements.length - live;
+      expect(find.textContaining('$catalogued movements'), findsOneWidget);
+      expect(find.textContaining('$live open'), findsOneWidget);
+      expect(find.textContaining('$waiting waiting'), findsOneWidget);
     });
 
     testWidgets('her aile bölümü ÇİZİLİYOR — hiçbiri sessizce düşmüyor',
@@ -271,8 +287,12 @@ void main() {
         (WidgetTester tester) async {
       useNarrowTall(tester);
       final ContentRepository c = await loadReal(tester);
-      final MovementEntry plank = c.catalogue.byId('plank')!;
-      expect(plank.lessonCount, 0);
+      // Özne KURALLA seçiliyor: "dersi olmayan herhangi bir hareket".
+      // `plank` sabitlenseydi, plank terfi ettiği gün test yanlış şeyi
+      // ölçmeye başlardı — G-129'un (fixture konumla seçilirse kayar)
+      // aynı sınıfı.
+      final MovementEntry plank = c.catalogue.movements
+          .firstWhere((MovementEntry m) => m.lessonCount == 0);
 
       await tester.pumpWidget(
           host(MovementPage(movement: plank, content: c)));
@@ -330,13 +350,7 @@ void main() {
       // bu defterin defalarca avladığı desen (G-129: kapı büyümeyle sahte
       // oldu; bu onun küçülme yönü).
       final ContentRepository c = await loadReal(tester);
-      final int catalogued = Directory('content/catalog')
-          .listSync()
-          .whereType<Directory>()
-          .expand((Directory d) => d.listSync())
-          .whereType<File>()
-          .where((File f) => f.path.endsWith('.json'))
-          .length;
+      final int catalogued = _catalogFileCount();
       expect(c.catalogue.movements.length, catalogued,
           reason: 'Taşma süpürmesinin kapsamı katalogdan AYRIŞTI — '
               'kütüphanede $catalogued yerine ${c.catalogue.movements.length} '
@@ -384,7 +398,13 @@ void main() {
       useNarrowTall(tester);
       final ContentRepository c = await loadReal(tester);
       final ExclusionsPage page = c.catalogue.exclusions;
-      expect(page.sections.length, 7);
+      // Sayı KAYNAKTAN: `exclusions.json`a bir bölüm eklendiğinde test
+      // kırılmaz, yeni bölümü ÖLÇER.
+      final Map<String, dynamic> src = (jsonDecode(File(
+                  'content/catalog/exclusions.json')
+              .readAsStringSync()) as Map)
+          .cast<String, dynamic>();
+      expect(page.sections.length, (src['sections'] as List<dynamic>).length);
 
       await tester.pumpWidget(host(WhyNotHereScreen(page: page)));
       await tester.pump();
@@ -528,12 +548,27 @@ void main() {
         expect(m.isLive, isTrue,
             reason: '${m.id}: canlı DEĞİL ama `measured` iddiası taşıyor — '
                 'girilemeyen bir hareket ölçüm veremez');
-        expect(m.honesty.measured.length, 1,
-            reason: '${m.id}: canlı ekran bugün YALNIZ rep sayacı çiziyor '
-                '(live_session_screen `repCountKey`). Yeni bir `measured` '
-                'iddiası eklendiyse onu GÖSTEREN yüzey de eklenmiş olmalı; '
-                'yoksa iddia kabukta karşılıksızdır (O-040 sınıfı).');
-        expect(m.honesty.measured.single.startsWith('Rep count'), isTrue);
+        // ⚠️ SAYI DEĞİL KAYIT DEFTERİ. Eski hâli `measured.length == 1`
+        // diyordu ve bu, tempo/ROM yüzeye çıkarıldığı gün — yani kusur
+        // DÜZELTİLDİĞİ gün — kırmızıya dönerdi.
+        //
+        // Kural: her `measured` iddiası, kabukta onu GÖSTEREN bir yüzeye
+        // izlenebilmeli. Yeni iddia eklemek serbest; iddiayı yüzeysiz
+        // eklemek değil.
+        for (final String claim in m.honesty.measured) {
+          final String? surface = _surfaceForClaim(claim);
+          expect(surface, isNotNull,
+              reason: '${m.id}: "$claim" iddiasının kabukta GÖSTEREN yüzeyi '
+                  'yok (O-040 sınıfı). Ya iddiayı kuyruğa taşı, ya da onu '
+                  'çizen yüzeyi ekleyip `_surfacedClaims`e kaydet.');
+          expect(
+              File('lib/app/live_session_screen.dart')
+                  .readAsStringSync()
+                  .contains(surface!),
+              isTrue,
+              reason: '${m.id}: "$claim" için kayıtlı yüzey anahtarı '
+                  '`$surface` canlı ekranda YOK — kayıt defteri bayatlamış.');
+        }
       }
     });
 
@@ -717,3 +752,39 @@ int _honestyLength(MovementEntry m) =>
     m.honesty.measured.join().length +
     m.honesty.notMeasured.join().length +
     (m.honesty.scoring?.length ?? 0);
+
+/// `honesty.measured` iddiası ↔ onu ÇİZEN yüzey anahtarı.
+///
+/// ⭐ O-040'ın kalıcı hâli. Ölçüldü (`ae8a14d`): push_up 4 iddia ediyordu,
+/// kabukta yolu olan 1'di — tempo ve ROM `Rep` nesnesinde VARDI ama hiçbir
+/// ekran çizmiyordu. Üçü kuyruğa taşındı.
+///
+/// Bu defter o düzeltmeyi KURAL hâline getiriyor: bir iddia buraya kayıtlı
+/// DEĞİLSE kapı öter, kayıtlıysa anahtarın canlı ekranda GERÇEKTEN var
+/// olduğu ayrıca doğrulanır. Yani defterin kendisi de bayatlayamaz.
+///
+/// Tempo/ROM yüzeye çıktığı gün buraya bir satır eklenir ve iddia
+/// `measured`a geri taşınabilir — kapı ürünün ilerlemesini ENGELLEMEZ,
+/// yalnız iddianın yüzeysiz kalmasını engeller.
+const Map<String, String> _surfacedClaims = <String, String>{
+  'Rep count': 'repCountKey',
+};
+
+String? _surfaceForClaim(String claim) {
+  for (final MapEntry<String, String> e in _surfacedClaims.entries) {
+    if (claim.startsWith(e.key)) return e.value;
+  }
+  return null;
+}
+
+/// Katalogdaki hareket dosyası sayısı — dalga-bağımsız.
+///
+/// Testler bu sayıyı ELLE YAZMAZ: kütüphane ↔ katalog eşitliği bir KURAL,
+/// `31` bir olgudur. Kural ürün büyürken doğru kalır, olgu kalmaz.
+int _catalogFileCount() => Directory('content/catalog')
+    .listSync()
+    .whereType<Directory>()
+    .expand((Directory d) => d.listSync())
+    .whereType<File>()
+    .where((File f) => f.path.endsWith('.json'))
+    .length;
