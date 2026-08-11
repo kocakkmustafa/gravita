@@ -132,6 +132,63 @@ void main() {
       expect(soft.reps.first.errors, isNot(contains('stiff_landing')));
     });
 
+    test('POZİTİF — required-DIŞI uzuvlar (karşı-taraf kol, topuk, burun)'
+        ' düşük görünürlükte olsa da kareler REDDEDİLMİYOR (G-178)', () {
+      // burpee'nin konuştuğu metrikler (elbow_angle+knee_angle+knee_angle_
+      // at_contact+hip_height_torso+line_deviation_deg) birleşince sinyal-
+      // taraf kol/bacak + iki omuz + iki kalça + iki ayak bileği gerekiyor.
+      // Karşı-taraf dirsek/bilek, topuklar ve burun HİÇBİRİ bu kümede yok.
+      PoseFrame withVisibility(PoseFrame f, List<int> ids, double vis) {
+        final List<PoseLandmark> lms = List<PoseLandmark>.from(f.landmarks);
+        for (final int i in ids) {
+          lms[i] = lms[i].copyWith(visibility: vis);
+        }
+        return f.copyWith(landmarks: lms);
+      }
+
+      final MultiPhaseEngine e = MultiPhaseEngine(burpee);
+      for (final PoseFrame raw in oneRep()) {
+        e.addFrame(
+            withVisibility(
+                raw,
+                const <int>[
+                  Lm.rightElbow, Lm.rightWrist,
+                  Lm.leftHeel, Lm.rightHeel,
+                  Lm.nose,
+                ],
+                0.1),
+            kSize);
+      }
+      expect(e.repCount, 1,
+          reason: 'burpee ne topuğu ne burnu okuyor — `required:` fullBody '
+              'varsayılanına düşseydi bu zincir reddedilirdi.');
+    });
+
+    test('NEGATİF — required-İÇİ bir uzuv (iki omuz) düşük görünürlükte'
+        ' olunca kareler GERÇEKTEN reddediliyor (G-178)', () {
+      // İKİ omuz da (taraf-BAĞIMSIZ, `torso` kümesi) düşürülüyor — hangi
+      // taraf "görünür" seçilirse seçilsin required listesinde kalıyor,
+      // testi `resolveVisibleSide`in taraf seçimine BAĞIMLI kılmıyor.
+      PoseFrame withVisibility(PoseFrame f, List<int> ids, double vis) {
+        final List<PoseLandmark> lms = List<PoseLandmark>.from(f.landmarks);
+        for (final int i in ids) {
+          lms[i] = lms[i].copyWith(visibility: vis);
+        }
+        return f.copyWith(landmarks: lms);
+      }
+
+      final MultiPhaseEngine e = MultiPhaseEngine(burpee);
+      for (final PoseFrame raw in oneRep()) {
+        e.addFrame(
+            withVisibility(
+                raw, const <int>[Lm.leftShoulder, Lm.rightShoulder], 0.1),
+            kSize);
+      }
+      expect(e.repCount, 0,
+          reason: '`required:` boş/no-op\'a düşseydi bu zincir yine sayılırdı.');
+      expect(e.skippedFrames, greaterThan(0));
+    });
+
     test('sıçrama fazı CHECKPOINT — yüksekliği ölçülmüyor', () {
       // Sözleşme kontrolü: checkpointOnly fazında kalite kontrolü çalışmaz,
       // yalnız "gerçekleşti mi" sorulur (G-006).

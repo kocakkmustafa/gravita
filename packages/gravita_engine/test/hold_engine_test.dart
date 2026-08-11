@@ -114,6 +114,63 @@ void main() {
     });
   });
 
+  group('HoldEngine — required: G-178 ile TÜRETİLİYOR (squat sınıfının aynısı)',
+      () {
+    // plank'ın konuştuğu metrikler: `elbow_under_shoulder_offset_torso`
+    // (dirsek[sinyal-taraf] + gövde) + `line_deviation_deg` (iki omuz + iki
+    // kalça + iki ayak bileği). Bilek, diz VE karşı-taraf dirseği HİÇBİRİ
+    // bu birleşimde yok — gerçek çekimde doğal olarak düşük görünürlükte
+    // olabilecek uzuvlar (squat'ın "uzak kol" deseninin plank karşılığı).
+    PoseFrame withVisibility(PoseFrame f, List<int> ids, double vis) {
+      final List<PoseLandmark> lms = List<PoseLandmark>.from(f.landmarks);
+      for (final int i in ids) {
+        lms[i] = lms[i].copyWith(visibility: vis);
+      }
+      return f.copyWith(landmarks: lms);
+    }
+
+    List<PoseFrame> holdWith(List<int> lowVisIds, double sagDeg, int seconds) {
+      final List<PoseFrame> out = <PoseFrame>[];
+      for (int i = 0; i * 40000 <= seconds * 1000000; i++) {
+        out.add(withVisibility(
+            builder.build(plankPose(sagDeg), tUs: i * 40000), lowVisIds, 0.1));
+      }
+      return out;
+    }
+
+    test('POZİTİF — required-DIŞI uzuvlar (bilek+diz) düşük görünürlükte olsa'
+        ' da tutuş REDDEDİLMİYOR', () {
+      final HoldEngine e = HoldEngine(load('plank'));
+      for (final PoseFrame f in holdWith(
+          const <int>[
+            Lm.leftWrist, Lm.rightWrist,
+            Lm.leftKnee, Lm.rightKnee,
+          ],
+          0,
+          6)) {
+        e.addFrame(f, kSize);
+      }
+      expect(e.state, HoldState.holding,
+          reason: 'plank ne bileği ne dizi okuyor — `required:` fullBody '
+              'varsayılanına düşseydi bu kare reddedilirdi (squat'
+              '\'ın ilk 30/30-red kusuruyla AYNI sınıf).');
+      expect(e.skippedFrames, 0);
+    });
+
+    test('NEGATİF — required-İÇİ bir uzuv (omuz) düşük görünürlükte olunca'
+        ' tutuş GERÇEKTEN reddediliyor', () {
+      final HoldEngine e = HoldEngine(load('plank'));
+      for (final PoseFrame f
+          in holdWith(const <int>[Lm.leftShoulder, Lm.rightShoulder], 0, 3)) {
+        e.addFrame(f, kSize);
+      }
+      expect(e.state, HoldState.waiting,
+          reason: '`required:` boş listeye ya da her şeyi kabul eden bir '
+              'no-op\'a düşseydi bu kare de kabul edilirdi.');
+      expect(e.skippedFrames, greaterThan(0));
+    });
+  });
+
   _w2();
 
   group('MovementMetrics', () {

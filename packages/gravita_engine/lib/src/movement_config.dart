@@ -247,6 +247,14 @@ final class HoldConfig {
   final int stableForUs;
   final int minHoldUs;
   final List<FormBreak> formBreaks;
+
+  /// Bu tutuşun konuştuğu TÜM metrik adları — giriş şartları + form
+  /// kırılmaları. `required:` derivasyonunun kaynağı (G-178): motor hangi
+  /// landmark'ı isteyeceğini İCAT ETMEZ, buradan TÜRETİR.
+  Set<String> get referencedMetrics => <String>{
+        for (final MetricCondition c in entry) c.metric,
+        for (final FormBreak b in formBreaks) b.condition.metric,
+      };
 }
 
 /// Çok-faz zincirindeki tek faz.
@@ -368,6 +376,17 @@ final class MultiPhaseConfig {
   /// mi" sorulur; büyüklük iddia edilmez (G-006).
   final Set<String> checkpointOnly;
   final int timeoutUs;
+
+  /// Zincirdeki TÜM fazların konuştuğu metrik adları — giriş metrikleri +
+  /// faz-içi kontroller. `required:` derivasyonunun kaynağı (G-178), aynı
+  /// `HoldConfig.referencedMetrics` gerekçesiyle: hangi fazda olduğumuza göre
+  /// DEĞİL, zincirin TAMAMI için TEK sefer türetilir (`RepEngine`in tek
+  /// hareket için tek sinyal-eklemi türetmesiyle aynı sadelik).
+  Set<String> get referencedMetrics => <String>{
+        for (final PhaseSpec p in sequence) p.enterMetric,
+        for (final PhaseSpec p in sequence)
+          for (final PhaseCheck c in p.checks) c.metric,
+      };
 }
 
 final class MovementConfig {

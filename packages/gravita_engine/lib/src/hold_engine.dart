@@ -6,6 +6,7 @@ import 'package:motion_core/motion_core.dart' hide MetricCondition, PhaseSpec;
 
 import 'metrics.dart';
 import 'movement_config.dart';
+import 'rep_engine.dart' show VisibleSide, resolveVisibleSide;
 
 /// Bir tutuş sırasında yaşanan form kırılması olayı.
 final class HoldBreakEvent {
@@ -76,19 +77,34 @@ final class HoldEngine {
     final PoseFrame frame = rawFrame.toIsotropic(size);
     _lastUs = frame.tUs;
 
-    // ⚠️ AÇIK KALAN (koordinatör ölçümü, 2026-08-12): `rep_engine.dart`da
-    // AYNI çağrının `required:` parametresiz olması gerçek squat verisinde
-    // HER kareyi reddediyordu (varsayılan `LmRegion.fullBody`, hareketin
-    // sinyal ekleminden bağımsız olarak TÜM vücudu istiyor). Burada da AYNI
-    // desen var — düzeltmedim, çünkü: (a) hangi landmark'ların gerekli
-    // olduğunu HoldConfig'den türetecek bir eşleme henüz yok (rep_engine'in
-    // tek-eklem `c.joint` alanının hold/multiphase karşılığı yok) (b) bu
-    // motoru sınayan GERÇEK bir replay fixture'ım yok — squat'takinin
-    // aksine, kör bir düzeltmeyi doğrulayacak veri elimde değil. "Türetile-
-    // miyorsa adıyla söyle" (koordinatör): bu, adıyla söylenen o boşluk.
-    // Güven kapısı + yapısal denetim: ikisi de geçmeden hüküm yok.
-    if (!ConfidenceGate.forVariant(PoseModelVariant.full).evaluate(frame).judgeable ||
-        !StructuralValidator().check(frame).plausible) {
+    // ⚠️ Kadraj sınaması HAM kareyle yapılır (`rep_engine.dart` ile AYNI
+    // desen, G-038): `toIsotropic` x'i [0,1]'den [0,aspect]'e taşır ve
+    // `xExtent` verilmeden gatelenirse geniş kadrajda sağdaki her özne
+    // "kadraj dışı" sayılır. Bu satır ÖNCEDEN `frame` (izotropik) gateliyordu
+    // — adıyla söylenmemiş İKİNCİ bir boşluktu, `required:` türetmesiyle
+    // birlikte kapatıldı (koordinatör hükmü, 2026-08-12, G-178).
+    //
+    // `required:` artık İCAT edilmiyor: `config.hold!.referencedMetrics`
+    // (giriş şartları + form kırılmaları, HoldConfig'in kendi beyanı) her
+    // metrik için `MovementMetrics.requiredLandmarksFor` ile landmark'a
+    // çözülüyor ve birleştiriliyor. `rep_engine.dart`daki tek-eklem
+    // `StandardJoints.byId` deseninin BİREBİR aynısı değil (hold/multiphase
+    // İSİMLİ metrik diliyle konuşuyor, çoğu metrik tek eklem değil) — ama
+    // AYNI ilke: motorun neyi göreceği hareketin KENDİ beyanından türer.
+    final VisibleSide signalSide = resolveVisibleSide(rawFrame);
+    final Set<int> required = <int>{};
+    for (final String metric in c.referencedMetrics) {
+      final List<int>? r =
+          MovementMetrics.requiredLandmarksFor(metric, signalSide);
+      if (r != null) required.addAll(r);
+    }
+    // Hiçbir metrik çözülemediyse (adıyla söylenen boşluk) ESKİ güvenli
+    // varsayılana düş — dar bir liste UYDURULMAZ.
+    final FrameQuality quality = required.isEmpty
+        ? ConfidenceGate.forVariant(PoseModelVariant.full).evaluate(rawFrame)
+        : ConfidenceGate.forVariant(PoseModelVariant.full)
+            .evaluate(rawFrame, required: required.toList());
+    if (!quality.judgeable || !StructuralValidator().check(frame).plausible) {
       skippedFrames++;
       // Takip kaybı tutuşu SESSİZCE bitirmez; kullanıcı hâlâ pozisyonda
       // olabilir. Süre işlemeye devam eder, kırılma sayaçları dondurulur.

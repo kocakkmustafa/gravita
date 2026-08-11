@@ -8,6 +8,7 @@ import 'package:motion_core/motion_core.dart' hide MetricCondition, PhaseSpec;
 
 import 'metrics.dart';
 import 'movement_config.dart';
+import 'rep_engine.dart' show VisibleSide, resolveVisibleSide;
 
 /// Zemin-göreli metrikler durum ister: "ayak yerden kesildi" ancak zeminin
 /// nerede olduğu biliniyorsa söylenebilir.
@@ -101,14 +102,24 @@ final class MultiPhaseEngine {
     final MultiPhaseConfig c = config.multi!;
     final PoseFrame frame = rawFrame.toIsotropic(size);
 
-    // ⚠️ AÇIK KALAN (koordinatör ölçümü, 2026-08-12) — `hold_engine.dart`
-    // ile AYNI not: `required:` parametresiz varsayılan `LmRegion.fullBody`
-    // squat'ta HER kareyi reddetmişti (rep_engine.dart'ta düzeltildi).
-    // Burada düzeltmedim: MultiPhaseConfig'den required-landmark türetecek
-    // bir eşleme yok VE bu motoru gerçek veriyle sınayan bir fixture'ım
-    // yok — kör düzeltme doğrulanamaz. Adıyla söylenen boşluk.
-    if (!ConfidenceGate.forVariant(PoseModelVariant.full).evaluate(frame).judgeable ||
-        !StructuralValidator().check(frame).plausible) {
+    // `hold_engine.dart`daki AYNI iki düzeltme (koordinatör hükmü,
+    // 2026-08-12, G-178): (1) kadraj sınaması artık HAM kareyle yapılıyor
+    // (G-038 — izotropik karede `xExtent` verilmeden gatelemek geniş
+    // kadrajda sağ taraftaki özneyi "kadraj dışı" sayardı) (2) `required:`
+    // `MultiPhaseConfig.referencedMetrics`ten (zincirin TÜM fazlarının
+    // beyan ettiği metrikler) türetiliyor, İCAT edilmiyor.
+    final VisibleSide signalSide = resolveVisibleSide(rawFrame);
+    final Set<int> required = <int>{};
+    for (final String metric in c.referencedMetrics) {
+      final List<int>? r =
+          MovementMetrics.requiredLandmarksFor(metric, signalSide);
+      if (r != null) required.addAll(r);
+    }
+    final FrameQuality quality = required.isEmpty
+        ? ConfidenceGate.forVariant(PoseModelVariant.full).evaluate(rawFrame)
+        : ConfidenceGate.forVariant(PoseModelVariant.full)
+            .evaluate(rawFrame, required: required.toList());
+    if (!quality.judgeable || !StructuralValidator().check(frame).plausible) {
       skippedFrames++;
       return;
     }

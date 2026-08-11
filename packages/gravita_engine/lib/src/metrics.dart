@@ -213,6 +213,17 @@ final class MovementMetrics {
 
   /// Config'de geçen ama bu katmanın HENÜZ üretmediği metrikler.
   /// Bilinmeyen metrik sessizce 0 dönmez — kural değerlendirilmez, hüküm yok.
+  ///
+  /// ⚠️ KAPI (koordinatör hükmü, 2026-08-12, G-178): `holdEntry.requires`/
+  /// `formBreak`/`sequence[].enter`/`sequence[].checks` içinde geçen HER
+  /// metrik ya [byName]'in switch'inde ya BURADA olmak ZORUNDA — üçüncü bir
+  /// hâl (ne hesaplanan ne adlandırılmış boşluk) YASAK. `tuck_planche`nin
+  /// `planche_lean_deg`i bu kapı yazılmadan ÖNCE tam da o üçüncü hâldeydi:
+  /// `content/schema/metrics.json`da tanımlı, Dart katmanında YOK, ve
+  /// `holdEntry.requires`i taşıyordu — yani tutuş muhtemelen HİÇ
+  /// başlamıyordu ve hiçbir şey bunu beyan etmiyordu. Kapı bunu şimdi test
+  /// katmanında ateşler (`hold_engine_test.dart`/`multiphase_engine_test.dart`
+  /// içindeki "her referanslı metrik ya hesaplı ya adlandırılmış" testi).
   static const Set<String> unimplemented = <String>{
     'rom_bottom_angle', 'rom_top_angle', // rep motorundan gelir (çevrim uç değeri)
     'hip_swing_amplitude_torso', 'shoulder_elevation_proxy',
@@ -220,5 +231,73 @@ final class MovementMetrics {
     'contralateral_alignment_deg', 'trunk_rotation_proxy', 'knee_travel_torso',
     'plantarflexion_deg', 'vertical_travel',
     'feet_off_ground', // zemin-göreli: MultiPhaseEngine'in GroundReference'ı üretir
+    // ⚠️ 2026-08-12 (G-178): `tuck_planche`nin `holdEntry.requires`inde VE
+    // `formBreak`inde — ADLANDIRILMAMIŞ boşluktu (ne burada ne `byName`de),
+    // yani tutuş girişi muhtemelen HİÇ tetiklenmiyordu ve bunu SÖYLEYEN hiçbir
+    // şey yoktu. Davranış BURADA değişmiyor (adlandırma ≠ uygulama) — yalnız
+    // görünmez, görünür oldu. `content/schema/metrics.json`da tanımlı; Dart
+    // katmanı henüz üretmiyor.
+    'planche_lean_deg',
   };
+
+  /// [metric]i HESAPLAMAK için okunan landmark'lar — `required:` derivasyonu
+  /// için `byName`in TERSİ (değer değil, o değeri üretmek için BAKILAN
+  /// landmark kümesi).
+  ///
+  /// ⚠️ `rep_engine.dart`daki `StandardJoints.byId(...).requiredLandmarks`in
+  /// hold/multiphase karşılığı YOK (koordinatör ölçümü, 2026-08-12, G-178):
+  /// orada tek "sinyal eklemi" var, burada İSİMLİ METRİK dili konuşuluyor ve
+  /// bir metrik genelde TEK eklem değil — `lineDeviationDeg` iki omuz+iki
+  /// kalça+iki ayak bileği okuyor. Bu yüzden `motion_core`un `StandardJoints`
+  /// listesi (tek-eklem) buraya UYMUYOR; eşleme YEREL ve HER metriğin kendi
+  /// getter'ından TÜRETİLDİ (elle icat değil — her satır yukarıdaki getter'ın
+  /// AYNI landmark okumalarının kopyası). İki taraf senkronsuzlaşırsa
+  /// (`byName` bir landmark okur, burası onu listelemez) güven kapısı kendi
+  /// kendini yalanlar — `metrics_landmark_sync_test.dart` bunu KOD-DENETİMİYLE
+  /// (statik grep) sınıyor, elle senkron tutmaya güvenmiyor.
+  ///
+  /// Bilinmeyen metrik `null` döner — `byName`in null-için-bilinmeyen deseninin
+  /// aynısı; çağıran bunu "adıyla söylenen boşluk" olarak ele alır, dar bir
+  /// liste UYDURMAZ.
+  static List<int>? requiredLandmarksFor(String metric, VisibleSide side) {
+    final bool left = side == VisibleSide.left;
+    final int shoulder = left ? Lm.leftShoulder : Lm.rightShoulder;
+    final int elbow = left ? Lm.leftElbow : Lm.rightElbow;
+    final int wrist = left ? Lm.leftWrist : Lm.rightWrist;
+    final int hip = left ? Lm.leftHip : Lm.rightHip;
+    final int knee = left ? Lm.leftKnee : Lm.rightKnee;
+    final int ankle = left ? Lm.leftAnkle : Lm.rightAnkle;
+    final int heel = left ? Lm.leftHeel : Lm.rightHeel;
+    final int footIndex = left ? Lm.leftFootIndex : Lm.rightFootIndex;
+    // torsoLength'in okuduğu — her iki omuz + her iki kalça.
+    const List<int> torso = <int>[
+      Lm.leftShoulder, Lm.rightShoulder, Lm.leftHip, Lm.rightHip,
+    ];
+    const List<int> bothAnkles = <int>[Lm.leftAnkle, Lm.rightAnkle];
+
+    return switch (metric) {
+      'elbow_angle' => <int>[shoulder, elbow, wrist],
+      'knee_angle' || 'knee_angle_at_contact' => <int>[hip, knee, ankle],
+      'hip_angle' => <int>[shoulder, hip, knee],
+      'shoulder_angle' => <int>[hip, shoulder, elbow],
+      'elbow_angle_asymmetry' => const <int>[
+          Lm.leftShoulder, Lm.leftElbow, Lm.leftWrist,
+          Lm.rightShoulder, Lm.rightElbow, Lm.rightWrist,
+        ],
+      'knee_angle_asymmetry' => const <int>[
+          Lm.leftHip, Lm.leftKnee, Lm.leftAnkle,
+          Lm.rightHip, Lm.rightKnee, Lm.rightAnkle,
+        ],
+      'torso_angle_from_vertical' => torso,
+      'line_deviation_deg' || 'hip_drop_deg' => <int>[...torso, ...bothAnkles],
+      'lumbar_flexion_proxy' || 'lumbar_extension_proxy' => <int>[
+          shoulder, hip, knee,
+        ],
+      'neck_flexion_proxy' => <int>[Lm.nose, ...torso],
+      'elbow_under_shoulder_offset_torso' => <int>[elbow, ...torso],
+      'heel_rise_torso_norm' => <int>[footIndex, heel, ...torso],
+      'hip_height_torso' => <int>[...bothAnkles, ...torso],
+      _ => null,
+    };
+  }
 }
