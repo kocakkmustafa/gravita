@@ -89,7 +89,7 @@ line; echo "SÜİT 2 — gravita_engine ($(ls packages/gravita_engine/test/*.dar
 eng_n="$(count_dart bash -c "cd packages/gravita_engine && dart test")" || fail=1
 run "dart test" bash -c "cd packages/gravita_engine && dart test"
 
-line; echo "SÜİT 3 — içerik kapıları (6)"; line
+line; echo "SÜİT 3 — içerik kapıları (8 araç)"; line
 gate() { py_total=$((py_total+1)); if run "$@"; then py_ok=$((py_ok+1)); fi; }
 gate "reference_model"             python3 tools/validate_reference_model.py
 gate "reference_model --self-test" python3 tools/validate_reference_model.py --self-test
@@ -101,6 +101,8 @@ gate "promote_library --check"     python3 tools/promote_library.py --check
 gate "exclusions_page --check"     python3 tools/build_exclusions_page.py --check
 gate "skill_tree_index --check"    python3 tools/build_skill_tree_index.py --check
 gate "name_preconditions --check"  python3 tools/name_preconditions.py --check
+gate "network_claim_audit"         python3 tools/network_claim_audit.py
+gate "network_claim_audit --self-test" python3 tools/network_claim_audit.py --self-test
 
 line
 if [ "$fail" -eq 0 ]; then
