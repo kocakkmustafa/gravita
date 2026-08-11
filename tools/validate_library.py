@@ -485,6 +485,16 @@ def _self_test():
     def live(lib):
         return next(m for m in lib["movements"] if m["status"] == "live")
 
+    def push_up(lib):
+        """`live()` YETMİYOR artık (2026-08-12, bodyweight_squat terfisi):
+        iki live hareket var ve `promote_library.py`nin sıralaması ("legs" <
+        "push" alfabetik) `live(lib)`i SESSİZCE squat'a çevirdi — aşağıdaki
+        mutasyonların çoğu push_up'ın KENDİ ders/kurs YAPISINI (id'ler,
+        lesson sırası) varsayıyor. Konumla değil KİMLİKLE seçilir — tam
+        `soon_with_reference`in kendi gerekçesiyle aynı ders (M-F-4. dersin
+        üçüncü görünüşü: veri büyüyünce/değişince konumsal seçim kayar)."""
+        return next(m for m in lib["movements"] if m["id"] == "push_up")
+
     def soon(lib):
         return next(m for m in lib["movements"] if m["status"] == "coming_soon")
 
@@ -506,9 +516,14 @@ def _self_test():
         kapı ölçmeyi bırakabiliyor. Fixture konumla seçilirse, fixture'ın
         kendisi kayabilir.
         """
+        # ⚠️ İKİNCİ REGRESYON (2026-08-12): `status != coming_soon` filtresi
+        # bodyweight_squat terfi edince (bu turda) TEK uygun hareketi
+        # havuzdan düşürdü — özellik ÖZELLİKLE arandığı hâlde durum
+        # filtresi konumsal seçimin gizli bir biçimiydi. Filtre kaldırıldı:
+        # mutasyon zaten `status = "live"`e ZORLUYOR (aşağıda), o yüzden
+        # başlangıç durumu hiç önemli değildi — yalnız YANLIŞ önemli
+        # SANILMIŞTI.
         for m in lib["movements"]:
-            if m["status"] != "coming_soon":
-                continue
             cat = catalogs.get(m.get("catalogId", m["id"])) or {}
             prov = cat.get("provenance", {})
             if prov.get("derivedJoints") and ref_lookup(m["id"]):
@@ -638,7 +653,12 @@ def _self_test():
         # İstisna BAYATLIYOR mu? push_up live olmaktan çıkarsa
         # K14_ACCEPTED_GAPS'teki çift bu koşumda hiç kurulmaz — kendini
         # BAYAT diye işaretlemek ZORUNDA (K9 bayat-kilit deseninin aynası).
-        live(lib)["status"] = "coming_soon"
+        # ⚠️ `live(lib)` DEĞİL: iki live hareket olunca (bodyweight_squat
+        # terfisi) `live()` HANGİSİNİ döndüreceği dizi SIRASINA bağlı — bu
+        # testin doğruluğu özellikle PUSH_UP'ın coming_soon olmasına bağlı
+        # (K14_ACCEPTED_GAPS yalnız push_up'a kayıtlı), o yüzden KİMLİKLE
+        # seçilir.
+        push_up(lib)["status"] = "coming_soon"
 
     cases = [
         ("S7 focus katalogda YOK (G-119)", mut_s7_focus,

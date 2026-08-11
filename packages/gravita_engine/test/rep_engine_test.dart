@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 
@@ -14,6 +15,22 @@ import 'package:test/test.dart';
 void main() {
   MovementConfig load(String id) => MovementConfig.parse(
       File('../../content/catalog/w1/$id.json').readAsStringSync());
+
+  /// [load] gibi ama `precondition.status`u ZORLA verilen değere çeviriyor
+  /// — GERÇEK bir hareketin BUGÜNKÜ durumuna bağlı kalmadan "pending
+  /// olsaydı ne olurdu" sınamak için (`validate_library.py`nin
+  /// `lookup_pending` desenin Dart karşılığı). ⚠️ Bu testin varlık sebebi:
+  /// bodyweight_squat 2026-08-12'ye kadar bu testin "pending" örneğiydi;
+  /// terfi edince (G-133) test KIRILDI çünkü örnek GERÇEK duruma bağlıydı.
+  /// Sentetik zorlama, bir SONRAKİ terfinin bu testi bir daha kırmasını
+  /// önler.
+  MovementConfig loadWithPreconditionStatus(String id, String status) {
+    final Map<String, dynamic> j = jsonDecode(
+        File('../../content/catalog/w1/$id.json').readAsStringSync())
+        as Map<String, dynamic>;
+    (j['engine'] as Map<String, dynamic>)['precondition']['status'] = status;
+    return MovementConfig.fromJson(j);
+  }
 
   const SyntheticPoseBuilder builder = SyntheticPoseBuilder();
   // Sentetik iskelet kare uzayda üretilir -> izotropik dönüşüm kimlik olur.
@@ -319,7 +336,11 @@ void main() {
     /// hareketi değil sinyal ekleminin salınımını sayıyordu. Beyan vardı,
     /// ürün tarafında OKUYANI yoktu (beşinci canlılık sorusu, G-059).
     test('pending ön koşullu harekette tekrar ÜRETİLMEZ ve sebep İSİMLİ', () {
-      final MovementConfig c = load('bodyweight_squat');
+      // ⚠️ ARTIK ZORLA pending (2026-08-12, G-133): bodyweight_squat
+      // TÜRETİLDİ (pencere-koşulu) — bu testin ihtiyacı olan "pending"
+      // durumu artık GERÇEK katalogda yok, sentetik olarak kuruluyor.
+      final MovementConfig c =
+          loadWithPreconditionStatus('bodyweight_squat', 'pending');
       expect(c.preconditionDerived, isFalse,
           reason: 'bu test tam olarak türetilmemiş ön koşul için var');
 

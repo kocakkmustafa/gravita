@@ -52,13 +52,17 @@ void main() {
   test('yüzey listesi gerçek içerikten türetilebiliyor', () {
     final List<LessonSurface> s = deriveSurfaces();
     expect(s, isNotEmpty);
-    // Bugünkü içerik: push_up'ın iki dersi. coming_soon squat kurs vermiyor.
+    // Bugünkü içerik (2026-08-12, G-133): push_up'ın iki dersi + squat'ın
+    // terfisiyle gelen iki ders (pencere-koşulu, K14/G-128/G-131/G-132).
     expect(s.map((LessonSurface x) => x.id).toList(), <String>[
       'push_foundations.reps_and_tempo',
       'push_foundations.form_check',
+      'leg_foundations.reps_and_depth',
+      'leg_foundations.depth_and_lean_check',
     ]);
     expect(s.every((LessonSurface x) => x.unitLabel == 'rep'), isTrue,
-        reason: 'push_up repFsm — birim TEKRAR. Katalogdan geldi, elle değil.');
+        reason: 'push_up VE bodyweight_squat ikisi de repFsm — birim '
+            'TEKRAR. Katalogdan geldi, elle değil.');
   });
 
   test('coming_soon hareket yüzeye ders SOKMAZ', () {

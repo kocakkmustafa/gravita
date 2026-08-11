@@ -145,9 +145,17 @@ def check(path):
     if not isinstance(pre, dict) or pre.get("status") not in ("derived", "pending"):
         err(f, "engine.precondition BEYAN edilmemiş (status: derived|pending) — "
                "beyansız hareket, ayakta el hareketini tekrar sayar (G-043)")
-    elif pre["status"] == "derived" and not pre.get("conditions"):
-        err(f, "precondition.status=derived ama conditions BOŞ — türetilmiş "
-               "diyen beyan koşul taşımak zorunda")
+    elif (pre["status"] == "derived" and not pre.get("conditions")
+          and not pre.get("windowCondition")):
+        # ⚠️ İKİ TÜRETİM YOLU (koordinatör hükmü, 2026-08-12): KARE-düzeyi
+        # `conditions` (push_up: torso_angle_from_vertical>=60) VEYA
+        # PENCERE-düzeyi `windowCondition` (bodyweight_squat: hip-knee
+        # Pearson>=0,2, WindowCorrelationCondition/gravita_engine). İkisi de
+        # "derived" iddiasını GERÇEK bir ölçülebilir koşula bağlar — ikisinin
+        # de YOKLUĞU, beyanın hiçbir şeye dayanmadığı anlamına gelir.
+        err(f, "precondition.status=derived ama ne conditions NE windowCondition "
+               "var — türetilmiş diyen beyan bir koşul (kare-düzeyi ya da "
+               "pencere-düzeyi) taşımak zorunda")
     elif pre["status"] == "pending" and m.get("id") in _harvested_ids():
         err(f, f"'{m.get('id')}' için tekrar çıkarımı yapılmış ama precondition "
                "türetilmemiş — hasatta kullanıcı beyanı YOKTUR (üründeki "

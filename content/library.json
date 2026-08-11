@@ -807,35 +807,77 @@
       "family": "legs",
       "level": "beginner",
       "class": "A",
-      "status": "coming_soon",
+      "status": "live",
       "wave": "W1",
       "catalogId": "bodyweight_squat",
-      "blurb": "Squat coaching is closed. We now have an instructor reference and a real-footage test, but one thing is still missing before we'd grade you — details below, in plain terms.",
+      "blurb": "Set your phone down side-on so it can see you from head to heels. We count your reps and time your tempo — the engine only counts a rep if your hip and knee moved together through it.",
       "honesty": {
-        "measured": [],
+        "measured": [
+          "Rep count — the engine only counts a rep if your hip and knee moved together through it (identity gate, hip-knee correlation >= 0.2, derived from 16 instructors' measured footage). Coordinate-system limit on that same gate, named plainly: the threshold was validated against 3D, gravity-aligned landmarks, where it separates real squat reps cleanly (95% of 227 real clips passed). Our engine only has access to flatter, camera-perspective landmarks — on that signal, real footage passes about 90% of the time (27 of 30 clips) instead of 95%. The 5-point gap is the cost of a camera-only signal, not a flaw in the idea: we chose the conservative direction, so the failure mode is a real rep going uncounted, never a fake one counted."
+        ],
         "notMeasured": [
           "Left/right comparisons are off the table — for squats AND push-ups. Measured left-right joint difference is 32.0 degrees for squats and 14.7 degrees for push-ups; neither reference is mirror-agnostic, so we make no side-specific claim from either (rule 7). We previously reported 5.2 degrees for push-ups and treated it as evidence of symmetry — that was wrong twice over: the number averaged differences that cancelled out instead of measuring how big they are, and the small difference itself came from the model copying the limb it cannot see rather than from real symmetry.",
           "Knee tracking side-to-side (valgus) — needs a front-facing camera. Permanent limit for this setup.",
-          "Weight distribution across the foot, force, or load — a single camera cannot see these."
+          "Weight distribution across the foot, force, or load — a single camera cannot see these.",
+          "How your form compares to instructors. We now have an ATTESTED reference from 5 instructors (25 takes) and hip/thigh tolerances come from their measured spread — but knee, shin and torso are still at our default floor. Until that changes we count and time your reps, we do not grade your depth or lean against a reference."
         ],
-        "waitingOnMeasurement": [
-          "Nothing is graded. One thing is still missing, and it alone is enough for us to keep this closed.",
-          "The engine has no squat identity check. For push-ups we verify your torso is horizontal before counting a rep; the equivalent test for squats hasn't been derived, so nothing would stop a rep being counted while you're just standing and moving.",
-          "Its rules have now been run against real recorded footage (30 clips from 11 instructors) and the rep-counting logic gets every single one right. That run also found and fixed a real gap: our camera confidence check was requiring your far arm to be visible even on movements like this one that never look at your arm, which a side-on squat naturally hides. What's left is the same identity check named above — that test runs under harvest conditions where the source is already verified by hand, not through the identity check itself.",
-          "What the reference can and cannot support: it is attested (5 instructors, 25 takes). Hip and thigh tolerances now come from measured instructor spread — but knee, shin and torso are still at our default floor, and knee depth plus torso lean are exactly what a squat coach would grade. We rebuilt this reference after finding that six of its takes were loaded BARBELL squats, one of them the alignment basis for everything else; removing them is what let hip and thigh become measurement-backed."
-        ]
+        "scoring": "None of this is a score. We count and time what is listed above, and when a rule fires we tell you what to change — but no number grades your form, on this movement or any other in Gravita. Form grading stays shut until joint tolerances come from measured disagreement between real instructors rather than from our default floor."
       },
-      "courses": [],
+      "courses": [
+        {
+          "id": "leg_foundations",
+          "displayName": "Squat Foundations",
+          "level": "beginner",
+          "goal": "Learn what an honest rep count is: the engine refuses to count a rep unless your hip and knee moved together through it, so standing up and shifting weight does not add to your total.",
+          "estimatedMinutes": 15,
+          "lessons": [
+            {
+              "id": "leg_foundations.reps_and_depth",
+              "displayName": "Reps that count",
+              "focus": "rep_count",
+              "errorFocus": [
+                "shallow_depth"
+              ],
+              "minutes": 8,
+              "gradesFormAgainstReference": false,
+              "_why_unlocked": "Bu dersin dayandığı ölçümler CANLI: (1) kimlik ön koşulu DERIVED ve üründe aktif (windowPrecondition, hip-knee Pearson>=0,2) — 227 gerçek dilimde rep-başına %95 (dünya-uzayı) / GERÇEK ürün yolunda 30 klipte %90 (2D, motorun erişebildiği sinyal) doğrulandı, fail-closed yönde (K14/G-128/G-129/G-131/G-132); (2) rep FSM 30/30 gerçek klipte doğru sayıyor, negatif kontrollerle (yarım tekrar, hareketsiz kare) sahte-oracle olmadığı kanıtlandı; (3) shallow_depth kuralı (rom_bottom_angle eşiği) İSİMLİ ürün eşiği, referans toleransına bağlı DEĞİL."
+            },
+            {
+              "id": "leg_foundations.depth_and_lean_check",
+              "displayName": "Depth & lean check",
+              "focus": "form",
+              "errorFocus": [
+                "excessive_forward_lean",
+                "heel_lift",
+                "butt_wink"
+              ],
+              "minutes": 7,
+              "gradesFormAgainstReference": true,
+              "status": "locked",
+              "lockedReason": "We can see your depth and lean, but we can't grade them. Our instructor reference is attested (5 instructors, 25 takes) — hip and thigh tolerances come from their measured spread, but knee, shin and torso still sit at our default floor. A depth or lean judgement would come from that default, not from real instructors, so we won't score you against it. Rep counting is unaffected and stays open.",
+              "gradedJoints": [
+                "knee",
+                "shin",
+                "trunk_tilt"
+              ],
+              "lockClass": "measurement",
+              "blockedBy": [
+                "provenance.derivedJoints:excludes:knee",
+                "provenance.derivedJoints:excludes:shin",
+                "provenance.derivedJoints:excludes:trunk_tilt"
+              ]
+            }
+          ]
+        }
+      ],
       "comingSoonInThisMovement": [
-        "Rep counting and depth — blocked on the identity precondition (engine.precondition.status is 'pending', conditions list empty), because counting reps without an identity check counts limb swing, not squats",
-        "Depth and torso-angle grading — this is the block still missing its measurement. We rebuilt the reference after finding six of its takes were loaded barbell squats (one of them the alignment basis), and that fixed hip and thigh: those tolerances now come from measured instructor disagreement. But knee, shin and torso are still at our default floor — and knee depth plus torso lean are exactly what depth grading needs. More instructors is the likely fix, not a code change.",
-        "Any left-vs-right feedback — neither reference is mirror-agnostic (32.0 degrees measured for squats, 14.7 for push-ups), so side-specific judgements are structurally unavailable, not merely pending. Our rules are side-agnostic by design anyway.",
-        "Butt wink (lower-back rounding at the bottom) — the lumbar proxy metric carries landmark jitter risk at deep flexion and is marked pendingVerification, so it would not be graded even once the tolerance question is settled"
+        "Tempo (down/up timing) — the engine measures it from the real turnaround point, not from a threshold crossing, and that is proven on recorded footage. But no screen in this app shows it to you, so we do not count it as something you get.",
+        "Knee range of motion per rep — same situation: the engine computes it for every rep, and nothing in the app displays it.",
+        "Being told a rep was too shallow — the shallow-depth rule fires correctly on recorded footage, but during a live session no cue appears on screen, so nothing actually tells you.",
+        "Depth and lean grading (forward lean / heel lift / butt wink) — the rules fire correctly on real footage and the reference is now ATTESTED, but knee, shin and torso tolerances are not variance-derived, so we show the cue and never a score",
+        "Side-dependent cues (\"your left knee is...\") — the pose model's left/right labels are not trustworthy in this camera setup, so all rules stay side-agnostic",
+        "Weight distribution and load — a single camera cannot see either; this is a permanent limit, not a pending measurement"
       ],
-      "blockedBy": [
-        "engine.precondition.status!=derived"
-      ],
-      "blockClass": "measurement",
       "honestySource": "curated",
       "equipment": [],
       "muscleGroups": [
@@ -850,9 +892,6 @@
       "classBadge": "Form coaching",
       "safetyWarnings": [
         "Stop at the depth you can control with a neutral spine."
-      ],
-      "blockedByQueue": [
-        "measurement"
       ],
       "referenceSources": 5
     },
