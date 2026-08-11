@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Depoda İZLENEN gerçek git hook'u — hafızaya değil ağaca bağlı kapı.
+#
+# ## Neden var (koordinatör ölçümü, 2026-08-11)
+#
+# `gated_commit.sh` doğru davranıyordu ama ÇAĞRILMASI bir ALIŞKANLIK
+# meselesiydi: geliştirici `git commit` yazarsa hiçbir kapı çalışmaz. Aile
+# genelinde ölçüldü — beş hattan yalnız birinde `.git/hooks/pre-commit`
+# vardı ve o bile İZLENMİYORDU (`.git/` depo dışıdır, taze klonda gelmez).
+# Yani kapı bu MAKİNEDE ve bu OTURUMUN alışkanlığında vardı, depoda değildi.
+#
+# > Betik izleniyor, betiği ÇALIŞTIRAN şey izlenmiyor.
+#
+# Bu dosya `tools/hooks/`te İZLENİR. Etkin olması için TEK seferlik bir
+# kurulum adımı gerekir (git hook'ları `.git/` altında yaşamak ZORUNDADIR,
+# bu depo-dışı kısıtı hiçbir dosya tek başına aşamaz):
+#
+#     ./tools/setup_hooks.sh
+#
+# Kurulumdan SONRA düz `git commit` bile bu betiği otomatik çalıştırır —
+# `gated_commit.sh`i hatırlamak GEREKMEZ.
+set -uo pipefail
+cd "$(git rev-parse --show-toplevel)"
+
+if ! ./tools/run_all_gates.sh; then
+  if [[ "${ALLOW_RED:-}" == "1" ]]; then
+    echo "⚠️  KAPI KIRMIZI — ALLOW_RED=1 ile bilerek geçiliyor."
+    echo "   Commit mesajı kırmızının SEBEBİNİ yazmak zorunda (K14 emsali)."
+    exit 0
+  fi
+  echo "⛔ KAPI KIRMIZI — commit REDDEDİLDİ (tools/hooks/pre-commit)."
+  echo "   Bilerek kırmızı commit için: ALLOW_RED=1 git commit ..."
+  exit 1
+fi
+exit 0
