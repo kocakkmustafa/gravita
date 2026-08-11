@@ -101,6 +101,12 @@ final class MultiPhaseEngine {
     final MultiPhaseConfig c = config.multi!;
     final PoseFrame frame = rawFrame.toIsotropic(size);
 
+    // ⚠️ AÇIK KALAN (koordinatör ölçümü, 2026-08-12) — `hold_engine.dart`
+    // ile AYNI not: `required:` parametresiz varsayılan `LmRegion.fullBody`
+    // squat'ta HER kareyi reddetmişti (rep_engine.dart'ta düzeltildi).
+    // Burada düzeltmedim: MultiPhaseConfig'den required-landmark türetecek
+    // bir eşleme yok VE bu motoru gerçek veriyle sınayan bir fixture'ım
+    // yok — kör düzeltme doğrulanamaz. Adıyla söylenen boşluk.
     if (!ConfidenceGate.forVariant(PoseModelVariant.full).evaluate(frame).judgeable ||
         !StructuralValidator().check(frame).plausible) {
       skippedFrames++;

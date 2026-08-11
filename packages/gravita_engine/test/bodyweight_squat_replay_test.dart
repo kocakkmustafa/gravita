@@ -20,10 +20,18 @@ import 'package:test/test.dart';
 /// DAVRANIŞINI sınar (gerçek tekrar sayımı, faz geçişleri) —
 /// `engine.precondition` TÜRETİMİNİ DEĞİL. Squat'ın kimlik ön-koşulu
 /// (kalça-diz korelasyonu, `identity-triage.bodyweight_squat.json`teki
-/// 0,2 Pearson eşiği) AYRI bir motor işi (çekirdek kuyruğu, pencere-koşulu);
-/// bugünkü katalog `precondition.conditions: []` taşıyor ve motor bu yüzden
-/// hiç kimlik-kapısı UYGULAMIYOR (`rep_engine.dart:325`,
-/// `config.precondition.isNotEmpty` boşsa blok atlanır). Bu test o boşluğu
+/// 0,2 Pearson eşiği) AYRI bir motor işi (çekirdek kuyruğu, pencere-koşulu).
+///
+/// **`harvestIdentityAttested: true` BİLEREK verildi** (`rep_engine.dart`
+/// belgesi: "HASAT yolu için açık dikiş... ÜRÜN yolunda ASLA true
+/// verilmez"). Bu ÜRÜN yolu DEĞİL: bugünkü katalog `precondition.status:
+/// pending` taşıyor ve motor M-F-122 hüküm 1 gereği (`refusalReason`,
+/// `rep_engine.dart:197-205`) bunu FAIL-CLOSED reddediyor — dikiş
+/// olmadan 30 dilimin hiçbiri tek kare bile işlenmeden atlanıyordu (ilk
+/// koşum ÖLÇÜLDÜ). Dikiş burada MEŞRU çünkü malzemenin kimlik güvencesi
+/// ÜRÜN ön koşulundan değil, take-düzeyi hasat-kimlik kapısından geliyor:
+/// 30 dilimin hepsi `identity-triage.bodyweight_squat.json`de
+/// `gate:"pass"` verilmiş kanallardan (12/16 eğitmen). Bu test o boşluğu
 /// KAPATMAZ — yalnız ALTINDAKİ rep-sayma motorunun gerçek veride
 /// çalıştığını kanıtlar.
 void main() {
@@ -82,7 +90,7 @@ void main() {
       final Map<String, dynamic> rep = r as Map<String, dynamic>;
       final String takeId = rep['takeId'] as String;
       test(takeId, () {
-        final RepEngine e = RepEngine(config);
+        final RepEngine e = RepEngine(config, harvestIdentityAttested: true);
         for (final PoseFrame f in repFrames(rep)) {
           e.addFrame(f, sizeOf(rep));
         }
@@ -101,7 +109,7 @@ void main() {
     final List<String> disagreements = <String>[];
     for (final dynamic r in reps) {
       final Map<String, dynamic> rep = r as Map<String, dynamic>;
-      final RepEngine e = RepEngine(config);
+      final RepEngine e = RepEngine(config, harvestIdentityAttested: true);
       for (final PoseFrame f in repFrames(rep)) {
         e.addFrame(f, sizeOf(rep));
       }

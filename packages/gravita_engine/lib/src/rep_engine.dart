@@ -297,9 +297,32 @@ final class RepEngine {
     // ⚠️ Kadraj sınaması HAM kareyle yapılır: `toIsotropic` koordinat aralığını
     // [0,1]'den [0,aspect]'e taşır ve [0,1] varsayan her kadraj kontrolü
     // sessizce "kadraj dışı" der. Açı matematiği izotropik uzayda kalır.
+    //
+    // ⚠️ `required:` HAREKETİN SİNYAL EKLEMİNDEN TÜRETİLİR, elle yazılmaz
+    // (koordinatör hükmü, 2026-08-12 — Choreia C-202 emsali: kendi kendini
+    // onaylayan bir landmark listesi yasak). Verilmezse varsayılan
+    // `LmRegion.fullBody`dir — bu, gerçek squat çekiminde HER kareyi
+    // reddetti: yan çekimde uzak kol/bilek DOĞAL OLARAK düşük görünürlükte
+    // (ölçüldü: ort. 0,22-0,25 — bu bir veri kalitesi sorunu DEĞİL, "yan
+    // çekimde bir kol kameraya arkasını döner" fiziksel gerçeği), ve
+    // squat'ın sinyali (`c.joint`) kolu hiç kullanmıyor. `resolveVisibleSide`
+    // HAM karede de çalışır (yalnız visibility okur, x/y ölçeğine bağlı
+    // değil) — bu yüzden isotropic dönüşümden ÖNCE çağrılabilir.
+    final VisibleSide signalSide = resolveVisibleSide(rawFrame);
+    final List<int>? required =
+        StandardJoints.byId(signalSide.jointId(c.joint))?.requiredLandmarks;
+    // Türetilemezse (tanınmayan eklem adı) ESKİ güvenli varsayılana düş —
+    // "adıyla söyle" burada `required == null` durumunun kendisidir, sessizce
+    // dar bir liste UYDURULMAZ.
     final bool judgeable = _judge != null
         ? _judge(rawFrame)
-        : ConfidenceGate.forVariant(PoseModelVariant.full).evaluate(rawFrame).judgeable;
+        : (required == null
+            ? ConfidenceGate.forVariant(PoseModelVariant.full)
+                .evaluate(rawFrame)
+                .judgeable
+            : ConfidenceGate.forVariant(PoseModelVariant.full)
+                .evaluate(rawFrame, required: required)
+                .judgeable);
     if (!judgeable) {
       skippedFrames++;
       return;
@@ -338,10 +361,12 @@ final class RepEngine {
     }
 
     // 4) Açıyı GÖRÜNEN taraftan oku (taraf-agnostik kural — ADR-003).
-    final VisibleSide side = resolveVisibleSide(frame);
+    //    `signalSide` adım 1'de zaten hesaplandı (visibility x/y ölçeğine
+    //    bağlı değil, ham/izotropik karede AYNI sonucu verir) — burada
+    //    yeniden hesaplamak yalnız aynı işi tekrar ederdi.
     final JointAngleVector angles =
         _extractor.extract(_normalizer.normalize(frame));
-    final double? deg = angles.degreesById(side.jointId(c.joint));
+    final double? deg = angles.degreesById(signalSide.jointId(c.joint));
     if (deg == null) {
       skippedFrames++;
       return;

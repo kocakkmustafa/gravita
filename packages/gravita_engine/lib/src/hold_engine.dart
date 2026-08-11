@@ -76,6 +76,16 @@ final class HoldEngine {
     final PoseFrame frame = rawFrame.toIsotropic(size);
     _lastUs = frame.tUs;
 
+    // ⚠️ AÇIK KALAN (koordinatör ölçümü, 2026-08-12): `rep_engine.dart`da
+    // AYNI çağrının `required:` parametresiz olması gerçek squat verisinde
+    // HER kareyi reddediyordu (varsayılan `LmRegion.fullBody`, hareketin
+    // sinyal ekleminden bağımsız olarak TÜM vücudu istiyor). Burada da AYNI
+    // desen var — düzeltmedim, çünkü: (a) hangi landmark'ların gerekli
+    // olduğunu HoldConfig'den türetecek bir eşleme henüz yok (rep_engine'in
+    // tek-eklem `c.joint` alanının hold/multiphase karşılığı yok) (b) bu
+    // motoru sınayan GERÇEK bir replay fixture'ım yok — squat'takinin
+    // aksine, kör bir düzeltmeyi doğrulayacak veri elimde değil. "Türetile-
+    // miyorsa adıyla söyle" (koordinatör): bu, adıyla söylenen o boşluk.
     // Güven kapısı + yapısal denetim: ikisi de geçmeden hüküm yok.
     if (!ConfidenceGate.forVariant(PoseModelVariant.full).evaluate(frame).judgeable ||
         !StructuralValidator().check(frame).plausible) {
