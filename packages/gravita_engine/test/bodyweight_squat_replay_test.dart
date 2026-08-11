@@ -138,4 +138,52 @@ void main() {
     expect(agree, total,
         reason: 'UYUM $agree/$total — ölçülmüş taban 30/30, gerileme VAR');
   });
+
+  group('NEGATİF KONTROL — 30/30 kanıt mı, sahte-oracle mı (koordinatör '
+      'hükmü, 2026-08-12)', () {
+    // ⭐ "30/30'da TAM 1" iki farklı şeyin sonucu olabilir: ① FSM gerçekten
+    // her dilimde bir tekrar tanıyor ② FSM İÇERİĞE BAKMADAN 1 döndürüyor.
+    // Dıştan ikisi BİREBİR aynı görünür (Choreia: "pozitif kontrol kendisinin
+    // indiği doğrulanmadan kanıt değildir"). Bu grup GERÇEK veriyi BİLEREK
+    // bozar ve 0 BEKLER — 0 gelirse üstteki 30/30 kanıttır, 1 gelirse
+    // oracle sahtedir.
+    final Map<String, dynamic> sample =
+        reps.firstWhere((dynamic r) => (r as Map<String, dynamic>)['takeId']
+            == 'K_boges_w0_r0') as Map<String, dynamic>;
+
+    test('YARIM tekrar — dilim ortadan kesilirse rep TAMAMLANMAZ', () {
+      final List<PoseFrame> full = repFrames(sample);
+      final List<PoseFrame> half = full.sublist(0, full.length ~/ 2);
+      final RepEngine e = RepEngine(config, harvestIdentityAttested: true);
+      for (final PoseFrame f in half) {
+        e.addFrame(f, sizeOf(sample));
+      }
+      // ignore: avoid_print
+      print('YARIM ${sample['takeId']}: repCount=${e.repCount} '
+          '(${half.length}/${full.length} kare)');
+      expect(e.repCount, 0,
+          reason: 'yarım bir iniş TAM tekrar sayılırsa oracle içeriğe '
+              'bakmıyor demektir — bu, üstteki 30/30un kanıt DEĞERİNİ '
+              'geçersiz kılar');
+    });
+
+    test('HAREKETSİZ — tek gerçek kare çoğaltılırsa faz geçişi HİÇ olmaz',
+        () {
+      final List<PoseFrame> full = repFrames(sample);
+      final PoseFrame still = full[full.length ~/ 2];
+      final RepEngine e = RepEngine(config, harvestIdentityAttested: true);
+      for (int i = 0; i < full.length; i++) {
+        // Aynı KARE, farklı zaman damgası — "video donmuş" senaryosu.
+        e.addFrame(
+            PoseFrame(tUs: still.tUs + i * 33000, landmarks: still.landmarks),
+            sizeOf(sample));
+      }
+      // ignore: avoid_print
+      print('HAREKETSİZ ${sample['takeId']}: repCount=${e.repCount}');
+      expect(e.repCount, 0,
+          reason: 'hareketsiz bir kare dizisi tekrar sayılırsa FSM zaman '
+              'geçtiği için değil salınım gördüğü için sayıyor demektir '
+              '(G-043in tam kendisi) — oracle sahte olurdu');
+    });
+  });
 }
