@@ -118,9 +118,33 @@ def _blocker_active(key, cat, reference_lookup, mid):
     return False, False, "TANINMAYAN bloker anahtarı"
 
 
+#: K14 İSTİSNASI (koordinatör hükmü, 2026-08-11 — M-F ailesi devir zinciri).
+#:
+#: Bulgu 2026-08-07'de kaydedildi: `push_up` LIVE ama `replayFixture:missing`
+#: taşıyor — kanıt VAR (gravita_engine'de 18 sentetik-perturbasyon testi,
+#: `packages/gravita_engine/test/fixtures/`te dosya biçiminde DEĞİL). K14
+#: bunu doğru yakaladı ve `validate_library` o günden beri BİLEREK kırmızı
+#: kalıyordu — ama `run_all_gates.sh`/`gated_commit.sh` tek bir kırmızıyı
+#: tüm depoya (yeni terfi dahil) yayıyordu. Kilidi koyan koordinatördü,
+#: açan da o: *"K14'ü doğru sınıflamanın cezası, terfi hattını kapatmak
+#: olamaz."*
+#:
+#: Bu YALNIZ bu (hareket, anahtar) çiftine uygulanır — genel bir muafiyet
+#: LİSTESİ değil (bkz. K14'ün kendi gerekçesi: "muafiyet bir liste ise,
+#: terfi eden hareket listede kalır ve kimse fark etmez"). İki güvence:
+#:   ① BAŞKA hiçbir live hareket veya başka hiçbir anahtar bundan muaf
+#:      DEĞİL — aşağıdaki döngü yalnız tam bu çifti eler.
+#:   ② BAYATLIK kendini denetler: bu çift artık kurulmuyorsa (push_up
+#:      live olmaktan çıktıysa ya da gerçek bir replayFixture kazandıysa)
+#:      döngü sonunda "K14 İSTİSNASI BAYAT" diye öter — sabiti o gün ELLE
+#:      silmek gerekir, sessizce durmaz.
+K14_ACCEPTED_GAPS = frozenset({("push_up", "replayFixture:missing")})
+
+
 def check(lib, catalog_lookup, reference_lookup):
     """Sekiz değişmezi uygular; ihlal listesi döner (boş = temiz)."""
     violations = []
+    k14_gaps_seen = set()
 
     for m in lib["movements"]:
         mid = m["id"]
@@ -199,11 +223,15 @@ def check(lib, catalog_lookup, reference_lookup):
                                  "replayFixture:missing",
                                  "provenance.sources:empty")
                      if _blocker_active(k, cat, reference_lookup, mid)[1]]
-            if unmet:
+            excepted = [k for k in unmet if (mid, k) in K14_ACCEPTED_GAPS]
+            still_unmet = [k for k in unmet if k not in excepted]
+            if still_unmet:
                 violations.append(
-                    f"{mid}: LIVE ama terfi ölçütü karşılanmıyor — {unmet}. "
-                    f"Bu değer curated muafiyeti yüzünden yeniden "
-                    f"türetilmiyor, yani ÖLÇÜLMEDEN 'açık' diyor")
+                    f"{mid}: LIVE ama terfi ölçütü karşılanmıyor — "
+                    f"{still_unmet}. Bu değer curated muafiyeti yüzünden "
+                    f"yeniden türetilmiyor, yani ÖLÇÜLMEDEN 'açık' diyor")
+            for k in excepted:
+                k14_gaps_seen.add((mid, k))
 
         if m.get("status") != "live":
             # ⚠️ K11 (2026-08-07): BOŞ bloker listesi de bir BAYAT gerekçedir.
@@ -381,6 +409,18 @@ def check(lib, catalog_lookup, reference_lookup):
                                 f"eğitmenlerin anlaşamadığı eklem üzerine "
                                 f"hüküm kurulamaz (G-059/V17)")
 
+    # K14 istisnasının kendi BAYATLIK denetimi (K9 bayat-kilit desenin
+    # aynası): sabitte duran bir çift bu koşumda hiç GÖRÜLMEDİYSE ya
+    # hareket artık live değildir ya da boşluk gerçekten kapanmıştır —
+    # ikisinde de istisna sessizce durmamalı, ELLE silinmesi gerektiğini
+    # söylemeli.
+    for mid, key in sorted(K14_ACCEPTED_GAPS):
+        if (mid, key) not in k14_gaps_seen:
+            violations.append(
+                f"K14 İSTİSNASI BAYAT: {mid}/{key} artık kurulmuyor "
+                f"(hareket live değil ya da boşluk kapandı) — "
+                f"K14_ACCEPTED_GAPS sabitinden elle silinmeli")
+
     return violations
 
 
@@ -542,6 +582,18 @@ def _self_test():
             }],
         }]
 
+    def mut_k14_scope(lib):
+        # K14 İSTİSNASI DAR mı? `push_up` DIŞINDA bir hareketi live yapmak
+        # onun KENDİ eksik blokerleriyle K14'ü AYRI ateşlemeli — istisna
+        # bir sınıfa değil tek bir (hareket, anahtar) çiftine bağlı.
+        soon(lib)["status"] = "live"
+
+    def mut_k14_stale(lib):
+        # İstisna BAYATLIYOR mu? push_up live olmaktan çıkarsa
+        # K14_ACCEPTED_GAPS'teki çift bu koşumda hiç kurulmaz — kendini
+        # BAYAT diye işaretlemek ZORUNDA (K9 bayat-kilit deseninin aynası).
+        live(lib)["status"] = "coming_soon"
+
     cases = [
         ("S7 focus katalogda YOK (G-119)", mut_s7_focus,
          "gateableMetrics'inde"),
@@ -571,6 +623,10 @@ def _self_test():
          mut_k9_stale_sources, "BAYAT KİLİT"),
         ("K9d yapı-kilidi ölçüm gibi sunuluyor", mut_k9_structural,
          "ÖLÇÜM kilidi gibi sunulamaz"),
+        ("K14 istisnası DAR (başka hareket muaf değil)", mut_k14_scope,
+         "LIVE ama terfi ölçütü karşılanmıyor"),
+        ("K14 istisnası BAYATLIYOR (push_up live değilse)", mut_k14_stale,
+         "K14 İSTİSNASI BAYAT"),
     ]
 
     ok = True

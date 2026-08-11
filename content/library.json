@@ -814,7 +814,7 @@
       "honesty": {
         "measured": [],
         "notMeasured": [
-          "Left/right comparisons are off the table — for squats AND push-ups. Measured left-right joint difference is 32.0 degrees for squats and 14.7 degrees for push-ups; neither reference is mirror-agnostic, so we make no side-specific claim from eitherrule 7). We previously reported 5.2 degrees for push-ups and treated it as evidence of symmetry — that was wrong twice over: the number averaged differences that cancelled out instead of measuring how big they are, and the small difference itself came from the model copying the limb it cannot see rather than from real symmetry.",
+          "Left/right comparisons are off the table — for squats AND push-ups. Measured left-right joint difference is 32.0 degrees for squats and 14.7 degrees for push-ups; neither reference is mirror-agnostic, so we make no side-specific claim from either (rule 7). We previously reported 5.2 degrees for push-ups and treated it as evidence of symmetry — that was wrong twice over: the number averaged differences that cancelled out instead of measuring how big they are, and the small difference itself came from the model copying the limb it cannot see rather than from real symmetry.",
           "Knee tracking side-to-side (valgus) — needs a front-facing camera. Permanent limit for this setup.",
           "Weight distribution across the foot, force, or load — a single camera cannot see these."
         ],
