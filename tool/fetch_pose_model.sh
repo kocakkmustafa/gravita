@@ -35,6 +35,7 @@ LOCAL="$HOME/Documents/YULAlab-AI/ventures/motion-core/lib/tools/fixture_pipelin
 if [ -f "$DEST" ] && verify "$DEST" 2>/dev/null; then
   echo "model zaten yerinde: $DEST"; exit 0
 fi
+mkdir -p "$(dirname "$DEST")"
 if [ -f "$LOCAL" ]; then
   echo "aile hattından kopyalanıyor: $LOCAL"
   cp "$LOCAL" "$DEST"
