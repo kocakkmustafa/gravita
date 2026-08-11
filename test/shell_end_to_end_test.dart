@@ -246,6 +246,12 @@ void main() {
     await tester.runAsync(
         () => Future<void>.delayed(const Duration(milliseconds: 100)));
     await tester.pump();
+    // ⚠️ İKİNCİ bir GERÇEK G/Ç zinciri daha var (onboarding tamamlandı mı —
+    // `path_provider`, testte YOK, `GravitaRoot` fail-open yakalıyor) ve o da
+    // kendi turunu ister; tek `runAsync` yalnız İÇERİK zincirini bitirdi.
+    await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 100)));
+    await tester.pump();
     expect(find.byType(ContentFailureScreen), findsNothing);
 
     // İlerleme sekmesine GEÇ. `IndexedStack` dört sekmeyi de inşa ettiği için

@@ -8,6 +8,8 @@ import 'home_screen.dart';
 import 'library_screen.dart';
 import 'library_strings.dart';
 import 'live_session_screen.dart';
+import 'onboarding_screen.dart';
+import 'onboarding_store.dart';
 import 'profile_screen.dart';
 import 'progress_strings.dart';
 import 'progress_view.dart';
@@ -55,11 +57,29 @@ class GravitaRoot extends StatefulWidget {
 
 class _GravitaRootState extends State<GravitaRoot> {
   Future<ContentRepository>? _future;
+  Future<bool>? _onboardingDone;
+  bool _onboardingJustCompleted = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _future ??= ContentRepository.load(DefaultAssetBundle.of(context));
+    // ⚠️ `path_provider` testte YOK (Gravita deltası, `ProgressTab._load`
+    // ile AYNI olgu) — burada da AYNI kural: bir depolama ARIZASI birincil
+    // içerik yolunu BLOKLAMAZ. Fark: geçmiş için "okunamadı" dürüstçe
+    // BEYAN edilir (ekranda görünür), onboarding için BEYAN edilecek bir
+    // yüzey yok — tek seçenek geçmek ya da sonsuza dek döndürmek, ikincisi
+    // gerçek bir kullanıcıyı depolama arızasında UYGULAMAYA HİÇ SOKMAZ.
+    // Bu yüzden BURADA fail-open: okunamıyorsa TAMAMLANMIŞ sayılır.
+    _onboardingDone ??= OnboardingStore.open()
+        .then((OnboardingStore s) => s.isComplete())
+        .catchError((Object _) => true);
+  }
+
+  Future<void> _completeOnboarding() async {
+    await (await OnboardingStore.open()).markComplete();
+    if (!mounted) return;
+    setState(() => _onboardingJustCompleted = true);
   }
 
   @override
@@ -82,7 +102,24 @@ class _GravitaRootState extends State<GravitaRoot> {
             return const Scaffold(
                 body: Center(child: CircularProgressIndicator()));
           }
-          return GravitaShell(content: content);
+          // ⭐ İçerik yüklendi AMA onboarding tamamlanmadıysa kabuk hiç
+          // ÇİZİLMEZ — ilk açılışın TEK kapısı burası (G-079 dersinin
+          // aynısı: kapı iki yerde durursa bir gün tutarsızlaşır).
+          if (_onboardingJustCompleted) return GravitaShell(content: content);
+          return FutureBuilder<bool>(
+            future: _onboardingDone,
+            builder:
+                (BuildContext context, AsyncSnapshot<bool> onboardingSnap) {
+              if (!onboardingSnap.hasData) {
+                return const Scaffold(
+                    body: Center(child: CircularProgressIndicator()));
+              }
+              if (onboardingSnap.data == true) {
+                return GravitaShell(content: content);
+              }
+              return OnboardingFlow(onComplete: _completeOnboarding);
+            },
+          );
         },
       );
 }
