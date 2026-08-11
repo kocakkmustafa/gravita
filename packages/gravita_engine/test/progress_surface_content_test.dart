@@ -52,14 +52,38 @@ void main() {
   test('yüzey listesi gerçek içerikten türetilebiliyor', () {
     final List<LessonSurface> s = deriveSurfaces();
     expect(s, isNotEmpty);
-    // Bugünkü içerik (2026-08-12, G-133): push_up'ın iki dersi + squat'ın
-    // terfisiyle gelen iki ders (pencere-koşulu, K14/G-128/G-131/G-132).
-    expect(s.map((LessonSurface x) => x.id).toList(), <String>[
-      'push_foundations.reps_and_tempo',
-      'push_foundations.form_check',
-      'leg_foundations.reps_and_depth',
-      'leg_foundations.depth_and_lean_check',
-    ]);
+
+    // ⚠️ 2026-08-12 (G-176, koordinatör hükmü): burada eskiden bugünün 4
+    // dersinin ELLE YAZILMIŞ bir listesi vardı. squat terfi olunca kırıldı —
+    // ve düzeltmenin kendisi de aynı hataydı: yeni bir sabit liste. Koordinatör
+    // doğru soruyu sordu: "türetime çevirdin mi, yoksa bir sonraki terfi yine
+    // mi kırılacak?" Geçici bir içerik durumunu (bugün kaç ders var) DEĞİŞMEZ
+    // gibi kodlamak, ilk gerçek değişiklikte kırılmaya mahkumdu.
+    //
+    // Şimdi beklenen küme `library.json`ın KENDİSİNDEN türetiliyor —
+    // `deriveAll`in okuduğu AYNI ham veriden, ama `deriveAll`in TİPLİ erişim
+    // yolundan BAĞIMSIZ bir süzme/düzleştirmeyle. Bu, "id'ler içerikle
+    // eşleşiyor mu" sorusunu hâlâ gerçek anlamda sınıyor (bir alan adı hatası,
+    // yinelenen id ya da kaçırılmış bir ders hâlâ kırmızı çıkar) — ama bir
+    // sonraki terfi bu dosyaya HİÇ dokunmadan yeşil kalır.
+    final List<String> expectedIds = <String>[
+      for (final Map<String, dynamic> m
+          in (library['movements'] as List<dynamic>).cast<Map<String, dynamic>>())
+        if (((m['courses'] as List<dynamic>?) ?? const <dynamic>[]).isNotEmpty)
+          for (final Map<String, dynamic> c
+              in (m['courses'] as List<dynamic>).cast<Map<String, dynamic>>())
+            for (final Map<String, dynamic> l
+                in (c['lessons'] as List<dynamic>).cast<Map<String, dynamic>>())
+              l['id'] as String,
+    ];
+    expect(expectedIds.toSet().length, expectedIds.length,
+        reason: 'library.json içinde yinelenen ders id VAR — kaynağın '
+            'kendisi bozuk, türetim bunu düzeltemez.');
+    expect(s.map((LessonSurface x) => x.id).toList(), expectedIds,
+        reason: '`deriveAll` çıktısı `library.json`ın kurs/ders '
+            'beyanlarından SAPTI — bir ders beyan edildi ama yüzeye '
+            'düşmedi, ya da yüzeyde beyansız bir id var.');
+
     expect(s.every((LessonSurface x) => x.unitLabel == 'rep'), isTrue,
         reason: 'push_up VE bodyweight_squat ikisi de repFsm — birim '
             'TEKRAR. Katalogdan geldi, elle değil.');

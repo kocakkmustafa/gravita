@@ -24,6 +24,20 @@ void main() {
       File('packages/gravita_engine/../../content/catalog/w1/push_up.json')
           .readAsStringSync());
 
+  // ⚠️ 2026-08-12 (G-176 sonrası, koordinatör hükmü): squat'ın terfisi
+  // `validate_catalog`/`validate_library`in TEMİZ demesi + `RepEngine`
+  // seviyesinde 30 gerçek klibin geçmesiyle kanıtlanmıştı — ama o kanıtın
+  // HİÇBİRİ `LiveSessionRunner`den (zarf → sürücü → yön-farkında kaynak →
+  // motor) geçmedi. "Katalog+kütüphane doğru" ile "kullanıcı bu hareketi
+  // açıp bir seans yapabiliyor" AYRI cümleler — bu grup ikincisini ölçüyor.
+  // GERÇEK, diskteki kataloğu okuyor: `status: derived` artık gerçek, ayrı
+  // bir kopya çevirmeye GEREK yok (bkz. window_correlation_test.dart'ın
+  // kendi kopyası — orada hâlâ gerekli, çünkü o mekanizmayı M-F-122'nin dış
+  // kapısından İZOLE sınıyor; burada tam tersi: izolasyon DEĞİL, gerçek yol).
+  final MovementConfig squat = MovementConfig.parse(File(
+          'packages/gravita_engine/../../content/catalog/w1/bodyweight_squat.json')
+      .readAsStringSync());
+
   const SyntheticPoseBuilder builder = SyntheticPoseBuilder();
   const FrameSize size = FrameSize(900, 900);
 
@@ -102,6 +116,95 @@ void main() {
     }
     return out;
   }
+
+  // Diz VE kalça BİRLİKTE bükülen bir squat karesi — `window_correlation_
+  // test.dart`daki `coordinatedSquatPose` ile AYNI mekanizma (uyluk açısı
+  // diz açısıyla orantılı değişir, gerçek harekette olduğu gibi). Burada
+  // TEKRAR yazıldı çünkü iki dosya farklı amaçlarla farklı katmanları
+  // sınıyor (motor izolasyonu vs. tam zarf yolu) ve ortak bir yardımcı
+  // paylaşmak iki testi birbirine BAĞLARDI — biri kırılınca öteki neden
+  // kırıldığını anlamazdı.
+  SyntheticPose squatPose(double kneeDeg) {
+    final double thighT = (175 - kneeDeg) / (175 - 95);
+    final double thigh = math.pi / 2 - thighT * (math.pi / 6);
+    final double shin = thigh - (math.pi - kneeDeg * math.pi / 180);
+    return SyntheticPose(
+      trunkAngle: -math.pi / 2,
+      leftThigh: thigh,
+      rightThigh: thigh,
+      leftShin: shin,
+      rightShin: shin,
+      rootY: 0.45,
+    );
+  }
+
+  List<PoseFrame> squatSequence(int reps,
+      {double top = 175, double bottom = 95}) {
+    final List<PoseFrame> out = <PoseFrame>[];
+    int tUs = 0;
+    const int step = 40000;
+    void ramp(double from, double to, int msPerPhase) {
+      final int frames = (msPerPhase * 1000) ~/ step;
+      for (int i = 0; i <= frames; i++) {
+        out.add(builder.build(
+            squatPose(from + (to - from) * (i / frames)), tUs: tUs));
+        tUs += step;
+      }
+    }
+
+    out.add(builder.build(squatPose(top), tUs: tUs));
+    tUs += step;
+    for (int r = 0; r < reps; r++) {
+      ramp(top, bottom, 800);
+      ramp(bottom, top, 800);
+    }
+    return out;
+  }
+
+  group('canlı yol — bodyweight_squat GERÇEK üretim config\'iyle (G-176 sonrası ②)',
+      () {
+    test('gerçek tekrar dizisi CANLI yoldan geçince SAYILIYOR (squat)', () {
+      // `harvestIdentityAttested` YOK — LiveSessionRunner hiç geçirmiyor,
+      // yani bu tam olarak kullanıcının alacağı yol: M-F-122 dış kapısı VE
+      // pencere-korelasyonu İKİSİ de gerçekten çalışıyor olmalı.
+      final LiveSessionRunner runner =
+          LiveSessionRunner(config: squat, frameSize: size);
+      int t = 0;
+      for (final PoseFrame f in squatSequence(3)) {
+        runner.consume(envelope(f, t));
+        t += 40000;
+      }
+      expect(runner.reps.length, 3,
+          reason: 'squat GERÇEK üretim yolunda (harvestIdentityAttested '
+              'YOK) canlı zarftan tekrar üretemiyor — terfi katalog/kütüphane '
+              'seviyesinde doğru olsa da kullanıcı bir seans YAPAMAZ.');
+      expect(runner.personVisible, isTrue);
+    });
+
+    test('biten squat seansı G-132 serbest kovasına yazılıyor', () {
+      final LiveSessionRunner runner =
+          LiveSessionRunner(config: squat, frameSize: size);
+      int t = 0;
+      for (final PoseFrame f in squatSequence(2)) {
+        runner.consume(envelope(f, t));
+        t += 40000;
+      }
+      final SessionRecord? r = buildFreeSessionRecord(
+        movementId: 'bodyweight_squat',
+        state: LiveRunning(
+          reps: runner.reps,
+          personVisible: runner.personVisible,
+          framesSeen: runner.framesSeen,
+        ),
+        startedAt: DateTime.utc(2026, 8, 12, 4, 0),
+        endedAt: DateTime.utc(2026, 8, 12, 4, 2),
+      );
+      expect(r, isNotNull);
+      expect(r!.unitsCompleted, runner.reps.length,
+          reason: 'canlı yoldan sayılan squat tekrarı kayda TAŞINMIYOR.');
+      expect(r.lessonId, 'movement:bodyweight_squat');
+    });
+  });
 
   group('canlı yol: zarf → sürücü → kaynak → motor', () {
     test('gerçek tekrar dizisi CANLI yoldan geçince SAYILIYOR', () {
