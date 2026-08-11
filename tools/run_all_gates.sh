@@ -31,8 +31,32 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
-fail=0
 line() { printf '%s\n' "────────────────────────────────────────────"; }
+
+# ── ORTAM ÖN-KAPISI: build/ hedefi kurulu mu? ───────────────────────────
+# "yok" burada NE yeşil NE kırmızıdır — ÜÇÜNCÜ HÂLDİR (Choreia hükmü,
+# M-F-444): sessiz atlama da opak `flutter` tool-crash'i de yasak. Bu
+# kapı olmadan SÜİT 1 `PathNotFoundException` ile OPAK çöker (G-125) ve
+# kırmızı bir ÜRÜN kusuru sanılır — oysa eksik olan tek şey kurulum.
+if [ -L build ]; then
+  target="$(readlink build)"
+  if [ ! -d "$target" ]; then
+    line
+    echo "🟡 ORTAM KURULMAMIŞ — build/ sembolik linkinin hedefi yok: $target"
+    echo "   Bu bir ÜRÜN kusuru değil; kurulum adımı atlanmış."
+    echo "   Kurulum: ./tools/setup_build_dir.sh"
+    line
+    exit 2
+  fi
+elif [ ! -e build ]; then
+  line
+  echo "🟡 ORTAM KURULMAMIŞ — build/ hiç yok (symlink bile kurulmamış)."
+  echo "   Kurulum: ./tools/setup_build_dir.sh"
+  line
+  exit 2
+fi
+
+fail=0
 # Süit sayaçları — HER BİRİ AYRI. Tek toplam sayı, ikinci bir süitin
 # kırmızısını gizleyebilir; bu betiğin varlık sebebi tam olarak o gizlenme.
 app_n="?"; eng_n="?"; py_ok=0; py_total=0

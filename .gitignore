@@ -1,5 +1,9 @@
 .DS_Store
 build/
+# `build/` yalnız DİZİNLERİ eşler, sembolik linki DEĞİL (G-125 bulgusu:
+# `build` sembolik linki mutlak-yol taşıyan bir dosya olarak İZLENMİŞTİ).
+# Kök-bağlı `/build` ikisini de kapsar.
+/build
 .dart_tool/
 node_modules/
 *.log
