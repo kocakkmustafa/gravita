@@ -302,6 +302,47 @@ final class PhaseCheck {
   final String errorId;
 }
 
+/// Bir REP ÇEVRİMİ boyunca iki eklem açısının Pearson korelasyonu — ANLIK
+/// bir eşik değil, bir PENCERE (bir tekrarın tamamı) üzerinden değerlendirilen
+/// kimlik ön koşulu (koordinatör hükmü, 2026-08-12).
+///
+/// **`sealed Condition` ailesine ÖNERİLEN yeni tip** (motion_core
+/// `phase_config.dart`): o ailenin dokuz tipi (metric/delta/timeInPhase/
+/// confidence/localMax/localMin/flag/category/intervalOverlap) hiçbiri
+/// "iki dizinin birlikte hareket ettiği" sorusunu sormuyor — hepsi ANLIK
+/// ya da tek-metrik. `sealed` bir aileye tip eklemek TÜM tüketicilerde
+/// exhaustive switch'i kırar (tek taraflı eklenemez, koordineli çekirdek
+/// turu işi — JabLab'ın `withValidAnalysisRatio`'su ve Lissom'un `trigger`
+/// politikasıyla AYNI sınıf ihtiyaç, ayrışmadan ÖNCE adı konmuş). Bu yüzden
+/// burada YEREL: `gravita_engine`in kendi paketi, motion_core'a dokunmuyor;
+/// arayüzü çekirdeğin diliyle kurulu ki terfi bir TAŞIMA olsun, yeniden
+/// yazım değil.
+///
+/// **Neden var:** `identity-triage.bodyweight_squat.json` — 16 eğitmen,
+/// rep-FSM'e kesilmiş derin tekrarlar üzerinde kalça-diz açı korelasyonu,
+/// eşik 0,2 ÖLÇÜMLE türetildi (12 pass/1 fail/3 noSignal). Eşik burada
+/// İCAT EDİLMEDİ — o dosyadan TAŞINDI.
+final class WindowCorrelationCondition {
+  const WindowCorrelationCondition({
+    required this.jointA,
+    required this.jointB,
+    required this.minPearson,
+  });
+
+  factory WindowCorrelationCondition.fromJson(Map<String, dynamic> j) =>
+      WindowCorrelationCondition(
+        jointA: j['jointA'] as String,
+        jointB: j['jointB'] as String,
+        minPearson: (j['minPearson'] as num).toDouble(),
+      );
+
+  /// Jenerik eklem adı (`side.jointId` ile taraf eklenir) — `rep.joint`
+  /// gibi, "left_"/"right_" YOK.
+  final String jointA;
+  final String jointB;
+  final double minPearson;
+}
+
 /// multiPhaseFsm ayarları.
 final class MultiPhaseConfig {
   const MultiPhaseConfig({
@@ -346,6 +387,7 @@ final class MovementConfig {
     required this.wave,
     required this.precondition,
     required this.preconditionStatus,
+    this.windowPrecondition,
   });
 
   factory MovementConfig.fromJson(Map<String, dynamic> j) {
@@ -385,6 +427,12 @@ final class MovementConfig {
       preconditionStatus:
           ((e['precondition'] as Map<String, dynamic>?)?['status'] as String?) ??
               'pending',
+      windowPrecondition:
+          (e['precondition'] as Map<String, dynamic>?)?['windowCondition'] == null
+              ? null
+              : WindowCorrelationCondition.fromJson(
+                  (e['precondition'] as Map<String, dynamic>)['windowCondition']
+                      as Map<String, dynamic>),
     );
   }
 
@@ -438,6 +486,11 @@ final class MovementConfig {
   final String preconditionStatus;
 
   bool get preconditionDerived => preconditionStatus == 'derived';
+
+  /// PENCERE (bir tekrar çevrimi) üzerinden değerlendirilen ikinci kimlik
+  /// katmanı — [precondition] KARE düzeyinde, bu REP düzeyinde. `null` =
+  /// bu hareket için pencere-koşulu YOK (bilinçli beyan, V15 ile aynı ilke).
+  final WindowCorrelationCondition? windowPrecondition;
 
   /// B sınıfı form hükmü VERMEZ (blueprint §1/§8) — bu, UI'ın değil motorun
   /// zorladığı bir kuraldır.

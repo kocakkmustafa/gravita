@@ -2,10 +2,33 @@
 // kendi config tipleri aynı adları taşıyor. Bu, v3 çeviricisinde ÇEKİRDEK
 // tiplerine geçilmesi gerektiğinin sinyali (M-F-35 göç yolu); o güne kadar
 // hedefli gizleme — sessiz gölgeleme yerine açık beyan.
+import 'dart:math' as math;
+
 import 'package:motion_core/motion_core.dart' hide MetricCondition, PhaseSpec;
 
 import 'metrics.dart';
 import 'movement_config.dart';
+
+/// Pearson korelasyon katsayısı — standart formül, İCAT edilmiş bir şey
+/// yok. `null` = hesaplanamaz (2'den az nokta ya da bir dizi SABİT —
+/// paydası sıfır olurdu, bu da "korelasyon yok" ile "korelasyon 0"u
+/// karıştırır; ayrım burada AÇIK tutuluyor).
+double? _pearson(List<double> xs, List<double> ys) {
+  final int n = xs.length;
+  if (n < 2 || ys.length != n) return null;
+  final double xMean = xs.reduce((double a, double b) => a + b) / n;
+  final double yMean = ys.reduce((double a, double b) => a + b) / n;
+  double num = 0, dxx = 0, dyy = 0;
+  for (int i = 0; i < n; i++) {
+    final double dx = xs[i] - xMean;
+    final double dy = ys[i] - yMean;
+    num += dx * dy;
+    dxx += dx * dx;
+    dyy += dy * dy;
+  }
+  if (dxx == 0 || dyy == 0) return null;
+  return num / math.sqrt(dxx * dyy);
+}
 
 /// Görünen tarafın GEOMETRİK seçimi.
 ///
@@ -274,6 +297,17 @@ final class RepEngine {
   /// Uç-tabanlı ölçüm eşikten BAĞIMSIZDIR ve gerçek dönüş anını verir.
   int? _extremeUs;
 
+  // ── Pencere-koşulu tamponu (WindowCorrelationCondition) ─────────────────
+  // Yalnız `config.windowPrecondition != null` olan hareketlerde dolar.
+  // ÇEVRİM başına sıfırlanır — pencere bir REP'tir, kayan bir tampon DEĞİL
+  // (identity-triage.bodyweight_squat.json `windowBasis: rep-fsm`).
+  final List<double> _cycleSignalAngles = <double>[];
+  final List<double> _cycleSecondaryAngles = <double>[];
+
+  /// Pencere-korelasyonu eşiği ALTINDA kaldığı için REDDEDİLEN çevrim sayısı
+  /// — "hareketi değil salınımı gördüm" durumunun REP-düzeyi karşılığı.
+  int repsRejectedByWindowCorrelation = 0;
+
   /// Bir kareyi işler. [expected] verilirse yapısal denetim faz-eksen uyumunu
   /// da sınar (ADR-001 → ADR-002 zinciri).
   /// [size] ZORUNLUDUR: ham normalize koordinat anizotropiktir ve açı
@@ -372,8 +406,21 @@ final class RepEngine {
       return;
     }
 
+    // 5) Pencere-koşulu için İKİNCİ eklemin açısı — yalnız hareket onu
+    //    beyan ettiyse okunur (çoğu hareket için bu dal hiç çalışmaz).
+    //    `jointA`/`jointB`dan HANGİSİ sinyal ekleminin (`c.joint`) KENDİSİ
+    //    DEĞİLSE o "ikinci" olandır — korelasyon simetrik olduğu için hangi
+    //    alanın "birinci" adlandığı matematiği etkilemez, yalnız hangi
+    //    açının ZATEN elde (`deg`) olduğunu belirler.
+    double? secondaryDeg;
+    final WindowCorrelationCondition? wc = config.windowPrecondition;
+    if (wc != null) {
+      final String other = wc.jointA == c.joint ? wc.jointB : wc.jointA;
+      secondaryDeg = angles.degreesById(signalSide.jointId(other));
+    }
+
     _judgedFramesTotal++;
-    _advance(deg, frame.tUs, c);
+    _advance(deg, frame.tUs, c, secondaryDeg);
   }
 
   /// Çevrim boyunca kapı-kapalı kare payı. Payda ikisinin TOPLAMI: kapalı
@@ -392,7 +439,7 @@ final class RepEngine {
     return null; // iki uç arasında — hüküm yok
   }
 
-  void _advance(double deg, int tUs, RepConfig c) {
+  void _advance(double deg, int tUs, RepConfig c, [double? secondaryDeg]) {
     // Fiziksel üst sınır: zaman aşımı olmadan bir çevrim sonsuza kadar açık
     // kalır ve "kullanıcı durdu" durumundan ayırt edilemez (J-009 dersi).
     if (_cycleStartUs != null && tUs - _cycleStartUs! > c.timeoutUs) {
@@ -404,6 +451,19 @@ final class RepEngine {
       if (better) {
         _extreme = deg;
         _extremeUs = tUs;
+      }
+    }
+
+    // Pencere tamponu: ÇEVRİM AKTİFKEN her hükümlü kare eklenir — yalnız
+    // faz-geçiş anlarında değil, ki korelasyon REP'in TAMAMINI görsün
+    // (ara-durumları atlamak, iki dizinin birlikte GERÇEKTEN hareket edip
+    // etmediğini seyreltirdi). Çevrim henüz açılmadıysa (`_cycleStart ==
+    // null`) bu kare aşağıda cycle'ı AÇACAKSA yine de eklenmesi gerekir —
+    // o yüzden ekleme aşağıda, `here` hesaplandıktan SONRA yapılıyor.
+    void bufferIfWindowed() {
+      if (config.windowPrecondition != null && secondaryDeg != null) {
+        _cycleSignalAngles.add(deg);
+        _cycleSecondaryAngles.add(secondaryDeg);
       }
     }
 
@@ -421,10 +481,45 @@ final class RepEngine {
       // Bu kare çevrimi AÇAN kare: hükümlü sayımına dahil olsun diye
       // taban bir eksiğe kurulur (kare sayacı bu çağrıdan ÖNCE arttı).
       _judgedAtCycleStart = _judgedFramesTotal - 1;
+      _cycleSignalAngles.clear();
+      _cycleSecondaryAngles.clear();
+      bufferIfWindowed();
     } else if (here != _cycleStart) {
       _visitedOther = true;
       _midpointUs = tUs;
+      bufferIfWindowed();
     } else if (_visitedOther) {
+      bufferIfWindowed();
+      // ⭐ PENCERE-KORELASYONU — REP'İ KAPATMADAN ÖNCE sorulur (koordinatör
+      // hükmü 2026-08-12). Eşiğin ALTINDAysa bu çevrim SAYILMAZ: FSM
+      // sinyal ekleminin salınımını gördü ama iki eklem BİRLİKTE hareket
+      // etmedi — G-043'ün REP-düzeyi ikizi ("hareketi değil salınımı
+      // sayar" artık kare değil ÇEVRİM düzeyinde de sınanıyor).
+      //
+      // `harvestIdentityAttested` bunu da ATLAR — AYNI gerekçeyle `_refused`u
+      // atladığı gibi: take-düzeyi kimlik zaten hasat-kimlik kapısından
+      // geçtiyse, motorun KENDİ kimlik mekanizmasını (kare-düzeyi VEYA
+      // pencere-düzeyi, ikisi de) yeniden sormasına gerek yok — ÜRÜN
+      // yolunda bu bayrak ASLA true verilmez (rep_engine.dart:167-180).
+      final WindowCorrelationCondition? wc = config.windowPrecondition;
+      if (wc != null && !harvestIdentityAttested) {
+        final double? r =
+            _pearson(_cycleSignalAngles, _cycleSecondaryAngles);
+        if (r == null || r < wc.minPearson) {
+          repsRejectedByWindowCorrelation++;
+          _cycleStart = here;
+          _cycleStartUs = tUs;
+          _visitedOther = false;
+          _midpointUs = null;
+          _extreme = deg;
+          _extremeUs = tUs;
+          _cycleSignalAngles.clear();
+          _cycleSecondaryAngles.clear();
+          bufferIfWindowed();
+          _current = here;
+          return;
+        }
+      }
       _reps.add(Rep(
         index: _reps.length + 1,
         startUs: _cycleStartUs ?? tUs,
@@ -454,6 +549,9 @@ final class RepEngine {
       _midpointUs = null;
       _extreme = deg;
       _extremeUs = tUs;
+      _cycleSignalAngles.clear();
+      _cycleSecondaryAngles.clear();
+      bufferIfWindowed();
     }
     _current = here;
   }
@@ -466,6 +564,8 @@ final class RepEngine {
     _midpointUs = null;
     _extreme = double.nan;
     _extremeUs = null;
+    _cycleSignalAngles.clear();
+    _cycleSecondaryAngles.clear();
   }
 
   /// Bir tekrarın TEKRAR-KAPSAMLI metrikleri.

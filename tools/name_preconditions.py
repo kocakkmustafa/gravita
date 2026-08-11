@@ -79,6 +79,27 @@ def build_rationale(cat):
         f"Bu harekette `camera.calibrationGate` KAPALI ({cam.get('setup')}) — "
         f"yani bugün kısmi koruma bile yok."
     )
+    window = (cat.get("engine", {}).get("precondition") or {}).get("windowCondition")
+    if window:
+        # ⚠️ MEKANİZMA VAR ama status hâlâ pending — bu ikisi çelişmiyor
+        # (koordinatör hükmü, 2026-08-12): eşik `content/harvest/`den
+        # taşındı ama KANAL-havuzlanmış frame setleriyle doğrulandı,
+        # motor PENCERE-BAŞINA (tek rep) sınıyor — ikisi AYNI ölçüt değil.
+        # Sayılar (kaç/kaç geçti) BURAYA YAZILMAZ — testler yeniden
+        # koşulduğunda bayatlarlardı; DEFTER'de/harvest dosyasında kalır.
+        return (
+            f"MEKANİZMA VAR, KAPSAM AÇIK — {name} için bir "
+            f"`WindowCorrelationCondition` ({window.get('jointA')}/"
+            f"{window.get('jointB')}, Pearson >= {window.get('minPearson')}) "
+            f"yazıldı ve motor tarafında gerçek veriyle sınandı. Eşik "
+            f"`content/harvest/`den TAŞINDI, icat edilmedi — ama o eşik "
+            f"KANAL/EĞİTMEN düzeyinde havuzlanmış kare setleriyle doğrulandı, "
+            f"motor onu TEK-REP penceresinde uyguluyor; ikisi aynı ölçüt "
+            f"değil. `status` bu yüzden BİLEREK `pending` kalıyor — pencere "
+            f"granülerliği (rep-başına mı, kısa bir oturum/çoklu-rep "
+            f"havuzlaması mı) bir koordinatör kararı bekliyor. "
+            f"Motor tarafı: {signal_phrase(cat)}. {MARK}"
+        )
     return (
         f"HENÜZ TÜRETİLMEDİ — {name} kimlik ön koşulu ölçümle kurulmadı. "
         f"Motor tarafı: {signal_phrase(cat)}. "
