@@ -37,6 +37,7 @@ bir kapıya güvenmek, bu defterde defalarca avlanan desenin ta kendisidir
 """
 import copy
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -44,6 +45,39 @@ ROOT = Path(__file__).resolve().parent.parent
 LIB_PATH = ROOT / "content" / "library.json"
 CATALOG_ROOT = ROOT / "content" / "catalog"
 HARVEST_DIR = ROOT / "content" / "harvest"
+ENGINE_DIR = ROOT / "packages" / "gravita_engine"
+
+#: Koordinatör hükmü (2026-08-12): "bir fixture'ın VARLIĞI, çalışan bir
+#: replay'in varlığı değildir" — squat'ın kendi turunda ölçüldü, dosya VARDI
+#: ve replay 30/30 SIFIR sayıyordu (güven kapısı kör noktası, sonradan
+#: düzeltildi). `replayFixture:missing` artık YALNIZ dosya değil, o dosyayı
+#: TÜKETEN testin GERÇEKTEN geçtiğini de ister. Süreç-ömrü boyunca ÖNBELLEK:
+#: bu fonksiyon `check()` içinde (ana koşum + self-test'in ~20 mutasyonu)
+#: defalarca çağrılır, dart test'i HER seferinde koşturmak self-test'i
+#: dakikalarca yavaşlatırdı; sonuç hareket başına değişmez (statik test
+#: dosyasının içeriğine bakar), süreç-içi önbellek GÜVENLİ.
+_REPLAY_TEST_CACHE = {}
+
+
+def _replay_test_passes(mid):
+    """`{mid}_replay_test.dart` var mı VE gerçekten geçiyor mu (dosya-varlığı
+    değil, GERÇEK koşum). Yoksa/düşerse False — "adıyla söyle", sessizce
+    dosya-varlığına geri dönme."""
+    if mid in _REPLAY_TEST_CACHE:
+        return _REPLAY_TEST_CACHE[mid]
+    test_file = ENGINE_DIR / "test" / f"{mid}_replay_test.dart"
+    if not test_file.is_file():
+        _REPLAY_TEST_CACHE[mid] = False
+        return False
+    try:
+        result = subprocess.run(
+            ["dart", "test", str(test_file.relative_to(ENGINE_DIR))],
+            cwd=str(ENGINE_DIR), capture_output=True, text=True, timeout=60)
+        ok = result.returncode == 0
+    except (subprocess.TimeoutExpired, OSError):
+        ok = False
+    _REPLAY_TEST_CACHE[mid] = ok
+    return ok
 
 
 def load(path):
@@ -93,11 +127,23 @@ def _blocker_active(key, cat, reference_lookup, mid):
         return True, st != "derived", f"precondition.status={st}"
     if key == "replayFixture:missing":
         # Replay fixture'ı varsa hata kuralları gerçek veride sınanabilir.
+        #
+        # ⚠️ İKİ AYRI SORU, İKİSİ DE SORULUR (koordinatör hükmü, 2026-08-12):
+        # (1) dosya var mı (2) onu TÜKETEN test GERÇEKTEN geçiyor mu. Yalnız
+        # (1) sormak ölçüldü: squat'ta dosya VARDI, replay 30/30 SIFIR
+        # sayıyordu (güven kapısı kör noktası) — "fixture VAR" bloke-değil
+        # sanılmıştı, gerçekte hâlâ bloke idi. Vekil (dosya-varlığı) kendini
+        # yanlış gösterdi; artık vekil değil GERÇEK sonuç soruluyor.
         fx = ROOT / "packages" / "gravita_engine" / "test" / "fixtures"
         present = any(p.name.startswith(mid) for p in fx.glob("*.json")) \
             if fx.is_dir() else False
-        return True, not present, (
-            f"replay fixture {'YOK (blokluyor)' if not present else 'VAR → BLOKLAMIYOR'}")
+        working = present and _replay_test_passes(mid)
+        detail = (
+            "replay fixture YOK (blokluyor)" if not present else
+            f"replay fixture VAR ama tüketen test YOK/DÜŞÜYOR "
+            f"({mid}_replay_test.dart) (blokluyor)" if not working else
+            "replay fixture VAR VE tüketen test GEÇİYOR → BLOKLAMIYOR")
+        return True, not working, detail
     if key == "provenance.sources:empty":
         # ÜÇÜNCÜ bloker sınıfı (2026-08-06, terfi turu). Hiç eğitmen kaynağı
         # HASAT EDİLMEMİŞ bir harekette her tolerans TABAN değerindedir —
@@ -669,6 +715,28 @@ def _self_test():
           f"{'yakalandı' if hit else 'YAKALANMADI — SAHTE KAPI'}")
     ok = ok and hit
     fired[0] += 1
+
+    # ⭐ replayFixture DOSYA-VARLIĞI YETMEZ (koordinatör hükmü, 2026-08-12):
+    # tüketen test GERÇEKTEN düşerse bloker hâlâ AKTİF kalmalı — dosya orada
+    # dursa bile. `_REPLAY_TEST_CACHE`i GEÇİCİ olarak sahte-düşen sonuçla
+    # doldurup `_blocker_active`i doğrudan sınıyoruz (tam `check()` zincirini
+    # dolaşmadan — squat bugün bu anahtarı `blockedBy`de TAŞIMIYOR, mekanik
+    # birimi izole sınamak burada daha net).
+    saved_cache = dict(_REPLAY_TEST_CACHE)
+    try:
+        _REPLAY_TEST_CACHE["bodyweight_squat"] = False
+        sq_cat = catalogs["bodyweight_squat"]
+        known, active, expl = _blocker_active(
+            "replayFixture:missing", sq_cat, ref_lookup, "bodyweight_squat")
+        hit = known and active
+        print(f"   {'✅' if hit else '⛔'} replayFixture: dosya VAR ama test "
+              f"DÜŞÜYOR → hâlâ blokluyor: "
+              f"{'yakalandı' if hit else 'YAKALANMADI — SAHTE KAPI'} ({expl})")
+        ok = ok and hit
+        fired[0] += 1
+    finally:
+        _REPLAY_TEST_CACHE.clear()
+        _REPLAY_TEST_CACHE.update(saved_cache)
 
     # K10 GERÇEK deliği İKİ kaynağı birlikte boşaltmakla ortaya çıkar; tek
     # taraf boşaltmak yalnız çelişki kapısını ateşler ve K10'u kanıtlamaz

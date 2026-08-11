@@ -97,7 +97,11 @@ void main() {
         // ignore: avoid_print
         print('$takeId: repCount=${e.repCount} skipped=${e.skippedFrames}/'
             '${(rep['frames'] as List<dynamic>).length}');
-        expect(e.repCount, greaterThanOrEqualTo(0));
+        // ÖLÇÜLDÜ (2026-08-12, güven-kapısı düzeltmesinden SONRA): bu 30
+        // dilimin HER biri tam 1 sayıyor. Bu artık bir tahmin değil, bir
+        // KARAKTERİZASYON sınırı — kötüleşirse (motor bir dilimi bir daha
+        // sayamazsa) burası KIRILIR, sessizce geçmez.
+        expect(e.repCount, 1, reason: '$takeId artık 1 saymalı (ölçüldü)');
       });
     }
   });
@@ -125,10 +129,13 @@ void main() {
       // ignore: avoid_print
       print('UYUMSUZ: $disagreements');
     }
-    // ⚠️ DÜRÜST İDDİA: %100 uyum İCAT EDİLMİŞ bir beklenti olurdu — dilimleme
-    // aracı ve RepEngine AYNI eşikleri (bottom açısı) kullanmıyor olabilir.
-    // Bu test bir EŞİK sınamıyor, yalnız SAYIYI raporluyor ve motor
-    // ÇÖKMEDEN gerçek 30 dilimin tamamını işlediğini kanıtlıyor.
-    expect(total, 30);
+    // ⚠️ Bu satır önceden "SAYIYI raporluyor, EŞİK sınamıyor" diyordu — o
+    // gün ölçüm 0/30'du ve %100 beklemek İCAT olurdu. Güven-kapısı
+    // düzeltmesinden SONRA ölçüm 30/30 — artık icat değil KAYITLI SONUÇ, ve
+    // bu satırın işi o sonucu KORUMAK (`validate_library.py`nin
+    // `replayFixture:missing` ölçütü de bu testin GEÇMESİNE bağlı, koordinatör
+    // hükmü 2026-08-12 — "dosya var" tek başına yetmiyor).
+    expect(agree, total,
+        reason: 'UYUM $agree/$total — ölçülmüş taban 30/30, gerileme VAR');
   });
 }
