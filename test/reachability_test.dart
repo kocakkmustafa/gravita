@@ -8,6 +8,8 @@ import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/gravita_app.dart';
 import 'package:gravita/app/theme.dart';
 
+import 'support/reachability_contract.dart';
+
 /// ⭐ GEZİLEBİLİRLİK KAPISI — *"bugün kullanıcı kaç ayrı ekrana GİDEBİLİYOR?"*
 ///
 /// Bu sayı bir kez elle sayıldı (02:00) ve **bayatladı**. Bayat öncülle
@@ -31,20 +33,9 @@ import 'package:gravita/app/theme.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  /// Kaynaktan türetilen ekran adayları.
-  Set<String> declaredScreens() {
-    final RegExp cls = RegExp(
-        r'^class\s+(\w+(?:Screen|Page|Tab))\s+extends\s+(?:Stateless|Stateful)Widget',
-        multiLine: true);
-    final Set<String> out = <String>{};
-    for (final FileSystemEntity f in Directory('lib/app').listSync()) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
-      for (final RegExpMatch m in cls.allMatches(f.readAsStringSync())) {
-        out.add(m.group(1)!);
-      }
-    }
-    return out;
-  }
+  /// ⚖️ Aday envanteri ORTAK EVDEN (`support/reachability_contract.dart`).
+  /// Bu kapı kendi listesini TUTMAZ — iki kaynak tek olgu olmaz.
+  /// 📌 **KANONİK SAYI BURADADIR**; soğuk açılış payı kapı-2'de kanıtlanır.
 
   /// O an ağaçta MONTE olan ekranlar — "görünür" değil, "monte".
   bool pushed(WidgetTester tester) {
@@ -215,7 +206,13 @@ void main() {
       }
     }
 
-    final List<String> unreachable = candidates.difference(reached).toList()
+    // ⚠️ Soğuk açılış payı BURADA "ulaşılamayan" DEĞİLDİR — ona kapı-2
+    // yürüyerek varıyor. Düşülmezse bölme, kendi ürettiği bir yüzeyi
+    // kayıp sanır (bölmenin ilk koşumunda ölçüldü: 1 → 2).
+    final List<String> unreachable = candidates
+        .difference(reached)
+        .difference(kColdStartSurfaces)
+        .toList()
       ..sort();
     final List<String> reachedSorted = reached.toList()..sort();
 
@@ -261,6 +258,16 @@ void main() {
     expect(routes.length + 1, greaterThanOrEqualTo(4),
         reason: 'Ayrı rota sayısı düştü — bir push tetiği kaybolmuş '
             'olabilir. Ulaşılan rotalar: ${routes.join(', ')}');
+
+    // ⚖️ DENKLEM — İKİ KAPI ARASINDA (aile kısıtı ①). Her kapı kendi
+    // içinde tutarsa İKİSİ BİRDEN eksik olabilir; bu satır o boşluğu kapatır.
+    final Set<String> hesap = <String>{
+      ...reached, ...kColdStartSurfaces, ...kDeliberatelyUnreachable
+    };
+    expect(hesap, candidates,
+        reason: 'BÖLME KAYIP ÜRETTİ: aday envanteri = kabuk yürüyüşü ⊎ '
+            'soğuk açılış payı ⊎ kasıtlı-varılamayan denklemi tutmuyor. '
+            'Fark: ${candidates.difference(hesap)} / ${hesap.difference(candidates)}');
 
     expect(unreachable.length, lessThanOrEqualTo(1),
         reason: 'Bağlanmamış ekran sayısı arttı: ${unreachable.join(', ')} — '
