@@ -69,6 +69,12 @@ dev_dependencies:
   # (paketleme + pin nöbetleri). Regex'le yaml ayrıştırmak yerine ayrıştırıcı
   # kullanıyoruz: nöbetin kendisi kırılgan olmasın.
   yaml: ^3.1.0
+  # `test/onboarding_launch_path_test.dart` açılış yolunu GERÇEK
+  # `OnboardingStore.open()` üzerinden koşturuyor; tek sahtelenen şey uygulama
+  # destek DİZİNİ. Transitif olarak zaten çözülüyordu ama BURADA BİLDİRİLİYOR:
+  # doğrudan tip kullanan bir paketi bildirmemek bağımlılığı görünmez kılar
+  # (yukarıdaki `motion_core` notunun aynı kuralı).
+  path_provider_platform_interface: ^2.1.0
 
 flutter:
   uses-material-design: true
