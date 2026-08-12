@@ -7,9 +7,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gravita/app/content_failure_screen.dart';
 import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/gravita_app.dart';
+import 'package:gravita/app/onboarding_store.dart';
 import 'package:gravita/app/progress_strings.dart';
 import 'package:gravita/app/progress_view.dart';
 import 'package:gravita_engine/gravita_engine.dart';
+import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
+
+import 'support/launch_harness.dart';
 
 /// Kabuk UÇTAN UCA — sahte hiçbir şey yok.
 ///
@@ -234,25 +238,41 @@ void main() {
     // geçerdi; bu ikiz onu kapatıyor. Ayrıca burada geçmiş GERÇEKTEN
     // okunamıyor (testte path_provider yok) ve yüzey bunu BEYAN ediyor —
     // "Not started" demiyor.
-    tester.view.physicalSize = const Size(1200, 4000);
-    tester.view.devicePixelRatio = 1.0;
-    addTearDown(tester.view.reset);
-    await tester.pumpWidget(const MaterialApp(home: GravitaRoot()));
-    // ⚠️ `pumpAndSettle()` BURADA KULLANILAMAZ ve ilk yazışımda timeout verdi:
-    // GERÇEK asset okuması gerçek saate bağlı, `testWidgets` gövdesi ise sahte
-    // saatli — yükleyici sonsuza kadar dönüyor. FakeAsync tuzağının ÜÇÜNCÜ
-    // görünüşü (birincisi depo e2e testi, ikincisi buydu). Widget'ın ARKASINDA
-    // gerçek G/Ç varsa: pump → runAsync ile gerçek işi bitir → pump.
-    await tester.runAsync(
-        () => Future<void>.delayed(const Duration(milliseconds: 100)));
-    await tester.pump();
-    // ⚠️ İKİNCİ bir GERÇEK G/Ç zinciri daha var (onboarding tamamlandı mı —
-    // `path_provider`, testte YOK, `GravitaRoot` fail-open yakalıyor) ve o da
-    // kendi turunu ister; tek `runAsync` yalnız İÇERİK zincirini bitirdi.
-    await tester.runAsync(
-        () => Future<void>.delayed(const Duration(milliseconds: 100)));
-    await tester.pump();
+    //
+    // ⚠️ 2026-08-12 (G-183 / hüküm b) — BU TESTİN KURULUMU DEĞİŞTİ ve sebebi
+    // bir ÜRÜN kararıdır, test hilesi değil: eskiden kabuğa `GravitaRoot`un
+    // FAIL-OPEN dalıyla varılıyordu (testte `path_provider` yok → onboarding
+    // "tamamlanmış" sayılıyordu). O dal artık fail-CLOSED: arızada onboarding
+    // GÖSTERİLİYOR. Yani bu test kabuğa ancak onboarding'i GERÇEKTEN
+    // tamamlayarak varabilir. Bit ürünün KENDİ yazıcısıyla, gerçek bir
+    // dizine kuruluyor.
+    //
+    // > Bir testin bir yüzeye nasıl ULAŞTIĞI da o testin iddiasının parçasıdır;
+    // > ulaşma yolu ürün kararıyla değişince kurulum da değişir.
+    // ⚠️ `createTempSync` / `deleteSync` — ve bu ölçüldü, tercih değil:
+    // `testWidgets` içinde kaydedilen `addTearDown` geri çağrıları da SAHTE
+    // saatli bölgede koşar. İlk yazışımda temizlik `await tmp.delete(...)`
+    // idi ve test **asıldı** (süit 25 sn yerine 10 dk sürüp tek kırmızı
+    // verdi). Bu dosyanın kendi `tearDown`unun neden `deleteSync` olduğunun
+    // da cevabı bu. FakeAsync tuzağının DÖRDÜNCÜ görünüşü.
+    final Directory tmp =
+        Directory.systemTemp.createTempSync('shell_e2e_onboarding');
+    addTearDown(() => tmp.deleteSync(recursive: true));
+    final PathProviderPlatform defaultProvider = PathProviderPlatform.instance;
+    addTearDown(() => PathProviderPlatform.instance = defaultProvider);
+    await realIo(
+        tester,
+        () => OnboardingStore.forFile(File('${tmp.path}/onboarding.json'))
+            .markComplete());
+
+    // Kurulumun geri kalanı (FakeAsync/yazı-tipi tuzakları dâhil) ortak
+    // harness'ta; burada KOPYALANMIYOR — G-079: iki ev tutarsızlaşır.
+    await bootGravitaRoot(tester,
+        supportPath: tmp.path, restoreTo: defaultProvider);
+
     expect(find.byType(ContentFailureScreen), findsNothing);
+    expect(find.byType(GravitaShell), findsOneWidget,
+        reason: 'Onboarding tamamlanmış bir cihazda açılış kabuğa VARIR.');
 
     // İlerleme sekmesine GEÇ. `IndexedStack` dört sekmeyi de inşa ettiği için
     // "widget ağacında var mı" sorusu bu kabukta ZAYIF bir sorudur — sekmeye

@@ -64,20 +64,45 @@ class _GravitaRootState extends State<GravitaRoot> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _future ??= ContentRepository.load(DefaultAssetBundle.of(context));
-    // ⚠️ `path_provider` testte YOK (Gravita deltası, `ProgressTab._load`
-    // ile AYNI olgu) — burada da AYNI kural: bir depolama ARIZASI birincil
-    // içerik yolunu BLOKLAMAZ. Fark: geçmiş için "okunamadı" dürüstçe
-    // BEYAN edilir (ekranda görünür), onboarding için BEYAN edilecek bir
-    // yüzey yok — tek seçenek geçmek ya da sonsuza dek döndürmek, ikincisi
-    // gerçek bir kullanıcıyı depolama arızasında UYGULAMAYA HİÇ SOKMAZ.
-    // Bu yüzden BURADA fail-open: okunamıyorsa TAMAMLANMIŞ sayılır.
+    // ⚠️ DEPOLAMA ARIZASINDA ONBOARDING **GÖSTERİLİR** — koordinatör hükmü
+    // (2026-08-12, G-183/④). Bu satır önceden `=> true` idi (fail-open:
+    // okunamıyorsa TAMAMLANMIŞ say) ve gerekçesi *"arıza kullanıcıyı
+    // uygulamaya hiç sokmasın"*dı. Ölçüm o gerekçenin bedelini adlandırdı
+    // (G-181): O2'nin gösterdiği `safetyDisclaimer` metni `lib/`de BAŞKA
+    // HİÇBİR YERDE geçmiyor, yani o dalda kullanıcı güvenlik uyarısını ve
+    // açık onayı HİÇ görmüyordu. Ürünün kendi sert kuralı ise "güvenlik
+    // kırpılmaz … + açık onay" diyor:
+    //
+    //   > Bir kuralı, en çok ihtiyaç duyulan anda (arıza) askıya alan
+    //   > tasarım, o kuralı taşımıyordur.
+    //
+    // Yeni davranış: arızada onboarding gösterilir, yalnız KALICILAŞTIRILMAZ
+    // (bkz. [_completeOnboarding]) — her açılışta tekrar sorar. Tekrar
+    // sorması KABUL EDİLMİŞ maliyettir, gizlenecek kusur değil.
+    //
+    // ✅ Yan fayda: `OnboardingStore.isComplete()` bozuk/eksik dosyada zaten
+    // `false` (= göster) dönüyordu; bu satır `true` (= atla) dönüyordu.
+    // Aynı arızanın iki yüzü ZIT yönlere düşüyordu; artık ikisi de GÖSTER.
     _onboardingDone ??= OnboardingStore.open()
         .then((OnboardingStore s) => s.isComplete())
-        .catchError((Object _) => true);
+        .catchError((Object _) => false);
   }
 
+  /// Onay alındı: kabuğa geç. Kalıcılaştırma **deneyen ama zorunlu olmayan**
+  /// bir adımdır.
+  ///
+  /// ⚠️ Yazma hatası kullanıcıyı onboarding'de KİLİTLEYEMEZ. Okuma tarafı
+  /// artık fail-closed (arıza → göster) olduğu için, yazma tarafı da
+  /// yutulmazsa bozuk depolamalı bir cihazda kullanıcı onayı verir ve
+  /// hiçbir yere gidemezdi — kapının iki yarısı birlikte tasarlanır.
+  /// Bedeli bilinçli: bit yazılamadıysa akış bir sonraki açılışta TEKRAR
+  /// sorar (G-183 hükmünün "kalıcılaştırılmaz" yarısı).
   Future<void> _completeOnboarding() async {
-    await (await OnboardingStore.open()).markComplete();
+    try {
+      await (await OnboardingStore.open()).markComplete();
+    } on Object {
+      // Yutulan tek şey KALICILIK; onayın kendisi yutulmuyor.
+    }
     if (!mounted) return;
     setState(() => _onboardingJustCompleted = true);
   }
