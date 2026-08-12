@@ -79,29 +79,43 @@ def _enclosing_function(text: str, index: int) -> str:
     return best
 
 
-def derive() -> tuple[set[str], set[str], dict[str, set[str]]]:
-    """(byName'de üretilenler, adlandırılmış boşluklar, özel-durum haritası).
+def _parse_metrics(text: str) -> tuple[set[str], set[str]]:
+    """SAF AYRIŞTIRICI — metin girer, küme çıkar. Dosya OKUMAZ (G-201).
 
-    Üçüncü dönüş: metrik → o metriğin ÇÖZÜLEBİLDİĞİ konum sınıfları.
+    Ayrılmasının sebebi kapının kendi kusuruydu: öz-test ayrıştırmayı
+    **ürünün canlı durumu** üzerinden sınıyordu ve ürün ilerleyince kapı
+    kırmızıya dönüyordu. Ayrıştırma artık **sentetik girdiyle** sınanabilir.
     """
-    metrics = (SRC / "metrics.dart").read_text()
-    body = metrics[metrics.index("byName"):]
+    body = text[text.index("byName"):]
     implemented = set(re.findall(
         r"'([a-z_0-9]+)'\s*=>", body[:body.index("_ => null")]))
     gap_block = re.search(
-        r"unimplemented\s*=\s*<String>\{(.*?)\n  \};", metrics, re.S)
+        r"unimplemented\s*=\s*<String>\{(.*?)\n  \};", text, re.S)
+    if gap_block is None:
+        raise SystemExit(
+            "⛔ `unimplemented` bloğu BULUNAMADI — kaynağın BİÇİMİ desenden "
+            "ayrışmış olabilir. (Eskiden burada sessiz bir AttributeError "
+            "vardı: biçim kayması, ayrıştırma kusuru gibi görünürdü.)")
     named_gaps = set(re.findall(r"'([a-z_0-9]+)'", gap_block.group(1)))
+    return implemented, named_gaps
 
+
+def _parse_engines(sources: dict[str, str]) -> dict[str, set[str]]:
+    """SAF AYRIŞTIRICI — {dosya adı: metin} girer, özel-durum haritası çıkar.
+
+    Tanınmayan konumda özel durum bulursa **yükseltir** (modülün kurucu
+    kuralı): sessizce *"her yerde çalışır"* ya da *"hiç çalışmaz"* varsaymak,
+    ikisi de bir gün yanlış cevap verir.
+    """
     special: dict[str, set[str]] = {}
     unknown: list[str] = []
-    for path in sorted(SRC.glob("*_engine.dart")):
-        text = path.read_text()
+    for name, text in sorted(sources.items()):
         for m in _SPECIAL_CASE.finditer(text):
             metric = m.group(2)
             func = _enclosing_function(text, m.start())
             position = _FUNCTION_POSITION.get(func)
             if position is None:
-                unknown.append(f"{path.name}:{func}() → '{metric}'")
+                unknown.append(f"{name}:{func}() → '{metric}'")
                 continue
             special.setdefault(metric, set()).add(position)
     if unknown:
@@ -109,6 +123,18 @@ def derive() -> tuple[set[str], set[str], dict[str, set[str]]]:
             "⛔ TANINMAYAN konumda metrik özel-durumu bulundu — sessizce "
             "varsayılamaz, SINIFLANDIRILMALI (tools/metric_support.py "
             f"_FUNCTION_POSITION): {unknown}")
+    return special
+
+
+def derive() -> tuple[set[str], set[str], dict[str, set[str]]]:
+    """(byName'de üretilenler, adlandırılmış boşluklar, özel-durum haritası).
+
+    Üçüncü dönüş: metrik → o metriğin ÇÖZÜLEBİLDİĞİ konum sınıfları.
+    **OKUMA katmanı**: gerçek kaynağı okur, ayrıştırmayı saf katmana devreder.
+    """
+    implemented, named_gaps = _parse_metrics((SRC / "metrics.dart").read_text())
+    special = _parse_engines(
+        {p.name: p.read_text() for p in sorted(SRC.glob("*_engine.dart"))})
     return implemented, named_gaps, special
 
 
@@ -121,47 +147,140 @@ def unresolvable(metric: str, position: str,
     return position not in special.get(metric, set())
 
 
-def _self_test() -> int:
-    """Kendi kapısı — bulması GEREKENİ bulabildiğini kanıtlar.
+#: ⛔ SENTETİK FİKSTÜR — ÜRÜN KAYNAĞI DEĞİL. Adları bilerek `_fx` ekliyle
+#: yazıldı: gerçek bir metrikle karışırlarsa öz-test yine ürüne çapalanır.
+_FX_METRICS = """
+  static double? byName(String id, PoseFrame f) => switch (id) {
+        'knee_fx' => 1.0,
+        'hip_fx' => 2.0,
+        _ => null,
+      };
 
-    ⚠️ Pozitif kontrolün ÜÇ katmanı (aile kuralı, M-F-505 + G-182):
-    ① ARAÇ bir şey bulabiliyor mu · ② DİZGE doğru mu ·
-    ③ KAPSAM: cevabın yaşayabileceği YERLERİN HEPSİNE mi bakıyorum.
-    Bu öz-test üçünü de sınıyor; ③ olmadan `feet_off_ground` yanlış-pozitif
-    veriyordu ve ilk iki katman GEÇMİŞTİ.
+  static const Set<String> unimplemented = <String>{
+    'planche_fx',
+    'lever_fx',
+  };
+"""
+
+#: `unimplemented` bloğu OLMAYAN fikstür — BİÇİM kayması ikizi.
+_FX_METRICS_NO_GAPS = """
+  static double? byName(String id, PoseFrame f) => switch (id) {
+        'knee_fx' => 1.0,
+        _ => null,
+      };
+"""
+
+_FX_ENGINE = """
+class _MultiphaseFx {
+  bool _enters(PhaseSpec p) {
+    if (p.entryMetric == 'entry_fx') return true;
+    return false;
+  }
+
+  void _runChecks(PhaseSpec p) {
+    if (p.ruleMetric == 'check_fx') {}
+  }
+}
+"""
+
+#: TANINMAYAN fonksiyonda özel durum — yükseltme ikizi.
+_FX_ENGINE_UNKNOWN = """
+class _GhostFx {
+  void _mystery(PhaseSpec p) {
+    if (p.entryMetric == 'ghost_fx') {}
+  }
+}
+"""
+
+
+def _self_test() -> int:
+    """Kendi kapısı — AYRIŞTIRMAYI sentetik girdiye, OKUMAYI gerçek kaynağa
+    karşı sınar (M-F-598 hükmü, G-201).
+
+    ## Neden bölündü — kapının KENDİ kusuru
+
+    Eski öz-test beş kontrolünün beşini de **ürünün canlı durumundan**
+    okuyordu. Biri (`'planche_lean_deg' in named_gaps`) o metriğin
+    **UYGULANMAMIŞ KALMASINI** şart koşuyordu: metrik uygulandığı gün —
+    yani **istenen şey olduğu gün** — kapı, ayrıştırıcı kusursuzken
+    kırmızıya dönecekti.
+
+    > ***BİR KAPI, KENDİ ÜRÜNÜNÜN İLERLEMESİNİ CEZALANDIRIYORSA ÜRÜNÜN
+    > DÜŞMANIDIR.***
+
+    Panzehir gevşetme DEĞİL, **ayırma**: ayrıştırıcı artık kendi fikstürüyle
+    sınanıyor; gerçek kaynak hâlâ okunuyor ama ondan yalnız **BİÇİM**
+    bekleniyor.
+
+    > ***BİR ÖZ-TEST ÜRÜNÜN BİÇİMİNE ÇAPALANIR, İÇERİĞİNE DEĞİL — içerik
+    > ürünün İLERLEMESİDİR, ve ilerleme bir kapıyı kırmızıya çeviremez.***
+
+    ⚠️ Pozitif kontrolün ÜÇ katmanı (M-F-505 + G-182) korundu ve **genişledi**:
+    ① ARAÇ · ② DİZGE · ③ KAPSAM — üçü de artık fikstür üzerinde, ayrıca
+    canlı ağaçta ölçülemeyen iki ikiz (yükseltme · biçim kayması) eklendi.
     """
-    sets = derive()
-    implemented, named_gaps, special = sets
     fails: list[str] = []
 
-    # ① ARAÇ: bilinen bir uygulanmış metrik bulunuyor.
-    if "knee_angle" not in implemented:
-        fails.append("byName ayrıştırması boş/kırık — 'knee_angle' yok")
-    # ② DİZGE: bilinen bir adlandırılmış boşluk bulunuyor.
-    if "planche_lean_deg" not in named_gaps:
-        fails.append("unimplemented ayrıştırması kırık — 'planche_lean_deg' yok")
-    # ③ KAPSAM: motorda özel-durumlu metrik BULUNUYOR ve konumu DAR.
-    if special.get("feet_off_ground") != {ENTRY}:
-        fails.append(
-            "motor taraması kırık — 'feet_off_ground' yalnız _enters()'te "
-            f"beklenirdi, bulunan: {special.get('feet_off_ground')}")
-    # TERS İKİZ: uydurma bir metrik hiçbir kümede olmamalı.
-    if not unresolvable("zzqq_metric", ENTRY, sets):
+    # ═══ A. AYRIŞTIRMA — SENTETİK girdiye karşı (ürün durumundan bağımsız) ═══
+    fx_impl, fx_gaps = _parse_metrics(_FX_METRICS)
+    # ① ARAÇ + ② DİZGE
+    if fx_impl != {"knee_fx", "hip_fx"}:
+        fails.append(f"byName ayrıştırması fikstürde ayrıştı: {fx_impl}")
+    if fx_gaps != {"planche_fx", "lever_fx"}:
+        fails.append(f"unimplemented ayrıştırması fikstürde ayrıştı: {fx_gaps}")
+    # ③ KAPSAM: iki konum sınıfı da doğru ayrılıyor.
+    fx_special = _parse_engines({"multiphase_engine.dart": _FX_ENGINE})
+    if fx_special != {"entry_fx": {ENTRY}, "check_fx": {CHECK}}:
+        fails.append(f"motor taraması fikstürde ayrıştı: {fx_special}")
+
+    # İKİZ: tanınmayan konum YÜKSELTİLMELİ (canlı ağaçta sınanamıyordu —
+    # gerçek motorlarda tanınmayan fonksiyon YOK, o yüzden bu kontrol
+    # ancak fikstürle var olabilir).
+    try:
+        _parse_engines({"ghost_engine.dart": _FX_ENGINE_UNKNOWN})
+        fails.append("TANINMAYAN konum yükseltilmedi — sessiz varsayım kapısı ölü")
+    except SystemExit:
+        pass
+
+    # İKİZ: BİÇİM kayması yakalanmalı (eskiden sessiz AttributeError'dı).
+    try:
+        _parse_metrics(_FX_METRICS_NO_GAPS)
+        fails.append("`unimplemented` bloğunun YOKLUĞU yakalanmadı")
+    except SystemExit:
+        pass
+
+    fx_sets = (fx_impl, fx_gaps, fx_special)
+    # TERS İKİZ: uydurma metrik hiçbir kümede olmamalı.
+    if not unresolvable("zzqq_fx", ENTRY, fx_sets):
         fails.append("uydurma metrik ÇÖZÜLEBİLİR sayıldı — kapı ateşlenmiyor")
     # TERS İKİZ 2: özel-durumlu metrik YANLIŞ konumda çözülebilir SAYILMAMALI.
-    if not unresolvable("feet_off_ground", CHECK, sets):
+    if not unresolvable("entry_fx", CHECK, fx_sets):
+        fails.append("'entry_fx' CHECK konumunda çözülebilir sanıldı")
+    # POZİTİF İKİZ (yokluk kapısının yanına varlık ikizi, M-F-194): DOĞRU
+    # konumda çözülebilir SAYILMALI, yoksa kapı "her şeye hayır" diyor olurdu.
+    if unresolvable("entry_fx", ENTRY, fx_sets):
+        fails.append("'entry_fx' DOĞRU konumda çözülemez sanıldı — kapı kör")
+    if unresolvable("knee_fx", CHECK, fx_sets):
+        fails.append("uygulanmış metrik konum yüzünden çözülemez sanıldı")
+
+    # ═══ B. OKUMA — GERÇEK kaynak, yalnız BİÇİM (içerik ÇAPALANMAZ) ═══
+    # Buradaki tek beklenti: desen gerçek ağaçta HÂLÂ bir şey buluyor.
+    # Hangi metriğin uygulandığı/uygulanmadığı ÜRÜNÜN İŞİ, kapının değil.
+    live_impl, live_gaps, live_special = derive()
+    if not live_impl:
         fails.append(
-            "'feet_off_ground' CHECK konumunda çözülebilir sanıldı — konum "
-            "ayrımı çalışmıyor")
+            "GERÇEK ağaçta hiç uygulanmış metrik bulunamadı — desen kaynağın "
+            "biçiminden ayrışmış olabilir (VAKUM)")
 
     if fails:
         for f in fails:
             print(f"  ❌ {f}")
         print("⛔ metric_support öz-testi DÜŞTÜ")
         return 1
-    print(f"✅ metric_support öz-testi: uygulanmış {len(implemented)} · "
-          f"adlandırılmış boşluk {len(named_gaps)} · motor özel-durumu "
-          f"{len(special)} (3 katmanlı pozitif kontrol + 2 ters ikiz)")
+    print(f"✅ metric_support öz-testi: AYRIŞTIRMA fikstürde 9 kontrol "
+          f"(3 katman + 2 ikiz + 4 ters/pozitif ikiz) · OKUMA gerçek ağaçta "
+          f"biçim: uygulanmış {len(live_impl)} · boşluk {len(live_gaps)} · "
+          f"özel-durum {len(live_special)}")
     return 0
 
 
