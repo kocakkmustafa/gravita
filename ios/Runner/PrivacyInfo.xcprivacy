@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	  Gravita — gizlilik manifesti (G-191, 2026-08-12).
+
+	  ⚠️ Bu dosyanın HER alanı ÖLÇÜLDÜ, şablondan kopyalanmadı.
+	  Ölçüm: uygulama `lib/` + `packages/gravita_engine` + PİNLİ ÇEKİRDEK
+	  (motion_core/motion_camera @ f13bdc9) taranarak.
+	  Pozitif kontrol: `JsonlSessionStore` 2 isabet (çekirdek okunabiliyor),
+	  uydurma dizge 0 isabet (tarama körlüğü yok).
+
+	  ⚠️ KAPSAM: burada beyan edilen şey YALNIZ bu app'in kendi kodudur.
+	  Eklentiler kendi manifestlerini taşır ve ÇİFT BEYAN YAPILMAZ — sahiplik
+	  bulanıklaşır. Ölçüldü: `permission_handler_apple` kendi
+	  `PrivacyInfo.xcprivacy`sini taşıyor ✅; Flutter engine de kendi
+	  `Flutter.framework/PrivacyInfo.xcprivacy`siyle geliyor ✅.
+	  (`path_provider_foundation` 2.6.0'da manifest YOK — eklentinin kendi
+	  kalemi, buradan telafi EDİLMEZ: başkasının davranışını beyan etmek
+	  onu doğru yapmaz.)
+	-->
+
+	<!-- İzleme YOK: ürün hiçbir izleme SDK'sı taşımıyor ve `NSPrivacyTrackingDomains`
+	     boş. Bu iddia bir yorum değil, `tools/network_claim_audit.py`nin
+	     bölmesiyle ölçülüyor: 63/63 paket sınıflandırılmış, ağa çıkabilen 3
+	     paketin üçü de adıyla+gerekçesiyle kayıtlı. -->
+	<key>NSPrivacyTracking</key>
+	<false/>
+	<key>NSPrivacyTrackingDomains</key>
+	<array/>
+
+	<!--
+	  TOPLANAN VERİ: YOK.
+	  Ölçüldü (G-184): diske yazan ÜÇ yer var — seans kaydı (hareket · zaman ·
+	  süre · tekrar), onboarding biti, ve poz modeli dosyası. Hiçbiri cihazdan
+	  ÇIKMIYOR. Apple'ın "collect" tanımı cihazdan çıkarmayı gerektirir; bu
+	  yüzden dizi BOŞ ve bu boşluk bir ihmal değil bir ÖLÇÜM sonucudur.
+	  ⚠️ Kamera görüntüsü de burada YOK: hiçbir kare saklanmıyor — izin
+	  metninin iddiası da bu (ölçülüp düzeltildi, G-184).
+	-->
+	<key>NSPrivacyCollectedDataTypes</key>
+	<array/>
+
+	<!--
+	  GEREKÇE-ZORUNLU API'ler: YOK.
+	  Beş kategorinin BEŞİ de tarandı ve app+motor+pinli çekirdekte 0 isabet:
+	    · dosya zaman damgası (`stat`/`lastModified`/`creationDate`)
+	    · disk alanı (`statfs`/`volumeAvailable`)
+	    · sistem açılış zamanı (`systemUptime`/`kern.boottime`)
+	    · UserDefaults (`SharedPreferences`/`NSUserDefaults`)
+	    · aktif klavyeler (`activeInputModes`)
+	  Depo dosya OKUR/YAZAR ama zaman damgası SORMAZ — `File.exists()` ve
+	  `readAsString()` gerekçe-zorunlu API değildir. Ayrım kasıtlı: "dosya
+	  kullanıyoruz" ile "dosya META VERİSİ okuyoruz" aynı şey değil.
+	  Bu dizi, ölçüm değişirse DEĞİŞMEK ZORUNDA — `test/privacy_manifest_test.dart`
+	  beyanı ölçümle karşılaştırır ve ayrışırsa öter.
+	-->
+	<key>NSPrivacyAccessedAPITypes</key>
+	<array/>
+</dict>
+</plist>
