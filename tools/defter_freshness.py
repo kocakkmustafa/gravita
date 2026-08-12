@@ -285,16 +285,26 @@ def _self_test() -> int:
     # ① TABAN — bugünkü ağaç iki yönde de temiz mi?
     if a["missing"]:
         dead.append(f"TABAN KİRLİ: yön-1 gediği var {a['missing']}")
-    if sorted(set(map(_num, a["work"]))) != sorted(KNOWN_UNLINKED_WORK):
+    # ⚠️ ALT KÜME, EŞİTLİK DEĞİL — ve bu ayrım BEDELLE öğrenildi (G-197).
+    #
+    # İlk yazımım `!=` ile EŞİTLİK arıyordu. G-196'nın commit MESAJI `G-179`u
+    # andı → bağ kuruldu → borç 8'den 7'ye DÜŞTÜ → ve öz-testim bu
+    # **İYİLEŞMEYİ KIRMIZI** bastı. Yani aynı gece `metric_support`ta ADIYLA
+    # raporladığım kusurun (M-F-598) tıpatıp aynısını kendi kapıma yazdım.
+    #
+    #   > ***Bir kapı, kendi ürününün İLERLEMESİNİ cezalandırıyorsa, o kapı
+    #   > ürünün DÜŞMANIDIR*** — ve bu hattın kendi kuralıdır.
+    #
+    # 📌 Ve tuzağın biçimi öğretici: kapı **commit'ten ÖNCE** yeşildi (hook
+    # o an koştu), **commit'ten SONRA** kırmızı oldu — çünkü kaydı bağlayan
+    # şey commit'in KENDİ mesajıydı. *Bir kapının girdisi, o kapıyı taşıyan
+    # commit'in kendisiyse, kapı kendi doğuşuyla durum değiştirir.*
+    grown_w = sorted(set(map(_num, a["work"])) - KNOWN_UNLINKED_WORK)
+    grown_u = sorted(set(map(_num, a["untyped"])) - KNOWN_UNLINKED_UNTYPED)
+    if grown_w or grown_u:
         dead.append(
-            f"BORÇ ÇAPASI KAYDI: bağı kopuk görev kümesi değişti — "
-            f"ölçülen {sorted(set(map(_num, a['work'])))}, "
-            f"kayıtlı {sorted(KNOWN_UNLINKED_WORK)}")
-    if sorted(set(map(_num, a["untyped"]))) != sorted(KNOWN_UNLINKED_UNTYPED):
-        dead.append(
-            f"BORÇ ÇAPASI KAYDI (türsüz): ölçülen "
-            f"{sorted(set(map(_num, a['untyped'])))}, kayıtlı "
-            f"{sorted(KNOWN_UNLINKED_UNTYPED)}")
+            f"BORÇ BÜYÜDÜ: kayıtlı tabanın DIŞINDA bağı kopuk kayıt var — "
+            f"görev {grown_w or '—'} · türsüz {grown_u or '—'}")
 
     # ② BORCUN ÇÜRÜTÜLEBİLİRLİĞİ — listedeki her numara defterde HÂLÂ kayıt
     #    olmalı. *Bir muafiyet ya ölçümünü taşır ya TÜRETİLİR.*
@@ -360,11 +370,20 @@ def _self_test() -> int:
         for d in dead:
             print(f"   - {d}")
         return 1
+    # ⚖️ KÜÇÜLME KUSUR DEĞİL — ama SESSİZ de kalmamalı, yoksa taban bayatlar
+    # ve bir gün "borç 9" derken gerçek 3 olur. Rapor edilir, kapı yapılmaz.
+    paid_w = sorted(KNOWN_UNLINKED_WORK - set(map(_num, a["work"])))
+    paid_u = sorted(KNOWN_UNLINKED_UNTYPED - set(map(_num, a["untyped"])))
+    paid = ""
+    if paid_w or paid_u:
+        paid = (f" · ⭐ BORÇ ÖDENDİ (taban daraltılabilir): "
+                f"{', '.join('G-%03d' % n for n in paid_w + paid_u)}")
     print(f"✅ 7/7 kapı ateşlendi — İKİ YÖN ayrı desenle sınandı (çapalı 1 ⊆ "
           f"geniş 2, sentetik korpusta) · sentinel aralığı depoya BAKMADAN "
-          f"kanıtlandı + dış çapa canlı · borç listesi çürütülebilir "
-          f"({len(KNOWN_UNLINKED_WORK)} görev + {len(KNOWN_UNLINKED_UNTYPED)} "
-          f"türsüz, hepsi defterde) · payda denklemi tutuyor")
+          f"kanıtlandı + dış çapa canlı · borç tabanı ALT KÜME olarak "
+          f"sınandı ({len(KNOWN_UNLINKED_WORK)} görev + "
+          f"{len(KNOWN_UNLINKED_UNTYPED)} türsüz, hepsi defterde) · "
+          f"payda denklemi tutuyor{paid}")
     return 0
 
 
