@@ -15,8 +15,14 @@ library;
 
 import 'dart:io';
 
-/// Aday envanteri — **DESENDEN türetilir, elle liste YOK** (sözleşme ②a).
-/// Desen `koddan` okur; elle liste `hafızadan`.
+/// Aday envanteri — **DESENDEN türetilir** (sözleşme ②a). Desen `koddan`
+/// okur; elle liste `hafızadan`.
+///
+/// 🔴 **DÜZELTME (G-198):** bu satır önce *"elle liste YOK"* diyordu ve
+/// sözleşmenin **(e) maddesini ihlal ediyordu**. (e) elle kümenin
+/// SİLİNMESİNİ değil **RÜTBESİNİN DÜŞÜRÜLMESİNİ** ister: kaynak olmaktan
+/// çıkar, **türetimin POZİTİF KONTROLÜ** olarak kalır. Taban artık
+/// [kKnownFloor]'da; silinmedi, gerekçesiyle düzeltildi.
 ///
 /// 🔴 `Flow` ölçümle eklendi: eski desen `OnboardingFlow`u **hiç aday
 /// yapmıyordu**, oysa gerçek bir kullanıcı hedefi (kendi kapısı var).
@@ -35,6 +41,49 @@ Set<String> declaredScreens() {
   }
   return out;
 }
+
+/// **(e) ELLE KÜME — kaynak DEĞİL, türetimin POZİTİF KONTROLÜ.**
+///
+/// ⚠️ **ŞERH 1: bu küme bir ALT SINIRDIR, tam envanter DEĞİLDİR.**
+/// ⚠️ **ŞERH 2: buraya ekleme yapmak envanter güncellemesi DEĞİL,
+///    KONTROLÜN TABANINI yükseltmektir.**
+///
+/// **Gerekçe (JabLab M-F-575, aile bedeli):** türetim ilk hâlinde `_XState`
+/// elemesiyle **her StatefulWidget ekranını** yok etmişti — ve *yakalayan şey
+/// elle kümeydi.* Bu ağaçta o kusurun bedeli ölçüldü: aşağıdaki dokuz adın
+/// **beşi** `StatefulWidget` (`LibraryScreen` · `ProgressTab` ·
+/// `LiveSessionScreen` · `MovementPage` · `OnboardingFlow`) ⇒ aynı kusur
+/// envanterin **yarısından fazlasını** sessizce düşürürdü.
+///
+/// **PROVENANS — desenden DEĞİL, iki bağımsız YAPISAL kanaldan okundu**
+/// (2026-08-13, elle çevrildi ve **donduruldu**):
+/// * sekme gövdeleri = `GravitaShell`in `IndexedStack.children`i
+///   (`gravita_app.dart:181-189`) → 4
+/// * rota hedefleri = `MaterialPageRoute(builder:)` çağrı yerleri
+///   (`gravita_app.dart:216` · `profile_screen.dart:59` ·
+///   `library_screen.dart:53,61` · `home_screen.dart:66`) → 3 ayrı sınıf
+/// * envanter üyesi ama kullanıcı hedefi değil → 2
+///
+/// ⛔ **Tautoloji YASAK ve bu bilinerek kuruldu:** taban `declaredScreens()`
+/// KOŞULARAK üretilmedi. Üretilseydi iki taraf aynı kaynağı okurdu ve kontrol
+/// **hiçbir koşulda ötemezdi** — bu ağacın `G-999` sentinel tautolojisinde
+/// (G-196) ödediği bedelin tam olarak aynısı.
+/// > *Bir denetim iki tarafı aynı kaynaktan okuyorsa denetim değil TANIMDIR.*
+///
+/// 📌 **Kapsamı dürüstçe daraltan ölçüm:** dokuzun **ikisi**
+/// (`OnboardingFlow` · `ContentFailureScreen`) (d)'nin denklemi tarafından
+/// **zaten** pozitif kontrol ediliyor (`hesap == candidates`, bkz.
+/// `reachability_test.dart:264-270`). ⇒ Bu tabanın **YENİ** kapsamı 9 değil
+/// **7**. Yine de dokuzu birden duruyor: (d) bir gün gevşerse taban ayakta
+/// kalır. *Bir kontrolün değeri, kapsamı abartılmadan yazıldığında ölçülür.*
+const Set<String> kKnownFloor = <String>{
+  // sekme gövdeleri (kabuk monte eder)
+  'HomeScreen', 'LibraryScreen', 'ProgressTab', 'ProfileScreen',
+  // rota hedefleri (kullanıcı basarak iter)
+  'LiveSessionScreen', 'MovementPage', 'WhyNotHereScreen',
+  // envanter üyesi, kullanıcı hedefi değil
+  'OnboardingFlow', 'ContentFailureScreen',
+};
 
 /// **KAPI-2'nin payı** — soğuk açılışta yürünen yüzeyler.
 ///

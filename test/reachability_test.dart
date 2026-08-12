@@ -116,6 +116,25 @@ void main() {
     addTearDown(tester.view.reset);
 
     final Set<String> candidates = declaredScreens();
+
+    // ⚖️ (e) ELLE KÜME — **kaynak değil, türetimin POZİTİF KONTROLÜ** (G-198).
+    //
+    // Bu satır türetime *"bildiğimizi kapsıyor musun?"* diye sorar. Türetim
+    // bozulursa — desen daraltılırsa, `_XState` sınıfı bir eleme yazılırsa,
+    // dizin taraması bir dosyayı ıskalarsa — kapı BURADA öter, sayı sessizce
+    // küçülmeden önce.
+    //
+    // ⚠️ ŞERH 1: [kKnownFloor] bir **ALT SINIRDIR, tam envanter DEĞİLDİR.**
+    // ⚠️ ŞERH 2: oraya ekleme yapmak envanter güncellemesi DEĞİL,
+    //    **kontrolün TABANINI yükseltmektir.**
+    //
+    // > *Bir elle liste, KAYNAK olarak yanlıştır ama KONTROL olarak doğrudur.*
+    expect(candidates.containsAll(kKnownFloor), isTrue,
+        reason: 'TÜRETİM BİLİNEN TABANI KAPSAMIYOR — eksik: '
+            '${kKnownFloor.difference(candidates)}. Elle küme kaynak değil '
+            'kontroldür: türetim onu yutuyorsa bozuk olan TÜRETİMDİR, taban '
+            'değil. (Tabanı küçülterek geçirme — desen neden kaçırdı, ONU ölç.)');
+
     final Set<String> reached = <String>{};
 
     late ContentRepository content;
