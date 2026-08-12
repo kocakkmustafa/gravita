@@ -61,24 +61,59 @@ fail=0
 # kırmızısını gizleyebilir; bu betiğin varlık sebebi tam olarak o gizlenme.
 app_n="?"; eng_n="?"; py_ok=0; py_total=0
 
+# ⚠️ RAPOR KATMANI DÜZELTİLDİ (G-190, koordinatör ölçümü 2026-08-12).
+#
+# Eski gövde `2>&1` ile stderr'i stdout'a KATIYOR ve ✅ satırının yanına
+# birleşik çıktının SON SATIRINI basıyordu. Araç sonucunu stdout'a basıp
+# ardından stderr'e bir uyarı düşürürse (flutter'ın "Waiting for another
+# flutter command to release the startup lock…" satırı gibi) özet, sonucu
+# değil O GÜRÜLTÜYÜ gösteriyordu. Deterministik olarak yeniden üretildi.
+#
+# ⛔ HÜKÜM DEĞİŞMEDİ ve değişmemeli: yeşil/kırmızı kararı ÇIKIŞ KODUNDAN
+# geliyor, yani kapı yanlış geçirmiyordu. Kusur yalnız GÖSTERİLEN satırdaydı.
+#
+#   > Doğru olan bir şeyin, yanlış bir şey TAŞIMASI.
+#
+# Panzehir: iki akım AYRI okunur. Özet stdout'un anlamlı son satırıdır;
+# stdout sessizse stderr'e düşülür ama ETİKETLENİR — gürültüyü sonuç gibi
+# sunmak, bu düzeltmenin kapattığı kusurun ta kendisidir.
 run() {                       # run <ad> <komut...>
   local name="$1"; shift
-  local out
-  if out="$("$@" 2>&1)"; then
-    printf '  ✅ %-34s %s\n' "$name" "$(printf '%s' "$out" | tail -1 | cut -c1-58)"
-    return 0
-  else
-    printf '  ❌ %-34s %s\n' "$name" "$(printf '%s' "$out" | tail -1 | cut -c1-58)"
-    fail=1
-    return 1
+  local out err rc summary
+  err="$(mktemp)"
+  out="$("$@" 2>"$err")" && rc=0 || rc=$?
+
+  summary="$(printf '%s' "$out" | grep -v '^[[:space:]]*$' | tail -1)"
+  if [ -z "$summary" ]; then
+    summary="(stdout sessiz) $(grep -v '^[[:space:]]*$' "$err" | tail -1)"
   fi
+  if [ "$rc" -ne 0 ]; then
+    # Kırmızıda SEBEP çoğu araçta stderr'dedir; varsa o gösterilir.
+    local ederr
+    ederr="$(grep -v '^[[:space:]]*$' "$err" | tail -1)"
+    [ -n "$ederr" ] && summary="$ederr"
+  fi
+  rm -f "$err"
+
+  if [ "$rc" -eq 0 ]; then
+    printf '  ✅ %-34s %s\n' "$name" "$(printf '%s' "$summary" | cut -c1-58)"
+    return 0
+  fi
+  printf '  ❌ %-34s %s\n' "$name" "$(printf '%s' "$summary" | cut -c1-58)"
+  fail=1
+  return 1
 }
 
 # Dart süitlerinin GEÇEN TEST SAYISINI çıkarır ("00:06 +127: All tests…").
+# ⚠️ AYNI KUSUR BURADA DA VARDI ve gösterilen bir SAYI üretiyor: stderr
+# birleştirilince son satır bir uyarı olabiliyor, sayı deseni tutmuyor ve
+# "app /" gibi BOŞ bir sayı basılıyordu. stdout AYRI okunuyor; ayrıca son
+# satır değil, sayı deseni TUTAN son satır aranıyor (araçlar sonuç satırından
+# sonra özet/uyarı basabilir).
 count_dart() {
   local out
-  out="$("$@" 2>&1)" || { printf 'KIRMIZI'; return 1; }
-  printf '%s' "$out" | tail -1 | sed -n 's/.*+\([0-9]*\).*/\1/p'
+  out="$("$@" 2>/dev/null)" || { printf 'KIRMIZI'; return 1; }
+  printf '%s' "$out" | grep -oE '\+[0-9]+' | tail -1 | tr -d '+'
 }
 
 line; echo "SÜİT 1 — app kabuğu ($(ls test/*.dart | wc -l | tr -d ' ') dosya)"; line
