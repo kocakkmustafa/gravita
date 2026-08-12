@@ -142,6 +142,74 @@ const Set<String> kKnownFloor = <String>{
 /// kapının arasından düşmez.
 const Set<String> kColdStartSurfaces = <String>{'OnboardingFlow'};
 
+/// **KÖK VARIŞ — beyanlı, ÇAPALI** (sözleşme (b), G-200).
+///
+/// KATI sayısındaki `+1` eskiden **çıplak bir sabitti** (`routes.length + 1`):
+/// kabuk bir rotadır ama hiçbir şey onun *"kök olarak varıldığını"* ölçmüyordu.
+/// Artık kök varış **`NavigatorObserver` olayından** geliyor (`previous == null`
+/// olan `didPush`) ve bu kümeye **çapalanıyor**.
+///
+/// > ***Ostinato'nun hükmü (M-F-582): ÜÇÜNCÜ bir kök varış BEYAN değil
+/// > BULGUDUR*** — beyansız kök varış kırmızıdır, sessizce sayıya eklenmez.
+///
+/// ⚠️ `GravitaShell` **aday envanterinde DEĞİL** (ad deseni `Shell` taşımaz) ve
+/// bu bilerek böyle: kabuk bir *hedef* değil, dört sekmeyi taşıyan **kap**.
+/// Envantere alınsaydı GEVŞEK sayısı hatlar arası karşılaştırmayı bozacak
+/// şekilde şişerdi. Kap olması onu **rota olmaktan** çıkarmıyor — bu yüzden
+/// KATI'da sayılır, GEVŞEK'te sayılmaz.
+const Set<String> kRootArrivals = <String>{'GravitaShell'};
+
 /// **Aday olup varılamayan** — KATI'ya girmez ama **kaybolmaz** (sözleşme ②c).
 /// `ContentFailureScreen`: sistem gösterir, kullanıcı **basarak gitmez**.
+///
+/// ⚠️ Bu satır **sebebi TAŞIMAZ, İDDİA EDER** — sebep [derivedExclusionReasons]
+/// tarafından her koşumda **kaynaktan türetilir** (G-200).
 const Set<String> kDeliberatelyUnreachable = <String>{'ContentFailureScreen'};
+
+/// **(c) DIŞLAMA SEBEBİ — düzyazı değil, HER KOŞUMDA KAYNAKTAN türetilir.**
+///
+/// Sözleşme (c) iki şeyi birden yasaklıyor: **sebepsiz dışlama** ve — daha
+/// beteri — **yanlış sebep**. Ostinato *"üçü de kamera arkasında"* demişti,
+/// ölçüm bir ekranda **kamera izi olmadığını** gösterdi (M-F-586).
+/// > ***YANLIŞ BİR SEBEP, SEBEPSİZLİKTEN DAHA KÖTÜDÜR: DENETİMİ DOĞRULANMIŞ
+/// > GÖSTERİR.***
+///
+/// Türetim iki soruyu **koddan** sorar ve üç sonuçtan birini döner:
+/// * sınıf bir **montaj noktasında** görünüyor mu ([mountedScreens]) →
+///   görünüyorsa dışlama sebebi **çürümüştür** (kullanıcı basarak varabiliyor)
+/// * hiç **inşa** ediliyor mu → edilmiyorsa bu bir dışlama kalemi değil
+///   **ölü kod** kalemidir (ayrı kusur, ayrı kova)
+/// * ikisi de değilse sebep ayakta: **yalnız sistem dalından** inşa ediliyor,
+///   ve inşa yerleri **dosya:satır** olarak raporlanır.
+Map<String, String> derivedExclusionReasons() {
+  final Set<String> mounts = mountedScreens();
+  final Map<String, String> out = <String, String>{};
+
+  for (final String cls in kDeliberatelyUnreachable) {
+    final RegExp decl = RegExp('^class\\s+$cls\\b', multiLine: true);
+    final List<String> sites = <String>[];
+
+    for (final File f in _appSources()) {
+      final String src = f.readAsStringSync();
+      // Sınıfı BİLDİREN dosya atlanır — kendi yapıcısı inşa yeri değildir.
+      if (decl.hasMatch(src)) continue;
+      final List<String> lines = src.split('\n');
+      for (int i = 0; i < lines.length; i++) {
+        if (lines[i].contains('$cls(')) {
+          sites.add('${f.uri.pathSegments.last}:${i + 1}');
+        }
+      }
+    }
+
+    if (mounts.contains(cls)) {
+      out[cls] = '⛔ SEBEP ÇÜRÜDÜ: montaj noktasında görünüyor — kullanıcı '
+          'basarak varabiliyor, bu bir dışlama kalemi DEĞİL';
+    } else if (sites.isEmpty) {
+      out[cls] = '⛔ SEBEP ÇÜRÜDÜ: hiçbir yerde inşa edilmiyor — bu dışlama '
+          'değil ÖLÜ KOD kalemi (ayrı kova, ayrı karar)';
+    } else {
+      out[cls] = 'yalnız sistem dalından inşa ediliyor (${sites.join(' · ')})';
+    }
+  }
+  return out;
+}

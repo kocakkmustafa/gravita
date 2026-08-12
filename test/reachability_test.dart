@@ -169,8 +169,18 @@ void main() {
     await tester.runAsync(
         () async => content = await ContentRepository.load(rootBundle));
 
+    // ⚖️ (b) TANIK — `NavigatorObserver`, ve **OLAYI** sayıyor, adı DEĞİL.
+    //
+    // Bu dosyanın eski yorumu *"NavigatorObserver DENENDİ ve düştü"* diyordu:
+    // doğruydu ama **kapsamı dardı** — düşen şey rotayı ADIYLA saymaktı
+    // (`route.settings.name` bu uygulamada boş, hepsi `MaterialPageRoute<void>`
+    // görünüyor). M-F-582 tam bu vakayı hükme bağlamış: *adı değil OLAYI say.*
+    // Ad zaten monte-olan enstantaneden geliyor; tanıktan istenen tek şey
+    // **kök varışın gerçekten olduğu**.
+    final _RouteWitness witness = _RouteWitness();
     await tester.pumpWidget(MaterialApp(
         theme: GravitaTheme.light,
+        navigatorObservers: <NavigatorObserver>[witness],
         home: GravitaShell(content: content)));
     await settle(tester);
     reached.addAll(mounted(tester, candidates));
@@ -266,13 +276,31 @@ void main() {
     final List<String> routes =
         routeScreens.difference(shellScreens).toList()..sort();
 
+    // ⚖️ (b) KÖK VARIŞ artık SABİT DEĞİL, GÖZLENEN OLAY. Eskiden KATI'ya
+    // çıplak bir `+1` ekleniyordu; şimdi tanığın `previous == null` olan
+    // `didPush`ından geliyor ve `kRootArrivals`e çapalı.
+    final int katiCount = witness.rootPushes + routes.length;
+
     debugPrint('── GEZİLEBİLİRLİK ÖLÇÜMÜ ──');
-    debugPrint('   ⚖️ KATI (ayrı ROTA): ${routes.length + 1} — '
-        'kabuk(1: 4 sekme) + ${routes.join(' · ')}');
+    debugPrint('   ⚖️ KATI (ayrı ROTA): $katiCount — '
+        'kök varış ${witness.rootPushes} (${kRootArrivals.join(', ')}: 4 sekme)'
+        ' + ${routes.join(' · ')}');
+    debugPrint('   tanık: didPush kök ${witness.rootPushes} · '
+        'itilen ${witness.pushes}');
     debugPrint('   ⚖️ GEVŞEK (ayrı YÜZEY): ${reached.length}');
     debugPrint('   yüzeyler: ${reachedSorted.join(' · ')}');
     debugPrint('   ULAŞILAMIYOR AMA VAR: ${unreachable.length}'
         '${unreachable.isEmpty ? '' : ' — ${unreachable.join(' · ')}'}');
+
+    // ⚖️ (c) DIŞLAMA SEBEBİ — her koşumda KAYNAKTAN türetilir, düzyazıdan değil.
+    // Sebep çürürse kapı öter: *yanlış bir sebep, sebepsizlikten daha kötüdür
+    // — denetimi doğrulanmış gösterir.*
+    final Map<String, String> reasons = derivedExclusionReasons();
+    reasons.forEach((String k, String v) => debugPrint('   ⚖️ dışlama $k: $v'));
+
+    expect(reasons.values.where((String r) => r.startsWith('⛔')), isEmpty,
+        reason: 'DIŞLAMA SEBEBİ ÇÜRÜDÜ: $reasons — kalem ya bağlanmalı ya '
+            'silinmeli; dışlama kovasında yanlış sebeple durmamalı.');
 
     // Kapı SAYIYI SABİTLEMİYOR — küçülmesini yasaklıyor. Sayı büyüdüğünde
     // sessizce geçer, küçüldüğünde bağırır: bir ekran ulaşılamaz hâle
@@ -302,7 +330,29 @@ void main() {
     // gösterdiği hata hâli, kullanıcının BASARAK gitmediği bir ekran.
     // Sayı artarsa yeni bir ekran bağlanmadan yazılmış demektir.
     // KATI sayı da küçülemez: bir rota tetiği silinirse burası öter.
-    expect(routes.length + 1, greaterThanOrEqualTo(4),
+    // ⚖️ (b-i) TANIK BAĞLI MI — Ostinato'nun bedeli (M-F-582): tanığı
+    // TANIMLIYDI ama BAĞLI DEĞİLDİ ve sessizce 0 sayıyordu. Bu satır o vakayı
+    // kırmızıya çevirir: gözlemci `navigatorObservers`e takılmazsa kök varış
+    // 0 kalır ve kapı öter.
+    //
+    // ⚖️ (b-ii) BEYANSIZ KÖK VARIŞ = KIRMIZI. *Üçüncü bir kök varış beyan
+    // değil BULGUDUR* — sessizce KATI'ya eklenmez.
+    expect(witness.rootPushes, kRootArrivals.length,
+        reason: 'KÖK VARIŞ BEYANLA AYRIŞTI — beyan ${kRootArrivals.length} '
+            '(${kRootArrivals.join(', ')}), gözlenen ${witness.rootPushes}. '
+            '0 ise tanık BAĞLI DEĞİL (navigatorObservers); fazlaysa beyansız '
+            'bir kök varış doğmuş demektir.');
+
+    // ⚖️ (b-iii) İKİ TARAF AYRI KAYNAKTAN: `routes` monte-olma + `canPop`
+    // derinliğinden, `pushes` tanığın OLAY sayacından geliyor. Rota olarak
+    // sayılan her yüzeyin arkasında en az bir push OLAYI olmak zorunda —
+    // aksi hâlde derinlik ölçümü olmayan bir rotayı rota sanıyor demektir.
+    expect(witness.pushes, greaterThanOrEqualTo(routes.length),
+        reason: 'ROTA SAYISI PUSH OLAYINDAN FAZLA: ${routes.length} rota '
+            'sayıldı ama yalnız ${witness.pushes} push olayı gözlendi — '
+            'derinlik ölçümü rota olmayan bir şeyi rota sayıyor olabilir.');
+
+    expect(katiCount, greaterThanOrEqualTo(4),
         reason: 'Ayrı rota sayısı düştü — bir push tetiği kaybolmuş '
             'olabilir. Ulaşılan rotalar: ${routes.join(', ')}');
 
@@ -320,5 +370,26 @@ void main() {
         reason: 'Bağlanmamış ekran sayısı arttı: ${unreachable.join(', ')} — '
             'repliğin varlığı tetiğinin varlığı DEĞİLDİR.');
   });
+}
+
+/// Rota **OLAY** tanığı — ad tutmaz, çünkü bu uygulamada rota adı **boş**
+/// (ölçüldü: hepsi `MaterialPageRoute<void>`, `settings.name == null`).
+///
+/// > *Adı bekleyen bir tanık burada sessizce BOŞ kalırdı* (M-F-582).
+///
+/// Bu yüzden tanık iki **olay** sayar ve adlandırmayı monte-olan enstantaneye
+/// bırakır: kök varış (`previous == null`) ve itilen rota.
+class _RouteWitness extends NavigatorObserver {
+  int rootPushes = 0;
+  int pushes = 0;
+
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previous) {
+    if (previous == null) {
+      rootPushes++;
+    } else {
+      pushes++;
+    }
+  }
 }
 
