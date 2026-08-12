@@ -73,6 +73,7 @@ class LiveSessionScreen extends StatefulWidget {
   final Future<void> Function(SessionRecord record)? onSessionEnd;
 
   static const Key startButtonKey = Key('live.start');
+  static const Key openSettingsKey = Key('live.openSettings');
   static const Key stopButtonKey = Key('live.stop');
   static const Key failureKey = Key('live.failure');
   static const Key noPersonKey = Key('live.noPerson');
@@ -90,6 +91,13 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
   LiveState _state = const LiveIdle();
   StreamSubscription<CameraFrameEnvelope>? _sub;
   bool _running = false;
+
+  /// İzin **kalıcı olarak** engelli mi (`permanentlyDenied` ya da
+  /// `restricted`). `LiveFailed` bunu taşıyamıyor: `CameraFailure` PİNLİ
+  /// çekirdekte (`motion_camera`) ve pin 40-SHA kilitli — enum'a değer
+  /// eklemek çekirdek turu kararıdır, bu ekranın kapsamı değil. Ayrım bu
+  /// yüzden YEREL; yüzeyde ne değiştiği `LiveStrings`te yazılı.
+  bool _permissionBlocked = false;
 
   /// Seansın GERÇEKTEN başladığı an — çalışılan süre buradan ölçülür.
   /// `LiveRunning` bunu taşımıyor; taşısaydı her karede kopyalanırdı.
@@ -127,11 +135,27 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
       final PermissionStatus perm = await Permission.camera.request();
       if (!perm.isGranted) {
         if (!mounted) return;
-        setState(() => _state = const LiveFailed(
-            CameraFailure.permissionDenied,
-            detail: 'permission_handler: denied'));
+        // ⭐ KALICI RET, GEÇİCİ RETTEN AYRILIYOR (G-185) — kural İCAT
+        // EDİLMEDİ, Ostinato'nun ölçülmüş referansı: `isPermanentlyDenied ||
+        // isRestricted`. `isRestricted` kritik ve sezgiyle bulunamaz:
+        // MDM/ebeveyn denetimli cihazda izin diyaloğu HİÇ ÇIKMAZ, yani
+        // "ikinci ret = kalıcı" sezgisi o vakayı İLKECE göremez.
+        //
+        // Neden gerekti (ölçüldü): üç hâl de `!isGranted` kovasına düşüyordu;
+        // ekran "Settings'ten açabilirsin" yazıp SETTINGS'E GÖTÜREN HİÇBİR
+        // kontrol sunmuyordu ve tek düğme `Start` idi — kalıcı rette o düğme
+        // sonsuza dek AYNI hatayı üretirdi. Ölü son değil ama ÖLÜ DÖNGÜ.
+        setState(() {
+          _permissionBlocked = perm.isPermanentlyDenied || perm.isRestricted;
+          // ⚠️ `detail` eskiden SABİT 'denied' dizgesiydi — gerçek durum
+          // `permanentlyDenied` olsa bile "denied" diyordu. Artık OKUNAN
+          // değerden geliyor: küçük ama gerçek bir yanlış beyan kapandı.
+          _state = LiveFailed(CameraFailure.permissionDenied,
+              detail: 'permission_handler: ${perm.name}');
+        });
         return;
       }
+      _permissionBlocked = false;
 
       // ⚠️ ÖNCE uçmakta olan kapanışı bekle. Bu satır olmadan ikinci seans,
       // birincinin kapanışıyla yarışır ve `already-running` alır.
@@ -302,10 +326,16 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
             key: LiveSessionScreen.failureKey,
             sealed: true,
             children: <Widget>[
-              _sheetHeadline(LiveStrings.failureTitle(failure),
+              _sheetHeadline(
+                  _permissionBlocked
+                      ? LiveStrings.permissionBlockedTitle
+                      : LiveStrings.failureTitle(failure),
                   color: GravitaColors.honestyText),
               const SizedBox(height: 10),
-              _sheetNote(LiveStrings.failureBody(failure),
+              _sheetNote(
+                  _permissionBlocked
+                      ? LiveStrings.permissionBlockedBody
+                      : LiveStrings.failureBody(failure),
                   color: GravitaColors.honestyText),
               if (detail != null) ...<Widget>[
                 const SizedBox(height: 16),
@@ -319,11 +349,22 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
                         size: 11, color: GravitaColors.honestyText)),
               ],
               const SizedBox(height: 22),
-              FilledButton(
-                key: LiveSessionScreen.startButtonKey,
-                onPressed: _start,
-                child: const Text(LiveStrings.start),
-              ),
+              // Kalıcı engelde `Start` ÇİZİLMEZ: basılabilir ama ASLA
+              // başarılı olamayacak bir kontrol, ölü butondan farksızdır
+              // (ürünün kendi kuralı: "arkasında bir şey olmayan giriş
+              // çizme"). Yerine gerçekten işe yarayan TEK eylem konuyor.
+              if (_permissionBlocked)
+                FilledButton(
+                  key: LiveSessionScreen.openSettingsKey,
+                  onPressed: openAppSettings,
+                  child: const Text(LiveStrings.openSettings),
+                )
+              else
+                FilledButton(
+                  key: LiveSessionScreen.startButtonKey,
+                  onPressed: _start,
+                  child: const Text(LiveStrings.start),
+                ),
             ],
           ),
         LiveRunning(

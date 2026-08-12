@@ -31,6 +31,26 @@ abstract final class LiveStrings {
   /// Tekrar henüz yokken — "0" yazmak yerine ne beklediğimizi söylüyoruz.
   static const String noRepsYet = 'No full rep counted.';
 
+  /// İzin **kalıcı olarak** engelliyken (`permanentlyDenied`/`restricted`).
+  ///
+  /// Neden ayrı metin: geçici rette sistem diyaloğu bir daha çıkar, kalıcı
+  /// rette ÇIKMAZ. Aynı cümleyi kullanmak, kullanıcıya tekrar denemesini
+  /// söyleyip her denemede aynı duvara çarptırırdı (G-185 ölçümü).
+  static const String permissionBlockedTitle = 'Camera access is blocked';
+
+  /// ⚠️ HANGİ sebep olduğu İDDİA EDİLMİYOR. İki ayrı durum aynı yere düşer:
+  /// kullanıcı izni kalıcı reddetmiş olabilir, ya da cihaz yönetilen
+  /// (MDM/ebeveyn denetimi) olduğu için izin diyaloğu HİÇ çıkmıyordur.
+  /// İkisini ayırt edecek bir ölçüm elimizde yok; metin de ayırmıyor.
+  static const String permissionBlockedBody =
+      'Asking again will not bring up the system prompt — this device will '
+      'not offer it. Camera access has to be turned on in Settings. Nothing '
+      'is recorded or uploaded; video stays on this device and never leaves '
+      'it. Your history and lessons are unaffected.';
+
+  /// Kalıcı engelde çizilen TEK eylem.
+  static const String openSettings = 'Open Settings';
+
   /// Arıza başlıkları — her ret ADIYLA anlatılır, ham kod gösterilmez.
   static String failureTitle(CameraFailure? f) => switch (f) {
         CameraFailure.permissionDenied => 'Camera access is off',

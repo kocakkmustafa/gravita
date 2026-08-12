@@ -5,7 +5,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gravita/app/live_session.dart';
 import 'package:gravita/app/live_strings.dart';
 import 'package:gravita_engine/gravita_engine.dart';
+import 'package:gravita/app/live_session_screen.dart';
 import 'package:motion_camera/motion_camera.dart';
+
+import 'support/launch_harness.dart';
 
 /// Canlı seans YÜZEYİ — her hâlin ekranda ne dediği.
 ///
@@ -96,4 +99,76 @@ void main() {
       expect(find.text(LiveStrings.title), findsOneWidget);
     });
   });
+
+  /// ⭐ KALICI RET — G-185. Koordinatörün aile taraması bende `permanentlyDenied`
+  /// için SIFIR isabet bulmuştu ve ölçüm onu doğruladı: kusur eksiklik değil
+  /// **ayrımsızlıktı** — üç hâl de `!isGranted` kovasına düşüyordu.
+  ///
+  /// Bu grup ekranı GERÇEKTEN pump ediyor ve izin kanalını yanıtlıyor;
+  /// sınanan şey "hangi hâl doğdu" değil **kullanıcının ekranda ne
+  /// görebildiği ve neye basabildiği**.
+  group('kamera izni KALICI reddedildiğinde ölü döngü YOK', () {
+    Future<void> pumpScreen(WidgetTester tester, {required int status}) async {
+      mockPermissionChannel(status: status);
+      await tester.pumpWidget(MaterialApp(
+          home: LiveSessionScreen(config: load(), controller: _NoCamera())));
+      await tester.tap(find.byKey(LiveSessionScreen.startButtonKey));
+      for (int i = 0; i < 4; i++) {
+        await tester.pump(const Duration(milliseconds: 60));
+      }
+    }
+
+    testWidgets('kalıcı ret: Settings eylemi ÇİZİLİR, Start çizilmez',
+        (WidgetTester tester) async {
+      await pumpScreen(tester, status: 4); // permanentlyDenied
+
+      expect(find.byKey(LiveSessionScreen.openSettingsKey), findsOneWidget,
+          reason: 'İşe yarayan TEK eylem bu; yoksa metin Settings diyor ama '
+              'oraya götüren hiçbir kontrol olmuyor.');
+      expect(find.byKey(LiveSessionScreen.startButtonKey), findsNothing,
+          reason: 'Basılabilir ama ASLA başarılı olamayacak bir düğme, ölü '
+              'butondan farksızdır.');
+      expect(find.text(LiveStrings.permissionBlockedTitle), findsOneWidget);
+    });
+
+    testWidgets('KISITLI cihaz (MDM/ebeveyn) da aynı yere düşer',
+        (WidgetTester tester) async {
+      // `isRestricted` sezgiyle bulunamaz: diyalog HİÇ çıkmaz, yani
+      // "ikinci ret = kalıcı" sezgisi bu vakayı İLKECE göremez.
+      await pumpScreen(tester, status: 2); // restricted
+
+      expect(find.byKey(LiveSessionScreen.openSettingsKey), findsOneWidget);
+      expect(find.byKey(LiveSessionScreen.startButtonKey), findsNothing);
+    });
+
+    testWidgets(
+        'POZİTİF İKİZ — GEÇİCİ rette Start KALIR, Settings çizilmez',
+        (WidgetTester tester) async {
+      // Bu ikiz olmadan üstteki iki test, Start düğmesini HER arızada gizleyen
+      // bir uygulamada da geçerdi. Geçici rette tekrar denemek ANLAMLI:
+      // sistem diyaloğu bir daha çıkar.
+      await pumpScreen(tester, status: 0); // denied
+
+      expect(find.byKey(LiveSessionScreen.startButtonKey), findsOneWidget);
+      expect(find.byKey(LiveSessionScreen.openSettingsKey), findsNothing);
+      expect(find.text(LiveStrings.permissionBlockedTitle), findsNothing);
+    });
+
+    testWidgets('ham durum ADIYLA gösteriliyor — sabit "denied" değil',
+        (WidgetTester tester) async {
+      // Eski kod `detail`e SABİT 'permission_handler: denied' yazıyordu:
+      // gerçek durum `permanentlyDenied` olsa bile "denied" diyordu.
+      await pumpScreen(tester, status: 4);
+      expect(find.textContaining('permanentlyDenied'), findsOneWidget);
+    });
+  });
+}
+
+/// Kamera AÇILMADAN önce izin kapısına takılıyoruz; bu denetleyicinin hiçbir
+/// üyesi çağrılmamalı. Çağrılırsa test ADIYLA düşsün — sessiz bir sahte,
+/// izin kapısının atlandığını gizlerdi.
+class _NoCamera implements MotionCameraController {
+  @override
+  dynamic noSuchMethod(Invocation invocation) =>
+      throw StateError('İzin kapısı geçilmemeliydi: ${invocation.memberName}');
 }
