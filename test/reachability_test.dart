@@ -233,7 +233,21 @@ void main() {
     // Kapı SAYIYI SABİTLEMİYOR — küçülmesini yasaklıyor. Sayı büyüdüğünde
     // sessizce geçer, küçüldüğünde bağırır: bir ekran ulaşılamaz hâle
     // gelirse (tetiği silinirse) bu satır öter.
-    expect(reached.length, greaterThanOrEqualTo(6),
+    // ⚠️ TABAN, ÖLÇÜLEN DEĞERE ÇEKİLDİ (G-187, 2026-08-12): `6` → **7**.
+    // Eşik İCADI değil, bugün ölçülen sayının kendisi.
+    //
+    // ⚠️ VE GEREKÇESİ SABOTAJLA İNCELTİLDİ — ilk yazdığım gerekçe FAZLA
+    // GENİŞTİ. "Bir ekran sessizce ulaşılamaz olabilirdi" demiştim; ölçtüm:
+    // bir ekranın TETİĞİ koparıldığında `unreachable` 1→2 çıkıyor ve
+    // aşağıdaki üçüncü iddia zaten ötüyor. Yani eski taban o vakayı
+    // kaçırmıyordu.
+    //
+    // Bu tabanın gerçekten kapattığı boşluk BAŞKA ve daha sinsi: bir ekran
+    // TAMAMEN SİLİNİRSE aday listesi de küçülür (envanter kaynaktan
+    // türetiliyor), `unreachable` 1'de kalır ve `6 >= 6` sessizce geçerdi.
+    // → *Bağlantısı kopan ekranı üçüncü iddia yakalar; YOK OLAN ekranı
+    //   yalnız bu taban yakalar.* İki ayrı regresyon, iki ayrı nöbetçi.
+    expect(reached.length, greaterThanOrEqualTo(7),
         reason: 'Gezilebilir ekran sayısı düştü — bir tetik silinmiş '
             'olabilir. Ulaşılamayanlar: ${unreachable.join(', ')}');
 
