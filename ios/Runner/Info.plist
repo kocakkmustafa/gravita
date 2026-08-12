@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Gravita watches your push-ups to count reps and time your tempo. Video stays on this device and is never uploaded — the app only keeps the body landmarks it measures.</string>
+	<string>Gravita watches your push-ups to count reps and time your tempo. Video stays on this device and is never uploaded — and nothing from the camera is stored, not even body landmarks. What gets saved is your session: which movement, how many reps, and how long.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
