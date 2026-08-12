@@ -41,6 +41,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import metric_support
+
 ROOT = Path(__file__).resolve().parent.parent
 LIB_PATH = ROOT / "content" / "library.json"
 CATALOG_ROOT = ROOT / "content" / "catalog"
@@ -104,6 +106,33 @@ def load_catalogs():
 
 
 
+#: G-182 → DÖRDÜNCÜ BLOKER. Bir hareketin GİRİŞ konumundaki metrikleri.
+#: Konum listesi ELLE DEĞİL katalog ŞEMASINDAN gelir; metrik adı geçmez.
+def entry_metrics(cat):
+    """`holdEntry.requires` · `sequence[].enter` · `precondition.conditions`.
+
+    Neden yalnız GİRİŞ: çözülemeyen bir giriş metriği hareketi HİÇ
+    BAŞLATMAZ (`hold_engine.dart:117-119` — null metrik → `ready=false`).
+    Form-break konumundaki aynı boşluk hareketi çalıştırır ama bir kuralı
+    SESSİZ bırakır; o ayrı bir kalem ve bu anahtarın kapsamında DEĞİL
+    (koordinatör onayı `@entry` ile sınırlı — kapsam sessizce genişletilmez).
+    """
+    eng = cat.get("engine", {}) or {}
+    out = []
+    for c in (eng.get("holdEntry", {}) or {}).get("requires", []) or []:
+        if c.get("metric"):
+            out.append(c["metric"])
+    for ph in eng.get("sequence", []) or []:
+        ent = ph.get("enter")
+        for c in (ent if isinstance(ent, list) else [ent] if ent else []):
+            if isinstance(c, dict) and c.get("metric"):
+                out.append(c["metric"])
+    for c in (eng.get("precondition", {}) or {}).get("conditions", []) or []:
+        if c.get("metric"):
+            out.append(c["metric"])
+    return out
+
+
 def _blocker_active(key, cat, reference_lookup, mid):
     """Adlandırılmış blokerin ŞU AN gerçekten blokladığını doğrular (K9).
 
@@ -161,6 +190,16 @@ def _blocker_active(key, cat, reference_lookup, mid):
         sources = prov.get("sources") or []
         return True, not sources, (
             f"provenance.sources {'BOŞ (blokluyor)' if not sources else f'{len(sources)} kaynak → BLOKLAMIYOR'}")
+    if key == "metric:unimplemented@entry":
+        # G-182: beyan edilen üç blokerin ALTINDAKİ dördüncü engel. Hasat
+        # bitip üçü kalksa bile, GİRİŞ metriğini ürün üretmiyorsa hareket
+        # `live` olur ve HİÇBİR ŞEY saymaz — sessiz-hiçlik sınıfı.
+        sets = metric_support.derive()
+        missing = [m for m in entry_metrics(cat)
+                   if metric_support.unresolvable(m, metric_support.ENTRY, sets)]
+        return True, bool(missing), (
+            f"giriş metrikleri ÜRETİLMİYOR: {missing} (blokluyor)" if missing
+            else "tüm giriş metrikleri üretiliyor → BLOKLAMIYOR")
     return False, False, "TANINMAYAN bloker anahtarı"
 
 

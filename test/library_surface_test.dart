@@ -982,6 +982,11 @@ void main() {
           'engine.precondition.status!=derived': 'measurement',
           'replayFixture:missing': 'measurement',
           'provenance.sources:empty': 'measurement',
+          // G-182 dördüncü anahtar: eksik olan bir KAYIT/hasat değil,
+          // metriği ÜRETEN Dart katmanı — yani ÖLÇÜM değil KOD kuyruğu.
+          // (Yanlış kuyruk yanlış iş verir: biri gidip görüntü çeker ve
+          // hiçbir şey değişmez.)
+          'metric:unimplemented@entry': 'code',
         }[blocker]!;
       }
       final Map<String, dynamic> lib = (jsonDecode(

@@ -71,6 +71,9 @@ import json
 import sys
 from pathlib import Path
 
+import metric_support
+from validate_library import entry_metrics
+
 ROOT = Path(__file__).resolve().parent.parent
 LIB_PATH = ROOT / "content" / "library.json"
 CATALOG_ROOT = ROOT / "content" / "catalog"
@@ -125,6 +128,15 @@ def blockers_for(mid, cat):
         keys.append("replayFixture:missing")
     if not (cat.get("provenance", {}).get("sources") or []):
         keys.append("provenance.sources:empty")
+    # DÖRDÜNCÜ (G-182, koordinatör onayı 2026-08-12): üstteki üçü kalksa bile
+    # GİRİŞ metriğini ürün üretmiyorsa hareket `live` olur ve HİÇBİR ŞEY
+    # saymaz. Anahtar TÜRETİLİR (tools/metric_support.py üç motoru tarar);
+    # elle liste TUTULMAZ — ilk taramanın `burpee` yanlış-pozitifi tam da
+    # tek-dosya kapsamından doğmuştu.
+    sets = metric_support.derive()
+    if any(metric_support.unresolvable(m, metric_support.ENTRY, sets)
+           for m in entry_metrics(cat)):
+        keys.append("metric:unimplemented@entry")
     return keys
 
 
@@ -191,6 +203,20 @@ def _blocker_sentence(key, mid, name, cat):
             "every tolerance in its rules sits at our default floor rather than "
             "coming from measured disagreement between real instructors. A "
             "number from a default is not a measurement."
+        )
+    if key == "metric:unimplemented@entry":
+        gaps = _entry_gap_names(cat)
+        which = gaps[0] if len(gaps) == 1 else f"{len(gaps)} of them"
+        # ⚠️ Ham metrik adı KULLANICIYA GÖSTERİLMİYOR (iç kimlik, "ham
+        # anahtar yüzeye sızmaz" kuralı) — söylenen şey NE OLDUĞU: hareketin
+        # başlangıcını tanıyan ölçüyü henüz üretmiyoruz.
+        _ = which
+        return (
+            f"We cannot tell when this movement starts. The {name.lower()} "
+            f"has a defined start position, but the measurement that "
+            f"recognises it is not something we produce — so the app would "
+            f"wait forever without ever saying why. Counting stays closed "
+            f"until that measurement exists."
         )
     raise AssertionError(f"cümlesi olmayan bloker anahtarı: {key}")
 
@@ -418,6 +444,10 @@ BLOCKER_QUEUE = {
     "replayFixture:missing": "measurement",
     # Eğitmen referansı HASAT işidir.
     "provenance.sources:empty": "measurement",
+    # ⚠️ Bu bloker ÖLÇÜM değil KOD kuyruğunda: eksik olan bir kayıt/hasat
+    # değil, metriği ÜRETEN Dart katmanı. Yanlış kuyruk yanlış iş verir —
+    # biri gidip görüntü çeker ve hiçbir şey değişmez (J-163 dersi).
+    "metric:unimplemented@entry": "code",
 }
 
 
@@ -441,7 +471,14 @@ _BLOCKER_SHORT = {
     "engine.precondition.status!=derived": "deriving an identity check from measurement",
     "replayFixture:missing": "running its rules against real recorded footage",
     "provenance.sources:empty": "harvesting a real instructor reference",
+    "metric:unimplemented@entry": "building the measurement its start condition depends on",
 }
+
+
+def _entry_gap_names(cat):
+    sets = metric_support.derive()
+    return [m for m in entry_metrics(cat)
+            if metric_support.unresolvable(m, metric_support.ENTRY, sets)]
 
 
 def _blocker_short(key):

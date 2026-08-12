@@ -103,6 +103,11 @@ gate "skill_tree_index --check"    python3 tools/build_skill_tree_index.py --che
 gate "name_preconditions --check"  python3 tools/name_preconditions.py --check
 gate "network_claim_audit"         python3 tools/network_claim_audit.py
 gate "network_claim_audit --self-test" python3 tools/network_claim_audit.py --self-test
+# ⚠️ `metric_support` BURAYA GİRİYOR çünkü ÖZ-TESTİ VAR — yukarıdaki kapsam
+# şerhinin ölçütü tam olarak bu ("hiçbirinde --check ya da --self-test yok").
+# Öz-testi üç katmanlı: ARAÇ · DİZGE · KAPSAM (üçüncüsü olmadan `burpee`
+# yanlış-pozitif vermişti ve ilk iki katman GEÇMİŞTİ).
+gate "metric_support --self-test" python3 tools/metric_support.py --self-test
 
 line
 if [ "$fail" -eq 0 ]; then
