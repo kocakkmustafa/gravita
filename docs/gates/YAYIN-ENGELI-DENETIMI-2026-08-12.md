@@ -27,23 +27,24 @@ değil.
 | 3 | izin metni | ✅ **KAPALI** — iddia YANLIŞTI, ölçülüp düzeltildi (G-184) | hat-yereli |
 | 4 | platform eşiği | ✅ **KAPALI** — `targetSdk=36` · `compileSdk=36` (Flutter varsayılanından çözüldü). Play'in 31 Ağu 2026 eşiğini karşılıyor | hat-yereli |
 | 5 | imza | 🔴 **AÇIK** — release **debug anahtarıyla** imzalanıyor; şablon TODO'su duruyor. `key.properties` YOK, keystore YOK | **İKİYE BÖLÜNDÜ** ↓ |
-| 5a | ” yapılandırma + sessiz-düşme kapısı | 🔴 **AÇIK** — hat kendi ağacında kapatabilir | **hat-yereli** |
+| 5a | ” yapılandırma + sessiz-düşme kapısı | ✅ **KAPALI** (`131934f`) — üç yönde ölçüldü (öter · susar · ürünü engellemez) + **KİMLİK katmanı**: `-PallowDebugSigning=true` ile gerçek `assembleRelease` koşuldu ve APK sertifikası okundu → **`CN=Android Debug`**. Uyarı metni artık çıkarım değil ÖLÇÜM (Ostinato'nun katmanı) | **hat-yereli** |
 | 5b | ” keystore (sır) | 🔴 **AÇIK** — erişim/sır | **kurucu** |
-| 6 | gizlilik manifesti | 🔴 **AÇIK** — `PrivacyInfo.xcprivacy` **YOK** (dosya aranıp bulunamadı) | hat-yereli |
+| 6 | gizlilik manifesti | ✅ **KAPALI** (`c3ccf41`) — ölçüm (5 kategori, pinli çekirdek dahil, hepsi 0) + **paketleme** (4 pbxproj çapası, `plutil -lint` OK) | hat-yereli |
 | 7 | ikon | 🔴 **AÇIK** — şablon varsayılanı. Tahmin değil **kimlik**: `ic_launcher.png` md5 `13e9c72e…` = Flutter şablonununkiyle **birebir aynı**; ikon yollarına dokunan tek commit kabuk kurulumu | kurucu |
 | 8 | mağaza iddiaları | ⚪ **UYGULANAMAZ** (bugün) — mağaza listesi metni YOK. **Listeden düşmüyor** | hat-yereli (içerik) · kurucu (onay) |
-| 9 | otomatik yayın (`AFTER_APPROVAL`) | ⚪ **UYGULANAMAZ** (bugün) — ASC app kaydı YOK; bundle id `com.yulalab.gravita` yalnız **rezerve**. **Listeden düşmüyor**: gönderim açıldığı gün bu ayar varsayılanla karşımıza çıkar | kurucu |
+| 9 | otomatik yayın (`AFTER_APPROVAL`) | 🔴 **AÇIK — ve bu satır DÜZELTİLDİ (2026-08-12 akşam).** İlk yazdığım hâli *"ASC app kaydı YOK, uygulanamaz"* diyordu; **yanlıştı.** Koordinatörün aile ölçümü: **beş uygulamanın beşi de `releaseType: AFTER_APPROVAL`**, Gravita dahil (**app id 6794714365**) → onay gelir gelmez **otomatik yayın**. Yani kalem uygulanamaz değil **canlı**. 🪤 Kendi denetimimin kör noktası: ASC'yi **depodan** aradım (`grep com.yulalab.gravita`) ve bulamayınca *"kayıt yok"* dedim — ***bir kaydın DEPODA olmaması, MAĞAZADA olmaması demek değildir.*** Erişim gerektiren bir kalemi erişimsiz ölçmeye çalışmak, "yok" cevabını üretir | kurucu |
 | 10 | cihaz kanıtı | 🔴 **AÇIK** — `docs/gates/kanit/` 11 dosya taşıyor ama **cihaz kanıtı 0**. Ekranın kendi başlığı da bunu yazıyor: *"Bu ekran cihazda DOĞRULANMADI"* | kurucu |
 | 11 | sürüm | ⚪ **KARAR** — `0.1.0+1`, yani "ön sürüm" **beyanı**. Ölçüm değil, karar | kurucu |
 | 12 | araç zinciri | ✅ teşhis KAPALI / 🔴 kalıcı çözüm AÇIK | hat-yereli (teşhis) · **kurucu** (makine geneli) |
 
 ## DAĞILIM
 
-* **hat-yereli AÇIK: 2** → ⑤a imza yapılandırması+kapı · ⑥ `PrivacyInfo.xcprivacy`
+* ~~hat-yereli AÇIK: 2~~ → **KAPANDI**: ⑤a (`131934f`) · ⑥ (`c3ccf41`)
 * **çekirdek: 0** — hiçbir kalem çekirdek turu gerektirmiyor
-* **kurucu AÇIK: 6** → ⑤b keystore · ⑦ ikon · ⑨ ASC kaydı (+`AFTER_APPROVAL`) ·
+* **kurucu AÇIK: 6** → ⑤b keystore · ⑦ ikon · **⑨ `AFTER_APPROVAL` (otomatik yayın — CANLI)** ·
   ⑩ cihaz kanıtı · ⑪ sürüm kararı · ⑫ makine-geneli JDK
-* kapalı: ①②③④ + ⑫-teşhis · uygulanamaz-ama-listede: ⑧⑨
+* kapalı: ①②③④ **⑤a ⑥** + ⑫-teşhis · uygulanamaz-ama-listede: ⑧
+* **hat-yereli AÇIK: 0** (⑤a `131934f` · ⑥ `c3ccf41` ile kapandı)
 
 ## YÖNTEMİN BANA GÖSTERDİĞİ — kalem tek tek kapatmak DENETİM DEĞİLDİR
 
