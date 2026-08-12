@@ -33,10 +33,59 @@ Set<String> declaredScreens() {
       r'^class\s+(\w+(?:Screen|Page|Tab|Flow))\s+extends\s+(?:Stateless|Stateful)Widget',
       multiLine: true);
   final Set<String> out = <String>{};
-  for (final FileSystemEntity f in Directory('lib/app').listSync()) {
-    if (f is! File || !f.path.endsWith('.dart')) continue;
+  for (final File f in _appSources()) {
     for (final RegExpMatch m in cls.allMatches(f.readAsStringSync())) {
       out.add(m.group(1)!);
+    }
+  }
+  return out;
+}
+
+/// Kaynak dosya kümesi — **ÖZYİNELEMELİ** (G-198).
+///
+/// ⚠️ Eskiden `listSync()` özyinelemesizdi. Ölçüldü (2026-08-13): bugün
+/// `lib/` altında **yalnız `lib/app`** var, alt klasör **yok** ⇒ bu değişiklik
+/// bugünün sayısını **değiştirmiyor**. Ama `lib/app/` altına bir klasör açıldığı
+/// gün envanter **sessizce** eksilirdi ve hiçbir kapı ötmezdi.
+/// > *Bugün etkisiz bir nöbetçi, yarın sessiz bir kayıptan ucuzdur.*
+Iterable<File> _appSources() => Directory('lib/app')
+    .listSync(recursive: true)
+    .whereType<File>()
+    .where((File f) => f.path.endsWith('.dart'));
+
+/// **KANAL-2 — YAPI: MONTAJ NOKTASI** (sözleşme (a): *iki bağımsız türetimin
+/// uzlaşması*).
+///
+/// ⛔ **Ostinato'nun `Scaffold(` kanalı BU AĞACA GEÇMİYOR — kopyalanmadı,
+/// ÖLÇÜLDÜ** (G-198). O kanal burada **15** sınıf buluyor; altısı hedef değil:
+/// `GravitaShell` · `GravitaRoot` (kabuk/kök kapsayıcı) ve `_CameraStep` ·
+/// `_SafetyStep` · `_ValueStep` · `_StepScaffold` (onboarding'in **özel**
+/// adımları — `ProgressView` gibi, hedef değil içeride çizilen görünüm).
+/// Kopyalansaydı kapı **doğar doğmaz** altı hayaletle kırmızı olurdu.
+/// > *Sözleşme kanalın ADINI değil, ağaçta ÖLÇÜLMESİNİ ister — Choreia'nın
+/// > ödediği bedel (M-F-580 sınıfı) bu hatta da geçerli çıktı.*
+///
+/// Bu ağacın çalışan kanalı **montaj noktası**: bir sınıf ya kabuğun
+/// `IndexedStack`ine sekme gövdesi olarak monte edilir ya da bir
+/// `MaterialPageRoute(builder:)` içinde itilir. İkisi de **kullanıcı hedefi**
+/// anlamını taşır; `Scaffold` ise yalnız *"tam ekran çiziyorum"* der.
+Set<String> mountedScreens() {
+  final RegExp pushed =
+      RegExp(r'builder:\s*\(_\)\s*=>\s*([A-Z]\w*)\s*\(');
+  final RegExp shellBlock =
+      RegExp(r'IndexedStack\([\s\S]*?children:\s*<Widget>\[([\s\S]*?)\n\s*\],');
+  final RegExp child = RegExp(r'^\s+([A-Z]\w*)\s*\(', multiLine: true);
+
+  final Set<String> out = <String>{};
+  for (final File f in _appSources()) {
+    final String src = f.readAsStringSync();
+    for (final RegExpMatch m in pushed.allMatches(src)) {
+      out.add(m.group(1)!);
+    }
+    for (final RegExpMatch b in shellBlock.allMatches(src)) {
+      for (final RegExpMatch c in child.allMatches(b.group(1)!)) {
+        out.add(c.group(1)!);
+      }
     }
   }
   return out;

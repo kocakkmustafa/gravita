@@ -135,6 +135,34 @@ void main() {
             'kontroldür: türetim onu yutuyorsa bozuk olan TÜRETİMDİR, taban '
             'değil. (Tabanı küçülterek geçirme — desen neden kaçırdı, ONU ölç.)');
 
+    // ⚖️ (a) İKİNCİ TÜRETİM KANALI — *iki bağımsız türetimin uzlaşması* (G-198).
+    //
+    // AD kanalı sınıf **bildirimine** bakar, YAPI kanalı **montaj noktasına**.
+    // Ayrışırlarsa kapı öter: yapıda monte edilen ama ad deseninin kaçırdığı
+    // bir sınıf, envanterde **hayalet** demektir.
+    //
+    // ⚠️ Yön TEK TARAFLI ve bu bilerek: `montaj ⊆ ad`. Tersi (ad ∖ montaj)
+    // ölçüldü ve **boş değil** — `ContentFailureScreen` (sistem gösterir) ·
+    // `OnboardingFlow` (kök, montaj noktası yok) · `LibraryScreen` ·
+    // `ProfileScreen` · `ProgressTab` (sekme gövdeleri kabuğun İÇİNDE).
+    // Çift yönlü eşitlik istemek **gerçek hedefleri hayalet ilan ederdi.**
+    final Set<String> byMount = mountedScreens();
+    debugPrint('── (a) İKİ KANAL ──');
+    debugPrint('   AD: ${candidates.length} · YAPI(montaj): ${byMount.length}');
+    debugPrint('   YAPI ∖ AD: ${byMount.difference(candidates)}');
+
+    // Vakum koruması (Choreia M-F-580): kanal hiç aday bulamazsa denetim
+    // vakumda demektir — sessiz geçiş yerine kırmızı.
+    expect(byMount, isNotEmpty,
+        reason: 'YAPI kanalı hiç montaj noktası bulamadı — denetim VAKUMDA. '
+            'Desen ağacın biçimiyle ayrışmış olabilir.');
+
+    expect(byMount.difference(candidates), isEmpty,
+        reason: 'İKİ TÜRETİM AYRIŞTI — yapıda monte edilen bir ekranı AD '
+            'deseni kaçırıyor: ${byMount.difference(candidates)}. Envanter '
+            'eksik demektir (Gravita M-F-575 sınıfı: desenin kapsamı, onu '
+            'yazanın adlandırma alışkanlığı kadardır).');
+
     final Set<String> reached = <String>{};
 
     late ContentRepository content;
