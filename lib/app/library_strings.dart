@@ -189,8 +189,29 @@ abstract final class LibraryStrings {
   static String formErrorsBody(int n) => n == 1
       ? 'One rule is written for this movement. It does not run.'
       : '$n rules are written for this movement. They do not run.';
-  static String formErrorsBodyLive(int n) =>
-      n == 1 ? 'One rule runs during a session.' : '$n rules run during a session.';
+  /// ⛔ **BU CÜMLE BİR KEZ YALAN SÖYLEDİ — G-212.** Eski hâli:
+  /// *"$n rules run during a session."*
+  ///
+  /// Ölçüldü: kuralları değerlendiren API (`RepEngine.correctionFor` /
+  /// `topCorrection` / `repMetrics`) **üründe HİÇ ÇAĞRILMIYOR** — tek çağıran
+  /// `tool/replay_gate.dart`, yani KAYITLI görüntü üzerinde koşan çevrimdışı
+  /// kapı. Canlı seansta hiçbir kural değerlendirilmiyor.
+  ///
+  /// Kusurun kaynağı bir VEKİLDİ: `m.isLive` *"kurallar koşuyor"* sanıldı;
+  /// oysa `isLive` yalnız *"tekrar sayımı açık"* demek. İki ayrı olgu.
+  /// > ***BİR HAREKETİN ÖLÇÜLÜYOR OLMASI, KURALLARININ KOŞTUĞU ANLAMINA
+  /// > GELMEZ.***
+  ///
+  /// Ve aynı sayfa zaten `comingSoonInThisMovement`te *"during a live session
+  /// no cue appears on screen"* diyordu ⇒ **tek ekranda iki cümle birbirini
+  /// çürütüyordu** (koordinatör `H-10`, Lissom'un ikinci kusuruyla aynı sınıf).
+  static String formErrorsBodyLive(int n) => n == 1
+      ? 'One rule is written for this movement. It fires on recorded footage, '
+          'but nothing checks it while you are training — you are not told '
+          'mid-set.'
+      : '$n rules are written for this movement. They fire on recorded '
+          'footage, but nothing checks them while you are training — you are '
+          'not told mid-set.';
 
   static const String safetyTitle = 'Before you start';
   static const String coursesTitle = 'Courses';
