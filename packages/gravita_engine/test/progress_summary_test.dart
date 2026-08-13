@@ -33,12 +33,14 @@ void main() {
   const LessonSurface reps = LessonSurface(
     id: 'push_foundations.reps_and_tempo',
     displayName: 'Reps that count',
+    movementName: 'Push-Up',
     unitLabel: 'rep',
     gradedToday: false,
   );
   const LessonSurface formLocked = LessonSurface(
     id: 'push_foundations.form_check',
     displayName: 'Body-line check',
+    movementName: 'Push-Up',
     unitLabel: 'rep',
     gradedToday: false,
     lockedReason: 'Nine joint tolerances still sit at our default floor.',
@@ -46,6 +48,7 @@ void main() {
   const LessonSurface plank = LessonSurface(
     id: 'hold_foundations.plank',
     displayName: 'Plank',
+    movementName: 'Plank',
     unitLabel: 'second',
     gradedToday: false,
   );
@@ -85,6 +88,12 @@ void main() {
         <String>{
           'lessonId',
           'displayName',
+          // ⚠️ `movementName` BİLEREK eklendi (G-203) — çivi görevini yaptı
+          // ve değişikliği ADIYLA durdurdu. Eklenme sebebi bir SKOR alanı
+          // değil, tam tersi: ekranda iki ders de "Reps that count" yazıyordu
+          // ve kullanıcı ayırt edemiyordu. Alan bir NOT taşımıyor, bir
+          // BAĞLAM taşıyor — kural 1 ihlal edilmedi.
+          'movementName',
           'state',
           'unitLabel',
           'sessionCount',
@@ -133,6 +142,7 @@ void main() {
         () => LessonSurface(
           id: 'x',
           displayName: 'X',
+          movementName: 'X hareketi',
           unitLabel: 'rep',
           gradedToday: true,
           lockedReason: 'ölçüm yok',
@@ -159,6 +169,7 @@ void main() {
       const LessonSurface promoted = LessonSurface(
         id: 'push_foundations.form_check',
         displayName: 'Body-line check',
+        movementName: 'Push-Up',
         unitLabel: 'rep',
         gradedToday: true,
       );

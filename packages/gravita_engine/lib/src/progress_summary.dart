@@ -140,6 +140,7 @@ final class LessonSurface {
   const LessonSurface({
     required this.id,
     required this.displayName,
+    required this.movementName,
     required this.unitLabel,
     required this.gradedToday,
     this.lockedReason,
@@ -177,6 +178,9 @@ final class LessonSurface {
           out.add(LessonSurface(
             id: l['id'] as String,
             displayName: l['displayName'] as String,
+            // Hareketin adı — `id` DEĞİL. `id` kullanıcıya gösterilmez
+            // (bu dosyanın kendi dersi, `displayName`in eklenme sebebi).
+            movementName: m['displayName'] as String,
             unitLabel: unit,
             gradedToday:
                 (l['gradesFormAgainstReference'] as bool? ?? false) && !locked,
@@ -199,6 +203,24 @@ final class LessonSurface {
   /// testleri, yüzeyin göstermesi GEREKENİ iddia etmeli; kimliği iddia eden
   /// test, kimliğin sızmasını kutsar.
   final String displayName;
+
+  /// Dersin ait olduğu HAREKETİN adı — *"Bodyweight Squat"*.
+  ///
+  /// ⚠️ Bu alan, kabuğu SİMÜLATÖRDE YÜRÜYÜNCE eklendi (G-203) ve
+  /// [displayName]'in eklenme sebebinin **bir katman ötesi**: ad geldi ama
+  /// BAĞLAM gelmedi. Progress ekranında **iki ders de** *"Reps that count"*
+  /// yazıyordu — biri squat'ın, biri şınavın — ve kullanıcı ikisini
+  /// **ayırt edemiyordu**. Ders adı kendi hareketinin bağlamında DOĞRU;
+  /// kusur, o bağlamı düşüren YÜZEYDE.
+  ///
+  /// > ***BİR ADIN KENDİ BAĞLAMINDA TEKİL OLMASI, BAĞLAMSIZ GÖSTERİLDİĞİNDE
+  /// > DE TEKİL OLDUĞU ANLAMINA GELMEZ.***
+  ///
+  /// 📌 Ve 177 test yeşilken kaçtı, çünkü hepsi **tek bir satırın** ne
+  /// yazdığını soruyordu; hiçbiri *"iki satır birbirinden ayırt edilebilir
+  /// mi"* diye sormuyordu — **ayırt edilebilirlik, satır başına değil KÜME
+  /// üzerinde ölçülür.**
+  final String movementName;
 
   /// `rep` · `second`. Yüzeyin bu dersi hangi birimde göstereceği.
   final String unitLabel;
@@ -231,6 +253,7 @@ final class LessonProgress {
   const LessonProgress._({
     required this.lessonId,
     required this.displayName,
+    required this.movementName,
     required this.state,
     required this.unitLabel,
     required this.sessionCount,
@@ -282,6 +305,7 @@ final class LessonProgress {
     return LessonProgress._(
       lessonId: s.id,
       displayName: s.displayName,
+      movementName: s.movementName,
       state: state,
       unitLabel: s.unitLabel,
       sessionCount: rs.length,
@@ -303,6 +327,10 @@ final class LessonProgress {
 
   /// Kullanıcıya gösterilecek ad. `lessonId` YALNIZ kayıt eşlemesi içindir.
   final String displayName;
+
+  /// Dersin HAREKETİ — [displayName] tek başına AYIRT EDİCİ DEĞİL.
+  /// Gerekçesi ve ölçümü: [LessonSurface.movementName].
+  final String movementName;
 
   final LessonProgressState state;
   final String unitLabel;
@@ -349,6 +377,7 @@ final class LessonProgress {
   Map<String, dynamic> toJson() => <String, dynamic>{
         'lessonId': lessonId,
         'displayName': displayName,
+        'movementName': movementName,
         'state': state.name,
         'unitLabel': unitLabel,
         'sessionCount': sessionCount,

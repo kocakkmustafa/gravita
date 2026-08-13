@@ -142,6 +142,7 @@ void main() {
     const LessonSurface reps = LessonSurface(
       id: 'push_foundations.reps_and_tempo',
       displayName: 'Reps that count',
+      movementName: 'Push-Up',
       unitLabel: 'rep',
       gradedToday: false,
     );

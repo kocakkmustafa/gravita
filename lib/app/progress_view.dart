@@ -96,7 +96,14 @@ class ProgressView extends StatelessWidget {
     ];
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(18, 12, 18, 40),
+      // ⚠️ Alt pay 40 → 96 (G-203). Kabuğun seans düğmesi `centerFloat` ile
+      // içeriğin ÜSTÜNDE yüzüyor; 40 ile son kart **hiçbir kaydırma
+      // konumunda** temize çıkmıyordu (simülatörde ölçüldü: `Body-line
+      // check` gövdesi düğmenin altında kalıyor). Diğer üç sekme zaten 96
+      // ayırıyordu — kural biliniyordu, burada uygulanmamıştı.
+      // Nöbetçisi: `test/fab_clearance_test.dart`, payı düğmenin GERÇEK
+      // geometrisinden türetiyor.
+      padding: const EdgeInsets.fromLTRB(18, 12, 18, 96),
       children: <Widget>[
         _section(
           key: measuredSectionKey,
@@ -172,6 +179,13 @@ class ProgressView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          // ⚠️ HAREKET ADI ÜST SATIRDA — ve bu bir süs değil, AYIRT EDİCİ.
+          // Simülatörde yürüyünce ölçüldü (G-203): bu ekranda **iki satır da**
+          // "Reps that count" yazıyordu (biri squat'ın, biri şınavın) ve
+          // kullanıcı hangisinin hangisi olduğunu **bilemiyordu**.
+          // Ders adı kendi hareketinin bağlamında doğru; düşen şey BAĞLAMDI.
+          _overline(l.movementName),
+          const SizedBox(height: 4),
           // Kullanıcıya AD gösterilir, kimlik gösterilmez. `lessonId` yalnız
           // [Key]'de: test hangi satıra baktığını bilsin diye.
           Text(l.displayName,
@@ -226,11 +240,22 @@ class ProgressView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Expanded(
-                child: Text(l.displayName,
-                    style: GravitaType.display(
-                        size: 15.5,
-                        weight: FontWeight.w500,
-                        color: GravitaColors.honestyText)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    // Kilitli satırda da aynı ayrım gerekli: iki hareketin
+                    // kilitli dersleri farklı adlar taşıyor OLABİLİR, ama
+                    // "olabilir" bir güvence değildir (M-F-194 pozitif-ikiz
+                    // mantığının yüzeydeki hâli).
+                    _overline(l.movementName),
+                    const SizedBox(height: 4),
+                    Text(l.displayName,
+                        style: GravitaType.display(
+                            size: 15.5,
+                            weight: FontWeight.w500,
+                            color: GravitaColors.honestyText)),
+                  ],
+                ),
               ),
               const SizedBox(width: 10),
               const GravitaPill(label: 'LOCKED', tone: GravitaColors.honestySeal),
@@ -323,6 +348,19 @@ class ProgressView extends StatelessWidget {
           child: child,
         ),
       );
+
+  /// Satırın HANGİ HAREKETE ait olduğunu söyleyen üst satır.
+  ///
+  /// ⚠️ Yeni bir görsel dil İCAT ETMİYOR: bölüm başlıklarının (`_section`)
+  /// zaten kullandığı mono/aralıklı/ikincil dizgisinin aynısı, bir punto
+  /// küçüğü. *Bir kusuru düzeltirken tasarım yönü açmak, düzeltmenin
+  /// kendisini bir karara dönüştürürdü* (M-F-77).
+  Widget _overline(String text) => Text(text.toUpperCase(),
+      style: GravitaType.mono(
+          size: 10.5,
+          color: GravitaColors.textSecondary,
+          weight: FontWeight.w600,
+          letterSpacingEm: 0.12));
 
   Widget _stat(String text, {Color color = GravitaColors.ink}) => Text(
         text,

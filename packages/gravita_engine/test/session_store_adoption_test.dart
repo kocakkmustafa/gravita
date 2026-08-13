@@ -127,6 +127,7 @@ void main() {
         LessonSurface(
           id: plankId,
           displayName: 'Plank',
+          movementName: 'Plank',
           unitLabel: 'second',
           gradedToday: false,
         )

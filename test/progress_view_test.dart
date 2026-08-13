@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/progress_strings.dart';
 import 'package:gravita/app/progress_view.dart';
 import 'package:gravita_engine/gravita_engine.dart';
@@ -21,18 +23,21 @@ void main() {
   const LessonSurface reps = LessonSurface(
     id: 'push_foundations.reps_and_tempo',
     displayName: 'Reps that count',
+    movementName: 'Push-Up',
     unitLabel: 'rep',
     gradedToday: false,
   );
   const LessonSurface plank = LessonSurface(
     id: 'hold_foundations.plank',
     displayName: 'Plank',
+    movementName: 'Plank',
     unitLabel: 'second',
     gradedToday: false,
   );
   const LessonSurface formLocked = LessonSurface(
     id: 'push_foundations.form_check',
     displayName: 'Body-line check',
+    movementName: 'Push-Up',
     unitLabel: 'rep',
     gradedToday: false,
     lockedReason: 'Nine joint tolerances still sit at our default floor.',
@@ -153,6 +158,7 @@ void main() {
     const LessonSurface promoted = LessonSurface(
       id: 'push_foundations.form_check',
       displayName: 'Body-line check',
+      movementName: 'Push-Up',
       unitLabel: 'rep',
       gradedToday: true,
     );
@@ -275,5 +281,105 @@ void main() {
     );
     expect(find.byKey(ProgressView.notesSectionKey), findsNothing);
     expect(find.text(ProgressStrings.notesSection), findsNothing);
+  });
+
+
+/// ⭐ AYIRT EDİLEBİLİRLİK — satır başına DEĞİL, KÜME üzerinde.
+///
+/// ## Neden ayrı bir `main` bloğu değil de ayrı bir dosya-sonu grubu
+///
+/// Yukarıdaki testlerin hepsi *"şu satırda ne yazıyor"* diye soruyor ve
+/// **177'si birden yeşilken** şu kusur simülatörde ortaya çıktı (G-203):
+/// Progress ekranında **iki satır da** *"Reps that count"* yazıyordu — biri
+/// squat'ın, biri şınavın — ve kullanıcı hangisinin hangisi olduğunu
+/// bilemiyordu.
+///
+/// > ***BİR SATIRIN DOĞRU OLMASI, İKİ SATIRIN AYIRT EDİLEBİLİR OLDUĞUNU
+/// > SÖYLEMEZ — ayırt edilebilirlik satır başına değil KÜME üzerinde
+/// > ölçülür.***
+///
+/// Bu yüzden buradaki iddia bir metnin varlığı değil, bir **eşlemenin
+/// tekilliği**: görünen etiketler kümesi, ders sayısı kadar ELEMAN taşımalı.
+/// Ve fikstürle değil **GERÇEK içerikle** koşuyor — çakışma içerikte
+/// doğuyor, fikstürde değil.
+
+
+  testWidgets('GERÇEK içerik: görünen ders etiketleri PARÇALI TEKİL',
+      (WidgetTester tester) async {
+    // Dar ve UZUN: `ListView` ekran dışındaki çocuğu Offstage yapmaz, HİÇ
+    // MOUNT ETMEZ — 812pt'de alt satırlar element ağacında olmaz ve
+    // çakışma **görünmeden** geçerdi (bu ailenin ölçülmüş tuzağı).
+    tester.view.physicalSize = const Size(375, 4000);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+
+    late ContentRepository c;
+    await tester.runAsync(() async => c = await ContentRepository.load(rootBundle));
+
+    final ProgressSummary summary = ProgressSummary.build(
+      lessonSurfaces: c.lessonSurfaces,
+      records: const <SessionRecord>[],
+    );
+
+    // VAKUM: ders yoksa "hepsi tekil" TANIM GEREĞİ doğrudur.
+    // *"0 çakışma" en kolay sahtelenen sayıdır.*
+    expect(summary.lessons, isNotEmpty,
+        reason: 'VAKUM: hiç ders yok — tekillik iddiası anlamsız');
+
+    await tester.pumpWidget(
+        MaterialApp(home: Scaffold(body: ProgressView(summary: summary))));
+    await tester.pump();
+
+    // Kullanıcının GÖRDÜĞÜ etiket = hareket adı + ders adı. `lessonId`
+    // KULLANILMIYOR: kimlik üzerinden tekillik sınamak, kullanıcıya
+    // gösterilMEYEN bir şeyin tekilliğini kanıtlardı — yani bu ekranın
+    // kendi geçmişteki kusurunun (kimlik sızması) test hâli.
+    final List<String> gorunen = summary.lessons
+        .map((LessonProgress l) => '${l.movementName}|${l.displayName}')
+        .toList();
+
+    expect(gorunen.toSet().length, gorunen.length,
+        reason: 'İKİ DERS AYNI ETİKETİ TAŞIYOR — kullanıcı ayırt edemez. '
+            'Görünen etiketler: $gorunen');
+
+    // ⭐ POZİTİF İKİZ (M-F-194): ders ADI tek başına ZATEN çakışıyor.
+    // Bu beklenti olmadan yukarıdaki yeşil, *"zaten çakışma yoktu"* diye
+    // okunabilirdi — yani kapı hiçbir şey kanıtlamamış olurdu.
+    // > ***BİR KAPININ YEŞİLİ, KORUDUĞU ŞEYİN GERÇEKTEN RİSK ALTINDA
+    // > OLDUĞU KANITLANMADAN KANIT DEĞİLDİR.***
+    final List<String> yalnizDersAdi = summary.lessons
+        .map((LessonProgress l) => l.displayName)
+        .toList();
+    expect(yalnizDersAdi.toSet().length, lessThan(yalnizDersAdi.length),
+        reason: 'Ders adları artık kendiliğinden tekil — bu kapı bugün bir '
+            'RİSKİ değil bir TAVTOLOJİYİ koruyor olabilir; şerhi güncelle');
+
+    // Ve hareket adı EKRANDA gerçekten çiziliyor mu — **HER SATIRIN KENDİ
+    // İÇİNDE**, ekranın herhangi bir yerinde değil.
+    //
+    // 🔴 İLK YAZIŞIM GÖLGELENİYORDU ve sabotaj bunu ölçtü: kontrol
+    // `find.text(ad)` ile TÜM EKRANA bakıyordu; ölçüm satırından hareket
+    // adını söktüğümde **kilitli satırlar** aynı metni sağlıyordu ve kapı
+    // YEŞİL kaldı. Yani assert'in yeşilliği kendi konusunun değil
+    // KOMŞUSUNUN kanıtıydı.
+    //
+    // > ***BİR ASSERT'İN YEŞİLLİĞİ, ÖTME YETENEĞİNİN DEĞİL KOMŞULARININ
+    // > KANITI OLABİLİR*** — kapsamı daraltmak, kapıyı zayıflatmaz;
+    // > ölçtüğü şeyi ona AİT kılar.
+    for (final LessonProgress l in summary.lessons) {
+      final Key satir = l.state == LessonProgressState.locked
+          ? Key('progress.locked.${l.lessonId}')
+          : Key('progress.measured.${l.lessonId}');
+      expect(
+        find.descendant(
+            of: find.byKey(satir),
+            matching: find.text(l.movementName.toUpperCase()),
+            matchRoot: false),
+        findsOneWidget,
+        reason: '"${l.movementName}" modelde VAR ama "${l.lessonId}" '
+            'SATIRINDA çizilmiyor — kullanıcı o satırın hangi harekete ait '
+            'olduğunu göremez',
+      );
+    }
   });
 }
