@@ -110,7 +110,7 @@
         }
       ],
       "comingSoonInThisMovement": [
-        "Tempo (down/up timing) — the engine measures it from the real turnaround point, not from a threshold crossing, and that is proven on recorded footage. But no screen in this app shows it to you, so we do not count it as something you get.",
+        "Tempo while the set is running — the engine measures each rep's down and up timing from the real turnaround point, not from a threshold crossing, and that is proven on recorded footage. The summary at the end of a session now shows you the median down and up, so this is no longer fully missing. What is still missing: nothing shows your tempo while you are actually moving, and there is no per-rep breakdown — only the median for the whole set.",
         "Knee range of motion per rep — same situation: the engine computes it for every rep, and nothing in the app displays it.",
         "Being told a rep was too shallow — the shallow-depth rule fires correctly on recorded footage, but during a live session no cue appears on screen, so nothing actually tells you.",
         "Depth and lean grading (forward lean / heel lift / butt wink) — the rules fire correctly on real footage and the reference is now ATTESTED, but knee, shin and torso tolerances are not variance-derived, so we show the cue and never a score",

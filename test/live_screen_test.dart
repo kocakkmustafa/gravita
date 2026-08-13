@@ -195,6 +195,67 @@ void main() {
     });
   });
 
+  /// ⭐ G-210 — YÜZEYE ÇIKAN BİR ÖLÇÜM, İÇERİKTE "GÖSTERİLMİYOR" DİYE KALAMAZ.
+  ///
+  /// ## Bu kapının doğuş hikâyesi — kendi kusurum
+  ///
+  /// `G-207` seans özetine **tempo** ekledi. `content/library.json`da ise
+  /// squat'ın `comingSoonInThisMovement[0]`'ı şunu diyordu:
+  /// *"…**no screen in this app shows it to you**, so we do not count it as
+  /// something you get."*
+  /// Sabahleyin DOĞRU olan bu cümleyi **kendi iyileştirmem YALANA çevirdi** ve
+  /// üç süitin hiçbiri kırmızı yanmadı.
+  ///
+  /// > ***BİR ÜRÜNÜ İYİLEŞTİRMEK, ONUN HAKKINDAKİ DOĞRU BİR CÜMLEYİ
+  /// > YANLIŞLAYABİLİR — VE BU, KUSURUN EN SESSİZ TÜRÜDÜR: kimse bir şeyi
+  /// > bozmamıştır, yalnız beyan geride kalmıştır.***
+  ///
+  /// Kusuru bulan şey bir kapı değildi: uygulamayı açıp `push_up` sayfasını
+  /// **okumaktı**. Kapı şimdi var, ki bir dahakine okumaya kalmasın.
+  ///
+  /// ## Neden YALNIZ ulaşılabilir hareket
+  ///
+  /// `push_up`ın aynı cümlesi **bugün hâlâ DOĞRU** — o hareketin seansı
+  /// başlatılamıyor (`startable_reach_test`), dolayısıyla tempoyu ona
+  /// gösteren bir ekran gerçekten yok. Cümleyi orada da değiştirmek,
+  /// düzeltmek değil **yeni bir yanlış beyan üretmek** olurdu.
+  /// ⇒ Kapı `liveConfig`in döndürdüğü harekete bağlanıyor: `push_up`
+  /// başlatılabilir olduğu gün otomatik olarak onu da kapsar.
+  group('içerik, gösterilen bir ölçümü "gösterilmiyor" diye ANLATMIYOR (G-210)',
+      () {
+    testWidgets('ulaşılabilir hareket tempoyu "hiçbir ekran göstermiyor" DEMİYOR',
+        (WidgetTester tester) async {
+      late ContentRepository repo;
+      await tester
+          .runAsync(() async => repo = await ContentRepository.load(rootBundle));
+
+      final MovementConfig? giris = repo.liveConfig;
+      expect(giris, isNotNull, reason: 'VAKUM: canlı giriş yoksa kapı boştur.');
+
+      final MovementEntry hareket = repo.catalogue.movements
+          .firstWhere((MovementEntry m) => m.catalogId == giris!.id);
+
+      // Seans özeti tempoyu ÇİZİYOR — bu testin dayanağı budur.
+      final LiveFinished ornek = LiveFinished(
+        reps: <Rep>[_rep(0, descentUs: 900000, ascentUs: 800000)],
+        framesSeen: 40,
+        elapsed: const Duration(seconds: 20),
+      );
+      expect(ornek.tempo, isNotNull,
+          reason: 'Tempo artık ölçülüp gösteriliyor; aşağıdaki beyan buna '
+              'dayanıyor. Tempo yüzeyden kalkarsa bu kapı da yeniden '
+              'gerekçelendirilmeli.');
+
+      for (final String cumle in hareket.comingSoon) {
+        final String c = cumle.toLowerCase();
+        if (!c.contains('tempo')) continue;
+        expect(c, isNot(contains('no screen in this app shows it')),
+            reason: 'İçerik tempoyu "hiçbir ekran göstermiyor" diye anlatıyor, '
+                'ama seans özeti onu ÇİZİYOR. Beyan geride kalmış: $cumle');
+      }
+    });
+  });
+
   group('hâller birbirinin yerine geçmiyor', () {
     test('"kimse yok" LiveRunning içinde, LiveFailed DEĞİL', () {
       const LiveState s =
