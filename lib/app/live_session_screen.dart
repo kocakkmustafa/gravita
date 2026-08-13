@@ -79,6 +79,11 @@ class LiveSessionScreen extends StatefulWidget {
   static const Key noPersonKey = Key('live.noPerson');
   static const Key repCountKey = Key('live.repCount');
 
+  /// G-207 — biten seansın özeti.
+  static const Key finishedKey = Key('live.finished');
+  static const Key finishedRepCountKey = Key('live.finished.repCount');
+  static const Key goAgainKey = Key('live.goAgain');
+
   @override
   State<LiveSessionScreen> createState() => _LiveSessionScreenState();
 }
@@ -214,11 +219,25 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
     // yani Progress ekranı hiçbir zaman gerçek bir seans göremezdi ve
     // `HistoryStatus` makinesinin tamamı hiçbir şeyin yazmadığı bir dosyayı
     // okuyordu.
+    // ⚠️ SIRA KORUNUYOR: `_persist()` `_state`i LiveRunning olarak okur
+    // (`buildFreeSessionRecord` yalnız o hâlde kayıt üretir). Aşağıdaki
+    // geçişten ÖNCE çağrılmak zorunda.
     await _persist();
     if (!mounted) return;
+
+    // ⭐ G-207: sonuç EKRANDA KALIR. Önceden burada `LiveIdle()` vardı ve
+    // kullanıcı setini bitirdiği anda ekran "henüz başlamadın"a dönüyordu —
+    // ölçülen sayılar gözünün önünden siliniyordu.
+    final DateTime simdi = DateTime.now();
     setState(() {
       _running = false;
-      _state = const LiveIdle();
+      // Karar `live_session.dart`ta ve SAF — `buildFreeSessionRecord`ın
+      // kardeşi. Ekran onu SÜRER, taşımaz.
+      _state = buildFinishedState(
+        state: _state,
+        startedAt: _startedAt ?? simdi,
+        endedAt: simdi,
+      );
       _startedAt = null;
     });
   }
@@ -411,7 +430,63 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
               ),
             ],
           ),
+        // ⭐ G-207 — SONUÇ. Yeni bir görsel dil YOK: aynı `_sheet`, aynı
+        // tipografi. Değişen tek şey, ölçülen sayıların bitişte ekranda
+        // KALMASI.
+        LiveFinished(
+          :final int repCount,
+          :final bool sawFrames,
+          :final Duration elapsed
+        ) =>
+          _sheet(
+            key: LiveSessionScreen.finishedKey,
+            children: <Widget>[
+              // "Hiç kare gelmedi" ile "izledik, tam tekrar çıkmadı" AYRI
+              // cümleler: biri ölçüm yokluğu, öteki gerçek bir ölçüm sonucu.
+              if (!sawFrames) ...<Widget>[
+                _sheetHeadline(LiveStrings.finishedNoFrames),
+                const SizedBox(height: 10),
+                _sheetNote(LiveStrings.finishedNoFramesNote),
+              ] else ...<Widget>[
+                _sheetHeadline(LiveStrings.finishedTitle),
+                const SizedBox(height: 14),
+                Text(
+                  repCount == 0
+                      ? LiveStrings.finishedNoReps
+                      : LiveStrings.reps(repCount),
+                  key: LiveSessionScreen.finishedRepCountKey,
+                  style: GravitaType.display(size: 40, color: GravitaColors.ink),
+                ),
+                const SizedBox(height: 8),
+                if (repCount == 0)
+                  _sheetNote(LiveStrings.finishedNoRepsNote)
+                else ...<Widget>[
+                  _sheetNote(LiveStrings.finishedDuration(elapsed)),
+                  // Tempo YALNIZ tekrar varken çizilir: sıfır tekrarda
+                  // gösterilecek bir iniş/çıkış süresi yoktur ve "0,0s"
+                  // basmak ölçülmemiş bir şeyi ölçülmüş gibi gösterirdi.
+                  if (_tempoText() case final String t) _sheetNote(t),
+                ],
+                const SizedBox(height: 10),
+                _sheetNote(LiveStrings.finishedNote),
+              ],
+              const SizedBox(height: 22),
+              FilledButton(
+                key: LiveSessionScreen.goAgainKey,
+                onPressed: () => setState(() => _state = const LiveIdle()),
+                child: const Text(LiveStrings.goAgain),
+              ),
+            ],
+          ),
       };
+
+  /// Tempo satırı — ölçüm yoksa `null` ve satır HİÇ çizilmez.
+  String? _tempoText() {
+    final LiveState s = _state;
+    if (s is! LiveFinished) return null;
+    final ({Duration ascent, Duration descent})? t = s.tempo;
+    return t == null ? null : LiveStrings.finishedTempo(t.descent, t.ascent);
+  }
 
   // Sheet zemini AÇIK (design: `rgba(255,253,252,…)` üstte), yalnız kamera
   // arkaplanı koyu — o yüzden buradaki varsayılan renkler ink/secondary'dir,

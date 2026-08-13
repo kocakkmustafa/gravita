@@ -40,6 +40,62 @@ final class LiveRunning extends LiveState {
   int get repCount => reps.length;
 }
 
+/// Oturum BİTTİ — ölçülen ne ise o burada durur.
+///
+/// ## ⭐ Neden bu hâl var (G-207)
+///
+/// Bu hâl yokken `_stop()` kaydı yazıp doğrudan [LiveIdle]'a dönüyordu. Yani
+/// kullanıcı setini bitirdiği ANDA ekran *"henüz başlamadın"* hâline
+/// düşüyordu ve az önce kazandığı sayılar gözünün önünden siliniyordu.
+/// Kayıt sağlamdı (G-132), kaybolan **tamamlanma anıydı**.
+/// > ***ÖLÇÜLEN BİR ŞEYİ SAKLAMAK İLE GÖSTERMEMEK AYNI ŞEY DEĞİLDİR — AMA
+/// > KULLANICI İÇİN AYNI HİSSEDİLİR.***
+///
+/// ## ⛔ Ne İDDİA ETMEZ
+///
+/// **"Kaydedildi" DEMEZ.** Yazma başarısızlığı seansı bloklamıyor ve sessizce
+/// "kaydedildi" de demiyor (`_persist` doc'u); burada bir kayıt iddiası
+/// üretmek, ölçmediğimiz bir şeyi beyan etmek olurdu. Kalıcılığın kendi
+/// yüzeyi okuma tarafında (`HistoryStatus`) zaten var.
+/// **SKOR da vermez** — sayım ve tempo ölçümdür, not değildir.
+final class LiveFinished extends LiveState {
+  const LiveFinished({
+    required this.reps,
+    required this.framesSeen,
+    required this.elapsed,
+  });
+
+  final List<Rep> reps;
+  final int framesSeen;
+  final Duration elapsed;
+
+  int get repCount => reps.length;
+
+  /// Kare GÖRÜLDÜ mü — `false` ise ortada bir seans değil, başlatılamamış bir
+  /// deneme vardır ([buildFreeSessionRecord] da tam bu kuralla yazmaz).
+  /// Yüzey bu ikisini AYNI cümleyle anlatamaz.
+  bool get sawFrames => framesSeen > 0;
+
+  /// Tekrar başına iniş/çıkış süresinin ORTANCASI — `null` = hiç tekrar yok.
+  ///
+  /// Ortalama DEĞİL ortanca: tek bir uzun duraklama ortalamayı sürükler ve
+  /// kullanıcının hiç yapmadığı bir tempoyu ona geri okur.
+  ({Duration descent, Duration ascent})? get tempo {
+    if (reps.isEmpty) return null;
+    return (
+      descent: Duration(microseconds: _ortanca(reps.map((Rep r) => r.descentUs))),
+      ascent: Duration(microseconds: _ortanca(reps.map((Rep r) => r.ascentUs))),
+    );
+  }
+
+  static int _ortanca(Iterable<int> xs) {
+    final List<int> s = xs.toList()..sort();
+    final int n = s.length;
+    // Çift sayıda örnekte iki ortanın ortalaması; tek sayıda ortadaki.
+    return n.isOdd ? s[n ~/ 2] : ((s[n ~/ 2 - 1] + s[n ~/ 2]) / 2).round();
+  }
+}
+
 /// Oturum başlamadı ya da düştü — ADI olan bir sebeple.
 final class LiveFailed extends LiveState {
   const LiveFailed(this.failure, {this.detail});
@@ -163,3 +219,30 @@ SessionRecord? buildFreeSessionRecord({
 
 /// Serbest seans kaydının hareket anahtarı — TEK ev.
 String freeSessionKeyFor(String movementId) => 'movement:$movementId';
+
+/// Durdurulan seansın SONRAKİ hâli — [LiveFinished] ya da [LiveIdle].
+///
+/// **Neden ekrandan ayrı (G-207):** bu, `buildFreeSessionRecord`ın kardeşi ve
+/// aynı gerekçeyi taşır — *"ne gösterilir ve ne zaman HİÇ gösterilmez"* bir
+/// ÜRÜN kararıdır, bir çizim değil. Ekranın içinde kalsaydı yalnız sahte
+/// kamerayla ve widget testiyle sınanabilirdi; burada saf Dart.
+///
+/// **Kural:** yalnız GERÇEKTEN koşmuş bir seans özetlenir. Koşmayan bir
+/// hâlden durdurulduysa özetlenecek ölçüm yoktur ve boş bir özet
+/// UYDURULMAZ — başlangıca dönülür.
+/// > ***SIFIRLARLA DOLU BİR ÖZET, ÖZET DEĞİL BİR İDDİADIR.***
+LiveState buildFinishedState({
+  required LiveState state,
+  required DateTime startedAt,
+  required DateTime endedAt,
+}) {
+  if (state is! LiveRunning) return const LiveIdle();
+  final Duration gecen = endedAt.difference(startedAt);
+  return LiveFinished(
+    reps: state.reps,
+    framesSeen: state.framesSeen,
+    // Negatif süre GÖSTERİLMEZ: saat geri alınmışsa 0 yazmak, eksi bir
+    // "çalışma" yazmaktan dürüst (`buildFreeSessionRecord` ile aynı kural).
+    elapsed: gecen.isNegative ? Duration.zero : gecen,
+  );
+}

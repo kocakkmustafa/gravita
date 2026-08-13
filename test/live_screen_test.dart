@@ -101,6 +101,100 @@ void main() {
     });
   });
 
+  /// ⭐ G-207 — SEANS BİTİNCE ÖLÇÜLEN EKRANDA KALIR.
+  ///
+  /// ## Kapattığı kusur
+  ///
+  /// `_stop()` kaydı yazıp doğrudan `LiveIdle`a dönüyordu: kullanıcı setini
+  /// bitirdiği ANDA ekran *"henüz başlamadın"* hâline düşüyor, az önce
+  /// kazandığı sayılar siliniyordu. Kayıt sağlamdı (G-132); kaybolan
+  /// **tamamlanma anıydı** — "bitmiş ürün" tanımının 4. maddesi.
+  ///
+  /// ## Neden SAF testler — ve neden bu bir taviz DEĞİL
+  ///
+  /// Karar `buildFinishedState`te, `buildFreeSessionRecord`ın yanında ve aynı
+  /// gerekçeyle: *"ne gösterilir, ne zaman HİÇ gösterilmez"* bir ÜRÜN
+  /// kararıdır. Ekranın içinde bıraksaydım yalnız sahte kamera + izin kanalı
+  /// + model yolu harness'ıyla sınanabilirdi; burada doğrudan sınanıyor.
+  /// Bu, o dosyanın kendi kurduğu emsalin uygulanmasıdır, kestirme değil.
+  group('seans BİTİNCE sonuç kalır (G-207)', () {
+    const LiveRunning kosan = LiveRunning(
+      reps: <Rep>[],
+      personVisible: true,
+      framesSeen: 12,
+    );
+    final DateTime t0 = DateTime(2026, 8, 14, 1);
+
+    test('koşan seans BİTİŞ hâline geçer — LiveIdle DEĞİL', () {
+      final LiveState s = buildFinishedState(
+          state: kosan, startedAt: t0, endedAt: t0.add(const Duration(seconds: 42)));
+
+      expect(s, isA<LiveFinished>(),
+          reason: 'Kusurun ta kendisi buydu: bitişte LiveIdle\'a dönmek.');
+      expect((s as LiveFinished).elapsed, const Duration(seconds: 42));
+      expect(s.framesSeen, 12);
+    });
+
+    /// POZİTİF İKİZ: her durdurma bir özet DEĞİLDİR. Koşmayan bir hâlden
+    /// durdurma sıfırlarla dolu bir "özet" üretseydi, ürün hiç yapılmamış bir
+    /// seansı yapılmış gibi gösterirdi.
+    test('koşMAYAN hâlden durdurma özet ÜRETMEZ', () {
+      for (final LiveState girdi in <LiveState>[
+        const LiveIdle(),
+        const LiveStarting(),
+        const LiveFailed(CameraFailure.permissionDenied),
+      ]) {
+        expect(buildFinishedState(state: girdi, startedAt: t0, endedAt: t0),
+            isA<LiveIdle>(),
+            reason: '${girdi.runtimeType} özetlenecek bir ölçüm taşımıyor.');
+      }
+    });
+
+    test('saat geri alınmışsa EKSİ süre gösterilmez', () {
+      final LiveState s = buildFinishedState(
+          state: kosan, startedAt: t0, endedAt: t0.subtract(const Duration(minutes: 5)));
+
+      expect((s as LiveFinished).elapsed, Duration.zero,
+          reason: 'Eksi bir "çalışma" yazmaktansa 0 dürüst.');
+    });
+
+    /// "Kamera hiç kare vermedi" ile "izledik ama tam tekrar çıkmadı" AYRI
+    /// sonuçlardır: biri ölçüm YOKLUĞU, öteki gerçek bir ölçüm. Yüzey ikisini
+    /// ayrı cümlelerle anlatır; metinler eşitlenirse ayrım sessizce ölür.
+    test('iki "hiçbir şey" hâli AYNI cümleyle anlatılmıyor', () {
+      expect(LiveStrings.finishedNoFrames,
+          isNot(equals(LiveStrings.finishedNoReps)));
+      expect(LiveStrings.finishedNoFramesNote,
+          isNot(equals(LiveStrings.finishedNoRepsNote)));
+    });
+
+    test('kare yoksa sawFrames false — seans SAYILMAZ', () {
+      const LiveFinished bos = LiveFinished(
+          reps: <Rep>[], framesSeen: 0, elapsed: Duration(seconds: 3));
+      expect(bos.sawFrames, isFalse);
+      expect(bos.tempo, isNull, reason: 'Tekrar yokken tempo UYDURULMAZ.');
+    });
+
+    /// Tempo ORTANCA — ortalama DEĞİL. Tek bir uzun duraklama ortalamayı
+    /// sürükler ve kullanıcıya hiç yapmadığı bir tempoyu geri okur.
+    /// Bu fikstürde ortalama 3000ms, ortanca 1000ms: iki cevap AYRIŞIYOR,
+    /// yani test hangisinin uygulandığını gerçekten ayırt ediyor.
+    test('tempo ORTANCA veriyor, ortalama değil', () {
+      final LiveFinished f = LiveFinished(
+        reps: <Rep>[
+          _rep(0, descentUs: 1000000, ascentUs: 1000000),
+          _rep(1, descentUs: 1000000, ascentUs: 1000000),
+          _rep(2, descentUs: 7000000, ascentUs: 7000000),
+        ],
+        framesSeen: 90,
+        elapsed: const Duration(seconds: 30),
+      );
+
+      expect(f.tempo!.descent, const Duration(seconds: 1));
+      expect(f.tempo!.ascent, const Duration(seconds: 1));
+    });
+  });
+
   group('hâller birbirinin yerine geçmiyor', () {
     test('"kimse yok" LiveRunning içinde, LiveFailed DEĞİL', () {
       const LiveState s =
@@ -342,6 +436,18 @@ void main() {
 /// Kamera AÇILMADAN önce izin kapısına takılıyoruz; bu denetleyicinin hiçbir
 /// üyesi çağrılmamalı. Çağrılırsa test ADIYLA düşsün — sessiz bir sahte,
 /// izin kapısının atlandığını gizlerdi.
+/// Tempo ölçümü için tekrar fikstürü — yalnız süre alanları anlamlı.
+Rep _rep(int index, {required int descentUs, required int ascentUs}) => Rep(
+      index: index,
+      startUs: 0,
+      endUs: descentUs + ascentUs,
+      descentUs: descentUs,
+      ascentUs: ascentUs,
+      extremeAngleDeg: 95,
+      startedAtOpenEnd: true,
+      identityGapShare: 0,
+    );
+
 class _NoCamera implements MotionCameraController {
   @override
   dynamic noSuchMethod(Invocation invocation) =>

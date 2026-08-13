@@ -127,4 +127,51 @@ abstract final class LiveStrings {
   static const String gateNoteFallback =
       'We only count a rep we can actually verify. '
       'Reps we could not verify are left out rather than guessed.';
+
+  // ── Seans BİTTİĞİNDE (G-207) ───────────────────────────────────────────
+  //
+  // ⛔ Bu blok "kaydedildi" DEMEZ ve SKOR vermez. Yazma başarısızlığı sessizce
+  // yutuluyor (bkz. `_persist`), dolayısıyla buradan bir kayıt iddiası
+  // üretmek ölçmediğimiz bir şeyi beyan etmek olurdu. Ölçtüğümüz: kaç tekrar,
+  // ne kadar sürdü, hangi tempoda.
+
+  static const String finishedTitle = 'Set finished';
+
+  /// Kare GÖRÜLDÜ ama hiç tam tekrar sayılmadı. Bu bir ARIZA DEĞİL ve öyle
+  /// yazılmaz — gerçek ve saklanmaya değer bir sonuçtur (`_persist` kuralı).
+  static const String finishedNoReps = 'No full rep counted.';
+
+  static const String finishedNoRepsNote =
+      'The camera was running and we watched the whole time — nothing we saw '
+      'closed a full rep. Half reps and reps we could not verify are left out '
+      'rather than guessed.';
+
+  /// Hiç kare gelmedi ⇒ ortada seans YOK. `finishedNoReps` ile aynı cümleyi
+  /// kullanmak "izledik ama sayamadık" ile "hiç bakamadık"ı birbirine
+  /// karıştırırdı — biri ölçüm, öteki ölçüm YOKLUĞU.
+  static const String finishedNoFrames = 'Nothing was recorded.';
+
+  static const String finishedNoFramesNote =
+      'The camera never delivered a frame, so there is nothing to show and '
+      'nothing was added to your history.';
+
+  /// Süre — dakika:saniye, sıfır dolgusu SANİYEDE (dakikada değil).
+  static String finishedDuration(Duration d) {
+    final int dk = d.inMinutes;
+    final int sn = d.inSeconds % 60;
+    return dk > 0 ? '$dk min ${sn}s' : '${sn}s';
+  }
+
+  /// Tempo — ölçülen ORTANCA iniş/çıkış. `scoreDisplay` band olduğu için
+  /// burada bir NOT yok, yalnız süre var.
+  static String finishedTempo(Duration descent, Duration ascent) =>
+      '${_sn(descent)}s down · ${_sn(ascent)}s up (median)';
+
+  static String _sn(Duration d) => (d.inMilliseconds / 1000).toStringAsFixed(1);
+
+  static const String finishedNote = 'Counted, not scored.';
+
+  /// Tek eylem: yeniden başla. Ekrandan ÇIKIŞ zaten AppBar'ın geri okunda —
+  /// aynı işi yapan ikinci bir düğme çizmiyoruz.
+  static const String goAgain = 'Go again';
 }
