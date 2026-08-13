@@ -1,8 +1,20 @@
 # G-213 kanıtı — ürünün İLK cümlesi
 
 **Cihaz:** iPhone 17 Pro Max simülatörü (iOS 26.4), debug, 2026-08-14.
-**Yürüyüş:** yeni derleme kurulumu sıfırladı ⇒ onboarding açıldı. Kusur
-**aranmıyordu**; ekrandaydı.
+**Yürüyüş:** uygulama onboarding'de açıldı ve kusur **aranmıyordu**; ekrandaydı.
+
+> 🔧 **DÜZELTME (G-215, aynı gece):** ilk hâlinde burada *"yeni derleme
+> kurulumu sıfırladı"* yazıyordu. **Yanlış sebep.** Koordinatör `H-12`
+> (JabLab `J-253`) ölçtü: **cihaz derlemesi paylaşılan native-asset
+> artefaktının üzerine yazıyor**, simülatöre cihaz-platformlu ikili giriyor,
+> `dyld` reddediyor ve `path_provider` her çağrıda patlıyor ⇒ onboarding
+> bayrağı **sessizce ölüyor**. O gece `G-208`de gerçek cihaza derleme
+> yapmıştım; bu kareler o derlemeden SONRA alındı.
+> Panzehir uygulandı (`flutter clean` + `build/` symlink'i geri kondu) ve
+> ölçüldü: uygulama artık **doğrudan Today'e açılıyor**, bayrak kalıcı.
+> ⇒ *Durum kaybının sebebi kurulum değil, zehirlenmiş artefaktmış.*
+> **Kusurun ve düzeltmenin kendisi bundan ETKİLENMEZ** — ekrandaki metin
+> derleme-zamanı sabitidir, `path_provider` onu değiştirmez.
 
 > ⚠️ O gece beş Motion app'i aynı simülatörü paylaşıyordu. Her iki kare de
 > **içerikten** Gravita olduğu teyit edilerek alındı (başlık *"What Gravita
