@@ -119,6 +119,32 @@ _GORULMEYEN = {
 }
 
 
+#: 🔇 SESSİZLİK DEDEKTÖRÜ — `A3`ün ölçüsü, ve `A4`le AYNI PAYDAYI paylaşır.
+#:
+#: Ailenin hükmü (M-F-573 ④, beş hatta bağlayıcı):
+#: > ***BOŞ TEK BAŞINA BİR KUSUR DEĞİLDİR; KUSUR, BOŞLUĞUN SESSİZ OLMASIDIR.***
+#: ⇒ ölçülecek sayı **oran değil, SESSİZ ORANI** — ve ikisi BİRLİKTE basılır:
+#: > ***BİR KURALIN DEĞERİ, ONSUZ ÖLÇÜLECEK SAYIYLA ONUNLA ÖLÇÜLEN SAYININ
+#: > FARKI KADARDIR*** (JabLab'da fark %33, ve o fark tamamen kullanıcıya
+#: > söylenen cümlelerden oluşuyordu).
+#:
+#: ⚠️ **ÇERÇEVE İÇERİK SAYILMAZ** (M-F-573'ün dört disiplininden biri):
+#: başlık, rozet, sekme adı *"bu yüzey dolu"* saydırmaz — aksi hâlde her ekran
+#: **tanım gereği** dolu olurdu ve *koşulsuz doğru bir kapı hiçbir şey ölçmez*.
+#: Bu yüzden sebep, kullanıcıya BASILAN `honesty` listelerinden okunur;
+#: `blockedBy` (iç bloker anahtarları) **sebep sayılmaz** — o makine dili.
+def beyanli(hareket: dict) -> bool:
+    """Bu boş yüzey, NEDEN boş olduğunu KULLANICIYA söylüyor mu?
+
+    ⚠️ Bu fonksiyon **paylaşımlıdır**: gerçek sayım da, öz-testin pozitif
+    kontrolü de AYNI kodu çağırır.
+    > ***BİR POZİTİF KONTROL, ÖLÇTÜĞÜ ŞEYİN AYNISINI ÇALIŞTIRMIYORSA KENDİ
+    > KOPYASINI DOĞRULAR*** (JabLab, M-F-577).
+    """
+    honesty = hareket.get("honesty") or {}
+    return bool(honesty.get("waitingOnMeasurement") or honesty.get("notMeasured"))
+
+
 class SayimHatasi(SystemExit):
     """Kapının kırmızısı — sessiz varsayım yerine gürültülü arıza."""
 
@@ -229,8 +255,13 @@ def sayim(lib: dict, katalog: dict[str, dict] | None = None) -> dict:
             "⛔ SINIFSIZ ÇIKMAZ — bir çıkmazın hiç blokeri yok, yani NEDEN "
             f"çıkmaz olduğu ölçülemiyor: {sinifsiz}")
 
+    # 🔇 SESSİZ ORANI — `A3`. Aynı payda, farklı soru: A4 *"kaç çıkmaz ve
+    # NİYE"* der, A3 *"kaçı bunu KULLANICIYA söylüyor"*.
+    sessiz = [m.get("id", "?") for m in cikmaz if not beyanli(m)]
+
     return {
         "a_olculdu": katalog is not None,
+        "sessiz": sessiz,
         "payda": len(hareketler),
         "baslatilabilir": [m.get("id", "?") for m in baslatilabilir],
         "cikmaz": [m.get("id", "?") for m in cikmaz],
@@ -355,6 +386,38 @@ def _self_test() -> int:
         lambda: sayim({"movements": [{"id": "sessiz_fx",
                                       "status": "coming_soon"}]}))
 
+    # ═══ B2. SESSİZLİK (A3) — ters ve pozitif ikiz, AYNI dedektörle ═══
+    # Fikstürdeki iki çıkmazın ikisi de `honesty` TAŞIMIYOR ⇒ ikisi de sessiz.
+    if sorted(s["sessiz"]) != ["alet_fx", "hasat_fx"]:
+        hatalar.append(f"sessizlik dedektörü fikstürde ayrıştı: {s['sessiz']}")
+    # POZİTİF İKİZ: sebep KONUNCA susmalı. Bu olmadan dedektör *"her şeye
+    # sessiz"* diyor olabilirdi ve ters ikiz bunu göremezdi (M-F-194).
+    beyanli_fx = {
+        "movements": [
+            {"id": "acik_fx", "status": "live"},
+            {"id": "beyanli_fx", "status": "coming_soon",
+             "catalogId": "k_fx",
+             "blockedBy": ["provenance.sources:empty"],
+             "honesty": {"waitingOnMeasurement": ["Kayıtlı referans yok."]}},
+        ],
+    }
+    if sayim(beyanli_fx)["sessiz"]:
+        hatalar.append("GEREKÇELİ boş yüzey sessiz sayıldı — dedektör kör")
+    # ⚠️ ÇERÇEVE İÇERİK SAYMAZ: yalnız `blockedBy` taşıyan (yani kullanıcıya
+    # HİÇBİR cümle basmayan) bir hareket **sessizdir**. Bu ikiz olmasaydı
+    # dedektör iç bloker anahtarlarını *"sebep"* sayabilirdi.
+    ic_anahtar_fx = {
+        "movements": [
+            {"id": "acik_fx", "status": "live"},
+            {"id": "sadece_bloker_fx", "status": "coming_soon",
+             "catalogId": "k_fx",
+             "blockedBy": ["provenance.sources:empty", "replayFixture:missing"]},
+        ],
+    }
+    if sayim(ic_anahtar_fx)["sessiz"] != ["sadece_bloker_fx"]:
+        hatalar.append("iç bloker anahtarı kullanıcı SEBEBİ sanıldı — "
+                       "çerçeve içerik sayılıyor")
+
     # ═══ C. KAPSAM KAPISI — yorum/kod ayrımı (aile kuralı) ═══
     if _ders_yuzeyi_dokunulamaz(_FX_DART_KOD):
         hatalar.append("GERÇEK dokunma işleyicisi görülmedi — kapsam kapısı kör")
@@ -374,9 +437,13 @@ def _self_test() -> int:
             print(f"  ❌ {h}")
         print("⛔ dead_end_census öz-testi DÜŞTÜ")
         return 1
-    print(f"✅ dead_end_census öz-testi: sınıflandırma fikstürde 8 kontrol "
-          f"(4 sınıf/ikiz + 3 sayım ikizi + yorum≠kod) · OKUMA gerçek ağaçta "
-          f"biçim: payda {canli['payda']}")
+    # ⚠️ Sayı GRUPLARA bölünerek basılıyor: tek bir toplam, bir grubun
+    # tamamen ölmesini gizleyebilirdi (`run_all_gates`ın kendi varlık
+    # sebebinin öz-test ölçeğindeki hâli).
+    print(f"✅ dead_end_census öz-testi: sınıflandırma 4 · sayım 4 · "
+          f"A-sınıfı 3 · SESSİZLİK 3 · kapsam 2 (yorum≠kod) · "
+          f"OKUMA gerçek ağaçta biçim: payda {canli['payda']} "
+          f"· sessiz {len(canli['sessiz'])}")
     return 0
 
 
@@ -406,6 +473,17 @@ def _rapor() -> int:
         uyeler = c["dagilim"].get(sinif, [])
         isim = "" if len(uyeler) > 3 else (" · " + ", ".join(uyeler) if uyeler else "")
         print(f"    {sinif:3s} {len(uyeler):3d}{isim}")
+    # ── A3: SESSİZ ORANI — iki sayı BİRLİKTE, çünkü farkları kuralın değeri
+    bos_oran = 100.0 * cikmaz / c["payda"]
+    sessiz_oran = 100.0 * len(c["sessiz"]) / c["payda"]
+    print(f"  🔇 A3 — boş oranı %{bos_oran:.0f} ({cikmaz}/{c['payda']}) ↔ "
+          f"SESSİZ oranı %{sessiz_oran:.0f} ({len(c['sessiz'])}/{c['payda']})"
+          + (f" · sessizler: {c['sessiz']}" if c["sessiz"] else ""))
+    print(f"     fark %{bos_oran - sessiz_oran:.0f} — kuralın DEĞERİ bu kadar; "
+          "tamamı kullanıcıya söylenen cümlelerden")
+    print("     ⛔ bu araç yalnız İÇERİK sessizliğini görür. Beyan-açık ama "
+          "BAŞLATILAMAYAN bir hareket de sessiz bir yüzeydir ve o "
+          "test/startable_reach_test.dart'ta ölçülür (bugün 1: push_up).")
     toplam = sum(c["bloker_sayimi"].values())
     print(f"  bloker ÖRNEĞİ sayımı (payda {toplam}, {cikmaz} çıkmaz üzerinden):")
     for k, v in sorted(c["bloker_sayimi"].items(), key=lambda x: -x[1]):
