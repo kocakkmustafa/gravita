@@ -251,13 +251,28 @@ def scoring_statement(grading_lessons_open):
     o gün sessizce yalan olurdu.
     """
     if grading_lessons_open == 0:
+        # ⛔ G-214: buradan *"and when a rule fires we tell you what to
+        # change"* KALDIRILDI. Kural değerlendirmesi
+        # (`RepEngine.correctionFor`/`topCorrection`) ÜRÜNDE HİÇ ÇAĞRILMIYOR
+        # (G-212 ölçümü) — tek çağıran çevrimdışı `tool/replay_gate.dart`.
+        #
+        # 🪞 Ve bu fonksiyonun KENDİ docstring'i şunu diyor: *"Cümle
+        # ARTEFAKTTAN türer … Sabit yazılsaydı o gün sessizce yalan olurdu."*
+        # Notlama yarısı GERÇEKTEN veriden türetilmiş — doğru refleks. Ama
+        # AYNI cümlenin içine, bayatlayabilir diye korunan yarının yanına,
+        # **hiç doğru olmamış** bir yarı elle yazılmış.
+        # ⇒ Bir cümlenin bir yarısını veriye bağlamak, öteki yarısını
+        #   doğrulamaz.
+        #
+        # Ve aynı EKRAN zaten *"during a live session no cue appears on
+        # screen, so nothing actually tells you"* diyordu: tek kartta iki
+        # cümle birbirini çürütüyordu (koordinatör H-10 sınıfı).
         return (
-            "None of this is a score. We count and time what is listed above, "
-            "and when a rule fires we tell you what to change — but no number "
-            "grades your form, on this movement or any other in Gravita. Form "
-            "grading stays shut until joint tolerances come from measured "
-            "disagreement between real instructors rather than from our "
-            "default floor."
+            "None of this is a score. We count and time what is listed above "
+            "— no number grades your form, on this movement or any other in "
+            "Gravita. Form grading stays shut until joint tolerances come "
+            "from measured disagreement between real instructors rather than "
+            "from our default floor."
         )
     return (
         f"{grading_lessons_open} "

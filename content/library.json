@@ -60,7 +60,7 @@
           "Weight distribution across the foot, force, or load — a single camera cannot see these.",
           "How your form compares to instructors. We now have an ATTESTED reference from 5 instructors (25 takes) and hip/thigh tolerances come from their measured spread — but knee, shin and torso are still at our default floor. Until that changes we count and time your reps, we do not grade your depth or lean against a reference."
         ],
-        "scoring": "None of this is a score. We count and time what is listed above, and when a rule fires we tell you what to change — but no number grades your form, on this movement or any other in Gravita. Form grading stays shut until joint tolerances come from measured disagreement between real instructors rather than from our default floor."
+        "scoring": "None of this is a score. We count and time what is listed above — no number grades your form, on this movement or any other in Gravita. Form grading stays shut until joint tolerances come from measured disagreement between real instructors rather than from our default floor."
       },
       "courses": [
         {
@@ -155,7 +155,7 @@
           "How your form compares to instructors. We now have an ATTESTED reference from 5 instructors (36 takes) — but not one of the 9 joint tolerances came out of their measured disagreement; all 9 still sit at our default floor. Until that changes we count and time your reps, we do not grade your shape against a reference.",
           "Which side is doing more work. We cannot tell your left from your right reliably in this camera setup, and our own reference confirms it: left-right joint difference measures 14.7 degrees, and it collapses to about 13 degrees exactly when the far limb becomes invisible to the model (it reads ~37 degrees when the model can see both). A small left-right difference here is the model guessing, not you being symmetric."
         ],
-        "scoring": "None of this is a score. We count and time what is listed above, and when a rule fires we tell you what to change — but no number grades your form, on this movement or any other in Gravita. Form grading stays shut until joint tolerances come from measured disagreement between real instructors rather than from our default floor."
+        "scoring": "None of this is a score. We count and time what is listed above — no number grades your form, on this movement or any other in Gravita. Form grading stays shut until joint tolerances come from measured disagreement between real instructors rather than from our default floor."
       },
       "courses": [
         {

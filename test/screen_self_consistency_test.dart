@@ -84,6 +84,44 @@ void main() {
     }
   });
 
+  /// ⭐ G-214 — **DÜRÜSTLÜK KUTUSUNUN KENDİSİ yalan söylüyordu.**
+  ///
+  /// `honesty.scoring` (hareket sayfasındaki *"None of this is a score…"*
+  /// kartı) şunu diyordu:
+  /// > *"…and **when a rule fires we tell you what to change** — but no
+  /// > number grades your form…"*
+  ///
+  /// Aynı sayfanın birkaç blok altı ise:
+  /// > *"during a live session no cue appears on screen, so **nothing
+  /// > actually tells you**."*
+  ///
+  /// **Tek kartta iki cümle, birbirinin tam tersi** — ve `G-212`de ölçülmüştü
+  /// ki doğru olan ikincisi.
+  ///
+  /// 📌 Kusur `content/library.json`da DEĞİL, onu ÜRETEN
+  /// `tools/promote_library.py`dedeydi; çıktı düzeltilseydi ilk `--write`ta
+  /// geri gelirdi. *Üretilmiş bir metnin kusuru, üretecinde aranır.*
+  testWidgets('dürüstlük kutusu, sayfanın kendi eksik-listesiyle ÇELİŞMİYOR',
+      (WidgetTester tester) async {
+    late ContentRepository repo;
+    await tester
+        .runAsync(() async => repo = await ContentRepository.load(rootBundle));
+
+    final List<MovementEntry> canlilar = repo.catalogue.movements
+        .where((MovementEntry m) => m.isLive)
+        .toList(growable: false);
+    expect(canlilar, isNotEmpty, reason: 'VAKUM: canlı hareket yok.');
+
+    for (final MovementEntry m in canlilar) {
+      if (!canliUyariYokBeyani(m)) continue;
+      final String skor = (m.honesty.scoring ?? '').toLowerCase();
+      expect(skor, isNot(contains('we tell you what to change')),
+          reason: '${m.id}: dürüstlük kutusu "bir kural ateşlenince ne '
+              'değiştireceğini söyleriz" diyor, ama AYNI SAYFA "hiçbir şey '
+              'sana söylemiyor" diyor. Ölçüm ikincisini doğruluyor (G-212).');
+    }
+  });
+
   /// ⭐ G-213 süpürmesi — **HİÇBİR sınıf açıklaması KOÇLUK vaat etmiyor.**
   ///
   /// `classBadgeExplainer('D')` *"we **coach** your body"* diyordu. Ürün
