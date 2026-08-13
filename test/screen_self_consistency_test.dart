@@ -84,6 +84,68 @@ void main() {
     }
   });
 
+  /// ⭐ G-213 süpürmesi — **HİÇBİR sınıf açıklaması KOÇLUK vaat etmiyor.**
+  ///
+  /// `classBadgeExplainer('D')` *"we **coach** your body"* diyordu. Ürün
+  /// hiçbir harekette koçluk etmiyor: kural değerlendirmesi üründe hiç
+  /// çağrılmıyor (`G-212`), yani kimseye bir şey söylenmiyor.
+  ///
+  /// ⚠️ Bu, `G-213`ün **yanlış VARLIK** sınıfı — *"yok"* derken var olan
+  /// bayat cümlelerin (`G-210`) TERSİ. Yokluk kalıbı arayan süpürge bunu
+  /// bulamaz; ayrı ağ gerekiyor ve bu test o ağın kalıcı hâli.
+  ///
+  /// 📌 `'B'` dalı bilerek DIŞARIDA: *"we count and time it but never judge
+  /// its shape"* — sayma ve tempo GERÇEKTEN yapılıyor, cümle doğru. Doğru
+  /// olanı da yasaklamak, ürünü hak ettiğinden kötü göstermek olurdu.
+  test('sınıf açıklamaları KOÇLUK/DÜZELTME vaat etmiyor', () {
+    for (final String? cls in <String?>[null, 'A', 'B', 'D', 'bilinmeyen']) {
+      final String s = LibraryStrings.classBadgeExplainer(cls).toLowerCase();
+      for (final String vaat in <String>[
+        'we coach',
+        'coaches you',
+        'tell you what to change',
+        'we correct',
+      ]) {
+        expect(s, isNot(contains(vaat)),
+            reason: 'classBadgeExplainer($cls) "$vaat" vaat ediyor; ürün '
+                'bunu hiçbir harekette yapmıyor (G-212).');
+      }
+    }
+  });
+
+  /// ⭐ G-213 süpürmesinin ÜÇÜNCÜ vakası — **Today ekranı**.
+  ///
+  /// `homeNoPlanBody` *"the movements **we can coach** right now"* diyordu.
+  /// Ürün koçluk etmiyor; **ölçüyor**.
+  ///
+  /// 🪞 Ve en can alıcısı: aynı dosyanın **dört satır aşağısındaki** yorum
+  /// zaten şunu kaydediyor — *"`to be coached` iddiası KALDIRILDI (yayın
+  /// envanteri, J-124)"*. Yani bu düzeltme bir kez YAPILMIŞ, ama **komşu
+  /// cümleye uygulanmamıştı.**
+  /// > ***BİR DÜZELTMEYİ BİR CÜMLEDE YAPMAK, KOMŞUSUNDA YAPMIŞ OLMAZ*** —
+  /// > `G-205`→`G-206`nın (başlık düzeltildi, kapı cümlesi kaldı) aynı şekli,
+  /// > ve koordinatörün Lissom'dan aktardığı *"bir dersi bir testte uygulamak,
+  /// > sonrakinde uygulamış olmaz"* kuralının metin tarafı.
+  test('Today ekranı KOÇLUK vaat etmiyor — ölçtüğünü söylüyor', () {
+    final String s = LibraryStrings.homeNoPlanBody.toLowerCase();
+    expect(s, isNot(contains('we can coach')),
+        reason: 'Ürün koçluk etmiyor (G-212: kural değerlendirmesi hiç '
+            'çağrılmıyor). Aynı iddia homeOpenBody\'den J-124\'te '
+            'kaldırılmıştı; komşusunda kalmış.');
+    expect(s, contains('we can measure'),
+        reason: 'Yasak sözcüğü silmek yetmez — ürünün GERÇEKTEN yaptığı '
+            'söylenmeli, yoksa cümle anlamsızlaşır.');
+  });
+
+  /// Pozitif yön: D sınıfının AYRIMI kaybolmadı — cümle boşaltılarak da
+  /// yasağı geçebilirdi, ama o zaman sınıf hiçbir şey anlatmazdı.
+  test('D sınıfı hâlâ KENDİ ayrımını anlatıyor (beden ↔ ekipman)', () {
+    final String d = LibraryStrings.classBadgeExplainer('D').toLowerCase();
+    expect(d, contains('your body'));
+    expect(d, contains('equipment'),
+        reason: 'Yasak sözcüğü silmek yetmez; sınıfın ayrımı kalmalı.');
+  });
+
   /// ⭐ Kuralların KOŞMADIĞI, yüzeyin de bunu SÖYLEDİĞİ — pozitif yön.
   /// Üstteki test yalnız yasak cümleyi kovalıyor; bu test doğru cümlenin
   /// gerçekten kurulduğunu istiyor, yoksa metin boşaltılarak da geçilebilirdi.

@@ -32,7 +32,7 @@ abstract final class LibraryStrings {
   static const String homeNoPlanBody =
       'Gravita has no training planner, so there is nothing here pretending to '
       'be today\'s workout. What we do have is below: the movements we can '
-      'coach right now, and the honest state of everything else.';
+      'measure right now, and the honest state of everything else.';
 
   static const String homeOpenNowTitle = 'Open right now';
   /// ⚠️ *"In the measurement queue"* DEĞİL — ve bu bir YAPISAL VAAT
@@ -281,8 +281,13 @@ abstract final class LibraryStrings {
         null => '',
         'B' => 'Class B — the camera looks down this movement\'s path, so we '
             'count and time it but never judge its shape.',
-        'D' => 'Class D — we coach your body; the equipment itself is not '
-            'detected.',
+        // ⛔ *"we **coach** your body"* İDİ (G-213 süpürmesi). Ürün hiçbir
+        // harekette koçluk ETMİYOR: kural değerlendirmesi üründe hiç
+        // çağrılmıyor (`G-212`) ⇒ kimseye bir şey söylenmiyor. Sınıf ayrımının
+        // anlattığı şey zaten koçluk değil **ÖLÇÜMÜN KONUSU**: beden mi,
+        // ekipman mı. Doğru sözcük o.
+        'D' => 'Class D — our measurements are about your body; the equipment '
+            'itself is not detected.',
         _ => 'Class A — everything the camera needs is visible from the side.',
       };
 
