@@ -143,6 +143,13 @@ gate "network_claim_audit --self-test" python3 tools/network_claim_audit.py --se
 # Öz-testi üç katmanlı: ARAÇ · DİZGE · KAPSAM (üçüncüsü olmadan `burpee`
 # yanlış-pozitif vermişti ve ilk iki katman GEÇMİŞTİ).
 gate "metric_support --self-test" python3 tools/metric_support.py --self-test
+# ⚠️ `dead_end_census` A4'ün İÇERİK yarısını sayar (payda + boşluk sınıfı
+# dağılımı). Yürüyüş yarısı Dart'ta: `test/startable_reach_test.dart` —
+# ikisi AYRI soru sorar ve bilerek ayrı evlerde durur.
+# ⛔ Bu kapı blokerleri DOĞRULAMAZ (o `validate_library` K9'un işi);
+# yalnız SINIFLANDIRIR — kapının kapısını denetleyen kapı kurulmaz.
+gate "dead_end_census"            python3 tools/dead_end_census.py
+gate "dead_end_census --self-test" python3 tools/dead_end_census.py --self-test
 # ⚠️ DEFTER depo DIŞINDA (`../workspace/`) — bu kapı deponun kendi içeriğini
 # değil, deponun HAFIZAYLA UYUMUNU ölçüyor. Bugün ölçüldü ki beş hattın
 # hiçbirinde böyle bir kapı yoktu ve iki hatta 59 kayıt kaybı vardı.
