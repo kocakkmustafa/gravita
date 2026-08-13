@@ -288,11 +288,32 @@ class _ProgressTabState extends State<ProgressTab> {
     try {
       final SessionStore store = await ContentRepository.openSessionStore();
       records = await store.recent();
-      free = await (await ContentRepository.openFreeSessionStore()).recent();
+      final SessionStore freeStore =
+          await ContentRepository.openFreeSessionStore();
+      free = await freeStore.recent();
       // Çekirdek 0.10.0: kayıp satır sayısı ÖLÇÜLEBİLİR. Aynı depodan okunur
       // ki sayılar ile kayıp aynı ana ait olsun.
-      final int unreadable = await store.unreadableRecords();
-      status = unreadable > 0 ? HistoryPartial(unreadable) : const HistoryOk();
+      //
+      // ⭐ G-211 — İKİ KOVA DA SAYILIR. Buradaki sayım YALNIZ ders kovasını
+      // okuyordu; serbest kova `recent()` ile okunup **bütünlüğü hiç
+      // sorulmuyordu**. Oysa bu üründe *"bugün her seans serbest seanstır"*
+      // (`content_repository.dart`: ders bağlamlı başlatma yolu YOK) ⇒ kontrol
+      // BUGÜN HER ZAMAN BOŞ olan dosyayı bekliyor, kullanıcının bütün verisini
+      // tutan dosya ise **denetimsizdi**. Bozulan bir serbest seans satırı
+      // sessizce düşer, yüzey toplamı yine kendinden emin gösterirdi.
+      //
+      // ⚠️ Metin taramalı kapı bunu göremezdi ve görmedi: `shell_contract_test`
+      // *"`unreadableRecords()` üründe TÜKETİLİYOR"* diye kaynakta dizgi
+      // arıyor — **çağrılıyor mu** sorusunu ölçüyor, **hangi depoda** sorusunu
+      // ölçemiyor. (Bu hattın `M-F-598` ailesi: dizgi kapısı niyeti ölçer,
+      // doğruluğu değil.)
+      //
+      // Hüküm `ContentRepository.readHistoryStatus`ta ve SAF — ekran onu
+      // SÜRER, taşımaz (`buildFreeSessionRecord`/`buildFinishedState` emsali).
+      status = await ContentRepository.readHistoryStatus(
+        lessons: store,
+        free: freeStore,
+      );
     } on Object catch (e) {
       status = HistoryUnavailable(e.toString());
     }

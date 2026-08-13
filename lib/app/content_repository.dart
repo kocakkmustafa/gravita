@@ -5,6 +5,7 @@ import 'package:flutter/services.dart' show AssetBundle;
 import 'package:gravita_engine/gravita_engine.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'content_failure.dart';
 import 'library_model.dart';
 import 'live_session.dart';
 
@@ -197,6 +198,44 @@ final class ContentRepository {
   /// anahtarı taşır. Alan adı "lesson" diyor ama bu kovada ders yok; ad
   /// çekirdeğin ve değiştirilemez, o yüzden anlam BURADA beyan ediliyor.
   /// Kovaları karıştıran biri, bu ön eki görünce durur.
+  /// Geçmişin BÜTÜNLÜK hükmü — **iki kovadan da** sorulur.
+  ///
+  /// ## ⭐ Neden ekrandan ayrı (G-211)
+  ///
+  /// `buildFreeSessionRecord` ve `buildFinishedState` ile aynı gerekçe:
+  /// *"kullanıcıya geçmişinin eksik olduğunu ne zaman söyleriz"* bir ÜRÜN
+  /// kararıdır, bir çizim değil. `_ProgressTabState` içinde kaldığı sürece
+  /// yalnız **kabuğu render ederek** sınanabiliyordu ve o yol bugün `B5`
+  /// (`google_fonts` → `fonts.gstatic.com`) yüzünden testte KAPALI.
+  /// ⇒ Karar buraya taşındı; artık saf Dart'ta, gerçek dosyalarla sınanıyor.
+  ///
+  /// ## Kapattığı kusur
+  ///
+  /// Sayım **yalnız DERS kovasından** okunuyordu. Serbest kova `recent()` ile
+  /// okunup **bütünlüğü hiç sorulmuyordu** — oysa bu üründe *"bugün her seans
+  /// serbest seanstır"* (ders bağlamlı başlatma yolu YOK). Yani denetim,
+  /// bugün her zaman BOŞ olan dosyayı bekliyordu; kullanıcının bütün verisini
+  /// tutan dosya DENETİMSİZDİ.
+  ///
+  /// > ***BİR BÜTÜNLÜK DENETİMİ YANLIŞ DOSYAYA BAKIYORSA, DENETİM DEĞİL
+  /// > TESELLİDİR.***
+  ///
+  /// Kayıp sayıları TOPLANIR: kullanıcının tek bir geçmişi var, iki dosyası
+  /// olması bizim iç ayrımımız. "3 kayıp" derken hangi kovada olduğunu
+  /// söylemiyoruz çünkü kullanıcı için fark etmez — kaybın KENDİSİ önemli.
+  static Future<HistoryStatus> readHistoryStatus({
+    required SessionStore lessons,
+    required SessionStore free,
+  }) async {
+    try {
+      final int kayip =
+          await lessons.unreadableRecords() + await free.unreadableRecords();
+      return kayip > 0 ? HistoryPartial(kayip) : const HistoryOk();
+    } on Object catch (e) {
+      return HistoryUnavailable(e.toString());
+    }
+  }
+
   static Future<SessionStore> openFreeSessionStore() async {
     final Directory dir = await getApplicationSupportDirectory();
     return JsonlSessionStore(File('${dir.path}/free_sessions.jsonl'));
