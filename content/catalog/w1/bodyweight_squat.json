@@ -68,6 +68,8 @@
     "$romGateRationale": "V16/G-054: SAYIM eşiği hata eşiğini gürültü bandı kadar AŞAR. Ters sırada (sayım daha katı) sığ tekrar hiç sayılmaz ve 'yeterince inmedin' uyarısı hiç söylenemez — kullanıcı sıfır tekrar + sıfır geri bildirim alır. Sayım = cömert dış sınır, hata = içindeki kalite çizgisi."
   },
   "measurementContract": {
+    "$gateNoteRationale": "Seans sayfasında gösterilen kimlik-kapısı cümlesi. HAREKETE ÖZELDİR ve engine.precondition'ın DÜZ İNGİLİZCESİDİR — icat değil, yeniden ifade: bu harekette kapı `windowPrecondition` (WindowCorrelationCondition), kalça-diz Pearson >= 0,2, ÇEVRİM başına. G-205'te ölçüldü: sabit bir kapı cümlesi buradaki squat seansına PUSH-UP'ın kapısını ('torso is actually horizontal') yazıyordu, yani ölçülmeyen bir şey ölçüldü diye sunuluyordu.",
+    "gateNote": "We only count a rep when your hip and knee move through it together. That is how we tell a real squat from a knee that simply bends. Reps we could not verify are left out rather than guessed.",
     "measured": [
       "Rep count",
       "Tempo",

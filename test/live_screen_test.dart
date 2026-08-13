@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gravita/app/content_repository.dart';
+import 'package:gravita/app/library_model.dart';
 import 'package:gravita/app/live_session.dart';
 import 'package:gravita/app/live_strings.dart';
 import 'package:gravita_engine/gravita_engine.dart';
@@ -18,9 +21,15 @@ import 'support/launch_harness.dart';
 /// simülatörde görüldü (G-120 ekran kanıtları), canlı zincir ise
 /// `live_session_test.dart`te gerçek motorla koşuyor.
 void main() {
-  MovementConfig load() => MovementConfig.parse(
-      File('packages/gravita_engine/../../content/catalog/w1/push_up.json')
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  /// Katalogdan İSİMLE yükler — başlık ölçümü iki ayrı hareketi yan yana
+  /// koymak zorunda (G-205 ikizi), tek bir sabit fixture yetmiyor.
+  MovementConfig loadNamed(String id) => MovementConfig.parse(
+      File('packages/gravita_engine/../../content/catalog/w1/$id.json')
           .readAsStringSync());
+
+  MovementConfig load() => loadNamed('push_up');
 
   group('hâl → metin sözleşmesi', () {
     test('her tanınan arıza AYRI başlık ve gövde alıyor', () {
@@ -64,9 +73,31 @@ void main() {
       expect(LiveStrings.noRepsYet, isNotEmpty);
     });
 
-    test('kalibrasyon kapısı beyanı doğrulanmayanı ATTIĞINI söylüyor', () {
-      expect(LiveStrings.gateNote.toLowerCase(), contains('rather than guessed'),
+    test('YEDEK kapı cümlesi doğrulanmayanı ATTIĞINI söylüyor', () {
+      expect(LiveStrings.gateNoteFallback.toLowerCase(),
+          contains('rather than guessed'),
           reason: 'Kapının varlığı değil, DAVRANIŞI beyan edilir.');
+    });
+
+    /// ⭐ G-205 — yedek cümle HİÇBİR harekete özel kapı İDDİA ETMEZ.
+    ///
+    /// Yedeğin tek işi yalan söylememek. İçine bir hareketin kimlik kapısı
+    /// sızarsa (gövde yataylığı, kalça-diz eş-hareketi…) yedek sessizce
+    /// "yanlış harekete doğru cümle" üreten şeye döner — düzeltilen kusurun
+    /// ta kendisi.
+    test('yedek cümle hareketE ÖZEL bir kapı iddia ETMİYOR', () {
+      final String f = LiveStrings.gateNoteFallback.toLowerCase();
+      for (final String kapiSizintisi in <String>[
+        'torso',
+        'horizontal',
+        'hip',
+        'knee',
+        'elbow',
+      ]) {
+        expect(f, isNot(contains(kapiSizintisi)),
+            reason: 'Yedek cümle "$kapiSizintisi" içeriyor ⇒ artık genel '
+                'değil, BİR hareketin kapısı. Yanlış seansta yalan olur.');
+      }
     });
   });
 
@@ -92,11 +123,155 @@ void main() {
       expect(load().preconditionDerived, isTrue);
     });
 
-    testWidgets('LiveStrings.title ekranda kullanılabilir bir etiket',
+  });
+
+  /// ⭐ G-205 — SEANS BAŞLIĞI İÇERİKTEN GELİR, SABİTTEN DEĞİL.
+  ///
+  /// ## Kapattığı kusur
+  ///
+  /// `live_strings.dart`ta `title = 'Push-ups'` SABİTİ vardı. Canlı seansa tek
+  /// giriş `ContentRepository.liveConfig` ve o **İLK** uygun hareketi döndürür;
+  /// `library.json` sırası `[0] bodyweight_squat` ⇒ açılan seans **squat**.
+  /// Yani ürünün tek ulaşılabilir seansı, YAPILMAYAN hareketin adını taşıyordu
+  /// — üstelik o ad `push_up`, yani BAŞLATILAMAYAN hareketin adı.
+  ///
+  /// ## Neden eski test bunu göremedi — bu süitin varlık sebebi
+  ///
+  /// Eski kapı `Text(LiveStrings.title)` pump edip aynı metni arıyordu:
+  /// **koşulsuz doğru**. Başlık `'Banana'` olsa da geçerdi, çünkü beklenti
+  /// ölçtüğü şeyden türetiliyordu.
+  /// > ***KOŞULSUZ DOĞRU BİR KAPI HİÇBİR ŞEY ÖLÇMEZ*** (bu hattın 2.11 kuralı).
+  ///
+  /// ## Ayırt ediciliği KURGUSAL — mutasyona ihtiyaç duymuyor
+  ///
+  /// Aynı ekran İKİ ayrı config'le pump ediliyor ve İKİ AYRI başlık bekleniyor.
+  /// Herhangi bir SABİT başlık iki beklentiyi aynı anda karşılayamaz ⇒ eski
+  /// kusur bu süit altında tanım gereği kırmızıdır. Sabotaj kurmaya gerek yok:
+  /// ayırt edicilik testin şeklinde, bir mutasyonun keşfinde değil.
+  group('seans başlığı İÇERİKTEN gelir (G-205)', () {
+    /// ⚠️ VAKUM KORUMASI: iki hareket AYNI ada sahip olsaydı aşağıdaki iki
+    /// beklenti bir sabitle de karşılanabilirdi ve süit sessizce ayırt
+    /// ediciliğini kaybederdi. Payda önce kanıtlanır.
+    test('iki hareketin adı GERÇEKTEN farklı — yoksa ikiz ayırt edici değil',
+        () {
+      expect(loadNamed('bodyweight_squat').name,
+          isNot(equals(loadNamed('push_up').name)),
+          reason: 'Adlar eşitse sabit bir başlık her iki testi de geçer.');
+    });
+
+    for (final String id in <String>['bodyweight_squat', 'push_up']) {
+      testWidgets('$id seansının başlığı o hareketin ADI',
+          (WidgetTester tester) async {
+        final MovementConfig config = loadNamed(id);
+        await tester.pumpWidget(MaterialApp(
+            home: LiveSessionScreen(config: config, controller: _NoCamera())));
+
+        expect(find.text(config.name), findsOneWidget,
+            reason: 'Başlık config.name olmalı; sabit bir başlık burada düşer.');
+      });
+    }
+
+    /// Ürünün GERÇEK girişinin bugün hangi hareketi açtığını sabitler.
+    /// `library.json` sırası değişirse bu satır kırmızı yanar ve başlık
+    /// iddiası YENİDEN gözden geçirilir — sessizce kaymaz.
+    testWidgets('bugünkü tek giriş SQUAT açıyor — başlık iddiasının dayanağı',
         (WidgetTester tester) async {
-      await tester.pumpWidget(const MaterialApp(
-          home: Scaffold(body: Text(LiveStrings.title))));
-      expect(find.text(LiveStrings.title), findsOneWidget);
+      late ContentRepository repo;
+      await tester
+          .runAsync(() async => repo = await ContentRepository.load(rootBundle));
+      final MovementConfig? giris = repo.liveConfig;
+
+      expect(giris, isNotNull, reason: 'Canlı giriş yoksa başlık sorusu boştur.');
+      expect(giris!.id, 'bodyweight_squat',
+          reason: 'Giriş kaydıysa (sıra değişimi) başlık ölçümü yeniden '
+              'gerekçelendirilmeli.');
+    });
+  });
+
+  /// ⭐ G-205 — KAPI CÜMLESİ DE İÇERİKTEN. Başlıktan DAHA AĞIR bir kusurdu.
+  ///
+  /// Sabit `gateNote`, seansı açan hareket ne olursa olsun *"we can see your
+  /// torso is actually horizontal"* diyordu. O **şınavın** kapısı
+  /// (`torso_angle_from_vertical >= 60`); squat'ınki **kalça-diz eş-hareketi**
+  /// (`windowPrecondition`, Pearson >= 0,2). Ürünün tek ulaşılabilir seansı
+  /// squat olduğu için kullanıcı **ölçülmeyen bir şeyin ölçüldüğünü** okuyordu.
+  ///
+  /// > ***YANLIŞ ETİKET BİR ADLANDIRMA HATASIDIR; YANLIŞ ÖLÇÜM İDDİASI BİR
+  /// > DÜRÜSTLÜK HATASIDIR — İKİSİ AYNI KEFEYE KONMAZ.***
+  ///
+  /// Bu kusuru statik okuma DEĞİL, **uygulamayı çalıştırmak** buldu: başlık
+  /// düzeltilip simülatörde yürünürken kapı cümlesi ekranda okundu.
+  group('kapı cümlesi İÇERİKTEN gelir (G-205)', () {
+    /// Ayırt edici ikiz: iki hareketin kapı cümlesi FARKLI olmak ZORUNDA.
+    /// Herhangi bir sabit cümle bu beklentiyi karşılayamaz.
+    test('iki canlı hareketin kapı cümlesi FARKLI', () {
+      final String? squat = loadNamed('bodyweight_squat').contract.gateNote;
+      final String? sinav = loadNamed('push_up').contract.gateNote;
+
+      expect(squat, isNotNull);
+      expect(sinav, isNotNull);
+      expect(squat, isNot(equals(sinav)),
+          reason: 'Eşitlerse en az biri yanlış hareketin kapısını anlatıyor.');
+    });
+
+    /// Her cümle KENDİ `engine.precondition`ını anlatmalı — "farklı olsunlar"
+    /// yetmez, DOĞRU olanı anlatmaları gerekir. Cümleler yer değiştirseydi
+    /// üstteki test yine yeşil kalırdı; bu test kalmaz.
+    test('her cümle KENDİ kapısını anlatıyor — yer değiştirmeye karşı', () {
+      final String squat =
+          loadNamed('bodyweight_squat').contract.gateNote!.toLowerCase();
+      final String sinav = loadNamed('push_up').contract.gateNote!.toLowerCase();
+
+      expect(squat, contains('hip'));
+      expect(squat, contains('knee'));
+      expect(squat, isNot(contains('horizontal')),
+          reason: 'Squat kapısı gövde yataylığı DEĞİL — o şınavınki.');
+
+      expect(sinav, contains('horizontal'));
+      expect(sinav, isNot(contains('hip and knee')),
+          reason: 'Şınav kapısı kalça-diz eş-hareketi DEĞİL — o squat\'ınki.');
+    });
+
+    /// ⛔ YEDEK, CANLI BİR HAREKETİ SESSİZCE ÖRTEMEZ.
+    ///
+    /// Yedek cümle yalan söylemez ama bilgi de vermez. Canlı bir hareket
+    /// yedeğe düşerse kullanıcı o hareketin kapısını HİÇ öğrenemez ve bu
+    /// kimsenin gözüne batmaz — tam olarak `A3`ün "sessiz yüzey" sınıfı.
+    testWidgets('canlı BEYAN EDİLEN her hareketin KENDİ cümlesi var',
+        (WidgetTester tester) async {
+      late ContentRepository repo;
+      await tester
+          .runAsync(() async => repo = await ContentRepository.load(rootBundle));
+
+      final List<String> yedegeDusenler = <String>[];
+      final List<String> canlilar = <String>[];
+      for (final MovementEntry m in repo.catalogue.movements) {
+        if (!m.isLive) continue;
+        canlilar.add(m.id);
+        if (repo.loadedCatalog(m.catalogId)?.contract.gateNote == null) {
+          yedegeDusenler.add(m.id);
+        }
+      }
+
+      // VAKUM: canlı hareket yoksa aşağıdaki beklenti tanım gereği geçerdi.
+      expect(canlilar, isNotEmpty,
+          reason: 'VAKUM: canlı hareket yok; kapı cümlesi ölçümü anlamsız.');
+      expect(yedegeDusenler, isEmpty,
+          reason: 'Bu hareketler canlı BEYAN EDİLİYOR ama kendi kapı '
+              'cümleleri YOK ⇒ kullanıcı genel yedeği görür ve o hareketin '
+              'neyle korunduğunu HİÇ öğrenmez: $yedegeDusenler');
+    });
+
+    /// Ekran gerçekten config'in cümlesini çiziyor mu — sözleşme değil YÜZEY.
+    testWidgets('ekran config\'in kapı cümlesini ÇİZİYOR',
+        (WidgetTester tester) async {
+      final MovementConfig squat = loadNamed('bodyweight_squat');
+      await tester.pumpWidget(MaterialApp(
+          home: LiveSessionScreen(config: squat, controller: _NoCamera())));
+
+      expect(find.text(squat.contract.gateNote!), findsOneWidget);
+      expect(find.text(LiveStrings.gateNoteFallback), findsNothing,
+          reason: 'Özel cümlesi olan hareket yedeğe DÜŞMEMELİ.');
     });
   });
 

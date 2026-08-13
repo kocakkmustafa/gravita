@@ -5,7 +5,24 @@ import 'package:motion_camera/motion_camera.dart';
 /// Metin MOTORDA değil burada (G-100 dersi): motor kullanıcı cümlesi üretmez.
 /// Her cümle ne olduğunu söyler ve ne yapılacağını *önerir* — emir kipi yok.
 abstract final class LiveStrings {
-  static const String title = 'Push-ups';
+  // ⛔ SABİT BAŞLIK KALDIRILDI (G-205) — buraya yeni bir tane EKLEME.
+  //
+  // Burada `static const String title = 'Push-ups';` vardı. Ürünün canlı
+  // seansa TEK girişi `ContentRepository.liveConfig`tir ve o **İLK** uygun
+  // hareketi döndürür; `library.json` sırası `[0] bodyweight_squat` olduğu
+  // için açılan seans **squat**tır. ⇒ Her canlı seans, yapılmayan hareketin
+  // adıyla başlıklanıyordu.
+  //
+  // İki kat beter: başlıkta yazan `push_up` tam da BAŞLATILAMAYAN hareket
+  // (`startable_reach_test.dart`: `bilinenUlasilamaz = {'push_up'}`) — yani
+  // sabit başlık, ürünün ulaşılamayan yarısını ulaşılabilir yarısının
+  // üstüne yazıyordu.
+  //
+  // Başlık bir METİN SABİTİ DEĞİL, İÇERİKTİR: `MovementConfig.name`
+  // (`content/catalog/w1/*.json` → `"name"`). Ekran onu doğrudan çizer.
+  // Kapısı `live_screen_test.dart` → *"seans başlığı İÇERİKTEN gelir"*:
+  // aynı ekran iki ayrı config'le pump edilir ve İKİ AYRI başlık beklenir,
+  // yani herhangi bir sabit başlık o süiti tanım gereği kırar.
 
   /// Başlamadan önce. Kadraj talimatı katalogdan gelen çekim kurulumuyla
   /// tutarlı (`camera.setup: side45`, `framing: full_body`).
@@ -89,7 +106,25 @@ abstract final class LiveStrings {
   /// ⚠️ Kalibrasyon kapısı beyanı (katalog `camera.calibrationGate: true`).
   /// K8 uyumu: kalibrasyon yokken SAYISAL SKOR yok — ama sayım ve tempo
   /// skor DEĞİL, ölçümdür ve kimlik kapısıyla korunur (G-043).
-  static const String gateNote =
-      'We only count a rep when we can see your torso is actually horizontal. '
+  ///
+  /// ⛔ **HAREKETE ÖZEL CÜMLE BURADA DEĞİL — İÇERİKTE** (`G-205`).
+  /// Burada şu SABİT duruyordu:
+  /// *"We only count a rep when we can see your torso is actually
+  /// horizontal."* O cümle **şınavın** kimlik kapısıdır
+  /// (`torso_angle_from_vertical >= 60`). Ürünün tek ulaşılabilir seansı ise
+  /// **squat**tır ve onun kapısı BAŞKADIR (kalça-diz Pearson >= 0,2, çevrim
+  /// başına) ⇒ kullanıcıya **ölçülmeyen bir şey ölçülmüş gibi** sunuluyordu.
+  /// Başlık kusuru (aynı tur) bir ADLANDIRMA hatasıydı; bu bir **ÖLÇÜM
+  /// İDDİASI** hatasıdır ve daha ağırdır.
+  ///
+  /// Harekete özel cümle: `measurementContract.gateNote`.
+  ///
+  /// Aşağıdaki yedek **hareketten bağımsız DOĞRUDUR** ve hiçbir kapı iddia
+  /// etmez — özel cümlesi olmayan bir hareket başka bir hareketin kapısını
+  /// göstermektense hiçbir kapı adı göstermez. Canlı hareketlerin buraya
+  /// düşmesi ayrı bir kapıyla yasak (`live_screen_test.dart`): yedek, eksik
+  /// içeriği sessizce ÖRTMEK için değil, YALAN SÖYLEMEMEK için var.
+  static const String gateNoteFallback =
+      'We only count a rep we can actually verify. '
       'Reps we could not verify are left out rather than guessed.';
 }

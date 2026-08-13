@@ -70,6 +70,8 @@
     "$romGateRationale": "V16/G-054: SAYIM eşiği hata eşiğini gürültü bandı kadar AŞAR. Ters sırada (sayım daha katı) sığ tekrar hiç sayılmaz ve 'yeterince inmedin' uyarısı hiç söylenemez — kullanıcı sıfır tekrar + sıfır geri bildirim alır. Sayım = cömert dış sınır, hata = içindeki kalite çizgisi."
   },
   "measurementContract": {
+    "$gateNoteRationale": "Seans sayfasında gösterilen kimlik-kapısı cümlesi. HAREKETE ÖZELDİR ve engine.precondition'ın DÜZ İNGİLİZCESİDİR — icat değil, yeniden ifade: bu harekette kapı `torso_angle_from_vertical >= 60` (G-043). Bu cümle eskiden TÜM hareketler için sabitti ve squat seansında da görünüyordu (G-205).",
+    "gateNote": "We only count a rep when we can see your torso is actually horizontal. That is how we tell a real push-up from an elbow that simply bends. Reps we could not verify are left out rather than guessed.",
     "measured": [
       "Rep count",
       "Tempo (down/up timing)",

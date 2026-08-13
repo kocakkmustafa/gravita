@@ -16,6 +16,7 @@ final class MeasurementContract {
     required this.notMeasured,
     required this.gateableMetrics,
     required this.scoreDisplay,
+    this.gateNote,
   });
 
   factory MeasurementContract.fromJson(Map<String, dynamic> j) =>
@@ -26,11 +27,27 @@ final class MeasurementContract {
         gateableMetrics:
             ((j['gateableMetrics'] as List<dynamic>?) ?? const <dynamic>[]).cast<String>(),
         scoreDisplay: (j['scoreDisplay'] as String?) ?? 'band',
+        gateNote: j['gateNote'] as String?,
       );
 
   final List<String> measured;
   final List<String> notMeasured;
   final List<String> gateableMetrics;
+
+  /// Seans sayfasındaki KİMLİK KAPISI cümlesi — harekete ÖZEL.
+  ///
+  /// ⚠️ **Neden içerikte, neden sabit değil (G-205):** bu cümle ürünün o
+  /// harekette NEYİ ölçtüğünü iddia eder ve `engine.precondition` hareketten
+  /// harekete DEĞİŞİR — squat'ta kalça-diz eş-hareketi (`windowPrecondition`,
+  /// Pearson >= 0,2), şınavda gövde yataylığı (`torso_angle_from_vertical >=
+  /// 60`). Sabit tek cümle, canlı seansı açan hareket hangisi olursa olsun
+  /// AYNI iddiayı basıyordu ve ölçülmeyen bir şeyi ölçülmüş gibi sunuyordu.
+  ///
+  /// `null` = bu harekete özel cümle YAZILMAMIŞ. Yüzey o durumda başka bir
+  /// hareketin kapısını ASLA göstermez; genel ve her zaman doğru olan yedeğe
+  /// düşer. Canlı bir hareketin yedeğe düşmesi ayrı bir kapıyla yasaklanır
+  /// (`live_screen_test.dart`) — yedek, eksik içeriği sessizce ÖRTMESİN.
+  final String? gateNote;
 
   /// M-F-04 / K8: kalibrasyon kapısı geçilmeden SAYISAL skor gösterilmez.
   final String scoreDisplay;

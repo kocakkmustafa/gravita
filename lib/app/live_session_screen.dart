@@ -264,7 +264,11 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         foregroundColor: GravitaColors.sessionInkOnDark,
-        title: Text(LiveStrings.title,
+        // ⭐ G-205: başlık İÇERİKTEN gelir, sabitten değil. Sabit `'Push-ups'`
+        // iken açılan seans squat'tı (tek giriş `liveConfig` → `library.json`
+        // sırasındaki İLK uygun hareket) — ekran yapılmayan hareketin adını
+        // taşıyordu. Gerekçe ve kapı: `live_strings.dart` başındaki not.
+        title: Text(widget.config.name,
             style:
                 GravitaType.display(size: 18, color: GravitaColors.sessionInkOnDark)),
       ),
@@ -299,7 +303,11 @@ class _LiveSessionScreenState extends State<LiveSessionScreen> {
             children: <Widget>[
               _sheetHeadline(LiveStrings.idle),
               const SizedBox(height: 10),
-              _sheetNote(LiveStrings.gateNote),
+              // ⭐ G-205: kapı cümlesi HAREKETE ÖZEL, içerikten. Özel cümlesi
+              // olmayan hareket başka bir hareketin kapısını göstermektense
+              // hiçbir kapı adı göstermez (yedek genel ve her zaman doğru).
+              _sheetNote(widget.config.contract.gateNote ??
+                  LiveStrings.gateNoteFallback),
               const SizedBox(height: 22),
               FilledButton(
                 key: LiveSessionScreen.startButtonKey,
