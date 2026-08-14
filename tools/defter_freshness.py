@@ -81,9 +81,10 @@ sütunu **okuyor**. Eklemediğim için bozacak bir sayaç da yok.
    `atıflı + atıfsız = rev-list --count` **eşitliğini** sınar. Tutmuyorsa
    kapı **KENDİNE öter**: *bir sayının doğruluğu kendi kanıtı değildir.*
 
-⚠️ DEFTER depo DIŞINDA (`../workspace/DEFTER.md`). Bulunamazsa bu kapı
-**gürültüyle düşer** — bulunamayan bir dosya üzerinden *"gedik yok"*
-raporlamak ölçüm değil körlüktür.
+✅ DEFTER 2026-08-15'ten beri depo İÇİNDE (`workspace/DEFTER.md`, M-F-633 —
+kurucu kararı). Bulunamazsa bu kapı **gürültüyle düşer** — bulunamayan bir
+dosya üzerinden *"gedik yok"* raporlamak ölçüm değil körlüktür. Ve artık
+yokluğu ortam eksikliği değil, **gerçek bir kayıp** demektir.
 """
 from __future__ import annotations
 
@@ -93,7 +94,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFTER = ROOT.parent / "workspace" / "DEFTER.md"
+DEFTER = ROOT / "workspace" / "DEFTER.md"
 SELF = Path(__file__).name
 
 #: YÖN-1 (İDDİA): commit'in KENDİ iddiası — başlığın BAŞINDA `G-NNN`.

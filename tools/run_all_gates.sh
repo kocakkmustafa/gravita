@@ -154,7 +154,7 @@ gate "dead_end_census"            python3 tools/dead_end_census.py
 # sayı, kimse okumazsa ölçülmemiş sayılır; ayrışırsa da kimse görmez.
 gate "dead_end_census --check"    python3 tools/dead_end_census.py --check
 gate "dead_end_census --self-test" python3 tools/dead_end_census.py --self-test
-# ⚠️ DEFTER depo DIŞINDA (`../workspace/`) — bu kapı deponun kendi içeriğini
+# ✅ DEFTER 2026-08-15'ten beri depo İÇİNDE (`workspace/`) — bu kapı deponun kendi içeriğini
 # değil, deponun HAFIZAYLA UYUMUNU ölçüyor. Bugün ölçüldü ki beş hattın
 # hiçbirinde böyle bir kapı yoktu ve iki hatta 59 kayıt kaybı vardı.
 gate "defter_freshness"             python3 tools/defter_freshness.py
