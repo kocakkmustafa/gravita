@@ -43,8 +43,30 @@ app'in kenarı görünüyor); **metin tam ve okunaklıdır**, kanıtın konusu o
 Ürünün bugün GERÇEKTEN yaptığı: sayma + kimlik kapısı. Yapmadığı: notlama ve
 düzeltme — ve artık **söyleniyor**.
 
+## ③④ TEMİZ KARELER — `gravita-hatti` (G-218)
+
+`H-15` hükmünden sonra hatta **kendi simülatörü** alındı
+(`gravita-hatti`, `2F59E2DB-8F02-4D24-BAD6-8313576FAB98`) ve kanıt orada
+yeniden üretildi. **Başka hiçbir Motion app'i kurulu değil** ⇒ karelerde
+`◀ <başka hat>` geri-etiketi **hiç yok**; ön-plan belirsizliği yapısal olarak
+ortadan kalktı.
+
+· `g213-duzeltme-ilk-ekran-temiz.png` — ilk kart, düzeltilmiş metin, **geçiş
+  animasyonu yok, geri-etiketi yok**.
+· `g213-duzeltme-kamera-gerekcesi.png` — **kamera izni gerekçesi**:
+  *"Gravita needs your camera to **count your reps**. Nothing is recorded or
+  uploaded…"* ⇒ *"and check your form"* kaldırılmış hâliyle **ekranda**.
+
 ## Kanıtlanmayan — adıyla
 
-Bu kareler onboarding'in **ilk kartıdır**. Kamera izni gerekçesindeki ikinci
-düzeltme (*"and check your form"* kaldırıldı) bu karelerde **görünmüyor**;
-onun kanıtı `test/onboarding_claims_test.dart`ta, ekran görüntüsünde değil.
+⛔ **KUSUR karesi (①) `H-15` ölçütünü KARŞILAMIYOR** ve öyle sayılmıyor:
+geçiş anında alınmış, durum çubuğunda başka bir hattın adı var. İçeriği
+tartışmasız Gravita olsa da **kanıt sayılmıyor.**
+⇒ Kusurun otoritesi **git geçmişidir**:
+`git show 27f5f2c:lib/app/onboarding_strings.dart` yalanı birebir taşır.
+*Ekran görüntüsü kaybolur ya da şüpheli olur; commit olmaz.*
+
+⛔ Onboarding **bayrağının kalıcılığı** bu turda ÖLÇÜLEMEDİ: üç adım
+yürünürken `flutter run` sona erdi ve uygulama kapandı, yani akışın
+tamamlanıp tamamlanmadığı **belirsiz**. *Belirsiz bir gözlemden sebep
+üretmiyorum* (`G-215`in dersi).
