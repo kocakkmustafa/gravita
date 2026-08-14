@@ -502,5 +502,109 @@ def _rapor() -> int:
     return 0
 
 
+#: `A4` ARTEFAKTI — koordinatör hükmü `H-17`: *"dağılımı o yürüyüşten türet,
+#: **payda + işlemle artefakta yaz, kapıya bağla**."*
+ARTEFAKT = ROOT / "docs" / "gates" / "kanit" / "a4-cikmaz-dagilimi.json"
+
+
+def artefakt_govde() -> dict:
+    """Canlı sayımdan `A4` artefaktı — **payda + İŞLEM**, çıplak sayı değil.
+
+    ## Neden işlemi de yazıyoruz
+
+    *"29 çıkmaz"* tek başına denetlenemez: neyin 29'u? Bölme yazılınca
+    (`31 = 2 ⊎ 29`) okuyan **kendi toplamasını yapabilir** ve payda kayarsa
+    fark görünür. Bu hattın *"payda + işlem"* kuralı.
+
+    ## ⛔ Ölçülmeyen sınıfa SIFIR yazılmaz
+
+    `B`/`C`/`D` bu aracın **göremediği** sınıflar. Artefakta `0` yazmak, o
+    sınıfların YOK olduğunu iddia etmek olurdu — oysa `B` gerçekten dolu
+    (`push_up`). Bunun yerine sınıfın **ölçüldüğü ADRES** yazılıyor.
+    > ***BİR ARTEFAKTTA `0` İLE `BİLİNMİYOR` AYNI KUTUYA GİRMEZ.***
+    """
+    c = derive()
+    cikmaz = len(c["cikmaz"])
+    olculen = {}
+    gorulmeyen = {}
+    for sinif in (BOSLUK_A, BOSLUK_A_UC, BOSLUK_B, BOSLUK_C, BOSLUK_D, BOSLUK_E):
+        if sinif in _GORULMEYEN:
+            gorulmeyen[sinif] = _GORULMEYEN[sinif]
+            continue
+        uyeler = sorted(c["dagilim"].get(sinif, []))
+        olculen[sinif] = {"sayi": len(uyeler), "hareketler": uyeler}
+    return {
+        "$doc": "A4 — ÇIKMAZ SOKAK DAĞILIMI. tools/dead_end_census.py --write "
+                "ile ÜRETİLİR, elle düzenlenmez; --check drift'i yakalar. "
+                "Taksonomi: motion-core YAYIN-HAZIRLIK-OLCUTU.md.",
+        "payda": {
+            "toplam": c["payda"],
+            "islem": f"{c['payda']} = başlatılabilir(beyan) "
+                     f"{len(c['baslatilabilir'])} ⊎ çıkmaz {cikmaz}",
+            "baslatilabilir": sorted(c["baslatilabilir"]),
+            "cikmaz_sayisi": cikmaz,
+        },
+        "$dagilimNotu": "Bir çıkmaz BİRDEN ÇOK sınıf taşıyabilir; sınıf "
+                        "sayılarının toplamı çıkmaz sayısına EŞİT OLMAK "
+                        "ZORUNDA DEĞİLDİR.",
+        "olculen": olculen,
+        "$gorulmeyenNotu": "Bu araç bu sınıfları göremez. '0' YAZILMAZ — "
+                           "sıfır, sınıfın yokluğunu iddia ederdi; oysa B "
+                           "dolu. Ölçüldükleri adres yazılır.",
+        "gorulmeyen": gorulmeyen,
+        "a3_sessizlik": {
+            "$doc": "Aynı payda, FARKLI soru: A4 'kaç çıkmaz ve niye', "
+                    "A3 'kaçı bunu KULLANICIYA söylüyor'.",
+            "bos_sayi": cikmaz,
+            "sessiz_sayi": len(c["sessiz"]),
+            "sessizler": sorted(c["sessiz"]),
+            "islem": f"boş {cikmaz}/{c['payda']} ↔ sessiz "
+                     f"{len(c['sessiz'])}/{c['payda']}",
+            "$kapsam": "yalnız İÇERİK sessizliği. Beyan-açık ama "
+                       "BAŞLATILAMAYAN hareket de sessiz bir yüzeydir ve "
+                       "test/startable_reach_test.dart'ta ölçülür.",
+        },
+        "bloker_sayimi": dict(sorted(c["bloker_sayimi"].items(),
+                                     key=lambda x: (-x[1], x[0]))),
+    }
+
+
+def _artefakt(yaz: bool) -> int:
+    """`--write` üretir · `--check` DRIFT kapısıdır.
+
+    Kapı, artefaktın **bugünkü ölçümle aynı** olduğunu sorar. Ayrışırsa iki
+    şeyden biri olmuştur ve ikisi de bilinmek ister: ya içerik değişti ve
+    artefakt bayatladı, ya biri artefaktı **elle** düzenledi.
+    """
+    govde = artefakt_govde()
+    metin = json.dumps(govde, ensure_ascii=False, indent=2) + "\n"
+    if yaz:
+        ARTEFAKT.parent.mkdir(parents=True, exist_ok=True)
+        ARTEFAKT.write_text(metin, encoding="utf-8")
+        print(f"✍️  yazıldı: {ARTEFAKT.relative_to(ROOT)} — "
+              f"{govde['payda']['islem']}")
+        return 0
+    if not ARTEFAKT.exists():
+        print(f"⛔ A4 artefaktı YOK: {ARTEFAKT.relative_to(ROOT)} — "
+              "`--write` ile üret. Ölçüm yapılıp yazılmadıysa, ölçülmemiş "
+              "sayılır.")
+        return 1
+    if ARTEFAKT.read_text(encoding="utf-8") != metin:
+        print(f"⛔ A4 artefaktı DRIFT etti: {ARTEFAKT.relative_to(ROOT)}. "
+              "İçerik değişip artefakt bayatladıysa `--write`; artefakt elle "
+              "düzenlendiyse geri al. Bayat bir dağılım, ölçülmüş görünen bir "
+              "iddiadır.")
+        return 1
+    print(f"✅ A4 artefaktı GÜNCEL — {govde['payda']['islem']} · "
+          f"sessiz {govde['a3_sessizlik']['sessiz_sayi']}")
+    return 0
+
+
 if __name__ == "__main__":
-    sys.exit(_self_test() if "--self-test" in sys.argv else _rapor())
+    if "--self-test" in sys.argv:
+        sys.exit(_self_test())
+    if "--write" in sys.argv:
+        sys.exit(_artefakt(yaz=True))
+    if "--check" in sys.argv:
+        sys.exit(_artefakt(yaz=False))
+    sys.exit(_rapor())

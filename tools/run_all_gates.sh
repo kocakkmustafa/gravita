@@ -149,6 +149,10 @@ gate "metric_support --self-test" python3 tools/metric_support.py --self-test
 # ⛔ Bu kapı blokerleri DOĞRULAMAZ (o `validate_library` K9'un işi);
 # yalnız SINIFLANDIRIR — kapının kapısını denetleyen kapı kurulmaz.
 gate "dead_end_census"            python3 tools/dead_end_census.py
+# ⭐ G-216 (koordinatör H-17): dağılım artık ARTEFAKTA yazılı ve bu kapı onu
+# canlı ölçümle karşılaştırıyor. Rapor basmak yetmezdi — stdout'a basılan bir
+# sayı, kimse okumazsa ölçülmemiş sayılır; ayrışırsa da kimse görmez.
+gate "dead_end_census --check"    python3 tools/dead_end_census.py --check
 gate "dead_end_census --self-test" python3 tools/dead_end_census.py --self-test
 # ⚠️ DEFTER depo DIŞINDA (`../workspace/`) — bu kapı deponun kendi içeriğini
 # değil, deponun HAFIZAYLA UYUMUNU ölçüyor. Bugün ölçüldü ki beş hattın

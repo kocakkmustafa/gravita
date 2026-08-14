@@ -1,0 +1,79 @@
+{
+  "$doc": "A4 — ÇIKMAZ SOKAK DAĞILIMI. tools/dead_end_census.py --write ile ÜRETİLİR, elle düzenlenmez; --check drift'i yakalar. Taksonomi: motion-core YAYIN-HAZIRLIK-OLCUTU.md.",
+  "payda": {
+    "toplam": 31,
+    "islem": "31 = başlatılabilir(beyan) 2 ⊎ çıkmaz 29",
+    "baslatilabilir": [
+      "bodyweight_squat",
+      "push_up"
+    ],
+    "cikmaz_sayisi": 29
+  },
+  "$dagilimNotu": "Bir çıkmaz BİRDEN ÇOK sınıf taşıyabilir; sınıf sayılarının toplamı çıkmaz sayısına EŞİT OLMAK ZORUNDA DEĞİLDİR.",
+  "olculen": {
+    "A": {
+      "sayi": 0,
+      "hareketler": []
+    },
+    "A'": {
+      "sayi": 29,
+      "hareketler": [
+        "bird_dog",
+        "burpee",
+        "calf_raise",
+        "db_curl",
+        "db_row",
+        "db_shoulder_press",
+        "dead_bug",
+        "dip",
+        "farmer_carry",
+        "floor_press",
+        "glute_bridge",
+        "goblet_squat",
+        "hanging_leg_raise",
+        "hollow_hold",
+        "inverted_row",
+        "kb_swing",
+        "lateral_raise",
+        "lunge",
+        "mountain_climber",
+        "plank",
+        "pull_up",
+        "romanian_deadlift",
+        "side_plank",
+        "step_up",
+        "superman_hold",
+        "toes_to_bar",
+        "tuck_planche",
+        "wall_handstand",
+        "wall_sit"
+      ]
+    },
+    "E": {
+      "sayi": 1,
+      "hareketler": [
+        "tuck_planche"
+      ]
+    }
+  },
+  "$gorulmeyenNotu": "Bu araç bu sınıfları göremez. '0' YAZILMAZ — sıfır, sınıfın yokluğunu iddia ederdi; oysa B dolu. Ölçüldükleri adres yazılır.",
+  "gorulmeyen": {
+    "B": "test/startable_reach_test.dart (varılabilirlik WIDGET katmanı; bugün 1: push_up)",
+    "C": "yargı kalemi — 'bu kart hiç olmamalıydı' koddan TÜRETİLEMEZ",
+    "D": "bu üründe YAPISAL olarak olamaz — validate_library K11 blokersiz kapanışı zaten yasaklıyor"
+  },
+  "a3_sessizlik": {
+    "$doc": "Aynı payda, FARKLI soru: A4 'kaç çıkmaz ve niye', A3 'kaçı bunu KULLANICIYA söylüyor'.",
+    "bos_sayi": 29,
+    "sessiz_sayi": 0,
+    "sessizler": [],
+    "islem": "boş 29/31 ↔ sessiz 0/31",
+    "$kapsam": "yalnız İÇERİK sessizliği. Beyan-açık ama BAŞLATILAMAYAN hareket de sessiz bir yüzeydir ve test/startable_reach_test.dart'ta ölçülür."
+  },
+  "bloker_sayimi": {
+    "engine.precondition.status!=derived": 29,
+    "provenance.sources:empty": 29,
+    "replayFixture:missing": 29,
+    "metric:unimplemented@entry": 1
+  }
+}
