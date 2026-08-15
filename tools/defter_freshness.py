@@ -58,7 +58,7 @@ sütunu **okuyor**. Eklemediğim için bozacak bir sayaç da yok.
 > ***BİR BİRİMİ VERİDE ZATEN VAROLAN BİR ALANDAN TÜRETMEK, YENİ BİR ALAN
 > EKLEYİP HER SAYACI YENİDEN ÖLÇMEKTEN UCUZDUR.***
 
-## Dört tuzak, dördü de tasarıma gömülü
+## Beş tuzak, beşi de tasarıma gömülü
 
 1. **SENTİNEL KARIŞMASI — ve eski çözümüm TAUTOLOJİYDİ (G-196).**
    Depoda `G-999` gibi kasıtlı sahte kayıtlar var. Eski öz-testim bunu
@@ -98,6 +98,20 @@ sütunu **okuyor**. Eklemediğim için bozacak bir sayaç da yok.
    gerçekte kaydetmediği bir işi iddia etmez — bu yüzden prose-anma tavanı
    artık şişiremez. `linked`in kendisi (yön-2, öksüz taraması) DEĞİŞMEDİ;
    yalnız tavan hangi kümeden türediği değişti. Bkz. öz-test ⑧.
+5. **PROB NUMARALARI — YAPISAL panzehir TEK BAŞINA yetmez (Ostinato `O-111`,
+   orkestratör hükmü `H-35`, 2026-08-16).** Tuzak 4'ün panzehiri tavanı
+   bağışık kıldı, ama `linked`in KENDİSİ (öksüz taraması, ki bu doğru — bir
+   *varlık* sorusu) `G-500`/`G-501`i hâlâ içeriyor. Beş hat ölçüldü:
+   Gravita'nınki YAPISAL, Ostinato'nunki SÖZLEŞMESEL (`9xx` bandı + adıyla
+   `PROBE_IDS`) — ve Ostinato'nun `O-111` vakası kanıtladı ki **tek bir prob
+   numarası iki yönü BİRDEN bozabilir.** İkisi TAMAMLAYICI, biri ötekinin
+   yerine geçmez.
+   > ***BİR NUMARADAN SÖZ ETMEK ONU VAR EDER.***
+   Panzehir: `PROBE_IDS = {500, 501}` — Ostinato'nun `9xx` sözleşmesi buraya
+   da alındı, `_real()` artık ikisini de eler. **Gidişat kuralı yazılı:**
+   prob numarası bundan sonra `9xx`ten seçilir; seçilmediyse `PROBE_IDS`e
+   ADIYLA girer. Bkz. öz-test ⑨ (etkililik + GEREKÇE-ÇAPASI, ikisi ayrı
+   sınanır — tuzak 1'in `G-999` çapasıyla aynı desen).
 
 ✅ DEFTER 2026-08-15'ten beri depo İÇİNDE (`workspace/DEFTER.md`, M-F-633 —
 kurucu kararı). Bulunamazsa bu kapı **gürültüyle düşer** — bulunamayan bir
@@ -139,6 +153,24 @@ NONWORK_TYPES = {"bulgu", "risk", "karar", "ders"}
 #: ARALIK**: yeni bir sentinel eklendiğinde bakım istemez.
 SENTINEL_RANGE = range(900, 1000)
 
+#: 🔴 SABOTAJ PROB NUMARALARI — kayıt DEĞİL, sabotaj anlatısında anılan ve
+#: `9xx` ARALIĞININ DIŞINDA seçilmiş (Ostinato `O-111`in kardeşi, orkestratör
+#: hükmü `H-35`, 2026-08-16). `G-223`ün kendi vakası: `G-220`nin commit
+#: gövdesi *"ilk denemem `G-500`/`G-501` idi"* dedi — bu ikisi `9xx`
+#: BANDINDA DEĞİLDİ, `SENTINEL_RANGE` onları göremedi, ve `linked`e
+#: karışarak tavanı zehirledi (bkz. `ceiling` yorumu). Yapısal panzehir
+#: (tavan artık `claimed`ten türüyor) bunu ÇÖZDÜ — ama `linked`in KENDİSİ
+#: hâlâ geniştir (yön-2'nin görevi bu, daraltılmadı) ve 500/501 orada
+#: duruyor. Kural artık yazılı: **prob numarası `9xx`ten seçilir**;
+#: seçilmediyse buraya ADIYLA girer.
+#:
+#: ⚠️ MUAFİYETİN DAYANDIĞI VARSAYIM — adıyla: bu numaraların git geçmişinde
+#: GEÇTİĞİ ölçümüne dayanır. Öz-test ⑨ bunu GEREKÇE-ÇAPASI olarak sınar:
+#: numara geçmişten kaybolursa (rebase/filter-branch) muafiyet boşa koşar
+#: ve çapa öter — bu bir KIRILGANLIK değil TASARIM (Ostinato'nun aynı
+#: gerekçesi burada da geçerli: bu ağaçta `pull.rebase` ayarlı değil).
+PROBE_IDS = {500, 501}
+
 #: ⚖️ BUGÜN ÖLÇÜLEN BAĞ-KOPUKLUĞU BORCU — icat edilmiş eşik DEĞİL, bugünün
 #: sayısının kendisi (G-187'nin bu depodaki `6 → 7` panzehiriyle aynı desen).
 #:
@@ -172,8 +204,9 @@ def _git(*args: str) -> str:
 
 
 def _real(ids) -> set:
-    """Sentinel aralığını ELER — yapısal, liste bakımı yok."""
-    return {g for g in ids if _num(g) not in SENTINEL_RANGE}
+    """Sentinel aralığını VE adlandırılmış prob numaralarını ELER."""
+    return {g for g in ids
+            if _num(g) not in SENTINEL_RANGE and _num(g) not in PROBE_IDS}
 
 
 def census() -> tuple[int, int, int]:
@@ -413,6 +446,24 @@ def _self_test() -> int:
         dead.append("GENİŞ DESEN artık düzyazı anmasını hiç görmüyor — "
                     "yön-2'nin kendisi bozulmuş (bu AYRI bir kusur olurdu)")
 
+    # ⑨ PROB NUMARALARI — Ostinato'nun `O-111`/`O-116` sözleşmesi, `H-35`
+    #    hükmüyle buraya taşındı. ⑧ yalnız YAPISAL panzehiri (tavan artık
+    #    `claimed`ten türüyor) sınar; bu, TAMAMLAYICI sözleşmeyi sınar —
+    #    500/501 hiçbir hesaba (claimed/linked/defter) GERÇEKTEN karışmıyor
+    #    mu. İki taraflı: ① muafiyet ETKİLİ mi (sızmıyor) ② muafiyet BOŞA mı
+    #    koşuyor (gerekçesi git geçmişinden silinmiş mi — GEREKÇE-ÇAPASI).
+    if _real({"G-500", "G-501", "G-042"}) != {"G-042"}:
+        dead.append("PROB SIZDI: G-500/G-501 `_real()`den hâlâ geçiyor — "
+                    "prob muafiyeti etkisiz (Ostinato'nun O-111 dersi kayboldu)")
+    if "G-500" in claimed_ids() | linked_ids():
+        dead.append("PROB SIZDI: G-500 gerçek claimed/linked kümesinde HÂLÂ "
+                    "var — filtre `_real()`den geçmeyen bir yoldan besleniyor")
+    probe_log = _git("log", "--format=%s%n%b")
+    for pid in sorted(PROBE_IDS):
+        if f"G-{pid}" not in probe_log:
+            dead.append(f"PROB ÇAPASI ÖLÜ: `G-{pid}` git geçmişinde artık "
+                        f"YOK — muafiyet gerekçesiz koşuyor, taban daraltılmalı")
+
     if dead:
         print(f"⛔ {len(dead)} ÖLÜ DESEN (defter tazeliği öz-testi DÜŞTÜ):")
         for d in dead:
@@ -426,12 +477,13 @@ def _self_test() -> int:
     if paid_w or paid_u:
         paid = (f" · ⭐ BORÇ ÖDENDİ (taban daraltılabilir): "
                 f"{', '.join('G-%03d' % n for n in paid_w + paid_u)}")
-    print(f"✅ 8/8 kapı ateşlendi — İKİ YÖN ayrı desenle sınandı (çapalı 1 ⊆ "
+    print(f"✅ 9/9 kapı ateşlendi — İKİ YÖN ayrı desenle sınandı (çapalı 1 ⊆ "
           f"geniş 2, sentetik korpusta) · sentinel aralığı depoya BAKMADAN "
           f"kanıtlandı + dış çapa canlı · borç tabanı ALT KÜME olarak "
           f"sınandı ({len(KNOWN_UNLINKED_WORK)} görev + "
           f"{len(KNOWN_UNLINKED_UNTYPED)} türsüz, hepsi defterde) · "
-          f"payda denklemi tutuyor · tavan zehirlenmesi ayrı sınandı{paid}")
+          f"payda denklemi tutuyor · tavan zehirlenmesi + prob numaraları "
+          f"ayrı sınandı{paid}")
     return 0
 
 

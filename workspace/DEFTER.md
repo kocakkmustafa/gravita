@@ -4441,3 +4441,49 @@ G-194/G-196'da, bu aracın **kendi doğuşunda** bulunmuştu. Dördüncüsü iki
 
 **Kapı durumu:** `GATES_EXIT=0` · app 212/212 · engine 175/175 · python 18/18 ·
 `defter_freshness --self-test` 8/8.
+
+---
+
+### G-224 — 🤝 H-35 işlendi: Ostinato'nun PROB SÖZLEŞMESİ (`PROBE_IDS`) buraya da alındı (2026-08-16)
+
+**H-35 (orkestratörden, aile hükmü, 2026-08-16):** `G-223`ün tavan-zehirlenmesi bulgusu beş
+hatta ölçüldü. Gravita'nınki **YAPISAL** (tavan artık `claimed`ten türüyor) — ama Ostinato
+`O-111`de **aynı yaranın komşu bir dilimini** üç kez yaşamıştı ve **SÖZLEŞMESEL** bir panzehir
+bulmuştu: `9xx` bandının dışında seçilen bir prob numarası (`O-777`), sabotaj anlatısında
+anılınca **hem** commit-kaydı **hem** tavanı birden bozmuştu — *"tek bir prob numarası iki
+yönü birden bozdu."*
+
+## İki panzehir TAMAMLAYICI, biri ötekinin yerine geçmez
+
+Kendi düzeltmem (`G-223`) yalnız **tavanı** bağışık kıldı. `linked` kümesinin kendisi (yön-2,
+öksüz taraması) hâlâ genişti — ve bu **doğru**, çünkü yön-2'nin görevi budur. Ama bu, `G-500`/
+`G-501`in `linked`den hiç çıkmadığı anlamına geliyordu; onları hâlâ TAŞIYORDUM, yalnız artık
+tavanı etkilemiyorlardı. Ostinato'nun `PROBE_IDS` sözleşmesi bu artığı da temizliyor: `_real()`
+artık sentinel aralığı (`9xx`) YANINDA, adıyla listelenmiş prob numaralarını da eliyor.
+
+`tools/defter_freshness.py`:
+- `PROBE_IDS = {500, 501}` eklendi — bu vakanın kendi sahte numaraları.
+- `_real()` artık ikisini de filtreliyor (`claimed`/`linked`/`defter` üçünde de).
+- **Gidişat kuralı yazılı:** prob numarası bundan sonra `9xx`ten seçilir; seçilmediyse
+  `PROBE_IDS`e ADIYLA girer.
+
+## Öz-teste ⑨ eklendi — iki ayrı iddia, GEREKÇE-ÇAPASI dahil
+
+Ostinato'nun `O-116` desenini birebir uyarladım: (1) **etkililik** — `_real({G-500,G-501,G-042})`
+yalnız `{G-042}` dönmeli, VE gerçek `claimed_ids()|linked_ids()` birleşiminde 500/501 hiç
+olmamalı (2) **GEREKÇE-ÇAPASI** — `G-500`/`G-501` git geçmişinde (gerçekten `G-220`nin
+gövdesinde) hâlâ geçiyor mu; geçmiyorsa muafiyet boşa koşuyor demektir ve çapa öter. Bu, tuzak
+1'in `G-999` çapasıyla **aynı desen** — bir muafiyet ya ölçümünü taşır ya türetilir.
+
+Öz-test `8/8` → **`9/9`**. Docstring "Dört tuzak" → **"Beş tuzak"**, beşincisi Ostinato'ya
+adıyla atıflı.
+
+> ***İKİ HAT AYNI DERSİ AYRI AYRI ÖDEDİ; BİR AİLENİN DEĞERİ, AYNI DERSİ KAÇ KEZ ÖDEDİĞİNDE
+> DEĞİL, KAÇ KEZ TEK SEFERDE PAYLAŞTIĞINDADIR.*** (orkestratörün cümlesi, kendi vakama tam
+> oturuyor — değiştirmedim.)
+
+**H-35 işlendi.**
+
+**Kapı durumu:** `GATES_EXIT=0` · app 212/212 · engine 175/175 · python 18/18 ·
+`defter_freshness --self-test` 9/9.
+
