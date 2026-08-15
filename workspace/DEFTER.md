@@ -4487,3 +4487,55 @@ adıyla atıflı.
 **Kapı durumu:** `GATES_EXIT=0` · app 212/212 · engine 175/175 · python 18/18 ·
 `defter_freshness --self-test` 9/9.
 
+---
+
+### G-225 — 🧪 H-20/21 işlendi: kalıcı depoların üçlü sabotajı — biri korumasız çıktı, kapatıldı (2026-08-16)
+
+**H-20/21 (kalıcı depoları say, her `catch`i denetle, üçlü sabotaj yaz — bozuk/yanlış-tip/
+bilinmeyen-şema).** Önce Explore ajanıyla TAM ENVANTER çıkardım (varsaymadım): Gravita'da
+`SharedPreferences`/`Hive`/`sqflite` YOK — tüm kalıcılık düz `File` I/O, üç JSON(L) dosyası +
+bir ikili model önbelleği.
+
+## Envanter — dört depo, dördü de farklı risk sınıfında
+
+| depo | dosya | açılışta mı | üçlü sabotaj durumu (önce) |
+|---|---|---|---|
+| `OnboardingStore` | `onboarding.json` | ✅ (kabuğun ilk build'i) | ① var, ②③ YOK |
+| `JsonlSessionStore` (ders) | `sessions.jsonl` | ✅ (Progress sekmesi `IndexedStack`le EAGER) | satır-içi TAM, dosya-geneli YOK |
+| `JsonlSessionStore` (serbest) | `free_sessions.jsonl` | ✅ (aynı) | aynı |
+| model önbelleği | `pose_landmarker_full.v1.task` | ⛔ tembel, canlı seans başlayınca | HİÇ — native sınıra geçiyor |
+
+## Kapatılan gerçek boşluk — OnboardingStore
+
+`isComplete()` zaten `on Object` ile geniş korumalı (ölçüldü, varsayılmadı: `j['completed'] ==
+true` bir EŞİTLİK, CAST değil — `{"completed":"true"}` hiç fırlatmaz, sessizce `false` döner).
+Ama ②③ hiç test edilmemişti. Üç yeni test (`test/onboarding_test.dart`): geçerli json + yanlış
+tip (dize) · geçerli json ama tepe-seviye dizi (`as Map` → `TypeError`) · bilinmeyen şema
+sürümü + fazladan alan (ileriye-dönük uyum pozitif ikizi — `completed` hâlâ doğru okunmalı).
+
+## Kapatılan gerçek boşluk — JsonlSessionStore, H-25 sınıfı
+
+**Asıl bulgu burada:** depo (pinli `motion_core`) satır-içi bozulmaya TAM bağışık, ama İKİ
+dosya-geneli hataya (dizin-yerine-dosya, geçersiz UTF-8) **kendi katmanında hiç korumasız** —
+kasten: pinli paketin KENDİ testi bunun `FileSystemException` fırlatmasını BEKLENEN davranış
+sayıyor. Bugün üç çağıran sitenin (`gravita_app.dart`, `content_repository.dart`,
+`movement_page.dart`) geniş `on Object` yakalayıcısı sayesinde çökmüyoruz — ama bu ÖRTÜK bir
+sözleşme, hiçbir testte adı yoktu.
+
+> ***DOĞRU DAVRANAN KORUMASIZ KOD, KUSURLU KODDAN YALNIZ ZAMANLAMAYLA AYRILIR.*** (H-25)
+
+İki yeni test (`test/free_bucket_integrity_test.dart`, `ContentRepository.readHistoryStatus`
+üzerinden — en merkezi çağıran): dizin-yerine-dosya · geçersiz UTF-8 bayt dizisi. İkisi de
+`HistoryUnavailable` dönmeli, çökmemeli. **İkisi de bugün YEŞİL** — örtük sözleşme artık
+regresyona karşı kilitli.
+
+## ⛔ Adıyla bırakılan — kapsam-boşluğu satırı (H-25'in ikinci maddesi)
+
+Model önbelleği dosyası (`pose_landmarker_full.v1.task`) yalnız **varlık** kontrol ediliyor,
+içerik/SHA doğrulanmıyor; bozuksa native kamera eklentisine öyle geçiyor. Bu turun kapsamı
+DEĞİL (Dart `catch`i yok, native sınır — sabotaj testi burada anlamsız, gerçek cihaz/native
+araştırma ister). Adıyla not edildi, kaybolmadı.
+
+**H-20/21 işlendi.**
+
+**Kapı durumu:** `GATES_EXIT=0` · app 217/217 (+5) · engine 175/175 · python 18/18.

@@ -119,4 +119,48 @@ void main() {
 
     expect(s, isA<HistoryOk>());
   });
+
+  /// H-20/21 (2026-08-16) — SATIR-İÇİ bozulma üsttekilerde tam korumalı,
+  /// ama `JsonlSessionStore._readAll()` (pinli `motion_core`) İKİ DOSYA-
+  /// GENELİ hatayı KENDİSİ yakalamaz — bilerek: kendi paketinin testi
+  /// (`session_store_test.dart`) bunun `FileSystemException` fırlatmasını
+  /// BEKLENEN davranış sayar. Bugün çökmüyoruz çünkü BU çağıranın
+  /// `on Object` yakalayıcısı depoyla ARANIN olmadığı bu iki hatayı da
+  /// örtüyor — ama bu ÖRTÜK bir sözleşme, hiçbir testte adı yok. Silahsız
+  /// bir sözleşme bir gün dar bir catch'e sessizce kaybolabilir
+  /// (H-25 sınıfı: "kusur bulamamak sonuç değil, korumasızlık kusurdur").
+  group('DOSYA-GENELİ hatalar (depo katmanı korumasız, YALNIZ bu çağıran '
+      'korur — H-20/21 regresyon kilidi)', () {
+    test('sessions.jsonl yerine bir DİZİN varsa — çökmeden HistoryUnavailable',
+        () async {
+      Directory('${tmp.path}/sessions.jsonl').createSync(recursive: true);
+
+      final HistoryStatus s = await ContentRepository.readHistoryStatus(
+        lessons: JsonlSessionStore(File('${tmp.path}/sessions.jsonl')),
+        free: store('free_sessions.jsonl', ''),
+      );
+
+      expect(s, isA<HistoryUnavailable>(),
+          reason: 'Depo `FileSystemException` fırlatır (kasten — pinli '
+              'pakette ölçüldü); bu test yalnız BU çağıranın onu yakaladığını '
+              'sabitliyor. Kayıp SESSİZ değil, "unavailable" adıyla görünür.');
+    });
+
+    test('free_sessions.jsonl geçersiz UTF-8 bayt dizisi taşıyorsa — '
+        'çökmeden HistoryUnavailable', () async {
+      File('${tmp.path}/free_sessions.jsonl').writeAsBytesSync(
+          <int>[0x7B, 0x22, 0x76, 0x22, 0xFF, 0xFE, 0x80, 0x0A]);
+
+      final HistoryStatus s = await ContentRepository.readHistoryStatus(
+        lessons: store('sessions.jsonl', ''),
+        free: JsonlSessionStore(File('${tmp.path}/free_sessions.jsonl')),
+      );
+
+      expect(s, isA<HistoryUnavailable>(),
+          reason: '`readAsString()` sıkı UTF-8 çözer; bozuk bayt satır-içi '
+              'kusur DEĞİL, dosya-geneli bir okuma hatasıdır ve satır-bazlı '
+              'try/catch\'in erişemediği yerde (dosya okumanın kendisinde) '
+              'fırlar.');
+    });
+  });
 }

@@ -49,6 +49,50 @@ void main() {
       expect(await OnboardingStore.forFile(f).isComplete(), isFalse);
     });
 
+    /// H-20/21 (2026-08-16) — üçlü sabotajın ①'i (bozuk) üstteki test.
+    /// Bu ikisi ②'yi (GEÇERLİ json + YANLIŞ tip) kapatır: `isComplete()`in
+    /// `on Object` yakalayıcısı yalnız BOZUK sözdizimini değil, doğru
+    /// sözdizimli ama beklenmeyen ŞEKİLLİ içeriği de görmelidir — bu iki
+    /// yol farklı istisna sınıfları fırlatır (`FormatException` ↔ `TypeError`)
+    /// ve dar bir `on FormatException` bu ikinciyi KAÇIRIRDI.
+    test('GEÇERLİ json + YANLIŞ TİP (completed bir dize) — çökmeden '
+        'tamamlanmadı sayılır', () async {
+      final File f = File('${tmp.path}/onboarding.json')
+        ..createSync(recursive: true);
+      // `j['completed'] == true` bir EŞİTLİK, CAST değil — bu satır asla
+      // fırlatmaz, yalnız `false` döner. Testin kanıtladığı budur: bu yolun
+      // sessiz-yanlış değil sessiz-güvenli olduğu VARSAYIM değil ÖLÇÜM.
+      f.writeAsStringSync(jsonEncode(<String, dynamic>{'completed': 'true'}));
+      expect(await OnboardingStore.forFile(f).isComplete(), isFalse);
+    });
+
+    test('GEÇERLİ json ama tepe-seviye NESNE DEĞİL (dizi) — çökmeden '
+        'tamamlanmadı sayılır', () async {
+      final File f = File('${tmp.path}/onboarding.json')
+        ..createSync(recursive: true);
+      // `jsonDecode(...) as Map<String, dynamic>` burada TypeError fırlatır
+      // (sözdizimi geçerli, biçim yanlış) — `on Object` bunu yakalamalı.
+      f.writeAsStringSync(jsonEncode(<int>[1, 2, 3]));
+      expect(await OnboardingStore.forFile(f).isComplete(), isFalse);
+    });
+
+    /// ③ (bilinmeyen şema sürümü) — bu depoda `schemaVersion` YAZILIR
+    /// (`markComplete`) ama `isComplete()` hiç OKUMAZ. Pozitif ikiz: gelecek
+    /// bir sürüm numarası akışı KIRMAMALI, çünkü okunan tek alan `completed`.
+    test('BİLİNMEYEN şema sürümü + fazladan alanlar — completed hâlâ '
+        'doğru okunur (ileriye dönük uyum)', () async {
+      final File f = File('${tmp.path}/onboarding.json')
+        ..createSync(recursive: true);
+      f.writeAsStringSync(jsonEncode(<String, dynamic>{
+        'completed': true,
+        'schemaVersion': 999,
+        'gelecekAlan': <String, dynamic>{'iceIce': 'baby'},
+      }));
+      expect(await OnboardingStore.forFile(f).isComplete(), isTrue,
+          reason: 'isComplete() yalnız `completed` okur; bilinmeyen sürüm '
+              'numarası ya da fazladan alan onu SAPTIRMAMALI.');
+    });
+
     test('markComplete alt dizinleri oluşturur (getApplicationSupport '
         'ilk açılışta yok olabilir)', () async {
       final File f =
