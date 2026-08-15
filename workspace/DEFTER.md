@@ -4539,3 +4539,89 @@ araştırma ister). Adıyla not edildi, kaybolmadı.
 **H-20/21 işlendi.**
 
 **Kapı durumu:** `GATES_EXIT=0` · app 217/217 (+5) · engine 175/175 · python 18/18.
+
+---
+
+### G-226 — 📐 H-23/24/25 işlendi: kapsam beyanı SAYIYLA, simetri ÖLÇÜLDÜ, boşluk adıyla yazıldı (2026-08-16)
+
+**H-23 (dürüstlük/bayat-cümle kapılarının taradığı dosya kümesini SAYIYLA yaz, lib+content+
+assets kapsadığından emin ol) · H-24 (canlı yüzey NASIL simetrisi) · H-25 (kusur-yok
+raporlarına kapsam-boşluğu satırı)** — üçü tek turda, Explore ajanıyla TAM envanter.
+
+## H-23 — taban sayıları, sonra kapsam
+
+```
+lib/**/*.dart               : 24 dosya
+content/**/*.json           : 59 dosya
+content/**/*.yaml|*.yml     :  0 dosya
+config/ dizini               : bu app kökünde YOK
+assets/** (tüm dosyalar)    :  1 dosya → pose_landmarker_full.v1.task (ikili model, metin yok)
+```
+
+`tools/run_all_gates.sh`'ın koştuğu **11 kapıdan 5'i** gerçek metin-dürüstlüğü/bayat-cümle
+kapısı (`validate_library.py` · `promote_library.py` · `build_exclusions_page.py` ·
+`validate_catalog.py` yalnız V5 · `network_claim_audit.py`); kalan 6'sı yapısal/şema/çapraz-
+referans kapısı (kapsam dışı, bu ölçütün konusu değil).
+
+**Kategori kapsaması, süit düzeyinde:**
+- **lib/**.dart → KAPSANDI**: `network_claim_audit.py` `LIB.rglob("*.dart")` ile 24/24 dosyayı tarıyor.
+- **content/**.json → KAPSANDI**: 4 kapı (`validate_library`/`promote_library`/
+  `build_exclusions_page`/`validate_catalog`) birlikte 59'un 34'üne kadar dosyaya değiyor.
+- **assets/** → KAPSANMADI, adıyla:** hiçbir kapı `assets/**` içindeki METNİ taramıyor.
+  `network_claim_audit.py` yalnız `.ttf`/`.otf` **varlığını** (boolean) kontrol ediyor — metin
+  içeriği değil. Bugün düşük risk çünkü `assets/`te tam **1** ikili dosya var, metin yok — ama
+  yarın metin taşıyan bir dosya (lisans sayfası, gömülü yerelleştirme) doğrudan `assets/`e
+  konursa **hiçbir kapı onu görmez.**
+
+> ***HİÇBİR TEK KAPI ÜÇ KATEGORİYİ BİRDEN KARŞILAMIYOR — SÜİT DÜZEYİNDE KARŞILANIYOR, VE BU
+> KASITLI TASARIM DEĞİL, İDDİALARIN BUGÜN FİZİKSEL OLARAK AYRIŞMIŞ OLMASININ ŞANSI.***
+
+## Yan bulgu — bu betiğin KENDİ etiketi bayattı (aynı turda, aynı dosyada)
+
+Ajan `tools/run_all_gates.sh`'ın SÜİT 3 başlığının *"(8 araç)"* dediğini, gerçek sayının
+**11** olduğunu buldu — H-23'ün denetlediği TAM sınıfın betiğin kendi başlığında **canlı
+örneği**. Kapanış özetindeki *"8 hasat aracı"* satırı da aynı bayatlıktaydı. İkisi de
+düzeltildi (`10 hasat aracı` — ayrıca iki ADSIZ öksüz araç, `hip_knee_coupling_per_rep.py` +
+`build_replay_fixture.py`, dışlama listesine ADIYLA eklendi; ikisi de aynı ölçütü karşılıyor:
+`--check`/`--self-test` yok, biri zorunlu argüman istiyor).
+
+> ***BİR SAYI DENETİMİ YAZARKEN, DENETİMİ YAZDIĞIN DOSYANIN KENDİ SAYISINI DA ÖLÇ.***
+
+## H-24 — canlı yüzey NASIL simetrisi (Lissom'un `L-328` sınıfı, buradaki hâli TERS çıktı)
+
+Lissom'un bulgusu: *"vaat YAPAMADIĞIN şeyler için tutuluyor, YAPABİLDİKLERİN için hiç."*
+Kendi kütüphanemde (`content/library.json`, 31 hareket, canlı 2 · engelli 29) aynı ölçütü
+uyguladım — **ve sonuç tersti:**
+
+```
+CANLI (n=2):    ort 2802 karakter/hareket · 12,5 gerekçe-kalemi/hareket
+ENGELLİ (n=29): ort 1347 karakter/hareket ·  8,0 gerekçe-kalemi/hareket
+```
+
+Alan bazında: `honesty.measured`/`scoring` yalnız CANLI'da var (engellide anlamı yok —
+ölçülen bir şey yok ki puanlansın); `waitingOnMeasurement` yalnız ENGELLİ'de. Ders düzeyinde
+**tam simetri, 4/4:** her ders ya `_why_unlocked` (açıksa, neden güveniyoruz) ya `lockedReason`
+(kilitliyse, neden değil) taşıyor — hiçbiri ikisinden de yoksun değil.
+
+> ***AYNI RİSK SINIFI HER HATTA AYNI ŞEKİLDE ÇIKMAZ — ÖLÇÜLMEDEN "muhtemelen burada da
+> var" DEMEK, KENDİSİ BİR VARSAYIMDIR.***
+
+⚠️ **Adıyla sınır (H-25'in kendisi):** `n=2` küçük bir taban; bugünkü simetri gelecekteki 29
+canlı hareket için garanti değil, yalnız bugünün ölçümü. Hasat turu-1 (F3) yeni canlı hareket
+her eklediğinde bu oran YENİDEN ölçülmeli — bugünkü "ters çıktı" sonucu donmuş bir hüküm değil.
+
+## H-25 — bu turun kendi kapsam-boşluk satırları
+
+1. `assets/**` metin-dürüstlüğü taraması **yok** (yukarıda, H-23).
+2. Yeni bulunan, ayrı bir çift-kaynak boşluğu: `lib/app/library_strings.dart:282-283`teki
+   B sınıfı açıklaması (Dart düz metin) ile `content/schema/movement-classes.json`nin
+   `claims.formVerdict` yapılı alanı (`promote_library.py:318-320` okuyor) **birbirine karşı
+   hiç denetlenmiyor** — aynı gerçek hakkında iki ayrı doğru, iki ayrı dosya türünde, hiçbir
+   kapı ikisini birden okumuyor (H-23'ün üç-kategori sınıfının küçük bir üçüncü örneği). Bu
+   turun kapsamı DEĞİL — adıyla bırakıldı, F3'te kütüphane büyürken risk artacağı için orada
+   yeniden değerlendirilmeli.
+3. H-24'ün kendi sınırı (üstte): `n=2` küçük taban, dondurulmuş sonuç değil.
+
+**H-23/24/25 işlendi.**
+
+**Kapı durumu:** `GATES_EXIT=0` · app 217/217 · engine 175/175 · python 18/18.

@@ -16,11 +16,14 @@
 #
 # ## KAPSAM — bu betiğin ÖLÇMEDİĞİ şeyler (bilerek)
 #
-# `tools/` altındaki 8 dosya BURADA KOŞMAZ ve bu bir karardır, unutma değil:
+# `tools/` altındaki 10 dosya BURADA KOŞMAZ ve bu bir karardır, unutma değil:
 # `a5_anatomical_probe` · `anatomical_copying_signature` · `harvest_queue` ·
 # `hip_knee_coupling_canonical` · `mirror_vs_foreshortening` ·
-# `mode_naming_probe` · `reclassify_eligibility` · `sync_provenance`.
-# Ölçüldü: hiçbirinde `--check` ya da `--self-test` yok; ikisi zorunlu
+# `mode_naming_probe` · `reclassify_eligibility` · `sync_provenance` ·
+# `hip_knee_coupling_per_rep` · `build_replay_fixture` (H-23 denetimi,
+# 2026-08-16 — bu ikisi listede YOKTU, unutulmuştu; ikisi de aynı ölçütü
+# karşılıyor, adıyla eklendi).
+# Ölçüldü: hiçbirinde `--check` ya da `--self-test` yok; üçü zorunlu
 # argüman istiyor. Bunlar HASAT/ANALİZ araçlarıdır — bir durumu denetlemez,
 # bir çıktı üretirler. Kapı gibi koşturmak, koştuğu için doğru sanılan bir
 # şey üretirdi.
@@ -124,7 +127,12 @@ line; echo "SÜİT 2 — gravita_engine ($(ls packages/gravita_engine/test/*.dar
 eng_n="$(count_dart bash -c "cd packages/gravita_engine && dart test")" || fail=1
 run "dart test" bash -c "cd packages/gravita_engine && dart test"
 
-line; echo "SÜİT 3 — içerik kapıları (8 araç)"; line
+# ⚠️ H-23 denetimi (2026-08-16) bu satırın KENDİSİNİ bayat buldu: "8 araç"
+# 2026-08-13'ten kalmaydı, depo o zamandan beri büyüdü — gerçek sayı 11
+# (aşağıdaki `gate` çağrılarının sardığı DİSTİNCT .py dosyası; --check/
+# --self-test varyantları ayrı araç sayılmaz). Bu betiğin kendi başlığı,
+# denetlediği tam sınıfın (bayat sayı iddiası) canlı bir örneğiydi.
+line; echo "SÜİT 3 — içerik kapıları (11 araç)"; line
 gate() { py_total=$((py_total+1)); if run "$@"; then py_ok=$((py_ok+1)); fi; }
 gate "reference_model"             python3 tools/validate_reference_model.py
 gate "reference_model --self-test" python3 tools/validate_reference_model.py --self-test
@@ -164,7 +172,7 @@ line
 if [ "$fail" -eq 0 ]; then
   echo "✅ ÜÇ SÜİTİN ÜÇÜ DE YEŞİL"
   echo "   app ${app_n}/${app_n} · engine ${eng_n}/${eng_n} · python ${py_ok}/${py_total}"
-  echo "   ⚠️ Kapsam dışı (bilerek): 8 hasat aracı · cihaz davranışı ·"
+  echo "   ⚠️ Kapsam dışı (bilerek): 10 hasat aracı · cihaz davranışı ·"
   echo "      biçim/konum karışıklığı · validate_catalog'un 7 kanıtsız değişmezi"
 else
   echo "❌ EN AZ BİR SÜİT KIRMIZI"
