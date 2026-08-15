@@ -4245,3 +4245,43 @@ tamamlanmadığı belirsiz. **Belirsiz bir gözlemden sebep üretilmedi**
 (`G-215`in dersi).
 
 **Durum:** kapalı (kanıt) · **Kapanış kanıtı:** `bd6a99c` + iki kare
+
+---
+
+### G-219 — 🔍 H-27 İŞLENDİ: `G-218` DOĞRULANDI, tek gerçek boşluğu adıyla F2/A1'e bağlandı (2026-08-16)
+
+**H-27 (koordinatörün geri koyduğu `G-218` kaydı) doğrulandı.** Kör güven değil, ölçüm:
+
+## Doğrulama — üç bağımsız kaynak
+
+1. `git show -s bd6a99c` gövdesi, deftere geri konan `G-218` metniyle **birebir** (satır satır
+   karşılaştırıldı — koordinatör yorum eklememiş, iddia doğru).
+2. Referans verilen iki kanıt karesi diskte **gerçekten var**:
+   `docs/gates/kanit/g213-duzeltme-ilk-ekran-temiz.png` ·
+   `docs/gates/kanit/g213-duzeltme-kamera-gerekcesi.png` (üçüncüsü de var:
+   `g213-duzeltme-ilk-ekran.png`, öncül/kirli kare).
+3. `git show 27f5f2c:lib/app/onboarding_strings.dart` **gerçek bir commit**, dosya içeriği okunabilir
+   — "kusurun otoritesi artık git geçmişi" iddiası boş değil.
+
+> ***BİR KAYDI DOĞRULAMAK, METNİNİ TEKRAR OKUMAK DEĞİLDİR — ATIFTA BULUNDUĞU HER KAYNAĞI
+> AYRI AYRI SINAMAKTIR.***
+
+## Eksik gördüğüm yer — ve neden ONU tamamlamadım
+
+`G-218`in kendi metni **tek gerçek boşluğu zaten adıyla yazmış**: *"Onboarding bayrağının
+kalıcılığı bu turda ÖLÇÜLEMEDİ"* (üç adım yürünürken `flutter run` sona erdi). Bunu şimdi
+"tamamlamak" demek, o akışı kendi simülatörümde yeniden yürüyüp ölçmek demek — ama bu akış
+hâlâ `google_fonts` runtime-fetch ağ reddi altında (`B5`/`D1` çözümü **karar** olarak açıldı,
+**paketleme işi henüz yapılmadı**, bkz. `YAYIN-YOLU-GRAVITA.md` F2). Şimdi zorlarsam `G-215`in
+dersini çiğnerim: *belirsiz bir gözlemden sebep üretme.* Panzehir uygulanmadan yürüyüş
+tekrarı aynı belirsiz sonucu üretir, "tamamlandı" YALANINI defterime yazmış olurdum.
+
+> ***BİR BOŞLUĞU KAPATMANIN SAHTE YOLU, ONU ÖLÇMEDEN "TAMAM" YAZMAKTIR — GERÇEK YOLU,
+> NEREDE VE NEYE BAĞLI KAPANACAĞINI ADIYLA SÖYLEMEKTİR.***
+
+**Bu yüzden tamamlama = bağlama:** boşluk `F2/A1`e resmen bağlandı (yol haritasında zaten
+oradaydı — ben icat etmedim, doğruladım) ve `H-27` `işlendi` sayıldı. `A1` D1 fontları
+paketlendikten SONRA kendi simülatörümde (`gravita-hatti`) yeniden yürünecek.
+
+**H-27 işlendi.**
+
