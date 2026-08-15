@@ -4285,3 +4285,49 @@ paketlendikten SONRA kendi simülatörümde (`gravita-hatti`) yeniden yürünece
 
 **H-27 işlendi.**
 
+---
+
+### G-220 — 🧪 H-26 SABOTAJI: `defter_freshness` iki biçimi de GERÇEKTEN sayıyor, kanıtlandı (2026-08-16)
+
+**H-26 (defter karma-biçim körlüğü) sınandı — okuyarak değil, kırarak.**
+
+## Kodda okunan iddia, davranışla sınandı
+
+`_ENTRY = re.compile(r"^(?:### |\| )(G-\d+)\b")` her iki biçimi de yakalıyor **iddiasını**
+taşıyordu (`tools/defter_freshness.py:110`). İddiayı doğrulamadan geçmedim.
+
+## İlk denemem YANLIŞ sabotajdı — ve bu da bir ölçüm
+
+Önce `G-500`/`G-501` (ceiling `218` **üstünde**) enjekte ettim → araç **düşmedi**, `uçuşta 2`
+diye sessizce yuttu. Sebebi kusur değil **tasarım**: `ceiling`in üstündeki kayıtlar "henüz
+commit'lenmemiş iş" sayılır, cezalandırılmaz (dosya docstring'i bunu **önceden** söylüyor).
+> ***YANLIŞ SABOTAJ, ARACIN DOĞRU BİR MUAFİYETİNİ KUSUR SANABİLİR — SABOTAJIN KENDİSİ DE
+> ARACIN TASARIMINA GÖRE SEÇİLMELİDİR.***
+
+## Gerçek sabotaj — ceiling ALTINDA, iki biçim, iki torba
+
+Boşluk taraması `1..218` aralığında yalnız üç boş numara buldu: `4·5·68`. `G-004` (BAŞLIK
+biçimi, hiçbir commit anmıyor) ve `G-005` (TABLO biçimi, `tür=görev`) eklendi — ikisi de
+ceiling altında, ikisi de öksüz:
+
+```
+python3 tools/defter_freshness.py         → ⛔ BAĞ KOPTU (yön-2): G-005, G-004  · EXIT=1
+python3 tools/defter_freshness.py --self-test → ⛔ BORÇ BÜYÜDÜ: görev [5] · türsüz [4] · EXIT=1
+```
+
+**İki biçim de yakalandı, İKİ AYRI torbaya doğru düştü:** `G-005` tablo `tür` sütunundan
+`work` sınıfına ayrıştı, `G-004` başlık biçiminde tür sütunu **yapısal olarak yok** olduğu
+için `untyped` sınıfına düştü — ikisi de aracın kendi docstring'inin iddia ettiği ayrım
+(*"birinin birimi TÜRETİLDİ, ötekininki türetilemedi"*). Geri alındı (`git status` temiz),
+taban yeniden ölçüldü — önceki koşumla **birebir aynı** (`eksik 0 · yeni bağ-kopukluğu 0`).
+
+> ***BİR ARAÇ "İKİ BİÇİMİ DE SAYARIM" DİYORSA, KANIT ONU OKUMAK DEĞİL, HER İKİ BİÇİMDE DE
+> GERÇEK BİR ÖKSÜZ ÜRETİP DÜŞMESİNİ İZLEMEKTİR.***
+
+**H-26 işlendi.** `grep -cE "^\| \*{0,2}G-[0-9]+"` (tablo) ve `grep -cE "^#+ \*{0,2}G-[0-9]+"`
+(başlık) ayrı ayrı sıfırdan büyük — defter hâlâ **karma biçimde**, ama artık ölçülü ve
+sabotajla korunuyor; H-26'nın 3. şıkkı (geriye/hiç çevirme kararı) bu turun kapsamı değil,
+orkestratöre iletiliyor (biçim kararı, kod değil).
+
+**Kapı durumu:** `GATES_EXIT=0` (sabotaj geri alındıktan sonra) · app 212/212 · engine 175/175 ·
+python 18/18.
