@@ -4360,3 +4360,29 @@ ikisini aynı cümlede tutmak, kapanan kapıyla birlikte kısıtı da unutturur.
 
 **H-31 işlendi.**
 
+---
+
+### G-222 — 🔖 D4 sürüm + D10 iPhone-only, ikisi de ÖLÇÜLEREK doğrulandı (2026-08-16)
+
+**D4:** `pubspec.yaml` `0.1.0+1` → **`1.0.0+1`**.
+
+**D10:** `ios/Runner.xcodeproj/project.pbxproj`'daki **üç** `TARGETED_DEVICE_FAMILY = "1,2"`
+satırı (Debug/Release/Profile, PROJE seviyesi — `Runner` ve `RunnerTests` hedefleri kendi
+katmanında bu alanı **hiç ezmiyor**, ölçüldü: dosyada toplam 3 geçiş var, hepsi proje
+seviyesinde) → `TARGETED_DEVICE_FAMILY = 1` (yalnız iPhone).
+
+## Beyan ✅ değildir — payda + işlem
+
+Değişikliği yazmak yetmez, **çözüldüğünü ölçtüm**:
+```
+plutil -lint project.pbxproj                              → OK (dosya bozulmadı)
+xcodebuild -showBuildSettings -scheme Runner -configuration Release
+  → TARGETED_DEVICE_FAMILY = 1                             (proje→hedef kaskadı GERÇEKTEN çalışıyor)
+```
+İkinci komut olmadan ilk komut yalnız *"dosya sözdizimi bozuk değil"* kanıtlardı — **etkili
+build ayarının** gerçekten `1`e indiğini değil. Proje seviyesinde ayarlamak bir **varsayımdı**
+(hedef seviyesinde ayrı bir ezme olmadığı varsayımı); `xcodebuild` bunu **ölçüme çevirdi**.
+
+**Kapı durumu:** `GATES_EXIT=0` · app 212/212 · engine 175/175 · python 18/18 (pubspec/pbxproj
+değişikliği Flutter/Dart test süitini etkilemez, ayrıca koşuldu — ölçüldü, varsayılmadı).
+
