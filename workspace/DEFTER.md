@@ -4331,3 +4331,32 @@ orkestratöre iletiliyor (biçim kararı, kod değil).
 
 **Kapı durumu:** `GATES_EXIT=0` (sabotaj geri alındıktan sonra) · app 212/212 · engine 175/175 ·
 python 18/18.
+
+---
+
+### G-221 — 🔓 H-31 işlendi: CLAUDE.md'nin bayat "kod başlatma kilidi" düzeltildi (2026-08-16)
+
+**H-31 (orkestratörden, 2026-08-16):** `gravita/app/CLAUDE.md` satır 4 hâlâ *"Kurucu 'Gravita'a
+başlayalım' demeden üretim kodu YAZILMAZ"* diyordu — **217 commit'lik depoda**, ve bu dosya
+**her turun ilk okuduğu şey.**
+
+## Ölçüldü, iddia edilmedi
+
+`docs/gates/G1-D1-RAPOR.md` gerçekten var (2026-07-26, defter `G-001`/`M-001`): D1 (ters-duruş
+fizibilitesi) **🟢 ŞARTLI GEÇTİ** — S2 (yönelim-farkında çıkarım) ile `42/42` doğru eksen,
+`0/42` eksen hatası; S1 (düz çıkarım) aynı sette `3/41` eksen hatası (%7,3). Kapı **kod
+yazılabilir mi** sorusuna çoktan cevap vermiş; dosya hâlâ soruyu **açık** gösteriyordu.
+
+> ***BİR KAPI KAPANDIKTAN SONRA DA "AÇIK" YAZAN BİR DOSYA, HER YENİ OTURUMU O KAPIYI YENİDEN
+> SORGULAMAYA ZORLAR — VE SORGU HER SEFERİNDE YANLIŞ CEVAP ALIR.***
+
+## Düzeltme — kilit değil, kalıcı kural
+
+Bölüm "🔒 KOD BAŞLATMA KİLİDİ" (engelleyici çerçeve) → "🟢 V0 KAPISI GEÇTİ" (kanıtlı çerçeve)
+oldu. **Kaybolmaması gereken tek şey** — D1'in bulduğu S2 zorunluluğu — silinmedi, **`Sert
+kurallar`a taşındı**: ters-duruş çıkarımı yalnız S2, S1 tek başına bu sınıfta yasak. Bir
+gate'in SONUCU bayatlayabilir (kapı kapandı), ama gate'in BULDUĞU teknik kısıt bayatlamaz —
+ikisini aynı cümlede tutmak, kapanan kapıyla birlikte kısıtı da unutturur.
+
+**H-31 işlendi.**
+
