@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 /// Gravita's visual language — design panel v1, 2026-08-05
 /// (`docs/design/DESIGN-PANEL-PROMPT.md`; `claude.ai/design` project
@@ -120,17 +119,26 @@ abstract final class GravitaColors {
 /// Mono'` for anything measured). Mono is reserved for numbers, criteria and
 /// status pills — the same "this is a fact vs this is prose" split Choreia's
 /// [ChoreiaType] documents for its own three-family version.
+///
+/// **F2 (D1, 2026-08-16):** both families are now BUNDLED assets
+/// (`pubspec.yaml` `fonts:`, OFL 1.1) instead of `google_fonts`' runtime
+/// fetch from `fonts.gstatic.com` — that fetch was `B5`, the blocker behind
+/// the cold-start network-rejection failure and the test-suite's dependency
+/// on this machine's font cache (see the now-obsolete w700 workaround this
+/// file's git history carries, `movement_page.dart`). Plain [TextStyle]
+/// with `fontFamily` needs no package: Flutter resolves it against whatever
+/// `pubspec.yaml` declares.
 abstract final class GravitaType {
   GravitaType._();
+
+  static const String _publicSans = 'Public Sans';
+  static const String _robotoMono = 'Roboto Mono';
 
   // ── Varsayılan METİN renkleri ────────────────────────────────────────
   //
   // ⚠️ Ayrı sabit olmalarının sebebi ölçülmüş: bunlar bir FONT kararı değil
   // bir TOKEN kararıdır, ve paylaşılan bir varsayılanın eşik altına düşmesi
-  // (J-116) rengi elle vermeyen HER çağıranı sessizce bozar. Sabit olarak
-  // durunca kontrast nöbeti onları `google_fonts`a hiç dokunmadan ölçebiliyor
-  // — ki bu şart: fontlar paketlenmediği için `GravitaType.mono()` çağırmak
-  // testte ağ istiyor ve bu makinenin önbelleğine bağımlı (G-126, açık kök).
+  // (J-116) rengi elle vermeyen HER çağıranı sessizce bozar.
   //
   // Bağ YAPISALDIR, iddia değil: yardımcılar `color ?? <sabit>` diyor, yani
   // sabiti ölçmek çağrının aldığı rengi ölçmektir.
@@ -144,7 +152,8 @@ abstract final class GravitaType {
     FontWeight weight = FontWeight.w600,
     double height = 1.15,
   }) =>
-      GoogleFonts.publicSans(
+      TextStyle(
+        fontFamily: _publicSans,
         fontSize: size,
         height: height,
         fontWeight: weight,
@@ -158,7 +167,8 @@ abstract final class GravitaType {
     FontWeight weight = FontWeight.w400,
     double height = 1.6,
   }) =>
-      GoogleFonts.publicSans(
+      TextStyle(
+        fontFamily: _publicSans,
         fontSize: size,
         height: height,
         fontWeight: weight,
@@ -174,7 +184,8 @@ abstract final class GravitaType {
     FontWeight weight = FontWeight.w500,
     double letterSpacingEm = 0.1,
   }) =>
-      GoogleFonts.robotoMono(
+      TextStyle(
+        fontFamily: _robotoMono,
         fontSize: size,
         fontWeight: weight,
         letterSpacing: letterSpacingEm * size,
@@ -340,8 +351,8 @@ abstract final class GravitaTheme {
   GravitaTheme._();
 
   static ThemeData get light {
-    final TextTheme base =
-        GoogleFonts.publicSansTextTheme(ThemeData.light().textTheme).apply(
+    final TextTheme base = ThemeData.light().textTheme.apply(
+      fontFamily: GravitaType._publicSans,
       bodyColor: GravitaColors.ink,
       displayColor: GravitaColors.ink,
     );

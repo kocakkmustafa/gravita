@@ -3,30 +3,43 @@ import 'dart:io';
 
 /// Tüm test koşumlarının ortak kurulumu (Flutter bunu OTOMATİK çağırır).
 ///
-/// ## Neden var — ailenin ölçülmüş tuzağı, ve tuzağın YANLIŞ panzehiri
+/// ## ✅ F2 (D1, 2026-08-16) — doğuş sebebi ÇÖZÜLDÜ, mekanizma KALICI KAPI oldu
+///
+/// Bu dosya `google_fonts`un test-zamanı ağ davranışını yönetmek için
+/// doğdu (aşağıda, tarihsel). O bağımlılık artık YOK — fontlar paketli,
+/// `lib/` içinde `GoogleFonts.` çağrısı sıfır (`tools/network_claim_audit.py`
+/// bunu her turda ölçer). **Ölçüldü, yazılarak değil:** `_DeadClient.
+/// openUrl`e geçici bir sayaç eklenip tüm 217 test koşturuldu — 25 test
+/// dosyasının HER BİRİ `0` bastı. Sayaç geri alındı, bu dosya artık
+/// enstrümansız.
+///
+/// **Mekanizma SİLİNMEDİ — artık bir REGRESYON KAPISI:** Gravita'nın
+/// bağımlılık ağacında bugün ağa-çıkabilen SIFIR paket var
+/// (`NETWORK_DEPS_RECORDED = {}`, `network_claim_audit.py`). Bu dosya o
+/// durumu korur — biri yarın (analitik SDK'sı, farklı bir font paketi...)
+/// ağ yapabilen bir bağımlılık eklerse ve KENDİ testi onu tetiklerse, bu
+/// istemci sessizce yutmak yerine **her zaman** açık bir `SocketException`
+/// fırlatır. Testte ağ olmaması bir varsayım değil, aktif olarak
+/// UYGULANAN bir kural.
+///
+/// ## Tarihsel not (artık geçerli değil, silinmedi) — ailenin ölçülmüş
+/// tuzağı, ve tuzağın YANLIŞ panzehiri
 ///
 /// `google_fonts`, istenen aile/ağırlık uygulama asset'lerinde yoksa
-/// `fonts.gstatic.com`'dan İNDİRMEYE çalışır. `flutter_test` altında ağ yoktur
-/// → her istek patlar ve konsol her koşumda hata basar.
+/// `fonts.gstatic.com`'dan İNDİRMEYE çalışırdı. `flutter_test` altında ağ
+/// yoktu → her istek patlar ve konsol her koşumda hata basardı.
 ///
-/// ⚠️ **İlk denediğim panzehir YANLIŞTI ve ölçümle düştü.** Aile defterindeki
-/// not `GoogleFonts.config.allowRuntimeFetching = false` demeyi akla getiriyor;
-/// denendi ve testleri DÜŞÜRDÜ:
+/// İlk denenen panzehir YANLIŞTI ve ölçümle düştü: aile defterindeki not
+/// `GoogleFonts.config.allowRuntimeFetching = false` demeyi akla
+/// getiriyordu; denendi ve testleri DÜŞÜRDÜ:
 ///
 ///     Exception: GoogleFonts.config.allowRuntimeFetching is false but font
 ///     PublicSans-Regular was not found in the application assets.
 ///
-/// Yani o bayrak "indirme, sistem yazı tipine düş" demiyor; **"indirme ve
-/// bulamazsan FIRLAT"** diyor. Fontlar bu projede paketlenmediği için hepsi
-/// fırlatıyordu. Hastalıktan kötü bir ilaç.
-///
-/// **Doğrusu:** indirmeyi AÇIK bırak, ama ağı testte ölü bir istemciyle kes.
-/// `google_fonts` başarısız indirmeyi YAKALAR ve sessizce sistem yazı tipine
-/// düşer — testler yapıyı ve metni ölçüyor, glif biçimini değil.
-///
-/// Yan fayda: testler gerçekten hermetik olur. Önceki hâlde her koşum
-/// `fonts.gstatic.com`'a çıkmayı DENİYORDU; ağı olan bir makinede yavaş, ağı
-/// olmayanda gürültülü, ikisinde de dışarıya bağımlıydı.
+/// O bayrak "indirme, sistem yazı tipine düş" demiyordu; "indirme ve
+/// bulamazsan FIRLAT" diyordu. Fontlar o zaman paketlenmediği için hepsi
+/// fırlatıyordu. Hastalıktan kötü bir ilaçtı — doğru çözüm hep paketlemekti,
+/// şimdi öyle.
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   HttpOverrides.global = _NoNetwork();
   await testMain();

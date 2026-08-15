@@ -299,18 +299,20 @@ class _MovementPageState extends State<MovementPage> {
         ],
       );
 
-  /// ⚠️ Ağırlık w700 DEĞİL w600 — ve bu bir tasarım tercihi değil, ÖLÇÜLMÜŞ
-  /// bir kısıt. `google_fonts` uygulamada fontu çalışma zamanında indiriyor;
-  /// `flutter_test` altında indirme yoktur ve paket, **daha önce hiç
-  /// kullanılmamış** bir ağırlık istendiğinde teste asenkron istisna
-  /// fırlatıyor. Kabuğun bugüne dek kullandığı ağırlıklar (w400-w600) bu
-  /// makinenin google_fonts önbelleğinde duruyordu; w700 durmuyordu ve tuzak
-  /// tam orada ateşlendi.
+  /// ✅ F2 (D1, 2026-08-16) — KÖK ÇÖZÜLDÜ: aşağıdaki kısıt artık geçmiş.
+  /// Fontlar `pubspec.yaml`de PAKETLİ (OFL, `assets/fonts/`); `flutter_test`
+  /// artık hiçbir ağırlık için ağ istemiyor, makine önbelleğine bağımlı
+  /// değil. Bu ağırlığı (`w600`) DEĞİŞTİRMEDİM — teknik kısıt kalktı ama
+  /// hangi ağırlığın kullanılacağı bir TASARIM kararı, bu turun kapsamı
+  /// değil.
   ///
-  /// 🔴 Bu düzeltme SEMPTOMU alıyor, KÖKÜ değil: fontlar hâlâ paketlenmiyor,
-  /// yani test paketi bu makinenin önbelleğine BAĞIMLI ve temiz bir makinede
-  /// (CI) mevcut testler de düşer. Kök çözüm fontları asset olarak paketlemek
-  /// — paketleme + lisans (OFL) kararı, koordinatör kuyruğunda.
+  /// **Tarihsel not (artık geçerli değil, silinmedi):** ağırlık w700 değil
+  /// w600'dü çünkü `google_fonts` fontu çalışma zamanında indiriyordu;
+  /// `flutter_test` altında indirme yoktu ve paket, daha önce hiç
+  /// kullanılmamış bir ağırlık istendiğinde teste asenkron istisna
+  /// fırlatıyordu. Kabuğun o zamana dek kullandığı ağırlıklar (w400-w600)
+  /// bu makinenin google_fonts önbelleğinde duruyordu; w700 durmuyordu ve
+  /// tuzak tam orada ateşlenmişti.
   Widget _honestyHeading(String label) => Text(
         label.toUpperCase(),
         style: GravitaType.mono(

@@ -49,11 +49,6 @@ dependencies:
   # Kamera izni: reddedilme DÜRÜST bir hâldir, sessizce boş ekran değil.
   permission_handler: ^12.0.3
 
-  # Tasarım paneli tipografisi (Public Sans + Roboto Mono). Choreia ile aynı
-  # pin (M-F-282 giydirme turu, `lib/app/theme.dart`) — STİL katmanı, motora
-  # veya test edilen davranışa dokunmaz.
-  google_fonts: ^6.2.1
-
   # YALNIZ uygulama-özel dizini bulmak için. Depolama BİÇİMİ motorda
   # (`JsonlSessionStore`, append-only JSONL) ve kurucusu bir `File` alıyor —
   # `path_provider` KABLOLAMA katmanında kalıyor. Bu ayrım terfi-arayüzünün
@@ -114,3 +109,33 @@ flutter:
     # `reference.bodyweight_squat.json`) da HENÜZ eklenmedi: bu kabukta onları
     # OKUYAN kod yok. Gecenin dersi tam buydu — "beyan var, okuyanı yok";
     # okuyucu geldiği gün satırı da gelir.
+    #
+    # Font lisansları (F2, 2026-08-16) — OFL 1.1 metinleri PAKETİN İÇİNDE,
+    # `fonts:` bildirimi aşağıda .ttf'leri ayrıca bundle eder.
+    - assets/fonts/PublicSans/OFL.txt
+    - assets/fonts/RobotoMono/OFL.txt
+  fonts:
+    # Tasarım paneli tipografisi (Public Sans + Roboto Mono) — F2 (D1,
+    # 2026-08-16): önceden `google_fonts` ile ÇALIŞMA ANINDA
+    # `fonts.gstatic.com`dan çekiliyordu (B5 blokajı — ağ reddinde soğuk
+    # açılış düşüyordu, testte/sim'de bu makinenin google_fonts önbelleğine
+    # bağımlıydı). Artık PAKETLİ: OFL 1.1, ikisi de DEĞİŞKEN font (Google'ın
+    # üst akış deposunda yalnız `[wght]` biçimi var, statik alt-küme YOK) —
+    # tek dosya `wght` ekseniyle tüm ağırlıkları taşır. Ağırlıklar ÖLÇÜLENLE
+    # birebir (`grep -rohn 'FontWeight\.w[0-9]\+' lib/`): Public Sans
+    # 400/500/600, Roboto Mono 500/600 — yeni bir ağırlık koda girerse bu
+    # listeye de eklenmeli, yoksa en yakın bildirilen ağırlığa sessizce düşer.
+    - family: Public Sans
+      fonts:
+        - asset: assets/fonts/PublicSans/PublicSans[wght].ttf
+          weight: 400
+        - asset: assets/fonts/PublicSans/PublicSans[wght].ttf
+          weight: 500
+        - asset: assets/fonts/PublicSans/PublicSans[wght].ttf
+          weight: 600
+    - family: Roboto Mono
+      fonts:
+        - asset: assets/fonts/RobotoMono/RobotoMono[wght].ttf
+          weight: 500
+        - asset: assets/fonts/RobotoMono/RobotoMono[wght].ttf
+          weight: 600

@@ -114,31 +114,18 @@ NO_NETWORK = frozenset({
 })
 
 #: KAYIT — Gravita'nın kendi manifestinden kurulan, adıyla+gerekçesiyle.
-NETWORK_DEPS_RECORDED = {
-    "google_fonts": (
-        "Public Sans/Roboto Mono asset olarak PAKETLENMEDİ; ilk "
-        "render'da yazı tipi cihazda yoksa fonts.gstatic.com'dan GET ile "
-        "çeker. Bu bir TİPOGRAFİ varlığı isteğidir — kamera karesi, poz "
-        "landmark'ı, seans/tekrar verisi TAŞIMAZ. İddia 'video bu cihazda "
-        "kalır' der, 'uygulama hiç ağa çıkmaz' DEMEZ; ikisi FARKLI iddia. "
-        "Test'te `flutter_test_config.dart`in `_NoNetwork` HttpOverrides'ı "
-        "bu isteği zaten öldürüyor (indirilemezse sistem fontuna düşer)."
-    ),
-    "http": (
-        "DOĞRUDAN bağımlılık DEĞİL — `google_fonts`un TRANSİTİF vasıtası "
-        "(pubspec.lock'ta var, pubspec.yaml'da YOK; ölçüldü: `lib/` "
-        "içinde `package:http` hiç import edilmiyor, yalnız google_fonts "
-        "kullanıyor). Kayıt google_fonts satırına atıflı, ayrı bir "
-        "kullanım yok."
-    ),
-    "http_parser": (
-        "`http`in TRANSİTİF vasıtası — kendisi ağa ÇIKMAZ, yalnız "
-        "medya-tipi/başlık METNİNİ ayrıştırır (saf parsing kütüphanesi, "
-        "I/O yok). İsim eşleşmesi (`http` öneki) bu taramanın ipucu "
-        "listesini tetikledi; kayıt bu YANLIŞ-POZİTİFİ SUSTURMAK için "
-        "değil, neden zararsız olduğunu YAZILI bırakmak için var."
-    ),
-}
+#:
+#: ✅ F2 (D1, 2026-08-16): üç kayıt (`google_fonts` + transitif vasıtaları
+#: `http`/`http_parser`) BOŞALTILDI — `google_fonts` bağımlılığı tamamen
+#: kaldırıldı (fontlar artık asset, `pubspec.yaml` `fonts:`), `flutter pub
+#: get` üçünü de ağaçtan düşürdüğünü ÖLÇTÜ (`http`/`http_parser` `google_
+#: fonts`un TRANSİTİF vasıtasıydı, kendi başlarına kullanılmıyorlardı —
+#: kanıt eskiden buradaydı). Bugün Gravita'nın bağımlılık ağacında ağa-
+#: çıkabilen SIFIR paket var; bu boş sözlük o durumun kendisi, unutulmuş
+#: bir liste değil. Bir gün yeniden dolarsa `channel_dependency_registry`
+#: SINIFLANDIRILMAMIŞ diye öter — boş kalmak varsayılan güven değil, ölçülen
+#: taban.
+NETWORK_DEPS_RECORDED = {}
 
 
 def sh(*args):
@@ -216,20 +203,26 @@ def channel_dependency_registry():
 
 #: ⭐ FONT TESLİMİ — ölçülen HÂL, beyan edilen hâlle karşılaştırılır (G-188).
 #:
-#: Kusurun şekli, bu vardiyanın ana temasının en temiz örneği: fontlar
-#: paketlenmediği için `google_fonts` yüzleri ÇALIŞMA ANINDA
-#: `fonts.gstatic.com`tan çekiyor — ve bunu **hiçbir test göremiyor**, çünkü
-#: `allowRuntimeFetching` yalnız TEST yapılandırmasında konuşuluyor
-#: (`test/flutter_test_config.dart`, üstelik bir YORUMDA). Testler ağsız
-#: geçsin diye kurulan iyi niyetli düzenek, davranışı görünmez kıldı.
+#: ✅ F2 (D1, 2026-08-16) — bu kanalın KENDİ docstring'i bu günü önceden
+#: yazmıştı: *"fontlar bir gün paketlenirse bu beyan BAYAT olur ve kapı onu
+#: söyler."* Söyledi: fontlar paketlendiğinde (`pubspec.yaml` `fonts:`,
+#: `assets/fonts/`, `google_fonts` bağımlılığı TAMAMEN kaldırıldı) bu satır
+#: hâlâ `"runtime-fetch"` diyordu ve kapı KIRMIZI yandı — beyan gerçeğe
+#: değil, gerçek beyana uydu.
+#:
+#: **Tarihsel not (artık geçerli değil, silinmedi):** paketlenmeden önce
+#: `google_fonts` yüzleri ÇALIŞMA ANINDA `fonts.gstatic.com`tan çekiyordu —
+#: ve bunu hiçbir test göremiyordu, çünkü `allowRuntimeFetching` yalnız TEST
+#: yapılandırmasında konuşuluyordu (`test/flutter_test_config.dart`, üstelik
+#: bir YORUMDA). Testler ağsız geçsin diye kurulan iyi niyetli düzenek,
+#: davranışı görünmez kılmıştı.
 #:
 #:   > Kendi kodunda ağ olmaması, ÜRÜNÜNDE ağ olmaması demek değildir.
 #:
-#: ⛔ Bu kanal DAVRANIŞI DEĞİŞTİRMEZ (font paketlemek ya da üretimde
-#: `allowRuntimeFetching`i kapatmak bir ÜRÜN DURUŞU kararıdır ve kurucudadır)
-#: — yalnız hâli ÖLÇER ve beyanla karşılaştırır. İki yönde de öter: fontlar
-#: bir gün paketlenirse bu beyan BAYAT olur ve kapı onu söyler.
-FONT_DELIVERY_RECORDED = "runtime-fetch"
+#: ⛔ Bu kanal DAVRANIŞI DEĞİŞTİRMEZ, yalnız hâli ÖLÇER ve beyanla
+#: karşılaştırır. İki yönde de öter: biri fontları yeniden runtime-fetch'e
+#: döndürürse bu beyan BAYAT olur ve kapı onu söyler.
+FONT_DELIVERY_RECORDED = "bundled"
 
 
 def channel_font_delivery():
@@ -308,11 +301,11 @@ def main():
         f"kod izinde yükleme çağrısı 0 · BÖLME {total}/{total} paket "
         f"sınıflandırılmış: ağa-çıkabilen {len(net)} ({', '.join(net)}) "
         f"adıyla+gerekçesiyle kayıtlı, kalan {total - len(net)} ağ yapmaz")
-    # ⚠️ Bu satır bir UYARI değil bir ÖLÇÜM: ürün font yüzlerini çalışma
-    # anında çekiyor ve bu artık SESSİZ değil. Duruş kararı kurucuda.
-    print(f"   ℹ️ font teslimi: {FONT_DELIVERY_RECORDED} — yüzler paketli "
-          f"DEĞİL, çalışma anında indiriliyor ({len(font_uses)} dosya "
-          f"`GoogleFonts.` çağırıyor). Ürün duruşu kararı KURUCUDA.")
+    # ⚠️ Bu satır bir UYARI değil bir ÖLÇÜM: F2'den beri yüzler PAKETLİ,
+    # `GoogleFonts.` çağıran dosya sayısı yapısal olarak 0 (paket kaldırıldı).
+    print(f"   ℹ️ font teslimi: {FONT_DELIVERY_RECORDED} — yüzler asset "
+          f"olarak paketli, çalışma anında hiçbir şey indirilmiyor "
+          f"({len(font_uses)} dosya hâlâ `GoogleFonts.` çağırıyor, beklenen 0).")
     return 0
 
 
@@ -342,28 +335,35 @@ def _self_test():
     finally:
         probe.unlink(missing_ok=True)
 
-    # Kanal 2: sahte bir "kayıtsız ağa-çıkan paket" senaryosu — gerçek
-    # sözlükten GEÇİCİ olarak bir girdiyi çıkarıp aynı denetimi tekrar çalıştır.
-    # ⚠️ `google_fonts` DEĞİL: hint-listesi onu isim eşleşmesiyle YAKALAMAZ
-    # (adı ağ ipucusu taşımıyor — bu yüzden `http`in kendisi tescilli).
-    # `http`i çıkarmak ÇEKİRDEK varsayımı sınar: gerçekten suspects'te mi.
-    _, suspects_before = channel_dependency_registry()
-    if "http" not in suspects_before:
-        print("   ⛔ Kanal-2 fikstürü YANLIŞ varsayım yapıyor — "
-              "'http' artık suspects'te değil, testi güncelle")
-        ok = False
-        fired += 1
-    else:
-        saved = NETWORK_DEPS_RECORDED.pop("http")
-        try:
+    # Kanal 2: sahte bir "kayıtsız ağa-çıkan paket" senaryosu.
+    # ✅ F2 (D1, 2026-08-16): eskiden gerçek `http`i GEÇİCİ olarak
+    # `NETWORK_DEPS_RECORDED`den çıkarıyordu — `http` `google_fonts`un
+    # transitif vasıtasıydı ve fontlar paketlenince İKİSİ DE ağaçtan
+    # düştü. Bugün lockfile'da `NETWORK_CAPABLE_HINTS`e uyan SIFIR paket
+    # var (ölçüldü) — gerçek bir fikstür kalmadı, bu yüzden SENTETİK
+    # enjekte ediliyor (`defter_freshness.py`nin "sentetik korpusta,
+    # deponun HÂLİNDE değil" ilkesiyle aynı desen): `_lockfile_packages`i
+    # GEÇİCİ olarak sahte bir `http` girdisi taşıyacak şekilde yamalıyoruz.
+    global _lockfile_packages
+    real_lockfile_packages = _lockfile_packages
+    _lockfile_packages = lambda: real_lockfile_packages() + ["http"]
+    try:
+        _, suspects_before = channel_dependency_registry()
+        if "http" not in suspects_before:
+            print("   ⛔ Kanal-2 enjeksiyonu YANLIŞ varsayım yapıyor — "
+                  "sahte 'http' suspects'te değil, NETWORK_CAPABLE_HINTS "
+                  "kırılmış olabilir")
+            ok = False
+            fired += 1
+        else:
             dep_violations, _ = channel_dependency_registry()
             hit = any("KAYITSIZ" in v for v in dep_violations)
             print(f"   {'✅' if hit else '⛔'} Kanal-2 kayıtsız bağımlılık: "
                   f"{'yakalandı' if hit else 'YAKALANMADI — SAHTE KAPI'}")
             ok = ok and hit
             fired += 1
-        finally:
-            NETWORK_DEPS_RECORDED["http"] = saved
+    finally:
+        _lockfile_packages = real_lockfile_packages
 
     # Kanal 2c: BÖLME EKSİKLİĞİ — bir paketi iki kovadan da çıkar.
     # ⚠️ Bu ikiz olmadan bölme "63/63" der ve HİÇBİR ŞEY ölçmemiş olurdu:
@@ -383,9 +383,13 @@ def _self_test():
         NO_NETWORK = saved_set
 
     # Kanal 4: FONT TESLİMİ beyanı — beyanı bozup ölçümün çeliştiğini gör.
+    # ⚠️ F2'den beri gerçek varsayılan da "bundled" — sabotaj artık TERS
+    # yöne (eski "runtime-fetch" beyanına) yapılmalı, yoksa sabotaj gerçek
+    # değerle çakışır ve testin kendisi SAHTE KAPI olur (tam bu dosyanın
+    # kendi öğrettiği tuzak — Kanal-2'nin `google_fonts` notuyla aynı sınıf).
     global FONT_DELIVERY_RECORDED
     saved_font = FONT_DELIVERY_RECORDED
-    FONT_DELIVERY_RECORDED = "bundled"
+    FONT_DELIVERY_RECORDED = "runtime-fetch"
     try:
         font_violations, _ = channel_font_delivery()
         hit = any("UYUŞMUYOR" in v for v in font_violations)

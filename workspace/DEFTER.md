@@ -4625,3 +4625,58 @@ her eklediğinde bu oran YENİDEN ölçülmeli — bugünkü "ters çıktı" son
 **H-23/24/25 işlendi.**
 
 **Kapı durumu:** `GATES_EXIT=0` · app 217/217 · engine 175/175 · python 18/18.
+
+---
+
+### G-227 — 🔤 F2 KAPANDI: fontlar PAKETLENDİ, `google_fonts` + iki transitif vasıtası TAMAMEN kalktı (2026-08-16)
+
+**D1 uygulandı: B5 blokajının kökü kapatıldı.** `GoogleFonts.publicSans`/`robotoMono`/
+`publicSansTextTheme` (`theme.dart`, tek çıkış noktası) yerine yerel `TextStyle(fontFamily:)`
+— Public Sans + Roboto Mono artık `assets/fonts/`de İKİ DEĞİŞKEN font (`[wght]`, tek dosya
+tüm ağırlıkları taşır), OFL 1.1, `pubspec.yaml` `fonts:` bölümünde bildirimli. Ağırlıklar
+ÖLÇÜLENLE birebir (`grep -rohn 'FontWeight\.w[0-9]\+' lib/`): Public Sans 400/500/600,
+Roboto Mono 500/600.
+
+## Beyan değil ölçüm — üç katman
+
+1. **Yapısal:** `flutter pub get` `google_fonts` + transitif vasıtaları (`http`, `http_parser`)
+   ağaçtan düşürdüğünü ÖLÇTÜ ("These packages are no longer being depended on"). Bugün
+   Gravita'nın 60 paketlik bağımlılık ağacında ağa-çıkabilen SIFIR paket var.
+2. **Test-zamanı SAYIM (yazmak kanıtlamaz, orkestratör şartı):** `test/flutter_test_config.dart`
+   `_DeadClient.openUrl`e geçici bir sayaç eklendi, TÜM test süiti (217 test, 25 dosya) koşuldu
+   — **HER dosya `0` bastı.** Sayaç geri alındı; mekanizmanın kendisi SİLİNMEDİ, artık aktif
+   bir regresyon kapısı (bağımlılık ağacı bir gün yeniden ağa çıkarsa bu istemci sessizce
+   yutmaz, açık `SocketException` fırlatır).
+3. **Gerçek cihazda (GERÇEĞİ DENE):** `gravita-hatti` simülatöründe `flutter run`, onboarding
+   O1 ekranı ekran görüntüsüyle doğrulandı — başlık Public Sans semibold, gövde metni düzgün
+   render, glif düşmesi/sistem-fontuna-geri-düşme YOK, hata YOK.
+
+## İki kendi kusurumu turun içinde buldum ve kapattım (kör güven yok)
+
+`network_claim_audit.py`'nin KENDİ docstring'i bu günü önceden yazmıştı: *"fontlar bir gün
+paketlenirse bu beyan BAYAT olur ve kapı onu söyler."* Söyledi — iki kez:
+
+- `FONT_DELIVERY_RECORDED = "runtime-fetch"` hâlâ eski değeri taşıyordu → kapı KIRMIZI yandı
+  (`FONT TESLİMİ beyanla UYUŞMUYOR`). `"bundled"`e güncellendi + öz-testin kendi sabotaj yönü
+  TERSİNE çevrildi (artık gerçek varsayılan `"bundled"` olduğu için sabotaj `"runtime-fetch"`e
+  yapılmalı, yoksa sabotaj gerçek değerle çakışıp SAHTE KAPI olurdu).
+- `NETWORK_DEPS_RECORDED`deki üç kayıt (`google_fonts`/`http`/`http_parser`) BAYAT çıktı →
+  boşaltıldı. Bunun yan etkisi: öz-testin Kanal-2 fikstürü (`http`i geçici çıkarıp kayıtsızlık
+  sınıyordu) gerçek bir suspects'i kaybetti — `defter_freshness.py`nin "sentetik korpusta"
+  ilkesiyle aynı desende, `_lockfile_packages`i geçici olarak sahte bir `http` girdisiyle
+  yamalayan SENTETİK bir enjeksiyona çevrildi.
+
+> ***BİR ARACIN "BİR GÜN BAYATLARSA SÖYLERİM" İDDİASI, O GÜN GELDİĞİNDE GERÇEKTEN SÖYLEMESİYLE
+> KANITLANIR — VE SÖYLEDİĞİNDE, SÖYLEYENİ DE GÜNCEL TUTMAK GEREKİR.***
+
+## Adıyla bırakılan — bu turun kapsamı DEĞİL
+
+`content_repository.dart:203-210`deki *"bu yol bugün B5 yüzünden testte KAPALI"* notu artık
+STALE (B5 kalktı) ama BİLEREK dokunulmadı: bu notun neyi doğru anlattığını (kabuk render'ının
+artık gerçekten test edilebilir olduğunu) ÖLÇMEDEN değiştirmek kendi başına bir iddia-olmadan-
+yazma hatası olurdu. Bu ölçüm zaten planlı: **A7③** (G-211'in "kabuk bu hükmü çağırıyor mu"
+render ölçümü). `movement_page.dart`in eski w700-kısıtı yorumu güncellendi (kısıt kalktı,
+ağırlık DEĞİŞTİRİLMEDİ — o bir tasarım kararı).
+
+**Kapı durumu:** `GATES_EXIT=0` · app 217/217 · engine 175/175 · python 18/18 ·
+`network_claim_audit --self-test` 6/6.
