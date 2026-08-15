@@ -58,7 +58,7 @@ sütunu **okuyor**. Eklemediğim için bozacak bir sayaç da yok.
 > ***BİR BİRİMİ VERİDE ZATEN VAROLAN BİR ALANDAN TÜRETMEK, YENİ BİR ALAN
 > EKLEYİP HER SAYACI YENİDEN ÖLÇMEKTEN UCUZDUR.***
 
-## Üç tuzak, üçü de tasarıma gömülü
+## Dört tuzak, dördü de tasarıma gömülü
 
 1. **SENTİNEL KARIŞMASI — ve eski çözümüm TAUTOLOJİYDİ (G-196).**
    Depoda `G-999` gibi kasıtlı sahte kayıtlar var. Eski öz-testim bunu
@@ -80,6 +80,24 @@ sütunu **okuyor**. Eklemediğim için bozacak bir sayaç da yok.
 3. **PAYDA DENKLEM olarak denetlenir.** Çıktı *"N commit taradım"* demez;
    `atıflı + atıfsız = rev-list --count` **eşitliğini** sınar. Tutmuyorsa
    kapı **KENDİNE öter**: *bir sayının doğruluğu kendi kanıtı değildir.*
+4. **TAVAN ZEHİRLENMESİ — düzyazı bir hüküm kaynağı sanıldı (G-221, 2026-08-16).**
+   `G-220`nin kendi commit gövdesi, atılmış bir sabotaj denemesini anlatırken
+   *"İlk denemem `G-500` idi"* dedi. **Geniş desen (yön-2) bunu gerçek bir
+   BAĞ saydı** — doğru, çünkü öyleydi (metin `G-500`den bahsediyordu). Ama
+   tavan (`ceiling`) o zaman `linked`ten türüyordu, ve `linked`e giren HER
+   şey tavanı yükseltebiliyordu — bir sabotaj **anlatısı** bile. Sonuç:
+   tavan `218`den `501`e **kalıcı olarak** sıçradı (git geçmişi geri
+   alınamaz), ve `G-221` (gerçek, o turun gerçek işi) yanlışlıkla *"tavan
+   altında, öksüz"* göründü.
+
+   > ***BİR TAVAN, DÜZYAZIDA ANILAN HER SAYIYA AÇIKSA, O TAVANI ÖLÇÜM DEĞİL
+   > DÜZYAZI YAZAR.***
+
+   Panzehir: tavan artık **`claimed`ten (yön-1, çapalı)** türüyor, `linked`ten
+   değil. Çapalı desen yalnız başlığın BAŞINI okur; bir commit başlığı
+   gerçekte kaydetmediği bir işi iddia etmez — bu yüzden prose-anma tavanı
+   artık şişiremez. `linked`in kendisi (yön-2, öksüz taraması) DEĞİŞMEDİ;
+   yalnız tavan hangi kümeden türediği değişti. Bkz. öz-test ⑧.
 
 ✅ DEFTER 2026-08-15'ten beri depo İÇİNDE (`workspace/DEFTER.md`, M-F-633 —
 kurucu kararı). Bulunamazsa bu kapı **gürültüyle düşer** — bulunamayan bir
@@ -203,7 +221,17 @@ def analyse() -> dict:
     # YÖN-2 — kayıt var, bağı yok. Tavan TÜRETİLİR: commit'lenmiş en yüksek
     # numaranın ÜSTÜ "uçuşta"dır (kaydı commit'ten ÖNCE yazmak DOĞRU
     # alışkanlıktır ve ceza almamalı). Muafiyet listesi değil, türetim.
-    ceiling = max((_num(g) for g in linked), default=0)
+    #
+    # ⚠️ TAVAN `claimed`TEN (yön-1, ÇAPALI) türetilir, `linked`TEN (yön-2, GENİŞ)
+    # DEĞİL — G-221 vakası (2026-08-16). Bir commit gövdesi, atılmış bir sabotaj
+    # denemesini ANLATIRKEN sahte bir numaradan söz edebilir ("G-500 denedim,
+    # işe yaramadı"); geniş desen bunu GERÇEK bir bağ sanır ve tavanı o sahte
+    # numaraya kalıcı olarak ŞİŞİRİR (git geçmişi geri alınamaz). Çapalı desen
+    # bağışıktır: yalnız başlığın BAŞINDAKİ numarayı sayar, ve bir commit
+    # başlığı gerçekte KAYDETMEDİĞİ bir işi iddia etmez.
+    # > BİR TAVAN, DÜZYAZIDA ANILAN HER SAYIYA AÇIKSA, O TAVANI DÜZYAZI YAZAR —
+    # > ÖLÇÜM DEĞİL.
+    ceiling = max((_num(g) for g in claimed), default=0)
     unlinked = defter - linked
     inflight = sorted((g for g in unlinked if _num(g) > ceiling), key=_num)
     below = [g for g in unlinked if _num(g) <= ceiling]
@@ -366,6 +394,25 @@ def _self_test() -> int:
         dead.append(f"PAYDA denklemi tutmuyor ({w}+{wo}≠{tot}) — kapının "
                     f"kendi sayımı commit kaybediyor")
 
+    # ⑧ TAVAN ZEHİRLENMESİ KAPANDI — G-221 vakasının regresyon testi (2026-08-16).
+    #    Bir commit gövdesi, atılmış bir sabotaj denemesini ANLATIRKEN sahte
+    #    yüksek bir numaradan söz edebilir; bu GERÇEK bir bağdır (yön-2) ama
+    #    GERÇEK bir iddia DEĞİLDİR (yön-1). Tavan artık `claimed`ten türediği
+    #    için bu düzyazı anması tavanı ŞİŞİRMEMELİ — ve yön-2'nin kendisi de
+    #    (başka amaçlarla, örn. mevcut bir kaydı bağlamak) bozulmamalı.
+    poison_subject = "G-220: gercek baslik, gercek iddia"
+    poison_body = "Ilk denemem G-500 idi ama ise yaramadi, geri aldim."
+    poison_blob = poison_subject + "\n" + poison_body
+    claimed_from_poison = {m.group(1) for line in poison_blob.splitlines()
+                            if (m := _CLAIM.match(line.strip()))}
+    linked_from_poison = set(_LINK.findall(poison_blob))
+    if claimed_from_poison != {"G-220"}:
+        dead.append(f"ÇAPALI DESEN sahte gövde anmasını İDDİA sanıyor: "
+                    f"{claimed_from_poison} (yalnız G-220 beklenirdi)")
+    if "G-500" not in linked_from_poison:
+        dead.append("GENİŞ DESEN artık düzyazı anmasını hiç görmüyor — "
+                    "yön-2'nin kendisi bozulmuş (bu AYRI bir kusur olurdu)")
+
     if dead:
         print(f"⛔ {len(dead)} ÖLÜ DESEN (defter tazeliği öz-testi DÜŞTÜ):")
         for d in dead:
@@ -379,12 +426,12 @@ def _self_test() -> int:
     if paid_w or paid_u:
         paid = (f" · ⭐ BORÇ ÖDENDİ (taban daraltılabilir): "
                 f"{', '.join('G-%03d' % n for n in paid_w + paid_u)}")
-    print(f"✅ 7/7 kapı ateşlendi — İKİ YÖN ayrı desenle sınandı (çapalı 1 ⊆ "
+    print(f"✅ 8/8 kapı ateşlendi — İKİ YÖN ayrı desenle sınandı (çapalı 1 ⊆ "
           f"geniş 2, sentetik korpusta) · sentinel aralığı depoya BAKMADAN "
           f"kanıtlandı + dış çapa canlı · borç tabanı ALT KÜME olarak "
           f"sınandı ({len(KNOWN_UNLINKED_WORK)} görev + "
           f"{len(KNOWN_UNLINKED_UNTYPED)} türsüz, hepsi defterde) · "
-          f"payda denklemi tutuyor{paid}")
+          f"payda denklemi tutuyor · tavan zehirlenmesi ayrı sınandı{paid}")
     return 0
 
 

@@ -4386,3 +4386,58 @@ build ayarının** gerçekten `1`e indiğini değil. Proje seviyesinde ayarlamak
 **Kapı durumu:** `GATES_EXIT=0` · app 212/212 · engine 175/175 · python 18/18 (pubspec/pbxproj
 değişikliği Flutter/Dart test süitini etkilemez, ayrıca koşuldu — ölçüldü, varsayılmadı).
 
+---
+
+### G-223 — 🩹 KENDİ ÇIKARDIĞIM KUSUR: `defter_freshness` tavanı düzyazı-anma ile zehirlenebiliyordu — bulundu ve kapatıldı (2026-08-16)
+
+**Bu kusuru BEN yarattım** (`G-220`nin commit gövdesinde) ve aynı turda buldum — adıyla
+yazıyorum, gizlemiyorum.
+
+## Nasıl oldu
+
+`G-220`nin commit gövdesi, atılmış ilk sabotaj denemesini anlatırken *"İlk denemem `G-500`/
+`G-501` idi... araç bunları uçuşta sayıp yuttu"* dedi. Doğru ve dürüst bir anlatımdı — ama
+`ceiling` (tavan) o zaman **yön-2'den (`linked`, geniş desen)** türüyordu, ve geniş desen
+*"anılan HER numara"*yı bağ sayar — sabotaj **anlatısındaki** sahte numara dahil.
+
+**Sonuç ölçüldü:** `G-222` (D4/D10) kaydını yazıp commit etmeye çalışınca `defter_freshness`
+kırmızıya döndü: *"BAĞ KOPTU: G-222"*. Sebep araştırıldı, tahmin edilmedi —
+`tools/defter_freshness.py`'i `linked_ids()`/`claimed_ids()` fonksiyonlarıyla DOĞRUDAN
+sorguladım: `max linked id: 501`. Tavan `218`den `501`e sıçramıştı, kalıcı olarak (git geçmişi
+geri alınamaz) — ve bu, `222`den `500`e kadar HER gelecek kaydın aynı yanlış kırmızıyı
+üreteceği anlamına geliyordu.
+
+> ***BİR SABOTAJI DÜRÜSTÇE ANLATMAK, O SABOTAJIN NUMARASINI BİR DAHA HİÇ SÖYLEMEMEK
+> ANLAMINA GELMEMELİ — AMA GENİŞ BİR DESEN İÇİN İKİSİ AYNI ŞEYDİR.***
+
+## Panzehir — ÖLÇÜLEREK seçildi, ilk akla gelen değil
+
+İki seçenek vardı: ① geçmişi düzelt (imkânsız/riskli — push'lanmış commit'i değiştirmek) ②
+tavanın hangi kümeden türediğini değiştir. `claimed_ids()`i (yön-1, çapalı) denedim: aynı
+sahte anma için `{}` döndürüyor — çünkü commit **başlığı** hiçbir zaman "G-500" ile
+başlamadı, yalnız gövdesi ondan bahsetti. `tools/defter_freshness.py:206`daki `ceiling`
+artık `linked` yerine `claimed`den türüyor.
+
+**Yön-2'nin kendisi DEĞİŞMEDİ** — öksüz taraması hâlâ geniş desen kullanıyor (`H-26`nın
+kazanımı korunuyor); yalnız TAVAN hangi kümeden hesaplandığı değişti.
+
+## Sabotajla kanıtlandı, okunarak değil
+
+Öz-teste **⑧. TAVAN ZEHİRLENMESİ** eklendi: sentetik bir commit gövdesi (*"G-220: gerçek
+başlık... İlk denemem G-500 idi"*) hem `_CLAIM` hem `_LINK`den geçiriliyor — `claimed` yalnız
+`{G-220}` dönmeli (sahte anma İDDİA sayılmamalı), `linked` hâlâ `G-500`ü içermeli (yön-2
+kendisi kör olmamalı — bu AYRI bir kusur olurdu). Öz-test `7/7` → **`8/8`**.
+
+**Doğrulama:** panzehir sonrası `ceiling` gerçek durumda `501`den `220`ye düştü, `G-222`
+(gerçek iş) doğru şekilde *"uçuşta"* sayıldı, `ALLOW_RED` **gerekmedi**.
+
+## 🪞 Ve bu, dosyanın kendi "Dört tuzak" listesinin dördüncüsü oldu
+
+İlk üç tuzak (`SENTİNEL KARIŞMASI` · `SÖZÜNÜ ETMEK ≠ KAYIT` · `PAYDA DENKLEM`) hepsi
+G-194/G-196'da, bu aracın **kendi doğuşunda** bulunmuştu. Dördüncüsü iki ay sonra, aracın
+**kendi yazarının** kendi sabotaj metodolojisini dürüstçe anlatırken tetiklendi.
+> ***BİR ARACIN KÖR NOKTALARI, ARACI YAZARKEN DEĞİL ARACI DÜRÜSTÇE ANLATIRKEN DE
+> BULUNABİLİR.***
+
+**Kapı durumu:** `GATES_EXIT=0` · app 212/212 · engine 175/175 · python 18/18 ·
+`defter_freshness --self-test` 8/8.
