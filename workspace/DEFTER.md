@@ -5656,3 +5656,59 @@ kod tabanında native storyboard'ı hiç ölçmüyor, kapsam dışı bırakıld�
 **Kapı durumu:** `GATES_EXIT=0` — kod mantığı değişmedi, yalnız native launch-screen
 XML'inin bir renk alanı; `run_all_gates.sh` bunu kapsamıyor (native storyboard testi
 yok), `flutter build` başarıyla derlendiği doğrulandı.
+
+---
+
+### G-246 — 📱 F5: cihaz günü paketi — ön-uçuş betiği + reçete, kurucunun GERÇEK telefonuyla ÖLÇÜLDÜ
+
+**Orkestratörün F5 ataması.** Şema Ostinato'dan alındı (`tools/device_day_preflight.py`
++ `docs/device-day/RECIPE.md`, O-160, aile-geneli emsal — orkestratörün kendi sevki),
+içerik Gravita'nın kendisi.
+
+## Ön-uçuş betiği — Ostinato'nun mekanizması, Gravita'nın kimliği
+
+`tools/device_day_preflight.py`: `APP_ID`/`TEAM_ID` dışında MANTIK değiştirilmedi —
+codesign kimliği sayısı, `com.yulalab.gravita` profilinin varlığı/bitiş tarihi,
+bağlı cihazın GERÇEK UDID'sinin (`devicectl`in eşleşme kimliği DEĞİL, H-9 dersi)
+profilin `ProvisionedDevices`inde olup olmadığı — üçü de TAHMİN değil ÖLÇÜM.
+Takım kimliği ÖNCE doğrulandı, uydurulmadı: `grep DEVELOPMENT_TEAM ios/Runner.
+xcodeproj/project.pbxproj` → `T5HZGYBWK8`, Ostinato'nunkiyle BİREBİR aynı (aile
+tek takım hesabı altında, beklenen).
+
+## Gerçek koşum — orkestratörün spesifik sorusuna doğrudan cevap
+
+Orkestratör sordu: *"kurucunun UDID'i (`00008120-001804D83E13C01E`) Ostinato'da
+kayıtlı — seninkinde kayıtlı mı, ölç."* Koştum:
+```
+✅ [imza] 4 geçerli codesign kimliği bulundu.
+✅ [profil] iOS Team Provisioning Profile: com.yulalab.gravita (bitiş 2027-08-13)
+✅ [cihaz] 00008120-001804D83E13C01E PROFİLDE KAYITLI — tazeleme GEREKMEZ.
+✅ ÖN-UÇUŞ TEMİZ
+```
+**Cevap: EVET, zaten kayıtlı, Ostinato'nunkiyle AYNI bitiş tarihi** (aynı kayıt
+turunda eklenmiş olmalı). Cihaz günü tazeleme adımı GEREKMİYOR. ⭐ Ayrıca: betik
+KENDİSİ kurucunun telefonunu tespit etti (`devicectl list devices` gerçek bir
+eşleşmiş cihaz döndürdü) — bu bir varsayım değil, bu turda GERÇEKTEN bağlı bir
+cihazla ölçüldü.
+
+## Reçete — kendi ekran görüntülerimden türetildi, icat edilmedi
+
+`docs/device-day/RECIPE.md`nin 10 maddelik yürüyüş tablosu, bu oturumun D6
+işinde (`G-242`) zaten ÇEKİLMİŞ gerçek simülatör ekran görüntülerinden (`docs/
+store/screenshots/gravita-hatti-iphone16/`) ve o turda GÖRÜLMÜŞ gerçek metinlerden
+(`"OPEN RIGHT NOW: 2 movements"`, `"31 movements · 2 open · 29 waiting"`,
+"MEASURED / not built a demonstration" kutusu) türetildi — yeni bir akış
+kurgulanmadı, zaten ölçülmüş olan yazıldı.
+
+**Adıyla bırakılan, ilk kez cihazda ölçülecek olan (Ostinato'nun kendi
+çerçevesiyle aynı disiplin):** kamera köprüsünün canlılığı VE kimlik-kapısının
+(eksik hareketi reddetme) gerçek bir insan gövdesiyle çalışıp çalışmadığı —
+bu turda yalnız simülatörde test edildi, ORADA da kamera izni otomatik
+reddedildiği için (`docs/store/screenshots/.../README.md`) canlı kamera hiç
+görülmedi. Reçete bunu "son kontrol" değil **asıl soru** olarak çerçeveliyor,
+Ostinato'nun kendi ifadesiyle.
+
+**Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` · `python
+18/18` (yeni araç `run_all_gates.sh`ın kapsamı dışında, kendi disipliniyle
+GERÇEK codesign/profil/cihaz durumuna karşı koşularak doğrulandı, sahte veri
+kullanılmadı).
