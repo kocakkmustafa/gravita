@@ -37,6 +37,7 @@ class GravitaApp extends StatelessWidget {
         title: 'Gravita',
         // M-F-282 giydirme turu: tema design panel v1'den (`theme.dart`).
         theme: GravitaTheme.light,
+        debugShowCheckedModeBanner: false,
         home: const GravitaRoot(),
       );
 }

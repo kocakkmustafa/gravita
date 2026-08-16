@@ -41,7 +41,7 @@ void main() {
       }
     }
 
-    expect(siteler, <String>['lib/app/gravita_app.dart:216'],
+    expect(siteler, <String>['lib/app/gravita_app.dart:217'],
         reason: 'LiveSessionScreen inşa yerleri değişti ⇒ '
             'content_repository.dart:189-190 ve free_bucket_integrity_test.'
             'dart\'ın (G-211) "tek giriş, ders bağlamı yok" iddiası artık '

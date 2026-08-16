@@ -5416,3 +5416,61 @@ commit/push serbest" izni dosya indirmeyi KAPSAMIYOR — ayrı kategori).
 
 **Kapı durumu:** `GATES_EXIT=0` (kod/katalog dokunulmadı — yalnız kendi geçmiş işlemimin
 dürüst denetimi + defter kaydı).
+
+---
+
+### G-242 — 🏪 F4/D6: mağaza listesi taslağı + 4 gerçek ekran görüntüsü — Ostinato'nun şeması alındı, sonucu değil
+
+**Orkestratörün F4 ataması, D6 maddesi.** İlk hâlim kendi `store/*.txt` yapımdı; orkestratör
+Ostinato'nun `docs/store/listing.json`ını (`$`-önekli gerekçe alanlarıyla) örnek gösterdi —
+"şemayı al, sonucu değil." Şema gerçekten DAHA İYİ (H-44'ün "falsification-link cümlenin
+BİTİŞİĞİNDE" ilkesiyle birebir aynı desen, ve eksik olan yaş-derecesi bloğunu da taşıyor) —
+kendi `store/` yapımı SİLİNDİ, `docs/store/` altında yeniden kuruldu.
+
+## İçerik — hiçbir cümle icat edilmedi
+
+`docs/store/listing.json`daki her iddia uygulamanın KENDİ zaten-denetlenmiş metninden:
+`OnboardingStrings.valueWhatWeDo`/`valueWhatWeDont` (G-213) · `LibraryStrings.libraryCount`ın
+KENDİ deseni (`content/library.json` bu oturumda ölçüldü: 31 toplam, 2 canlı) ·
+`network_claim_audit.py`nin SIFIR ağ-paketi ölçümü. Her alanın yanında `$xxxWhy` gerekçesi
+duruyor — H-44 disiplininin mağaza-metnine uygulanmış hâli.
+
+⚠️ **Yol boyunca bulunan bayat iz, adıyla bırakıldı:** `ios/Runner/Info.plist`teki kamera
+izni metni yalnız *"watches your push-ups"* diyor — squat da bugün canlı ama cümle onu
+adlandırmıyor. D6/mağaza kapsamı DEĞİL (`Info.plist`in kendi kalemi), `listing.json`da
+`$source` notuyla işaretli bırakıldı, düzeltilmedi.
+
+## Ekran görüntüleri — gerçek cihazda, gerçek build'den
+
+`gravita-hatti` simülatöründe (`flutter build ios --simulator --debug` TAZE derleme),
+`attach`/`detach` ÇAĞRILMADAN (H-46), yalnız `launch`+`screenshot` (cihaz-kapsamlı, güvenli):
+
+1. `01-today-honest-scope.png` — Today: "OPEN RIGHT NOW: 2" + "CLOSED MOVEMENTS: 29 of 31"
+2. `02-library-scope.png` — Library: aynı `31·2·29` tam listede
+3. `03-push-up-honesty-box.png` — Push-Up detayı: "MEASURED / not built a demonstration"
+   (`howToReferenceNotDrawable`, H-44'te falsification-link eklediğim TAM cümle)
+4. `04-progress-measured-locked.png` — Progress: "Locked... limits in our measurement"
+
+**İki kod değişikliği, ikisi de kozmetik, ekran görüntüsüne hizmet için:**
+- `lib/app/gravita_app.dart`: `debugShowCheckedModeBanner: false` eklendi — kırmızı DEBUG
+  şeridi kaldırıldı, mantık DEĞİŞMEDİ (`flutter test test/shell_contract_test.dart
+  test/shell_end_to_end_test.dart` önce koşuldu, yeşil).
+- `xcrun simctl status_bar override` — 09:41 + tam sinyal/batarya (Apple'ın kendi mağaza
+  kuralı), ekran görüntüleri sonrası `clear` ile geri alındı.
+
+## Kendi kapımın kendini sınaması — beklenen, sürpriz değil
+
+`debugShowCheckedModeBanner` satırı `LiveSessionScreen(` çağrısını 216→217'ye kaydırdı ve
+**kendi H-44 kapım** (`test/single_session_entry_point_test.dart`, G-238) kırmızı yandı —
+tam tasarlandığı gibi çalıştı, satır numarası değişince ötmesi gerekiyordu. Hem test hem
+`content_repository.dart:198`deki bitişik yorum 217'ye güncellendi, kapı tekrar yeşil.
+
+## Kamera izni — simülatörde otomatik reddedildi, adıyla
+
+O5 ekranında "Allow camera access"e dokunuldu, simülatör OTOMATİK reddetti (varsayılan
+davranış). Canlı kamera/seans ekranı bu SETTE YOK — kapsam dışı bırakıldı, uydurulmadı
+(`xcrun simctl privacy grant camera` ile sonraki turda açılabilir, adı `screenshots/
+README.md`de yazılı).
+
+**Kapı durumu:** `GATES_EXIT=0` — `app 222/222` (kendi kapımın kendini doğru sınamasıyla
+dahil) · `engine 175/175` · `python 18/18`.

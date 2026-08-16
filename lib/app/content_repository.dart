@@ -195,7 +195,7 @@ final class ContentRepository {
   /// yalan söyler — o an serbest/ders ayrımı burada YENİDEN yazılmalı.
   /// Düzyazıya değil gerçek bir kapıya bağlı:
   /// `test/single_session_entry_point_test.dart` — `lib/`i tarar,
-  /// `LiveSessionScreen(` inşa yerlerinin TAM olarak `gravita_app.dart:216`
+  /// `LiveSessionScreen(` inşa yerlerinin TAM olarak `gravita_app.dart:217`
   /// olduğunu doğrular; ikinci bir yer belirirse KIRMIZI yanar.
   ///
   /// Bu yüzden ayrı DOSYA: `ProgressSummary` bu kovayı hiç görmez, serbest
