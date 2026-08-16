@@ -5008,3 +5008,45 @@ adıyla bırakıldı.
 **Katalog dosyasına yine DOKUNULMADI.**
 
 **Kapı durumu:** `GATES_EXIT=0` (yalnız yeni docs dosyaları).
+
+---
+
+### G-235 — 🚫 dip kimlik kapısı: İKİ ADAY DA ELENDİ — kapı-tasarımı bacağı KAPANDI (2026-08-16)
+
+**Orkestratörün üst sınırındaki (2-3 kapı) üçüncü ve son tasarım.** `docs/gates/
+G-124-DIP-KIMLIK-KAPISI-TASARIMI.md` — ve bu kez G-121/G-123'ten FARKLI biten bir
+sonuç: bir aday formülle DEĞİL, iki elenen adayla bitti.
+
+## Neden elendi — geometrik örtüşme, akıl yürütmeyle bulundu
+
+`torso_angle_from_vertical` (G-121/G-123'ün deseni): dip'te gövde dikey durur —
+`dip.json`'ın kendi `excessive_lean` formError'ı bunu zaten doğruluyor. Ama STANDING
+duruş da dikeydir — dip'e özgü değil.
+
+`shoulder_angle` (G-123'ün deseni): pull-up'ta işe yaramıştı çünkü kol YUKARIDAYDI.
+Dip'te kol YANDA/gövdeye yakın — tıpkı standing bir triceps extension gibi. İkinci aday
+da AYNI kusura düştü: dip'in kol konfigürasyonu, reddetmek istediğim yanlış-pozitif
+sınıfıyla GEOMETRİK OLARAK örtüşüyor.
+
+> ***İKİ HAREKETİN "DİKEY, KOL YANDA" ORTAK BİR YAPISI VARSA, TEK EKLEM AÇISI BUNLARI
+> AYIRAMAZ.***
+
+## Sahte bir formül önermedim
+
+Gerçek ayırt edici muhtemelen "vücut ağırlığı kollarda asılı, ayaklar yerden kesik" —
+bu motorun BUGÜNKÜ `MovementMetrics` kelime dağarcığında YOK. Sahte güven vermektense
+`status: pending`, `conditions: []` bırakıldı — bu, G-121/G-123'ten kasıtlı olarak
+FARKLI bir teslimat.
+
+## Hipotez defteri H3 — farklı SINIF
+
+Diğer ikisi "çürütülecek hipotez" taşıyordu; bu "bulunacak sinyal" arıyor. Hasat
+turu-1 bunu doğrularsa (beklenen), sonuç bir eşik ölçümü değil **"yeni metrik gerekiyor"**
+bulgusuna dönüşür — kod kuyruğuna taşınır. Ucuz bir alternatif (ayak-görünürlük vekili)
+adı kondu, ölçülmedi.
+
+**Orkestratörün üst sınırı doldu. Kapı-tasarımı bacağı bu turda KAPANDI — üç tasarım
+(glute_bridge formüllü, pull_up formüllü, dip formülsüz-ama-dürüst), hipotez defteri
+üç satırla açık.**
+
+**Kapı durumu:** `GATES_EXIT=0` (yalnız yeni docs dosyaları).
