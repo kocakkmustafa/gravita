@@ -5232,3 +5232,60 @@ sayımın tam yöntemini görmedim.
 `app 222/222` (Madde 2+3'ün 3 yeni testiyle 219→222) · `engine 175/175` ·
 `python 18/18` (`skill_tree_index --check` Madde 4'ün `$falsifiedBy` alanlarıyla dahi
 TEMİZ — şema kırılmadı).
+
+---
+
+### G-239 — 🔍 H-48§③'e doğrudan cevap: "≥3 tekrar/eğitmen" senin YEREL ekin mi? — HAYIR, `M-F-38`, AİLE KARARI, VE KAYNAĞI SENSİN
+
+**Soru (orkestratör, `H-48§③`):** *"GRAVİTA: `≥3 tekrar/eğitmen` clause'u senin YEREL ekin mi, yoksa
+aile `M-C-04`'ünden mi türettin? Ölç ve yaz."* — orkestratörün kendi ön-varsayımı *"o clause aile
+geneli değil, olsa olsa Gravita'nın kendi yerel F3 faz-0 ekinde"* idi (`M-F-655`).
+
+## Ölçüm — düzeltmeye girişmeden, yalnız cevap (H-47'nin bıraktığı disiplinle aynı)
+
+`motion-core/workspace/DEFTER.md`i **kendim** okudum (Gravita'nın kendi F3 dosyası değil, ailenin
+kanonik ortak defteri):
+
+**`M-C-04`** (satır 43, karar, P1): *"TEK VİDEODAN REFERANS ÜRETİLMEZ — en az 3 (tercihen 6+)
+bağımsız eğitmen."* İki gerekçe (aynalama-çözümü + eğitmenler-arası-varyans=tolerans). **Metninde
+eğitmen-başına HACİM/tekrar-sayısı YOK** — yalnız TOPLAM bağımsız eğitmen sayısı.
+
+**`M-F-38`** (satır 83, karar, **P0**, AYRI numara): *"TOLERANS-TÜRETİM MERDİVENİ (G-031 kararı):
+'tolerans = eğitmenler-arası varyans' İLKESİ korunur ama YETERLİLİK KAPISIYLA: (1) varyans-türetim
+yalnız yeterli örneklemde (**≥3 bağımsız eğitmen × eğitmen başına ≥3 temiz tekrar-penceresi**) —
+**Gravita ölçtü**..."*
+
+## Cevap — net, iki parça
+
+1. **Aile-geneli mi? EVET — Gravita'nın yerel eki DEĞİL.** `M-F-38` motion-core'un KENDİ
+   `DEFTER.md`sinde kayıtlı, P0, "karar" sınıfında — Gravita'nın `docs/gates/` altındaki dosyası
+   (`M-F-38-PILOT-RAPORU.md`) bu kararın KANITI, kaynağı değil. Ayrıca `packages/gravita_engine/`
+   (PAYLAŞILAN, PİNLİ çekirdek — beş hattın da çektiği paket) `build_reference.dart` ve
+   `harvest_reps.dart`da `M-F-38`i doğrudan koda gömmüş (`rule: 'M-F-38: ≥3 EĞİTMEN × ≥3 temiz
+   tekrar...'`) — bu bir yorum değil, ÇALIŞAN mekanizma, ve tüm aileye pinlenerek dağıtılıyor.
+2. **AMA orkestratörün varsayımı da tam yanlış değildi — kaynağı BENDİM.** `M-F-38`in aile
+   defterindeki KENDİ satırı bunu söylüyor: *"Gravita ölçtü."* `M-F-53` (satır 112) bunu ikinci kez
+   doğruluyor: *"ÇEKİRDEK SAYIM BOŞLUĞU (**Gravita buldu**, 0.5.1 kalemi): `ReferenceBuilder.
+   minTakes` TEKRAR sayar, `M-F-38` EĞİTMEN sayar."* Yani mekanizma BENİM push_up pilotumdan
+   (`G-031`/`M-F-38-PILOT-RAPORU.md`, 2026-07-29) doğdu, aile kararına YÜKSELDİ, sonra çekirdeğe
+   KODLANDI — yerel bir kalıntı değil, benim ürettiğim ve ailenin KABUL ettiği bir kural.
+
+## `M-C-04` ile çelişki YOK — katman farkı
+
+`M-F-38`in kendi metni açık: `M-C-04`nin ilkesini *"korur"*, üstüne bir *"yeterlilik kapısı"*
+ekler. `M-C-04` = TOPLAM eğitmen tabanı (kaç FARKLI eğitmen). `M-F-38` = HER eğitmenin KENDİ
+başına yeterli veri üretip üretmediği (varyans-türetimi için, ≥3 kişi arasındaki anlaşmazlığı
+ÖLÇEBİLMEK için her kişiden yeterli örnek gerekir — 1 tekrarlık bir "eğitmen" varyansa hiçbir şey
+katmaz, yalnız sayıyı şişirir). İkisi AYNI SORUYU sormuyor.
+
+## Sonuç, JabLab'ın `jab` referansına dokunmadan adıyla
+
+`H-49`'un kendi verisi: *"Precision Striking 3 · Tony Jeffries 7 · World Class Boxing 1."* Kimlik
+sorunu (üçüncü kaynağın Yankello'nun kendi kanalı olması) BİR YOLDAN düşürüyordu zaten. `M-F-38`
+GERÇEKTEN aile-geneliyse, üçüncü kaynağın **1 pencere**si (eğitmen-başına ≥3 şartının altında) onu
+kimlikten BAĞIMSIZ olarak **İKİNCİ bir yoldan** da düşürür. **Bunu JabLab adına iddia ETMİYORUM**
+— `jab`ın kendi verisini okumadım, yalnız KENDİ sorulan sorumu ölçüp yazıyorum; JabLab'ın kendi
+hattından cevap vermesi gerektiği zaten söylenmişti (H-48§③, JabLab'ın kendi yetki-sınırı çizimi).
+
+**Kapı durumu:** `GATES_EXIT=0` (yalnız defter kaydı + ölçüm, kod/katalog/başka hattın dosyasına
+DOKUNULMADI — sorulan soru buydu, düzeltme değil).
