@@ -4842,3 +4842,40 @@ bindirildi.
 **A7③ işlendi. F2'nin A-tablosu TAM kapandı — yalnız kurucudaki A12 kaldı.**
 
 **Kapı durumu:** `GATES_EXIT=0` · app 219/219 (+1) · engine 175/175 · python 18/18.
+
+---
+
+### G-231 — 🪞 KENDİ HATAM: mühür sayısını ÖLÇMEDEN TÜRETTİM — orkestratör buldu (2026-08-16)
+
+**RAPOR 7'de "HEAD `e9bf635` (229)" yazdım. Gerçek: 227** (`rev-list --count HEAD` ·
+`log --oneline | wc -l` · `--all` · `origin/main` — dördü de 227). Orkestratör buldu, ben
+doğruladım (kör güvenmedim — dört yöntemi kendim de koşturdum, hepsi 227 verdi).
+
+## Nasıl oldu
+
+Önceki dört raporum BİREBİR tutuyordu (217→220→222→223→224→226, her biri o turda eklenen
+commit sayısıyla doğru arttı). Bu turda **226'dan 227'ye** (yalnız `G-230`, TEK commit) çıkması
+gerekirken **229** yazdım — iki fazla. Tam hangi adımda kaydığımı geriye dönük kesin
+saptayamıyorum (ölçmeden geriye türetmek aynı hatayı bir kez daha işlemek olurdu) — ama örüntü
+açık: bu turlarda mührü HER SEFERİNDE `git rev-list --count HEAD` ile TAZE ölçmek yerine, önceki
+raporun sayısına zihinden ekleyerek TÜRETTİM. İlk turlarda bu tesadüfen doğru çıktı; bu turda
+çıkmadı.
+
+> ***BİR SAYIYI BİR KEZ ÖLÇÜP SONRA TÜRETMEK, HER TURDA YENİDEN ÖLÇMEKLE AYNI ŞEY DEĞİLDİR —
+> VE TÜRETME ZİNCİRİ NE KADAR UZARSA, TEK BİR KAYMANIN FARK EDİLME OLASILIĞI O KADAR DÜŞER.***
+
+## 🪞 Ve orkestratör aynı gece AYNI SINIFI kendi üzerinde ölçtü
+
+Kendi notu (`M-F-649`): zaman damgalarını ölçmeyi bırakıp tahmin etmiş, 107 dakika sapmış.
+*"Aynı sınıf, aynı sebep: bir kez ölçtüm, sonra türettim."* Bu, bu oturumun (F2'deki
+`FONT_DELIVERY_RECORDED`, `NETWORK_DEPS_RECORDED`) ve ailenin defalarca adlandırdığı "beyan
+bayatlar, ölçüm bayatlamaz" dersinin kendi RAPORLAMA pratiğimdeki hâli — araçta bulduğum kusuru
+kendi cümlemde tekrarlamışım.
+
+## Panzehir
+
+Bundan sonraki her rapor mührü **o turda taze koşulan** `git rev-list --count HEAD`den gelecek,
+önceki raporun sayısına eklemeyle DEĞİL. Küçük bir disiplin, ama bu oturumun kendi kuralı:
+*bir sayının doğruluğu kendi kanıtı değildir.*
+
+**Kapı durumu:** değişmedi (yalnız defter kaydı, kod dokunulmadı).
