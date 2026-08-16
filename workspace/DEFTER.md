@@ -5964,3 +5964,66 @@ taşıyacağını söyledi; bu liste o doğrulamanın YERİNE geçmiyor.
 `python 20/20` (yeni araç kasıtlı olarak `run_all_gates.sh` dışında, kendi
 üç testiyle doğrulandı — gerçek arşiv gerektirdiği için hızlı-kapı süitine
 girmiyor).
+
+---
+
+### G-251 — 🔐 v3: BİRİNCİL kaynak entegre edildi + belirsiz-kategori sınıfı + App Group olgusu
+
+**Orkestratör Apple'ın JSON uç noktasını buldu** (`developer.apple.com/tutorials/
+data/documentation/...json` — SPA'nın beslendiği düz-metin uç nokta, benim üç
+denemem hep JS-render INSAN sayfasına çarpmıştı) ve tam listeyi `motion-core/
+workspace/GEREKCELI-API-BIRINCIL-LISTE.md`ye yazdı.
+
+## Sevindirici ölçüm: kendi sembol listem ZATEN doğruydu
+
+v2'nin `REQUIRED_REASON_SYMBOLS` sözlüğünü birincil listeyle satır satır
+karşılaştırdım — **13 FileTimestamp, 2 SystemBootTime, 13 DiskSpace, 1
+ActiveKeyboards, 1 UserDefaults, ikisi TAM eşleşti.** Gerçek eksik v2'nin
+KENDİ sembol sözlüğünde değildi (o zaten kapsamlıydı) — **çıktısında**: "kullanım
+YOK" satırları HANGİ sembollerin arandığını GÖSTERMİYORDU, yani DiskSpace/
+ActiveKeyboards'ın "sıfır" sonucu orkestratörün H-59 ölçütüyle ("aranmamışın
+sıfırı sessizliktir") GEÇERSİZ SAYILABİLİRDİ — geçersiz DEĞİLDİ (kod zaten
+arıyordu) ama İSPAT EDİLEMİYORDU. Şimdi her "kullanım YOK" satırı taranan TAM
+listeyi basıyor.
+
+## Belirsiz-kategori — orkestratörün doğruladığı şüphe, ayrı bir sınıf oldu
+
+`getattrlist`/`fgetattrlist`/`getattrlistat` HEM FileTimestamp HEM DiskSpace
+listesinde (`getattrlistbulk` YALNIZ FileTimestamp'ta — asimetri birincil
+kaynaktan BİREBİR taşındı, uydurulmadı). Bu üç sembol artık kategori
+sözlüklerinden ÇIKARILDI, `AMBIGUOUS_SYMBOLS` adlı ayrı bir yapıda tutuluyor
+ve çıktıda AYRI bir `🟣 belirsiz-kategori` bölümünde raporlanıyor — bulunursa
+HANGİ kategoriye ait olduğu otomatik ATANMIYOR, "YARGI gerektirir" diye
+adlandırılıyor. Gravita'da ÜÇÜ de sıfır çıktı (aranarak, taranan liste
+gösterilerek).
+
+## Gerçek koşum — Gravita'da nihai sonuç değişmedi, ama artık İSPATLI
+
+```
+FileTimestamp   ✅ KULLANILIYOR (Runner+Flutter: stat/fstat/lstat) — BEYAN EDİLMİŞ (Flutter.framework)
+SystemBootTime  ✅ KULLANILIYOR (Runner: mach_absolute_time)       — BEYAN EDİLMİŞ (Flutter.framework)
+DiskSpace       ⚪ kullanım YOK — taranan 10 sembol (hepsi listelendi)
+ActiveKeyboards ⚪ kullanım YOK — taranan 1 sembol (activeInputModes)
+UserDefaults    ✅ KULLANILIYOR (permission_handler_apple)         — BEYAN EDİLMİŞ (kendi bundle'ı)
+belirsiz-kategori: kullanım YOK (3 sembol tarandı)
+```
+Sabotaj yeniden koşuldu (Flutter manifestinden dizi silindi) — FileTimestamp+
+SystemBootTime doğru kırmızı yandı, UserDefaults etkilenmedi, temiz revert.
+
+## App Group olgusu — ÖLÇÜLDÜ, YORUMLANMADI
+
+Orkestratörün gözlemi: `permission_handler_apple` kendi manifestinde `1C8F.1`
+(App Group) seçmiş; kategori-bazlı yorum geçerliyse bizim App Group kullanıp
+kullanmadığımız da ilgili olabilir — ama bu YORUM değil, ayrı bir OLGU
+sorusu. Ölçüldü: Gravita'nın `ios/`sinde **`.entitlements` dosyası YOK**,
+`project.pbxproj`de `application-groups` dizgesi **YOK**. Aynı soru beş
+app'in BEŞİNDE de soruldu (salt-okunur): **beşinde de sıfır** — hiçbiri App
+Group kullanmıyor. Yorum kurmuyorum, yalnız olgu: bu app'lerin hiçbiri App
+Group ÜYESİ DEĞİL, `permission_handler_apple`nin `1C8F.1` seçimi (App Group
+üyeleri arası paylaşım) bu app'lerin GERÇEK yapılandırmasıyla eşleşmiyor gibi
+görünüyor — ama bunun "yanlış" olup olmadığı YORUM, seçim eklentinin
+yazarına ait ve neden seçtiğini bilmiyorum.
+
+**Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` ·
+`python 20/20`. TN3183 (`technotes/tn3183-...`) henüz denenmedi — sonraki
+tur için adıyla açık bırakıldı, bu turun kapsamı doldu.

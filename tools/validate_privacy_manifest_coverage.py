@@ -36,19 +36,31 @@ boşluğu KAÇIRMIŞ olabilir. Adıyla.
 "ORTAM KURULMAMIŞ" desenindeki gibi ÜÇÜNCÜ bir hâl (ne yeşil ne kırmızı)
 döner, exit 2.
 
-## Sembol kaynağı — DÜRÜST SINIR, güçlendirildi (orkestratörün 2. talebi)
+## Sembol kaynağı — v3'te BİRİNCİL kaynağa taşındı (orkestratör, `M-F-700`)
 
-Apple'ın birincil dokümantasyonuna (`developer.apple.com/documentation/
-bundleresources/describing-use-of-required-reason-api`) BU OTURUMDA **üç
-ayrı denemeyle** erişilmeye çalışıldı (ana sayfa, alternatif URL, haber
-duyurusu) — üçü de JS ile render ediliyor, `WebFetch` yalnız sayfa BAŞLIĞINI
-döndürdü, gövdeyi ÇEKEMEDİ. **Birincil kaynak DOĞRULAMASI YAPILAMADI.**
-Aşağıdaki liste İKİNCİL kaynaklardan (Apple Developer Forums iş parçacıkları
-— `/forums/thread/748621`, `/forums/thread/749049`, ikisi de Apple personeli
-yanıtları alıntılıyor — + bağımsız bir uyum-özeti, singular.net/blog/
-required-reason-apis) ÇAPRAZ DERLENDİ, 2026-08-16 erişimli. Üçü TUTARLI
-çıktı ama **eksik/yanlış olabilir** — orkestratör birincil kaynağı ayrıca
-doğrulayacağını söyledi, bu liste o doğrulamanın YERİNE geçmez.
+v1/v2 bu listeyi İKİNCİL kaynaklardan (forum + üçüncü-taraf özet) çapraz
+derlemişti; birincil sayfa (`developer.apple.com/documentation/
+bundleresources/describing-use-of-required-reason-api`) JS ile render
+oluyor, `WebFetch` yalnız başlığı döndürüyordu (bu oturumda üç ayrı denemeyle
+doğrulandı). Orkestratör Apple'ın SPA'sının beslendiği JSON uç noktasını
+buldu (`developer.apple.com/tutorials/data/documentation/bundleresources/
+app-privacy-configuration/...json`) ve tam listeyi `motion-core/workspace/
+GEREKCELI-API-BIRINCIL-LISTE.md`ye yazdı. Aşağıdaki sözlük O LİSTEYLE
+BİREBİR eşleşecek şekilde güncellendi (13 FileTimestamp, 2 SystemBootTime,
+13 DiskSpace, 1 ActiveKeyboards, 1 UserDefaults).
+
+⚠️ **O listenin KENDİ sınırı, burada da geçerli, miras alındı:** kaynak
+BİRİNCİL (Apple'ın kendi uç noktası) ama ham JSON'un kendisi gözle
+OKUNMADI — `WebFetch`in özetleyicisi çıkardı. Yani sembol adları YÜKSEK
+GÜVENLİ ama "Apple'ın verisini satır satır okudum" değil.
+
+## Belirsiz-kategori sınıfı — orkestratörün doğruladığı şüphe
+
+`getattrlist`/`fgetattrlist`/`getattrlistat` HEM FileTimestamp HEM DiskSpace
+listesinde geçiyor (`getattrlistbulk` YALNIZ FileTimestamp'ta). Bu üç sembol
+bulunduğunda hangi kategoriye yazılacağı SEMBOLDEN değil KULLANIM AMACINDAN
+çıkar — bu araç bunu OTOMATİK sınıflandırmaz, AYRI bir "belirsiz-kategori"
+bölümünde raporlar.
 """
 from __future__ import annotations
 
@@ -61,10 +73,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 ARCHIVE = ROOT / "build" / "ios" / "archive" / "Runner.xcarchive"
 
+# Kaynak: motion-core/workspace/GEREKCELI-API-BIRINCIL-LISTE.md (2026-08-16,
+# Apple'ın kendi JSON uç noktasından). Yalnız KATEGORİYE ÖZGÜ semboller —
+# üç kategoride birden geçen getattrlist ailesi AŞAĞIDA, AYRI bir yapıda.
 REQUIRED_REASON_SYMBOLS = {
     "FileTimestamp": {
-        "c": ["stat", "fstat", "fstatat", "lstat", "getattrlist",
-              "getattrlistbulk", "fgetattrlist", "getattrlistat"],
+        "c": ["stat", "fstat", "fstatat", "lstat", "getattrlistbulk"],
         "swift": ["creationDate", "modificationDate", "fileModificationDate",
                   "contentModificationDateKey", "creationDateKey"],
     },
@@ -73,9 +87,7 @@ REQUIRED_REASON_SYMBOLS = {
         "swift": ["systemUptime"],
     },
     "DiskSpace": {
-        # ⚠️ getattrlist/fgetattrlist/getattrlistat FileTimestamp'la ORTAK.
-        "c": ["statfs", "statvfs", "fstatfs", "fstatvfs", "getattrlist",
-              "fgetattrlist", "getattrlistat"],
+        "c": ["statfs", "statvfs", "fstatfs", "fstatvfs"],
         "swift": ["volumeAvailableCapacityKey",
                   "volumeAvailableCapacityForImportantUsageKey",
                   "volumeAvailableCapacityForOpportunisticUsageKey",
@@ -89,6 +101,16 @@ REQUIRED_REASON_SYMBOLS = {
         "c": [],
         "swift": ["NSUserDefaults", "UserDefaults"],
     },
+}
+
+# getattrlist/fgetattrlist/getattrlistat: FileTimestamp VE DiskSpace'te
+# BİRDEN geçiyor (getattrlistbulk yalnız FileTimestamp'ta — o yüzden yukarıda
+# kaldı). Hangi kategoriye ait olduğu KULLANIM AMACINDAN çıkar, sembolden
+# değil — otomatik atanmaz, ayrı raporlanır.
+AMBIGUOUS_SYMBOLS = {
+    "getattrlist": ("FileTimestamp", "DiskSpace"),
+    "fgetattrlist": ("FileTimestamp", "DiskSpace"),
+    "getattrlistat": ("FileTimestamp", "DiskSpace"),
 }
 
 
@@ -135,33 +157,43 @@ def find_source_targets() -> dict[str, Path]:
     return targets
 
 
-def scan_binary(path: Path) -> dict[str, list[str]]:
-    hits: dict[str, list[str]] = {c: [] for c in REQUIRED_REASON_SYMBOLS}
+def scan_binary(path: Path) -> tuple[dict[str, list[str]], list[str]]:
     undefined = nm_undefined_symbols(path)
+    hits: dict[str, list[str]] = {c: [] for c in REQUIRED_REASON_SYMBOLS}
     for category, syms in REQUIRED_REASON_SYMBOLS.items():
         for sym in syms["c"]:
             if sym in undefined:
                 hits[category].append(sym)
-    return hits
+    ambiguous_hits = [sym for sym in AMBIGUOUS_SYMBOLS if sym in undefined]
+    return hits, ambiguous_hits
 
 
-def scan_source(path: Path) -> dict[str, list[str]]:
+def scan_source(path: Path) -> tuple[dict[str, list[str]], list[str]]:
     hits: dict[str, list[str]] = {c: [] for c in REQUIRED_REASON_SYMBOLS}
+    ambiguous_hits: list[str] = []
     files = [f for f in
              list(path.rglob("*.swift")) + list(path.rglob("*.m")) + list(path.rglob("*.h"))
              if "Package.swift" not in f.name]  # SPM derleme-zamanı betiği, uygulama kodu DEĞİL
+
+    def any_match(sym: str) -> bool:
+        pattern = re.compile(r"\b" + re.escape(sym) + r"\b")
+        for f in files:
+            try:
+                text = f.read_text(encoding="utf-8", errors="ignore")
+            except OSError:
+                continue
+            if pattern.search(text):
+                return True
+        return False
+
     for category, syms in REQUIRED_REASON_SYMBOLS.items():
         for sym in syms["c"] + syms["swift"]:
-            pattern = re.compile(r"\b" + re.escape(sym) + r"\b")
-            for f in files:
-                try:
-                    text = f.read_text(encoding="utf-8", errors="ignore")
-                except OSError:
-                    continue
-                if pattern.search(text):
-                    hits[category].append(sym)
-                    break
-    return hits
+            if any_match(sym):
+                hits[category].append(sym)
+    for sym in AMBIGUOUS_SYMBOLS:
+        if any_match(sym):
+            ambiguous_hits.append(sym)
+    return hits, ambiguous_hits
 
 
 def declared_categories(manifest_path: Path) -> set[str]:
@@ -184,6 +216,10 @@ def main() -> int:
     if empty_categories:
         print(f"⛔ VAKUM: {empty_categories} kategorisinin sembol listesi BOŞ "
               f"— kapı KÖR (kusur yok DEMİYOR, arayacağı bir şey YOK).")
+        return 1
+    if not AMBIGUOUS_SYMBOLS:
+        print("⛔ VAKUM: belirsiz-kategori sembol listesi BOŞ — getattrlist "
+              "ailesi ARANMIYOR demektir, kapı KÖR.")
         return 1
 
     # ── ORTAM ÖN-KAPISI (run_all_gates.sh'ın deseniyle aynı: üçüncü hâl) ──
@@ -214,16 +250,21 @@ def main() -> int:
         declared_anywhere |= cats
 
     used_by: dict[str, list[tuple[str, list[str]]]] = {c: [] for c in REQUIRED_REASON_SYMBOLS}
+    ambiguous_found: list[tuple[str, str]] = []  # (hedef, sembol)
     for name, path in binaries.items():
-        hits = scan_binary(path)
+        hits, ambig = scan_binary(path)
         for category, syms in hits.items():
             if syms:
                 used_by[category].append((f"{name} [ikili]", syms))
+        for sym in ambig:
+            ambiguous_found.append((f"{name} [ikili]", sym))
     for name, path in sources.items():
-        hits = scan_source(path)
+        hits, ambig = scan_source(path)
         for category, syms in hits.items():
             if syms:
                 used_by[category].append((f"{name} [kaynak]", syms))
+        for sym in ambig:
+            ambiguous_found.append((f"{name} [kaynak]", sym))
 
     print("═══ GEREKÇELİ-API KAPSAMA KAPISI (gerçek arşiv) ═══\n")
     print(f"Taranan paket: {app}")
@@ -235,8 +276,9 @@ def main() -> int:
     for category in REQUIRED_REASON_SYMBOLS:
         uses = used_by[category]
         is_declared = category in declared_anywhere
+        searched = REQUIRED_REASON_SYMBOLS[category]["c"] + REQUIRED_REASON_SYMBOLS[category]["swift"]
         if not uses:
-            print(f"  ⚪ {category}: kullanım YOK")
+            print(f"  ⚪ {category}: kullanım YOK — taranan {len(searched)} sembol: {searched}")
             continue
         who = "; ".join(f"{n} ({','.join(s)})" for n, s in uses)
         if is_declared:
@@ -245,6 +287,17 @@ def main() -> int:
         else:
             print(f"  🔴 {category}: KULLANILIYOR ({who}) — HİÇBİR manifestte BEYAN EDİLMEMİŞ")
             problems.append(category)
+
+    print(f"\n  🟣 belirsiz-kategori (taranan {len(AMBIGUOUS_SYMBOLS)} sembol: "
+          f"{list(AMBIGUOUS_SYMBOLS)}, her biri FileTimestamp/DiskSpace'ten "
+          f"İKİSİNE birden ait olabilir — bu araç ATAMAZ):")
+    if not ambiguous_found:
+        print("     kullanım YOK")
+    else:
+        for who, sym in ambiguous_found:
+            cats = AMBIGUOUS_SYMBOLS[sym]
+            print(f"     {sym} → {who} — olası kategoriler: {cats} "
+                  f"(YARGI gerektirir, bu araç seçmiyor)")
 
     print()
     if problems:
