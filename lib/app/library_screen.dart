@@ -205,6 +205,13 @@ class _LibraryScreenState extends State<LibraryScreen> {
   /// hareket-bilimi geçişinden GEÇMEDİ. Ağacı çizmek, o eşikleri "ölçülmüş
   /// kapı" gibi sunmak olurdu (eşik icadı yasağı). Kullanıcıya ne olduğunu
   /// söylüyoruz; ne zaman geleceğini söylemiyoruz.
+  ///
+  /// ⛔ Falsifiable — H-44: bkz. `LibraryStrings.skillTreesBody` üstündeki
+  /// not (`library_strings.dart`). Kısaca: bu ekran `SkillTree.
+  /// thresholdsValidated`e bakıyor, o alan `tools/build_skill_tree_index.py`
+  /// tarafından paketin kendi `status` önekinden MEKANİK üretiliyor — ve
+  /// model `nodes[]`i hiç ayrıştırmadığı için (satır ~342) taslak bir
+  /// paketin eşiği bu ekrandan yapısal olarak SIZAMAZ.
   Widget _skillTrees() => SurfaceSection(
         key: LibraryScreen.skillTreesKey,
         title: LibraryStrings.skillTreesTitle.toUpperCase(),

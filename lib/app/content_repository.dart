@@ -190,6 +190,14 @@ final class ContentRepository {
   /// başlatma yolu HENÜZ YOK (kurs sayfası inşa edilmedi). Yani bugün her
   /// seans serbest seanstır.
   ///
+  /// ⛔ YOKLUK BEYANI (H-44, 2026-08-16): kurs sayfası inşa edilip
+  /// `LiveSessionScreen`e İKİNCİ bir çağrı yeri eklendiği gün bu paragraf
+  /// yalan söyler — o an serbest/ders ayrımı burada YENİDEN yazılmalı.
+  /// Düzyazıya değil gerçek bir kapıya bağlı:
+  /// `test/single_session_entry_point_test.dart` — `lib/`i tarar,
+  /// `LiveSessionScreen(` inşa yerlerinin TAM olarak `gravita_app.dart:216`
+  /// olduğunu doğrular; ikinci bir yer belirirse KIRMIZI yanar.
+  ///
   /// Bu yüzden ayrı DOSYA: `ProgressSummary` bu kovayı hiç görmez, serbest
   /// seanslar ders trendine KARIŞAMAZ. Karışma "unutulmadı" diye değil,
   /// okuyucu o dosyayı hiç açmadığı için imkânsız.

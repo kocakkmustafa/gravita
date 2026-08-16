@@ -134,6 +134,15 @@ abstract final class LibraryStrings {
   /// ölçülmüş kapı gibi sunmak olurdu. O yüzden ağaç ÇİZİLMİYOR ve sebebi
   /// söyleniyor.
   ///
+  /// ⛔ YOKLUK BEYANI (H-44, 2026-08-16): düzyazı değil MEKANİK bir okumaya
+  /// bağlı — `tools/build_skill_tree_index.py::_is_draft()` her paketin
+  /// KENDİ `status` alanının önekine bakar, `content/skill-trees.index.json`a
+  /// `thresholdsValidated` yazar; `_catalogue.skillTrees.drafted` (bu
+  /// metnin sayı/ad kaynağı) o alandan gelir. Paketlerin JSON'unda kendi
+  /// falsifiedBy notu var (`handstand.v1.json`/`planche.v1.json`). Bir paket
+  /// doğrulanıp `status` "DRAFT" ile başlamayı bıraktığında indeks yeniden
+  /// üretilmeli — o an bu cümle YANLIŞ sayıyı söylemeye başlar.
+  ///
   /// Sayı da adlar da `content/skill-trees.index.json`'dan gelir
   /// (`tools/build_skill_tree_index.py`). İlk yazışımda ekran ağaç adını
   /// düğüm kimliklerinden TAHMİN ediyordu — uydurulmuş bir eşleştirme;
@@ -179,6 +188,14 @@ abstract final class LibraryStrings {
   /// çelişmesine yol açıyordu. Eğitmen çekimi ile ÇİZİLEBİLİR gösterim
   /// farklı artefaktlar; kullanıcı ikisini aynı sanıyor, o yüzden fark
   /// AÇIKÇA söyleniyor.
+  ///
+  /// ⛔ YOKLUK BEYANI (H-44, 2026-08-16): *"have not built a demonstration"*
+  /// bir çizilebilir gösterim üretildiği gün YALANA döner. Yalanlayacak şey:
+  /// bu hareket için `content/harvest/`den türetilmiş bir OYNATILABİLİR
+  /// sekans artefaktı (bugün yalnız ÖLÇÜM türetiliyor, sekans değil — bkz.
+  /// üstteki yorum). O artefakt varsa ve BU FONKSİYON hâlâ çağrılıyorsa,
+  /// kapı DEĞİL bu cümle KENDİSİ yalan söylüyordur. Adıyla, henüz kapıya
+  /// bağlanmadı — bağlanabilecek bir artefakt yok ki kapı onu sorabilsin.
   static String howToReferenceNotDrawable(int instructors) =>
       'We have footage from $instructors instructors for this movement, but we '
       'have not built a demonstration you can watch from it — what we derived '
@@ -186,6 +203,12 @@ abstract final class LibraryStrings {
       'nothing than draw a figure we made up.';
 
   static const String formErrorsTitle = 'What the rules watch for';
+  /// ⛔ YOKLUK BEYANI (H-44, 2026-08-16): *"It does not run"* — motor
+  /// (`RepEngine.correctionFor`/`.topCorrection`/`.repMetrics`) `lib/` içinden
+  /// hiç çağrılmadığı sürece doğru. Bu artık DÜZYAZIYA değil gerçek bir
+  /// kapıya bağlı: `test/live_rule_evaluation_absence_test.dart` — `lib/`i
+  /// tarar, herhangi bir çağrı bulursa KIRMIZI yanar (sabote edip doğrulandı:
+  /// sahte bir çağrı eklendiğinde kapı doğru dosya/satırla kırmızı yandı).
   static String formErrorsBody(int n) => n == 1
       ? 'One rule is written for this movement. It does not run.'
       : '$n rules are written for this movement. They do not run.';

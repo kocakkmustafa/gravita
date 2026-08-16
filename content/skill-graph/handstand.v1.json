@@ -4,6 +4,7 @@
   "packVersion": "1.0.0-draft",
   "locale": "en",
   "status": "DRAFT — thresholds inherited from product plan; NOT yet validated by a movement-science pass or a calisthenics expert (see docs/G4-BECERI-GRAFI-TASARIMI.md §7 debt D-1).",
+  "$falsifiedBy": "H-44 (2026-08-16): this word is not read by opinion — tools/build_skill_tree_index.py::_is_draft() checks the literal prefix of this field and sets thresholdsValidated=false in content/skill-trees.index.json; the app's SkillTree model never even parses nodes[] (library_model.dart), so a drafted pack cannot leak thresholds regardless. The moment docs/G4-BECERI-GRAFI-TASARIMI.md §7 D-1 closes and this field stops starting with DRAFT, re-run `python3 tools/build_skill_tree_index.py --write` — thresholdsValidated flips true and library_strings.dart's 'skill trees are not drawn' sentence (skillTreesBody) must be revisited.",
   "engineContract": "docs/G4-BECERI-GRAFI-TASARIMI.md",
   "enginePolicy": {
     "note": "Enforced in code, not content. Packs cannot override these.",

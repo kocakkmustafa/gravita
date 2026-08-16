@@ -5135,3 +5135,100 @@ BAŞIMA kararlaştırmak bu turun kapsamı değil.
 
 **Kapı durumu:** `GATES_EXIT=0` (bu araç `run_all_gates.sh`'ın kendi hasat-aracı
 istisnasında, öz-test taşımıyor — gerçek çağrıyla doğrulandı).
+
+---
+
+### G-238 — 🔍 H-44: yokluk-beyanı envanteri — 4 madde, ikisi YENİ bir gerçek kapıya bağlandı, biri yol boyunca bayat çıktı
+
+**Görev (aile-geneli, orkestratör):** kendi "yokluk beyanları"mı envanterle — bir
+yeteneğin/özelliğin YOK dediği, o yetenek inşa edildiği gün yalana dönecek cümleler.
+Tarama `lib/`in ÖTESİNE, `content/**.json`e de uzanacaktı. Her birine, BİTİŞİĞİNDE, onu
+çürütecek şeyin linki — mümkünse gerçek bir teste/kapıya, yalnız yoruma değil.
+
+## Yöntem
+
+`lib/` + `content/`de yokluk dizgisi taraması (`"not yet"`, `"HENÜZ YOK"`, `"does not
+run"`, `"no cue"`, `"DRAFT"`, `"not built"` ailesi) + HER eşleşmenin elle okunması.
+**Bir yanlış-pozitif ELENDİ:** `live_strings.dart:48-49`teki `noRepsYet` — bu bir yetenek
+yokluğu değil, GEÇİCİ "şu ana dek 0 tekrar" sayaç durumu, farklı sınıf.
+
+## Madde 1 — `library_strings.dart:182-186` (`howToReferenceNotDrawable`)
+
+Referans VAR ama çizilebilir gösterim YOK. Bitişiğe eklenen not: çürütecek şey
+`content/harvest/`den türetilmiş OYNATILABİLİR bir sekans artefaktı (bugün yalnız ÖLÇÜM
+türetiliyor, sekans değil) — o artefakt üretilip fonksiyon HÂLÂ çağrılıyorsa cümle
+yalandır. **Gerçek bir kapıya bağlanamadı** — bağlanacak artefakt henüz yok ki kapı onu
+sorsun; adıyla söylendi, gizlenmedi.
+
+## Madde 2 — `library_strings.dart:197-215` (`formErrorsBody`/`formErrorsBodyLive`, G-212)
+
+Bu ikisi zaten G-212'nin bıraktığı uzun düzyazı bağlamını taşıyordu ama HİÇBİR test bu
+olguyu (motor `lib/`den hiç çağrılmıyor) ölçmüyordu — yalnız 3 dosyada (`library_strings.
+dart`, `onboarding_strings.dart`, iki test dosyasının doc-comment'i) TEKRARLANAN
+düzyazıydı. **YENİ kapı yazıldı:** `test/live_rule_evaluation_absence_test.dart` — (a)
+önce `RepEngine`in kaynağının `correctionFor`/`topCorrection`/`repMetrics` adlarını HÂLÂ
+taşıdığını doğruluyor (vakum koruması: isim değişirse "hiç çağrılmıyor" testi sessizce
+anlamsızlaşır), (b) sonra `lib/`i satır satır tarayıp bu üç API'nin GERÇEK çağrı yeri
+(yorum değil) olmadığını doğruluyor. **Sabote edilerek kanıtlandı:** `lib/`e sahte bir
+`e.correctionFor(r)` çağrısı ekleyip kapının doğru dosya/satırla KIRMIZI yandığı görüldü,
+temizlenip yeşile dönüldü (`git status` temiz).
+
+## Madde 3 — `content_repository.dart:189-190` (ders-bağlamlı başlatma yolu yok)
+
+Aynı desende **YENİ kapı**: `test/single_session_entry_point_test.dart` — `lib/`i tarayıp
+`LiveSessionScreen(` inşa yerinin TAM OLARAK `gravita_app.dart:216` olduğunu doğruluyor
+(sınıfın kendi tanım dosyası hariç tutularak). ⚠️ **Bu kapının sabotaj denemesi YARIM
+KALDI, adıyla:** ikinci bir `LiveSessionScreen(` çağrı yeri eklenip test koşulduğunda
+`flutter test` 2 dakikada TIMEOUT verdi (ortam kaynaklı görünüyor — bu workspace'in
+KENDİ bilinen iCloud senkron sorunuyla aynı aile olabilir, kanıtlanmadı). Sabotaj dosyası
+derhâl silindi, `git status` ile temizlik doğrulandı, PLAIN (sabotajsız) hâliyle kapı
+tekrar YEŞİL koşturuldu. **Bu kapı Madde 2'nin AYNI mekanizma sınıfını** (satır-bazlı
+`lib/` taraması + tam-liste eşitliği) paylaşıyor ve o sınıf Madde 2'de sabotajla
+kanıtlandı — ama BU kapının kendi sabotajı tamamlanmadı, bu fark açıkça söyleniyor.
+
+**Yol boyunca bulunan bayat iddia (H-44'ün DIŞINDA, ayrı bir kusur sınıfı):**
+`free_bucket_integrity_test.dart` (G-211) AYNI "tek giriş" olgusunu anlatırken *"o yol
+`B5` açılana kadar kapalı"* diyordu — ama `B5` (`google_fonts`/ağ engeli) o GÜN, aynı
+oturumda F2 ile ZATEN KAPANMIŞTI (bu defterin G-227'si) ve iki başka test (`reachability_
+test.dart`, `library_surface_test.dart`) gerçek `GravitaShell`i ZATEN çiziyor. Yani engel
+gitmiş ama cümle hâlâ "kapalı yol" diyordu — düzyazı KENDİSİ bayatlamıştı (H-35/ceiling-
+zehirlenmesi ailesiyle aynı sınıf, burada tarih değil KOŞUL bayatladı). Düzeltildi:
+paragraf artık "engel gitti, test hâlâ yazılmadı — açık ama işlenmemiş kalem" diyor.
+
+## Madde 4 — `content/skill-graph/handstand.v1.json:6` + `planche.v1.json:6` (DRAFT durumu)
+
+İkisi de zaten `library_strings.dart`/`library_screen.dart`de kendini "eksiklik beyanı"
+diye adlandıran düzyazıyla anlatılıyordu ama HİÇBİRİ mekanizmayı ADIYLA anmıyordu.
+Araştırınca ortaya çıktı: mekanizma ZATEN VAR ve GÜÇLÜ — `tools/build_skill_tree_index.
+py::_is_draft()` her paketin **kendi** `status` alanının önekini okuyup `thresholdsValidated`
+üretiyor (kanaate değil), ve `SkillTree` modeli (`library_model.dart:340-344`) `nodes[]`i
+HİÇ ayrıştırmıyor — taslak bir paketin eşiği bu yüzden YAPISAL olarak sızamaz, ayrı bir
+çalışma-zamanı kontrolüne bile gerek yok. **Yeni test YAZILMADI** (var olan yapısal
+garanti zaten yeterli görüldü, tekrar test fazlalık olurdu) — bunun yerine dört nokta
+BİRBİRİNE bağlandı: her iki JSON'a bu kodun kendi `$falsifiedBy` alanı (dosyanın kendi
+`$claimNote`/`$passiveRationale` geleneğiyle aynı biçim) + `library_strings.dart`/
+`library_screen.dart`deki iki UI cümlesine mekanizmanın adı.
+
+## Sayım — orkestratörün ön-sayımıyla FARK, adıyla
+
+Orkestratörün ön sayımı Gravita için **3** diyordu; benim elle gözden geçirmem **4**
+madde buldu (+ 1 bonus bayat-iddia düzeltmesi, H-44'ün kendisi değil). Fark muhtemelen
+kaynak: otomatik ön-sayım muhtemelen dizgi-bazlı tek bir kalıba göre saymıştı, ben elle
+okuyup (a) bir yanlış-pozitifi (`noRepsYet`) elediğim (b) `library_strings.dart`taki İKİ
+AYRI fonksiyonu (howToReferenceNotDrawable + formErrorsBody/Live) tek dosya yerine iki
+ayrı madde saydığım için sayı kaydı. **Kesin değil, dürüst bir tahmin** — otomatik
+sayımın tam yöntemini görmedim.
+
+## Kapsam dışı, adıyla
+
+- `formErrorsBody`nin kapı-sabote testi Madde 2'de yapıldı, Madde 3'ün kendi sabotajı
+  ortam nedeniyle yarım kaldı (üstte anlatıldı) — orkestratöre bu hâliyle raporlanıyor,
+  gizlenmedi.
+- Madde 4'ün "yapısal garanti" iddiası KENDİSİ hiç sabote edilmedi (ör. `SkillTree.
+  fromJson`a elle bir `nodes` alanı eklenip modelin gerçekten reddettiği görülmedi) —
+  bu bir sonraki turun ucuz bir sabotaj adayı olarak adıyla bırakılıyor.
+
+**Kapı durumu:** `GATES_EXIT=0` — `tools/run_all_gates.sh` üç süiti de yeşil:
+`app 222/222` (Madde 2+3'ün 3 yeni testiyle 219→222) · `engine 175/175` ·
+`python 18/18` (`skill_tree_index --check` Madde 4'ün `$falsifiedBy` alanlarıyla dahi
+TEMİZ — şema kırılmadı).

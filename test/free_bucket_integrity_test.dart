@@ -37,10 +37,20 @@ import 'package:motion_core/motion_core.dart'
 /// üçüncü uygulaması: ürün kararı ekranın içinde saklanmaz.
 ///
 /// ⛔ **Bu testlerin KANITLAMADIĞI şey — adıyla:** kabuğun bu hükmü gerçekten
-/// ÇAĞIRDIĞI. Onu ancak render eden bir test kanıtlar ve o yol `B5` açılana
-/// kadar kapalı. Bugün çağrının doğruluğu **tek satırlık ve gözle
-/// okunabilir** durumda (`gravita_app.dart`), ama bu bir ölçüm değildir ve
-/// öyle sayılmıyor.
+/// ÇAĞIRDIĞI. Onu ancak render eden bir test kanıtlar.
+///
+/// ⚠️ **DÜZELTME (H-44, 2026-08-16):** bu paragraf *"o yol `B5` açılana
+/// kadar kapalı"* diyordu — `B5` artık KAPANDI (F2, aynı gün: fontlar
+/// paketli, `google_fonts`/`fonts.gstatic.com` bağımlılığı yok). Engel
+/// gitti ama bu belirli render testi HÂLÂ yazılmadı — `reachability_test.
+/// dart` ve `library_surface_test.dart` gerçek `GravitaShell`i çiziyor
+/// (kanıt: engelin kalktığının kendisi), ama ikisi de seans-başlatma
+/// düğmesine basıp serbest/ders kova ayrımını sınamıyor. Yani bugün bu bir
+/// "kapalı yol" değil, açık ama HENÜZ İŞLENMEMİŞ bir açık kalem —
+/// düzyazının kendisi bir kez daha bayatlamıştı (aynı sınıf: `H-35`/ceiling
+/// zehirlenmesi ailesi, burada tarih değil KOŞUL bayatladı). Bugün
+/// çağrının doğruluğu **tek satırlık ve gözle okunabilir** durumda
+/// (`gravita_app.dart:216`), ama bu bir ölçüm değildir ve öyle sayılmıyor.
 void main() {
   late Directory tmp;
 

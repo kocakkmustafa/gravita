@@ -4,6 +4,7 @@
   "packVersion": "1.0.0-draft",
   "locale": "en",
   "status": "DRAFT — eşikler provizyonel; M-F-38 yeterlilik kapısı (≥3 eğitmen × ≥3 temiz pencere) geçilmeden kaynak-varyans türetimi YAPILMAZ.",
+  "$falsifiedBy": "H-44 (2026-08-16): kanaate değil mekanik bir okumaya bağlı — tools/build_skill_tree_index.py::_is_draft() bu alanın harfi harfine önekine bakar ve content/skill-trees.index.json'da thresholdsValidated=false yazar; ayrıca SkillTree modeli (library_model.dart) nodes[]'ı hiç ayrıştırmaz, yani taslak bir paket eşikleri her hâlükârda sızdıramaz. M-F-38 geçip bu alan 'DRAFT' ile başlamayı bıraktığı gün `python3 tools/build_skill_tree_index.py --write` yeniden koş — thresholdsValidated true'ya döner ve library_strings.dart'ın 'beceri ağaçları çizilmiyor' cümlesi (skillTreesBody) yeniden gözden geçirilmeli.",
   "engineContract": "docs/G4-BECERI-GRAFI-TASARIMI.md",
   "enginePolicy": {
     "note": "Kodda zorlanır; paketler ezemez.",
