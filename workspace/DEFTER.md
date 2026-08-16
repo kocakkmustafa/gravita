@@ -5537,3 +5537,84 @@ orkestratörün `PASS`ından sonra · Android imza gerçek keystore'u kurucudan 
 **Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` · `python 18/18`,
 ikon değişikliği hiçbir testi kırmadı (grep doğrulandı: hiçbir test dosyası ikon dosyası
 adı taşımıyor).
+
+---
+
+### G-244 — 🔴🔴 H-55: bayat `harvest_rig` kopyam TESPİT EDİLDİ, GERÇEK verimle yeniden koşuldu — 64 manifestin 2'si etiket değiştirdi, UYGUNLUK SIFIR değişti
+
+**Orkestratörün aile-geneli acil ataması.** Paylaşımlı `ventures/motion-core/lib`
+checkout'u (`feat/lissom-v3-onayi` dalında, `rom_mode.py` origin/main'in **10 commit
+GERİSİNDE**, 3 sınıf/8 sınıf) — ama Gravita bu checkout'u HİÇ KULLANMIYOR. Kendi ölçümüm.
+
+## ① Hangi ölçümlerim `harvest_rig` kullanıyor — tespit
+
+`tools/reclassify_eligibility.py` (G-072'nin altyapısı, `bodyweight_squat`+`push_up`
+ATTESTED durumunun kaynağı) — ama paylaşımlı checkout'tan DEĞİL, **KENDİ ayrı**
+materyalizasyonundan okuyor: `scratch/2026-07-30-rig-canonical/harvest_rig` (SHA
+`87e4f840`, 2026-07-30'da `origin/main`den kopyalanmış). Yani H-55'in bulduğu bayatlık
+(paylaşımlı checkout) BENİ doğrudan etkilemiyordu — ama KENDİ kopyam da AYRI bir
+bayatlık taşıyor muydu, bu SORULMAMIŞTI.
+
+## ② Kendi kopyamı denetledim — KISMEN bayat çıktı
+
+`~/motion-core-main`in (orkestratörün doğruladığı taze klon, `main`@`63a0b3e`) tam
+sınıf listesi: `PASSIVE`/`WEAK_PASSIVE`/`POSTURE_CUE`/`MOVEMENT_CUE`/
+`FIRST_PERSON_PLURAL_CUE`/`ACTIVE`/`FIRST_PERSON_DEMO`/`WEAK_ACTIVE` (8). Kendi
+07-30 kopyam yalnız **5**ini taşıyordu — `MOVEMENT_CUE_MARKERS`/
+`FIRST_PERSON_PLURAL_CUE_MARKERS`/`WEAK_ACTIVE_MARKERS` YOKTU. **VE aracımın kendi
+bayatlık-kapısı bunu YAKALAMAMIŞTI** — kapı yalnız `FIRST_PERSON_DEMO_MARKERS`in
+VARLIĞINA bakıyordu, o sınıf VARDI (07-30 kopyası o noktada zaten güncel), üç
+DİĞERİ yoktu ve kapı sessizce geçti. **Kendi ürettiğim kapı, kendi türettiği hatayı
+göremiyordu** — H-55'in ailede bulduğu sınıfın küçük bir yansıması, kendi aracımda.
+
+## ③ Gerçek kütüphanelerimle yeniden koşuldu — iki rig, aynı 64 manifest
+
+`~/motion-core-main`den taze materyalize edildi (`scratch/2026-08-16-rig-canonical/
+harvest_rig`, SHA `63a0b3e` kayıtlı). İki rig (eski 07-30 + yeni 08-16) Gravita'nın
+GERÇEK hasat kütüphaneleri üzerinde ayrı süreçlerde koşuldu (modül-önbellek
+çakışmasından kaçınmak için) — `~/motion-harvest/gravita` (push_up, 35 manifest) +
+`~/motion-harvest/gravita-squat` (squat, 29 manifest) = **64 manifest**.
+
+**Sonuç:**
+```
+push_up:           Kayla Itsines (P3D2PPMYWjk)  unknown/UYGUN → active/UYGUN
+bodyweight_squat:   Jeremy Ethier (gcNh17Ckjgg)  unknown/UYGUN → active/UYGUN
+TOPLAM: 64 manifest, 2 etiket değişti, UYGUNLUK 0 değişti (ikisi de zaten UYGUNDU)
+```
+Kanıt: `docs/gates/H-55-old-rig-classification.json` / `H-55-new-rig-classification.json`
+(64 manifestin TAMAMI, iki rig'in tam çıktısı — yalnız değişenler değil).
+
+## ④ "%89 dışlanma" (G-106) bu bulgudan ETKİLENMEDİ — ayrı mekanizma
+
+Orkestratör özellikle bu rakamı sordu. G-106'nın kendi metnini yeniden okudum:
+*"uygunluk/attestasyon kapıları BUGÜN SIFIR eliyor (G-072'nin M-F-120 muafiyetinden
+beri)"* — `excludedOutlierIds` **202/227 (%89)** rom_mode/uygunluk kaynaklı DEĞİL,
+**KÜMELEME/aykırı-değer** kaynaklı (çok-modluluk bulgusu, G-109). Bu turun kendi
+ölçümü bunu doğruluyor: uygunluk (28→28, 0 değişim) zaten sıfır elemeydi, sınıflandırıcı
+sürümünden BAĞIMSIZ olarak. **F3 faz-0'ın eşik tablosu ve iki referansın (push_up/
+bodyweight_squat) ATTESTED zinciri de bu yüzden GEÇERLİ kalıyor** — dayandıkları
+uygunluk sonucu değişmedi.
+
+⚠️ **Yan not, karıştırılmasın:** `gcNh17Ckjgg` (Jeremy Ethier) ayrıca `G-089`da
+barbell-kirlenmesi şüphelisi olarak AYRI bir açık kalem taşıyor (*"back squat,barbell,
+plates,rack"* etiketli, 1 katkı). Bu turun bulgusu (rom_mode etiketi) o soruyla İLGİSİZ —
+ikisi karıştırılmasın, biri sınıflandırma sürümü biri içerik-uygunluğu.
+
+## ⑤ Araç düzeltildi — iki değişiklik, ikisi de dar
+
+`tools/reclassify_eligibility.py`: (a) `RIG_DIR` taze materyalizasyona güncellendi,
+(b) bayatlık kapısı TEK sınıf yerine **bilinen 8 sınıfın TÜMÜNÜ** denetleyecek şekilde
+güçlendirildi (`_KNOWN_MARKER_SETS`) — ②'nin kanıtladığı gerçek boşluğa DOĞRUDAN
+karşılık. `~/motion-core-main`in kendi `manifest.py`sindeki `rig_staleness_warning()`
+(git-tabanlı, çok daha sağlam) İNCELENDİ ama entegre EDİLMEDİ — benim deseni VENDORED
+(git-takipsiz düz kopya) olduğu için o fonksiyon her zaman "vendored" uyarısı verir,
+"kaç commit geride" sinyalini VERMEZ; canlı git checkout'u gerektirir. Bu bir sonraki
+turun açık kalemi olarak adıyla bırakılıyor (öneri: `~/motion-core-main`e kalıcı bir
+aile-geneli konum olarak güvenilebiliyorsa, oradan CANLI okumaya geçilebilir).
+
+📌 **Bu materyalizasyon donmuş bir tarih değil, bir SON-BİLİNEN-TAZE nokta** — periyodik
+tekrar gerektirir, adıyla kod içinde not edildi.
+
+**Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` · `python 18/18`
+(bu araç `run_all_gates.sh`ın "10 hasat aracı" istisnasında, kendi disipliniyle gerçek
+kütüphanelerle iki kez koşularak doğrulandı).

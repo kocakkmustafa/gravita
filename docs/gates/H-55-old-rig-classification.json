@@ -1,0 +1,332 @@
+{
+  "push_up": {
+    "pep": false,
+    "rows": {
+      "-WXc4E-zcao": {
+        "channel": "FitnessFAQs",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "-w6r23P-fy8": {
+        "channel": "Calisthenicmovement",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "4dF1DOWzf20": {
+        "channel": "Antranik Kizirian",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "5aRHy5ZPjwk": {
+        "channel": "Renaissance Periodization",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "7wblGkVQx3U": {
+        "channel": "THENX",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "AvxRm5kzP5I": {
+        "channel": "Minus The Gym",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "Ggb2rXUL5kg": {
+        "channel": "K boges",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "GxW9MAMQSv0": {
+        "channel": "FitnessFAQs",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "I9fsqKE5XHo": {
+        "channel": "Upright Health",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "IODxDxX7oi4": {
+        "channel": "Calisthenicmovement",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "MO10KOoQx5E": {
+        "channel": "Jeremy Ethier",
+        "mode": "active",
+        "eligible": true
+      },
+      "N4TVYoXKk-8": {
+        "channel": "Cara Kuykens",
+        "mode": "active",
+        "eligible": true
+      },
+      "P3D2PPMYWjk": {
+        "channel": "Kayla Itsines",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "QqTlnhzku5c": {
+        "channel": "FitnessFAQs",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "Tp7jFLRmXu8": {
+        "channel": "FitnessFAQs",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "UG7eYaM87kY": {
+        "channel": "Antranik Kizirian",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "Ua7B2q21UHg": {
+        "channel": "Antranik Kizirian",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "VBz1MqF_Xdw": {
+        "channel": "Manhattan Physical Therapy & Pain Center",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "XB_7En-zf_M": {
+        "channel": "FitnessFAQs",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "Yd1grZkAark": {
+        "channel": "Squat University",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "Z88Rl5bpnmI": {
+        "channel": "Jeremy Ethier",
+        "mode": "active",
+        "eligible": true
+      },
+      "_eKHSsHky5U": {
+        "channel": "THENX",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "ahJvHMh8494": {
+        "channel": "THENX",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "cSPSc59Lq5Q": {
+        "channel": "TappBrothers",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "e22iFFXY8vw": {
+        "channel": "The Source Chiropractic",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "fqGd8jUdr2I": {
+        "channel": "Calisthenicmovement",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "kKHxpbBGiuM": {
+        "channel": "GMB Fitness (Praxis)",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "kM47_kIXGAY": {
+        "channel": "CrossFit",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "kvlZXLPqE0k": {
+        "channel": "GMB Fitness (Praxis)",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "l41SoWZiowI": {
+        "channel": "FitnessFAQs",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "ryncZFQCB8I": {
+        "channel": "GMB Fitness (Praxis)",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "tIbQYnE9Hv8": {
+        "channel": "K boges",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "v3sJMaB7q1E": {
+        "channel": "TappBrothers",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "yCL6iSdAeIA": {
+        "channel": "Minus The Gym",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "yvgp8R0fbWg": {
+        "channel": "Tom Merrick",
+        "mode": "unknown",
+        "eligible": true
+      }
+    }
+  },
+  "bodyweight_squat": {
+    "pep": false,
+    "rows": {
+      "-W19J4VR7D0": {
+        "channel": "FitnessFAQs",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "0KtrNQre5rQ": {
+        "channel": "School of Calisthenics",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "0V7BtcG7E4Y": {
+        "channel": "WeShape",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "1MbmdD-qU-w": {
+        "channel": "K boges",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "5alpa1IikQM": {
+        "channel": "Squat University",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "65mNUsGx4XM": {
+        "channel": "TappBrothers",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "8Kls95w2jFA": {
+        "channel": "Squat University",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "9bXKZnMLi6E": {
+        "channel": "Sebastian Oreb",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "A42XoqzXowM": {
+        "channel": "K boges",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "BTfEFDXp-cw": {
+        "channel": "FitnessFAQs",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "CGVxvqxUDz8": {
+        "channel": "Sebastian Oreb",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "H1H1WKSm5CU": {
+        "channel": "Vast Fitness Academy",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "HFnSsLIB7a4": {
+        "channel": "Strength Side",
+        "mode": "active",
+        "eligible": true
+      },
+      "MnPuHBh48bA": {
+        "channel": "GMB Fitness (Praxis)",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "OEsW3S_NAuc": {
+        "channel": "Tom Merrick",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "RClKKQqsvXA": {
+        "channel": "Buff Dudes Workouts",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "SK-01VhVygg": {
+        "channel": "THENX",
+        "mode": "active",
+        "eligible": true
+      },
+      "WkdXHQ74khI": {
+        "channel": "Tom Merrick",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "X0qC1k0Zi6k": {
+        "channel": "Calisthenicmovement",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "X5934zhTAQw": {
+        "channel": "GMB Fitness (Praxis)",
+        "mode": "passive",
+        "eligible": false
+      },
+      "ZtzaFmipv1U": {
+        "channel": "Minus The Gym",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "bEv6CCg2BC8": {
+        "channel": "Jeff Nippard",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "gcNh17Ckjgg": {
+        "channel": "Jeremy Ethier",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "gsNoPYwWXeM": {
+        "channel": "Calisthenicmovement",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "mla-gfQVQyA": {
+        "channel": "THENX",
+        "mode": "active",
+        "eligible": true
+      },
+      "my0tLDaWyDU": {
+        "channel": "Squat University",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "sdeQjm7avi8": {
+        "channel": "Jeff Nippard",
+        "mode": "unknown",
+        "eligible": true
+      },
+      "tuTjC6u03Lg": {
+        "channel": "Tom Merrick",
+        "mode": "active",
+        "eligible": true
+      },
+      "zWXToSCaq-Q": {
+        "channel": "K boges",
+        "mode": "unknown",
+        "eligible": true
+      }
+    }
+  }
+}

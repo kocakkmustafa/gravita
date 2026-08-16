@@ -27,7 +27,19 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 # Kanonik rig: origin/main'den scratch'e materyalize edildi, SHA kayıtlı.
-RIG_DIR = (ROOT.parent.parent.parent / "scratch" / "2026-07-30-rig-canonical"
+#
+# ⚠️ H-55 (2026-08-16): önceki materyalizasyon (2026-07-30, SHA `87e4f840`)
+# BAYAT çıktı — origin/main'in 5 işaret-sınıfından yalnız 2'sini taşıyordu
+# (`MOVEMENT_CUE_MARKERS`/`FIRST_PERSON_PLURAL_CUE_MARKERS`/`WEAK_ACTIVE_
+# MARKERS` YOKTU), ve aşağıdaki bayatlık kapısı bunu YAKALAMADI çünkü yalnız
+# TEK bir sınıfın (`FIRST_PERSON_DEMO_MARKERS`) varlığına bakıyordu — o sınıf
+# VARDI, üç diğeri YOKTU, kapı sessizce geçti. Bu tarihte `~/motion-core-main`
+# (ölçülmüş, doğrulanmış: `main` @ `63a0b3e`) referans alınarak YENİDEN
+# materyalize edildi. Gravita'nın gerçek hasat kütüphaneleri üzerinde koşulan
+# fark testi: 64 manifestin 2'si etiket değiştirdi (`unknown`→`active`),
+# UYGUNLUK hiçbirinde değişmedi (G-244). Bu yeniden-materyalizasyon periyodik
+# olarak tekrarlanmalı — donmuş bir tarih değil, bir SON-BİLİNEN-TAZE nokta.
+RIG_DIR = (ROOT.parent.parent.parent / "scratch" / "2026-08-16-rig-canonical"
            / "harvest_rig")
 RIG_SHA_FILE = RIG_DIR.parent / "RIG_SHA.txt"
 PROFILE = ROOT / "content" / "harvest" / "triage-profile.gravita.v2.json"
@@ -76,9 +88,23 @@ def main() -> int:
     rig_sha = (RIG_SHA_FILE.read_text(encoding="utf-8").strip()
                if RIG_SHA_FILE.exists() else "UNKNOWN")
     # Bayat kopya bu aracın çözdüğü hatanın ta kendisi — sessizce kabul etmiyoruz.
-    if not hasattr(rom_mode, "FIRST_PERSON_DEMO_MARKERS"):
-        print("⛔ rig kopyası BAYAT görünüyor (FIRST_PERSON_DEMO_MARKERS yok, "
-              "J-058/M-F-104). Kanonik sürümle değiştir.")
+    #
+    # ⚠️ H-55: TEK bir sınıfın varlığına bakmak YETMEZ — 2026-07-30 kopyası
+    # `FIRST_PERSON_DEMO_MARKERS`i TAŞIYORDU ve yine de üç başka sınıftan
+    # (MOVEMENT_CUE/FIRST_PERSON_PLURAL_CUE/WEAK_ACTIVE) yoksundu; eski kapı
+    # bunu YAKALAMADI. Bilinen TÜM sınıflar (2026-08-16 itibarıyla, origin/main
+    # `63a0b3e`) tek tek denetlenir — yeni bir sınıf eklenirse bu liste de
+    # güncellenmeli (kendi kendini iyileştiren bir kapı değil, ama tek-alanlı
+    # kapıdan kanıtlanmış biçimde daha güçlü).
+    _KNOWN_MARKER_SETS = (
+        "PASSIVE_MARKERS", "WEAK_PASSIVE_MARKERS", "POSTURE_CUE_MARKERS",
+        "MOVEMENT_CUE_MARKERS", "FIRST_PERSON_PLURAL_CUE_MARKERS",
+        "ACTIVE_MARKERS", "FIRST_PERSON_DEMO_MARKERS", "WEAK_ACTIVE_MARKERS",
+    )
+    missing = [n for n in _KNOWN_MARKER_SETS if not hasattr(rom_mode, n)]
+    if missing:
+        print(f"⛔ rig kopyası BAYAT görünüyor (eksik: {', '.join(missing)}, "
+              "H-55/J-058/M-F-104). ~/motion-core-main'den yeniden materyalize et.")
         return 1
 
     lib = Path(args.library).expanduser()
