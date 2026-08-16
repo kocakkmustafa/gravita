@@ -4770,3 +4770,75 @@ yalnız sağlayıcı penceresi doğru açıldığında ölçülebiliyordu, ilk d
 kapatıp ürünü aklıyordu.**
 
 **Kapı durumu:** `GATES_EXIT=0` · app 218/218 (+1) · engine 175/175 · python 18/18.
+
+---
+
+### G-230 — 🎯 A7③ KAPANDI: G-211 kabuktan render edilerek kanıtlandı — ve bunu kanıtlamak PAYLAŞILAN harness'ı düzeltmeyi gerektirdi
+
+**A tablosu TAM kapandı** (F2'nin son kalemi). `content_repository.dart:203-210`in *"B5 yüzünden
+testte kapalı"* notu artık test edilebilirdi — G-211'in hükmü (`readHistoryStatus`, İKİ kovadan
+sayar) `_ProgressTabState`in KENDİSİ tarafından GERÇEKTEN çağrılıp doğru render edildiğini
+kanıtlamak gerekiyordu (G-217'nin dersi: *"bir hükmün kodda var olması, çizildiği anlamına
+gelmez"*).
+
+## Kanıt — `shell_end_to_end_test.dart`'a yeni test
+
+Ders kovası SAĞLAM (1 kayıt) + serbest kova BOZUK (2 satır, iki ayrı sınıf) — GERÇEK dosyalar,
+GERÇEK kabuk, GERÇEK `IndexedStack` üzerinden Progress sekmesine geçiş. `historyPartialKey`
+DOĞRU sayıyla (`2`) çizildi, `historyFailureKey` ÇİZİLMEDİ (arıza ile kısmi okuma FARKLI hâller),
+ders kovası okundu (`measuredSectionKey` var). Bu, `free_bucket_integrity_test.dart`'ın (saf
+`ContentRepository.readHistoryStatus`, kabuk yok) ASLA kanıtlayamayacağı bağı kapatıyor.
+
+## Kanıtlamaya çalışırken BULUNAN — paylaşılan harness'ın KENDİSİ zamanlıyor kırıktı
+
+İlk deneme `historyFailureKey`e düştü — `supportPath` GEÇERLİ bir dizindi, yine de arıza sanıldı.
+İzini sürdüm: `bootGravitaRoot` (`test/support/launch_harness.dart`) sahte `PathProviderPlatform`ı
+YALNIZ kendi `pumpWidget` çağrısının ANINDA açık tutuyordu, hemen ardından `restoreTo`ya
+DÖNÜYORDU — ama `GravitaShell` + `IndexedStack`in EAGER inşa ettiği `ProgressTab._load()`
+(`gravita_app.dart`ın kendi yorumu: dört sekme de hemen inşa edilir) o dönüşten SONRAKİ döngü
+turlarında kuruluyordu. Sonuç: `ContentRepository.open{Session,FreeSession}Store()` GERÇEK
+platforma düşüyor, testte uygulaması olmadığı için fırlıyor, `readHistoryStatus`ın `on Object
+catch`i bunu sessizce `HistoryUnavailable`e çeviriyordu — **`supportPath` ne olursa olsun.**
+
+Bu, `A1`de bulduğum sınıfın (G-229) ÜÇÜNCÜ tekrarıydı — ama bu kez KENDİ testimle sınırlı
+kalmadı: dosyanın MEVCUT bir testi ("POZİTİF İKİZ: GERÇEK bundle ile hata ekranı HİÇ açılmıyor")
+ZATEN bu kırığa çarpmış, `historyFailureKey` bulmuş ve *"path_provider testte yok"* diye
+YANLIŞ yorumlamıştı — `supportPath` orada da `tmp.path`ti, `null` değildi. **Paylaşılan bir
+yardımcının dar penceresi, kendi tüketicisini kendi kusurunu doğru okuduğuna İKNA ETMİŞTİ.**
+
+> ***BİR ÜRÜNÜN DAYANIKLILIĞI (FAIL-OPEN TASARIM), TESTİNİN KÖRLÜĞÜNÜ BESLER — VE TASARIM NE
+> KADAR İYİYSE YALAN O KADAR SESSİZDİR.*** (orkestratörün cümlesi, `H-41`, buraya da tam oturuyor)
+
+## Bu turda paylaşılan harness'ı DEĞİŞTİRDİM — A1'in aksine
+
+`A1`de (G-229) kapsamı dar tuttum, ortak `bootGravitaRoot`a dokunmadım — kusur yalnız KENDİ
+yeni testimi etkiliyordu. Burada FARKLI: kusur zaten MEVCUT bir testin ANLAMINI bozmuştu (yeşil
+geçiyordu ama yanlış şeyi kanıtlıyordu, H-42 sınıfı: *"fixture biçimi gerçeği taşımıyorsa test
+fixture'ı doğrular"*) — bırakmak, A7③'ün TAM sorduğu şeyi (kabuk hükmü gerçekten çağırıyor mu)
+kalıcı olarak ölçülemez bırakırdı. `bootGravitaRoot`u düzelttim: sağlayıcı artık YERLEŞME
+TAMAMLANANA (döngü bitene) kadar açık, yalnız EN SONDA `restoreTo`ya dönüyor. Etkilenen TEK
+mevcut test ("hata ekranı HİÇ açılmıyor") güncellendi — eski yanlış beklentisi
+(`historyFailureKey` bulunmalı) yerine DOĞRU beklenti (`historyFailureKey` YOK, her canlı ders
+`notStarted` gösteriyor — ilk denemem `emptyHistory` bekledi, o da yanlıştı, ölçüp düzelttim).
+
+## Kendi hata payım — ve ondan çıkan teknik ders
+
+Harness'ı düzelttikten SONRA bile yeni testim `historyPartialKey`i bulamadı: `ProgressTab`
+sonsuza dek kendi yükleme çarkında kaldı. TEK uzun bir `runAsync` gecikmesi (3 saniye, TEK
+blokta) zinciri İLERLETMEDİ; ama ARAYA `pump()` giren, HER biri kısa, ÇOK sayıda `runAsync` turu
+(20×200ms) ilerletti. Sebep: `_load()`in zinciri SIRALI birden fazla gerçek G/Ç taşıyor (destek
+dizini → ders dosyası → serbest dosya → `readHistoryStatus`ın KENDİ ikinci okuması) ve her
+`runAsync` çağrısı test çerçevesine gerçek olay döngüsüyle KISA bir kesişim penceresi açıyor —
+sıralı await'ler bu yüzden SIRAYLA ilerliyor, tek uzun beklemeyle DEĞİL.
+
+> ***GERÇEK G/Ç'Yİ BEKLEMEK "YETERİNCE UZUN BEKLEMEK" DEĞİL, "YETERİNCE SIK KESİŞMEK"TİR.***
+
+## Ayrıca bu turda (orkestratörün H-43 notu)
+
+`gravita-hatti` adında ÜÇ simülatör vardı (bir Booted, iki Shutdown) — adla adresleme
+belirsizdi. İkisi silindi (`xcrun simctl delete`), tek kayıt kaldı. Küçük, bu commit'e
+bindirildi.
+
+**A7③ işlendi. F2'nin A-tablosu TAM kapandı — yalnız kurucudaki A12 kaldı.**
+
+**Kapı durumu:** `GATES_EXIT=0` · app 219/219 (+1) · engine 175/175 · python 18/18.

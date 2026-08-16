@@ -277,15 +277,147 @@ void main() {
     // İlerleme sekmesine GEÇ. `IndexedStack` dört sekmeyi de inşa ettiği için
     // "widget ağacında var mı" sorusu bu kabukta ZAYIF bir sorudur — sekmeye
     // gerçekten gidilebildiğini sınamak gerekiyor.
+    //
+    // ⭐ A7③ (F2, 2026-08-16) düzeltmesi — bu testin ASLINDA ÖLÇTÜĞÜ şey
+    // değişti, KENDİ bulgum: `supportPath: tmp.path` burada HER ZAMAN
+    // GEÇERLİ bir dizindi (`null` değil) — eski yorum *"path_provider
+    // testte yok"* YANLIŞTI. Gerçek sebep `bootGravitaRoot`un kendi
+    // zamanlama boşluğuydu (`launch_harness.dart`daki ④ numaralı tuzak):
+    // sağlayıcı `pumpWidget`in HEMEN ardından kapanıyordu, eager `IndexedStack`
+    // sekmesi ONDAN SONRA kuruluyordu. Harness düzeltildi (sağlayıcı artık
+    // yerleşme BİTENE kadar açık) — bu test artık GERÇEKTEN çalışan bir
+    // depoya varıyor. Aşağıdaki ikinci pencere (tap sırasında) `Onboarding
+    // Store.open()`ın İKİNCİ çağrısı sınıfının (A1/G-229) burada da
+    // geçerli olması için.
+    PathProviderPlatform.instance = FakeSupportDir(tmp.path);
     await tester.tap(find.text('Progress'));
     await tester.pump();
-    await tester.runAsync(
-        () => Future<void>.delayed(const Duration(milliseconds: 100)));
-    await tester.pump();
+    for (int round = 0;
+        round < 20 && find.byType(AppBar).evaluate().isEmpty;
+        round++) {
+      await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 200)));
+      await tester.pump(const Duration(milliseconds: 80));
+    }
+    PathProviderPlatform.instance = defaultProvider;
+
     expect(find.byKey(ProgressView.measuredSectionKey), findsOneWidget);
-    expect(find.byKey(ProgressView.historyFailureKey), findsOneWidget,
-        reason: 'path_provider testte yok → geçmiş okunamadı → BEYAN edilmeli.');
-    expect(find.text(ProgressStrings.notStarted), findsNothing);
+    expect(find.byKey(ProgressView.historyFailureKey), findsNothing,
+        reason: 'Depo GERÇEKTEN çalışıyor (harness düzeltildi) — arıza '
+            'BEYANI artık YANLIŞ olurdu.');
+    expect(find.byKey(ProgressView.historyPartialKey), findsNothing,
+        reason: 'Hiçbir satır bozuk değil — kısmi BEYANI da yanlış olurdu.');
+    // Ölçüldü, varsayılmadı: `open` boş DEĞİL (canlı hareketlerin dersleri
+    // var), o yüzden `ProgressStrings.emptyHistory` DEĞİL — her canlı ders
+    // kendi satırında `notStarted` gösteriyor (`_measuredRow`, per-ders hâl).
+    // İlk denemem `emptyHistory` bekliyordu ve YANLIŞTI; okuyup düzelttim.
+    expect(find.text(ProgressStrings.notStarted), findsWidgets,
+        reason: 'Depo SAĞLAM ama BOŞ: canlı derslerin HER BİRİ "başlanmadı" '
+            'demeli — "geçmiş okunamadı" (historyFailureKey) ile "henüz '
+            'başlanmadı" FARKLI cümlelerdir, karıştırılmamalı.');
+  });
+
+  /// ⭐ A7③ (F2, 2026-08-16) — G-211'in KENDİSİ, kabuktan render edilerek.
+  ///
+  /// `content_repository.dart:203-210`in kendi notu: G-211'in hükmü
+  /// (`readHistoryStatus`, İKİ kovadan da sayar) *"yalnız kabuğu render
+  /// ederek sınanabiliyordu ve o yol bugün B5 yüzünden testte KAPALIYDI"* —
+  /// F2 B5'i kapattı. Üstteki testin ölçtüğü `HistoryUnavailable`
+  /// (path_provider'ın KENDİSİ yok) bu turun sorusu DEĞİL — G-211'in asıl
+  /// vakası SERBEST kovanın bozulması, ders kovası SAĞLAMKEN
+  /// (`HistoryPartial`). Bu SINIF hiçbir yerde GERÇEK dosyalarla + GERÇEK
+  /// render edilmiş kabukla birlikte sınanmamıştı: `free_bucket_
+  /// integrity_test.dart` saf `ContentRepository.readHistoryStatus`ı
+  /// çağırıyor (kabuk yok), üstteki son iki test `HistoryPartial`ı
+  /// (kendi yorumunun dediği gibi) hiç KURMUYOR bile — yalnız `store.
+  /// unreadableRecords()`u doğrudan sınıyor, ProgressView'a hiç pump
+  /// etmiyor. Kabuğun `_ProgressTabState._load()`ı bu iki kovayı GERÇEKTEN
+  /// doğru okuyup `historyPartialKey`i doğru sayıyla çizdiğini kanıtlayan
+  /// TEK yer burası.
+  testWidgets(
+      'GERÇEK kabuk + GERÇEK serbest-kova bozulması → historyPartialKey '
+      'DOĞRU sayıyla çiziliyor (G-211, render edilerek)',
+      (WidgetTester tester) async {
+    final Directory tmp =
+        Directory.systemTemp.createTempSync('shell_e2e_partial');
+    addTearDown(() => tmp.deleteSync(recursive: true));
+    final PathProviderPlatform defaultProvider = PathProviderPlatform.instance;
+    addTearDown(() => PathProviderPlatform.instance = defaultProvider);
+
+    await realIo(tester, () async {
+      await OnboardingStore.forFile(File('${tmp.path}/onboarding.json'))
+          .markComplete();
+      // DERS kovası SAĞLAM — G-211'in ayırt ettiği vaka tam bu: yalnız
+      // ders kovasına bakan bir denetim burada asla ötmezdi.
+      final JsonlSessionStore lessons =
+          JsonlSessionStore(File('${tmp.path}/sessions.jsonl'));
+      await lessons.append(SessionRecord(
+        lessonId: 'push_foundations.reps_and_tempo',
+        completedAt: DateTime.utc(2026, 8, 10),
+        workedSeconds: 60,
+        unitsCompleted: 5,
+        plannedUnits: 5,
+        unitLabel: 'rep',
+        lessonClass: 'measurementOnly',
+      ));
+      // SERBEST kova BOZUK — iki ayrı bozulma sınıfı, ders kovasına hiç
+      // dokunulmadı.
+      await File('${tmp.path}/free_sessions.jsonl').writeAsString(
+        '{bu json değil\n'
+        '{"schemaVersion":999,"lessonId":"x"}\n',
+      );
+    });
+
+    await bootGravitaRoot(tester,
+        supportPath: tmp.path, restoreTo: defaultProvider);
+    expect(find.byType(GravitaShell), findsOneWidget);
+
+    // ⭐ Kendi bulgum (A1'de bulunan sınıfın ÜÇÜNCÜ örneği, G-229): kabuk
+    // sekmesine geçmek `_ProgressTabState._load()`ı tetikler, o da
+    // `ContentRepository.open{Session,FreeSession}Store()` üzerinden
+    // path_provider'ı YENİDEN sorar — `bootGravitaRoot` sağlayıcıyı yalnız
+    // KENDİ `pumpWidget` penceresinde açık tutuyor. Yeniden açılmazsa bu
+    // çağrı gerçek platforma düşer, fırlatır, `readHistoryStatus`ın kendi
+    // `on Object catch` yakalayıcısı bunu `HistoryUnavailable`e çevirir —
+    // görünüşte "hata ekranı" ama ölçülen şey ürünün DEĞİL testin
+    // penceresi. `OnboardingStore.open()`ın iki-çağrı deseni burada da
+    // tekrarlandı: bir yardımcının "sağlayıcıyı açık tut" penceresi,
+    // ürünün onu KAÇ KEZ sorduğu kadar geniş olmalı.
+    // Sabit KÜÇÜK tur sayısı YETMİYOR — ve bu ölçüldü, tahmin edilmedi.
+    // `_load()`in zinciri TEK bir gerçek G/Ç değil, SIRALI birden fazlası
+    // (destek dizini → ders dosyası → serbest dosya → `readHistoryStatus`ın
+    // KENDİ ikinci okuması, sayım için). Tek bir uzun `runAsync` gecikmesi
+    // (3 sn TEK blokta denendi) zinciri İLERLETMEDİ — ama `pump()` ARAYA
+    // giren, HER biri kısa, ÇOK sayıda `runAsync` turu ilerletti (20×200ms
+    // denendi, çalıştı). Fark: her `runAsync` çağrısı test çerçevesine
+    // gerçek olay döngüsüyle KISA bir kesişim penceresi açıyor; SIRALI
+    // await'ler bu yüzden SIRAYLA, tek turda değil, ilerliyor.
+    // > Gerçek G/Ç'yi beklemek "yeterince uzun BEKLEMEK" değil, "yeterince
+    // > SIK kesişmek"tir.
+    PathProviderPlatform.instance = FakeSupportDir(tmp.path);
+    await tester.tap(find.text('Progress'));
+    await tester.pump();
+    for (int round = 0;
+        round < 20 && find.byType(AppBar).evaluate().isEmpty;
+        round++) {
+      await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 200)));
+      await tester.pump(const Duration(milliseconds: 80));
+    }
+    PathProviderPlatform.instance = defaultProvider;
+
+    expect(find.byKey(ProgressView.historyFailureKey), findsNothing,
+        reason: 'Depo ARIZALI değil, İKİ satırı OKUNAMADI — farklı hâl, '
+            'karıştırılırsa kullanıcı yanlış mesaj görür.');
+    expect(find.byKey(ProgressView.historyPartialKey), findsOneWidget,
+        reason: 'Kabuk G-211 hükmünü GERÇEKTEN çağırmıyor olabilirdi — bu '
+            'satır olmadan pure-Dart testleri hep yeşil kalır, kablolama '
+            'kopuk olsa bile.');
+    expect(find.textContaining('2'), findsWidgets,
+        reason: 'Kayıp sayısı (2) ekranda GÖRÜNMELİ, yalnız durumun adı '
+            'değil.');
+    // Sağlam kayıt OKUNDU: kayıp, okunabileni götürmüyor.
+    expect(find.byKey(ProgressView.measuredSectionKey), findsOneWidget);
   });
 }
 
