@@ -5879,3 +5879,88 @@ tablosunu taşıyor — içerik TEKRARLANMADI, İŞARET EDİLDİ.
 `python 20/20` (yalnız `docs/device-day/RECIPE.md`ye tek satır eklendi, kod
 dokunulmadı; `motion-core/workspace/` dosyası bu deponun DIŞINDA, bu deponun
 kapılarının kapsamı değil).
+
+---
+
+### G-250 — 🔐 Gerekçeli-API kapsama kapısı v2 — KENDİ ilk taramamın kör noktasını kapattı, gerçek arşivi tarıyor
+
+**Orkestratörün ①+② ataması, iki turda.** İlk turum (`ios/Pods/` + `.symlinks/`
+tarayan v1) yazıldıktan hemen sonra KENDİ kör noktasını buldum ve BİTMEDEN
+düzelttim — orkestratöre de bildirdim, sonra o ikinci bir kör nokta daha
+istedi (arşiv taraması). İkisi birleşti, v2 tek kapıda.
+
+## Kendi buldum, kendim bildirdim: `ios/Pods/` GÖNDERİLEN yüzey değil
+
+`permission_handler_apple`nin KENDİ `PrivacyInfo.xcprivacy`si var — ama
+`ios/Pods/` altında DEĞİL, çünkü bu eklenti **SPM**'den geliyor, CocoaPods'tan
+DEĞİL. İlk taramam yalnız `ios/Pods/`e baktığı için onu HİÇ görmedi. Gerçek
+`build/ios/archive/Runner.xcarchive`i (bu turun kendi yayın-provası artefaktı)
+taradığımda üç manifest bulundu:
+```
+Runner.app/PrivacyInfo.xcprivacy                          — Gravita'nın kendisi, 0 girdi
+Runner.app/permission_handler_apple_privacy.bundle/…      — ✅ UserDefaults (eklenti yazarının kodu)
+Runner.app/Frameworks/Flutter.framework/PrivacyInfo.xcprivacy — ✅ FileTimestamp + SystemBootTime
+```
+**Flutter motorunun KENDİ manifesti**, orkestratörün ilk mesajında "seçme" diye
+ÖRNEK gösterdiği üç kodun (`0A2A.1`/`C617.1`/`35F9.1`) GERÇEKTEN taşıyıcısı
+çıktı — örnek değilmiş. Bunu ANINDA orkestratöre bildirdim, devam etmeden önce.
+
+## İkinci kör nokta — orkestratör buldu: `Frameworks/` de MediaPipe'yi göstermiyor
+
+`Runner.app/Frameworks/`de yalnız `objective_c`/`Flutter`/`App` var —
+MediaPipeTasksCommon/Vision AYRI birer framework olarak PAKETLENMİYOR, ANA
+`Runner` yürütülebilirine STATİK olarak gömülüyorlar. Ölçüldü: gerçek sembol
+sayısı derleme-öncesi tahminden (12 stat/fstat, 3 mach_absolute_time) FARKLI
+— gerçek arşivde `Runner` yürütülebilirinin kendisi yalnız **2** stat/fstat +
+**1** mach_absolute_time taşıyor (linker'ın kullanılmayan kodu elemesi,
+muhtemelen). **Bağımlılık dizinini taramak kaynakları söyler, paketi taramak
+GÖNDERİLENİ söyler** — orkestratörün cümlesi, ölçülerek doğrulandı.
+
+## Kapı v2 — `tools/validate_privacy_manifest_coverage.py`
+
+- **Tarama hedefi artık YALNIZ gerçek arşiv:** `Runner` ana yürütülebilir +
+  `Frameworks/` altındaki HER `.framework` ikili dosyası (`nm -u`) — `ios/
+  Pods/`e HİÇ bakmıyor.
+- **Tamamlayıcı kaynak taraması** (motion_camera/permission_handler_apple/
+  Runner kaynağı, `grep`) — OTORİTE DEĞİL, yalnız insan-gözü hızlı-doğrulama;
+  çıktıda AÇIKÇA böyle etiketli (`[ikili]` vs `[kaynak]`). Ölçüldü: motion_
+  camera'daki TEK kaynak-isabeti bir YORUM SATIRI (`mach_absolute_time`), ama
+  App.framework'ün GERÇEK ikili taraması sıfır — iki katmanın NEDEN ayrı
+  tutulduğunun kendi kanıtı.
+- **Manifest keşfi arşivin İÇİNDEN** (`.app`i `rglob`) — SDK yolu tahmin
+  edilmiyor, gerçek paketten okunuyor.
+- **Ortam ön-kapısı** (`run_all_gates.sh`ın deseniyle aynı): arşiv yoksa
+  `🟡 ORTAM KURULMAMIŞ`, exit 2 — "temiz" DEMİYOR, "henüz ölçülmedi" diyor.
+- **Vakum korumaları** (H-62): sembol sözlüğü boşsa VEYA taranacak ikili/
+  manifest bulunamazsa kapı KÖR olduğunu söylüyor, "kusur yok" demiyor.
+- ⛔ **Gerekçe kodu YOK** — yalnız kategori adı, hiçbir çıktıda `C617.1` sınıfı
+  bir kod GEÇMİYOR (grep ile doğrulandı, kendi çıktım üzerinde).
+
+## Doğrulama — üç ayrı test
+
+1. **Ortam-yok testi:** arşiv scratchpad'e taşınıp kapı koşuldu → `🟡`/exit 2,
+   arşiv geri taşınıp yeşile dönüldü.
+2. **Gerçek sabotaj:** `Flutter.framework`nin KENDİ manifestinden
+   `NSPrivacyAccessedAPITypes` boşaltıldı (plistlib ile) → FileTimestamp VE
+   SystemBootTime **doğru şekilde** kırmızı yandı, UserDefaults (ayrı
+   manifestten geldiği için) ETKİLENMEDİ — kategori-düzeyinde doğru izolasyon.
+   Yedekten geri yüklendi, yeşile dönüldü.
+3. **Temiz koşum:** `git status`/`git diff` ile sabotajın hiçbir iz
+   bırakmadığı doğrulandı.
+
+## Sembol listesi — dürüst sınır, GÜÇLENDİRİLDİ
+
+Apple'ın birincil kaynağına (`developer.apple.com/documentation/
+bundleresources/describing-use-of-required-reason-api`) bu oturumda **üç ayrı
+denemeyle** erişilmeye çalışıldı (ana sayfa, alternatif URL, haber duyurusu)
+— üçü de JS-render, `WebFetch` yalnız BAŞLIĞI döndürdü. **Birincil kaynak
+doğrulaması YAPILAMADI**, adıyla söylendi (aracın kendi docstring'inde de).
+Liste Apple Developer Forums'un Apple personeli yanıtları içeren iki iş
+parçacığı + bağımsız bir uyum-özetinden ÇAPRAZ DERLENDİ — üçü tutarlı ama
+BU BİRİNCİL KAYNAK DEĞİL. Orkestratör birincil doğrulamayı kendisi
+taşıyacağını söyledi; bu liste o doğrulamanın YERİNE geçmiyor.
+
+**Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` ·
+`python 20/20` (yeni araç kasıtlı olarak `run_all_gates.sh` dışında, kendi
+üç testiyle doğrulandı — gerçek arşiv gerektirdiği için hızlı-kapı süitine
+girmiyor).

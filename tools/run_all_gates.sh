@@ -31,6 +31,11 @@
 # Ayrıca ÖLÇMEZ: cihaz davranışı (sim'de kamera yok) · biçim/konum
 # karışıklığı (ΔE renk uzaklığı ölçer, YERLEŞİM değil) · `validate_catalog`ın 7 kanıtsız
 # değişmezi (betiğin kendi çıktısı onları her koşumda basar).
+#
+# `validate_privacy_manifest_coverage` da BURADA KOŞMAZ (2026-08-16) — GERÇEK
+# bir `flutter build ipa` arşivi ister (dakikalar sürer, bu betiğin hızlı-kapı
+# amacına aykırı). Ortam yoksa kendi "ORTAM KURULMAMIŞ" hâlini (exit 2) döner,
+# ama bu SÜİTE bağlanmadı — release provası sonrası elle koşulur.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
