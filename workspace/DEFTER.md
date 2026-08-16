@@ -5102,3 +5102,36 @@ kimlik garantisi değil).
 - **Düzeltme:** yapılmadı, istenmedi. Orkestratöre raporlandı.
 
 **Kapı durumu:** `GATES_EXIT=0` (yalnız defter kaydı, kod/katalog dokunulmadı).
+
+---
+
+### G-237 — 🔧 H-48: toplayıcı düzeltildi — `channel_id` artık yakalanıyor (İLERİYE DÖNÜK, geriye doldurma YOK)
+
+**Orkestratörün onayladığı, sınırı NET çizilmiş düzeltme.** `tools/harvest_queue.py`'nin
+`search()` fonksiyonu artık `yt-dlp`den `%(channel_id)s`yi de istiyor (satır 101), ayrıştırma
+(eski 4 alan → yeni 5) ve satır sonu sözlüğü güncellendi. **Mevcut iki referans BURADA
+DOKUNULMADI** — bu yalnız BUNDAN SONRAKİ keşif turlarının toplayacağı veriyi düzeltiyor;
+geriye dolgu hasat işi ve ToS kararına bloke (orkestratörün kendi sınırı).
+
+## Gerçek çağrıyla doğrulandı, varsayılmadı
+
+```
+python3 -c "... hq.search('THENX push up', n=2) ..."
+→ {'channel': 'THENX', 'channel_id': 'UCqjwF8rxRsotnojGl4gM0Zw', ...}
+```
+
+Dönen `channel_id` — H-47'nin kendi ölçümünde (G-236) THENX için bağımsız olarak bulduğum
+`UCqjwF8rxRsotnojGl4gM0Zw` ile **birebir aynı** — çapraz doğrulama, tesadüf değil.
+
+## Kasıtlı DAR bıraktığım şey — adıyla
+
+`by_channel` gruplama anahtarı (satır ~186-208, "bağımsız eğitmen sayısı" hesabının
+kendisi) HÂLÂ `channel` (AD) üzerinden — `channel_id`ye GEÇİRMEDİM. Orkestratörün talimatı
+yalnız `search()`i (satır 101/117/122) kapsıyordu; gruplama mantığını değiştirmek DAHA
+BÜYÜK bir davranış değişikliği olurdu (hedef-eşleşme, "yeter" hükmü mantığı etkilenir) ve
+istenmedi. Ayrıca `H-49`'un kendi bulgusu: `channel_id` bile bir VEKİL, aile kuralı
+kimliği *"ekrandaki eğitmen"* diye tanımlıyor — gruplama anahtarını ne'ye taşıyacağımı TEK
+BAŞIMA kararlaştırmak bu turun kapsamı değil.
+
+**Kapı durumu:** `GATES_EXIT=0` (bu araç `run_all_gates.sh`'ın kendi hasat-aracı
+istisnasında, öz-test taşımıyor — gerçek çağrıyla doğrulandı).

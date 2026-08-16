@@ -95,10 +95,27 @@ PER_QUERY = 4
 
 
 def search(query, n=PER_QUERY):
-    """Gerçek adayları çözer. Ağ hatası sessizce boş liste DÖNDÜRMEZ."""
+    """Gerçek adayları çözer. Ağ hatası sessizce boş liste DÖNDÜRMEZ.
+
+    ⚠️ İLERİYE DÖNÜK DÜZELTME (H-47/H-48, 2026-08-16): `%(channel_id)s` artık
+    isteniyor. Önceden yalnız `%(channel)s` (görünen AD) toplanıyordu —
+    JabLab'ın `M-F-655` bulgusu (aynı kanal iki farklı adla iki "bağımsız
+    eğitmen" sayılmıştı, `M-F-257`nin daha önce düzelttiği bir kimliği)
+    Gravita'da da ölçüldü: `reference.push_up.json`/`reference.bodyweight_
+    squat.json`'ın `takes[].source`u yalnız ad taşıyor, boru hattının HİÇBİR
+    aşaması kimlik yakalamıyordu (H-47 ölçümü, `workspace/DEFTER.md` G-236).
+    ⛔ Bu değişiklik GERİYE DÖNÜK DEĞİL — mevcut iki referans BURADA
+    düzeltilmiyor (hasat işi, ToS kararına bloke); yalnız BUNDAN SONRAKİ
+    keşif turları `channel_id`yi de taşır.
+    📌 `channel_id` bile bir VEKİLDİR, kimliğin kendisi değil — aile kuralı
+    (`M-F-239`) kimliği *ekrandaki eğitmen* diye tanımlıyor ve tek bir
+    marka/kanal ölçütünün konsensüs ÇOĞUNLUĞU veremeyeceğini söylüyor.
+    Bu satır o tanımı UYGULAMIYOR, yalnız en ucuz/en belirgin çakışma
+    sınıfını (aynı kanal, iki ad) yakalanabilir kılıyor.
+    """
     cmd = [
         "yt-dlp", "--flat-playlist", "--no-warnings", "--ignore-config",
-        "--print", "%(id)s\t%(channel)s\t%(duration)s\t%(title)s",
+        "--print", "%(id)s\t%(channel)s\t%(channel_id)s\t%(duration)s\t%(title)s",
         f"ytsearch{n}:{query}",
     ]
     try:
@@ -112,14 +129,16 @@ def search(query, n=PER_QUERY):
     rows = []
     for line in out.stdout.strip().splitlines():
         parts = line.split("\t")
-        if len(parts) < 4:
+        if len(parts) < 5:
             continue
-        vid, channel, dur, title = parts[0], parts[1], parts[2], parts[3]
+        vid, channel, channel_id, dur, title = (
+            parts[0], parts[1], parts[2], parts[3], parts[4])
         try:
             dur = int(float(dur))
         except (ValueError, TypeError):
             continue
-        rows.append({"id": vid, "channel": channel, "duration_s": dur, "title": title})
+        rows.append({"id": vid, "channel": channel, "channel_id": channel_id,
+                     "duration_s": dur, "title": title})
     return rows
 
 
