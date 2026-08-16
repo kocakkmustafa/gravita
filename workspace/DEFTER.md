@@ -5788,3 +5788,45 @@ Bu yalnız "üretim hattı GERÇEKTEN çalışıyor" kanıtı.
 `python 18/18` (LaunchImage değişikliği hiçbir testi kırmadı). `flutter build ipa`
 `run_all_gates.sh`ın kapsamı dışında, kendi disipliniyle (gerçek build + iki
 katmanlı codesign doğrulaması) sınandı.
+
+---
+
+### G-248 — 🔢🍎 H-58 (sayıyı kapıya bağla) + kamera-izni metnini kapat — iki dar kalem
+
+**Orkestratörün iki maddesi: ① `$readinessClaimWhy`nin okuyucusuz uyarısını gerçek
+bir kapıya bağla ② kendi bulduğum kamera-izni bayatlığını kapat.**
+
+## ② Önce ucuz olan — kamera izni artık HİÇBİR hareket adı taşımıyor
+
+`ios/Runner/Info.plist` `NSCameraUsageDescription`: *"watches your push-ups"* →
+*"watches you while you train"*. `docs/store/listing.json`daki BİREBİR kopya da
+güncellendi. **Seçilen çare (b) değil farklı bir üçüncü yol:** sayı/ad
+İÇERMEYEN bir cümle — hangi hareket canlı olursa olsun DOĞRU kalıyor, bu yüzden
+BAYATLAMASI yapısal olarak imkânsız. Yeni bir kapı kurmaya gerek kalmadı çünkü
+artık kontrol edilecek bir SAYI/AD yok.
+
+## ① `tools/validate_store_listing.py` — yeni kapı, `run_all_gates.sh`a bağlı
+
+Orkestratörün önerdiği (b) yolu seçildi: sayı KALDIRILMADI (bilgi değerli),
+GERÇEK bir kapı eklendi. `docs/store/listing.json`daki `"covers N movements"`/
+`"Today, N of them"` VE `STORE-LISTING-TASLAK.md`daki `"N hareket, N açık, N
+ölçüm bekliyor"` — ikisi de `content/library.json`ın GERÇEK sayımına karşı
+sınanıyor artık.
+
+**Dört kapı, dört ayrı ölçüm (öz-test):**
+1. Pozitif ikiz — bugünkü doğru sayılar sessizce geçiyor.
+2. Sabotaj-1 — `listing.json`da bayat sayı (`Today, 5`) → kırmızı.
+3. Sabotaj-2 — `TASLAK.md`da bayat satır → kırmızı.
+4. **Vakum** — desenin KENDİSİ kaybolursa (biri metni yeniden yazarsa) kapı
+   SESSİZCE geçmiyor, "kör oldum" diyor. Bu, H-58'in asıl bulduğu boşluğun
+   (yazmak okuma değildir) simetrik panzehiri.
+
+**Gerçek dosya üzerinde de sabote edildi** (yalnız izole `check()` fonksiyonu
+değil): `listing.json`da `Today, 2`→`Today, 7` yapılıp GERÇEK araç koşuldu,
+kırmızı yandı, doğru mesajla; geri alınıp yeşile dönüldü (`git diff` ile
+temizlik doğrulandı — yalnız kamera-izni değişikliğim kaldı, sabotaj izi yok).
+
+`run_all_gates.sh` SÜİT 3'e eklendi (11→12 araç, python 18/18→20/20).
+
+**Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` ·
+`python 20/20`.

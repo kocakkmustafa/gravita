@@ -132,7 +132,7 @@ run "dart test" bash -c "cd packages/gravita_engine && dart test"
 # (aşağıdaki `gate` çağrılarının sardığı DİSTİNCT .py dosyası; --check/
 # --self-test varyantları ayrı araç sayılmaz). Bu betiğin kendi başlığı,
 # denetlediği tam sınıfın (bayat sayı iddiası) canlı bir örneğiydi.
-line; echo "SÜİT 3 — içerik kapıları (11 araç)"; line
+line; echo "SÜİT 3 — içerik kapıları (12 araç)"; line
 gate() { py_total=$((py_total+1)); if run "$@"; then py_ok=$((py_ok+1)); fi; }
 gate "reference_model"             python3 tools/validate_reference_model.py
 gate "reference_model --self-test" python3 tools/validate_reference_model.py --self-test
@@ -167,6 +167,12 @@ gate "dead_end_census --self-test" python3 tools/dead_end_census.py --self-test
 # hiçbirinde böyle bir kapı yoktu ve iki hatta 59 kayıt kaybı vardı.
 gate "defter_freshness"             python3 tools/defter_freshness.py
 gate "defter_freshness --self-test" python3 tools/defter_freshness.py --self-test
+# ⭐ H-58 (orkestratör, 2026-08-16): $-önekli bir "bu sayı bayatlayabilir"
+# notunun SIFIR okuyucusu vardı — yazmak koruma değildi. Bu kapı
+# docs/store/listing.json + STORE-LISTING-TASLAK.md'deki hareket sayılarını
+# content/library.json'ın GERÇEK sayımına karşı sınar.
+gate "validate_store_listing"            python3 tools/validate_store_listing.py
+gate "validate_store_listing --self-test" python3 tools/validate_store_listing.py --self-test
 
 line
 if [ "$fail" -eq 0 ]; then
