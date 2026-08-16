@@ -4923,3 +4923,45 @@ uygulanmayacak.
 **F3 Faz-0 işlendi. Hasat turu-1'e geçiş onaylanabilir.**
 
 **Kapı durumu:** `GATES_EXIT=0` (yalnız yeni docs dosyası, kod dokunulmadı).
+
+---
+
+### G-233 — 🔧 Hasat turu-1, kapı-tasarımı bacağı: glute_bridge'in kimlik kapısı TASARLANDI (eşik değil)
+
+**Orkestratörün onayladığı sıradaki adım** (fiilî hasada değil, kapı tasarımına
+girildi). `docs/gates/G-121-GLUTE-BRIDGE-KIMLIK-KAPISI-TASARIMI.md` yazıldı — Explore
+ajanıyla `gravita_engine`in GERÇEK açı-kelimesini (`MovementMetrics`/`StandardJoints`,
+`precondition` şemasının Dart tarafı) araştırdım, hiçbir hasat adayına bakmadan.
+
+## Bulunan — `glute_bridge.json` zaten VARDI, "pending" güdük olarak
+
+Katalogda hazır: sinyal `hip`, fazlar `bottom≤110°→top≥165°` zaten kurulu. Kendi
+rationale'ı ZATEN şart koşuyor: *"Eşik BURADA UYDURULMAZ (G-014/G-050): taban değeri
+varsayılandır, ölçüm değil."* Bu, benim işimin tam sınırını çizdi: sayı ÖNERMEDİM,
+HANGİ ölçü ve NEDEN sorusuna cevap yazdım.
+
+## Tasarım — ve REDDEDİLEN yaklaşım adıyla
+
+- **Önerilen:** `torso_angle_from_vertical` frame-level koşulu (push_up'ın BİREBİR
+  mekanizması) — ayaktaki bir kalça-menteşesini sırtüstü glute bridge'den ayırmak için.
+  Push_up'takinden FARKLI karakterde: orada dinamik ayırt edici, burada rep boyunca
+  neredeyse sabit bir "bağlam doğru mu" kapısı — bu bir zayıflık değil, motor zaten
+  `hip`i dinamik sinyal olarak kullanıyor.
+- **REDDEDİLEN:** squat'ın hip-knee Pearson korelasyonu buraya KÖRÜ KÖRÜNE taşınmadı —
+  gerekçe adıyla: glute bridge'de diz SABİT kalması beklenir (squat'ın tam tersi),
+  yüksek korelasyon eşiği gerçek doğru tekrarları reddederdi; düşük korelasyon da
+  pozitif imza sayılamaz (gürültüyle ayırt edilemez).
+- **Adıyla bırakılan risk:** derin bir ayakta eğilme de gövdeyi anlık yataya
+  yaklaştırabilir — bu koşul TEK BAŞINA yetmeyebilir, hasat turu-1'in gerçek
+  footage'ıyla test edilecek bir HİPOTEZ, kapanmış hüküm değil.
+
+## Kapsam dışı, adıyla
+
+İkinci sinyal adayı (`knee_angle` üst-sınırı, karşıt-örnek riski gerçekleşirse) bu
+turda TASARLANMADI, yalnız adı konuldu — mekanik engel yok (motor VE'li çoklu koşulu
+destekliyor), gerekliliği ölçülmedi.
+
+**Katalog dosyasına DOKUNULMADI** — `status: pending` kaldı, gerçek eşik hasat
+turu-1'in ölçüm protokolü tamamlanınca yazılacak.
+
+**Kapı durumu:** `GATES_EXIT=0` (yalnız yeni docs dosyası).
