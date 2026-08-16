@@ -6058,3 +6058,50 @@ git geçmişime ait bir karar, aile katmanı yazımıyla karıştırılmadı.
 **Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` ·
 `python 20/20` (araç kaldırıldıktan SONRA yeniden koşuldu, süite zaten
 bağlı değildi, etkilenmedi).
+
+### G-253 — 🐛 device_day_preflight.py: dağıtım-profili gölgeleme kusuru düzeltildi
+
+Ağaç açıkken (iCloud bloğu içinde) PAKET.md yazmak için `device_day_
+preflight.py`yi TEKRAR koşturdum — RECIPE.md'deki not saatlerce önceydi,
+bir paketin "o zaman temizdi" değil "ŞİMDİ temiz mi" demesi gerekir. Sonuç
+İLK seferinde `⛔ 1 SORUN`: "00008120-... profildeki 0 cihaz arasında YOK."
+
+**Kod kırılmamıştı — gerçek sebep gerçek ve öğretici:** `com.yulalab.gravita`
+için artık İKİ profil var — `iOS Team Store Provisioning Profile` (oluşturma
+2026-08-16T03:47:34Z, yayın provası turuyla [G-247] AYNI pencerede,
+`ProvisionedDevices` **0**, App Store profili TASARIM GEREĞİ) ve `iOS Team
+Provisioning Profile` (13 Ağustos, 4 cihaz, kurucununki İÇİNDE). Eski
+`find_gravita_profile()` "aynı app-id'liler arasında EN YENİ `CreationDate`"
+kuralıyla seçiyordu — yayın provası Store profilini "en yeni" yaptığı için
+onu seçip (cihaz listesi boş olduğundan) YANLIŞLIKLA "kayıtlı değil" diyordu.
+**Gerçek durum baştan beri temizdi.**
+
+> Bir profilin "en yeni" olması, onu cihaza kurulum için "en iyi" yapmaz —
+> ikisi farklı eksenler.
+
+**Düzeltme:** adaylar önce `ProvisionedDevices` TAŞIYANLARA daraltılıyor
+(bir Store profili ne kadar yeni olursa olsun kategorik olarak kullanılamaz),
+YALNIZ o alt kümede en yeni seçiliyor. Cihaz-kapsamlı profil hiç yoksa ayrı
+ve daha kötü bir durum olarak (`_no_device_scoped`) raporlanıyor.
+
+**Önce/sonra bizzat ölçüldü:** eski kod `⛔ 1 SORUN`, yeni kod (canlı dosyada,
+köprü kopyasında DEĞİL) `✅ ÖN-UÇUŞ TEMİZ`.
+
+**Aile boyutu:** bu kusur Ostinato'nun şemasından (`find_ostinato_profile()`
+BİREBİR aynı mantık) miras. Orkestratör CANLI doğruladı: Ostinato'nun kendi
+Store profili de var (16 Ağu 03:35:48, `ProvisionedDevices` 0) — yani
+Ostinato'nun düzeltilmemiş betiği ŞU AN koşulsa aynı yanlış alarmı üretir,
+varsayımsal değil ölçülmüş. Gerekçe orkestratör tarafından köprüye
+(`PROFIL-GOLGELEME-DUZELTMESI.md`, `M-F-677`) yazıldı, Ostinato'ya iletildi.
+
+⚠️ **Yan not — orkestratörün kendi düzeltmesi:** bu betiğin İKİ dizini
+(`Xcode/UserData` + `MobileDevice`) taraması, orkestratörün ayrı bir
+iddiasını ("beş app'te de profil sıfır") çürüttü — o yalnız `MobileDevice`e
+bakmış, asıl profiller `Xcode/UserData`daydı. Gerçek durum: JabLab hariç
+dördünde geçerli profil VAR, kurucunun cihazı hepsinde kayıtlı. Bu benim
+turumun DEĞİL orkestratörün kendi ölçümüydü — burada yalnız iz bırakıyorum,
+kurucu paketi zaten düzeltildi.
+
+**Kapı durumu:** bu araç `run_all_gates.sh` süitine bağlı değil (F5/cihaz
+günü kapsamı), süit etkilenmedi — `GATES_EXIT=0` (bir önceki G-252 koşumu
+geçerli, kod dışı değişiklik).

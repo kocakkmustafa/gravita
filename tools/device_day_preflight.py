@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""F5 — cihaz günü ön-uçuş kontrolü (2026-08-16).
+"""F5 — cihaz günü ön-uçuş kontrolü (2026-08-16, v2: dağıtım-profili
+gölgeleme kusuru düzeltildi).
 
 Kurucu telefonu bağladığında BEŞ DAKİKADA çalıştırılacak tek komut: bağlı
 cihazı bulur, GERÇEK UDID'sini çözer (`devicectl`in kendi pairing
@@ -14,6 +15,39 @@ emsal); içerik (APP_ID) Gravita'nın kendisi. Mekanizma İCAT EDİLMEDİ.
 "bu neden patlayabilir"i söyler. `codesign geçti` ≠ `kurulur` ayrımı
 (H-9): profil olması yetmez, O CİHAZIN UDID'si `ProvisionedDevices`te
 olmalı; yoksa çözüm kod değil TAZELEME (`xcodebuild -allowProvisioningUpdates`).
+
+## v2'de DÜZELEN kusur (2026-08-16, canlı ölçümle bulundu)
+
+`find_gravita_profile()` "aynı app-id'li profiller arasında EN YENİ
+`CreationDate`" kuralıyla seçim yapıyordu — ki bu YANLIŞ varsayımdı: bir
+App Store DAĞITIM profili (`ProvisionedDevices` TASARIM GEREĞİ boş) bir
+geliştirme derlemesinden SONRA oluşturulursa (ör. bir "yayın provası"
+turu), tarihçe olarak GELİŞTİRME profilinden daha yeni olur ve YANLIŞLIKLA
+"en iyi" seçilir. Sonuç: cihaz GERÇEKTEN kayıtlıyken bile betik "profildeki
+0 cihaz arasında YOK" diye YANLIŞ ALARM verir.
+
+Ölçüldü (2026-08-16, bu betiğin bir önceki hâliyle): `com.yulalab.gravita`
+için iki profil var —
+  • `iOS Team Store Provisioning Profile` — oluşturulma 2026-08-16T03:47:34Z
+    (yayın provası turuyla aynı pencerede), `ProvisionedDevices`: 0 (App
+    Store profili, TASARIM GEREĞİ).
+  • `iOS Team Provisioning Profile` — oluşturulma 2026-08-13T21:58:30Z,
+    `ProvisionedDevices`: 4 cihaz, İÇİNDE kurucunun UDID'si VAR.
+Eski kod "en yeni" olan BİRİNCİYİ seçip YANLIŞ ⛔ üretiyordu; GERÇEK durum
+✅ temiz (ikinci profil hâlâ geçerli, cihaz kayıtlı).
+
+Düzeltme: adaylar önce `ProvisionedDevices` TAŞIYANLARA daraltılır (bir
+App Store profili kategorik olarak cihaza doğrudan kurulum için
+KULLANILAMAZ, ne kadar yeni olursa olsun), YALNIZ o alt kümede en yeni
+seçilir. Cihaz-kapsamlı profil HİÇ yoksa bu ayrı ve daha kötü bir durum
+olarak raporlanır (sessizce "profil yok" ile karıştırılmaz).
+
+⚠️ Bu kusur ŞEMA'dan (Ostinato O-160, `find_ostinato_profile()`) miras —
+orkestratör 2026-08-16'da CANLI doğruladı: Ostinato'nun kendi Store profili
+(16 Ağu 03:35:48, `ProvisionedDevices` 0) ŞU AN en yeni — yani Ostinato'nun
+düzeltilmemiş betiği bugün koşulsa AYNI yanlış alarmı üretir (varsayımsal
+değil, ölçülmüş). Orkestratör bu gerekçeyi Ostinato'ya iletti
+(`PROFIL-GOLGELEME-DUZELTMESI.md`, `M-F-677`).
 """
 from __future__ import annotations
 
@@ -36,9 +70,19 @@ def run(cmd: list[str]) -> str:
 
 def find_gravita_profile() -> dict | None:
     """`ProvisionedDevices`/`ExpirationDate` gibi alanları taşıyan, BUGÜN
-    Gravita'ya ait profili bulur — dosya adına (UUID, KOŞUM-BAĞIMLI,
-    profil yenilendikçe değişir) değil, İÇERİĞE göre arar."""
-    best = None
+    Gravita'ya ait profili bulur — dosya adına (UUID, KOŞUM-BAĞIMLI, profil
+    yenilendikçe değişir) değil, İÇERİĞE göre arar.
+
+    ⚠️ SADECE "en son oluşturulan" YETMEZ (2026-08-16 canlı ölçümüyle
+    bulunan kusur, yukarıdaki docstring): bir App Store dağıtım profili
+    (`ProvisionedDevices` YOK, tasarım gereği) sonradan oluşturulursa
+    tarihçe olarak "en yeni" olur ve GERÇEKTE cihaza kurulum için
+    KULLANILAMAZ bir profili "en iyi" diye seçtirir. Bu yüzden önce
+    `ProvisionedDevices` TAŞIYAN (geliştirme/ad-hoc) profillere daralt,
+    YALNIZ sonra o alt kümede en yeniyi seç. Cihaz-kapsamlı profil HİÇ
+    yoksa, o BAŞKA (ve daha kötü) bir durumdur — `_no_device_scoped`
+    işaretiyle ayrıştırılır, sessizce "profil yok"a düşmez."""
+    candidates = []
     for d in PROFILE_DIRS:
         if not d.exists():
             continue
@@ -54,9 +98,17 @@ def find_gravita_profile() -> dict | None:
             appid = doc.get("Entitlements", {}).get("application-identifier", "")
             if appid != f"{TEAM_ID}.{APP_ID}":
                 continue
-            if best is None or doc.get("CreationDate", "") > best.get("CreationDate", ""):
-                best = doc
-                best["_file"] = str(f)
+            doc["_file"] = str(f)
+            candidates.append(doc)
+
+    if not candidates:
+        return None
+
+    device_scoped = [c for c in candidates if c.get("ProvisionedDevices")]
+    pool = device_scoped if device_scoped else candidates
+    best = max(pool, key=lambda c: c.get("CreationDate", ""))
+    if not device_scoped:
+        best["_no_device_scoped"] = True
     return best
 
 
@@ -111,9 +163,19 @@ def main() -> int:
         problems.append(f"[profil] `{APP_ID}` için HİÇBİR provisioning profili "
                          f"bulunamadı — `xcodebuild -allowProvisioningUpdates` "
                          f"koşulmalı (Automatic signing profili kendi üretir).")
+    elif profile.get("_no_device_scoped"):
+        problems.append(
+            f"[profil] `{APP_ID}` için bulunan TÜM profiller DAĞITIM-tipi "
+            f"(`ProvisionedDevices` boş) — hiçbir geliştirme/ad-hoc profili "
+            f"yok. En yenisi: {profile.get('Name')} (`{profile['_file']}`, "
+            f"bitiş {profile.get('ExpirationDate')}). Doğrudan cihaza kurulum "
+            f"İMKANSIZ bu profille — `xcodebuild -workspace "
+            f"ios/Runner.xcworkspace -scheme Runner -configuration Release "
+            f"-destination \"id=<UDID>\" -allowProvisioningUpdates build` ile "
+            f"bir geliştirme profili üretilmeli.")
     else:
         exp = profile.get("ExpirationDate")
-        ok.append(f"[profil] bulundu: {profile.get('Name')} "
+        ok.append(f"[profil] bulundu (cihaz-kapsamlı): {profile.get('Name')} "
                    f"(`{profile['_file']}`, bitiş {exp})")
         provisioned = set(profile.get("ProvisionedDevices", []))
 
