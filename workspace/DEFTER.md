@@ -6027,3 +6027,34 @@ yazarına ait ve neden seçtiğini bilmiyorum.
 **Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` ·
 `python 20/20`. TN3183 (`technotes/tn3183-...`) henüz denenmedi — sonraki
 tur için adıyla açık bırakıldı, bu turun kapsamı doldu.
+
+### G-252 — 🏠 gerekçeli-API kapısı aile katmanına taşındı (`motion-core/workspace/tools/`)
+
+**Bağlam:** bu turun büyük kısmı `~/Documents/YULAlab-AI` iCloud senkron
+çöküşüyle geçti (17 takılı yükleme, `CKInternalErrorDomain:1013`, workspace
+kökü dahil her yol `EINTR` — ölçüm `M-F-732`ye işlendi). Erişim aralıklı
+geri geldi (Choreia önce, sonra Gravita) — orkestratör uyardı: *"aralıklı
+pencerede öncelik en az şey kaybettiren iştir"*, o yüzden bu G-252 ve
+G-253 BİLEREK ayrı, küçük commit'ler.
+
+Erişim kapalıyken parametrize edilmiş tam metni orkestratöre dikte ettim
+(`motion-core` non-git olduğu için o yazdı); ağaç açılınca canlı smoke-test
+yaptım: `python3 ../../motion-core/workspace/tools/validate_privacy_manifest_
+coverage.py gravita` gerçek arşive karşı BİREBİR G-251'deki sonucu üretti
+(5 kategori, belirsiz-kategori sıfır). Smoke-test'te bir kozmetik kusur
+yakaladım (`Hedef uygulama: app` — her app'in kök klasörü "app" olduğundan
+ayırt edici değildi) ve hemen düzelttim (`app_root.parent.name`).
+
+**Değişen TEK gerçek şey** (v3'ün mantığı BİREBİR): `ROOT`/`ARCHIVE` artık
+modül sabiti değil, `resolve_app_root(sys.argv[1])` — app adı ("gravita")
+ya da doğrudan yol kabul ediyor, betiğin KENDİ konumundan (`ventures/
+motion-core/workspace/tools/`) `ventures/<ad>/app`e çözülüyor.
+
+Gravita'daki kopya `git rm` edildi (gerçek TAŞIMA, iki kopya yaşamasın diye)
+— `run_all_gates.sh`ın dışlama-listesi yorumu yeni konumu göstersin diye
+güncellendi. `③` (kapıyı SÜİTE aktif bağlamak) hâlâ BEKLETİLİYOR — kendi
+git geçmişime ait bir karar, aile katmanı yazımıyla karıştırılmadı.
+
+**Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` ·
+`python 20/20` (araç kaldırıldıktan SONRA yeniden koşuldu, süite zaten
+bağlı değildi, etkilenmedi).

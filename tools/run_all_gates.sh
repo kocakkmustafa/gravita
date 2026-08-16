@@ -32,10 +32,12 @@
 # karışıklığı (ΔE renk uzaklığı ölçer, YERLEŞİM değil) · `validate_catalog`ın 7 kanıtsız
 # değişmezi (betiğin kendi çıktısı onları her koşumda basar).
 #
-# `validate_privacy_manifest_coverage` da BURADA KOŞMAZ (2026-08-16) — GERÇEK
-# bir `flutter build ipa` arşivi ister (dakikalar sürer, bu betiğin hızlı-kapı
-# amacına aykırı). Ortam yoksa kendi "ORTAM KURULMAMIŞ" hâlini (exit 2) döner,
-# ama bu SÜİTE bağlanmadı — release provası sonrası elle koşulur.
+# `validate_privacy_manifest_coverage` da BURADA KOŞMAZ (2026-08-16, G-252'de
+# aile katmanına taşındı: `motion-core/workspace/tools/validate_privacy_
+# manifest_coverage.py gravita`) — GERÇEK bir `flutter build ipa` arşivi ister
+# (dakikalar sürer, bu betiğin hızlı-kapı amacına aykırı). Ortam yoksa kendi
+# "ORTAM KURULMAMIŞ" hâlini (exit 2) döner, ama bu SÜİTE bağlanmadı — release
+# provası sonrası elle koşulur.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
