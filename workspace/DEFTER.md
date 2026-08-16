@@ -4680,3 +4680,42 @@ ağırlık DEĞİŞTİRİLMEDİ — o bir tasarım kararı).
 
 **Kapı durumu:** `GATES_EXIT=0` · app 217/217 · engine 175/175 · python 18/18 ·
 `network_claim_audit --self-test` 6/6.
+
+---
+
+### G-228 — 🩹 H-36 daraltıldı: gizlilik manifestindeki bayat "3" sayısı düzeltildi (2026-08-16)
+
+**Orkestratör buldu, ben doğruladım, sonra düzelttim.** `ios/Runner/PrivacyInfo.xcprivacy`
+satır 24-27, D1 (F2) ÖNCESİNİN sayısını taşıyordu: *"63/63 paket sınıflandırılmış, ağa
+çıkabilen 3"* — F2 o üçünü (`google_fonts` + `http` + `http_parser`) ağaçtan tamamen düşürdü,
+ama manifestin YORUMU güncellenmedi.
+
+## Kör güvenmedim, ölçtüm
+
+`python3 tools/network_claim_audit.py` çalıştırıldı: *"BÖLME 60/60 paket sınıflandırılmış:
+ağa-çıkabilen 0"* — orkestratörün iddiasıyla birebir. Satır güncellendi, güncel sayıya VE
+onu üreten komuta bağlandı (`python3 tools/network_claim_audit.py`, her turda yeniden
+ölçülebilir).
+
+## H-36 ikiye ayrıldı — ikisi ayrı hüküm
+
+- ⛔ **Hâlâ YASAK:** `NSPrivacyAccessedAPITypes`/`NSPrivacyCollectedDataTypes`e kendiliğinden
+  girdi eklemek — `MediaPipeTasksCommon`'ın gerekçe-zorunlu API kullanımı için gerekçe kodu
+  yargısı hâlâ verilmedi (`M-F-641`). Dokunmadım.
+- ✅ **Artık ZORUNLU:** yanlışa dönüşmüş bir SAYIYI/CÜMLEYİ düzeltmek — bir dondurma emri
+  *"yeni iddia ekleme"* demektir, *"yanlışa dönüşmüş iddiayı koru"* değil. Bunu yaptım.
+
+> ***BİR MANİFESTTEKİ SAYI, ONU ÜRETEN ARAÇLA BİRLİKTE YAŞAMALI — ARAÇ DEĞİŞİP MANİFEST
+> DEĞİŞMEZSE, MANİFEST ARTIK GEÇMİŞİ ANLATIYOR, BUGÜNÜ DEĞİL.***
+
+## Adıyla bırakılan — bu metin hiçbir testte çivilenmedi
+
+`privacy_manifest_test.dart` yalnız `NSPrivacyAccessedAPITypes`/`NSPrivacyTracking` alanlarını
+ölçüme çiviliyor (satır 53-58) — bu YORUM METNİNDEKİ sayıyı DEĞİL. Yeni bir otomatik çapraz-
+kontrol EKLEMEDİM (istenen kapsam dar, sayıyı düzeltmekti) ama boşluk adıyla burada: bu metin
+bir gün yeniden bayatlarsa hiçbir kapı onu söylemez.
+
+**H-36 (satır düzeltmesi kısmı) işlendi. H-36 (reason-code yargısı) HÂLÂ AÇIK, orkestratörde.**
+
+**Kapı durumu:** `GATES_EXIT=0` · app 217/217 · engine 175/175 · python 18/18 ·
+`privacy_manifest_test.dart` 3/3.
