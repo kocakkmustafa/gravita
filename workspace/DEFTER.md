@@ -4965,3 +4965,46 @@ destekliyor), gerekliliği ölçülmedi.
 turu-1'in ölçüm protokolü tamamlanınca yazılacak.
 
 **Kapı durumu:** `GATES_EXIT=0` (yalnız yeni docs dosyası).
+
+---
+
+### G-234 — 🧾 Hipotez defteri açıldı + pull_up kimlik kapısı: KENDİ yöntemimin sınırını buldum
+
+**Orkestratörün iki şartı işlendi.** ① `docs/gates/G-122-HASAT-TURU1-HIPOTEZ-DEFTERI.md`
+açıldı (glute_bridge'in H1'i geriye dönük eklendi). ② İkinci kapı tasarımı — orkestratörün
+KASITLI seçimiyle `lunge` DEĞİL, `pull_up`: *"squat ailesine yakın değil, maksimum farklı.
+Yaklaşımın kırılacaksa orada kırılır."*
+
+## Ve KIRILDI — ölçmeden, akıl yürüterek
+
+`pull_up.json` zaten VARDI (sinyal `elbow`, fazlar `hang≥160°→top≤75°`). İlk refleksim
+G-121'in aracını (`torso_angle_from_vertical`) tekrar denemekti — ama bu kez GÖTÜRMEDİ:
+pull-up'ta gövde DİKEY (asılı, düz aşağı), tıpkı standing bir biceps curl gibi. **İki
+durum da aynı okur — sıfır ayırt edicilik.** Kendi yöntemimin sınırını, gerçek footage
+beklemeden, saf akıl yürütmeyle buldum — orkestratörün öngördüğü tam an.
+
+## Yeni seçim: `shoulder_angle` — İLK KEZ kullanılan bir metrik
+
+`MovementMetrics.shoulderAngle` (hip-omuz-dirsek) bugüne dek hiçbir kimlik kapısında
+YOKTU. Gerekçe: pull-up'ta kol asılırken TAM YUKARIDA (omuz-kalça hattının uzantısında,
+açı BÜYÜK); biceps curl'de kol yanda sarkar (açı KÜÇÜK). Yeni bir hareket, yeni bir
+sinyal — G-121'in "reçeteyi kopyala, kaynağını değil" ilkesinin ikinci uygulaması.
+
+## Adıyla bırakılan risk — YENİ bir sınıf
+
+G-121'in riski "aynı aralık, farklı bağlam"dı. Buradaki FARKLI: standing bir **omuz üstü
+itiş**in ÜST noktası da benzer yüksek `shoulder_angle` üretebilir — ayrımı motorun
+FAZ-YÖNÜ mantığına (pull-up dirseği kapanır, itiş muhtemelen açılır) bırakıyorum ama bu
+bir ÖLÇÜM DEĞİL ÇIKARIM, hasat turu-1'de doğrulanmalı. Hipotez defterine H2 olarak
+eklendi.
+
+## Yan bulgu — kapsam dışı, adıyla
+
+`hip_swing_amplitude_torso` (kipping-swing formError'ı) `MovementMetrics.unimplemented`
+listesinde — içerikte adı var, motor henüz KODLAMADI. Bu kimlik kapısının parçası değil,
+ama hareket canlıya çıkmadan önce çözülmesi gereken ayrı bir "kod" kuyruğu kalemi —
+adıyla bırakıldı.
+
+**Katalog dosyasına yine DOKUNULMADI.**
+
+**Kapı durumu:** `GATES_EXIT=0` (yalnız yeni docs dosyaları).
