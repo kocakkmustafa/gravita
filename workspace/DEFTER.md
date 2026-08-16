@@ -5474,3 +5474,66 @@ README.md`de yazılı).
 
 **Kapı durumu:** `GATES_EXIT=0` — `app 222/222` (kendi kapımın kendini doğru sınamasıyla
 dahil) · `engine 175/175` · `python 18/18`.
+
+---
+
+### G-243 — 🎨 F4/D8: şablon ikon KALKTI — 3 aday üretildi, biri build'e girdi, ikisi kayıtlı kaldı — F4 TAMAMLANDI
+
+**Orkestratörün F4 ataması, D8 maddesi — F4'ün SON kalemi.** Önce küçük bir düzeltme:
+orkestratör *"seninki turuncu"* demişti; gerçek renk MAVİ (Flutter'ın varsayılan "F" logosu)
+— küçük bir olgu farkı, adıyla söylendi.
+
+## Aile dili — beş kardeşin dördü hâlâ şablonda, biri (Ostinato) gerçek örnek
+
+`choreia`/`lissom`/`jablab`in `Icon-App-1024x1024@1x.png`si TEK TEK açılıp bakıldı — üçü de
+Flutter şablonu. Yalnız `ostinato`nun gerçek ikonu var: koyu lacivert zemin + TEK beyaz
+nokta-çizgi duruş figürü. D8'in "aile dili" tarifinin SOMUT karşılığı bu — icat edilmedi,
+görüldü.
+
+## Renk — Gravita'nın KENDİ marka rengi, icat edilmedi
+
+`lib/app/theme.dart`daki `GravitaColors.accent` (`#A11019`) — bu turun kendi ekran
+görüntülerindeki HER "Continue"/"Start" düğmesinin rengiyle birebir. Ostinato kendi
+lacivertini kullandı; ben KENDİ zaten kurulu markamı kullandım, yeni bir renk uydurmadım.
+
+## Glif — dekorasyon değil, uygulamanın KENDİ ölçtüğü mekanizma
+
+Bükülü uzuv: 3 eklem noktası + 2 uzuv çizgisi (Ostinato'nun nokta-çizgi sözlüğü, FARKLI
+siluet — duran figür değil bükülü/hareket ânı). Gravita'nın canlı kimlik-kapısı TAM BUNU
+ölçüyor: squat kalça-diz açısı, push_up gövde-dikey açısı (`M-F-38-PILOT-RAPORU.md`).
+
+## 3 aday, ölçülerek karşılaştırıldı
+
+`rsvg-convert` ile SVG'den render + `magick montage` ile tam-boy VE 120px (gerçek ana ekran
+ikonuna yakın) yan yana karşılaştırma (`docs/design/icon/alternatives/comparison-preview.
+png`). Üçü AYNI kavram, farklı ağırlık/açı — **en kalın çizgili + en derin açılı seçildi**,
+küçük boyutta en güçlü okunan oydu. ⛔ **İki FARKLI kavram da denendi ve ELENDİ** (kayda
+geçmedi, yalnız defterde adıyla): bir tik-işareti (jenerik, eklem-sözlüğünü kaybediyordu) ve
+bir tekrar-çemberi/ok (geometri hatasıyla dağınık çıktı) — zaman bütçesi zaten güçlü olan
+bükülü-eklem kavramına ayrıldı, ikisi yeniden tasarlanmadı.
+
+## Üretim — 20 dosya, tek şablondan, keskinlik kaybı yok
+
+`bash 3.2`nin (macOS'un kendi kısıtı, associative array YOK) `declare -A` denemesi
+patladı — `while IFS=: read` döngüsüne geçildi, taşınabilir. **iOS 15 dosya:**
+`Contents.json`ın KENDİ listesi python'la okunup 15 benzersiz dosya adıyla BİREBİR
+eşleştiği doğrulandı (rasgele boyut listesi değil). **Android 5 yoğunluk**
+(`mdpi`48/`hdpi`72/`xhdpi`96/`xxhdpi`144/`xxxhdpi`192) — adaptive-icon XML'i bu
+uygulamada hiç YOK, var olan düz yapıya uyuldu, yeni sistem icat edilmedi. Her boyut
+SVG'den AYRI render edildi (raster küçültme değil).
+
+## Doğrulama — izole önizleme değil, gerçek ana ekran
+
+`flutter build ios --simulator` + `HOME` düğmesiyle gerçek ana ekrana dönüldü — ikon
+sistemin DİĞER uygulama ikonlarının yanında (Fitness/Watch/Kişiler/Dosyalar) görüldü,
+yalnızca kendi kendine izole bir PNG olarak değil.
+
+## F4 — üç madde de kapandı
+
+`D6` (`G-242`) + `D20` (`G-240`) + `D8` (bu kayıt) — F4'ün orkestratörün verdiği üç maddesi
+TAMAMLANDI. Kapsam dışı bırakılanlar adıyla: SUBMIT yok (`B7` kurucu) · ASC yükleme
+orkestratörün `PASS`ından sonra · Android imza gerçek keystore'u kurucudan bekliyor.
+
+**Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` · `python 18/18`,
+ikon değişikliği hiçbir testi kırmadı (grep doğrulandı: hiçbir test dosyası ikon dosyası
+adı taşımıyor).
