@@ -6105,3 +6105,23 @@ kurucu paketi zaten düzeltildi.
 **Kapı durumu:** bu araç `run_all_gates.sh` süitine bağlı değil (F5/cihaz
 günü kapsamı), süit etkilenmedi — `GATES_EXIT=0` (bir önceki G-252 koşumu
 geçerli, kod dışı değişiklik).
+
+### G-254 — 📱 `docs/device-day/PAKET.md`: TARİHLİ hazır-mı anlık görüntüsü
+
+`RECIPE.md`nin YERİNE değil, EKİNE: reçete yürüyüşü anlatır (değişmedi),
+paket "kurucu BUGÜN otursa gerçekten çalışır mı" sorusuna TARİHLİ bir
+cevap verir. Orkestratörün adlandırdığı ayrım tam burada kanıtlandı:
+*"bir 'hazır' beyanı yazıldığı anın ölçümüdür — paket o anı adıyla
+taşımıyorsa beyan değil hatıradır."* RECIPE.md'deki "✅ TEMİZ" notu
+saatler önceydi; PAKET.md'yi yazarken YENİDEN ölçünce (G-253'ün konusu
+olan) gerçek bir yanlış alarmla karşılaştım — RECIPE.md'yi GÜNCELLEMEDİM
+(o hâlâ o ANKİ doğru ölçümü taşıyor, tarihi değişmedi), PAKET.md ayrı bir
+dosya olarak BUGÜNÜN durumunu taşıyor.
+
+İçeriği: kusur+düzeltme anlatımı (G-253 ile aynı olgular, kurucuya
+yönelik özet halinde), düzeltmeden SONRA canlı dosyada tekrar koşulmuş son
+ölçüm (`✅ ÖN-UÇUŞ TEMİZ`), aile boyutu (Ostinato'nun aynı kusuru CANLI
+taşıdığı, orkestratörün `M-F-677`ye yazdığı).
+
+**Kapı durumu:** dokümantasyon dosyası, kapı süitini etkilemez —
+`GATES_EXIT=0` (G-253'ün koşumu geçerli).
