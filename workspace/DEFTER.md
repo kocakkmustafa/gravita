@@ -5050,3 +5050,55 @@ adı kondu, ölçülmedi.
 üç satırla açık.**
 
 **Kapı durumu:** `GATES_EXIT=0` (yalnız yeni docs dosyaları).
+
+---
+
+### G-236 — 🔍 H-47: kanal KİMLİĞİ mi ADI mı — ölçüldü (JabLab'ın M-F-655 bulgusu üzerine, aile-geneli soru)
+
+**Yalnız ÖLÇÜM, düzeltme YOK** (orkestratörün açık talimatı). JabLab'ın canlı+bağlı `jab`
+referansının "3 kaynak" iddiasının gerçekte 2 bağımsız KİMLİK olduğunu bulması
+(`M-F-655`, kanal adı ≠ kanal kimliği) üzerine beş hatta soruldu: *referanslarınız
+kaynak başına kanal KİMLİĞİ mi, yalnız kanal ADI mı tutuyor — kaç referans M-F-239
+öncesinde kuruldu?*
+
+## Yapısal bulgu — KESİN
+
+`reference.push_up.json`/`reference.bodyweight_squat.json`'ın `takes[].source` alanı
+**yalnız görünen kanal ADI** (`"THENX"`, `"Tom Merrick"` vb.) — `channel_id` alanı
+HİÇBİR yerde yok: `grep -rln "channel_id" tools/ content/harvest/` **sıfır isabet**.
+`tools/harvest_queue.py`nin kendi keşif mekanizması da (`yt-dlp --print "%(channel)s"`,
+satır 101) yalnız ADI istiyor — `%(channel_id)s` hiç talep edilmemiş. Yani boru hattının
+HİÇBİR aşaması (keşif→referans) kimlik yakalamıyor, bu iki referansa özgü bir eksiklik
+değil, TÜM boru hattının tasarımı.
+
+## M-F-239 zamanlaması — BELİRSİZ, adıyla
+
+`motion-core/workspace/` git-izlenmiyor (yalnız her hattın KENDİ workspace'i H-27'yle
+taşındı, orkestratör hub'ı değil) — `git blame` ile kesin tarih ALINAMADI. Dolaylı kanıt:
+M-F-239 numarası M-F-240/243/244'e bitişik ve bu üçü Gravita'nın kendi hasat/probe
+işini anlatıyor (yaklaşık Temmuz sonu) — referanslarımın `generatedAt`i (push_up
+2026-07-29T23:50 · squat 2026-07-30T00:23) ile KABACA ÇAĞDAŞ görünüyor. **Net bir
+öncesi/sonrası iddiası KURMUYORUM** — kanıt yetersiz, uydurmadım.
+
+## Kendi doğrulama denemem — JabLab'ın yaptığını tekrarladım
+
+Yapısal yokluğu bildirmekle YETİNMEDİM: iki referanstaki 18 FARKLI kanal adının HER
+BİRİ için `yt-dlp` ile gerçek `channel_id` arandı (JabLab'ın kendi yöntemi). **18 isim,
+18 FARKLI channel_id — çakışma BULUNAMADI.**
+
+⚠️ **Ama iki aramanın güveni DÜŞÜK, adıyla:** "FitnessFAQs" araması `channel_id`
+döndürdü ama dönen görünen ad "Alex Leonidas"ıydı (kanalın gerçek sahibinin kişisel adı
+olabilir — açıklanabilir, ama DOĞRULANMADI); "Sebastian Oreb" araması "Clean Health"
+döndürdü (daha az açıklanabilir — arama YANLIŞ kanalı bulmuş olabilir). **Bu ikisinin
+channel_id'si TAM GÜVENİLİR sayılmamalı** — arama-tabanlı bir yöntemin kendi sınırı,
+JabLab'ın kanıtladığı sınıfın küçük bir yansıması (isim ≠ kimlik, arama sonucu da
+kimlik garantisi değil).
+
+## Sonuç — kısa
+
+- **Yapısal risk:** var, aile-geneli (boru hattı hiç channel_id yakalamıyor).
+- **Gerçekleşmiş çarpışma:** bu turda ÖLÇÜLEN 18 isim arasında bulunamadı; 16'sı yüksek
+  güvenle, 2'si düşük güvenle doğrulandı.
+- **Düzeltme:** yapılmadı, istenmedi. Orkestratöre raporlandı.
+
+**Kapı durumu:** `GATES_EXIT=0` (yalnız defter kaydı, kod/katalog dokunulmadı).
