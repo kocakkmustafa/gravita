@@ -5618,3 +5618,41 @@ tekrar gerektirir, adıyla kod içinde not edildi.
 **Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` · `python 18/18`
 (bu araç `run_all_gates.sh`ın "10 hasat aracı" istisnasında, kendi disipliniyle gerçek
 kütüphanelerle iki kez koşularak doğrulandı).
+
+---
+
+### G-245 — 🎨 H-56'nın Gravita'ya bıraktığı iki kalem: ikon stok-DEĞİL doğrulandı + LaunchScreen beyaz zemin düzeltildi
+
+**H-56 herkese değildi (Choreia/Lissom/JabLab hedefliydi) ama içinde iki kalem Gravita'ya
+adıyla bırakılmıştı — ikisi de işlendi.**
+
+## ① "İkonun ötekilerden farklı ama stok olmadığını doğrulamadım — kendi ölç"
+
+`md5` ile ölçüldü: iOS `Icon-App-60x60@2x.png` → `5c274a323a2708c6db3710a36853f843` ·
+Android `ic_launcher.png` (xxhdpi) → `e19410433fa794833aadf3f86d69ebea`. Orkestratörün
+kendi bildirdiği stok referanslarından (`5b3c0902…`/`57838d52…`) İKİSİ DE farklı — ve
+iOS hash'im orkestratörün `23fa54c`in KENDİ "sonrası" ölçümüyle (`5c274a32…`) birebir
+eşleşti, çapraz doğrulama. Stok DEĞİL, ikinci kez teyitli.
+
+## ② LaunchScreen.storyboard'ın KENDİ backgroundColor'ı — Ostinato'nun bıraktığı taşınabilir bilgi
+
+H-56'nın notu birebir doğru çıktı: `ios/Runner/Base.lproj/LaunchScreen.storyboard`
+`backgroundColor` `red=1 green=1 blue=1` (SAF BEYAZ) taşıyordu — D8 çalışmam yalnız
+`AppIcon.appiconset`e dokunmuştu, `LaunchImage`/storyboard'a HİÇ dokunmamıştı. Yani
+ilk açılış hâlâ beyaz zeminle başlıyordu, Flutter kod devreye girene kadar.
+
+**Düzeltme:** icat edilmedi — `lib/app/theme.dart`daki `GravitaColors.page`
+(`0xFFF2EFEE`, uygulamanın GERÇEK `scaffoldBackgroundColor`ı) storyboard'ın float-RGB
+biçimine çevrildi (`0.949020/0.937255/0.933333`) ve yazıldı. Artık native açılış ekranı
+ile Flutter'ın ilk gerçek karesi AYNI zeminde — renk sıçraması yok.
+
+⚠️ **Doğrulama sınırı, adıyla:** native launch screen simülatörde <100ms sürüyor,
+`screenshot` onu yakalayamadı (Flutter karesi her seferinde önce yüklendi). Dolaylı
+doğrulama: yazılan renk değeri `theme.dart`daki GERÇEK token'la birebir — ki bu asıl
+iddia (`Flutter test/shell_end_to_end_test.dart` gibi bir görsel-regresyon testi bu
+kod tabanında native storyboard'ı hiç ölçmüyor, kapsam dışı bırakıldığı adıyla söylenir).
+`flutter build ios --simulator` temiz derlendi (XML sözdizimi hatası yok).
+
+**Kapı durumu:** `GATES_EXIT=0` — kod mantığı değişmedi, yalnız native launch-screen
+XML'inin bir renk alanı; `run_all_gates.sh` bunu kapsamıyor (native storyboard testi
+yok), `flutter build` başarıyla derlendiği doğrulandı.
