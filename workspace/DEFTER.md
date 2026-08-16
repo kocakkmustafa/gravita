@@ -4719,3 +4719,54 @@ bir gün yeniden bayatlarsa hiçbir kapı onu söylemez.
 
 **Kapı durumu:** `GATES_EXIT=0` · app 217/217 · engine 175/175 · python 18/18 ·
 `privacy_manifest_test.dart` 3/3.
+
+---
+
+### G-229 — 🧭 A1 kapandı: G-218'in belirsiz bıraktığı gözlem yeniden yürütüldü — YANITLANDI, HAYIR ile
+
+**A1 onaylandı, uygulandı.** `G-218`de flutter run çökünce belirsiz kalan soru: *akış GERÇEK
+tıklamalarla tamamlanınca, SONRAKİ bir açılış onboarding'i doğru şekilde atlıyor mu?*
+`test/onboarding_launch_path_test.dart`a yeni bir HAPPY PATH testi eklendi — orkestratörün
+istediği ayrımla (Ostinato `O-138`): **① UI-GÖZLEMLİ İDDİA** (akış tamamlandı, kabuk göründü)
+**② MOTOR-SONUCU İDDİASI** (dosya gerçekten yazıldı, AYRI ölçülür) **③ G-218'in sorusu**
+(YENİ bir açılış bu kalıcılığı gerçekten okuyor mu).
+
+## Yan kazanım — kamera izni VERİLDİ dalı hiç sınanmamıştı
+
+`_requestCamera`in `status.isGranted` bacağı (`onboarding_screen.dart:42-44`) bu dosyada
+BUGÜNE DEK yalnız REDDEDİLDİ (`status:0`) dalıyla sınanıyordu. Yeni test `status:1` kullanıyor
+— tek tıkla tamamlanan, "denied" ekranını hiç görmeyen farklı bir kod yolu.
+
+## Kendi bulgum — TEST HARNESS'IN kendi boşluğu, ürünün kusuru DEĞİL
+
+İlk deneme ② adımında düştü: `wrote == false`. Kör güvenmedim, izini sürdüm:
+`OnboardingStore.open()` **İKİ AYRI yerde** çağrılıyor (`gravita_app.dart:86` okuma-boot'ta ·
+`:102` yazma-tamamlanmada) ama `test/support/launch_harness.dart`'ın `bootGravitaRoot`u sahte
+`PathProviderPlatform`ı YALNIZ İLK çağrının penceresinde açık tutuyor (kendi belgelediği ②
+numaralı tuzak: *"sağlayıcı O AN açık olmalı, sonrasında değil"*) — İKİNCİ çağrı (tamamlanma
+anında) gerçek platforma düşüyor, `flutter test`te uygulaması olmadığı için fırlatıyor, ve
+ürünün KENDİ fail-open tasarımı (`_completeOnboarding`, `on Object` yutar — G-183 hüküm b)
+bunu SESSİZCE yutup kabuğu yine gösteriyordu. **Kabuk göründü, dosya hiç yazılmadı — ve bu
+görünüşte "UI-gözlemli iddia geçti" gibiydi, oysa yalnız fail-open yolunun kendisi
+ölçülüyordu.**
+
+> ***BİR YARDIMCI FONKSİYONUN "SAĞLAYICIYI AÇIK TUT" PENCERESİ, ÜRÜNÜN O SAĞLAYICIYI KAÇ KEZ
+> SORDUĞU KADAR GENİŞ OLMALIDIR — BİR ÇAĞRI İÇİN AÇMAK, İKİNCİYİ SESSİZCE ARIZA YOLUNA İTER.***
+
+Panzehir testin İÇİNDE: tamamlanma tıklamasından hemen önce `PathProviderPlatform.instance`
+yeniden `FakeSupportDir(tmp.path)`e ayarlandı, koşullu bekleme döngüsüyle (sabit tur sayısı
+DEĞİL — harness'ın kendi ③ numaralı dersi) settled, sonra `defaultProvider`e geri konuldu.
+Üç turda flake YOK (ayrı ayrı koşuldu).
+
+## Adıyla bırakılan
+
+`bootGravitaRoot`un KENDİSİNİ düzeltmedim (yalnız kendi testimde geçici olarak ikinci pencere
+açtım) — bu, ortak harness'ı DEĞİŞTİRMEK daha büyük bir kalem (başka testleri etkileyebilir,
+bu turun kapsamı değil). Gelecekte `OnboardingStore.open()`in üçüncü bir çağrı yeri eklenirse
+aynı sınıf tekrar çıkabilir — adıyla not edildi.
+
+**A1 işlendi. Sonuç: akış tamamlanınca kalıcılık GERÇEKTEN sonraki açılışa taşınıyor — ama bu
+yalnız sağlayıcı penceresi doğru açıldığında ölçülebiliyordu, ilk denemem onu YANLIŞLIKLA
+kapatıp ürünü aklıyordu.**
+
+**Kapı durumu:** `GATES_EXIT=0` · app 218/218 (+1) · engine 175/175 · python 18/18.

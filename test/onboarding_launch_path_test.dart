@@ -76,6 +76,93 @@ void main() {
             'hiçbir şey ölçmez.');
   });
 
+  group('HAPPY PATH — G-218\'in belirsiz bıraktığı gözlem (2026-08-16, A1)', () {
+    /// ⭐ G-218 (2026-08-14) bu akışı GERÇEK simülatörde yürütürken
+    /// `flutter run` sona erdi; "akışın tamamlanıp tamamlanmadığı belirsiz"
+    /// kaldı. O turda zorlanmadı (G-219'un kararı: belirsiz gözlemden sebep
+    /// üretme) — B5 (font ağ reddi) kalkana kadar bekletildi. F2 (D1)
+    /// indi, artık zorlanabilir: burada gerçek simülatör yerine gerçek
+    /// widget ağacı + gerçek dosya G/Ç kullanılıyor (ürünün KENDİ kapısı,
+    /// bkz. dosya başı doc), ama iddia AYRIŞTIRILMIŞ — Ostinato'nun `O-138`
+    /// dersi: *"UI yürüyüşü ile motor gerçeği İKİ AYRI İDDİA."*
+    ///
+    /// Yan kazanım: kamera izni VERİLDİ (`status: 1`) dalı bu dosyada hiç
+    /// sınanmamıştı — yalnız REDDEDİLDİ dalı (üstteki/alttaki gruplar).
+    /// `_requestCamera`in `status.isGranted` bacağı (`onboarding_screen.
+    /// dart:42-44`) bugüne dek ölçülmemiş bir koddu.
+    testWidgets(
+        'akış GERÇEK tıklamalarla + kamera-izni-VERİLDİ ile tamamlanır, '
+        'SONRAKİ açılış onboarding\'i atlar', (WidgetTester tester) async {
+      mockPermissionChannel(status: 1); // granted
+      await bootGravitaRoot(tester,
+          supportPath: tmp.path, restoreTo: defaultProvider);
+      expect(find.byType(OnboardingFlow), findsOneWidget);
+
+      // ① UI-GÖZLEMLİ İDDİA: akışı gerçek kontrollerle yürü, O1 → O2 → O5.
+      await tester.tap(find.byKey(OnboardingFlow.valueContinueKey));
+      await tester.pump();
+      await tester.tap(find.byKey(OnboardingFlow.safetyConsentKey));
+      await tester.pump();
+      expect(find.text(OnboardingStrings.cameraRationale), findsOneWidget);
+
+      // ⭐ KENDİ BULGUM (A1 turu): `bootGravitaRoot` sahte sağlayıcıyı
+      // yalnız İLK `pumpWidget` penceresinde açık tutuyor (harness'ın kendi
+      // ② numaralı tuzağı — "sağlayıcı O AN açık olmalı, sonrasında değil").
+      // Ama `OnboardingStore.open()` İKİ AYRI yerde çağrılıyor
+      // (`gravita_app.dart:86` okuma-boot'ta · `:102` yazma-tamamlanmada) —
+      // harness yalnız BİRİNCİYİ hesaba katıyordu. Bu tap ikinci çağrıyı
+      // tetikliyor; sağlayıcı burada YENİDEN açılmazsa `getApplication
+      // SupportDirectory()` GERÇEK platforma düşer (`flutter test`te
+      // uygulaması yok → fırlatır), ürünün KENDİ fail-open tasarımı
+      // (`_completeOnboarding`, `on Object` yutar) bunu SESSİZCE yutar ve
+      // kabuk yine görünür — ama dosya HİÇ yazılmaz. İlk denemem TAM BUNA
+      // düştü: kabuk göründü, `wrote` `false` çıktı — ürün kusuru değil,
+      // testin kendi sağlayıcı penceresi kapalıydı.
+      PathProviderPlatform.instance = FakeSupportDir(tmp.path);
+      await tester.tap(find.byKey(OnboardingFlow.cameraAllowKey));
+      // `Permission.camera.request()` (kanal) → `onComplete()` (GERÇEK G/Ç,
+      // önceki denemeden farklı olarak bu kez GERÇEKTEN yazıyor, sahte
+      // sağlayıcı sayesinde) zinciri sahte saatli gövdede tek pump'la
+      // bitmez. Sabit tur sayısı YETMİYOR (harness'ın kendi ③ numaralı
+      // dersi — `bootGravitaRoot`un kendisi de bunun için SABİT değil
+      // KOŞULLU döngü kullanıyor): burada da aynı desen — yükleyici/eski
+      // ekran gidene kadar tur aç, uydurma bir sayıda durma.
+      for (int round = 0;
+          round < 8 && find.byType(OnboardingFlow).evaluate().isNotEmpty;
+          round++) {
+        await tester.runAsync(
+            () => Future<void>.delayed(const Duration(milliseconds: 150)));
+        await tester.pump(const Duration(milliseconds: 80));
+      }
+      PathProviderPlatform.instance = defaultProvider;
+
+      expect(find.byType(GravitaShell), findsOneWidget,
+          reason: 'UI-GÖZLEMLİ İDDİA: akış tamamlandı, kabuk göründü. '
+              'cameraDeniedKey EKRANA GELMEMELİ — bu status:1 dalı, '
+              'status:0 dalından FARKLI bir kod yolu.');
+      expect(find.byKey(OnboardingFlow.cameraDeniedKey), findsNothing);
+
+      // ② MOTOR-SONUCU İDDİASI — AYRI ölçülür: UI kabuğa geçti diye
+      // dosyanın GERÇEKTEN yazıldığı çıkarılmaz.
+      final bool wrote = await realIo(
+          tester, () => File('${tmp.path}/onboarding.json').exists());
+      expect(wrote, isTrue,
+          reason: 'MOTOR-SONUCU İDDİASI: kalıcı bit gerçekten diske yazıldı.');
+
+      // ③ G-218'İN TAM SORUSU: bu kalıcılık bir SONRAKİ, TAMAMEN YENİ
+      // widget ağacında (gerçek bir yeniden-açılışın testteki karşılığı)
+      // GERÇEKTEN iş görüyor mu? `bootGravitaRoot`un kendi `pumpWidget`ı
+      // ağacı zaten baştan kurar — ayrı bir temizleme adımı gerekmiyor.
+      await bootGravitaRoot(tester,
+          supportPath: tmp.path, restoreTo: defaultProvider);
+
+      expect(find.byType(GravitaShell), findsOneWidget,
+          reason: 'G-218: SONRAKİ açılış onboarding\'i atlamalı — bu soru '
+              'o gece flutter run çöktüğü için hiç ölçülememişti.');
+      expect(find.byType(OnboardingFlow), findsNothing);
+    });
+  });
+
   group('DEPOLAMA ARIZASI — göster, ama kalıcılaştırma (G-183 / hüküm b)', () {
     // Kamera izni REDDEDİLDİ olarak yanıtlanıyor: akışın sonuna ürünün
     // kendi "continue without" dalından varılıyor (izin VERİLSEYDİ de aynı
