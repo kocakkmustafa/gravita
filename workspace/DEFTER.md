@@ -5103,6 +5103,26 @@ kimlik garantisi değil).
 
 **Kapı durumu:** `GATES_EXIT=0` (yalnız defter kaydı, kod/katalog dokunulmadı).
 
+## ⚠️ YENİDEN ETİKETLEME (H-49, 2026-08-16) — üstteki "Sonuç" yanlış değildi, ÇERÇEVESİ eksikti
+
+Orkestratör `M-F-239`in kendi metnini okudu: **kimlik = EKRANDAKİ EĞİTMEN**, kanal DEĞİL.
+Yukarıdaki *"18 isim, 18 farklı `channel_id`, çakışma bulunamadı"* cümlesi silinmiyor —
+**doğru ölçüldü** ve ölçtüğü şey hâlâ geçerli — ama ne KANITLADIĞI yeniden adlandırılıyor:
+
+- **Ölçülen:** 18 farklı **YAYINCI HESABI** (`channel_id` düzeyinde çakışma yok).
+- **Ölçülmeyen — ve bu ölçümle ASLA ölçülemez:** 18 farklı **EKRANDAKİ İNSAN**. İki ayrı
+  `channel_id`, aynı fiziksel eğitmenin (konuk performansı, lisanslı/yeniden-yüklenmiş klip,
+  ortak video) İKİ farklı kanalda görünmesini EKARTE ETMEZ — `channel_id` yalnız hesap
+  düzeyinde bir vekil, tıpkı kanal ADI gibi (H-49'un kendi cümlesi: *"hem kanal adı hem
+  kanal kimliği birer vekildir"*).
+
+⇒ **Doğru cümle:** *"18 isim, 18 bağımsız YAYINCI HESABI — hesap-düzeyi çarpışma yok. Kare-
+kare EKRANDAKİ EĞİTMEN kimliği bu ölçümle DOĞRULANMADI, doğrulanamaz da"* — H-47'nin kendi
+sevk kararının zaten adıyla bıraktığı sınır (*"ekrandaki kişinin kare-kare kimliği
+doğrulanmadı"*) burada YENİDEN teyit ediliyor, bu sefer BENİM kendi 18/18 bulgumun üstünden.
+📌 **Düzeltme YOK, yalnız çerçeve** — orkestratörün kendi ayrımı (`H-52`): bazı notlar yeni
+bir kapı istemez, yalnız var olan sınırın adını doğru koymayı ister.
+
 ---
 
 ### G-237 — 🔧 H-48: toplayıcı düzeltildi — `channel_id` artık yakalanıyor (İLERİYE DÖNÜK, geriye doldurma YOK)
