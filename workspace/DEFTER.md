@@ -5830,3 +5830,52 @@ temizlik doğrulandı — yalnız kamera-izni değişikliğim kaldı, sabotaj iz
 
 **Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` ·
 `python 20/20`.
+
+---
+
+### G-249 — 🍞 Cihaz günü reçetesi AİLE katmanına genelleştirildi — `motion-core/workspace/`e yazıldı
+
+**Orkestratörün ③ ataması, F5/yayın provasının son kalemi.** Ailede **gerçek
+`flutter build ipa`yı ilk koşan** Gravita olduğu için, o turda bulunan dört
+tuzak (§0 eşleşmiş≠bağlı orkestratör ölçümü, §2 arşiv≠IPA-içi codesign, §3
+LaunchImage 1×1'in KENDİSİ) diğer dört hattın **kendi başına** çarpacağı
+duvarlardı — `H-57`in "kopya sayısı arttıkça bayatlık yüzeyi artar" dersinin
+BİREBİR aynı sınıfı, reçete için.
+
+## Nereye yazıldı, neden orası
+
+`motion-core/workspace/CIHAZ-GUNU-AILE-RECETESI.md` — bu dizin bir git deposu
+DEĞİL (`git rev-parse --show-toplevel` doğrulandı: `fatal: not a git
+repository`), yani commit/push GEREKMEDİ, düz dosya yazımı yeterli. `workspace/`
+zaten paylaşılan koordinasyon belgelerinin (DEFTER.md, `devir/`,
+AİLE-KURALLARI.md) evi — aynı yere, aynı biçimde (ALL-CAPS-Türkçe dosya adı
+kuralına uyularak) eklendi.
+
+⛔ **Başka hiçbir hattın KENDİ deposuna dokunulmadı** — orkestratörün açık
+sınırı aynen uygulandı. Yazılan tek şey paylaşılan bir BELGE; her hat kendi
+`tools/device_day_preflight.py`sini bu belgeden OKUYUP kendi deposuna kendisi
+yazacak.
+
+## İçerik — dört bölüm, hepsi bu oturumun kendi ölçümlerinden
+
+- §0: orkestratörün `devicectl`/`system_profiler` karşılaştırması (BİREBİR
+  aktarıldı, uydurulmadı).
+- §1: `security find-identity`in ÖNCEDEN koşulmasının önemi — §2'yi anlamanın
+  ön-koşulu olarak açıkça bağlandı (iki sertifika SINIFININ VARLIĞINI bilmeden
+  §2'nin "arşiv Development, IPA Distribution" bulgusu şaşırtıcı görünür).
+- §2: `G-247`nin arşiv-vs-IPA-içi codesign bulgusu, komut satırıyla.
+- §3: Ostinato'nun storyboard-rengi bulgusu + Gravita'nın bulduğu İKİNCİ yarı
+  (görselin kendisi, `file` komutuyla ÖNCEDEN taranabilir bir kontrol).
+- §4: yürüyüş tablosunun YAPISI paylaşılır, İÇERİĞİ paylaşılmaz (her app kendi
+  ekranlarını anlatır) — kopyalanacak şey biçim, düzyazı değil.
+
+## Kendi reçeteme çapraz bağlantı
+
+`docs/device-day/RECIPE.md`ye tek satırlık bir not eklendi: aile-geneli
+tuzaklar artık paylaşılan dosyada, Gravita'nınki yalnız kendi yürüyüş
+tablosunu taşıyor — içerik TEKRARLANMADI, İŞARET EDİLDİ.
+
+**Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` ·
+`python 20/20` (yalnız `docs/device-day/RECIPE.md`ye tek satır eklendi, kod
+dokunulmadı; `motion-core/workspace/` dosyası bu deponun DIŞINDA, bu deponun
+kapılarının kapsamı değil).

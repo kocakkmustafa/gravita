@@ -8,6 +8,11 @@ sürülemez, simülatör araçları yalnız simülatör listeler).
 Şema Ostinato'dan alındı (`docs/device-day/RECIPE.md`, O-160, aile-geneli
 emsal — orkestratörün kendi sevki); adımların içeriği Gravita'nın kendisi.
 
+📌 **Aile-geneli tuzaklar** (bu turda burada + yayın provasında bulunan dördü)
+artık paylaşılan tek yerde: `motion-core/workspace/CIHAZ-GUNU-AILE-RECETESI.md`
+— diğer dört hat kendi reçetesini yazarken oradan okur, burası yalnız
+Gravita'nın kendi yürüyüş tablosunu taşır.
+
 ---
 
 ## 0 — "Görünüyor" ≠ "bağlı" (orkestratörün H-9 sınıfı bulgusu, 2026-08-16)
