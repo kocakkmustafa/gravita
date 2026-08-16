@@ -4879,3 +4879,47 @@ Bundan sonraki her rapor mührü **o turda taze koşulan** `git rev-list --count
 *bir sayının doğruluğu kendi kanıtı değildir.*
 
 **Kapı durumu:** değişmedi (yalnız defter kaydı, kod dokunulmadı).
+
+---
+
+### G-232 — 🧊 F3 Faz-0: hasat uygunluk ölçütleri yazıldı ve DONDURULDU (2026-08-16)
+
+**D11'in şartı işlendi: eşikler aday görülmeden belirlendi.** `docs/F3-HASAT-OLCUTLERI-
+DONDURULMUS.md` yazıldı — Explore ajanıyla ZATEN KURULU metodolojiyi (schema, tooling,
+push_up/bodyweight_squat'ın nasıl geçtiği) yeniden inşa ettim, HİÇBİR yeni aday hareketin
+video/transkript içeriğine bakmadan.
+
+## İçerik — icat değil aktarım
+
+- **≥3 bağımsız eğitmen** (sayım birimi eğitmen, video değil; her eğitmen KENDİ başına
+  ≥3 temiz tekrar üretmeli — ham sayı yetmez, ölçülmüş emsal: 10 ham adaydan yalnız 2'si
+  yeterlilik barını geçmiş, kapı 10'a rağmen kapalı kalmıştı).
+- Uygunluk zincirinin 7 katmanı (süre → alaka → triyaj → hareket-özel yapısal kapı →
+  ikinci-kişi taraması → varyant tutarlılığı → referans eşikleri).
+- Tam sayısal eşik tablosu (14° küme toleransı dahil — 28-30°'ye genişletme DENENMİŞ ve
+  REDDEDİLMİŞ, tekrar denenmeyecek).
+- D11'in gevşetme sınırı: taban gevşemez, yalnız KEŞİF STRATEJİSİ (verim oranı, arama
+  hedefi) ayarlanabilir; hasat edilemeyen kalem dürüst-kilitli kalır, V1'i blomaz.
+
+## ⛔ İki açık risk — kendiliğimden KARARA BAĞLAMADIM
+
+1. **Lisans/telif politikası yok.** Dört kaynakta arandı (docs/tools/motion-core defter),
+   YouTube kaynak videoları için hiçbir kural yazılı değil. "Lisans riski" Gravita'nın
+   kendi `CLAUDE.md`sinde kurucuya giden BEŞ kalemden biri — kendiliğimden icat etmedim,
+   orkestratöre/kurucuya iletiyorum.
+2. **İkinci-kişi/pasif-icra otomatik güvencesi eksik** — yalnız push_up/squat için
+   istisna var, diğer hareketler için BLOKE (tek-kişilik poz modeli ikinci iskeleti
+   tespit edemiyor; gerçek bir vaka bulunmuş: eğitmen çubukla müşterinin omurgasına
+   basıyordu). Panzehir bu turda: her referansa giren tekrar penceresi İNSAN GÖZÜYLE
+   ikinci-kişi/temas açısından taranacak, otomasyon gelene kadar.
+
+Ayrıca adıyla bırakılan: squat'ın "%89 dışlanma" ölçümü hacim eksikliği değil olası
+ÇOK-MODLULUK işareti — "daha çok hasat et" refleksi yeni hareketlerde ÖLÇÜLMEDEN
+uygulanmayacak.
+
+> ***BU DOSYA COMMIT'LENDİĞİ ANDA DONDU — bundan sonraki hiçbir değişiklik "aday
+> görüldükten sonra mı değişti" sorusunun cevabını git geçmişinden gizleyemez.***
+
+**F3 Faz-0 işlendi. Hasat turu-1'e geçiş onaylanabilir.**
+
+**Kapı durumu:** `GATES_EXIT=0` (yalnız yeni docs dosyası, kod dokunulmadı).
