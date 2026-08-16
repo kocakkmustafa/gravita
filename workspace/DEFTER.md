@@ -5712,3 +5712,79 @@ Ostinato'nun kendi ifadesiyle.
 18/18` (yeni araç `run_all_gates.sh`ın kapsamı dışında, kendi disipliniyle
 GERÇEK codesign/profil/cihaz durumuna karşı koşularak doğrulandı, sahte veri
 kullanılmadı).
+
+---
+
+### G-247 — 🚀 Yayın provası: GERÇEK, imzalı, ASC-yüklenebilir IPA üretildi — ve provanın kendisi bir eksiği daha buldu (LaunchImage şablonu)
+
+**Orkestratörün ataması: `--release` derleme + ASC'ye yüklenebilir artefakt
+ÜRETİMİ. Yükleme YOK, submit YOK (B7 kurucu).**
+
+## Önce reçeteye küçük bir düzeltme — orkestratörün ölçtüğü inceliğe göre
+
+`docs/device-day/RECIPE.md`'ye **§0** eklendi: `devicectl`in `available (paired)`
+demesi USB'ye TAKILI olmak DEĞİLDİR — orkestratörün kendi ölçümü (`system_profiler`
+USB'de iPhone GÖRMEDİ, eşleşme kalıcı bir durum) burada da geçerli. Cihaz gününe
+başlamadan önce gözle/`system_profiler`la doğrulanması gereken adım adıyla yazıldı.
+
+## Gerçek build — iki tur, ikinci turda bir eksik daha kapandı
+
+**İlk tur:** `flutter build ipa` çalıştırıldı. Sonuç: `Runner.xcarchive` (186,9 MB) →
+`build/ios/ipa/gravita.ipa` (34,9 MB) — BAŞARILI. Ama Flutter'ın KENDİ doğrulaması
+bir şey söyledi: *"Launch image is set to the default placeholder icon."*
+
+## Bonus bulgu — H-56/D8'in tamamlanmamış kalan yarısı, aracın kendisi buldu
+
+`LaunchImage.imageset/*.png` HÂLÂ Flutter'ın 1×1 piksel şablon dosyalarıydı.
+`G-245` yalnız storyboard'un `backgroundColor`ını düzeltmişti (Ostinato'nun
+bıraktığı bilgi) — GÖRSELİN KENDİSİ hiç dokunulmamıştı, adı hiç konmamıştı.
+**Ostinato'nun kendi `LaunchImage`si** (168×185, gerçek boyutlu) referans alındı:
+saydam zeminde TEK renkli bir glif — ama Ostinato'nunki BEYAZ (koyu lacivert
+zeminleri için), **benimki KIRMIZI olmalı** (`#A11019`, açık krem zeminim `#F2EFEE`
+için) — aynı şema, ters kontrast, körü körüne kopyalanmadı.
+
+`docs/design/icon/gravita-icon-master.svg`nin AYNI bükülü-eklem geometrisi, bu kez
+zemin YOK, glif `#A11019`, saydam arka plan (`docs/design/icon/gravita-launch-
+image.svg`). Gerçek arkaplan rengiyle (`#F2EFEE`) BİRLEŞTİRİLİP göz kontrolünden
+geçirildi (kompozit önizleme), sonra 3 boyutta (`150/300/450px`) yazıldı.
+
+**İkinci tur:** `flutter build ipa` yeniden koşuldu — **uyarı TAMAMEN kayboldu**,
+`[✓] App Settings Validation` tek bölüm.
+
+## Doğrulama — iki katman, ikisi de gerçek, biri ilk bakışta YANILTICI çıkıyordu
+
+① `codesign --verify --deep --strict`: `Runner.app` → **"valid on disk" +
+"satisfies its Designated Requirement."**
+
+② ⚠️ **İlk ölçtüğüm dosya YANLIŞ soruyu cevaplıyordu, adıyla:** ARŞİVİN kendi
+`.app`sini (`Runner.xcarchive/Products/Applications/Runner.app`) `codesign -dvvv`
+ile okudum → `Authority=Apple Development: kocakmkaan@outlook.com`. Bu bir
+DEVELOPMENT sertifikası, ASC'nin istediği DISTRIBUTION değil — bir an için "bu
+IPA aslında yüklenemez" diye YANLIŞ bir sonuca varacaktım. **Durup gerçek soruyu
+sordum:** yüklenecek olan dosya arşiv DEĞİL, **`build/ios/ipa/gravita.ipa`nın
+İÇİNDEKİ** `.app`. IPA'yı açıp (`unzip`, scratchpad yerine yanlışlıkla `/tmp`
+kullanıldı — temizlendi, adıyla söylenir) `Payload/Runner.app`ı ayrı okudum:
+`Authority=Apple Distribution: MUSTAFA KAAN KOCAK (T5HZGYBWK8)`. **Doğru
+sertifika.** Xcode'un `app-store` export adımı arşivi Development'tan Distribution'a
+YENİDEN imzalar — bu NORMAL ve BEKLENEN davranış, ama yalnız ARŞİVE bakan bir
+ölçüm bunu YANLIŞ negatif olarak raporlardı. `security find-identity -v -p
+codesigning` ile İKİ ayrı distribution kimliğinin (`iPhone Distribution` +
+`Apple Distribution`, ikisi de `T5HZGYBWK8`) gerçekten VAR olduğu önceden
+doğrulandı — Ostinato'nun `M-F-670` dersiyle aynı disiplin: bir aracın/bir dosyanın
+"yanlış" demesi, YANLIŞ DOSYAYA baktığın anlamına da gelebilir.
+
+## Artefakt — yol + boyut, tahmin değil
+
+```
+build/ios/archive/Runner.xcarchive   186,9 MB
+build/ios/ipa/gravita.ipa             34.861.879 bayt (≈34,9 MB)
+```
+`build/` `.gitignore:2`de zaten dışlı — hiçbiri commit'e girmedi/girmeyecek.
+
+⛔ **YÜKLENMEDİ, SUBMIT EDİLMEDİ** — orkestratörün kendi sınırı aynen uygulandı.
+Bu yalnız "üretim hattı GERÇEKTEN çalışıyor" kanıtı.
+
+**Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` ·
+`python 18/18` (LaunchImage değişikliği hiçbir testi kırmadı). `flutter build ipa`
+`run_all_gates.sh`ın kapsamı dışında, kendi disipliniyle (gerçek build + iki
+katmanlı codesign doğrulaması) sınandı.

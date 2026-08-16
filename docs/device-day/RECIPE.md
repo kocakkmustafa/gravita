@@ -10,6 +10,16 @@ emsal — orkestratörün kendi sevki); adımların içeriği Gravita'nın kendi
 
 ---
 
+## 0 — "Görünüyor" ≠ "bağlı" (orkestratörün H-9 sınıfı bulgusu, 2026-08-16)
+
+`devicectl list devices` bir telefonu `available (paired)` gösterebilir **USB'ye
+hiç takılı olmadan** — eşleşme kalıcı bir durumdur, canlı bağlantı değil. Ön-uçuş
+betiği bunu ayırt ETMEZ (yalnız `paired` arar). **Kablosuz kurulum kilitli/uykudaki
+telefonda ya düşer ya asılır** — cihaz gününe başlamadan ÖNCE gözle doğrula: telefon
+fiziksel olarak USB'ye takılı VE kilidi açık mı, yoksa yalnız önceden eşleşmiş mi.
+Emin değilsen `system_profiler SPUSBDataType | grep -i iphone` ile ikinci kaynaktan
+doğrula (USB ağacında GERÇEKTEN görünüyor mu).
+
 ## 1 — Ön-uçuş (30 saniye, komut satırından)
 
 ```bash
