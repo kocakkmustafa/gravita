@@ -6125,3 +6125,70 @@ taşıdığı, orkestratörün `M-F-677`ye yazdığı).
 
 **Kapı durumu:** dokümantasyon dosyası, kapı süitini etkilemez —
 `GATES_EXIT=0` (G-253'ün koşumu geçerli).
+
+### G-255 — 📬 `KOORDINATOR-HUKUMLERI.md` mailbox'ı ilk kez tepeden okundu — H-59…H-82 işlendi: kanal kırığı ölçüldü + gerçek görev bulundu
+
+**Bağlam:** tur-2 açılışında `YAYIN-YOLU-GRAVITA.md`'yi okuduğumda §1 hâlâ eski hâldeydi (sabit
+"hüküm indeksi 71" atfı) — açılış raporumu yazdıktan SONRA dosya CANLI güncellendi (`H-81`'in
+düzeltmesi, beş `YAYIN-YOLU-*.md`nin beşi de). Yeniden okuyunca doğru kaynağı gördüm:
+`devir/KOORDINATOR-HUKUMLERI.md`, indeks değil **mailbox'ın kendisi**. `H-82`: orkestratörün bana
+`send_message`i **atıl oturumu uyandırmadı** ("sent" ama hiç işlenmedi) — kendi ilk raporum da
+ona hiç ulaşmamış (7 peer session isimden ayırt edilemiyordu). ⇒ **kanal iki yönde de kırıktı**,
+tek sağlam taşıyıcı bu dosya.
+
+**İşlendi (H-59 → H-82, tepeden aşağı, defterimde önceki işlem H-58/H-62'de kesiliyordu):**
+`H-59` (kapı sayısı değil paketleme buldu — launch image zaten kapalıydı, Gravita'ya ek iş yok)
+· `H-60` (ikon ayırt kapısı, aile katmanı, Gravita↔JabLab öngörü çarpışması — JabLab'ın işi)
+· `H-61` (yanlış atıf — `M-C-04` değil `M-F-38`, bende atıf hatası yok, ölçüldü)
+· `H-62` (vakum ≠ kapsam beyanı — `validate_store_listing.py`nin ikisi de var, zaten G-248'de)
+· `H-63` (`J-032` emsali yanlış tarif edilmiş — JabLab'ı ilgilendiriyor, Gravita'da aksiyon yok)
+· `H-64` (`grep -i` Türkçe katlamıyor — kendi taramalarımda `grep -i` ile Türkçe arama YOK,
+  denetlendi, risk yok) · `H-65` (araç raporu kaynak değil — genel disiplin, işlendi)
+· `H-66` (akran izni izin üretmez — bana uygulanabilir bir kalem yok) · `H-67` (ikon kapısı
+  kendi kuralını ihlal ediyordu, Ostinato düzeltti — Gravita'da aksiyon yok) · `H-68` (yokluk
+  raporu ortamını söylemeli — genel disiplin) · `H-69` (sınır aşmak ≠ izin beklemek — JabLab'ın
+  vakası, ilke olarak not edildi) · `H-70` (mezar taşı kararın kaydı — Choreia'nın vakası)
+  · `H-71` (hasat ≠ kurulum — Gravita'da hasat hattı yok, ilgisiz) · `H-72` (kapanış otoritesi
+  kendi Durum sütunu — kendi defterimde `Durum` sütunlu bir format kullanmıyorum, ilke not edildi)
+  · `H-73` (engelleyen kapı iki yönü de taşır — Gravita'da `closedPaths` alanı YOK, ilgisiz şema)
+  · `H-74` (kardeşin çözümü gerekçe taşır, kalıp değil — genel disiplin, uygulanabilir vakam yok)
+  · `H-75` (doğrulama sayısı türetilmez, taze ölçülür — kendi damgalarımı `date` ile ölçüyorum
+  değil, defter G-NNN sıralı yazılıyor, ilgisiz) · `H-76` (kurucu direktifi vs koordinatör metni
+  çelişirse direktif kazanır — bende aktif bir çelişki yok) · `H-77` (defter tazeliği max(ids) ile
+  — kendi defterim `G-NNN` sıralı, gedik ölçülmedi ama şimdilik risk düşük) · `H-78` (iki listing
+  kapısı var, mekanik kısıtı hiçbiri ölçmüyor — **Gravita `subtitle` 30/30 tam limit ucunda, kapı
+  YOK, ama karar TEK ELDEN `MAGAZA-ALAN-LIMITLERI.md`de, kendi kopyamı çıkarmıyorum, izliyorum**)
+  · `H-79` (paylaşılan `harvest_rig` bayat — Gravita `harvest_rig` kullanmıyor, ilgisiz) · `H-80`
+  (**aşağıda G-256, gerçek aksiyon**) · `H-81` (taslak üretmek ≠ kapatmak, beş `YAYIN-YOLU-*.md`
+  düzeltildi — kendi ikonum zaten `D8` kuyruğunda, `B8` kurucuda açık kalıyor, ek aksiyon yok)
+  · `H-82` (**aşağıda, asıl görev**).
+
+**Kapı durumu:** dokümantasyon/defter kaydı, kod değişikliği yok — `GATES_EXIT=0` (G-254'ün
+koşumu geçerli).
+
+### G-256 — 🔐📄 H-82 kapandı: gerekçeli-API 30-sembol tam çapraz doğrulama (aile katmanı) + H-80: `playStore/title` kopyası kaldırıldı
+
+**H-82 — asıl görev:** `GEREKCELI-API-OLCUMU-2026-08-16.md`nin kendi işaret ettiği boşluk —
+"aranan semboller Apple'ın resmî listesiyle satır satır doğrulanmadı" — kapatıldı. Apple'ın
+`GEREKCELI-API-BIRINCIL-LISTE.md`deki **30 sembolünün 30'u** artık tarandı (önceki tur yalnız
+4/30'u aramıştı: `stat`/`fstat`/`mach_absolute_time`/`userdefaults`). Rapor: `motion-core/
+workspace/GEREKCELI-API-CAPRAZ-DOGRULAMA-2026-08-17.md`.
+
+**Sonuç:** `getattrlist`/`fgetattrlist`/`getattrlistat`/`getattrlistbulk` (çift-kategori sembolleri,
+H-82'nin sorduğu asıl şüphe) **hiçbir taranan yüzeyde sıfır** — kapalı ikili C-düzeyi + üç
+`permission_handler_apple` sürümü (9.4.10/9.5.0/9.6.1, aile genelinde çözülen tüm sürümler) +
+kendi `ios/Runner/`. Önceki ölçümün `stat`(6)+`fstat`(6)=12 ve `mach_absolute_time`=3 sonuçları
+**bağımsız yeniden koşumla birebir doğrulandı** (çelişki yok). 9.6.1'in bilinen `Package.swift`
+derleme-betiği yanlış-pozitifi (4× `modificationDate`) de yeniden doğrulandı, yeni değil.
+**Kapalı ikilideki 8 üst-düzey Swift/Foundation sembolü ölçülemedi** (yapısal sınır, `nm -u`
+yalnız C-linkajı görür) — bu adıyla yazıldı, sıfırla karıştırılmadı (`H-62`). Gerekçe kodu
+**seçilmedi/önerilmedi**.
+
+**H-80 — küçük kalem:** `docs/store/listing.json`deki `playStore.title` alanı `appStore.name`
+ile **birebir aynı dizeydi** (`"Gravita: Rep Counter"`). `H-80`'in kararı: Play başlığı
+`appStore/name`den türetilir, alan yalnız FARKLI olacaksa yazılır ve `$why` taşır. Fark
+olmadığı için **kaldırıldı** (bir `$why` uydurmak yerine) — `validate_store_listing.py` bu
+alana bakmıyor, kapı etkilenmedi (koddan grep ile doğrulandı).
+
+**Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` · `python 20/20`
+(listing.json değişikliği sonrası yeniden koşuldu).
