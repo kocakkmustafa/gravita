@@ -1170,3 +1170,42 @@ Kapanmayan iki kalem **yukarıda**, ikisinin de sebebi **ölçülü**: ①'in
 panzehri **tasarım kararı gerektiriyordu** (verildi, uygulanmadı) · ②
 **kapasite** bitti ve bu **adıyla** bildirildi — *bir hattın kalan
 kapasitesini önceden bildirmesi, sevk kararının girdisidir.*
+
+## 2026-08-17 — 🔒 OTURUM MÜHRÜ (H-86 kayıt zinciri): tur-2 kapanışı (G-240…G-258)
+
+**Kapanış anı:** SHA `a403af8` · `origin/main` ile eşit (push edildi) · ağaç temiz ·
+app **222/222** · engine **175/175** · python **20/20**.
+
+**2026-08-12 mührünün İKİ açık kalemi bu aralıkta kapandı** (bu turdan önce, tur içinde):
+① `metric_support` fixture kusuru — `G-201` (2026-08-13), `M-F-598` hükmü uygulandı,
+ayrıştırma saf katmana çıktı, öz-test artık ürünün ilerlemesini cezalandırmıyor.
+② Gezilebilirlik sözleşmesi (a)–(e) — `G-200`/`G-202`, metne karşı ölçüldü, `A7` **5/5**;
+③ BAŞLANGIÇ'ın `B5` bağımlılığı da sonraki bir turda kapandı (`content_repository.dart`,
+"B5 blokajının kökü kapatıldı").
+
+**Bu turda (tur-2, H-82/H-80/H-85) kapanan:**
+- **Yayın provası GERÇEK** (`gravita.ipa`, imzalı, `G-247`) + `PAKET.md`/`device_day_preflight.py`
+  v2 (profil-gölgeleme düzeltmesi, `G-253`).
+- **Gerekçeli-API kapısı v1→v3 aile katmanına taşındı** (`motion-core/workspace/tools/`, `G-250…252`).
+- **H-82 kapandı:** Apple'ın resmi required-reason listesindeki 30 sembolün 30'u tarandı
+  (önceki tur 4/30) — çift-kategori riski (`getattrlist` ailesi) hiçbir yüzeyde sıfır bulundu.
+  Rapor: `motion-core/workspace/GEREKCELI-API-CAPRAZ-DOGRULAMA-2026-08-17.md` (`G-256`).
+- **H-80 kapandı:** `playStore/title` kopyası kaldırıldı (`G-256`).
+- **H-85 kapandı:** ASC'deki canlı ad (`"Gravita: Skills & Strength"`) + `supportUrl` +
+  `privacyPolicyUrl` orkestratör tarafından yazıldı; `description`ın açılış/kapanış cümleleri
+  yeni adla hizalandı, ürün GENİŞLETİLMEDİ — `HONEST ABOUT WHAT'S READY` paragrafı (31/2/29,
+  `validate_store_listing.py` gate'i) birebir korundu (`G-258`).
+- **Kanal onarıldı:** orkestratörle çift yönlü mesajlaşma (`mcp__ccd_session_mgmt__send_message`,
+  `session_id: local_b6da7c10-…`) doğrulanıp kullanıldı — önceki turun raporu hiç ulaşmamıştı (`G-257`).
+
+**🔴 AÇIK KALEMLER — hepsi kurucu kalemi, kod tarafında engel yok:**
+- `supportUrl`/`privacyPolicyUrl` deploy'u (`yulalab-com`, aile-dışı depo) — kurucu onayında.
+- Gerekçe kodu seçimi (`C617.1` vb.) — tek-sayfa envanter hazır, seçim kurucuda.
+- Cihaz günü — gerçek cihaz şu an "Devices Offline" (bağlı değil), kurucu tetiklemesi bekleniyor;
+  kamera köprüsü canlılığı hâlâ hiç ölçülmedi (aile geneli, `H-82`'nin JabLab'a verdiği görev).
+- Kütüphane doluluk gerçeği (dürüstlük payı, `H-86`'nın kendi notu): 31 hareketten **2**'si canlı,
+  29'u `coming_soon` — mağaza yüzeyi 5/5 kapandı ama **ürün** için "yayına hazır" cümlesi yanlış
+  olur (`M-F-759`).
+
+**Bu oturum H-86 (kurucu talimatı: tüm hatları kayıt zincirine sok) uyarınca kapatılıyor** —
+yeni iş başlatılmadı, elde açık kalem YOK, vault devir notu + commit/push bu mühürle birlikte.
