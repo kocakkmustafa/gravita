@@ -1,7 +1,7 @@
 {
   "$doc": "Magaza liste metni TASLAGI — makine-okur kaynak. Insan-okur baglam: docs/store/STORE-LISTING-TASLAK.md. Sema: ostinato/app/docs/store/listing.json (aile emsali, orkestrator sevki 2026-08-16, 'semayi al sonucu degil'). Gonderim KURUCU kalemi (B7) — bu dosya yalniz TASLAK, onay bekliyor. SUBMIT edilmiyor.",
   "appStore": {
-    "name": "Gravita: Rep Counter",
+    "name": "Gravita: Skills & Strength",
     "subtitle": "Honest, on-device rep counting",
     "promotionalText": "Gravita counts a rep only when your camera can see you actually did the movement. No form grading, no coaching claims — just an honest count, on-device.",
     "keywords": "workout,exercise,fitness,squat,pushup,calisthenics,bodyweight,tracker,training,camera"
@@ -33,5 +33,8 @@
       "Unrestricted web access: NONE — network_claim_audit.py agactaki SIFIR ag-yetenekli paketi olcuyor, webview/url_launcher bagimliligi yok",
       "User-generated content / sosyal paylasim: NONE — kamera goruntusu cihazdan hic cikmiyor, paylasim/share paketi yok (pubspec.yaml grep dogrulandi)"
     ]
-  }
+  },
+  "supportUrl": "https://yulalab.com/support",
+  "privacyPolicyUrl": "https://yulalab.com/privacy/motion",
+  "$urlWhy": "Kurucu karari 2026-08-17 (H-85): supportUrl+privacyPolicyUrl Apple'in ZORUNLU alanlari, bes app ORTAK sayfa kullanir. Sayfalar yulalab.com'da yazildi (/privacy/motion bes app icin ortak politika; /support Motion'i kapsayacak sekilde guncellendi). Deger hat tarafindan SECILMEDI, kurucu karari olarak yazildi."
 }
