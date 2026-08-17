@@ -6214,3 +6214,30 @@ yazıldı (`H-82 ④`'ün kuralı): yukarıdaki `session_id`, geçerli kaldığ�
 
 **Kapı durumu:** dokümantasyon/defter kaydı, kod değişikliği yok — `GATES_EXIT=0` (G-256'nın
 koşumu geçerli, hiçbir dosya değişmedi).
+
+### G-258 — 🏷️ H-85 kapandı: `description` yeni adla ("Skills & Strength") hizalandı — ürün GENİŞLETİLMEDİ
+
+**Bağlam:** `/loop` ile mailbox tepesi yeniden okundu, `H-85` düştüğünü buldum — kurucu dört
+karar verdi. Mekanik kalemler (`appStore/name` → ASC'deki canlı ad, `supportUrl`,
+`privacyPolicyUrl`, `$urlWhy`) orkestratör tarafından **zaten yazılıp yerel repoya commit'lenmişti**
+(`9f5fb9c`, henüz push edilmemiş) — `git log -1 -- docs/store/listing.json` ile doğrulandı,
+ÜSTÜNE YAZILMADI (H-85 §⑤ uyarısı: "aynı dosyaya ikinci kez dokunmak çakışma üretir").
+
+**Bana kalan tek gerçek yargı kalemi:** `description`, yeni ad ("Gravita: Skills & Strength")
+ile **çelişiyordu** — açılış/kapanış cümleleri hâlâ salt "rep counter" kimliği anlatıyordu,
+başlık geniş vaat ediyor gövde dar tanınıyordu. Orkestratör metni yazmadı, açıkça "senin" dedi.
+
+**Düzeltme, yalnız İKİ cümle** (açılış + kapanış bookend), gövdenin geri kalanı **bir harf bile
+değişmeden**:
+- Açılış: *"Gravita counts your reps..."* → *"Gravita is a skills-and-strength practice app,
+  built around one honest rule: ..."*
+- Kapanış: *"a movement-practice tool"* → *"a skills-and-strength practice tool"*
+
+**Ürün GENİŞLETİLMEDİ** — kanıt: `HONEST ABOUT WHAT'S READY` paragrafı (31 toplam/2 canlı/29
+bekliyor, `validate_store_listing.py`nin gerçek kapısı) **birebir aynı** bırakıldı; `coach`/
+`plan`/`program` gibi hizmet-vaadi kelimeleri eklenmedi; "squats, pushes, pulls, core" ifadesi
+zaten gövdede vardı, yalnızca açılışta da görünür kılındı. Gerekçe `$openingClosingReframeWhy`
+notuyla dosyaya işlendi (H-85 atfıyla).
+
+**Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` · `python 20/20`
+(`validate_store_listing.py` doğrudan da ayrıca koşuldu, `31 toplam/2 canlı/29 bekliyor` yeşil).
