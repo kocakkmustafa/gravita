@@ -6192,3 +6192,25 @@ alana bakmıyor, kapı etkilenmedi (koddan grep ile doğrulandı).
 
 **Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` · `python 20/20`
 (listing.json değişikliği sonrası yeniden koşuldu).
+
+### G-257 — 📮 H-83 okundu (aksiyon YOK, "karar gelince") + G-255/G-256 raporu TERS KANALDAN gönderildi
+
+**Bağlam:** kurucu ("Claude sunucusu düştü, tüm oturumlar durdu, ben çalıştırıyorum, işine devam
+et") ile devam ederken mailbox'ı yeniden kontrol ettim — `H-83` düşmüştü (orkestratör ASC'yi
+salt-okunur okudu, YÜKLEMEDİ). Gravita'yı doğrudan ilgilendiren bulgu: ASC'deki canlı adım
+`"Gravita: Skills & Strength"`, `listing.json`daki `appStore/name` `"Gravita: Rep Counter"` —
+**pozisyon farkı, yazım farkı değil** (description bir tekrar sayacını anlatıyor, "Skills &
+Strength" başlığı altında sayfa kendiyle çelişirdi). Orkestratörün kararı: `H-83 §④` — **"şimdi
+değil, karar gelince"**, kimse kendi başına ad değiştirmesin/URL uydurmasın, ikisi de kurucuda.
+**Aksiyon almadım, adıyla not ettim.** Ayrıca `supportUrl` (zorunlu, beş listing'de de eksik,
+H-83'ün asıl bulduğu gönderim-engeli) — karar kurucuda, kendi başıma URL yazmadım.
+
+**Ters kanal ilk denemesi:** `H-82 ④`'te açılan orkestratör adresi (`mcp__ccd_session_mgmt__
+send_message`, `session_id: local_b6da7c10-d5c1-44fe-a285-3c03fb5923cb`, "Orkestrator yayın
+yolu") `list_sessions` ile DOĞRULANDI (başlık birebir eşleşti, `isRunning: true`) — önceki turda
+kanaldan hiç geçmemiş G-255/G-256 raporu (H-82 kapanışı) bu adrese gönderildi, sonuç `queued`
+(atıl değil, canlı tur içi — `H-82 ①`'in "queued = işlenir" sınıfı). Kendi deftere adres
+yazıldı (`H-82 ④`'ün kuralı): yukarıdaki `session_id`, geçerli kaldığı sürece kullanılacak.
+
+**Kapı durumu:** dokümantasyon/defter kaydı, kod değişikliği yok — `GATES_EXIT=0` (G-256'nın
+koşumu geçerli, hiçbir dosya değişmedi).
