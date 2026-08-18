@@ -6298,3 +6298,47 @@ Repo-içi (`content/harvest/`, 19 dosya) ve repo-dışı (`~/motion-harvest/grav
 **`workspace/EVIDENCE-LEDGER.md` açıldı** (ortak sözleşme §1.1'in "roadmap adres tanımlamıyorsa `ventures/<v>/workspace/EVIDENCE-LEDGER.md`" hükmü) — roadmap'in `GRA-P0-NNN`/`GRA-E-NNN` kimlikleriyle bu defterin `G-NNN` kronolojik kayıtları arasında köprü, İNDEKS (tekrar değil): GRA-P0-001 ✅ VERIFIED, GRA-P0-002 🔶 KISMİ (replay altyapısı var, 20-kişi/200-rep + cihaz matrisi EXTERNAL_GATE), GRA-P0-003/P1-* ❌ NOT STARTED.
 
 **Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` · `python 20/20` (ikinci tam koşum, G-259 düzeltmesinden SONRA). Bu turda commit'lenen: `G-259` (retroaktif DEFTER girdisi) · `G-260`…`G-264` (önceki PREP turu, ilk kez commit) · `G-265` (bu kayıt) · `workspace/EVIDENCE-LEDGER.md` (yeni).
+
+### G-266 — 📐 GRA-P0-002 (squat/push-up device gate) doğru sınırlarıyla ölçüldü — kod hazır, veri+cihaz EXTERNAL_GATE
+
+SOLO v3 kickoff'un "GRA-P0-001'den sırayla" talimatı uyarınca GRA-P0-002'ye geçildi.
+`packages/gravita_engine/test/` taraması (2789 satır, 18 dosya): count/false-rep/phase
+fixture'ları `rep_engine_test.dart`ta (482 satır — "yarım tekrarlar SAYILMIYOR",
+"ayakta el hareketi ŞINAV tekrarı SAYILMAZ", "pending ön koşullu harekette tekrar
+ÜRETİLMEZ ve sebep İSİMLİ") ZATEN var ve yeşil; orientation regresyonu
+`d1_axis_swap_regression_test.dart` (3 isimli axis-swap vakası: #21, #53, #9) +
+`structural_false_reject_test.dart` ile bağlı — CANLI koşuldu (`dart test`): 66 kare
+(inv=42, upr=24), ürün toleransında (0.55) yanlış-red **4/66 (%6)**, eşik <%10, GEÇTİ.
+Roadmap Step 1/2/5 büyük ölçüde ZATEN yapılmış — GRA-P0-001'in aynı deseni tekrarladı
+(roadmap "henüz yok" varsayıyor, kod göstermiş).
+
+**Gerçek eksik, ölçüldü:** roadmap §10'un "≥20 kişi/≥200 rep" eşiği hiçbir harekette
+karşılanmıyor — `content/harvest/reference.{bodyweight_squat,push_up}.json` ikisi de
+5 kaynak (`referenceSources:5`), `reps.push_up.json` ayrı bir pipeline'da 15 eğitmen/
+9 nitelikli/27 video (squat için eşdeğer `reps.*.json` bulunamadı). Fiziksel cihaz
+matrisi: cihaz "Devices Offline" (G-259). Roadmap'in tam MAE/false-rep/phase-MAE/
+Cohen-κ metrikleri BU oturumda hiç ölçülmedi — üründeki iç metrikler (ör. squat
+identity-gate ~%90 gerçek-tekrar geçişi, `library.json` honesty bloğunda) roadmap'in
+tanımıyla BİREBİR eşlenmiyor, ayrı bir ölçüm turu ister; tahmin üretilmedi.
+
+**`docs/evidence/production-line/model-gate.json` açıldı** — PASS/FAIL değil, ölçüm+
+eşik+engel adıyla. Movement status DEĞİŞTİRİLMEDİ: squat/push_up `live` kaldı (kanıt
+yok diye aşağı çekilmedi), 29 hareket `coming_soon` kaldı (kanıt yok diye yukarı
+çekilmedi) — roadmap Step 5'in "eşik altı isimli fail gate, auto-disable değil" kuralı
+zaten varsayılan davranış (`content/library.json`'ın `blockedBy` mekanizması,
+GRA-P0-001'de doğrulandı).
+
+**GRA-P0-003 (CI/privacy/signing) kısaca tarandı, derinlemesine girilmedi:**
+`ios/Runner/PrivacyInfo.xcprivacy` VAR, `test/privacy_manifest_test.dart` VAR;
+`android/app/build.gradle.kts` zaten bir "sessiz-düşme kapısı" taşıyor (imza kimliği
+yokken release artefaktı sessizce üretilemiyor — 2026-08-12 mührünün kapattığı iş).
+EKSİK: `.github/workflows/` hiç yok, `test/release_signing_test.dart` (bu adla) yok.
+Sıradaki tur GRA-P0-003'e buradan devam edecek.
+
+**Kod tarafı ek iş bulunamadı (GRA-P0-002 için)** — kalan iş EXTERNAL_GATE (§1.6): 20
+kişi gerçek çekim (bu makinede mediapipe/cv2 ortamı yok, G-084/G-087/G-262) + fiziksel
+cihaz. Sıradaki göreve (GRA-P0-003) geçiliyor.
+
+**Kapı durumu:** `GATES_EXIT=0` — kod/test değişikliği yok, yalnız yeni evidence
+dosyası + DEFTER kaydı; `tools/run_all_gates.sh` bu turda AYRICA koşulmadı (P0-001
+kapanışının ikinci tam koşumu hâlâ geçerli, hiçbir kaynak dosya değişmedi).

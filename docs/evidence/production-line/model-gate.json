@@ -1,0 +1,56 @@
+{
+  "$purpose": "GRA-P0-002/GRA-E-002 icin durum anlik goruntusu (22-GRAVITA-MASTER-ROADMAP.md). PASS/FAIL beyani DEGIL - her satir olcum + esik + (esik karsilanmadiysa) engel adiyla. Esik karsilanmadan hicbir hareketin durumu degistirilmedi.",
+  "generatedAt": "2026-08-19, GRAVITA solo v3 oturumu, DEFTER G-266",
+  "$howGenerated": "Fixture dosyalari python3 ile sayildi, structural_false_reject_test.dart CANLI kosuldu (dart test), harvest JSON'lari okundu. Roadmap'in eski durumlarindan KOPYALANMADI.",
+
+  "orientationRegression": {
+    "roadmapRequirement": "Orientation critical-axis challenge setinde %100 dogru; mevcut 42/42 regresyon olarak korunur",
+    "measured": {
+      "d1_axis_swap_regression_test": "3/3 isimli axis-swap vakasi (case #21, #53, #9) yapisal denetimle dogru siniflandi - packages/gravita_engine/test/fixtures/d1_axis_swap.json",
+      "structural_false_reject_test": "66 kare (inv=42, upr=24), urun toleransinda (0.55) yanlis-red 4/66 (%6) - esik <%10, GECTI. packages/gravita_engine/test/fixtures/d1_correct_frames.json"
+    },
+    "status": "PASS (bugunku olcumle, bagli regresyon testleriyle)",
+    "$caveat": "Bu 42 sayisi (d1_correct_frames.json'daki inv-bucket buyuklugu) ile G1-D1-RAPOR.md'nin (2026-07-26) orijinal '42/42 eksen dogrulugu' iddiasinin AYNI fixture/soru oldugu bu oturumda dogrulanmadi - biri false-reject KARAKTERIZASYONU, oteki axis-DETECTION dogrulugu olabilir. Karistirilmamali; ayri dogrulama gerekirse G1-D1-RAPOR.md ile birebir cografya karsilastirmasi yapilmali."
+  },
+
+  "peopleAndSegmentThreshold": {
+    "roadmapRequirement": "Her canli hareket icin >=20 kisi ve >=200 labeled rep/hold segment",
+    "measured": {
+      "bodyweight_squat": {
+        "formReference": "referenceSources=5 (content/harvest/reference.bodyweight_squat.json, form-tolerance harvest)",
+        "repIdentityHarvest": "esdeger reps.*.json bu hareket icin yok (bu oturumda bulunamadi)"
+      },
+      "push_up": {
+        "formReference": "referenceSources=5 (content/harvest/reference.push_up.json, 36 take)",
+        "repIdentityHarvest": "content/harvest/reps.push_up.json: instructorCount=15, qualifiedInstructors=9, videoCount=27 (ayri pipeline, form-reference'tan farkli olcum)"
+      }
+    },
+    "status": "NOT MET - hicbir hareket 20-kisi esigine ulasmiyor (en yuksek olcum 15 kisi/9 nitelikli, push_up rep-identity pipeline'inda)",
+    "blocker": "EXTERNAL_GATE - gercek, cesitli insan cekimi gerektirir; ayrica bu makinede landmark-cikarma ortami (cv2+mediapipe) yok, defalarca olculmus (DEFTER G-084, G-087, G-262)"
+  },
+
+  "physicalDeviceMatrix": {
+    "roadmapRequirement": "First valid pose p95<=2.5s, FPS p10 (dusuk sinif>=20, orta/ustte>=24), event-to-cue p95<=300ms, 20 dakikada serious/critical thermal yok, orientation rotate/mirror + front/rear kamera matrisi %100",
+    "status": "NOT MET - hic olculmedi",
+    "blocker": "EXTERNAL_GATE - cihaz su an baglanmamis (\"Devices Offline\", DEFTER G-259 icerigi/PROGRESS.md), kurucu tetiklemesi bekleniyor"
+  },
+
+  "otherRoadmapNumericMetrics": {
+    "roadmapRequirement": "20 repte MAE<=1; total count error<=%5; false rep<=%3; phase boundary median absolute error<=150ms; Class A cue expert agreement Cohen kappa>=0.75",
+    "status": "NOT MEASURED bu oturumda - roadmap'in TAM bu tanimiyla hicbir hareket icin hesaplanmadi",
+    "$note": "Uruntun kendi ic metrikleri var (orn. content/library.json honesty blogunda squat icin 'gercek-tekrar gecis orani ~%90, 30 kliplik gercek urun yolunda' + push_up icin 'kimlik onkosulu DERIVED, 30/30 gercek klipte dogru sayim') ama bunlar roadmap'in MAE/Cohen-kappa/phase-MAE tanimlarina BIREBIR eslenmiyor - ayri bir olcum turu gerektirir, bu dosyada TAHMIN uretilmedi."
+  },
+
+  "namedFailGateNotAutoDisable": {
+    "roadmapRequirement": "Esik alti movement auto-disable degil isimli fail gate uretir; evidence olmadan status degismez",
+    "status": "PASS - zaten varsayilan davranis",
+    "evidence": "content/library.json: blockedBy=['engine.precondition.status!=derived','replayFixture:missing','provenance.sources:empty'] her coming_soon harekette ISIMLI; movement status bu oturumda DEGISTIRILMEDI (squat/push_up live kaldi, kanit yok diye asagi cekilmedi; 29 hareket coming_soon kaldi, kanit yok diye yukari cekilmedi). GRA-P0-001'de tools/run_all_gates.sh ile dogrulandi (engine 175/175, python 20/20)."
+  },
+
+  "codeSideReadiness": {
+    "status": "SUBSTANTIAL - count/false-rep/phase/orientation/named-gate fixture kapsami zaten var, yesil",
+    "evidence": "packages/gravita_engine/test/ (2789 satir, 18 dosya): rep_engine_test.dart (482 satir - yarim tekrar/false-positive/named-pending-gate testleri) + d1_axis_swap_regression_test.dart + structural_false_reject_test.dart + bodyweight_squat_replay_test.dart (gercek footage replay). tools/run_all_gates.sh: engine 175/175 yesil."
+  },
+
+  "verdict": "GRA-P0-002 EXTERNAL_GATE — kod/fixture altyapisi hazir ve yesil; esik gecisi ('live' bir harekete 20-kisi/200-rep + fiziksel cihaz kanitiyla A-sinifi form-hukmu acmak) gercek veri ve donanim gerektirir, bu oturumda saglanamaz. Movement status'lar DEGISTIRILMEDI."
+}
