@@ -6241,3 +6241,60 @@ notuyla dosyaya işlendi (H-85 atfıyla).
 
 **Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` · `python 20/20`
 (`validate_store_listing.py` doğrudan da ayrıca koşuldu, `31 toplam/2 canlı/29 bekliyor` yeşil).
+
+### G-259 — 🔒 tur-2 kapanış mührü `workspace/PROGRESS.md`'ye yazıldı (H-86 kayıt zinciri)
+
+Commit `2137382` yalnız `workspace/PROGRESS.md`'ye 39 satırlık bir OTURUM MÜHRÜ ekledi — DEFTER'e
+ayrı bir satır düşmedi, bu yüzden `tools/defter_freshness.py` yön-1 ("commit başlığında iddia
+edildi, deftere yazılmadı") bunu 2026-08-19'da gedik olarak buldu; bu kayıt o gediği kapatıyor.
+
+Mühür içeriği (`PROGRESS.md`, "2026-08-17 — 🔒 OTURUM MÜHRÜ (H-86 kayıt zinciri): tur-2 kapanışı
+G-240…G-258"): SHA `a403af8` · `origin/main` ile eşit (push edildi) · ağaç temiz · app **222/222**
+· engine **175/175** · python **20/20**. 2026-08-12 mührünün iki açık kalemi (`metric_support`
+fixture kusuru `G-201`, gezilebilirlik sözleşmesi `G-200`/`G-202`) tur içinde zaten kapanmıştı.
+Bu turda (H-82/H-80/H-85) kapanan: gerçek imzalı yayın provası IPA + `PAKET.md`/
+`device_day_preflight.py` v2 (`G-247`/`G-253`) · gerekçeli-API kapısı v1→v3 aile katmanına taşındı
+(`G-250…252`) · H-82 kapandı (Apple'ın 30 sembolünün 30'u tarandı, `G-256`) · H-80 kapandı
+(`playStore/title` kopyası kaldırıldı, `G-256`) · H-85 kapandı (ASC canlı adı + `supportUrl`/
+`privacyPolicyUrl` + `description` hizalaması, ürün genişletilmeden, `G-258`). Açık kalemler
+(`supportUrl`/`privacyPolicyUrl` deploy'u, gerekçe kodu seçimi, cihaz günü, 31 hareketten 2'sinin
+canlı olması) hepsi kurucu/cihaz kalemi, kod tarafında engel yok — `PROGRESS.md`'de adıyla yazılı.
+
+**Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` · `python 20/20` (mührün kendi
+ölçümü; bu kayıt yalnız DEFTER'e satır ekliyor, kod değiştirmiyor).
+
+### G-260 — 🌱 Yeni oturum açılışı: baseline mührü + üretim hattı protokolüne geçiş (PREP lane)
+
+**Bağlam:** oturum üretim hattı sistemine (`holding/plans/URETIM-HATTI-OTURUM-PROTOKOLU-2026-08-18.md`) bağlandı; başlık "GRAVITA" olarak mühürlendi, Motion Orchestration'a `[TIP: HAZIR]` gönderildi (`mcp__ccd_session_mgmt`, session_id `local_8a181002-...`). Hat: PREP lane (yazma slotu yok).
+
+**Baseline ölçümü** (roadmap `22-GRAVITA-MASTER-ROADMAP.md`'nin 2026-08-18 iddiasına karşı): `git log -1` → `2137382` **BİREBİR EŞLEŞTİ**, `git status` temiz, `origin/main` ile 0/0 fark. Roadmap §6'daki "Mevcut" 10 dosya yolunun 10'u da VAR; "Planlanan" 15 yolun 15'i de HENÜZ YOK (erken/sahte oluşturma yok) — tam liste `docs/PREP-KATALOG-SINIFLANDIRMA-2026-08-19.md`'de değil, bu turun ham komut çıktısında. Ortak SHA pini (`f13bdc93b2eae2f741bfcdb4c9270a88e5d75e5d`) `pubspec.yaml`de tam 2 eşleşme (motion_core + motion_camera) — aile protokolü §7'nin beklediği gibi.
+
+**Named sapma — bu turun asıl bulgusu:** `22-GRAVITA-MASTER-ROADMAP.md` §4'ün A/B/C/D tanımı (doğrulama-durumu gömülü) ile `content/schema/movement-classes.json`'un tanımı (yalnız kamera-geometrisi, kurucu-onaylı, canlı uygulanan) **aynı harfleri farklı eksenlerde tanımlıyor**. Sayısal bir baseline sapması DEĞİL, tanımsal — detay ve önerilen çözüm `docs/PREP-KATALOG-SINIFLANDIRMA-2026-08-19.md` §0'da | **kapalı (baseline doğrulandı) / bilgilendirme — tanım sapması orkestratöre bu turun RAPOR'uyla iletildi** | `docs/PREP-KATALOG-SINIFLANDIRMA-2026-08-19.md` |
+
+### G-261 — 📋 PREP (a): 31 hareketin A/B/C/D sınıflandırması denetlendi — 31/31 zaten sınıflı, gerçek boşluk ölçüm-doğrulaması
+
+Görev tanımı "sınıf ata" varsayıyordu; ölçüm gösterdi ki **sınıflandırma katmanı zaten TAMAM** — `content/catalog/w1|w2/*.json`'ın 31/31'inde `class` + `classRationale` + `camera.setup` dolu (A=29 · B=1 floor_press · D=1 step_up · C=0). Kendi ilk sezgim 5 örneklem kalemin 3'ünde (dead_bug/superman_hold/lateral_raise) YANLIŞTI — şemanın literal testini ("sırtüstü mü?") okuyup `classRationale`'ı OKUMADAN hüküm kurmuştum; asıl metin üç kalemde de sağlam gerekçe taşıyordu (sagittal-düzlem-görünürlüğü ayrımı, `bench press`ten farkı adıyla yazılı). **Gerçek bulgu:** şemanın `test.primaryPlaneVisibleFrom` enum'u yalnız `side45/side/depthAxis` belgeliyor, ama katalog pratikte `front` (side_plank, lateral_raise) ve `walking_frame` (farmer_carry) de kullanıyor — sınıflandırma hatası değil, şema-dokümantasyon boşluğu. **Asıl darboğaz sınıf değil doğrulama:** precondition.status 29/31'de `pending`, provenance 29/31'de `pending_harvest` (sources:[], consensusN:0) — GRA-P1-002 için hasat sıra önerisi (class:A + side/side45 kamera + passiveExecutionPossible:false kesişimi önce) dosyada | **kapalı (analiz) — sınıf-atama işi yok, öneri orkestratörde** | `docs/PREP-KATALOG-SINIFLANDIRMA-2026-08-19.md` |
+
+### G-262 — 🎞️ PREP (b): replay fixture envanteri — 2/31 harekette gerçek footage var, pipeline kanıtlı ama darboğazı bu makinede ÇÖZÜLEMEZ
+
+Repo-içi (`content/harvest/`, 19 dosya) ve repo-dışı (`~/motion-harvest/gravita/` + `gravita-squat/`, 64 manifest, 674 MB+ landmark) envanteri çıkarıldı — **yalnız squat+push_up için**, diğer 29 hareket için SIFIR. 6 aşamalı hat (keşif→ham hasat→landmark çıkarma→kimlik triyajı→rep-dilimleme+referans→replay_gate) squat/push_up'ta ölçülmüş ve tekrarlanabilir; `queue.gravita.json` (M-F-32 kuralı: ~5 bağımsız eğitmen/teknik hedefi) yalnız bu iki hareket için dolu. **İsimlendirilen darboğaz:** aşama 3 (landmark çıkarma, `harvest_rig`) cv2+mediapipe gerektiriyor, **bu makinede yok** (DEFTER'de defalarca ölçülmüş — G-084/G-087 dahil) → PREP oturumu keşif-kuyruğu HAZIRLAYABİLİR ama hasadı KOŞAMAZ, ortam kapısı. Ayrıca `~/motion-harvest/` beş Motion ürününün ORTAK alanı — büyük yeni hasat öncesi Motion Orchestration ile disk/zamanlama koordinasyonu öneriliyor. `--movement` provenance eksikliği (G-057, hâlâ açık) 29 yeni hareketle ölçeklenmez — motion-core'a iletilmeye değer, Gravita'nın tek başına çözebileceği bir şey değil | **kapalı (envanter+plan) — harvest çalıştırma ortam-kapılı, kod/veri değişikliği yok** | `docs/PREP-REPLAY-FIXTURE-ENVANTERI-2026-08-19.md` |
+
+### G-263 — 🧑‍🏫 PREP (c): uzman kapısı çerçevesi taslağı — gerçek pazar verisiyle, hiçbir adayla temas KURULMADI
+
+`MANUAL-GRAVITA-EXPERT-20260818`nin "movement class/safety/review packet" ön koşulunu dolduran bir yeterlilik+ücret çerçevesi taslağı WebSearch'le (2026-08-19, 4 sorgu) doğrulanmış gerçek pazar verisine dayanılarak yazıldı: iki kademeli bar (Kademe 1: NSCA-CSCS/NASM-CPT taban · Kademe 2 yüksek-risk/inversion: + kalistenik özelleşme — 2026 itibarıyla NCCA-akredite yalnız-kalistenik sertifika YOK, piyasa pratiği CPT+katman) · sourcing kanalları (NSCA dizini, Upwork/Truelancer, + Gravita'nın KENDİ harvest-kuyruğundaki tanınır eğitmenler — yalnız İSİM olarak, temas/uygunluk/çıkar-çatışması DEĞERLENDİRİLMEDİ) · ücret çıpası (biyomekanik danışman $50-100/saat pazar verisi → parça-başı öneri, 20 hareketlik batch için ~$600-900 kaba bütçe çıpası, TEKLİF DEĞİL). Gerçek sözleşme/ödeme/temas R3 kurucu kapısı — bu doküman yalnız kurucu paketine giren bir GİRDİ | **kapalı (çerçeve taslağı) — gerçek adayla temas kurucu kapısında** | `docs/PREP-UZMAN-KAPISI-CERCEVESI-2026-08-19.md` |
+
+### G-264 — 🔧 PREP (d): iCloud `build/` symlink + codesign wrapper — İKİSİ DE doğru çalışıyor, belge küçük yanlış
+
+`build → /Users/mustafakaankocak/gravita_buildout` (readlink -f ile doğrulandı, iCloud/`Documents` dışında, 2.0 GB, aktif) — memory'nin "iCloud codesign tuzağı" kuralına uygun, tuzak YOK. `.gitignore` `build/`i zaten kapsıyor. **Küçük belge-tutarsızlığı:** memory `~/.local/bin/codesign` wrapper'ı "şart" diyor ama `.zshrc`/`.zprofile` bu yolu PATH'e HİÇ eklemiyor (`echo $PATH`te yok) — asıl PATH'te ÖNCE gelen ve fiilen aktif olan kopya **`/opt/homebrew/bin/codesign`** (aynı 1334 bayt, aynı script, `exec /usr/bin/codesign` ile detritus-temizleme). Yani koruma FİİLEN AKTİF, yalnız belgenin işaret ettiği dosya yolu değil — memory güncellendi (`feedback-lifeos-icloud-build.md` yerine bu bulgu ayrı not: `~/.local/bin/codesign` DEĞİL `/opt/homebrew/bin/codesign` PATH'te önce geliyor ve fiilen kullanılan bu) | **kapalı — tuzak yok, küçük belge düzeltmesi memory'ye işlendi** | `readlink -f build` · `which -a codesign` · `diff <(cat ~/.local/bin/codesign) <(cat /opt/homebrew/bin/codesign)` (boyut eşleşti) |
+
+### G-265 — 🌱 Yeni oturum: SOLO v3 modeline geçiş, GRA-P0-001 tam gate koşumuyla doğrulandı, `EVIDENCE-LEDGER.md` açıldı
+
+**Bağlam:** 14-oturumlu üretim hattı 2026-08-19'da kurucu kararıyla iptal edildi (orkestrasyon/mesajlaşma yok); bu oturum yeni SOLO modelin ilk Gravita turu (`holding/plans/SOLO-KICKOFF-PROMPTLARI-2026-08-19.md` §1 ortak sözleşme + GRAVITA bloğu). Kaldığım yeri tespit ettim: HEAD `2137382` (roadmap'in "Baseline mühürlü" iddiasıyla BİREBİR eşleşti), önceki PREP-lane turu (G-260…G-264) dört analiz dokümanı bırakmış ama **hiç commit'lenmemişti** (`workspace/DEFTER.md`/`PROGRESS.md` değişikliği + 3 `docs/PREP-*.md` untracked).
+
+**GRA-P0-001 (catalog/class truth) — kodla ölçüldü, YAZILMADI:** roadmap görev tanımı "sınıf ata, açık görünmeyi engelle, movement card'da class/metric göster, store listing'i türet" diyordu; PREP (G-261) zaten "sınıflandırma katmanı TAMAM" bulmuştu, bu turda **tam gate koşumuyla** doğrulandı: `content/library.json` 31/31 hareketin `class`+`honesty`(measured/notMeasured/waitingOnMeasurement/scoring ayrımı)+`comingSoonInThisMovement` dolu, yalnız `bodyweight_squat`+`push_up` `status:"live"`; `lib/app/library_model.dart`ın `MovementEntry`/`HonestyBox` tipleri bunu kabukta render ediyor (`test/library_surface_test.dart`, 100+ nöbet); `tools/validate_store_listing.py` mağaza metnini `content/library.json`nin GERÇEK sayımına karşı mekanik sınıyor. **`tools/run_all_gates.sh` çalıştırıldı: `app 222/222` · `engine 175/175` · `python 20/20` — ÜÇÜ DE YEŞİL.**
+
+**Tek kırmızı, ve gerçekti — uydurma değil:** ilk koşumda `defter_freshness`/`--self-test` KIRMIZI: "TABAN KİRLİ: yön-1 gediği var ['G-259']". Kök neden ölçüldü: commit `2137382`nin başlığı `G-259:` iddia ediyordu ama içerik yalnız `workspace/PROGRESS.md`ye 39 satırlık bir oturum mührü eklemiş, `workspace/DEFTER.md`ye HİÇ `### G-259` yazılmamıştı (`defter_freshness.py` yalnız DEFTER'i tarıyor, PROGRESS'i değil). Gerçek gedik — atlanmadı, DEFTER'e commit'in kendi gövdesinden türetilen bir `G-259` girdisi eklendi (yukarıda). **Düzeltmeden sonra ikinci tam koşum: `app 222/222` · `engine 175/175` · `python 20/20` — hepsi yeşil, sıfır istisna.**
+
+**`workspace/EVIDENCE-LEDGER.md` açıldı** (ortak sözleşme §1.1'in "roadmap adres tanımlamıyorsa `ventures/<v>/workspace/EVIDENCE-LEDGER.md`" hükmü) — roadmap'in `GRA-P0-NNN`/`GRA-E-NNN` kimlikleriyle bu defterin `G-NNN` kronolojik kayıtları arasında köprü, İNDEKS (tekrar değil): GRA-P0-001 ✅ VERIFIED, GRA-P0-002 🔶 KISMİ (replay altyapısı var, 20-kişi/200-rep + cihaz matrisi EXTERNAL_GATE), GRA-P0-003/P1-* ❌ NOT STARTED.
+
+**Kapı durumu:** `GATES_EXIT=0` — `app 222/222` · `engine 175/175` · `python 20/20` (ikinci tam koşum, G-259 düzeltmesinden SONRA). Bu turda commit'lenen: `G-259` (retroaktif DEFTER girdisi) · `G-260`…`G-264` (önceki PREP turu, ilk kez commit) · `G-265` (bu kayıt) · `workspace/EVIDENCE-LEDGER.md` (yeni).

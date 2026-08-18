@@ -1,5 +1,32 @@
 # PROGRESS — Gravita
 
+## 2026-08-19 — Üretim hattı bağlantısı + PREP turu (G-260…G-264)
+
+Oturum `holding/plans/URETIM-HATTI-OTURUM-PROTOKOLU-2026-08-18.md` sistemine bağlandı: başlık
+**GRAVITA** mühürlendi, orkestratör **Motion Orchestration**'a `[TIP: HAZIR]` gönderildi. Hat:
+**PREP lane** — yazma slotu yok, kod/içerik dosyalarına DOKUNULMADI.
+
+**Baseline mühürü:** `git log -1` `2137382` roadmap'in 2026-08-18 iddiasıyla BİREBİR eşleşti, ağaç
+temiz, origin ile 0/0 fark, ortak SHA pini (`f13bdc93b2eae2f741bfcdb4c9270a88e5d75e5d`) 2/2 doğru.
+Roadmap §6'nın 10 "mevcut" + 15 "planlanan" dosya yolu tek tek doğrulandı, sapma yok.
+
+**4 PREP işi tamamlandı, üçü yeni doküman üretti** (`app/docs/PREP-*-2026-08-19.md`):
+1. **Katalog sınıflandırma** — 31/31 hareketin `class`+`classRationale` zaten dolu (kod yazmaya
+   gerek yoktu); asıl boşluk sınıf değil ÖLÇÜM-DOĞRULAMASI (29/31 `precondition:pending`). Roadmap
+   §4'ün A/B/C/D tanımı ile `content/schema/movement-classes.json`'un tanımı FARKLI eksenler
+   ölçüyor — isimlendirilmiş sapma, orkestratöre iletildi.
+2. **Replay fixture envanteri** — squat+push_up için gerçek, ölçülmüş 6 aşamalı hat var
+   (`~/motion-harvest/`, 64 manifest); diğer 29 hareket için sıfır. Darboğaz bu makinede cv2/
+   mediapipe eksikliği — PREP kuyruk hazırlayabilir, hasat koşturamaz (ortam kapısı).
+3. **Uzman kapısı çerçevesi** — gerçek pazar verisiyle (WebSearch, kaynaklı) iki kademeli
+   yeterlilik bar + ücret çıpası + sourcing kanalları taslağı. Hiçbir adayla temas KURULMADI —
+   gerçek sözleşme R3 kurucu kapısı.
+4. **iCloud build/codesign kontrolü** — symlink doğru (`build → ~/gravita_buildout`, iCloud
+   dışı), tuzak YOK; küçük bir belge-yolu tutarsızlığı bulundu ve memory'ye düzeltildi (fiilen
+   aktif codesign wrapper `~/.local/bin/` değil `/opt/homebrew/bin/`da).
+
+Detay: `workspace/DEFTER.md` G-260…G-264. Slot beklenirken PREP kadansında (/loop) devam.
+
 ## 2026-08-07 — GECE İNŞA TURU: 3 ekran → 8 yüzey · kütüphane 2 → 31 hareket
 
 `main = d631b55`, 0/0 temiz, 4 commit push'landı. Kabuk **79/79** (61'den),
