@@ -7,7 +7,7 @@ import 'package:gravita/app/content_repository.dart';
 // Bu testin konusu ÜRÜNÜN yüzey hükmü, o yüzden çekirdeğinkiler gizleniyor —
 // iki ailenin adları karışırsa test hangi katmanı ölçtüğünü kaybeder.
 import 'package:motion_core/motion_core.dart'
-    hide HistoryOk, HistoryPartial, HistoryStatus, HistoryUnavailable;
+    hide HistoryOk, HistoryPartial, HistoryUnavailable;
 
 /// ⭐ G-211 — **SERBEST KOVANIN BÜTÜNLÜĞÜ DE SORULUYOR MU?**
 ///
@@ -64,36 +64,45 @@ void main() {
   }
 
   /// Üç ayrı bozulma sınıfı — üçü de "çözülemedi" sayılmalı.
-  const String bozukUcSatir = '{bu json değil\n'
+  const String bozukUcSatir =
+      '{bu json değil\n'
       '{"schemaVersion":999,"lessonId":"x"}\n'
       '{"schemaVersion":2}\n';
 
-  test('SERBEST kovadaki bozulma kayıp SAYILIYOR — ders kovası tertemizken',
-      () async {
-    // Kusur tam olarak burada saklanıyordu: sağlam dosyaya bakıp
-    // "her şey yolunda" demek.
-    final HistoryStatus s = await ContentRepository.readHistoryStatus(
-      lessons: store('sessions.jsonl', ''),
-      free: store('free_sessions.jsonl', bozukUcSatir),
-    );
+  test(
+    'SERBEST kovadaki bozulma kayıp SAYILIYOR — ders kovası tertemizken',
+    () async {
+      // Kusur tam olarak burada saklanıyordu: sağlam dosyaya bakıp
+      // "her şey yolunda" demek.
+      final HistoryStatus s = await ContentRepository.readHistoryStatus(
+        lessons: store('sessions.jsonl', ''),
+        free: store('free_sessions.jsonl', bozukUcSatir),
+      );
 
-    expect(s, isA<HistoryPartial>(),
-        reason: 'Bu üründe her seans serbest seans — kayıp TAM O KOVADA olur. '
-            'Yalnız ders kovasına bakan bir denetim hiçbir zaman ötmez.');
-    expect((s as HistoryPartial).unreadableRecords, 3);
-  });
+      expect(
+        s,
+        isA<HistoryPartial>(),
+        reason:
+            'Bu üründe her seans serbest seans — kayıp TAM O KOVADA olur. '
+            'Yalnız ders kovasına bakan bir denetim hiçbir zaman ötmez.',
+      );
+      expect((s as HistoryPartial).unreadableRecords, 3);
+    },
+  );
 
-  test('DERS kovasındaki bozulma da sayılıyor — eski davranış KAYBOLMADI',
-      () async {
-    // ⚠️ Düzeltme "ders kovasını bırak, serbeste geç" DEĞİL. İkisi de sayılır;
-    // bu test eski yarının düşmediğini kanıtlıyor.
-    final HistoryStatus s = await ContentRepository.readHistoryStatus(
-      lessons: store('sessions.jsonl', bozukUcSatir),
-      free: store('free_sessions.jsonl', ''),
-    );
+  test(
+    'DERS kovasındaki bozulma da sayılıyor — eski davranış KAYBOLMADI',
+    () async {
+      // ⚠️ Düzeltme "ders kovasını bırak, serbeste geç" DEĞİL. İkisi de sayılır;
+      // bu test eski yarının düşmediğini kanıtlıyor.
+      final HistoryStatus s = await ContentRepository.readHistoryStatus(
+        lessons: store('sessions.jsonl', bozukUcSatir),
+        free: store('free_sessions.jsonl', ''),
+      );
 
-    expect((s as HistoryPartial).unreadableRecords, 3);
-  });
+      expect((s as HistoryPartial).unreadableRecords, 3);
+    },
+  );
 
   test('İKİ kovada da bozulma varsa kayıplar TOPLANIR', () async {
     final HistoryStatus s = await ContentRepository.readHistoryStatus(
@@ -101,9 +110,13 @@ void main() {
       free: store('free_sessions.jsonl', '{yine bozuk\n'),
     );
 
-    expect((s as HistoryPartial).unreadableRecords, 4,
-        reason: 'Kullanıcının TEK bir geçmişi var; iki dosya bizim iç '
-            'ayrımımız. Yalnız birini raporlamak kaybı küçük gösterirdi.');
+    expect(
+      (s as HistoryPartial).unreadableRecords,
+      4,
+      reason:
+          'Kullanıcının TEK bir geçmişi var; iki dosya bizim iç '
+          'ayrımımız. Yalnız birini raporlamak kaybı küçük gösterirdi.',
+    );
   });
 
   /// ⭐ POZİTİF İKİZ — bu olmadan üstteki üç test, hüküm HER ZAMAN
@@ -114,21 +127,27 @@ void main() {
       free: store('free_sessions.jsonl', ''),
     );
 
-    expect(s, isA<HistoryOk>(),
-        reason: 'Sağlam iki kovada uyarı çıkarsa, üsttekiler kusuru değil '
-            'sabit bir uyarıyı ölçüyor olurdu.');
+    expect(
+      s,
+      isA<HistoryOk>(),
+      reason:
+          'Sağlam iki kovada uyarı çıkarsa, üsttekiler kusuru değil '
+          'sabit bir uyarıyı ölçüyor olurdu.',
+    );
   });
 
   /// Dosyalar HİÇ yokken: ilk açılış "kayıp geçmiş" DEĞİLDİR.
-  test('dosya hiç yoksa kayıp 0 — yeni kullanıcıya "geçmişin eksik" denmez',
-      () async {
-    final HistoryStatus s = await ContentRepository.readHistoryStatus(
-      lessons: JsonlSessionStore(File('${tmp.path}/yok1.jsonl')),
-      free: JsonlSessionStore(File('${tmp.path}/yok2.jsonl')),
-    );
+  test(
+    'dosya hiç yoksa kayıp 0 — yeni kullanıcıya "geçmişin eksik" denmez',
+    () async {
+      final HistoryStatus s = await ContentRepository.readHistoryStatus(
+        lessons: JsonlSessionStore(File('${tmp.path}/yok1.jsonl')),
+        free: JsonlSessionStore(File('${tmp.path}/yok2.jsonl')),
+      );
 
-    expect(s, isA<HistoryOk>());
-  });
+      expect(s, isA<HistoryOk>());
+    },
+  );
 
   /// H-20/21 (2026-08-16) — SATIR-İÇİ bozulma üsttekilerde tam korumalı,
   /// ama `JsonlSessionStore._readAll()` (pinli `motion_core`) İKİ DOSYA-
@@ -141,36 +160,47 @@ void main() {
   /// (H-25 sınıfı: "kusur bulamamak sonuç değil, korumasızlık kusurdur").
   group('DOSYA-GENELİ hatalar (depo katmanı korumasız, YALNIZ bu çağıran '
       'korur — H-20/21 regresyon kilidi)', () {
-    test('sessions.jsonl yerine bir DİZİN varsa — çökmeden HistoryUnavailable',
-        () async {
-      Directory('${tmp.path}/sessions.jsonl').createSync(recursive: true);
+    test(
+      'sessions.jsonl yerine bir DİZİN varsa — çökmeden HistoryUnavailable',
+      () async {
+        Directory('${tmp.path}/sessions.jsonl').createSync(recursive: true);
 
-      final HistoryStatus s = await ContentRepository.readHistoryStatus(
-        lessons: JsonlSessionStore(File('${tmp.path}/sessions.jsonl')),
-        free: store('free_sessions.jsonl', ''),
-      );
+        final HistoryStatus s = await ContentRepository.readHistoryStatus(
+          lessons: JsonlSessionStore(File('${tmp.path}/sessions.jsonl')),
+          free: store('free_sessions.jsonl', ''),
+        );
 
-      expect(s, isA<HistoryUnavailable>(),
-          reason: 'Depo `FileSystemException` fırlatır (kasten — pinli '
+        expect(
+          s,
+          isA<HistoryUnavailable>(),
+          reason:
+              'Depo `FileSystemException` fırlatır (kasten — pinli '
               'pakette ölçüldü); bu test yalnız BU çağıranın onu yakaladığını '
-              'sabitliyor. Kayıp SESSİZ değil, "unavailable" adıyla görünür.');
-    });
+              'sabitliyor. Kayıp SESSİZ değil, "unavailable" adıyla görünür.',
+        );
+      },
+    );
 
     test('free_sessions.jsonl geçersiz UTF-8 bayt dizisi taşıyorsa — '
         'çökmeden HistoryUnavailable', () async {
-      File('${tmp.path}/free_sessions.jsonl').writeAsBytesSync(
-          <int>[0x7B, 0x22, 0x76, 0x22, 0xFF, 0xFE, 0x80, 0x0A]);
+      File(
+        '${tmp.path}/free_sessions.jsonl',
+      ).writeAsBytesSync(<int>[0x7B, 0x22, 0x76, 0x22, 0xFF, 0xFE, 0x80, 0x0A]);
 
       final HistoryStatus s = await ContentRepository.readHistoryStatus(
         lessons: store('sessions.jsonl', ''),
         free: JsonlSessionStore(File('${tmp.path}/free_sessions.jsonl')),
       );
 
-      expect(s, isA<HistoryUnavailable>(),
-          reason: '`readAsString()` sıkı UTF-8 çözer; bozuk bayt satır-içi '
-              'kusur DEĞİL, dosya-geneli bir okuma hatasıdır ve satır-bazlı '
-              'try/catch\'in erişemediği yerde (dosya okumanın kendisinde) '
-              'fırlar.');
+      expect(
+        s,
+        isA<HistoryUnavailable>(),
+        reason:
+            '`readAsString()` sıkı UTF-8 çözer; bozuk bayt satır-içi '
+            'kusur DEĞİL, dosya-geneli bir okuma hatasıdır ve satır-bazlı '
+            'try/catch\'in erişemediği yerde (dosya okumanın kendisinde) '
+            'fırlar.',
+      );
     });
   });
 }

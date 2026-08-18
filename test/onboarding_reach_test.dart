@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gravita/app/gravita_app.dart';
 import 'package:gravita/app/onboarding_screen.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 
@@ -30,10 +29,10 @@ import 'support/reachability_contract.dart';
 /// değiştirmek, ölçülen şeyi değiştirmektir*) · **bölmek** üretime dokunmaz.
 /// Seçilen: bölmek. **Kabul edilmiş bedel: okuma yeri dağılıyor.**
 void main() {
-  testWidgets('SOĞUK AÇILIŞ: yürüyerek varılan yüzeyler kanıtlanıyor',
-      (WidgetTester tester) async {
-    final Directory tmp =
-        Directory.systemTemp.createTempSync('cold_reach');
+  testWidgets('SOĞUK AÇILIŞ: yürüyerek varılan yüzeyler kanıtlanıyor', (
+    WidgetTester tester,
+  ) async {
+    final Directory tmp = Directory.systemTemp.createTempSync('cold_reach');
     addTearDown(() => tmp.deleteSync(recursive: true));
     final PathProviderPlatform def = PathProviderPlatform.instance;
     addTearDown(() => PathProviderPlatform.instance = def);
@@ -49,28 +48,43 @@ void main() {
 
     // ⚠️ Aday envanteri ORTAK EVDEN geliyor; bu kapı kendi listesini
     // TUTMUYOR — iki kaynak tek olgu olmaz.
-    expect(reached, kColdStartSurfaces,
-        reason: 'Soğuk açılışta varılan yüzey kümesi sözleşmedeki payla '
-            'AYNI olmalı. Ayrışıyorsa denklemin bu yarısı bozuktur ve '
-            'kapı-1 eksik bir bölmeyle hesaplar.');
+    expect(
+      reached,
+      kColdStartSurfaces,
+      reason:
+          'Soğuk açılışta varılan yüzey kümesi sözleşmedeki payla '
+          'AYNI olmalı. Ayrışıyorsa denklemin bu yarısı bozuktur ve '
+          'kapı-1 eksik bir bölmeyle hesaplar.',
+    );
 
     // Ve yürüyüş GERÇEKTEN yürüyor: onboarding kullanıcı gibi geçilebiliyor.
     await tester.tap(find.byKey(OnboardingFlow.valueContinueKey));
     await tester.pump();
     await tester.tap(find.byKey(OnboardingFlow.safetyConsentKey));
     await tester.pump();
-    expect(find.byType(OnboardingFlow), findsOneWidget,
-        reason: 'İki adım basılabildi; akış yürünebilir. (Kabuğa GEÇİŞ '
-            'kapı-1\'in konusu — burada ölçülmez, çünkü o geçiş gerçek-zaman '
-            'turu ister ve tuzağı tetikler.)');
+    expect(
+      find.byType(OnboardingFlow),
+      findsOneWidget,
+      reason:
+          'İki adım basılabildi; akış yürünebilir. (Kabuğa GEÇİŞ '
+          'kapı-1\'in konusu — burada ölçülmez, çünkü o geçiş gerçek-zaman '
+          'turu ister ve tuzağı tetikler.)',
+    );
   });
 
   /// POZİTİF İKİZ — sözleşmenin payı **ölçülmüş** mü, yoksa yazılmış mı?
   test('sözleşme payı BOŞ DEĞİL ve envanterin ALT KÜMESİ', () {
-    expect(kColdStartSurfaces, isNotEmpty,
-        reason: 'Boş bir pay, üstteki testi koşulsuz doğru yapardı.');
-    expect(declaredScreens().containsAll(kColdStartSurfaces), isTrue,
-        reason: 'Soğuk açılış payı envanterde YOKSA denklem tutmaz — '
-            'desen o yüzeyi hiç aday yapmıyor demektir.');
+    expect(
+      kColdStartSurfaces,
+      isNotEmpty,
+      reason: 'Boş bir pay, üstteki testi koşulsuz doğru yapardı.',
+    );
+    expect(
+      declaredScreens().containsAll(kColdStartSurfaces),
+      isTrue,
+      reason:
+          'Soğuk açılış payı envanterde YOKSA denklem tutmaz — '
+          'desen o yüzeyi hiç aday yapmıyor demektir.',
+    );
   });
 }

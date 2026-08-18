@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -101,8 +98,9 @@ void main() {
   /// (İlk ölçüm bu yüzden 8 dedi: dört sekme gövdesi rota sanılmıştı.)
   final Set<String> shellScreens = <String>{};
 
-  testWidgets('GEZİLEBİLİR EKRAN SAYIMI — kapıdan, gözden değil',
-      (WidgetTester tester) async {
+  testWidgets('GEZİLEBİLİR EKRAN SAYIMI — kapıdan, gözden değil', (
+    WidgetTester tester,
+  ) async {
     // ⚠️ 4000pt YÜKSEKLİK KASITLI ve bir MODELDİR: gerçek cihazda
     // kaydırarak ulaşılan her şey burada tek ekranda duruyor. Kaydırarak
     // ulaşılabilen bir ekran GEZİLEBİLİRDİR, o yüzden bu şişirme değil.
@@ -129,11 +127,15 @@ void main() {
     //    **kontrolün TABANINI yükseltmektir.**
     //
     // > *Bir elle liste, KAYNAK olarak yanlıştır ama KONTROL olarak doğrudur.*
-    expect(candidates.containsAll(kKnownFloor), isTrue,
-        reason: 'TÜRETİM BİLİNEN TABANI KAPSAMIYOR — eksik: '
-            '${kKnownFloor.difference(candidates)}. Elle küme kaynak değil '
-            'kontroldür: türetim onu yutuyorsa bozuk olan TÜRETİMDİR, taban '
-            'değil. (Tabanı küçülterek geçirme — desen neden kaçırdı, ONU ölç.)');
+    expect(
+      candidates.containsAll(kKnownFloor),
+      isTrue,
+      reason:
+          'TÜRETİM BİLİNEN TABANI KAPSAMIYOR — eksik: '
+          '${kKnownFloor.difference(candidates)}. Elle küme kaynak değil '
+          'kontroldür: türetim onu yutuyorsa bozuk olan TÜRETİMDİR, taban '
+          'değil. (Tabanı küçülterek geçirme — desen neden kaçırdı, ONU ölç.)',
+    );
 
     // ⚖️ (a) İKİNCİ TÜRETİM KANALI — *iki bağımsız türetimin uzlaşması* (G-198).
     //
@@ -153,21 +155,30 @@ void main() {
 
     // Vakum koruması (Choreia M-F-580): kanal hiç aday bulamazsa denetim
     // vakumda demektir — sessiz geçiş yerine kırmızı.
-    expect(byMount, isNotEmpty,
-        reason: 'YAPI kanalı hiç montaj noktası bulamadı — denetim VAKUMDA. '
-            'Desen ağacın biçimiyle ayrışmış olabilir.');
+    expect(
+      byMount,
+      isNotEmpty,
+      reason:
+          'YAPI kanalı hiç montaj noktası bulamadı — denetim VAKUMDA. '
+          'Desen ağacın biçimiyle ayrışmış olabilir.',
+    );
 
-    expect(byMount.difference(candidates), isEmpty,
-        reason: 'İKİ TÜRETİM AYRIŞTI — yapıda monte edilen bir ekranı AD '
-            'deseni kaçırıyor: ${byMount.difference(candidates)}. Envanter '
-            'eksik demektir (Gravita M-F-575 sınıfı: desenin kapsamı, onu '
-            'yazanın adlandırma alışkanlığı kadardır).');
+    expect(
+      byMount.difference(candidates),
+      isEmpty,
+      reason:
+          'İKİ TÜRETİM AYRIŞTI — yapıda monte edilen bir ekranı AD '
+          'deseni kaçırıyor: ${byMount.difference(candidates)}. Envanter '
+          'eksik demektir (Gravita M-F-575 sınıfı: desenin kapsamı, onu '
+          'yazanın adlandırma alışkanlığı kadardır).',
+    );
 
     final Set<String> reached = <String>{};
 
     late ContentRepository content;
     await tester.runAsync(
-        () async => content = await ContentRepository.load(rootBundle));
+      () async => content = await ContentRepository.load(rootBundle),
+    );
 
     // ⚖️ (b) TANIK — `NavigatorObserver`, ve **OLAYI** sayıyor, adı DEĞİL.
     //
@@ -178,10 +189,13 @@ void main() {
     // Ad zaten monte-olan enstantaneden geliyor; tanıktan istenen tek şey
     // **kök varışın gerçekten olduğu**.
     final _RouteWitness witness = _RouteWitness();
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(
+      MaterialApp(
         theme: GravitaTheme.light,
         navigatorObservers: <NavigatorObserver>[witness],
-        home: GravitaShell(content: content)));
+        home: GravitaShell(content: content),
+      ),
+    );
     await settle(tester);
     reached.addAll(mounted(tester, candidates));
     shellScreens.addAll(mounted(tester, candidates));
@@ -206,22 +220,23 @@ void main() {
     }
 
     List<Element> tappables() => <Element>[
-          ...find.byType(InkWell, skipOffstage: true).hitTestable().evaluate(),
-          ...find
-              .byType(FloatingActionButton, skipOffstage: true)
-              .hitTestable()
-              .evaluate(),
-          ...find
-              .byType(NavigationDestination, skipOffstage: true)
-              .evaluate(),
-        ].where(onScreen).toList();
+      ...find.byType(InkWell, skipOffstage: true).hitTestable().evaluate(),
+      ...find
+          .byType(FloatingActionButton, skipOffstage: true)
+          .hitTestable()
+          .evaluate(),
+      ...find.byType(NavigationDestination, skipOffstage: true).evaluate(),
+    ].where(onScreen).toList();
 
     // ---- Katman 1: sekmeler ----
-    final int tabCount =
-        find.byType(NavigationDestination, skipOffstage: false).evaluate().length;
+    final int tabCount = find
+        .byType(NavigationDestination, skipOffstage: false)
+        .evaluate()
+        .length;
     for (int i = 0; i < tabCount; i++) {
-      final Finder dest =
-          find.byType(NavigationDestination, skipOffstage: false).at(i);
+      final Finder dest = find
+          .byType(NavigationDestination, skipOffstage: false)
+          .at(i);
       await tester.tap(dest, warnIfMissed: false);
       await settle(tester);
       reached.addAll(mounted(tester, candidates));
@@ -242,14 +257,12 @@ void main() {
         for (int d = 0; d < deep.length && d < 4; d++) {
           final List<Element> live2 = tappables();
           if (d >= live2.length) break;
-          await tester.tap(find.byWidget(live2[d].widget),
-              warnIfMissed: false);
+          await tester.tap(find.byWidget(live2[d].widget), warnIfMissed: false);
           await settle(tester);
           reached.addAll(mounted(tester, candidates));
           if (pushed(tester)) routeScreens.addAll(mounted(tester, candidates));
           // Geri dön; kök route'ta pop yoksa sessizce yut.
-          final NavigatorState nav =
-              tester.state(find.byType(Navigator).first);
+          final NavigatorState nav = tester.state(find.byType(Navigator).first);
           if (nav.canPop()) {
             nav.pop();
             await settle(tester);
@@ -266,15 +279,13 @@ void main() {
     // ⚠️ Soğuk açılış payı BURADA "ulaşılamayan" DEĞİLDİR — ona kapı-2
     // yürüyerek varıyor. Düşülmezse bölme, kendi ürettiği bir yüzeyi
     // kayıp sanır (bölmenin ilk koşumunda ölçüldü: 1 → 2).
-    final List<String> unreachable = candidates
-        .difference(reached)
-        .difference(kColdStartSurfaces)
-        .toList()
-      ..sort();
+    final List<String> unreachable =
+        candidates.difference(reached).difference(kColdStartSurfaces).toList()
+          ..sort();
     final List<String> reachedSorted = reached.toList()..sort();
 
-    final List<String> routes =
-        routeScreens.difference(shellScreens).toList()..sort();
+    final List<String> routes = routeScreens.difference(shellScreens).toList()
+      ..sort();
 
     // ⚖️ (b) KÖK VARIŞ artık SABİT DEĞİL, GÖZLENEN OLAY. Eskiden KATI'ya
     // çıplak bir `+1` ekleniyordu; şimdi tanığın `previous == null` olan
@@ -282,15 +293,21 @@ void main() {
     final int katiCount = witness.rootPushes + routes.length;
 
     debugPrint('── GEZİLEBİLİRLİK ÖLÇÜMÜ ──');
-    debugPrint('   ⚖️ KATI (ayrı ROTA): $katiCount — '
-        'kök varış ${witness.rootPushes} (${kRootArrivals.join(', ')}: 4 sekme)'
-        ' + ${routes.join(' · ')}');
-    debugPrint('   tanık: didPush kök ${witness.rootPushes} · '
-        'itilen ${witness.pushes}');
+    debugPrint(
+      '   ⚖️ KATI (ayrı ROTA): $katiCount — '
+      'kök varış ${witness.rootPushes} (${kRootArrivals.join(', ')}: 4 sekme)'
+      ' + ${routes.join(' · ')}',
+    );
+    debugPrint(
+      '   tanık: didPush kök ${witness.rootPushes} · '
+      'itilen ${witness.pushes}',
+    );
     debugPrint('   ⚖️ GEVŞEK (ayrı YÜZEY): ${reached.length}');
     debugPrint('   yüzeyler: ${reachedSorted.join(' · ')}');
-    debugPrint('   ULAŞILAMIYOR AMA VAR: ${unreachable.length}'
-        '${unreachable.isEmpty ? '' : ' — ${unreachable.join(' · ')}'}');
+    debugPrint(
+      '   ULAŞILAMIYOR AMA VAR: ${unreachable.length}'
+      '${unreachable.isEmpty ? '' : ' — ${unreachable.join(' · ')}'}',
+    );
 
     // ⚖️ (c) DIŞLAMA SEBEBİ — her koşumda KAYNAKTAN türetilir, düzyazıdan değil.
     // Sebep çürürse kapı öter: *yanlış bir sebep, sebepsizlikten daha kötüdür
@@ -298,9 +315,13 @@ void main() {
     final Map<String, String> reasons = derivedExclusionReasons();
     reasons.forEach((String k, String v) => debugPrint('   ⚖️ dışlama $k: $v'));
 
-    expect(reasons.values.where((String r) => r.startsWith('⛔')), isEmpty,
-        reason: 'DIŞLAMA SEBEBİ ÇÜRÜDÜ: $reasons — kalem ya bağlanmalı ya '
-            'silinmeli; dışlama kovasında yanlış sebeple durmamalı.');
+    expect(
+      reasons.values.where((String r) => r.startsWith('⛔')),
+      isEmpty,
+      reason:
+          'DIŞLAMA SEBEBİ ÇÜRÜDÜ: $reasons — kalem ya bağlanmalı ya '
+          'silinmeli; dışlama kovasında yanlış sebeple durmamalı.',
+    );
 
     // Kapı SAYIYI SABİTLEMİYOR — küçülmesini yasaklıyor. Sayı büyüdüğünde
     // sessizce geçer, küçüldüğünde bağırır: bir ekran ulaşılamaz hâle
@@ -319,9 +340,13 @@ void main() {
     // türetiliyor), `unreachable` 1'de kalır ve `6 >= 6` sessizce geçerdi.
     // → *Bağlantısı kopan ekranı üçüncü iddia yakalar; YOK OLAN ekranı
     //   yalnız bu taban yakalar.* İki ayrı regresyon, iki ayrı nöbetçi.
-    expect(reached.length, greaterThanOrEqualTo(7),
-        reason: 'Gezilebilir ekran sayısı düştü — bir tetik silinmiş '
-            'olabilir. Ulaşılamayanlar: ${unreachable.join(', ')}');
+    expect(
+      reached.length,
+      greaterThanOrEqualTo(7),
+      reason:
+          'Gezilebilir ekran sayısı düştü — bir tetik silinmiş '
+          'olabilir. Ulaşılamayanlar: ${unreachable.join(', ')}',
+    );
 
     // "Ulaşılamıyor ama var" listesi BOŞ OLMAK ZORUNDA DEĞİL; ama sessiz
     // kalamaz. Büyürse ötsün: yeni yazılan her ekran ya bağlanmalı ya da
@@ -337,38 +362,60 @@ void main() {
     //
     // ⚖️ (b-ii) BEYANSIZ KÖK VARIŞ = KIRMIZI. *Üçüncü bir kök varış beyan
     // değil BULGUDUR* — sessizce KATI'ya eklenmez.
-    expect(witness.rootPushes, kRootArrivals.length,
-        reason: 'KÖK VARIŞ BEYANLA AYRIŞTI — beyan ${kRootArrivals.length} '
-            '(${kRootArrivals.join(', ')}), gözlenen ${witness.rootPushes}. '
-            '0 ise tanık BAĞLI DEĞİL (navigatorObservers); fazlaysa beyansız '
-            'bir kök varış doğmuş demektir.');
+    expect(
+      witness.rootPushes,
+      kRootArrivals.length,
+      reason:
+          'KÖK VARIŞ BEYANLA AYRIŞTI — beyan ${kRootArrivals.length} '
+          '(${kRootArrivals.join(', ')}), gözlenen ${witness.rootPushes}. '
+          '0 ise tanık BAĞLI DEĞİL (navigatorObservers); fazlaysa beyansız '
+          'bir kök varış doğmuş demektir.',
+    );
 
     // ⚖️ (b-iii) İKİ TARAF AYRI KAYNAKTAN: `routes` monte-olma + `canPop`
     // derinliğinden, `pushes` tanığın OLAY sayacından geliyor. Rota olarak
     // sayılan her yüzeyin arkasında en az bir push OLAYI olmak zorunda —
     // aksi hâlde derinlik ölçümü olmayan bir rotayı rota sanıyor demektir.
-    expect(witness.pushes, greaterThanOrEqualTo(routes.length),
-        reason: 'ROTA SAYISI PUSH OLAYINDAN FAZLA: ${routes.length} rota '
-            'sayıldı ama yalnız ${witness.pushes} push olayı gözlendi — '
-            'derinlik ölçümü rota olmayan bir şeyi rota sayıyor olabilir.');
+    expect(
+      witness.pushes,
+      greaterThanOrEqualTo(routes.length),
+      reason:
+          'ROTA SAYISI PUSH OLAYINDAN FAZLA: ${routes.length} rota '
+          'sayıldı ama yalnız ${witness.pushes} push olayı gözlendi — '
+          'derinlik ölçümü rota olmayan bir şeyi rota sayıyor olabilir.',
+    );
 
-    expect(katiCount, greaterThanOrEqualTo(4),
-        reason: 'Ayrı rota sayısı düştü — bir push tetiği kaybolmuş '
-            'olabilir. Ulaşılan rotalar: ${routes.join(', ')}');
+    expect(
+      katiCount,
+      greaterThanOrEqualTo(4),
+      reason:
+          'Ayrı rota sayısı düştü — bir push tetiği kaybolmuş '
+          'olabilir. Ulaşılan rotalar: ${routes.join(', ')}',
+    );
 
     // ⚖️ DENKLEM — İKİ KAPI ARASINDA (aile kısıtı ①). Her kapı kendi
     // içinde tutarsa İKİSİ BİRDEN eksik olabilir; bu satır o boşluğu kapatır.
     final Set<String> hesap = <String>{
-      ...reached, ...kColdStartSurfaces, ...kDeliberatelyUnreachable
+      ...reached,
+      ...kColdStartSurfaces,
+      ...kDeliberatelyUnreachable,
     };
-    expect(hesap, candidates,
-        reason: 'BÖLME KAYIP ÜRETTİ: aday envanteri = kabuk yürüyüşü ⊎ '
-            'soğuk açılış payı ⊎ kasıtlı-varılamayan denklemi tutmuyor. '
-            'Fark: ${candidates.difference(hesap)} / ${hesap.difference(candidates)}');
+    expect(
+      hesap,
+      candidates,
+      reason:
+          'BÖLME KAYIP ÜRETTİ: aday envanteri = kabuk yürüyüşü ⊎ '
+          'soğuk açılış payı ⊎ kasıtlı-varılamayan denklemi tutmuyor. '
+          'Fark: ${candidates.difference(hesap)} / ${hesap.difference(candidates)}',
+    );
 
-    expect(unreachable.length, lessThanOrEqualTo(1),
-        reason: 'Bağlanmamış ekran sayısı arttı: ${unreachable.join(', ')} — '
-            'repliğin varlığı tetiğinin varlığı DEĞİLDİR.');
+    expect(
+      unreachable.length,
+      lessThanOrEqualTo(1),
+      reason:
+          'Bağlanmamış ekran sayısı arttı: ${unreachable.join(', ')} — '
+          'repliğin varlığı tetiğinin varlığı DEĞİLDİR.',
+    );
   });
 }
 
@@ -392,4 +439,3 @@ class _RouteWitness extends NavigatorObserver {
     }
   }
 }
-

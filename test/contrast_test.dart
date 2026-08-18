@@ -59,8 +59,9 @@ void main() {
 
   /// WCAG 2.2 bağıl parlaklık.
   double luminance(Color c) {
-    double ch(double v) =>
-        v <= 0.04045 ? v / 12.92 : math.pow((v + 0.055) / 1.055, 2.4).toDouble();
+    double ch(double v) => v <= 0.04045
+        ? v / 12.92
+        : math.pow((v + 0.055) / 1.055, 2.4).toDouble();
     return 0.2126 * ch(c.r) + 0.7152 * ch(c.g) + 0.0722 * ch(c.b);
   }
 
@@ -72,23 +73,28 @@ void main() {
 
   /// [fg]'yi [bg] üstüne alfasıyla bindirir — ekranda oluşan GERÇEK renk.
   Color over(Color fg, Color bg, double alpha) => Color.fromARGB(
-        255,
-        ((fg.r * alpha + bg.r * (1 - alpha)) * 255).round(),
-        ((fg.g * alpha + bg.g * (1 - alpha)) * 255).round(),
-        ((fg.b * alpha + bg.b * (1 - alpha)) * 255).round(),
-      );
+    255,
+    ((fg.r * alpha + bg.r * (1 - alpha)) * 255).round(),
+    ((fg.g * alpha + bg.g * (1 - alpha)) * 255).round(),
+    ((fg.b * alpha + bg.b * (1 - alpha)) * 255).round(),
+  );
 
   // ── Ekranda GERÇEKTEN oluşan zeminler ─────────────────────────────────
   //
   // `GravitaCard` beyaz bir gradyanı sayfa zeminine bindiriyor (0.56 → 0.28).
   // KOYU metin için EN KÖTÜ hâl gradyanın ALT ucudur (zemin en koyu orada),
   // o yüzden nöbet hep alt ucu ölçer — ortalamayı değil.
-  final Color cardBottom =
-      over(const Color(0xFFFFFFFF), GravitaColors.page, 0.28);
-  final Color sealedBottom =
-      over(const Color(0xFFFAE7E5), GravitaColors.page, 0.70);
-  final Color scoringBox =
-      over(GravitaColors.honestySeal, sealedBottom, 0.05);
+  final Color cardBottom = over(
+    const Color(0xFFFFFFFF),
+    GravitaColors.page,
+    0.28,
+  );
+  final Color sealedBottom = over(
+    const Color(0xFFFAE7E5),
+    GravitaColors.page,
+    0.70,
+  );
+  final Color scoringBox = over(GravitaColors.honestySeal, sealedBottom, 0.05);
 
   /// Normal metin (WCAG 1.4.3 AA). Bu üründe ölçüm-dili mono ve KÜÇÜK
   /// (10-12pt) — "büyük metin" muafiyeti (18pt) buraya HİÇ uygulanmaz.
@@ -99,16 +105,24 @@ void main() {
 
   void expectText(String what, Color fg, Color bg) {
     final double r = contrast(fg, bg);
-    expect(r >= textMin, isTrue,
-        reason: '$what → ${r.toStringAsFixed(2)}:1 (metin eşiği $textMin). '
-            'Görünmeyen bir dürüst hâl, susmakla aynı şeydir.');
+    expect(
+      r >= textMin,
+      isTrue,
+      reason:
+          '$what → ${r.toStringAsFixed(2)}:1 (metin eşiği $textMin). '
+          'Görünmeyen bir dürüst hâl, susmakla aynı şeydir.',
+    );
   }
 
   void expectNonText(String what, Color fg, Color bg) {
     final double r = contrast(fg, bg);
-    expect(r >= nonTextMin, isTrue,
-        reason: '$what → ${r.toStringAsFixed(2)}:1 (metin-dışı eşiği '
-            '$nonTextMin, WCAG 1.4.11)');
+    expect(
+      r >= nonTextMin,
+      isTrue,
+      reason:
+          '$what → ${r.toStringAsFixed(2)}:1 (metin-dışı eşiği '
+          '$nonTextMin, WCAG 1.4.11)',
+    );
   }
 
   group('WCAG — açık yüzeyler', () {
@@ -128,24 +142,36 @@ void main() {
       }
     });
 
-    test('textTertiary METİN eşiğini GEÇMEZ — bu yüzden non-text tokenidir', () {
-      // ⚠️ Bu test bir KISITI sabitliyor, bir doğruyu değil. `#7A6C69` sayfa
-      // zemininde 4.40, mühür kartında 4.26 veriyor — ikisi de 4.5'in
-      // ALTINDA. Token silinmedi çünkü ikon/kenarlıkta MEŞRU; ama METİN
-      // olarak kullanılırsa kusur geri gelir.
-      //
-      // Nöbet ters yönde: gün gelip renk metin eşiğini geçerse bu test öter
-      // ve o zaman `theme.dart`taki "metin için kullanma" uyarısı BAYAT olur.
-      expect(contrast(GravitaColors.textTertiary, GravitaColors.page) < textMin,
+    test(
+      'textTertiary METİN eşiğini GEÇMEZ — bu yüzden non-text tokenidir',
+      () {
+        // ⚠️ Bu test bir KISITI sabitliyor, bir doğruyu değil. `#7A6C69` sayfa
+        // zemininde 4.40, mühür kartında 4.26 veriyor — ikisi de 4.5'in
+        // ALTINDA. Token silinmedi çünkü ikon/kenarlıkta MEŞRU; ama METİN
+        // olarak kullanılırsa kusur geri gelir.
+        //
+        // Nöbet ters yönde: gün gelip renk metin eşiğini geçerse bu test öter
+        // ve o zaman `theme.dart`taki "metin için kullanma" uyarısı BAYAT olur.
+        expect(
+          contrast(GravitaColors.textTertiary, GravitaColors.page) < textMin,
           isTrue,
-          reason: 'textTertiary artık metin eşiğini geçiyor — theme.dart\'taki '
-              '"METİN İÇİN KULLANMA" uyarısı gözden geçirilmeli.');
-      // Ama ikon olarak GEÇMELİ, yoksa hiçbir yerde kullanılamaz.
-      expectNonText('textTertiary ikon / kart-alt', GravitaColors.textTertiary,
-          cardBottom);
-      expectNonText('textTertiary ikon / mühür-alt',
-          GravitaColors.textTertiary, sealedBottom);
-    });
+          reason:
+              'textTertiary artık metin eşiğini geçiyor — theme.dart\'taki '
+              '"METİN İÇİN KULLANMA" uyarısı gözden geçirilmeli.',
+        );
+        // Ama ikon olarak GEÇMELİ, yoksa hiçbir yerde kullanılamaz.
+        expectNonText(
+          'textTertiary ikon / kart-alt',
+          GravitaColors.textTertiary,
+          cardBottom,
+        );
+        expectNonText(
+          'textTertiary ikon / mühür-alt',
+          GravitaColors.textTertiary,
+          sealedBottom,
+        );
+      },
+    );
 
     test('rozet (pill) — dolgu ZEMİNİ üstünde etiket okunuyor', () {
       // Pill dolgusu `tone.withValues(alpha: 0.1)`; etiket AYNI tonun tam
@@ -163,17 +189,29 @@ void main() {
 
   group('WCAG — KOYU seans yüzeyi', () {
     test('koyu zeminde metin eşiği geçiliyor', () {
-      expectText('sessionInkOnDark / sahne', GravitaColors.sessionInkOnDark,
-          GravitaColors.sessionStage);
-      expectText('sessionInkOnDark / kamera', GravitaColors.sessionInkOnDark,
-          GravitaColors.sessionCamera);
+      expectText(
+        'sessionInkOnDark / sahne',
+        GravitaColors.sessionInkOnDark,
+        GravitaColors.sessionStage,
+      );
+      expectText(
+        'sessionInkOnDark / kamera',
+        GravitaColors.sessionInkOnDark,
+        GravitaColors.sessionCamera,
+      );
       // ⚠️ Bu token bir DÜZELTMENİN ürünü: açık-zemin tokenleri koyu zeminde
       // ters çevrilerek kullanılamıyor — ölçüldü, `textTertiary` 3.37 ve
       // `textSecondary` 2.88 veriyordu, ikisi de eşik ALTI.
-      expectText('sessionInkMutedOnDark / kamera',
-          GravitaColors.sessionInkMutedOnDark, GravitaColors.sessionCamera);
-      expectText('sessionInkMutedOnDark / sahne',
-          GravitaColors.sessionInkMutedOnDark, GravitaColors.sessionStage);
+      expectText(
+        'sessionInkMutedOnDark / kamera',
+        GravitaColors.sessionInkMutedOnDark,
+        GravitaColors.sessionCamera,
+      );
+      expectText(
+        'sessionInkMutedOnDark / sahne',
+        GravitaColors.sessionInkMutedOnDark,
+        GravitaColors.sessionStage,
+      );
     });
   });
 
@@ -195,8 +233,10 @@ void main() {
       // "ölçmediğim bir token var mı". Yeni bir token eklendiği gün bu test
       // öter ve ekleyeni bir KARAR vermeye zorlar: metin mi, metin-dışı mı,
       // yoksa zemin mi. Sessizce ölçülmeden kalamaz.
-      final RegExp decl =
-          RegExp(r'static const Color (\w+) =', multiLine: true);
+      final RegExp decl = RegExp(
+        r'static const Color (\w+) =',
+        multiLine: true,
+      );
       final Set<String> declared = decl
           .allMatches(File('lib/app/theme.dart').readAsStringSync())
           .map((RegExpMatch m) => m.group(1)!)
@@ -216,20 +256,35 @@ void main() {
       };
       const Set<String> asNonText = <String>{'textTertiary', 'hairline'};
       const Set<String> asSurface = <String>{
-        'page', 'surfaceTop', 'surfaceBottom', 'sessionStage',
-        'sessionStageDeep', 'sessionCamera', 'sessionSheetSealed',
+        'page',
+        'surfaceTop',
+        'surfaceBottom',
+        'sessionStage',
+        'sessionStageDeep',
+        'sessionCamera',
+        'sessionSheetSealed',
       };
 
       final Set<String> classified = <String>{
-        ...asText, ...asNonText, ...asSurface
+        ...asText,
+        ...asNonText,
+        ...asSurface,
       };
-      expect(declared.difference(classified), isEmpty,
-          reason: 'theme.dart\'ta SINIFLANDIRILMAMIŞ token var — kontrast '
-              'kapısı onu ölçmüyor. Metin mi, ikon mu, zemin mi: karar ver '
-              've bu listeye ekle. (J-116: örüntüyü düzelt, örneği değil.)');
-      expect(classified.difference(declared), isEmpty,
-          reason: 'Listede olan ama theme.dart\'ta OLMAYAN token — kayıt '
-              'defteri bayatlamış.');
+      expect(
+        declared.difference(classified),
+        isEmpty,
+        reason:
+            'theme.dart\'ta SINIFLANDIRILMAMIŞ token var — kontrast '
+            'kapısı onu ölçmüyor. Metin mi, ikon mu, zemin mi: karar ver '
+            've bu listeye ekle. (J-116: örüntüyü düzelt, örneği değil.)',
+      );
+      expect(
+        classified.difference(declared),
+        isEmpty,
+        reason:
+            'Listede olan ama theme.dart\'ta OLMAYAN token — kayıt '
+            'defteri bayatlamış.',
+      );
     });
 
     test('GravitaType VARSAYILANLARI eşiği geçiyor — çıplak çağrı güvenli', () {
@@ -248,11 +303,17 @@ void main() {
         ('body()', GravitaType.defaultBodyColor),
         ('display()', GravitaType.defaultDisplayColor),
       ]) {
-        expectText('GravitaType.$name varsayılanı / sayfa', c,
-            GravitaColors.page);
+        expectText(
+          'GravitaType.$name varsayılanı / sayfa',
+          c,
+          GravitaColors.page,
+        );
         expectText('GravitaType.$name varsayılanı / kart-alt', c, cardBottom);
-        expectText('GravitaType.$name varsayılanı / mühür-alt', c,
-            sealedBottom);
+        expectText(
+          'GravitaType.$name varsayılanı / mühür-alt',
+          c,
+          sealedBottom,
+        );
       }
 
       // Yapısal bağın GERÇEKTEN kurulu olduğunu kaynak üzerinden doğrula:
@@ -264,9 +325,13 @@ void main() {
         'color ?? defaultBodyColor',
         'color ?? defaultMonoColor',
       ]) {
-        expect(theme.contains(d), isTrue,
-            reason: 'GravitaType varsayılanı sabitten KOPMUŞ ($d) — kontrast '
-                'ölçümü artık gerçek çağrıyı temsil etmiyor.');
+        expect(
+          theme.contains(d),
+          isTrue,
+          reason:
+              'GravitaType varsayılanı sabitten KOPMUŞ ($d) — kontrast '
+              'ölçümü artık gerçek çağrıyı temsil etmiyor.',
+        );
       }
     });
 
@@ -284,23 +349,34 @@ void main() {
       // olmak zorunda, çünkü kapı yalnız orayı tarayabiliyor.
       final RegExp literal = RegExp(r'Color\(0x[0-9A-Fa-f]{8}\)');
       final List<String> offenders = <String>[];
-      for (final FileSystemEntity f
-          in Directory('lib/app').listSync(recursive: true)) {
+      for (final FileSystemEntity f in Directory(
+        'lib/app',
+      ).listSync(recursive: true)) {
         if (f is! File || !f.path.endsWith('.dart')) continue;
         if (f.path.endsWith('theme.dart')) continue;
         if (literal.hasMatch(f.readAsStringSync())) offenders.add(f.path);
       }
-      expect(offenders, isEmpty,
-          reason: 'Yerinde tanımlanmış renk kontrast kapısının DIŞINDA kalır. '
-              'theme.dart\'a token olarak taşı: ${offenders.join(", ")}');
+      expect(
+        offenders,
+        isEmpty,
+        reason:
+            'Yerinde tanımlanmış renk kontrast kapısının DIŞINDA kalır. '
+            'theme.dart\'a token olarak taşı: ${offenders.join(", ")}',
+      );
     });
 
     test('mühürlü seans zemini de ölçülüyor', () {
       // Token'a terfi etmenin karşılığı: artık ölçülebiliyor.
-      expectText('honestyText / mühürlü seans sayfası',
-          GravitaColors.honestyText, GravitaColors.sessionSheetSealed);
-      expectText('ink / mühürlü seans sayfası', GravitaColors.ink,
-          GravitaColors.sessionSheetSealed);
+      expectText(
+        'honestyText / mühürlü seans sayfası',
+        GravitaColors.honestyText,
+        GravitaColors.sessionSheetSealed,
+      );
+      expectText(
+        'ink / mühürlü seans sayfası',
+        GravitaColors.ink,
+        GravitaColors.sessionSheetSealed,
+      );
     });
 
     test('HİYERARŞİ korunuyor — okunurluk uğruna feda edilmedi', () {
@@ -317,36 +393,63 @@ void main() {
         ('kart-alt', cardBottom),
         ('mühür-alt', sealedBottom),
       ]) {
-        final double r =
-            ratio(GravitaColors.ink, GravitaColors.textSecondary, bg);
-        expect(r >= 2.0, isTrue,
-            reason: '$name: birincil ↔ sönük ayrımı ${r.toStringAsFixed(2)}× '
-                '— 2×\'in altına inerse metin okunur ama HİYERARŞİ ölür.');
+        final double r = ratio(
+          GravitaColors.ink,
+          GravitaColors.textSecondary,
+          bg,
+        );
+        expect(
+          r >= 2.0,
+          isTrue,
+          reason:
+              '$name: birincil ↔ sönük ayrımı ${r.toStringAsFixed(2)}× '
+              '— 2×\'in altına inerse metin okunur ama HİYERARŞİ ölür.',
+        );
       }
-      final double dark = ratio(GravitaColors.sessionInkOnDark,
-          GravitaColors.sessionInkMutedOnDark, GravitaColors.sessionCamera);
-      expect(dark >= 2.0, isTrue,
-          reason: 'koyu yüzey: ${dark.toStringAsFixed(2)}×');
+      final double dark = ratio(
+        GravitaColors.sessionInkOnDark,
+        GravitaColors.sessionInkMutedOnDark,
+        GravitaColors.sessionCamera,
+      );
+      expect(
+        dark >= 2.0,
+        isTrue,
+        reason: 'koyu yüzey: ${dark.toStringAsFixed(2)}×',
+      );
     });
   });
 
   group('formülün kendisi doğru mu', () {
     test('bilinen değerler — kapı kendi aritmetiğini kanıtlıyor', () {
       // Ateşlenmemiş kapıya güvenilmez; ölçen kapı da ölçüsünü kanıtlamalı.
-      expect(contrast(const Color(0xFF000000), const Color(0xFFFFFFFF)),
-          closeTo(21.0, 0.01));
-      expect(contrast(const Color(0xFFFFFFFF), const Color(0xFFFFFFFF)),
-          closeTo(1.0, 0.001));
+      expect(
+        contrast(const Color(0xFF000000), const Color(0xFFFFFFFF)),
+        closeTo(21.0, 0.01),
+      );
+      expect(
+        contrast(const Color(0xFFFFFFFF), const Color(0xFFFFFFFF)),
+        closeTo(1.0, 0.001),
+      );
       // WCAG'in kendi örneği: #777777 üzerine beyaz ≈ 4.48 (4.5'i GEÇMEZ).
-      expect(contrast(const Color(0xFF777777), const Color(0xFFFFFFFF)),
-          closeTo(4.48, 0.02));
+      expect(
+        contrast(const Color(0xFF777777), const Color(0xFFFFFFFF)),
+        closeTo(4.48, 0.02),
+      );
     });
 
     test('alfa bindirme GERÇEKTEN zemine bakıyor', () {
       // Aynı yarı-saydam renk, farklı zeminde farklı sonuç vermeli — vermiyorsa
       // bindirme çalışmıyordur ve bütün ölçüm sahtedir.
-      final Color onLight = over(const Color(0xFF000000), const Color(0xFFFFFFFF), 0.5);
-      final Color onDark = over(const Color(0xFF000000), const Color(0xFF808080), 0.5);
+      final Color onLight = over(
+        const Color(0xFF000000),
+        const Color(0xFFFFFFFF),
+        0.5,
+      );
+      final Color onDark = over(
+        const Color(0xFF000000),
+        const Color(0xFF808080),
+        0.5,
+      );
       expect(luminance(onLight) > luminance(onDark), isTrue);
     });
   });
@@ -375,18 +478,18 @@ double _linear(double c) =>
 
 void runDistinguishability() {
   // --- CIE Lab (D65) ---
-  double _f(double t) => t > 0.008856 ? math.pow(t, 1 / 3).toDouble()
-                                      : 7.787 * t + 16 / 116;
-  List<double> _lab(Color c) {
+  double f(double t) =>
+      t > 0.008856 ? math.pow(t, 1 / 3).toDouble() : 7.787 * t + 16 / 116;
+  List<double> lab(Color c) {
     final double r = _linear(c.r), g = _linear(c.g), b = _linear(c.b);
-    final double fx = _f((0.4124 * r + 0.3576 * g + 0.1805 * b) / 0.95047);
-    final double fy = _f(0.2126 * r + 0.7152 * g + 0.0722 * b);
-    final double fz = _f((0.0193 * r + 0.1192 * g + 0.9505 * b) / 1.08883);
+    final double fx = f((0.4124 * r + 0.3576 * g + 0.1805 * b) / 0.95047);
+    final double fy = f(0.2126 * r + 0.7152 * g + 0.0722 * b);
+    final double fz = f((0.0193 * r + 0.1192 * g + 0.9505 * b) / 1.08883);
     return <double>[116 * fy - 16, 500 * (fx - fy), 200 * (fy - fz)];
   }
 
-  double _dE(Color a, Color b) {
-    final List<double> x = _lab(a), y = _lab(b);
+  double dE(Color a, Color b) {
+    final List<double> x = lab(a), y = lab(b);
     double s = 0;
     for (int i = 0; i < 3; i++) {
       s += (x[i] - y[i]) * (x[i] - y[i]);
@@ -395,7 +498,7 @@ void runDistinguishability() {
   }
 
   /// Viénot 1999 deuteranopi: M konisi L ve S'ten yeniden kurulur.
-  Color _deuter(Color c) {
+  Color deuter(Color c) {
     final double r = _linear(c.r), g = _linear(c.g), b = _linear(c.b);
     final double l = 17.8824 * r + 43.5161 * g + 4.11935 * b;
     final double m = 3.45565 * r + 27.1554 * g + 3.86714 * b;
@@ -407,11 +510,13 @@ void runDistinguishability() {
       final double x = v.clamp(0.0, 1.0);
       return x <= 0.0031308 ? 12.92 * x : 1.055 * math.pow(x, 1 / 2.4) - 0.055;
     }
+
     return Color.from(
-        alpha: 1,
-        red: ch(0.0809444479 * l - 0.130504409 * m2 + 0.116721066 * s),
-        green: ch(-0.0102485335 * l + 0.0540193266 * m2 - 0.113614708 * s),
-        blue: ch(-0.000365296938 * l - 0.00412161469 * m2 + 0.693511405 * s));
+      alpha: 1,
+      red: ch(0.0809444479 * l - 0.130504409 * m2 + 0.116721066 * s),
+      green: ch(-0.0102485335 * l + 0.0540193266 * m2 - 0.113614708 * s),
+      blue: ch(-0.000365296938 * l - 0.00412161469 * m2 + 0.693511405 * s),
+    );
   }
 
   //: ANLAM taşıyan ve aynı yüzeyde görünen çiftler. Ölçüldü: accent ve
@@ -419,18 +524,30 @@ void runDistinguishability() {
   //: dosyalarının HEPSİNDE birlikte geçiyor.
   const List<(String, Color, String, Color)> meaningPairs =
       <(String, Color, String, Color)>[
-    ('accent=EYLEM', GravitaColors.accent,
-     'honestySeal=DÜRÜSTLÜK', GravitaColors.honestySeal),
-    ('accent=EYLEM', GravitaColors.accent, 'ink=METİN', GravitaColors.ink),
-    ('honestySeal=DÜRÜSTLÜK', GravitaColors.honestySeal,
-     'honestyText=GÖVDE', GravitaColors.honestyText),
-  ];
+        (
+          'accent=EYLEM',
+          GravitaColors.accent,
+          'honestySeal=DÜRÜSTLÜK',
+          GravitaColors.honestySeal,
+        ),
+        ('accent=EYLEM', GravitaColors.accent, 'ink=METİN', GravitaColors.ink),
+        (
+          'honestySeal=DÜRÜSTLÜK',
+          GravitaColors.honestySeal,
+          'honestyText=GÖVDE',
+          GravitaColors.honestyText,
+        ),
+      ];
 
   test('anlam taşıyan renkler AYIRT EDİLEBİLİR — normal görüşte', () {
     for (final (String na, Color a, String nb, Color b) in meaningPairs) {
-      expect(_dE(a, b), greaterThanOrEqualTo(3.0),
-          reason: '$na ↔ $nb: ΔE ${_dE(a, b).toStringAsFixed(1)} < 3,0 — '
-              'iki FARKLI anlam aynı renge çökmüş.');
+      expect(
+        dE(a, b),
+        greaterThanOrEqualTo(3.0),
+        reason:
+            '$na ↔ $nb: ΔE ${dE(a, b).toStringAsFixed(1)} < 3,0 — '
+            'iki FARKLI anlam aynı renge çökmüş.',
+      );
     }
   });
 
@@ -439,10 +556,14 @@ void runDistinguishability() {
     // deuteranopide kahverengiye kayar. "Bu dokunulabilir" sinyali ile
     // "bu bir metin" sinyali çakışırsa dürüstlük mührü DÜĞMEYE benzer.
     for (final (String na, Color a, String nb, Color b) in meaningPairs) {
-      final double d = _dE(_deuter(a), _deuter(b));
-      expect(d, greaterThanOrEqualTo(3.0),
-          reason: '$na ↔ $nb: deuteranopide ΔE ${d.toStringAsFixed(1)} '
-              '< 3,0 — renk körü kullanıcı için AYNI renk.');
+      final double d = dE(deuter(a), deuter(b));
+      expect(
+        d,
+        greaterThanOrEqualTo(3.0),
+        reason:
+            '$na ↔ $nb: deuteranopide ΔE ${d.toStringAsFixed(1)} '
+            '< 3,0 — renk körü kullanıcı için AYNI renk.',
+      );
     }
   });
 
@@ -455,11 +576,18 @@ void runDistinguishability() {
     // paletin bir sonraki ton adımını atarsa doğacak çift.
     const Color a = Color(0xFF6E0A10);
     const Color b = Color(0xFF720C12);
-    expect(_dE(a, b), lessThan(3.0),
-        reason: 'İKİZ ÖLDÜ: bu sentetik çift artık eşiğin üstünde — '
-            'kapının ateşlenebilirlik kanıtı kayboldu.');
-    expect(_dE(_deuter(a), _deuter(b)), lessThan(3.0),
-        reason: 'İKİZ ÖLDÜ (deuteranop dal)');
+    expect(
+      dE(a, b),
+      lessThan(3.0),
+      reason:
+          'İKİZ ÖLDÜ: bu sentetik çift artık eşiğin üstünde — '
+          'kapının ateşlenebilirlik kanıtı kayboldu.',
+    );
+    expect(
+      dE(deuter(a), deuter(b)),
+      lessThan(3.0),
+      reason: 'İKİZ ÖLDÜ (deuteranop dal)',
+    );
   });
 
   test('EŞİK PAYI ÖLÇÜLÜ: en yakın anlam çifti ne kadar uzakta', () {
@@ -467,12 +595,16 @@ void runDistinguishability() {
     // (deuteranop) — eşiğin 1,3 üstünde. Yani palet güvenli ama BOL değil;
     // yeni bir ton eklenirse bu kapı ilk ötecek yerlerden biri.
     double closest = double.infinity;
-    for (final (String _, Color a, String __, Color b) in meaningPairs) {
-      closest = math.min(closest, math.min(_dE(a, b), _dE(_deuter(a), _deuter(b))));
+    for (final (String _, Color a, String _, Color b) in meaningPairs) {
+      closest = math.min(closest, math.min(dE(a, b), dE(deuter(a), deuter(b))));
     }
     expect(closest, greaterThan(3.0));
-    expect(closest, lessThan(20.0),
-        reason: 'Pay beklenenden çok büyük — meaningPairs listesi '
-            'sessizce daralmış olabilir (kapı boşa dönüyor).');
+    expect(
+      closest,
+      lessThan(20.0),
+      reason:
+          'Pay beklenenden çok büyük — meaningPairs listesi '
+          'sessizce daralmış olabilir (kapı boşa dönüyor).',
+    );
   });
 }

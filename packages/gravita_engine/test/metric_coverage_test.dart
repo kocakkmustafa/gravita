@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math' as math;
 
 import 'package:gravita_engine/gravita_engine.dart';
 import 'package:motion_core/motion_core.dart' hide MetricCondition, PhaseSpec;
@@ -22,7 +21,8 @@ void main() {
       .toIsotropic(const FrameSize(900, 900)));
 
   bool known(String metric) =>
-      probe.byName(metric) != null || MovementMetrics.unimplemented.contains(metric);
+      probe.byName(metric) != null ||
+      MovementMetrics.unimplemented.contains(metric);
 
   List<String> catalogFiles() => Directory('../../content/catalog')
       .listSync()
@@ -33,11 +33,13 @@ void main() {
       .toList()
     ..sort();
 
-  test('katalogdaki HER staticHold/multiPhaseFsm hareketin metrikleri'
+  test(
+      'katalogdaki HER staticHold/multiPhaseFsm hareketin metrikleri'
       ' ya hesaplı ya adlandırılmış (G-178 kapısı)', () {
     final List<String> gaps = <String>[];
     for (final String path in catalogFiles()) {
-      final MovementConfig c = MovementConfig.parse(File(path).readAsStringSync());
+      final MovementConfig c =
+          MovementConfig.parse(File(path).readAsStringSync());
       final Set<String> metrics = switch (c.engineType) {
         EngineType.staticHold => c.hold!.referencedMetrics,
         EngineType.multiPhaseFsm => c.multi!.referencedMetrics,
@@ -52,19 +54,22 @@ void main() {
             '${gaps.join(', ')}');
   });
 
-  test('POZİTİF İKİZ: kapı GERÇEKTEN ateşliyor — bilinmeyen bir metrik'
+  test(
+      'POZİTİF İKİZ: kapı GERÇEKTEN ateşliyor — bilinmeyen bir metrik'
       ' yakalanıyor', () {
     expect(known('this_metric_does_not_exist_anywhere'), isFalse,
         reason: 'kapı hiçbir zaman ötmüyorsa test konusu kalmamış demektir.');
   });
 
-  test('9 hold/multiphase hareketin HİÇBİRİ required: türetmesi için 0'
+  test(
+      '9 hold/multiphase hareketin HİÇBİRİ required: türetmesi için 0'
       ' landmark üretmiyor (en az bir metriği hesaplı)', () {
     // `required:` boşsa motor eski fullBody varsayılanına düşer — bu
     // GÜVENLİDİR ama 9 hareketin HİÇBİRİNİN bugün bu duruma düşmediğini
     // (yani G-178 fix'inin GERÇEKTEN bir şey türettiğini) ölçer.
     for (final String path in catalogFiles()) {
-      final MovementConfig c = MovementConfig.parse(File(path).readAsStringSync());
+      final MovementConfig c =
+          MovementConfig.parse(File(path).readAsStringSync());
       if (c.engineType != EngineType.staticHold &&
           c.engineType != EngineType.multiPhaseFsm) {
         continue;
