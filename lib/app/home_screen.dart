@@ -4,6 +4,8 @@ import 'content_repository.dart';
 import 'library_model.dart';
 import 'library_strings.dart';
 import 'movement_page.dart';
+import 'program/program_setup_screen.dart';
+import 'workout/workout_screen.dart';
 import 'skills/skill_trees_list_screen.dart';
 import 'surface_widgets.dart';
 import 'theme.dart';
@@ -32,6 +34,8 @@ class HomeScreen extends StatelessWidget {
   static const Key openNowKey = Key('home.openNow');
   static const Key queueKey = Key('home.queue');
   static const Key skillTreesKey = Key('home.skillTrees');
+  static const Key programKey = Key('home.program');
+  static const Key programSetupLinkKey = Key('home.programSetupLink');
 
   final ContentRepository content;
   final VoidCallback onBrowseLibrary;
@@ -71,6 +75,82 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ))
                 .toList(growable: false),
+          ),
+          const SizedBox(height: 30),
+          // ⭐ GRA-P1-003: program kartı — AYNI SIRA gerekçesi (skill-trees
+          // bloğunun altındaki uzun yorum): "browse library" kartından
+          // ÖNCE durmak ZORUNDA, aksi hâlde gezilebilirlik yürüyüşü ona
+          // hiç ulaşamaz (ölçülmüş desen, G-269).
+          //
+          // ⚠️ İKİNCİ kart (ProgramSetupScreen'e DOĞRUDAN) ölçülmüş bir
+          // ikinci ihtiyaçtan doğdu, süs DEĞİL. `WorkoutScreen`in kendi
+          // boş-durum CTA'sı `ProgramSetupScreen`e TEK yoldu — ama o CTA
+          // `WorkoutScreen`in KENDİ `FutureBuilder`ı (gerçek G/Ç: path_
+          // provider + dosya) çözülene KADAR ağaçta yok. `test/reachability_
+          // test.dart`ın `settle()`i BİLEREK yalnız sahte-saatli pump kullanır
+          // (`runAsync` yok — gerçek G/Ç zaten hiç sürülemez) ve tek turda
+          // bu çözülmeyi bekleyemez; sonuç `ProgramSetupScreen` "ULAŞILAMIYOR
+          // AMA VAR" çıktı. Yalnız test kusuru da değildi: bir program
+          // KURULDUKTAN SONRA `WorkoutScreen` bir daha o CTA'yı hiç
+          // göstermiyordu — yani var olan bir programı DEĞİŞTİRMENİN gerçek
+          // kullanıcı için de hiçbir yolu yoktu. Bu kart HER İKİSİNİ birden
+          // kapatıyor: her zaman senkron (Home zaten yüklü içerikten çizilir,
+          // bu kartın kendi async kapısı yok) VE her zaman görünür.
+          SurfaceSection(
+            key: programKey,
+            title: LibraryStrings.programOverviewTitle.toUpperCase(),
+            children: <Widget>[
+              InkWell(
+                borderRadius: BorderRadius.circular(18),
+                onTap: () => Navigator.of(context).push<void>(
+                  MaterialPageRoute<void>(
+                    builder: (_) => WorkoutScreen(content: content),
+                  ),
+                ),
+                child: GravitaCard(
+                  radius: 18,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 15),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(LibraryStrings.programOverviewTitle,
+                            style: GravitaType.body(
+                                size: 14, weight: FontWeight.w500)),
+                      ),
+                      const Icon(Icons.chevron_right,
+                          size: 20, color: GravitaColors.textTertiary),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              InkWell(
+                key: programSetupLinkKey,
+                borderRadius: BorderRadius.circular(18),
+                onTap: () => Navigator.of(context).push<void>(
+                  MaterialPageRoute<void>(
+                    builder: (_) => ProgramSetupScreen(content: content),
+                  ),
+                ),
+                child: GravitaCard(
+                  radius: 18,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 15),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(LibraryStrings.programSetupTitle,
+                            style: GravitaType.body(
+                                size: 14, weight: FontWeight.w500)),
+                      ),
+                      const Icon(Icons.chevron_right,
+                          size: 20, color: GravitaColors.textTertiary),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 30),
           // ⭐ GRA-P1-001: gerçek, dokunulabilir bir giriş noktası — hareket

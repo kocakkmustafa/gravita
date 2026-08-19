@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'content_failure.dart';
 import 'library_model.dart';
 import 'live_session.dart';
+import 'program/program_model.dart';
 
 /// İçerik + kalıcılık KABLOLAMASI — kabuğun motora bakan tek yüzü.
 ///
@@ -168,6 +169,42 @@ final class ContentRepository {
       if (c != null && c.preconditionDerived) return c;
     }
     return null;
+  }
+
+  /// GRA-P1-003: `content/programs/foundation.v1.json` — bundle'dan.
+  /// `ProgramBuilder`ın kendisi bunu BİLMEZ (parametre olarak alır); bu
+  /// yalnız KABLOLAMA — `_loadCatalog`la AYNI ayrım (saf mantık / Flutter
+  /// kablolaması).
+  static Future<ProgramConfig> loadProgramConfig(AssetBundle bundle) async =>
+      ProgramConfig.fromJson((jsonDecode(
+              await bundle.loadString('content/programs/foundation.v1.json'))
+          as Map)
+        .cast<String, dynamic>());
+
+  /// [ProgramBuilder]ın ihtiyaç duyduğu katalog alt kümesi — 31 hareketin
+  /// HEPSİ için (yalnız kursu olanlar değil, `catalogFor` burada HER
+  /// hareketi zorlu-yükler). `family`/`level`/`equipment` `library.json`dan
+  /// (zaten bellekte); `isHold` TEK BAŞINA katalog dosyasını ister
+  /// (`engine.type` — `library.json`a hiç KOPYALANMADI, G-079 dersi: aynı
+  /// ölçümün iki evi olursa ayrışır).
+  Future<List<ProgramCatalogEntry>> programCatalogEntries() async {
+    final List<ProgramCatalogEntry> out = <ProgramCatalogEntry>[];
+    for (final MovementEntry m in catalogue.movements) {
+      final MovementConfig config = await catalogFor(m.id);
+      out.add(ProgramCatalogEntry(
+        id: m.id,
+        family: m.family,
+        // `level` `library.json`da YOKSA (O-070 dersi: eksik veri varsayılan
+        // ALMAZ) program üretimi bu hareketi hiçbir seviyeye eşleyemez —
+        // en KISITLAYICI varsayım ('intermediate', beginner girdisinde
+        // ELENİR) seçildi, en olumlu (beginner) DEĞİL.
+        level: m.level ?? 'intermediate',
+        equipment: m.equipment.toSet(),
+        isHold: config.engineType == EngineType.staticHold,
+        isLive: m.isLive,
+      ));
+    }
+    return out;
   }
 
   /// DERS seansı geçmişi. `ProgressSummary` YALNIZ bunu okur.

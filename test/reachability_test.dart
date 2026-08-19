@@ -257,15 +257,33 @@ void main() {
         for (int d = 0; d < deep.length && d < 4; d++) {
           final List<Element> live2 = tappables();
           if (d >= live2.length) break;
+          // ⚠️ İTME SAYACI ÖNCEDEN yakalanıyor — G-272 ölçümü: bu satır
+          // olmadan aşağıki pop KOŞULSUZDU ve yalnız "1+ derindeyim"i
+          // soruyordu, "BU dokunuş beni DAHA derine itti mi"yi değil. Bir
+          // ekranın İLK basılabilir kontrolü GEZİNMEYEN bir şeyse (ör.
+          // `RadioListTile` — yerinde değişir, itmez) koşulsuz pop onu HEMEN
+          // dışarı atıyordu; sonraki `d` turu `live2`yi YENİDEN sorguladığında
+          // artık AYNI ekranda değil, kök sekmenin KENDİ kontrollerini
+          // buluyordu — dizin aynı kalırken ekran habersizce değişiyordu.
+          // Ölçülen sonuç: `ProgramSetupScreen`e (İKİ `RadioListTile`'ı olan
+          // İLK ekran) bu yoldan dalınca üçüncü katman rastgele ana ekrana
+          // sıçrıyor, `skillTrees`/`queue` kartlarının kendi sırası hiç
+          // gelmiyordu — ekranın kusuru değil, yürüyüşün "pop" ile
+          // "gezinmeyen dokunuş"u AYIRT EDEMEMESİ.
+          final int pushesBefore = witness.pushes;
           await tester.tap(find.byWidget(live2[d].widget), warnIfMissed: false);
           await settle(tester);
           reached.addAll(mounted(tester, candidates));
           if (pushed(tester)) routeScreens.addAll(mounted(tester, candidates));
-          // Geri dön; kök route'ta pop yoksa sessizce yut.
-          final NavigatorState nav = tester.state(find.byType(Navigator).first);
-          if (nav.canPop()) {
-            nav.pop();
-            await settle(tester);
+          // Geri dön — YALNIZ bu tur GERÇEKTEN bir şey ittiyse. İtmediyse
+          // hâlâ AYNI ekrandayız; pop etmek erken dışarı atardı.
+          if (witness.pushes > pushesBefore) {
+            final NavigatorState nav =
+                tester.state(find.byType(Navigator).first);
+            if (nav.canPop()) {
+              nav.pop();
+              await settle(tester);
+            }
           }
         }
         final NavigatorState nav = tester.state(find.byType(Navigator).first);

@@ -6598,3 +6598,83 @@ hareket).
 yükleme) + `lib/app/workout/workout_screen.dart` (Step 3: RPE local-input + Step 4'ün
 UI tarafı) + `pubspec.yaml`ye `content/programs/foundation.v1.json` asset kaydı (henüz
 hiçbir üretim kodu okumuyor, bu yüzden BİLEREK eklenmedi — okuyan kod gelince eklenecek).
+
+### G-272 — 🏋️ GRA-P1-003 UI/kablolama: ProgramSetupScreen + WorkoutScreen + Home girişi — VE yürüyüş kapısının kendi KUSURU ölçümle bulundu
+
+**Kablolama (roadmap Step 1/2'nin UI yarısı):** `content_repository.dart`ya
+`ContentRepository.loadProgramConfig`/`programCatalogEntries()` eklendi (G-271'in domain
+katmanını GERÇEK asset bundle'a bağlıyor); `content/programs/foundation.v1.json` artık
+`pubspec.yaml`nin `assets:` listesinde — G-270'in "okuyucu geldiği gün satırı da gelir"
+ilkesiyle TUTARLI, çünkü bu turda GERÇEKTEN bir okuyucu geldi. `ProgramStore` (`lib/app/
+program/program_store.dart`) `OnboardingStore`nun BİREBİR deseni — `open()`/`forFile()`/
+fail-open `read()`.
+
+**Yeni ekranlar:** `ProgramSetupScreen` (deneyim/ekipman/gün toplayan TEK yüzey —
+G-127'nin AYNI kuralı: yalnız `ProgramBuilder`ın GERÇEKTEN okuduğu üç alan toplanıyor,
+yaş/boy/kilo gibi hiçbir okuyucusu olmayan alan YOK) ve `WorkoutScreen` (sekiz haftalık
+programı haftaya göre gruplayıp gösteriyor, boş-durumda kuruluma yönlendiriyor).
+
+**İKİ GERÇEK KUSUR, sabit-kodlanmış "yükleniyor" varsayımı yüzünden — ölçümle
+yakalandı, iddia değil:** `WorkoutScreen._load()` ve `ProgramSetupScreen._build()`,
+`ProgramStore.open()`nın kendisinin (platform kanalı, `getApplicationSupportDirectory()`)
+fırlatabileceğini HESABA KATMIYORDU — `ProgramStore.read()`in kendi fail-open try/catch'i
+yalnız DOSYA hatalarını kapsıyor, `open()`nın PLATFORM hatasını değil. Sonuç: gerçek bir
+depolama/platform arızasında `WorkoutScreen` SONSUZA DEK yükleniyor gösterirdi (hata ile
+"hâlâ yükleniyor", `FutureBuilder`ın `data==null` dalında AYIRT EDİLEMİYORDU) ve
+`ProgramSetupScreen`in Build butonu SONSUZA DEK devre dışı kalırdı (`_saving` hiç
+`false`ya dönmezdi), kullanıcıya SIFIR geri bildirimle. Panzehir `onboarding_screen.dart`ın
+`_completeOnboarding`iyle AYNI: try/catch + fail-open — arıza kullanıcıyı KİLİTLEMEZ,
+yalnız "henüz kurulmamış" durumuna düşürür.
+
+**Home'a İKİNCİ bir program girişi eklendi — kozmetik değil, İKİ gerçek boşluğu birden
+kapatıyor:** (1) `ProgramSetupScreen`e TEK yol `WorkoutScreen`in boş-durum CTA'sıydı, ama
+o CTA `WorkoutScreen`in KENDİ `FutureBuilder`ı (gerçek G/Ç) çözülene kadar ağaçta yoktu —
+`test/reachability_test.dart`ın `settle()`i BİLEREK yalnız sahte-saatli pump kullanır
+(gerçek G/Ç hiç sürülemez), tek turda bu çözülmeyi bekleyemedi, `ProgramSetupScreen`
+"ULAŞILAMIYOR AMA VAR" çıktı. (2) Test kusuru TEK BAŞINA değildi: bir program
+KURULDUKTAN SONRA o CTA bir daha HİÇ görünmüyordu — var olan programı DEĞİŞTİRMENİN
+gerçek kullanıcı için de yolu yoktu. `home_screen.dart`ya `programSetupLinkKey`li ikinci
+InkWell kart (her zaman senkron, Home zaten yüklü içerikten çizilir) HER İKİSİNİ birden
+kapattı.
+
+**⭐ Yürüyüş kapısının KENDİ, önceden var olan kusuru — dört ekranı BENDEN ÖNCE de riske
+atıyordu, yalnız hiçbiri açığa çıkarmamıştı:** İkinci Home kartı eklendikten sonra
+`reachability_test.dart` `ProgramSetupScreen`i buldu AMA `LiveSessionScreen`/
+`SkillTreeScreen`/`SkillTreesListScreen`/`WhyNotHereScreen`i KAYBETTİ — dört, benimle
+HİÇ ilgisi olmayan ekran. Debug-print enstrümantasyonuyla (geçici, geri alındı) izlendi:
+`ProgramSetupScreen`, uygulamanın kendi `RadioListTile`'ları OLAN İLK ekranı — yani
+Katman-3'ün "açılan ekrandaki kontroller" döngüsünün karşılaştığı İLK GEZİNMEYEN (yerinde
+değişen, itmeyen) `InkWell`. Döngünün pop mantığı `canPop()`i "1+ derindeyim" diye
+okuyordu, "BU dokunuş beni DAHA derine itti mi" diye değil — bir radyo düğmesine dokunmak
+(gezinme YOK) yine de KOŞULSUZ pop tetikliyordu, döngü Home'a erken düşüyor, sonraki `d`
+turu ARTIK BAŞKA bir ekranın (kök sekmenin) kontrollerini indeksliyor, `skillTrees`/
+`queue` kartlarının kendi k-sırası hiç gelmiyordu. MovementPage/WorkoutScreen bugüne dek
+bu dalı hiç tetiklememişti çünkü İKİSİNİN de (bu turdan önce) Katman-3'te bulduğu TEK şey
+navdest'lerdi — 4 sekme dışında gezinmeyen hiçbir iç kontrolleri yoktu. Panzehir
+`witness.pushes` sayacını (zaten `_RouteWitness`te var, OLAY temelli) her `d` turundan
+ÖNCE/SONRA karşılaştırmak: yalnız GERÇEKTEN bir push olduysa pop et. Düzeltme sonrası:
+KATI rota 7→**8**, GEVŞEK yüzey 10→**11** (ESKİSİNDEN DAHA FAZLA, kayıp yok +
+`ProgramSetupScreen` kazanıldı), ULAŞILAMIYOR tam **1** (yalnız yapısal-muaf
+`ContentFailureScreen`).
+
+**Neden bu şerhle kaydediliyor:** paylaşılan, çok-dersli test altyapısına dokunmak
+BİLEREK son çare — ama kanıt (izleme çıktısı + düzeltme sonrası TAM suite yeşil, hem
+`flutter test` hem `run_all_gates.sh`) düzeltmenin GERÇEK olduğunu, test'i kandırmadığını
+gösteriyor. `kDeliberatelyUnreachable`e ekleme YAPILMADI — dosyanın kendi
+`derivedExclusionReasons()`i bunu zaten reddederdi (`ProgramSetupScreen` gerçek bir
+montaj noktasından inşa ediliyor).
+
+**Test kapsamı:** `test/program_setup_screen_test.dart` (2, GERÇEK G/Ç zinciriyle —
+`launch_harness.dart`nın `realIo`/`FakeSupportDir`i, HİÇBİR yeni sahte yazılmadı) ·
+`test/program_repository_test.dart` (3, gerçek bundle). İlk yazımda İKİ ayrı FakeAsync
+tuzağı ölçüldü: `pumpAndSettle()` gerçek G/Ç'yi hiç süremiyordu (WorkoutScreen 0 widget
+döndü) VE doğrudan `await (await ProgramStore.open()).read()` testi 10 dakika ASILI
+bıraktı. Panzehir `launch_harness.dart`nın KENDİ belgelediği desen: `realIo()` +
+koşul-bağlı ayarlanma döngüsü (`pumpAndSettle` DEĞİL).
+
+**Kapsam BİLEREK dışında (kod YOK, iddia da yok):** RPE toplama (Step 3), "bugün hangi
+gün" takibi, `rescheduleAfterMiss`i ÇAĞIRAN bir UI (motor hazır+test edilmiş, G-271;
+ekran henüz çağırmıyor) — `workout_screen.dart`nın dosya-başı yorumunda adıyla yazılı.
+
+**Kapı durumu:** `tools/run_all_gates.sh`: `app 278/278` (+5) · `engine 176/176` ·
+`python 22/22`. `flutter analyze`: 0 sorun.

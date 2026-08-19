@@ -400,6 +400,53 @@ abstract final class LibraryStrings {
       'or score you against a number we could not justify. The full list of '
       'what we left out of the catalogue, with reasons, is below.';
 
+  // ── Program kurulumu + genel bakış (GRA-P1-003) ─────────────────────────
+
+  static const String programSetupTitle = 'Set up your program';
+  static const String programSetupIntro =
+      'A few questions decide your eight-week plan. You can change your '
+      'answers and rebuild it any time — nothing here is permanent.';
+  static const String programExperienceLabel = 'Experience';
+  static const String programExperienceBeginner = 'Beginner';
+  static const String programExperienceIntermediate = 'Intermediate';
+  static const String programEquipmentLabel =
+      'Equipment you have — leave everything off for bodyweight only';
+  static const String programDaysPerWeekLabel = 'Days per week';
+  static const String programBuildButton = 'Build my program';
+
+  static const String programOverviewTitle = 'Your 8-week program';
+
+  /// ⚠️ `content/programs/foundation.v1.json`ın kendi `$comment`ıyla AYNI
+  /// dürüstlük: standart, muhafazakâr periyotlama — hareket-bilimi uzman
+  /// onayı HENÜZ almadı. "yet" burada YASAK (M-F-186); cümle yalnız BUGÜNÜ
+  /// anlatır.
+  static const String programOverviewDisclaimer =
+      'This is general practice guidance, not a coach or a medical '
+      'prescription. Its progression has not been through a '
+      'movement-science review.';
+
+  static String programWeekLabel(int week, bool isDeload) =>
+      isDeload ? 'Week $week — deload' : 'Week $week';
+
+  static String programDayLabel(int day) => 'Day $day';
+
+  static String programSetsReps(int sets, int reps) => '$sets × $reps';
+
+  static String programSetsHold(int sets, int seconds) =>
+      '$sets × ${seconds}s hold';
+
+  /// Katalogtaki `displayName` bilinmiyorsa (program derived-entry'sinde
+  /// yalnız id var) ham id'yi göstermek YASAK (HAM anahtar sızıntısı,
+  /// M-F-186 grubunun aynı disiplini) — bu yüzden çağıran taraf her zaman
+  /// `MovementEntry.displayName`i geçirir, id'yi DEĞİL.
+  static const String programManualLogBadge = 'Manual log';
+  static const String programLiveBadge = 'Camera-coached';
+
+  static const String programNoInputs =
+      'You have not set up a program. Answer a few questions and we will '
+      'build an eight-week plan from movements already in the library.';
+  static const String programNoInputsAction = 'Set up your program';
+
   static String _titleCase(String s) =>
       s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
 }

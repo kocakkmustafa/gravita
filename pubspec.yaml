@@ -98,6 +98,12 @@ flutter:
     # bunu zaten önce yakalar.
     - content/catalog/w1/
     - content/catalog/w2/
+    # Sekiz haftalık program periyotlama PARAMETRELERİ (GRA-P1-003) — hareket
+    # SEÇMEZ, yalnız set/tekrar/deload sayıları taşır (bkz. dosyanın kendi
+    # $comment'ı). Skill-graph'ın AKSİNE: burada gizlenecek doğrulanmamış
+    # eşik yok, ve OKUYUCU (`content_repository.dart::loadProgramConfig`)
+    # ARTIK var — "beyan var, okuyanı yok" satırı bu turda kapandı.
+    - content/programs/foundation.v1.json
     # Poz modeli — git'te DEĞİL (aile kuralı, .gitignore); `tool/fetch_pose_model.sh`
     # indirir ve SHA-256 DOĞRULAR. Asset olarak paketlenir, çalışma-zamanında
     # dosyaya yazılır (plugin dosya yolu ister, bundle değil).
