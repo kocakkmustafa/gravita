@@ -1,5 +1,31 @@
 # PROGRESS — Gravita
 
+## 2026-08-19 — SOLO model (v3): GRA-P1-003 kapandı + GRA-P1-004 Step 1/2 canlı yola kablı + Step 3 temeli (G-272…G-277)
+
+> Orkestrasyon/koordinatör katmanı bu turda iptal edildi — hat roadmap'ini
+> (`22-GRAVITA-MASTER-ROADMAP.md`) tek başına, kurucu-sorusu sormadan yürüttü. `HEAD 87075bf`,
+> origin ile senkron, çalışma ağacı temiz, **6 commit hepsi push'lu**. Kapılar: `app 295/295 ·
+> engine 176/176 · python 22/22`, üçü de yeşil (`network_claim_audit` dahil).
+
+**GRA-P1-003 TAMAMEN kapandı** (roadmap'in beş adımının beşi de ✅ VERIFIED, G-272/G-273):
+`ProgramSetupScreen`/`WorkoutScreen`/`ProgramStore` + RPE toplama + kaçırılan gün yeniden
+sıralama. Yol boyunca `test/reachability_test.dart`ın (aile-geneli SHARED test altyapısı) kendi
+pop-mantığı kusuru bulunup düzeltildi (`witness.pushes` deltası).
+
+**GRA-P1-004 Step 1/2 kapandı, GERÇEKTEN canlı yola kablı** (G-274/G-275): `LiveFeedbackController`
+`LiveSessionRunner.consume()`a bağlı, sınıf-B iki katmanlı garantiyle form hükmü üretmiyor. Ses/
+görsel teslim EXTERNAL_GATE (cihaz+kayıtlı ses gerektirir).
+
+**GRA-P1-004 Step 3 temeli atıldı — Gravita'nın İLK veritabanı** (G-276/G-277): kendi G-274 hatam
+("Drift eklenmeyecek") `02-MOTION-AILESI-ORKESTRASYON.md` §8.1 okununca düzeltildi; `drift`+
+`sqlite3_flutter_libs` gerçekten çalıştığı ölçülerek eklendi, `SessionProjector.rebuild()`
+idempotent replay'i tam-yeniden-kurma stratejisiyle sağlıyor.
+
+Detay: `workspace/DEFTER.md` G-272…G-277 · Obsidian: [[🔄 Oturum Devri 2026-08-19 — Gravita GRA-P1-003 Kapanışı + GRA-P1-004 Feedback&Storage Temeli]].
+
+Sıradaki: GRA-P1-004 Step 3'ün kalanı (şifreleme/export/delete/Step 5) — `EVIDENCE-LEDGER.md`nin
+GRA-P1-004 satırında tam kapsam.
+
 ## 2026-08-19 — Üretim hattı bağlantısı + PREP turu (G-260…G-264)
 
 Oturum `holding/plans/URETIM-HATTI-OTURUM-PROTOKOLU-2026-08-18.md` sistemine bağlandı: başlık
