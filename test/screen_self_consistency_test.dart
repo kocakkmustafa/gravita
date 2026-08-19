@@ -184,14 +184,30 @@ void main() {
         reason: 'Yasak sözcüğü silmek yetmez; sınıfın ayrımı kalmalı.');
   });
 
-  /// ⭐ Kuralların KOŞMADIĞI, yüzeyin de bunu SÖYLEDİĞİ — pozitif yön.
-  /// Üstteki test yalnız yasak cümleyi kovalıyor; bu test doğru cümlenin
-  /// gerçekten kurulduğunu istiyor, yoksa metin boşaltılarak da geçilebilirdi.
-  test('canlı metin, kuralların seans sırasında KOŞMADIĞINI söylüyor', () {
+  /// ⭐ Kuralların ARTIK DEĞERLENDİRİLDİĞİ AMA SONUCUN gösterilmediği,
+  /// yüzeyin de bunu SÖYLEDİĞİ — pozitif yön. Üstteki desenle AYNI: yalnız
+  /// yasak cümleyi kovalamak yetmez, doğru cümlenin GERÇEKTEN kurulduğunu
+  /// istiyoruz, yoksa metin boşaltılarak da geçilebilirdi.
+  ///
+  /// ⚠️ **GÜNCELLENDİ (G-275, GRA-P1-004 Step 1/2).** Bu test EVVELCE
+  /// `contains('nothing checks')` arıyordu — o iddia `LiveFeedbackController`
+  /// `LiveSessionRunner.consume()`a kablolanınca YALAN oldu (kurallar ARTIK
+  /// canlı değerlendiriliyor). Panzehir üstteki testin AYNI dersi: yasak
+  /// cümleyi silmek yetmez, YERİNE doğru olanı koymalı — burada da aynen
+  /// uygulandı.
+  test(
+      'canlı metin, kuralların ARTIK değerlendirildiğini AMA sonucun '
+      'gösterilmediğini söylüyor', () {
     for (final int n in <int>[1, 4, 5]) {
       final String s = LibraryStrings.formErrorsBodyLive(n).toLowerCase();
-      expect(s, contains('nothing checks'),
-          reason: 'Yasak cümleyi silmek yetmez; yerine DOĞRU olanı koymalı.');
+      expect(s, contains('checked live'),
+          reason: 'Yasak cümleyi silmek yetmez; yerine DOĞRU olanı koymalı — '
+              'kurallar artık `LiveSessionRunner.consume()`dan GERÇEKTEN '
+              'değerlendiriliyor (G-275).');
+      expect(s, contains('not shown to you'),
+          reason: 'Değerlendirilmek BAŞKA, kullanıcıya İLETİLMEK başka — '
+              'hiçbir UI/ses `latestFeedback`i henüz TESLİM ETMİYOR, bu '
+              'ikinci olgu KAYBOLMAMALI.');
       expect(s, contains('recorded footage'),
           reason: 'Kurallar kayıtlı görüntüde GERÇEKTEN ateşleniyor — bunu '
               'söylememek, ürünü hak ettiğinden kötü göstermek olurdu.');

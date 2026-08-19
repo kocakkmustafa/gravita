@@ -6819,3 +6819,61 @@ ve BEKLENEN — yukarıdaki gerekçeyle commit YAPILMADI, `ALLOW_RED` de kullan�
 çünkü bu "kabul edilmiş borç" değil "henüz bitmemiş iş"). Dosyalar diskte DURUYOR
 (`lib/app/workout/feedback_controller.dart`, `test/single_cue_test.dart`) —
 SİLİNMEDİ, çünkü kod GERÇEKTEN doğru ve test edilmiş; yalnız kablo eksik.
+
+### G-275 — 🔌 GRA-P1-004 Step 1/2 TAMAM: LiveFeedbackController GERÇEKTEN CANLI yola kablandı — G-274'ün dört maddesi TEK commit'te
+
+**Kablo:** `LiveSessionRunner.consume()` (`live_session.dart:124`) artık her
+`addFrame` turunda `_engine.reps.length`i ÖNCE/SONRA karşılaştırıyor (`_reps.add`
+`rep_engine.dart`ta TEK çağrı yeri, ölçüldü — bir tur en fazla bir tekrar ekler);
+YENİ bir tekrar tamamlanınca `_feedback.evaluate(engine, repMetrics(rep), tUs)`
+çağrılıyor ve sonuç `latestFeedback` alanında (`reps`/`framesSeen`/
+`personVisible` deseniyle AYNI) tutuluyor. `LiveFeedbackController` ARTIK
+SESSİZCE kurulu bir alan (`_feedback`) — her `LiveSessionRunner` (her yeni
+seans) kendi TAZE cooldown geçmişiyle başlıyor, `_engine`in AYNI per-instance
+deseni.
+
+**Test:** `live_session_test.dart`ya YENİ grup — GERÇEK `squatSequence`
+üzerinden (sahte kamera YOK, `LiveSessionRunner`ın KENDİ "kamerasız test
+edilebilir" sözleşmesiyle). İki iddia: (1) kablo GERÇEKTEN ateşliyor
+(`latestFeedback` tekrar tamamlanmadan `null`, tamamlanınca DOLU — hangi
+düzeltmenin ateşlediğini İDDİA ETMİYOR, `single_cue_test.dart` o iddiayı ZATEN
+izole metriklerle kanıtladı, burada sınanan yalnız KABLO), (2) sınıf B GERÇEK
+canlı yoldan bile `willSpeak` asla `true` olmuyor.
+
+**Üç dürüstlük cümlesi — TEK ikisi güncellendi, ikisi İNCELENİP DOKUNULMADI:**
+`library_strings.dart`taki `formErrorsBodyLive` GÜNCELLENDİ ("nothing checks it"
+→ "is checked live... but the result is not shown to you mid-set" — İKİ AYRI
+olgu: değerlendirme ARTIK oluyor, TESLİM hâlâ olmuyor, ikisi KARIŞTIRILMADI).
+`onboarding_strings.dart`ın `valueWhatWeDo`su ("nothing corrects **you**") VE
+`formErrorsBody` (canlı-olmayan hareketler) İNCELENDİ ve BİLEREK
+DOKUNULMADI — ikisi de kullanıcı-SONUCU iddiası ("sana bir şey ulaşmıyor"),
+"içeride değerlendirme oluyor mu" iddiası DEĞİL; teslim mekanizması olmadığı
+sürece İKİSİ de hâlâ doğru.
+
+**⚠️ İlk yazımda İKİ kendi hatam, sabotajla yakalandı — ikisi de "yasak cümleyi
+silmek yetmez" dersinin AYNI ailesi:**
+1. `formErrorsBodyLive`den "fires on recorded footage" cümlesini SİLDİM —
+   `screen_self_consistency_test.dart`ın KENDİ pozitif-ikiz testi
+   (`contains('recorded footage')`) bunu yakaladı: o olgu HÂLÂ doğru (çevrimdışı
+   `tool/replay_gate.dart` DEĞİŞMEDİ), silmek ürünü hak ettiğinden KÖTÜ
+   gösterirdi. Düzeltme: cümleye GERİ eklendi, YENİ "checked live" olgusuyla
+   YAN YANA.
+2. Aynı test dosyasının `contains('nothing checks')` iddiası ARTIK YANLIŞ
+   olduğu için kırmızı yandı — beklenen, ama testin KENDİSİ de güncellenmesi
+   gerekiyordu (yalnız string değil). Panzehir: testin adı + iddiası yeni
+   gerçeğe (`contains('checked live')` + `contains('not shown to you')`)
+   çevrildi, `contains('recorded footage')` KORUNDU.
+
+**`live_rule_evaluation_absence_test.dart` (H-44) — yokluk YERİNE PİNLENMİŞ
+çağrı-yeri kümesi:** `single_session_entry_point_test.dart`ın AYNI deseni
+(`LiveSessionScreen` için zaten kurulu). Artık `lib/`de bu API'ye yapılan
+çağrılar TAM OLARAK `live_session.dart:191` (`repMetrics`) ve
+`feedback_controller.dart:62` (`topCorrection`) — küme DEĞİŞİRSE (yeni çağrı
+YA DA bilinen bir çağrı KAYBOLURSA) kapı öter, sessizce geçmez.
+
+**Kapı durumu:** `tools/run_all_gates.sh`: `app 290/290` (+2 GRA-P1-004
+Step 1/2'den, G-274'ün 8'iyle birlikte +10) · `engine 176/176` · `python 22/22`.
+`flutter analyze`: 0 sorun. **`live_rule_evaluation_absence_test.dart` artık
+YEŞİL — `ALLOW_RED` YOK, gerçek yeşil.** GRA-P1-004 Step 1/2 ✅ VERIFIED —
+Step 3-5 (storage/data rights, Drift DEĞİL JSONL-genişletme, G-274'ün bulgusu)
+sıradaki.

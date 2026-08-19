@@ -242,13 +242,32 @@ abstract final class LibraryStrings {
   /// Ve aynı sayfa zaten `comingSoonInThisMovement`te *"during a live session
   /// no cue appears on screen"* diyordu ⇒ **tek ekranda iki cümle birbirini
   /// çürütüyordu** (koordinatör `H-10`, Lissom'un ikinci kusuruyla aynı sınıf).
+  ///
+  /// ⚠️ **GÜNCELLENDİ (G-275, GRA-P1-004 Step 1/2).** `LiveFeedbackController`
+  /// artık `LiveSessionRunner.consume()`dan ÇAĞRILIYOR (`live_session.dart`) —
+  /// yukarıdaki "üründe HİÇ ÇAĞRILMIYOR" olgusu ARTIK YANLIŞ, bu yüzden
+  /// "nothing checks it" cümlesi de yalan olurdu. AMA cümlenin İKİNCİ yarısı
+  /// ("you are not told mid-set") HÂLÂ DOĞRU: `LiveSessionRunner.
+  /// latestFeedback` bir karar TAŞIYOR ama HİÇBİR UI/ses onu kullanıcıya
+  /// TESLİM ETMİYOR (`feedback_controller.dart`ın kendi kapsam notu — ses
+  /// içeriği + cihaz doğrulaması ayrı, EXTERNAL_GATE'li bir iş). İki olgu
+  /// KARIŞTIRILMASIN diye cümle İKİYE ayrıldı: "artık değerlendiriliyor" +
+  /// "ama SANA henüz gösterilmiyor" — biri DOĞRU olduğu için öbürünü
+  /// SESSİZCE doğru saymak, G-212'nin AYNI kusurunu tekrar ederdi.
+  ///
+  /// ⚠️ İLK YAZIMDA "fires on recorded footage" cümlesi SİLİNDİ ve
+  /// `screen_self_consistency_test.dart`ın KENDİ pozitif-ikiz testi
+  /// (`contains('recorded footage')`) bunu YAKALADI: o olgu HÂLÂ doğru
+  /// (çevrimdışı `tool/replay_gate.dart` DEĞİŞMEDİ) ve onu SÖYLEMEMEK ürünü
+  /// hak ettiğinden KÖTÜ gösterirdi — "yasak cümleyi silmek yetmez, doğru
+  /// olanı da ATMAMALISIN" dersinin AYNISI, ters yönde.
   static String formErrorsBodyLive(int n) => n == 1
-      ? 'One rule is written for this movement. It fires on recorded footage, '
-          'but nothing checks it while you are training — you are not told '
-          'mid-set.'
+      ? 'One rule is written for this movement. It fires on recorded '
+          'footage and is checked live while you train, but the result is '
+          'not shown to you mid-set.'
       : '$n rules are written for this movement. They fire on recorded '
-          'footage, but nothing checks them while you are training — you are '
-          'not told mid-set.';
+          'footage and are checked live while you train, but the results '
+          'are not shown to you mid-set.';
 
   static const String safetyTitle = 'Before you start';
   static const String coursesTitle = 'Courses';

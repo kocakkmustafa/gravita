@@ -2,6 +2,8 @@ import 'package:gravita_engine/gravita_engine.dart';
 import 'package:motion_camera/motion_camera.dart';
 import 'package:motion_core/motion_core.dart';
 
+import 'workout/feedback_controller.dart';
+
 /// Canlı seansın kullanıcıya görünen hâli — TİPLİ, metin değil.
 ///
 /// Ham hata metni yüzeye SIZMAZ: her ret bir ada sahiptir ve o adın ne
@@ -137,13 +139,24 @@ final class LiveSessionRunner {
   final EnvelopeDriver _driver;
   late final OrientationAwarePoseSource _source;
   final RepEngine _engine;
+  final LiveFeedbackController _feedback = LiveFeedbackController();
 
   int _framesSeen = 0;
   bool _personVisible = false;
+  FeedbackDecision? _latestFeedback;
 
   List<Rep> get reps => _engine.reps;
   int get framesSeen => _framesSeen;
   bool get personVisible => _personVisible;
+
+  /// Son tamamlanan tekrarın geri bildirim kararı — `null` = ya henüz hiçbir
+  /// tekrar bitmedi, ya da bitti ama söylenecek/gösterilecek bir şey yok
+  /// (cooldown, düşük güven, sınıfın form hükmü VERMEMESİ). Bu alan yalnız
+  /// HANGİ düzeltmenin SEÇİLDİĞİNİ taşır — GRA-P1-004 Step 1/2'nin kapsamı.
+  /// Ekrana ÇİZİLMESİ (ses/görsel teslim) BİLEREK ayrı bir iş: bu ekran
+  /// cihazda doğrulanmadı (dosya başı yorum) ve teslim gerçek ses içeriği +
+  /// gerçek cihaz ister — `feedback_controller.dart`ın kendi kapsam notu.
+  FeedbackDecision? get latestFeedback => _latestFeedback;
 
   /// Tek zarfı işler. Ekran bunu `frames()` akışından çağırır; test aynı
   /// çağrıyı elle yapar — **aynı kod yolu**, taklit değil.
@@ -166,7 +179,19 @@ final class LiveSessionRunner {
     final PoseFrame? frame = res.frame;
     _personVisible = frame != null;
     if (frame == null) return;
+    final int repsBefore = _engine.reps.length;
     _engine.addFrame(frame, frameSize, expected: res.resolved);
+    // ⚠️ `_reps.add` `rep_engine.dart`ta TEK bir çağrı yeri (ölçüldü) — bir
+    // `addFrame` turu en fazla BİR tekrar ekler, bu yüzden basit bir uzunluk
+    // karşılaştırması yeterli, ayrı bir "yeni tekrar" olayına gerek yok.
+    if (_engine.reps.length > repsBefore) {
+      final Rep justCompleted = _engine.reps.last;
+      _latestFeedback = _feedback.evaluate(
+        engine: _engine,
+        metrics: _engine.repMetrics(justCompleted),
+        tUs: envelope.tUs,
+      );
+    }
   }
 
   /// O anki hâl — ekran bunu doğrudan çizer.

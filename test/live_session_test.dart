@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 
@@ -203,6 +204,68 @@ void main() {
       expect(r!.unitsCompleted, runner.reps.length,
           reason: 'canlı yoldan sayılan squat tekrarı kayda TAŞINMIYOR.');
       expect(r.lessonId, 'movement:bodyweight_squat');
+    });
+  });
+
+  group('GRA-P1-004 Step 1/2 — geri bildirim denetleyicisi CANLI yola kablı',
+      () {
+    /// [load] gibi ama sınıfı ZORLA verilen değere çeviriyor —
+    /// `single_cue_test.dart`ın KENDİ tekniğiyle AYNI: gerçek bir hareketin
+    /// bugünkü sınıfına bağlı kalmadan "sınıfı B olsaydı ne olurdu" TAM
+    /// CANLI yoldan (zarf→sürücü→kaynak→motor→denetleyici) sınamak için.
+    MovementConfig squatAsClass(String forcedClass) {
+      final Map<String, dynamic> j = jsonDecode(File(
+              'packages/gravita_engine/../../content/catalog/w1/bodyweight_squat.json')
+          .readAsStringSync()) as Map<String, dynamic>;
+      j['class'] = forcedClass;
+      return MovementConfig.fromJson(j);
+    }
+
+    test(
+        'tamamlanan bir tekrar sonrası latestFeedback DOLU — sessiz ya da '
+        'konuşan, ama artık gözlenmemiş DEĞİL', () {
+      // ⚠️ Hangi düzeltmenin (varsa) ATEŞLEDİĞİNİ İDDİA ETMİYOR — bu
+      // sentetik dizinin GERÇEK trigonometrisi hangi metrikleri ürettiğini
+      // bu test bilerek varsaymıyor (`single_cue_test.dart` o iddiayı ZATEN
+      // izole metriklerle KANITLADI). Burada sınanan TEK şey: KABLO
+      // çalışıyor mu — `LiveSessionRunner.consume` bir tekrar tamamlayınca
+      // denetleyiciyi GERÇEKTEN çağırıyor mu.
+      final LiveSessionRunner runner =
+          LiveSessionRunner(config: squat, frameSize: size);
+      expect(runner.latestFeedback, isNull,
+          reason: 'hiçbir tekrar bitmeden bir karar OLAMAZ.');
+      int t = 0;
+      for (final PoseFrame f in squatSequence(3)) {
+        runner.consume(envelope(f, t));
+        t += 40000;
+      }
+      expect(runner.reps.length, 3);
+      expect(runner.latestFeedback, isNotNull,
+          reason: 'GRA-P1-004 Step 1/2: tekrar tamamlandı ama denetleyici '
+              'hiç ÇAĞRILMADI — kablo kopuk.');
+    });
+
+    test(
+        'sınıf B GERÇEK canlı yoldan bile form hükmü SÖYLEMEZ (H-44 ile '
+        'ÇELİŞMEDEN)', () {
+      // Bu test `test/live_rule_evaluation_absence_test.dart`ı YALANLAMAZ:
+      // o kapı `formErrorsBody`/`formErrorsBodyLive`in "hiçbir şey canlıda
+      // kontrol edilmiyor" iddiasının KODLA değil DÜZYAZIYLA çelişmemesini
+      // sağlıyordu — bu tur o metinleri GÜNCELLEYEREK (G-275) iddiayı
+      // "değerlendiriliyor, ama sınıf B'ye asla KONUŞMUYOR" yaptı. Bu test
+      // TAM o yeni iddiayı kanıtlıyor.
+      final LiveSessionRunner runner =
+          LiveSessionRunner(config: squatAsClass('B'), frameSize: size);
+      int t = 0;
+      for (final PoseFrame f in squatSequence(3)) {
+        runner.consume(envelope(f, t));
+        t += 40000;
+      }
+      expect(runner.reps.length, 3,
+          reason: 'sınıf B rep SAYMAYI etkilemez — yalnız form HÜKMÜNÜ.');
+      expect(runner.latestFeedback?.willSpeak, isNot(isTrue),
+          reason: 'blueprint\'in "B sınıfı form hükmü VERMEZ" sözü canlı '
+              'yolda da tutmalı.');
     });
   });
 
