@@ -6740,3 +6740,82 @@ sahte "done" olmuyor, tarihi gerçekten kayıyor).
 **Kapı durumu:** `tools/run_all_gates.sh`: `app 280/280` (+2) · `engine 176/176` ·
 `python 22/22`. `flutter analyze`: 0 sorun. **GRA-P1-003 roadmap'in beş adımının BEŞİ de
 ✅ VERIFIED — görev TAMAMEN kapandı.**
+
+### G-274 — 🔍 GRA-P1-004 kapsam denetimi: roadmap'in "Drift" iddiası AİLE HÜKMÜYLE ÇELİŞİYOR — feedback adapter yazıldı+test edildi, kablosuz (BİLEREK commit edilmedi)
+
+**⭐ EN ÖNEMLİ BULGU — roadmap'in Step 3'ü ("Journal + Drift projection") YANLIŞ
+mimariyi işaret ediyor:** `motion_core`nun (PAYLAŞILAN, salt-okunur, pin
+`f13bdc93...5e5d`) `lib/src/session/session_store.dart`ı KENDİ dosya-başı yorumunda
+AİLE ÇAPINDA bir HÜKÜM taşıyor: *"Append-only JSONL store (family ruling: **no
+third-party DB** — a session log is an event stream with no query load; a DB brings
+schema migrations and a platform dependency for a need nobody has measured. The Hive
+gotcha is separately on record: wrong cipher does not throw, it silently wipes)."*
+Gravita ZATEN bu deseni kullanıyor: `content_repository.dart`nın `openSessionStore`/
+`openFreeSessionStore`ı `JsonlSessionStore(File(...))` kuruyor (`sessions.jsonl`/
+`free_sessions.jsonl`). `pubspec.yaml`de `drift`/`sqlite`/`hive` YOK — hiç eklenmedi.
+Roadmap muhtemelen bu aile hükmünden ÖNCE yazıldı ya da genel bir terim kullandı;
+GERÇEK mimari `JsonlSessionStore`nun KENDİSİ zaten "Journal" (append-only olay
+akışı) — Step 3-5 SIRADAKİ turda BU deseni GENİŞLETMELİ, Drift EKLENMEMELİ.
+
+**Step 1/2 için: `lib/app/workout/feedback_controller.dart` (`LiveFeedbackController`)
+YAZILDI + TAM TEST EDİLDİ (`test/single_cue_test.dart`, 8/8):** motion_core'un
+PAYLAŞILAN `FeedbackPrioritizer`ını (`lib/src/engine/feedback_prioritizer.dart` —
+"one-correction"/cooldown/güvenlik-bypass/resolve HAZIR, roadmap'in "common feedback
+adapter"ının TAM KARŞILIĞI, hiçbir kardeş app henüz kullanmıyor) `RepEngine.
+topCorrection`a adapte ediyor. Sınıf-B **İKİ katmanlı** garantiyle asla form hükmü
+üretmiyor: (1) içerik — `floor_press.json` (tek class-B hareket) `formErrors: []`
+yazıyor; (2) KOD — `config.claimsFormVerdict` FALSE ise motor HİÇ SORULMUYOR, içerik
+yanlışlıkla kural eklese BİLE. Negatif test bunu TESADÜFTEN ayırıyor: gerçek
+`bodyweight_squat`ı (rep_engine_test.dart'ın KANITLADIĞI ateşleyen metriklerle) sınıfı
+zorla B'ye çevirip veriyor + bir TANIK satırı ("gate'siz sorulsaydı ateşlerdi") ekliyor.
+Sınıf C katalogda YOK (`movement-classes.json`: `inCatalog: false`) — `MovementClass`
+enum'ında (`{a, b, d}`) bile temsili yok, ÜÇÜNCÜ katman tip sisteminde.
+
+**Sabotajla bulunan kendi test hatam — cooldown testi YANLIŞ fixture seçmişti:**
+ilk yazım `butt_wink` (priority 'safety') kullanarak "aynı kod hemen bastırılır"
+iddia ediyordu — ama `FeedbackPrioritizer`ın KENDİ tasarımı safety'yi cooldown'dan
+MUAF tutuyor ("Risk of injury — always wins, always allowed to interrupt",
+`feedback_prioritizer.dart:6-7`). Test kırmızı yandı, ama YANLIŞ olan koddu değil
+test fikstürüydü. Düzeltme: safety-DIŞI bir düzeltme (`excessive_forward_lean`,
+'major_alignment') cooldown testlerine, VE bu "kaza"yı KASITLI bir teste çevirdim
+("güvenlik cooldown'u bypass eder — risk sürdükçe tekrar söylenir") — sessizce
+atmak yerine.
+
+**⛔ Neden KOMİTE EDİLMEDİ — `test/live_rule_evaluation_absence_test.dart` (H-44)
+kırmızı, ve bu kapı HAKLI:** bu dosya (`G-212`/`H-44` mirası) `lib/` altında
+`correctionFor`/`topCorrection`/`repMetrics`e yapılan HERHANGİ bir çağrıyı kırmızı
+yakar — `library_strings.dart`daki `formErrorsBody`/`formErrorsBodyLive` ve
+onboarding'in eşdeğerinin *"nothing checks it while you are training — you are not
+told mid-set"* iddiasını korumak için. `feedback_controller.dart` `topCorrection`ı
+ÇAĞIRIYOR (adapter'ın TEK işi bu) — `live_session_screen.dart`a KABLOLANMAMIŞ olsa
+BİLE, kapı BUNU ayırt edemiyor (bilerek kaba: reachability yerine blanket-scan,
+`live_rule_evaluation_absence_test.dart`ın kendi "VAKUM KORUMASI" felsefesiyle
+TUTARLI — daha "akıllı" bir kapı yanlış güven verebilirdi). Kapıyı gaming etmek
+(ör. dosyayı taramanın DIŞINDaki `packages/gravita_engine/`e taşımak) YANLIŞ
+olurdu — kodun GERÇEĞİ değişmez, yalnız tarayıcının GÖRMEMESİ sağlanırdı; bu tam
+bu oturumun HİÇ yapmadığı bir şey.
+
+**Doğru çözüm — kabul edilen, SIRADAKİ tur için TEK parça iş (yarım bırakılmadı,
+tam tarif edildi):** `LiveSessionRunner` (`live_session.dart:124`) KENDİSİ
+kamerasız test edilebilir ("Ekran mantık taşımaz... kamerasız test edilebiliyor"
+— dosyanın kendi gerekçesi, `test/live_session_test.dart` zaten var) — adapter'ı
+BURAYA kablolamak hem GERÇEKTEN canlı hem cihazsız doğrulanabilir olurdu. Gereken:
+(1) `RepEngine.addFrame`in rep-tamamlanma sinyalini oku (henüz okunmadı — bu tur
+`packages/gravita_engine/lib/src/rep_engine.dart`ı bu açıdan İNCELEMEDİ), (2)
+`LiveSessionRunner`a `reps`/`personVisible`/`framesSeen` desenindeki gibi bir
+`latestFeedback`-benzeri alan ekle, (3) `library_strings.dart:226-251` +
+`onboarding_strings.dart:~22-32`teki ÜÇ cümleyi GERÇEĞE göre güncelle — DİKKAT:
+"nothing checks it" kısmı YALAN olur ama "you are not told mid-set" kısmı hâlâ
+DOĞRU kalabilir (kural artık DEĞERLENDİRİLİYOR ama SONUÇ hâlâ GÖSTERİLMİYOR) —
+metin bu İKİ farklı gerçeği KARIŞTIRMAMALI, (4) `live_rule_evaluation_absence_
+test.dart`ın kendi iddiasını `single_session_entry_point_test.dart`nın "TEK bilinen
+çağrı yeri" desenine çevir (blanket-yok → yalnız `LiveSessionRunner.consume`dan
+izinli). Bu DÖRDÜ TEK commit'te — yarısı yapılıp yarısı bırakılırsa "artık canlı
+çalışıyor" YANLIŞ izlenimi doğar.
+
+**Kapı durumu (bu turun sonunda):** `flutter analyze`: 0 sorun. `flutter test`:
+288/289 yeşil, **1 KIRMIZI** (`live_rule_evaluation_absence_test.dart`, BİLİNEN
+ve BEKLENEN — yukarıdaki gerekçeyle commit YAPILMADI, `ALLOW_RED` de kullanılmadı
+çünkü bu "kabul edilmiş borç" değil "henüz bitmemiş iş"). Dosyalar diskte DURUYOR
+(`lib/app/workout/feedback_controller.dart`, `test/single_cue_test.dart`) —
+SİLİNMEDİ, çünkü kod GERÇEKTEN doğru ve test edilmiş; yalnız kablo eksik.
