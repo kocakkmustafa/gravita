@@ -6389,3 +6389,50 @@ DEĞİL — kurucunun tek işi bir GitHub secret eklemek, insan/cihaz/veri deği
 **Kapı durumu:** `GATES_EXIT=0` — `tools/run_all_gates.sh` (yeni gate dahil):
 `app 224/224` · `engine 175/175` · `python 22/22` (20→22: `validate_release_signing`
 + `--self-test` eklendi). `flutter analyze`: 0 sorun.
+
+### G-268 — 🌳 GRA-P1-001 başladı: beceri ağacı domain katmanı + deterministik açılma sözleşmesi — İKİ ölçüm hatası ANINDA yakalandı, düzeltildi
+
+**Kapsam kararı, adıyla:** roadmap'in 5 adımı (kırmızı test → parser+sözleşme → zorlama →
+UI → widget test) BÜYÜK bir iş; bu tur SADECE domain katmanını (adım 1-3'ün karşılığı)
+tamamladı, ekran (`lib/app/skills/skill_tree_screen.dart`, adım 4-5) SIRADAKİ tura bırakıldı
+— tutarlı, tek-parça bir commit için.
+
+**Araştırma önce:** `content/skill-graph/*.json` ZATEN olgun (15+6 düğüm, unlock eşikleri,
+güvenlik notları, alıştırmalar) ama `library_model.dart`nın `SkillTree`si BİLEREK yalnız
+`packId`/`nodeCount`/`thresholdsValidated`/`nodeIds` taşıyor — paketin kendi `$falsifiedBy`
+notu bunun NEDENİNİ açıklıyor: "taslak eşikler sızmasın diye `nodes[]` hiç ayrıştırılmıyor."
+Roadmap §6 skill graph'ı `lib/app/` (motor değil app content) katmanına koyuyor — bu yüzden
+yeni domain dosyası `packages/gravita_engine/`e DEĞİL `lib/app/skills/skill_progress.dart`a
+yazıldı.
+
+**① Kendi test hatam, ölçümle yakalandı (sezgiyle değil):** ilk yazdığım "yetim düğüm" testi
+(`packages/gravita_engine/test/skill_graph_test.dart`) "her düğüm `entry:true` ya da BAŞKA
+bir düğümün ön-koşulu olmalı" diyordu — gerçek veride ÇALIŞTIRINCA `arch_body`, `shape_
+refinement` (handstand) ve `full_planche` (planche) bunu ihlal etti. İlk tepkim içeriği
+"düzeltmek" olabilirdi ama Python'da TÜM düğümleri (yalnız ilk hatada durmadan) tarayınca
+gerçek örüntü göründü: `shape_refinement`/`full_planche` bir ağacın ZİRVE düğümleri —
+kimsenin ön-koşulu OLMAMASI beklenen durum, kusur değil. Testin KENDİSİ yanlış soruyordu.
+Düzeltme: gerçek "yetim" tanımı GERİYE doğru ulaşılabilirlik (`requires` zinciri bir
+`entry:true` düğümde bitiyor mu) — bu, kırık-ön-koşul ve döngü testleri zaten GEÇERKEN tek
+gerçek kalan kusur sınıfını (boş `requires` + `entry:false` — nasıl başlanacağı tanımsız bir
+düğüm) yakalar ve bugünkü veride SIFIR böyle düğüm olduğunu doğrular (regresyon olarak
+kilitlendi, yeni bir düğüm bu hataya düşerse yakalanır).
+
+**② Şema varsayımım yanlıştı, ilk test koşumunda çöktü:** `SkillNode.summary`yi zorunlu
+`String` yazdım (handstand'ın HER düğümü taşıdığı için) — `planche.v1.json`ı ayrıştırırken
+`type 'Null' is not a subtype of type 'String'` ile çöktü: planche'ın HİÇBİR düğümü
+`summary` alanı taşımıyor (iki paket ayrı yazılmış, tutarsız şema). Düzeltme `library_model.
+dart`ın kendi kuralını tekrarladı: alan `String?` yapıldı, uydurulmuş özet YAZILMADI —
+"eksik veri = iddia yok, null → yüzey o satırı çizmez."
+
+**Asıl sözleşme — `SkillProgressEvaluator.availabilityOf()`:** dört hâl (`locked` ·
+`blockedBySafetyAcknowledgement` · `pendingValidation` · `achieved`). Merkezî kural KOD
+gövdesinde: `pack.thresholdsValidated == false` olduğu sürece `achieved` ASLA dönmez —
+çağıran `completedNodeIds`e TÜM düğümleri fabrike etse BİLE. `test/skill_progress_test.dart`
+(17 test, hepsi yeşil) bunu SABOTAJ grubuyla kanıtlıyor: hem handstand hem planche pakedine
+karşı "her şey tamamlandı + her onay verildi" girdisiyle bile `achieved` SIFIR — ve POZİTİF
+İKİZ grubu (sentetik `VALIDATED` paket) `achieved`ın GERÇEKTEN üretilebildiğini kanıtlıyor
+(yalnız `isNot(achieved)` demek, mekanizma tamamen bozuksa da geçerdi — bu ikiz onu kapatıyor).
+
+**Kapı durumu:** `tools/run_all_gates.sh`: `app 241/241` (+17) · `engine 176/176` (+1,
+düzeltilmiş yetim-düğüm testi) · `python 22/22`. `flutter analyze`: 0 sorun.
