@@ -1,0 +1,118 @@
+name: checks
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  gates:
+    name: analyze + app/engine tests + içerik kapıları (GRA-P0-003)
+    # Bu iş 2026-08-19'a kadar hiç yoktu — repo hiçbir CI koşturmuyordu.
+    # tools/run_all_gates.sh yerelde zaten olgun (app+engine+13 içerik
+    # kapısı); bu adım onu TEK doğruluk kaynağı olarak KULLANIR, YENİDEN
+    # YAZMAZ — kapı listesini burada ayrıca saymak drift riski taşırdı
+    # (yeni bir kapı script'e eklenip CI'a eklenmeyi unutulabilir).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Poz modeli (pinli SHA-256 doğrulamalı)
+        run: tool/fetch_pose_model.sh
+
+      - name: motion-core erişimi (private repo, salt-okunur)
+        # pubspec.yaml motion_core/motion_camera'yı private bir git
+        # deposundan çekiyor (kocakkmustafa/motion-core, doğrulandı: `gh
+        # repo view --json isPrivate` → true). actions/checkout@v4'ün
+        # verdiği GITHUB_TOKEN yalnız BU depoya scope'lu, motion-core'u
+        # klonlayamaz (aile emsali, Lissom L-351: `flutter pub get`
+        # "could not read Username", exit 69/128). Secret YOKSA bu adım
+        # SESSİZCE atlanır — pub get aynı yerde kırmızı kalır, YENİ bir
+        # bozulma yok. Secret kurucu tarafından GitHub arayüzünden
+        # eklenince (salt-okunur deploy-key/PAT, `MOTION_CORE_RO_TOKEN`)
+        # bu adım devreye girer, ekstra kod değişikliği GEREKMEZ.
+        if: ${{ env.MOTION_CORE_RO_TOKEN != '' }}
+        env:
+          MOTION_CORE_RO_TOKEN: ${{ secrets.MOTION_CORE_RO_TOKEN }}
+        run: |
+          git config --global url."https://x-access-token:${MOTION_CORE_RO_TOKEN}@github.com/kocakkmustafa/motion-core.git".insteadOf "https://github.com/kocakkmustafa/motion-core.git"
+
+      - run: flutter pub get
+
+      - name: flutter analyze
+        run: flutter analyze
+
+      - name: build/ hedefini kur (CI runner'ı iCloud'da DEĞİL — düz dizin yeterli)
+        # tools/setup_build_dir.sh yereldeki iCloud-kaçış symlink'ini kurar
+        # (bu makineye özgü mutlak yol); CI runner'ı ephemeral ve iCloud'a
+        # senkronlu değil, symlink'e gerek yok. run_all_gates.sh yalnız
+        # build/'ın VAR olmasını arıyor (G-125'in "ortam kurulmamış" ön
+        # kapısı) — boş bir dizin bu şartı zararsızca karşılar.
+        run: mkdir -p build
+
+      - name: tools/run_all_gates.sh (app 222 + engine 175 + içerik 13 araç)
+        run: bash tools/run_all_gates.sh
+
+  android-release-build:
+    name: Android release build — kod yolu kanıtı, İMZALI YAYIN DEĞİL (GRA-P0-003)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Poz modeli (pinli SHA-256 doğrulamalı)
+        run: tool/fetch_pose_model.sh
+
+      - name: motion-core erişimi (private repo, salt-okunur)
+        # gates işindeki AYNI adım — gerekçe orada.
+        if: ${{ env.MOTION_CORE_RO_TOKEN != '' }}
+        env:
+          MOTION_CORE_RO_TOKEN: ${{ secrets.MOTION_CORE_RO_TOKEN }}
+        run: |
+          git config --global url."https://x-access-token:${MOTION_CORE_RO_TOKEN}@github.com/kocakkmustafa/motion-core.git".insteadOf "https://github.com/kocakkmustafa/motion-core.git"
+
+      - run: flutter pub get
+
+      - name: Android release build — imzasız, KOD YOLU kanıtı
+        # Gerçek keystore kurucuda (~/.secrets/yula/), CI'da YOK.
+        # `-PallowDebugSigning` android/app/build.gradle.kts'in KENDİ kaçış
+        # kapısı (tools/validate_release_signing.py bunu doğrular) — CI'a
+        # özgü bir icat değil, "bilerek imzasız yerel/CI build" için zaten
+        # var olan bayrak. Bu adım release KOD YOLUNUN derlendiğini
+        # kanıtlar; Play'e yüklenebilir bir artefakt ÜRETMEZ.
+        run: flutter build appbundle --release -PallowDebugSigning=true
+
+  ios-release-build:
+    name: iOS release build, no-codesign (GRA-P0-003)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Poz modeli (pinli SHA-256 doğrulamalı)
+        run: tool/fetch_pose_model.sh
+
+      - name: motion-core erişimi (private repo, salt-okunur)
+        if: ${{ env.MOTION_CORE_RO_TOKEN != '' }}
+        env:
+          MOTION_CORE_RO_TOKEN: ${{ secrets.MOTION_CORE_RO_TOKEN }}
+        run: |
+          git config --global url."https://x-access-token:${MOTION_CORE_RO_TOKEN}@github.com/kocakkmustafa/motion-core.git".insteadOf "https://github.com/kocakkmustafa/motion-core.git"
+
+      - run: flutter pub get
+
+      - name: iOS release build, imzasız
+        # `--no-codesign`: CI runner'ında imzalama sertifikası yok ve
+        # olmamalı (sertifika hesap-sahibi kalemidir). Bu adım release
+        # derleme yolunun GERÇEKTEN derlendiğini kanıtlar.
+        run: flutter build ios --release --no-codesign

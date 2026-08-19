@@ -1,0 +1,58 @@
+{
+  "$purpose": "GRA-P0-003 (CI/privacy/release-signing) icin durum anlik goruntusu (22-GRAVITA-MASTER-ROADMAP.md). Butun degerler bu oturumda CANLI kosuldu - kopyalanmadi.",
+  "generatedAt": "2026-08-19, GRAVITA solo v3 oturumu, DEFTER G-267",
+
+  "gateSuite": {
+    "command": "bash tools/run_all_gates.sh",
+    "result": "app 224/224 - engine 175/175 - python 22/22 (uc suit de yesil)",
+    "$note": "python 20->22: bu oturumda eklenen validate_release_signing.py + --self-test"
+  },
+  "flutterAnalyze": {
+    "command": "flutter analyze",
+    "result": "No issues found! (1.9s)",
+    "$note": "onceki 15 pre-existing sorun ayni gun icinde AYRI (motion-core) bir oturumun family consumer-matrix turunda duzeltildi (commit c5feab0) - bu oturumun isi degil, yalniz olculdu"
+  },
+
+  "privacyManifest": {
+    "sourceFile": "ios/Runner/PrivacyInfo.xcprivacy",
+    "declarationMatchesMeasurement": true,
+    "declarationEvidence": "test/privacy_manifest_test.dart PASS - app+PINLI CEKIRDEK taranarak 5 gerekce-zorunlu API kategorisinde sifir isabet dogrulandi",
+    "packagedIntoBuiltApp": true,
+    "packagedEvidence": "build/ios/iphoneos/Runner.app/PrivacyInfo.xcprivacy - GERCEK build ciktisinda VAR (3612 bayt), proje dosyasinda dort ayri capa dogrulandi (test/privacy_manifest_test.dart ikinci testi)"
+  },
+
+  "releaseSigning": {
+    "guard": "android/app/build.gradle.kts - signingConfig secim mantigi + ayri gradle.taskGraph.whenReady durdurucusu (GradleException, key.properties yoksa VE allowDebugSigning verilmediyse)",
+    "newGates": ["tools/validate_release_signing.py (+ --self-test, 6/6)", "test/release_signing_test.dart (2/2, kaynak-metin + sabotaj ikizi)"],
+    "$note": "Gercek keystore kurucudadir (~/.secrets/yula/), bu makinede/CI'da YOK - guard bunu SESSIZCE atlamiyor"
+  },
+
+  "realReleaseBuilds": {
+    "android": {
+      "command": "flutter build appbundle --release -PallowDebugSigning=true",
+      "result": "SUCCESS",
+      "buildTime": "26.1s (Gradle bundleRelease)",
+      "artifact": "build/app/outputs/bundle/release/app-release.aab",
+      "sizeMB": 76.4,
+      "sha256": "b89f175d10db0a0341bc16aae5694af10850edf4cf4c080ba5c4bbe9911165cc",
+      "$caveat": "-PallowDebugSigning=true KULLANILDI (gercek keystore yok) - bu artefakt Play'e YUKLENEMEZ, yalniz KOD YOLUNUN derlendigini kanitlar, imzali yayin DEGIL"
+    },
+    "ios": {
+      "command": "flutter build ios --release --no-codesign",
+      "result": "SUCCESS",
+      "buildTime": "37.7s (Xcode build, checkout+pod-resolve dahil toplam ~4.5dk)",
+      "artifact": "build/ios/iphoneos/Runner.app",
+      "sizeMB": 46.2,
+      "mainBinarySha256": "f23f1d23ad5da09e199d1a9afccf06c2209aabf18276661298f134a3818b9edf",
+      "$caveat": "--no-codesign KULLANILDI - bu artefakt cihaza kurulamaz/App Store'a yuklenemez, yalniz derleme yolunu kanitlar, imzali yayin DEGIL. Gercek imza sertifikasi hesap-sahibi kalemidir."
+    }
+  },
+
+  "ciWorkflow": {
+    "file": ".github/workflows/checks.yml",
+    "status": "bu oturumda YAZILDI (3 job: gates/android-release-build/ios-release-build) - GERCEK bir GitHub Actions kosumu bu dosyada HENUZ gozlemlenmedi, push sonrasi izlenmeli",
+    "knownBlocker": "motion-core PRIVATE repo (dogrulandi: gh repo view --json isPrivate -> true) - MOTION_CORE_RO_TOKEN secret'i Gravita reposuna HENUZ eklenmemis. Secret yoksa TUM CI joblari 'flutter pub get' adiminda KIRMIZI olur; bu YENI bir bozulma DEGIL (bugun de CI yokken ayni pub get calismiyor), ailenin bilinen kisitlamasi (Lissom L-351 emsali, ayni desen buraya tasindi: secret yoksa adim SESSIZCE atlanir). Secret kurucu tarafindan GitHub arayuzunden salt-okunur PAT/deploy-key olarak eklenince ek kod degisikligi GEREKMEZ."
+  },
+
+  "verdict": "GRA-P0-003 kod tarafi TAMAMLANDI ve bu oturumda GERCEKTEN dogrulandi: gate suiti + iki GERCEK release build (checksum'li) + privacy manifest paketleme kaniti. CI workflow'un GERCEK bir GitHub Actions kosumu (secret eklendikten sonra) HENUZ gozlemlenmedi - roadmap DoD'unun 'CI kirmizi degil' satiri o gozlem gelene kadar EVIDENCE_REQUIRED kalir, EXTERNAL_GATE degil (kurucunun tek yapmasi gereken bir GitHub secret eklemek, insan/cihaz/veri degil)."
+}

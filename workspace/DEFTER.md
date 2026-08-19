@@ -6342,3 +6342,50 @@ cihaz. Sıradaki göreve (GRA-P0-003) geçiliyor.
 **Kapı durumu:** `GATES_EXIT=0` — kod/test değişikliği yok, yalnız yeni evidence
 dosyası + DEFTER kaydı; `tools/run_all_gates.sh` bu turda AYRICA koşulmadı (P0-001
 kapanışının ikinci tam koşumu hâlâ geçerli, hiçbir kaynak dosya değişmedi).
+
+### G-267 — 🚀 GRA-P0-003 kod tarafı TAMAMLANDI: CI workflow ilk kez yazıldı, release-signing kapısı Gravita'nın GERÇEK yapısına göre yeni yazıldı, iki release build GERÇEKTEN koşuldu
+
+**Sıradaki tur oturum içinde devam etti** (motion-core'un eşzamanlı `flutter analyze`
+düzeltmesi commit'i, `c5feab0`, push'landı — kendi işim değildi, yalnız senkronize edildi).
+
+**Araştırma önce, kod sonra:** roadmap "Create later: `.github/workflows/checks.yml`"
+diyordu — depoda `.github/` HİÇ yoktu (doğrulandı). Kör kopyalamadan önce aile emsalleri
+tarandı: Lissom'un ZATEN çalışan `.github/workflows/checks.yml` + `test/release_signing_
+test.dart` + `tools/release_signing_check.py` üçlüsü VAR (JabLab/Ostinato/Choreia da
+`android_signing_test.dart` eşdeğeri taşıyor). **Kritik bulgu:** Lissom'un deseni
+`release { }` bloğunun İÇİNDE bir `GradleException` arıyor — Gravita'nın gerçek
+`android/app/build.gradle.kts`sı (G-192) FARKLI yapılandırılmış: seçim mantığı
+(`signingConfig = when { … }`) ve gürültülü durdurucu (`gradle.taskGraph.whenReady`,
+`throw GradleException(`) AYRI bloklarda. Lissom'un testini birebir kopyalasaydım
+Gravita'nın gerçek (doğru çalışan) yapısını hiç GÖRMEZ ve sahte-kırmızı verirdi —
+bu yüzden `tools/validate_release_signing.py` + `test/release_signing_test.dart`
+Gravita'nın KENDİ kaynağına göre sıfırdan yazıldı (Python: 6 senaryolu öz-test —
+pozitif ikiz + 4 sabotaj + vakum, hepsi 6/6; Dart: kaynak-metin + sabotaj ikizi, 2/2).
+
+**`.github/workflows/checks.yml` üç job:** `gates` (ubuntu, `tools/run_all_gates.sh`ı
+TEK doğruluk kaynağı olarak çağırır — kapı listesini YAML'da AYRICA saymadım, drift
+riski taşırdı) + `android-release-build` (ubuntu, `-PallowDebugSigning=true`) +
+`ios-release-build` (macos, `--no-codesign`). `motion-core` deposunun GERÇEKTEN
+private olduğu `gh repo view kocakkmustafa/motion-core --json isPrivate` ile
+DOĞRUDAN doğrulandı (Lissom'dan analoji değil) — Lissom'un `MOTION_CORE_RO_TOKEN`
+koşullu-secret desenini AYNEN taşıdım: secret yoksa adım sessizce atlanır, `pub get`
+BUGÜNKÜ yerde kırmızı kalır (YENİ bozulma yok), secret eklenince ek kod değişikliği
+GEREKMEZ. **Bilinen engel, adıyla:** bu secret Gravita reposuna HENÜZ eklenmedi —
+CI'ın gerçek bir Actions koşumu bu turda GÖZLEMLENMEDİ, push sonrası izlenmeli.
+
+**İki GERÇEK release build koşuldu (roadmap Step 4, taklit değil):**
+- `flutter build appbundle --release -PallowDebugSigning=true` → BAŞARILI, 26,1sn,
+  `app-release.aab` 76,4MB, SHA-256 `b89f175d10db0a0341bc16aae5694af10850edf4cf4c080ba5c4bbe9911165cc`.
+- `flutter build ios --release --no-codesign` → BAŞARILI, Xcode 37,7sn (toplam ~4,5dk
+  pod-resolve dahil), `Runner.app` 46,2MB, ana ikili SHA-256 `f23f1d23ad5da09e199d1a9afccf06c2209aabf18276661298f134a3818b9edf`.
+- `PrivacyInfo.xcprivacy`nin GERÇEKTEN build çıktısına girdiği doğrulandı
+  (`build/ios/iphoneos/Runner.app/PrivacyInfo.xcprivacy`, 3612 bayt, gerçek dosya).
+
+**`docs/evidence/production-line/release-gate.json` açıldı** — model-gate.json ile
+aynı disiplin: ölçüm+kanıt adıyla, hiçbir "geçti" iddia edilmeden önce gerçekten
+koşulmadan yazılmadı. CI Actions koşumu satırı `EVIDENCE_REQUIRED` (EXTERNAL_GATE
+DEĞİL — kurucunun tek işi bir GitHub secret eklemek, insan/cihaz/veri değil).
+
+**Kapı durumu:** `GATES_EXIT=0` — `tools/run_all_gates.sh` (yeni gate dahil):
+`app 224/224` · `engine 175/175` · `python 22/22` (20→22: `validate_release_signing`
++ `--self-test` eklendi). `flutter analyze`: 0 sorun.

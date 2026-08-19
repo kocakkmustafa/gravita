@@ -139,7 +139,7 @@ run "dart test" bash -c "cd packages/gravita_engine && dart test"
 # (aşağıdaki `gate` çağrılarının sardığı DİSTİNCT .py dosyası; --check/
 # --self-test varyantları ayrı araç sayılmaz). Bu betiğin kendi başlığı,
 # denetlediği tam sınıfın (bayat sayı iddiası) canlı bir örneğiydi.
-line; echo "SÜİT 3 — içerik kapıları (12 araç)"; line
+line; echo "SÜİT 3 — içerik kapıları (13 araç)"; line
 gate() { py_total=$((py_total+1)); if run "$@"; then py_ok=$((py_ok+1)); fi; }
 gate "reference_model"             python3 tools/validate_reference_model.py
 gate "reference_model --self-test" python3 tools/validate_reference_model.py --self-test
@@ -180,6 +180,10 @@ gate "defter_freshness --self-test" python3 tools/defter_freshness.py --self-tes
 # content/library.json'ın GERÇEK sayımına karşı sınar.
 gate "validate_store_listing"            python3 tools/validate_store_listing.py
 gate "validate_store_listing --self-test" python3 tools/validate_store_listing.py --self-test
+# ⭐ GRA-P0-003: release imzası sessiz-düşüş kapısı (aile emsali: Lissom/
+# Ostinato — burada Gravita'nın GERÇEK, farklı gradle yapısına göre yazıldı).
+gate "validate_release_signing"            python3 tools/validate_release_signing.py
+gate "validate_release_signing --self-test" python3 tools/validate_release_signing.py --self-test
 
 line
 if [ "$fail" -eq 0 ]; then
