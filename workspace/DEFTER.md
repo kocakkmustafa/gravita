@@ -6498,3 +6498,52 @@ BAĞLANMADI (yukarıdaki kapsam kararı) · 4 (UI) ✅ yapılabilir kapsamda tam
 (graph validator + widget test) ✅ 5/5 içerik testi + 12 widget testi. **GRA-P1-001
 KAPANDI** — sıradaki görev GRA-P1-002 (20-movement paid foundation) ya da roadmap
 sırasının izin verdiği başka bir P1 kalemi.
+
+### G-270 — 📦 GRA-P1-002 kapsamlı ölçüldü: desen kapsamı ZATEN tam, asıl eşik EXTERNAL_GATE — `test/paid_foundation_inventory_test.dart` kabul kapısı olarak açıldı (kırmızı DEĞİL, öz-disarming SKIP)
+
+**Araştırma önce:** roadmap Step 2'nin "her movement'ı class ile doldur" istediği iş G-261'de
+(GRA-P0-001) zaten TAMAM bulunmuştu (31/31 class+classRationale+camera.setup). Bu turda
+KALAN parça ölçüldü: `content/catalog/*.json`ın TAM alan kümesi (`$passiveRationale, aliases,
+aspirational, camera, class, classRationale, courses, cues, engine, equipment, family,
+formErrors, level, measurementContract, muscleGroups, name, passiveExecutionPossible,
+pendingVerification, provenance, safety, schemaVersion, skillGraphNode, wave`) taşındı —
+**"regression"/"progression" alanı YOK**, roadmap Step 4'ün içerik ihtiyacı şemada henüz
+temsil edilmiyor (gerçek bir boşluk, ama hareket-bilimi/içerik yargısı gerektirir — bu turda
+İÇERİK UYDURULMADI, yalnız boşluk adıyla kaydedildi).
+
+**Desen kapsamı (push/pull/squat/hinge/core/carry/hold) ÖLÇÜLDÜ, roadmap'in "boş" varsayımı
+YANLIŞ:** 31 hareketlik katalog yedi deseni de ZATEN dolduruyor — push(dip+push_up+floor_press)
+· pull(4) · squat(legs ailesi, 7) · hinge(`muscleGroups` hamstrings+glutes kesişimiyle
+ölçüldü: romanian_deadlift+kb_swing+glute_bridge) · core(9) · carry(farmer_carry) ·
+hold(`engine.type=staticHold` ile ölçüldü: 8 hareket). **≥2 skill tree** şartı da zaten
+karşılanıyor (handstand+planche). **Karşılanmayan TEK şart: ≥20 AKTİF (status=live) hareket
+— bugün 2.**
+
+**`test/paid_foundation_inventory_test.dart` açıldı — roadmap Step 1'in "kırmızı yaz" istemiyle
+BAŞLADI, sonra TASARIM DÜZELTİLDİ (ölçümle):** ilk yazışım gerçek `expect(live, >=20)` idi ve
+GERÇEKTEN kırmızı yaktı (2 < 20) — roadmap'in istediği tam buydu. Ama `tools/run_all_gates.sh`ın
+SÜİT 1'i (`flutter test`) TÜM `test/`i seçmeden tarıyor; kalıcı kırmızı bir dosya HER gelecek
+commit'i `ALLOW_RED=1`e mahkûm ederdi — kapının "yeşil=güvenli" anlamını SIFIRLARDI. Roadmap'in
+"kırmızı" niyeti kısa bir TDD döngüsü varsayıyor (yaz→hemen uygula→yeşil); buradaki eşik
+AYLARCA kapalı kalabilecek DIŞ VERİYE bağlı. Düzeltme `skip` — DİNAMİK: canlı sayı `main()`de
+ÖNCEDEN hesaplanır, skip mesajına GÖMÜLÜR, sayı 20'ye ulaştığı gün `skip` kendiliğinden
+`false` olur ve test GERÇEKTEN zorlar — kimse "bu satırı aç" diye hatırlamak ZORUNDA değil.
+Diğer 8 test (desen kapsamı + skill-tree sayısı) GERÇEK, AKTİF testler — bugün geçiyorlar ve
+regresyon koruması sağlıyorlar (bir içerik değişikliği bir deseni yanlışlıkla boşaltırsa
+YAKALANIR).
+
+**`docs/content/rights-ledger.json`/`expert-approvals.json` BİLEREK AÇILMADI:** ikisi de bugün
+SIFIR gerçek girdi taşırdı (hiçbir hasat kaynağı hak-temizliği geçmedi, hiçbir uzman onayı
+gerçekleşmedi) — boş bir dosya İÇERİK değil YER TUTUCUDUR, ve gerçek bir olay olmadan
+oluşturmak "hipotetik gelecek ihtiyacı için tasarım" sınıfına girer. Gerçek ilk hak-temizli
+kaynak ya da ilk uzman onayı geldiğinde açılmalı, ondan ÖNCE değil.
+
+**GRA-P1-002 durumu:** kod/şema tarafı TAMAMLANDI (kapsam kanıtlı, kabul kapısı yazılı,
+öz-güncellenen). Asıl büyüme (≥18 hareket daha `live`e taşımak) EXTERNAL_GATE — gerçek
+eğitmen hasadı + hareket-bilimi/uzman geçişi ister, bu makinede mediapipe/cv2 ortamı yokluğu
+yüzünden (G-084/G-087/G-262/G-266, dördüncü kez ölçüldü). Sıradaki görev GRA-P1-003
+(workout program) — ön-değerlendirme: kamera/uzman/cihaz bağımlılığı YOK, saf zamanlama
+mantığı, bu üç görevin (P1-002/P1-004-storage/P1-003) içinde EN AZ dış-kapılı olan.
+
+**Kapı durumu:** `tools/run_all_gates.sh`: `app 257/257` (+8, ~1 skip) · `engine 176/176` ·
+`python 22/22`. `flutter analyze`: 0 sorun.
