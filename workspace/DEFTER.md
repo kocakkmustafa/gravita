@@ -6877,3 +6877,59 @@ Step 1/2'den, G-274'ün 8'iyle birlikte +10) · `engine 176/176` · `python 22/2
 YEŞİL — `ALLOW_RED` YOK, gerçek yeşil.** GRA-P1-004 Step 1/2 ✅ VERIFIED —
 Step 3-5 (storage/data rights, Drift DEĞİL JSONL-genişletme, G-274'ün bulgusu)
 sıradaki.
+
+### G-276 — ⚠️ DÜZELTME: G-274 "Drift EKLENMEYECEK" hükmü YANLIŞTI — aile planı Drift'i JSONL'in ÜSTÜNDE, İKİSİ birlikte istiyor
+
+**Kendi hatam, adıyla:** G-274 `motion_core/lib/src/session/session_store.dart`ın
+KENDİ dosya-başı yorumunu ("no third-party DB... a DB brings schema migrations
+and a platform dependency for a need nobody has measured") AİLE ÇAPINDA, NİHAİ
+bir hüküm sandı ve oradan "Drift EKLENMEYECEK" sonucuna sıçradı. Bu, YANLIŞ
+kapsamda okunmuş bir bulguydu — o yorum `motion_core` paketinin KENDİ dar
+sorumluluğunu (journal SÖZLEŞMESİ) anlatıyordu, ailenin TÜM depolama mimarisini
+DEĞİL. `holding/plans/yula-ai-production-line-2026-08-18/02-MOTION-AILESI-
+ORKESTRASYON.md`yı (bu turda İLK KEZ okundu — G-274 bunu HİÇ kontrol etmemişti)
+okuyunca gerçek karar ortaya çıktı, §8.1: *"JSONL journal provenance kaynağı
+olarak korunur. Drift/SQLite; plan, progress, entitlement cache ve session
+index projection'ıdır."* — yani İKİSİ de var, AYRI ROLLERDE: JSONL KAYNAK
+(gerçeğin tek yeri), Drift TÜRETİLMİŞ/YENİDEN-KURULABİLİR bir izdüşüm. Roadmap'in
+"Journal + Drift projection" cümlesi (Step 3) LİTERAL OKUNMALIYMIŞ — "Drift
+projection" gerçekten Drift kullanan bir projeksiyon demekmiş.
+
+**Neden bu sefer güvenilir — İKİ bağımsız kaynak birbirini doğruluyor:**
+`§6.2 Planlanan paketler` tablosu `packages/motion_store/`i AÇIKÇA listeliyor:
+*"Append-only journal, Drift projection, migration, export/delete ve secure
+key adapter"* — GRA-P1-004'ün roadmap dosya listesiyle (`gravita_database.dart`/
+`session_projector.dart`/`data_exporter.dart`) BİREBİR eşleşiyor. `motion_store`
+HENÜZ İNŞA EDİLMEMİŞ (`6.1 Mevcut paketler` yalnız `motion_core`+`motion_camera`
+sayıyor) — bu yüzden SERT KURAL burada da geçerli: *"eksik ortak paket → app-içi
+çöz."* Drift'i `motion-core`ya EKLEMEK yasak (salt-okunur); Drift'i Gravita'nın
+KENDİ `lib/app/storage/`ında kurmak roadmap'in zaten adlandırdığı şey.
+
+**§8.1'in TAM gereksinim listesi (yeni iş, hiçbiri henüz yok):**
+1. JSONL journal = provenance/gerçeğin KAYNAĞI (`JsonlSessionStore`, ZATEN var).
+2. Drift/SQLite = {plan, progress, entitlement cache, session index}
+   projeksiyonu — YENİ.
+3. DB anahtarı Keychain/Keystore'da — YENİ, `flutter_secure_storage` gerektirir,
+   cihaz-bağımlı doğrulama riski (kamera işiyle AYNI sınıf).
+4. Ham sensör payload'ı DB'ye HİÇ girmez — Step 5'in TAM karşılığı.
+5. Export JSON+CSV; delete journal+projection+diagnostic bundle'ı ATOMİK
+   temizler — Step 4.
+6. Migration testleri **N-2 şemadan güncele** VE **güncelden temiz install'a**
+   koşar — Step 3'ün "N-2" tanımı BURADA netleşti (iki nesil ÖNCEKİ şemadan).
+
+**Kapsam kararı — SIRADAKİ artımlı adım (bu tur BAŞLAMADI, kod YAZILMADI):**
+Ölçek büyük (yeni bağımsızlık + şifreli DB + projeksiyon/yeniden-kurma mimarisi
++ göç testi) ve HİÇBİR kardeş app bunu henüz denemedi (Lissom/JabLab/Ostinato/
+Choreia'nın `pubspec.yaml`sinde `drift`/`sqlite` YOK, ölçüldü — kopyalanacak
+çalışan bir örnek YOK). Bu yüzden BÖLÜNMÜŞ, doğrulanabilir parçalara ayrılacak:
+(a) `drift`+`sqlite3_flutter_libs` bağımlılığı + ŞİFRESİZ (başlangıç için) temel
+şema (`session index` projeksiyonu) + journal'dan yeniden-kurma + idempotent-
+replay testi — cihazsız `flutter test`te `NativeDatabase.memory()` ile
+doğrulanabilir olmalı, İLK denenecek; (b) şifreleme (Keychain/Keystore anahtarı)
+— cihaz-bağımlı risk, AYRI; (c) export/delete; (d) göç altyapısı (bugün TEK şema
+sürümü var, gerçek "N-2" testi şema en az İKİ KEZ evrilene kadar EXTERNAL_GATE,
+ama disiplin/iskelet BUGÜNDEN kurulmalı); (e) Step 5 şema-yasağı testi.
+
+**Kapı durumu:** Kod DEĞİŞİKLİĞİ YOK bu turda — yalnız kapsam düzeltmesi.
+`tools/run_all_gates.sh` hâlâ G-275'in bıraktığı hâliyle yeşil (app 290/290 ·
+engine 176/176 · python 22/22), doğrulama gerekmedi.
