@@ -6547,3 +6547,54 @@ mantığı, bu üç görevin (P1-002/P1-004-storage/P1-003) içinde EN AZ dış-
 
 **Kapı durumu:** `tools/run_all_gates.sh`: `app 257/257` (+8, ~1 skip) · `engine 176/176` ·
 `python 22/22`. `flutter analyze`: 0 sorun.
+
+### G-271 — 🏋️ GRA-P1-003 domain katmanı: sekiz haftalık program üreticisi — GERÇEKTEN yeni özellik (bu turda ilk kez var olan bir şey), TAM TEST KAPSAMIYLA
+
+**GRA-P1-002'den farklı, GERÇEK sıfırdan iş:** `lib/app/program/`, `lib/app/workout/`,
+`content/programs/` HİÇ yoktu (önceki görevlerin AKSİNE, roadmap'in "henüz yapılmadı"
+varsayımı bu sefer DOĞRUYDU — ölçüldü, `find` boş döndü). Kapsam kararı: bu tur YALNIZ
+domain katmanını (roadmap Step 1/2/5) kapsadı — `workout_screen.dart` (UI, Step 4'ün
+"missed workout" ekranı) ve `content_repository.dart`ya kablolama SIRADAKİ tura bırakıldı;
+GRA-P1-001'in domain→UI ayrımıyla AYNI desen.
+
+**Tasarım kararları, gerekçesiyle:**
+- Katalogdaki `level` alanı ("readiness" girdisinin karşılığı) ve `equipment` alanı
+  ZATEN var — yeni şema alanı GEREKMEDİ. `regression`/`progression` alanı YOK (G-270'te
+  adıyla kaydedilmiş boşluk) — bu yüzden periyotlama hareket-DEĞİŞTİRME değil, AYNI
+  hareketin HACMİNİ (tekrar/tutuş) haftalar içinde artırma+deload biçiminde tasarlandı.
+  Bu, roadmap'in kendi §8 kuralıyla ("Load recommendation klinik/rehab hükmü değildir")
+  ve `CLAUDE.md`nin "tıbbi dil yasak" kuralıyla TUTARLI — standart, MUHAFAZAKÂR doğrusal
+  periyotlama (3×8-12, her 4. hafta deload), uzman onayı henüz almadı, `content/programs/
+  foundation.v1.json`ın kendi `$comment`ında adıyla yazılı.
+- `docs/content/rights-ledger.json`/`expert-approvals.json` (G-270) kararıyla AYNI disiplin
+  burada da geçerli: içerik UYDURULMADI, yalnız PARAMETRE (set/tekrar/deload sayıları)
+  yazıldı; HANGİ hareketlerin seçileceği KATALOGTAN türetilir, elle isim YAZILMADI.
+- CANLI-öncelik: aynı ailede birden fazla aday varsa `status=="live"` olan ÖNCE seçilir —
+  "elimizden geleni öner" ilkesi, kamera geri bildirimi olan hareketi önceliklendirir.
+- `DateTime.now()` HİÇ ÇAĞRILMAZ — `live_session.dart`nın `buildFreeSessionRecord`
+  deseniyle AYNI disiplin: saf mantık zamanı PARAMETRE olarak alır (`rescheduleAfterMiss`/
+  `scheduleProgram`), simulated-clock testini doğal olarak destekler.
+
+**Sıfırdan yazılan koda RAĞMEN gerçek bir derleme hatası çıktı — ölçümle yakalandı:**
+`firstWhere(..., orElse: () => ...)` çağrısının GERÇEKTEN non-nullable döndüğünü
+görmeden değişkeni `ProgramCatalogEntry?` yazmışım; `flutter analyze` üç gerçek hata
+verdi (`unchecked_use_of_nullable_value` ×2 + `argument_type_not_assignable`).
+Düzeltme: tip açıklaması `ProgramCatalogEntry` (nullable değil) — `orElse` zaten
+non-null döndürüyordu, Dart'ın kendi çıkarımı benim yazdığımdan daha doğruydu.
+
+**Test kapsamı (16 test, hepsi hem SENTETİK hem GERÇEK katalogla):** determinizm (aynı
+girdi→aynı program) · ekipman/seviye süzgeci (3) · canlı-öncelik (2) · günde tekrarsız
+hareket · periyotlama (3: deload doğru doz, tekrar HİÇ azalmaz, tavan aşılmaz) · kaçırılan
+seans yeniden sıralama (2) · **sekiz haftalık simüle saat** (roadmap Step 5'in birebir
+istediği: art arda kaçırma dahil, tarih çakışması/kayıp sıfır, sıra korunuyor) · **gerçek
+`content/library.json`+31 katalog dosyasıyla** iki entegrasyon testi (bodyweight+beginner
+VE intermediate+tam-ekipman, ikisi de çökmeden 24/40 seans üretiyor, her günde en az 1
+hareket).
+
+**Kapı durumu:** `tools/run_all_gates.sh`: `app 273/273` (+16) · `engine 176/176` ·
+`python 22/22`. `flutter analyze`: 0 sorun.
+
+**Sıradaki:** `content_repository.dart`ya kablolama (gerçek `ProgramConfig`/katalog
+yükleme) + `lib/app/workout/workout_screen.dart` (Step 3: RPE local-input + Step 4'ün
+UI tarafı) + `pubspec.yaml`ye `content/programs/foundation.v1.json` asset kaydı (henüz
+hiçbir üretim kodu okumuyor, bu yüzden BİLEREK eklenmedi — okuyan kod gelince eklenecek).
