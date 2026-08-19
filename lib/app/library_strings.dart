@@ -127,6 +127,20 @@ abstract final class LibraryStrings {
   // ── Beceri ağaçları ────────────────────────────────────────────────────
   static const String skillTreesTitle = 'Skill trees';
 
+  /// Home'daki hızlı-bağlantı kartının alt satırı (GRA-P1-001). Sayı
+  /// `catalogue.skillTrees.trees.length`den — elle yazılmaz.
+  static String homeSkillTreesBody(int count) =>
+      count == 1 ? '1 drafted progression' : '$count drafted progressions';
+
+  /// [SkillTreesListScreen] satırı — adım sayısı indeksten.
+  static String skillTreeRowSteps(int nodeCount) =>
+      nodeCount == 1 ? '1 step' : '$nodeCount steps';
+
+  /// Hiç ağaç yoksa (bugün hiç gerçekleşmeyen hâl — 2 pakette de VAR) bile
+  /// ekran boş bırakılmaz; boşluk da bir cümledir.
+  static const String skillTreesEmpty =
+      'No progression trees are drafted right now.';
+
   /// ⚠️ Bu metin bir EKSİKLİK BEYANIDIR ve bilerek burada duruyor.
   /// `content/skill-graph/` iki paket taşıyor (handstand, planche) ve İKİSİ
   /// de `status: DRAFT` — eşikleri henüz bir hareket-bilimi geçişinden
@@ -297,6 +311,38 @@ abstract final class LibraryStrings {
   static const String skillTreeUnknown =
       'This movement is marked as part of a progression, but we could not '
       'find which one. We are not guessing.';
+
+  // ── Beceri ağacı sayfası (GRA-P1-001) ───────────────────────────────────
+  //
+  // ⚠️ Bu sayfa `content/skill-graph/*.json`ın KENDİSİNİ okumaz — o dosyalar
+  // `pubspec.yaml`de BİLEREK paketlenmiyor (taslak eşiklerin uygulamaya hiç
+  // giremeyeceği yapısal garanti). Sayfa yalnız ZATEN paketli `SkillTree`
+  // özetini (`packId`/`displayName`/`nodeCount`/`thresholdsValidated`)
+  // gösterir — `LibraryScreen`in "Skill trees" bölümüyle AYNI kaynak, AYNI
+  // disiplin, yalnız tek bir ağaca odaklanmış hâli.
+
+  /// `$nodeCount` — indeksten, elle sayılmaz.
+  static String skillTreeScreenStepCount(int nodeCount) =>
+      nodeCount == 1 ? '1 step, drafted' : '$nodeCount steps, drafted';
+
+  /// ⚠️ "yet" YASAK (M-F-186, `test/library_surface_test.dart`'ın dil
+  /// nöbeti) — ilk yazışımım bu sözcüğü taşıyordu ve KIRMIZI yaktı, kapı
+  /// tam tasarlandığı gibi çalıştı. Vaat dili taşımayan bir cümle "ne zaman"
+  /// sormaz, yalnız BUGÜNÜ anlatır.
+  static String skillTreeScreenNotDrawnBody(String treeName) =>
+      'We are not showing you the individual steps of $treeName: their '
+      'unlock criteria have not been through a movement-science review, and '
+      'we do not want to draw a gate whose number we picked ourselves. The '
+      'movements that make up this progression are in the library like '
+      'everything else — you can practise them today.';
+
+  /// Eşikler doğrulandığında (bugün hiçbir pakette yok) bile bu ekran adım
+  /// listesi ÇİZMEZ — `content/skill-graph/` paketleri hâlâ bundle dışında
+  /// (bkz. dosya başı yorum). Cümle yalnız DURUMU doğru anlatır, bir ekran
+  /// vaat ETMEZ — "yet" burada da YASAK, aynı gerekçe.
+  static const String skillTreeScreenValidatedBody =
+      'This progression\'s unlock criteria have been through a '
+      'movement-science review. The step-by-step view is not built.';
 
   /// `null` → BOŞ. Sınıfı bilinmeyen bir harekette kamera-görünürlüğü
   /// hakkında cümle kurmak, ölçülmemiş bir iddiadır.

@@ -6436,3 +6436,65 @@ karşı "her şey tamamlandı + her onay verildi" girdisiyle bile `achieved` SIF
 
 **Kapı durumu:** `tools/run_all_gates.sh`: `app 241/241` (+17) · `engine 176/176` (+1,
 düzeltilmiş yetim-düğüm testi) · `python 22/22`. `flutter analyze`: 0 sorun.
+
+### G-269 — 🌳 GRA-P1-001 TAMAMLANDI: beceri ağacı ekranları — kapsam kararı + DÖRT ölçüm hatası çalışırken yakalandı, hepsi düzeltildi
+
+**Kapsam kararı, ölçümle:** `lib/app/skills/skill_progress.dart`ın (G-268) zengin
+`SkillPack`/`SkillNode` tipleri bu turda EKRANA BAĞLANMADI — `content/skill-graph/*.json`
+`pubspec.yaml`de BİLEREK paketlenmiyor ("taslak eşiklerin uygulamaya hiç giremeyeceği
+yapısal garanti", dosyanın kendi yorumu) ve `LibraryScreen`in ZATEN var olan "Skill trees"
+bölümü aynı kararı BAĞIMSIZ olarak taşıyor ("ağaç ÇİZİLMİYOR ve sebebi söyleniyor"). Ekranlar
+bunun yerine ZATEN paketli `SkillTree` özetini (`content/skill-trees.index.json`) kullanır.
+Roadmap Step 4'ün "current node UI" tam tanımı — düğüm listesi, ilerleme — `M-F-38`
+hareket-bilimi geçişine EXTERNAL_GATE'lidir; zengin domain katmanı O GÜN için hazır
+bekliyor, bugün için değil.
+
+**DÖRT ayrı ölçüm hatası, hepsi ÇALIŞTIRARAK yakalandı (sezgiyle hiçbiri):**
+
+1. **"yet" YASAĞI (M-F-186) ihlali** — iki yeni cümlem de "yet" taşıyordu, `library_
+   surface_test.dart`ın dil nöbeti KIRMIZI yaktı, tam tasarlandığı gibi. Düzeltme: "yet"
+   kaldırıldı, cümle yalnız BUGÜNÜ anlatır oldu (vaat dili zaten istenmeyen şeydi).
+2. **Alt-dizge örtüşmesi, testin KENDİ hatası** — `textContaining('been through a
+   movement-science review')` draft VE validated cümlelerin İKİSİNDE de geçiyordu (draft
+   cümle "have **NOT** been through..." diyor, alt dizge yine de eşleşiyor). Vekil-ölçüm
+   hatası — bu ailenin defalarca adlandırdığı sınıf. Düzeltme: TAM metin eşleşmesi.
+3. **Büyük/küçük harf uyumsuzluğu, İKİ AYRI test dosyasında tekrarladı** — ekran mono-eyebrow
+   deseni (`SurfaceSection.title` ile aynı, `.toUpperCase()`) uyguluyor; testler küçük harfle
+   aradı, "0 bulundu" ile YANLIŞ KIRMIZI verdi (ekran değil test kusuru).
+4. **GERÇEK ürün kusuru: beceri ağacına giden TEK yol pratikte YOKTU.** `skillGraphNode`
+   taşıyan üç hareketin (`hollow_hold`/`wall_handstand`/`tuck_planche`) ÜÇÜ de `coming_soon`
+   ve aile-sıralı 31 hareketlik listede geç sırada — `test/reachability_test.dart`ın gerçek
+   dokunuş yürüyüşü (sekme başına ilk 8 kontrol) hiçbirine ulaşamadı. **Bu bir test-ayarı
+   sorunu DEĞİLDİ** (`kDeliberatelyUnreachable`e eklemeyi DENEMEDİM — sözleşmenin kendi
+   `derivedExclusionReasons()`'ı montaj-noktası kanalından GERÇEKTEN erişilebilir bir ekranı
+   dışlama listesine sokmayı yapısal olarak REDDEDER, `⛔ SEBEP ÇÜRÜDÜ` ile öter). Gerçek
+   düzeltme: `HomeScreen`e (az kontrollü, en erişilebilir sekme) yeni bir "Skill trees" hızlı
+   bağlantısı + `SkillTreesListScreen` (TÜM ağaçları listeleyen, her satırı `SkillTreeScreen`e
+   giden yeni bir hub ekranı) eklendi.
+
+   **Bu düzeltmenin KENDİ İÇİNDE ikinci bir kusur çıktı, yine ölçümle:** yeni kartı Home'un
+   SONUNA (mevcut "browse library" kartından SONRA) koyunca yürüyüş YİNE ulaşamadı —
+   `debugPrint` çıktısı `ULAŞILAMIYOR AMA VAR: 3` dedi (2 yenisi dahil). Kök neden: "browse
+   library" kartı `onBrowseLibrary` çağırıyor — bu bir SEKME DEĞİŞİMİ (`setState(_index=1)`),
+   GERÇEK bir `Navigator.push` DEĞİL; yürüyüşün pop-geri-dönüş mantığı yalnız itilen rotaları
+   bilir, sekme kaymasını bilmez — o karta dokununca yürüyüş SESSİZCE Library'e kayıyor ve bir
+   daha Home'a dönmüyor, ondan SONRAKİ hiçbir kontrol denenmiyor. Düzeltme kod DEĞİL SIRA:
+   yeni "Skill trees" bloğu "browse library"den ÖNCE taşındı. Sonrasında yürüyüş
+   `SkillTreeScreen`+`SkillTreesListScreen` ikisini de buldu, `ULAŞILAMIYOR AMA VAR` yeniden
+   `1`e (yalnız sistem-dalı `ContentFailureScreen`) döndü.
+
+**Yeni dosyalar:** `lib/app/skills/skill_tree_screen.dart` (tek ağaç, adım sayısı + taslak/
+doğrulanmış durumu) · `lib/app/skills/skill_trees_list_screen.dart` (tüm ağaçların gezilebilir
+indeksi, boş-durum cümleli) · ikisinin testleri (12 test) + `home_screen.dart`/`movement_
+page.dart` navigasyon kablolaması.
+
+**Kapı durumu:** `tools/run_all_gates.sh`: `app 249/249` (+8, iki yeni dosya) ·
+`engine 176/176` · `python 22/22`. `flutter analyze`: 0 sorun. `test/reachability_test.dart`
++ `test/library_surface_test.dart` (dil nöbeti dahil) yeşil.
+
+**GRA-P1-001 roadmap 5 adımı — durum:** 1 (kırmızı test) ✅ dolaylı, ölçümle yakalandı ·
+2 (parser+sözleşme) ✅ G-268 · 3 (zorlama) ✅ `SkillProgressEvaluator`, henüz ekrana
+BAĞLANMADI (yukarıdaki kapsam kararı) · 4 (UI) ✅ yapılabilir kapsamda tamamlandı · 5
+(graph validator + widget test) ✅ 5/5 içerik testi + 12 widget testi. **GRA-P1-001
+KAPANDI** — sıradaki görev GRA-P1-002 (20-movement paid foundation) ya da roadmap
+sırasının izin verdiği başka bir P1 kalemi.

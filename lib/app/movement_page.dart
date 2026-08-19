@@ -4,6 +4,7 @@ import 'package:gravita_engine/gravita_engine.dart';
 import 'content_repository.dart';
 import 'library_model.dart';
 import 'library_strings.dart';
+import 'skills/skill_tree_screen.dart';
 import 'surface_widgets.dart';
 import 'theme.dart';
 
@@ -474,20 +475,39 @@ class _MovementPageState extends State<MovementPage> {
 
   // ── 9. Beceri ağacı bağı ───────────────────────────────────────────────
 
-  Widget _skillTree(MovementEntry m) => SurfaceSection(
-        key: MovementPage.skillTreeKey,
-        title: LibraryStrings.skillTreeLinkTitle.toUpperCase(),
-        children: <Widget>[
-          NoteCard(
-            icon: Icons.account_tree_outlined,
-            text: switch (widget.content.catalogue.skillTrees
-                .treeFor(m.skillGraphNode!)) {
-              final SkillTree t => LibraryStrings.skillTreeIn(t.displayName),
-              null => LibraryStrings.skillTreeUnknown,
-            },
+  /// ⭐ GRA-P1-001: bu blok artık NAVİGE EDİLEBİLİR — ağaç BULUNDUĞUNDA
+  /// [SkillTreeScreen]e gider (`lib/app/skills/`). Ağaç bulunamazsa
+  /// (`skillTreeUnknown` hâli) dokunma hedefi YOK — var olmayan bir yere
+  /// giden bir buton, ölü buton yasağının ta kendisi olurdu.
+  Widget _skillTree(MovementEntry m) {
+    final SkillTree? tree =
+        widget.content.catalogue.skillTrees.treeFor(m.skillGraphNode!);
+    final Widget card = NoteCard(
+      icon: Icons.account_tree_outlined,
+      text: switch (tree) {
+        final SkillTree t => LibraryStrings.skillTreeIn(t.displayName),
+        null => LibraryStrings.skillTreeUnknown,
+      },
+    );
+    return SurfaceSection(
+      key: MovementPage.skillTreeKey,
+      title: LibraryStrings.skillTreeLinkTitle.toUpperCase(),
+      children: <Widget>[
+        if (tree == null)
+          card
+        else
+          InkWell(
+            borderRadius: BorderRadius.circular(18),
+            onTap: () => Navigator.of(context).push<void>(
+              MaterialPageRoute<void>(
+                builder: (_) => SkillTreeScreen(tree: tree),
+              ),
+            ),
+            child: card,
           ),
-        ],
-      );
+      ],
+    );
+  }
 }
 
 /// Bir hareketin geçmişi — "boş" ile "okunamadı" AYRI taşınır.

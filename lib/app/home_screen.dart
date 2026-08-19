@@ -4,6 +4,7 @@ import 'content_repository.dart';
 import 'library_model.dart';
 import 'library_strings.dart';
 import 'movement_page.dart';
+import 'skills/skill_trees_list_screen.dart';
 import 'surface_widgets.dart';
 import 'theme.dart';
 
@@ -30,6 +31,7 @@ class HomeScreen extends StatelessWidget {
   static const Key noPlanKey = Key('home.noPlan');
   static const Key openNowKey = Key('home.openNow');
   static const Key queueKey = Key('home.queue');
+  static const Key skillTreesKey = Key('home.skillTrees');
 
   final ContentRepository content;
   final VoidCallback onBrowseLibrary;
@@ -69,6 +71,56 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ))
                 .toList(growable: false),
+          ),
+          const SizedBox(height: 30),
+          // ⭐ GRA-P1-001: gerçek, dokunulabilir bir giriş noktası — hareket
+          // sayfasındaki `skillGraphNode` bağı TEK BAŞINA yeterli DEĞİLDİ
+          // (o bağı taşıyan üç hareketin üçü de kuyrukta ve aile-sıralı
+          // listede geç sırada; `test/reachability_test.dart`ın gerçek
+          // dokunuş yürüyüşü buna hiç ulaşamadı — ölçülmüş bir keşif
+          // kusuruydu, test kusuru değil). Home'un az kontrollü sekmesinden
+          // doğrudan erişim ekliyor.
+          //
+          // ⚠️ SIRA KASITLI — bu blok "browse library" kartından ÖNCE durur.
+          // Ölçüldü: o kart `onBrowseLibrary` çağırıyor (`_index` değişimi,
+          // GERÇEK bir `Navigator.push` DEĞİL) ve gezilebilirlik yürüyüşü
+          // push-sonrası pop'u yalnız GERÇEK itilen rotalar için biliyor —
+          // sekme sessizce Library'e KAYIYOR ve bir daha Home'a dönmüyor.
+          // Bu blok o karttan SONRA olsaydı yürüyüş ona hiç ulaşamazdı
+          // (birebir bu turda ölçülen kusur — `SkillTreesListScreen` ilk
+          // yazışımda tam bu sebeple "ulaşılamıyor ama var" çıktı).
+          SurfaceSection(
+            key: skillTreesKey,
+            title: LibraryStrings.skillTreesTitle.toUpperCase(),
+            subtitle: LibraryStrings.homeSkillTreesBody(
+                c.skillTrees.trees.length),
+            children: <Widget>[
+              InkWell(
+                borderRadius: BorderRadius.circular(18),
+                onTap: () => Navigator.of(context).push<void>(
+                  MaterialPageRoute<void>(
+                    builder: (_) =>
+                        SkillTreesListScreen(trees: c.skillTrees.trees),
+                  ),
+                ),
+                child: GravitaCard(
+                  radius: 18,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 15),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(LibraryStrings.skillTreesTitle,
+                            style: GravitaType.body(
+                                size: 14, weight: FontWeight.w500)),
+                      ),
+                      const Icon(Icons.chevron_right,
+                          size: 20, color: GravitaColors.textTertiary),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 30),
           SurfaceSection(
