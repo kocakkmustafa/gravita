@@ -447,6 +447,21 @@ abstract final class LibraryStrings {
       'build an eight-week plan from movements already in the library.';
   static const String programNoInputsAction = 'Set up your program';
 
+  // ── Gün durumu + RPE (GRA-P1-003 Step 3/4) ──────────────────────────────
+
+  static const String programDayMissedLabel = 'Missed';
+  static String programDayDoneLabel(int rpe) => 'Done · RPE $rpe';
+  static const String programMarkDoneAction = 'Mark done';
+  static const String programRescheduleAction = 'Reschedule';
+
+  /// ⚠️ "camera sonucu değildir" (roadmap Step 3) kullanıcıya da AÇIKÇA
+  /// söyleniyor — bu ürünün her yüzeyde verdiği "neyin ölçüldüğü, neyin
+  /// kullanıcı beyanı olduğu" ayrımıyla TUTARLI.
+  static const String programRpeDialogBody =
+      'Rate your own effort from 1 (very easy) to 10 (all-out). This is '
+      'your input, not something the camera measures.';
+  static const String programRpeSaveButton = 'Save';
+
   static String _titleCase(String s) =>
       s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
 }

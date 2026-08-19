@@ -163,3 +163,21 @@ Future<T> realIo<T>(WidgetTester tester, Future<T> Function() body) async {
   await tester.runAsync(() async => out = await body());
   return out;
 }
+
+/// Gerçek G/Ç'ye bağlı bir geçişin/güncellemenin (dokunuş → G/Ç → yeniden
+/// çizim) yerleşmesini bekler — `pumpAndSettle` burada ÇALIŞMAZ, `realIo`nun
+/// KENDİ belgelediği tuzağın AYNISI: sahte saat gerçek G/Ç'yi hiç sürmez.
+/// Sabit tur sayısı yerine KOŞUL (`bootGravitaRoot`ın kendi ③ numaralı dersi
+/// — bkz. dosya başı doc): `until` doğru dönene kadar gerçek-zaman turu aç.
+///
+/// İKİNCİ gerçek çağıranı çıkınca (`program_setup_screen_test.dart`ın kendi
+/// yerinde yazılmış hâli → `workout_flow_test.dart`) buraya taşındı — G-079
+/// dersi: iki ev tutarsızlaşır.
+Future<void> settleUntil(WidgetTester tester, bool Function() until,
+    {int maxRounds = 10}) async {
+  for (int round = 0; round < maxRounds && !until(); round++) {
+    await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 150)));
+    await tester.pump(const Duration(milliseconds: 80));
+  }
+}

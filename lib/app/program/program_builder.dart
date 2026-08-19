@@ -155,6 +155,13 @@ List<DateTime> rescheduleAfterMiss({
   ];
 }
 
+/// Haftada [daysPerWeek] seans için gün-arası boşluk — [scheduleProgram]
+/// (ilk takvim) VE [rescheduleAfterMiss]in çağıranı (kaçırılan seansı KAÇ
+/// gün öteleyeceğini bilmesi gerekir) AYNI formülü kullanır. Tek yerde
+/// tutulmazsa iki çağrı SESSİZCE ayrışabilir (ör. biri güncellenip diğeri
+/// unutulursa) — bu yüzden paylaşılan, saf bir fonksiyon.
+int scheduleGapDays(int daysPerWeek) => (7 / daysPerWeek).floor().clamp(1, 7);
+
 /// [WorkoutProgram.days] için düz, eşit-aralıklı bir İLK takvim —
 /// `daysPerWeek`e göre haftaya yayılır. Saf; `startDate` ÇAĞIRANDAN gelir.
 List<DateTime> scheduleProgram({
@@ -162,7 +169,7 @@ List<DateTime> scheduleProgram({
   required DateTime startDate,
   required int daysPerWeek,
 }) {
-  final int gapDays = (7 / daysPerWeek).floor().clamp(1, 7);
+  final int gapDays = scheduleGapDays(daysPerWeek);
   return <DateTime>[
     for (int i = 0; i < program.days.length; i++)
       startDate.add(Duration(days: i * gapDays)),

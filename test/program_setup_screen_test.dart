@@ -11,7 +11,7 @@ import 'package:gravita/app/theme.dart';
 import 'package:gravita/app/workout/workout_screen.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 
-import 'support/launch_harness.dart' show FakeSupportDir, realIo;
+import 'support/launch_harness.dart' show FakeSupportDir, realIo, settleUntil;
 
 /// [ProgramSetupScreen] — GRA-P1-003. `FakeSupportDir`/`realIo` `test/
 /// support/launch_harness.dart`tan — İKİNCİ bir sahte sağlayıcı/G-Ç
@@ -36,21 +36,15 @@ void main() {
       MaterialApp(theme: GravitaTheme.light, home: child);
 
   /// Kurulum → yazma → geçiş → `WorkoutScreen`in KENDİ yükleyicisi zinciri
-  /// baştan sona GERÇEK G/Ç. `pumpAndSettle` burada ÇALIŞMAZ — sahte saat
-  /// gerçek G/Ç'yi bilmiyor (`launch_harness.dart`ın ① dersiyle AYNI tuzak,
-  /// birebir ölçüldü: ilk yazımda `pumpAndSettle` hiçbir şey beklemeden
-  /// döndü, `WorkoutScreen` 0 widget çıktı). Sabit tur sayısı yerine KOŞUL.
-  Future<void> settleReal(WidgetTester tester, {int maxRounds = 10}) async {
-    for (int round = 0;
-        round < maxRounds &&
-            (find.byType(WorkoutScreen).evaluate().isEmpty ||
-                find.byType(CircularProgressIndicator).evaluate().isNotEmpty);
-        round++) {
-      await tester.runAsync(
-          () => Future<void>.delayed(const Duration(milliseconds: 150)));
-      await tester.pump(const Duration(milliseconds: 80));
-    }
-  }
+  /// baştan sona GERÇEK G/Ç — `settleUntil` (`support/launch_harness.dart`)
+  /// bu YÜZDEN gerekiyor: `pumpAndSettle` ilk yazımda hiçbir şey beklemeden
+  /// döndü, `WorkoutScreen` 0 widget çıktı (sahte saat gerçek G/Ç'yi bilmiyor).
+  Future<void> settleReal(WidgetTester tester) => settleUntil(
+        tester,
+        () =>
+            find.byType(WorkoutScreen).evaluate().isNotEmpty &&
+            find.byType(CircularProgressIndicator).evaluate().isEmpty,
+      );
 
   testWidgets('kurulum → kaydet → WorkoutScreen\'e geçer, program GERÇEKTEN '
       'GÖRÜNÜR', (WidgetTester tester) async {

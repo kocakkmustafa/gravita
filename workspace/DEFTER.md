@@ -6678,3 +6678,65 @@ ekran henüz çağırmıyor) — `workout_screen.dart`nın dosya-başı yorumund
 
 **Kapı durumu:** `tools/run_all_gates.sh`: `app 278/278` (+5) · `engine 176/176` ·
 `python 22/22`. `flutter analyze`: 0 sorun.
+
+### G-273 — 🏋️ GRA-P1-003 Step 3/4 TAMAM: RPE toplama + kaçırılan gün yeniden sıralama — görev roadmap'in beş adımının BEŞİ de kapandı
+
+**Yeni kalıcılık:** `ProgramScheduleStore` (`lib/app/program/program_schedule_store.dart`)
+— `ProgramStore`nun BİREBİR deseni, ama AYRI dosya/kaygı: `ProgramStore` yalnız GİRDİYİ
+tutar ([WorkoutProgram] her açılışta yeniden üretilir), bu store ise KULLANICININ
+GEÇMİŞİNİ (`ProgramSchedule`: [WorkoutProgram.days] ile aynı uzunlukta düz tarih listesi +
+tamamlanan günlerin RPE'si) — biri türetilebilir, öbürü türetilemez, bu yüzden iki AYRI
+dosyada kalıyor.
+
+**Step 3 (RPE) — "camera sonucu değildir" hem KODDA hem KULLANICIYA açık:**
+`ProgramSchedule`/`program_schedule_store.dart` `gravita_engine`e ya da `live_session.dart`a
+HİÇ bağımlı değil, yalnız `int` taşıyor — RPE'nin kaynağı YAPISAL olarak dokunuştan
+başka bir yer OLAMAZ. `LibraryStrings.programRpeDialogBody` bunu kullanıcıya da AÇIKÇA
+söylüyor ("not something the camera measures") — ürünün her yüzeyde verdiği "neyin
+ölçüldüğü, neyin beyan olduğu" ayrımıyla TUTARLI.
+
+**Step 4 (reschedule) — G-271'in ZATEN yazdığı+test ettiği `rescheduleAfterMiss`i
+NİHAYET bir UI çağırıyor:** `_ProgramOverview._reschedule` tıpkı motor testinin
+öngördüğü gibi çağırıyor — `program_builder.dart`ya YENİ, paylaşılan bir `scheduleGapDays`
+fonksiyonu eklendi (`scheduleProgram`nin İÇİNDE gömülü olan `gapDays` formülü dışarı
+ÇIKARILDI) ki İLK takvim kurulumu ile SONRAKİ yeniden-sıralama AYNI aralığı kullansın —
+iki yerde aynı formülü elle tekrarlamak G-079 sınıfı bir "iki ev" riski olurdu.
+
+**Tasarım kararı — hangi gün "kaçırıldı":** gün-bazlı karşılaştırma (saat DEĞİL,
+`_dateOnly`), tamamlanmamış VE planlı tarihi bugünden ÖNCE olan her gün. Yeniden
+sıralama CEZASIZ: `rescheduleAfterMiss` hiçbir seansı silmiyor/tekrarlamıyor, yalnız
+kaçırılan indeksten itibaren TÜM tarihleri aynı miktarda öteliyor (motorun kendi
+sözleşmesi, G-271).
+
+**Tasarım kararı — renk paleti İHLAL EDİLMEDİ:** `theme.dart`nın kendi kısıtı ("kırmızı
+yalnız üç işte: ölçülen kriter, kapı/kilit, dürüstlük mührü... plain emphasis için
+KULLANMA") okundu ve saygı gösterildi — "Missed"/"Done" pilleri UYDURULMUŞ bir
+"warning" renk yerine ZATEN var olan nötr `textSecondary`+`filled:false` tonunu
+kullanıyor ("Manual log" rozetiyle AYNI, ölçülü bir seçim).
+
+**RPE toplama tasarımı — DIALOG değil INLINE:** kod tabanında `showDialog`/
+`ScaffoldMessenger` HİÇ kullanılmıyordu (ölçüldü, `grep` boş döndü) — ilk dialog'u BU
+tur açmak yerine `_DayCard`ı `StatefulWidget`e çevirip yerinde genişleyen bir
+`ChoiceChip` seçici (1-10) + Save eklendi. Daha az yeni mekanik, aynı sonuç.
+
+**Test alt-yapısı: `settleUntil` `launch_harness.dart`ya TAŞINDI — İKİNCİ gerçek
+çağıranı çıkınca (G-079 dersi):** `program_setup_screen_test.dart`ın kendi yerinde
+yazılmış `settleReal`i artık paylaşılan `settleUntil`i sarıyor. **İki gerçek hata
+yolda ölçüldü, ikisi de test-YAZIMI hataları, ürün hatası DEĞİL:** (1) `WorkoutScreen`i
+KÖK olarak doğrudan pump etmek (`program_setup_screen_test.dart`ın aksine, orada önce
+bir ekran daha ısınıyor) soğuk-açılış G/Ç zincirini varsayılan 10 turda BİTİREMEDİ —
+"sonsuza dek asılı" SANILABİLİRDİ, ama `maxRounds`'ı 30'a çıkarınca güvenle bitti; bu bir
+YAVAŞLIK payıydı, kilitlenme değil. (2) Yeniden-sıralama sonrası `saved.dates[0].isBefore
+(DateTime.now())` iddiası `settleUntil`in GERÇEK-ZAMAN turlarının testte SANİYELER
+geçirmesi yüzünden yanlış-pozitif verdi (tarih tam "bugün"e kaydırılmıştı ama saat-hassas
+karşılaştırma birkaç saniyelik sürüklenmeyi "hâlâ geçmiş" sayıyordu) — panzehir testin
+KENDİ iddiasını `_DayCard._isMissed`in AYNI gün-bazlı karşılaştırmasına çevirmekti.
+
+**Test kapsamı:** `test/workout_flow_test.dart` (2, roadmap'in adıyla istediği dosya) —
+RPE dokunuştan diske (bağımsız store okumasıyla doğrulanan MOTOR-SONUCU iddiası, UI
+iddiasından AYRI) + kaçırılan günün yeniden sıralanması (kayıp/tekrar yok, RPE'si
+sahte "done" olmuyor, tarihi gerçekten kayıyor).
+
+**Kapı durumu:** `tools/run_all_gates.sh`: `app 280/280` (+2) · `engine 176/176` ·
+`python 22/22`. `flutter analyze`: 0 sorun. **GRA-P1-003 roadmap'in beş adımının BEŞİ de
+✅ VERIFIED — görev TAMAMEN kapandı.**
