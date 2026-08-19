@@ -6933,3 +6933,65 @@ ama disiplin/iskelet BUGÜNDEN kurulmalı); (e) Step 5 şema-yasağı testi.
 **Kapı durumu:** Kod DEĞİŞİKLİĞİ YOK bu turda — yalnız kapsam düzeltmesi.
 `tools/run_all_gates.sh` hâlâ G-275'in bıraktığı hâliyle yeşil (app 290/290 ·
 engine 176/176 · python 22/22), doğrulama gerekmedi.
+
+### G-277 — 🗄️ GRA-P1-004 Step 3 TEMELİ: Drift/sqlite3 GERÇEKTEN çalışıyor — session-index projeksiyonu + idempotent-replay kanıtlı, HİÇBİR kardeş app bunu denemedi
+
+**G-276'nın kararının UYGULANMASI — `drift`+`sqlite3_flutter_libs` eklendi:**
+`flutter pub get` TEMİZ çözüldü (39 yeni paket, çakışma yok). `dart run
+build_runner build` `gravita_database.g.dart`ı GERÇEKTEN üretti — bu makinede
+kod-üretim zincirinin ÇALIŞTIĞI, VARSAYILMADAN ÖLÇÜLDÜ (hiçbir kardeş app
+`drift`/`sqlite` kullanmıyor, ölçüldü — kopyalanacak örnek yoktu).
+
+**`lib/app/storage/gravita_database.dart` — `SessionIndexEntries`:**
+`SessionRecord`ın alanlarını BİREBİR taşıyan, GERÇEĞİN KAYNAĞI OLMAYAN bir
+tablo — `JsonlSessionStore` (motion_core, salt-okunur) provenance olarak
+KALIYOR, bu tablo yalnız Drift'in sorgu yeteneğini geçmişe EKLİYOR. Silinse/
+bozulsa journal'dan TAM yeniden üretilebilir.
+
+**`lib/app/storage/session_projector.dart` — TAM YENİDEN KURMA stratejisi:**
+`SessionRecord`ın doğal bir benzersiz kimliği yok — bu yüzden "idempotent
+replay" artımlı upsert'ten DEĞİL, `rebuild()`ün HER ÇAĞRIDA tabloyu boşaltıp
+journal'ı BAŞTAN yazmasından geliyor. Aynı journal'ı N kez oynatmak HER ZAMAN
+aynı sonucu verir — kırılgan bir "bu satır zaten var mıydı" karşılaştırmasına
+gerek YOK. Bugünkü veri hacmi (erken aşama ürün) bu stratejinin maliyetini
+önemsizleştiriyor; `pubspec.yaml`daki J-064 notunun AYNI disiplini: artımlı
+strateji, performans ihtiyacı ÖLÇÜLÜNCE, AYRI bir karar olarak gelir.
+
+**`test/storage_migration_test.dart` (roadmap'in adı) — 5 GERÇEK test + 1
+BİLEREK KENDİNİ SİLAHSIZLANDIRAN:** temiz kurulum · journal→Drift doğru
+yansıma · ⭐ idempotent replay (AYNI journal'ı ÜÇ kez oynatmak HÂLÂ tek satır
+veriyor) · boş journal hata üretmiyor · rebuild eski satırları SİLİP güncel
+hâlle DEĞİŞTİRİYOR (eski+yeni karışmıyor). N-2 göç testi GRA-P1-002'nin dinamik
+`skip` deseniyle KENDİNİ silahsızlandırıyor: `GravitaDatabase.schemaVersion`
+GERÇEKTEN okunuyor (bugün 1), 3'e ulaşana kadar EXTERNAL_GATE — sayı
+UYDURULMADI, koşul gerçek koddan geliyor.
+
+**⚠️ Beklenmeyen bir kapı ripple'ı — `network_claim_audit.py` kırmızı yandı,
+ölçümle bulunup düzeltildi:** `build_runner`/`drift_dev`nin 38 transitif
+bağımlılığı `pubspec.lock`a girdi ve bu kapının KENDİ "her paket ya
+`NETWORK_DEPS_RECORDED`ya ya `NO_NETWORK`e" bölme disiplini (G-188) HEPSİNİN
+sınıflandırılmasını ZORLADI — tam da kapının tasarım amacı: yeni bağımlılık
+sessizce geçemez. 7'si (`build_daemon`/`http_multi_server`/`http_parser`/
+`shelf`/`shelf_web_socket`/`web_socket`/`web_socket_channel`) `drift_dev`nin
+YEREL kodgen daemon'unun soket-iletişim ailesi — hepsi TEK gerekçeyi paylaşıyor
+(yalnız `localhost`, yalnız `dev_dependencies`, `flutter build` release'e HİÇ
+bağlamaz, kullanıcı verisiyle HİÇ temas etmez) ve `NETWORK_DEPS_RECORDED`ya
+eklendi. Aracın KENDİ ipucu-regex'i yalnız 3'ünü ("http*"/"web_socket_channel")
+şüpheli işaretliyordu — geri kalan 4'ünü (`build_daemon`/`shelf`/
+`shelf_web_socket`/`web_socket`) BİLEREK, ipucu ZORLAMADIĞI HÂLDE aynı kovaya
+ekledim: hepsi AYNI yerel-daemon alt-sisteminin parçası, ipucu-listesinin
+EKSİK kapsamına (G-188'in kendi bulduğu zayıflık) güvenmek yerine dürüst
+tamlık tercih edildi. Kalan 31 paket (`analyzer`/`dart_style`/`source_gen`/
+`drift`/`sqlite3`... — saf ayrıştırıcı/kod-üretici/dosya yardımcıları, hiçbiri
+soket açmıyor) `NO_NETWORK`e eklendi.
+
+**Kapsam BİLEREK dışında — Step 3-5'in TAMAMI DEĞİL, yalnız TEMEL:**
+şifreleme (DB anahtarı Keychain/Keystore, cihaz-bağımlı risk) · export
+(JSON/CSV) + atomik delete (Step 4) · Step 5'in şema-yasağı testi (ham
+frame/landmark asla DB'ye girmez — BUGÜN zaten girmiyor çünkü `SessionRecord`
+hiç taşımıyor, ama bunu MEKANİK bir testle KANITLAMAK henüz yapılmadı) · gerçek
+N-2 göç testi (yukarıda EXTERNAL_GATE).
+
+**Kapı durumu:** `tools/run_all_gates.sh`: `app 295/295` (+5, 2 skip: bu +
+GRA-P1-002'nin) · `engine 176/176` · `python 22/22` (`network_claim_audit`
+DAHİL, düzeltmeyle). `flutter analyze`: 0 sorun.

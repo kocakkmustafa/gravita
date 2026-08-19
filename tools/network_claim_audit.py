@@ -111,6 +111,22 @@ NO_NETWORK = frozenset({
     "source_span", "stack_trace", "stream_channel", "string_scanner",
     "term_glyph", "test_api", "typed_data", "vector_math",
     "vm_service", "web", "xdg_directories", "yaml",
+    # ⚠️ GRA-P1-004 Step 3 (drift+build_runner, G-277): bu 31 paket `drift_dev`/
+    # `build_runner`nın kodgen ZİNCİRİ — ayrıştırıcı (`analyzer`/`dart_style`/
+    # `sqlparser`), kod-üretici (`source_gen`/`built_value`/`json_annotation`)
+    # ve dosya/paket yardımcıları (`glob`/`watcher`/`file`/`pool`...). HİÇBİRİ
+    # soket AÇMIYOR — o iş (yerel derleme DAEMON'u) AŞAĞIDAKİ
+    # `NETWORK_DEPS_RECORDED` grubuna AYRILDI (`build_daemon` + soket
+    # paketleri). Yalnız `dev_dependencies:` altında, `flutter build`
+    # (release) bunları BAĞLAMAZ — GERÇEK kullanıcı hiçbirini indirmez.
+    "_fe_analyzer_shared", "analyzer", "build", "build_config",
+    "build_runner", "built_collection", "built_value", "charcode",
+    "checked_yaml", "cli_util", "convert", "dart_style",
+    "drift", "drift_dev", "file", "fixnum",
+    "glob", "graphs", "io", "json_annotation",
+    "mime", "native_toolchain_c", "pool", "pubspec_parse",
+    "recase", "source_gen", "sqlite3", "sqlite3_flutter_libs",
+    "sqlparser", "stream_transform", "watcher",
 })
 
 #: KAYIT — Gravita'nın kendi manifestinden kurulan, adıyla+gerekçesiyle.
@@ -125,7 +141,26 @@ NO_NETWORK = frozenset({
 #: bir liste değil. Bir gün yeniden dolarsa `channel_dependency_registry`
 #: SINIFLANDIRILMAMIŞ diye öter — boş kalmak varsayılan güven değil, ölçülen
 #: taban.
-NETWORK_DEPS_RECORDED = {}
+#:
+#: ⚠️ GRA-P1-004 Step 3 (G-277): yedi paket eklendi — `drift_dev`/
+#: `build_runner`nın YEREL derleme DAEMON'u (birden çok `dart run
+#: build_runner` çağrısını KOORDİNE eder). Hepsi TEK gerekçeyi paylaşır:
+#: yalnız `localhost`ta dinler (127.0.0.1, geliştirme makinesi dışına HİÇ
+#: çıkmaz), yalnız `dev_dependencies:` altında (release binary'ye HİÇ
+#: girmez — `flutter build` onları BAĞLAMAZ), ve iddianın konusu olan
+#: KULLANICI VİDEOSUYLA/verisiyle HİÇ temas etmez (kodgen zamanı çalışır,
+#: uygulama HİÇ koşmuyorken). Kanal 1'in (kod izi) kapsamı zaten `lib/`e
+#: sınırlı — bu paketler `lib/`de HİÇ görünmüyor, yalnız `pubspec.lock`ta.
+NETWORK_DEPS_RECORDED = {
+    "build_daemon": "drift_dev/build_runner'ın yerel kodgen daemon'u — "
+        "yalnız localhost, yalnız dev_dependencies, release binary'ye girmez",
+    "http_multi_server": "build_daemon'ın yerel HTTP sunucusu — aynı gerekçe",
+    "http_parser": "build_daemon'ın yerel HTTP mesajlarını ayrıştırır — aynı gerekçe",
+    "shelf": "build_daemon'ın yerel HTTP sunucu çatısı — aynı gerekçe",
+    "shelf_web_socket": "build_daemon'ın yerel WebSocket ucu — aynı gerekçe",
+    "web_socket": "build_daemon'ın yerel WebSocket istemcisi — aynı gerekçe",
+    "web_socket_channel": "build_daemon'ın yerel WebSocket kanalı — aynı gerekçe",
+}
 
 
 def sh(*args):

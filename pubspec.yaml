@@ -53,8 +53,27 @@ dependencies:
   # (`JsonlSessionStore`, append-only JSONL) ve kurucusu bir `File` alıyor —
   # `path_provider` KABLOLAMA katmanında kalıyor. Bu ayrım terfi-arayüzünün
   # 1. şartı (Choreia'nın "port yapılamaz" hükmü tam bunu görmediği için
-  # verilmişti). 3. taraf DB BİLEREK YOK: sorgu ihtiyacı ÖLÇÜLÜNCE gelir (J-064).
+  # verilmişti).
+  #
+  # ⚠️ "3. taraf DB BİLEREK YOK: sorgu ihtiyacı ÖLÇÜLÜNCE gelir (J-064)" —
+  # bu satır BURADA duruyordu ve GRA-P1-004 Step 3-5 açılana kadar doğruydu.
+  # J-064'ün kendi kapsamı SORGU HIZI (JSONL'in linear-scan'i bir sorun
+  # olsaydı erken bir DB'ye kaçış olurdu) — DEĞİŞEN şey sorgu hızı DEĞİL,
+  # roadmap'in artık İSTEDİĞİ ATOMİK yetenek: aynı anda export/delete + göç
+  # + entitlement-cache. `02-MOTION-AILESI-ORKESTRASYON.md` §8.1 (kurucu-onaylı
+  # aile planı, `packages/motion_store/` bunu `motion_core`nun ÜSTÜNDE ayrı bir
+  # paket olarak tanımlıyor, §6.2) net: JSONL journal PROVENANCE kaynağı olarak
+  # KALIYOR (DEĞİŞMEDİ), Drift onun YENİDEN-KURULABİLİR bir İZDÜŞÜMÜ —
+  # `motion_store` henüz inşa edilmediği için (SERT KURAL: eksik ortak paket
+  # → app-içi çöz) burada, Gravita'nın kendi `lib/app/storage/`ında kuruluyor.
   path_provider: ^2.1.0
+
+  # Session-index/plan/progress PROJEKSİYONU (GRA-P1-004 Step 3, yukarıdaki
+  # notla AYNI gerekçe). JSONL journal'ın YERİNE değil, ÜSTÜNDE — journal
+  # HER ZAMAN gerçeğin kaynağı, bu tablo `session_projector.dart`ın journal'ı
+  # yeniden-oynatarak KURDUĞU/yeniden-kurabileceği bir ÖNBELLEK.
+  drift: ^2.20.0
+  sqlite3_flutter_libs: ^0.5.24
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +89,8 @@ dev_dependencies:
   # doğrudan tip kullanan bir paketi bildirmemek bağımlılığı görünmez kılar
   # (yukarıdaki `motion_core` notunun aynı kuralı).
   path_provider_platform_interface: ^2.1.0
+  drift_dev: ^2.20.0
+  build_runner: ^2.4.0
 
 flutter:
   uses-material-design: true
