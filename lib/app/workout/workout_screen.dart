@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
+import '../app_locale.dart';
 import '../content_repository.dart';
 import '../library_strings.dart';
 import '../program/program_builder.dart';
@@ -24,12 +25,13 @@ import '../theme.dart';
 /// `session_projector.dart`/Drift DB gelecek; BU dosya yalnız yerel, küçük
 /// bir JSON dosyasına yazıyor, `program_schedule_store.dart`).
 class WorkoutScreen extends StatefulWidget {
-  const WorkoutScreen({required this.content, super.key});
+  const WorkoutScreen({required this.content, this.accountUserId, super.key});
 
   static const Key emptyKey = Key('workout.empty');
   static const Key disclaimerKey = Key('workout.disclaimer');
 
   final ContentRepository content;
+  final String? accountUserId;
 
   @override
   State<WorkoutScreen> createState() => _WorkoutScreenState();
@@ -51,19 +53,24 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     // hiç bilmez, çağıran taraf TEK bir "şimdi" yakalayıp aşağı taşır.
     final DateTime now = DateTime.now();
     try {
-      final ProgramInputs? inputs = await (await ProgramStore.open()).read();
+      final ProgramInputs? inputs = await (await ProgramStore.open(
+        accountUserId: widget.accountUserId,
+      )).read();
       if (inputs == null) {
         return (inputs: null, program: null, schedule: null, today: now);
       }
-      final ProgramConfig config =
-          await ContentRepository.loadProgramConfig(rootBundle);
-      final List<ProgramCatalogEntry> entries =
-          await widget.content.programCatalogEntries();
-      final WorkoutProgram program =
-          ProgramBuilder(config: config, catalog: entries).build(inputs);
+      final ProgramConfig config = await ContentRepository.loadProgramConfig(
+        rootBundle,
+      );
+      final List<ProgramCatalogEntry> entries = await widget.content
+          .programCatalogEntries();
+      final WorkoutProgram program = ProgramBuilder(
+        config: config,
+        catalog: entries,
+      ).build(inputs);
 
       final ProgramScheduleStore scheduleStore =
-          await ProgramScheduleStore.open();
+          await ProgramScheduleStore.open(accountUserId: widget.accountUserId);
       ProgramSchedule? schedule = await scheduleStore.read();
       // Takvim yok YA DA program yeniden üretilince gün sayısı artık
       // uyuşmuyor (ör. kullanıcı `daysPerWeek`i değiştirdi) — İKİ durumda da
@@ -73,7 +80,10 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       if (schedule == null || schedule.dates.length != program.days.length) {
         schedule = ProgramSchedule(
           dates: scheduleProgram(
-              program: program, startDate: now, daysPerWeek: inputs.daysPerWeek),
+            program: program,
+            startDate: now,
+            daysPerWeek: inputs.daysPerWeek,
+          ),
           rpeByDayIndex: const <int, int>{},
         );
         await scheduleStore.write(schedule);
@@ -86,73 +96,94 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text(LibraryStrings.programOverviewTitle)),
-        body: FutureBuilder<_Loaded>(
-          future: _future,
-          builder: (BuildContext context, AsyncSnapshot<_Loaded> snap) {
-            final _Loaded? data = snap.data;
-            if (data == null) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (data.program == null || data.schedule == null) {
-              return Padding(
-                padding: const EdgeInsets.all(18),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    NoteCard(
-                      key: WorkoutScreen.emptyKey,
-                      icon: Icons.calendar_month_outlined,
-                      text: LibraryStrings.programNoInputs,
-                    ),
-                    const SizedBox(height: 18),
-                    // ⚠️ InkWell-sarmalı KART — düz `FilledButton` DEĞİL.
-                    // Gerekçe ölçüldü (G-271 devamı): `test/reachability_
-                    // test.dart`ın `tappables()`i yalnız `InkWell`/
-                    // `FloatingActionButton`/`NavigationDestination` tanır;
-                    // bu ekrandaki TEK ProgramSetupScreen tetiği bu kart —
-                    // düz buton olsaydı o ekran "ulaşılamıyor ama var"a
-                    // düşerdi (skill-trees kartlarıyla AYNI desen).
-                    InkWell(
-                      borderRadius: BorderRadius.circular(14),
-                      onTap: () => Navigator.of(context).push<void>(
-                        MaterialPageRoute<void>(
-                          builder: (_) =>
-                              ProgramSetupScreen(content: widget.content),
-                        ),
-                      ),
-                      child: Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        decoration: BoxDecoration(
-                          color: GravitaColors.accent,
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        child: Text(
-                          LibraryStrings.programNoInputsAction,
-                          textAlign: TextAlign.center,
-                          style: GravitaType.body(
-                              size: 15,
-                              weight: FontWeight.w600,
-                              color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }
-            return _ProgramOverview(
-              content: widget.content,
-              program: data.program!,
-              initialSchedule: data.schedule!,
-              today: data.today,
-              daysPerWeek: data.inputs!.daysPerWeek,
-            );
-          },
+    appBar: AppBar(
+      title: Text(
+        localized(
+          context,
+          LibraryStrings.programOverviewTitle,
+          'Sekiz haftalık programın',
         ),
-      );
+      ),
+    ),
+    body: FutureBuilder<_Loaded>(
+      future: _future,
+      builder: (BuildContext context, AsyncSnapshot<_Loaded> snap) {
+        final _Loaded? data = snap.data;
+        if (data == null) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (data.program == null || data.schedule == null) {
+          return Padding(
+            padding: const EdgeInsets.all(18),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                NoteCard(
+                  key: WorkoutScreen.emptyKey,
+                  icon: Icons.calendar_month_outlined,
+                  text: localized(
+                    context,
+                    LibraryStrings.programNoInputs,
+                    'Henüz bir program kurmadın. Birkaç soruyu yanıtla; '
+                    'kütüphanedeki hareketlerden sekiz haftalık bir plan oluşturalım.',
+                  ),
+                ),
+                const SizedBox(height: 18),
+                // ⚠️ InkWell-sarmalı KART — düz `FilledButton` DEĞİL.
+                // Gerekçe ölçüldü (G-271 devamı): `test/reachability_
+                // test.dart`ın `tappables()`i yalnız `InkWell`/
+                // `FloatingActionButton`/`NavigationDestination` tanır;
+                // bu ekrandaki TEK ProgramSetupScreen tetiği bu kart —
+                // düz buton olsaydı o ekran "ulaşılamıyor ama var"a
+                // düşerdi (skill-trees kartlarıyla AYNI desen).
+                InkWell(
+                  borderRadius: BorderRadius.circular(14),
+                  onTap: () => Navigator.of(context).push<void>(
+                    MaterialPageRoute<void>(
+                      builder: (_) => ProgramSetupScreen(
+                        content: widget.content,
+                        accountUserId: widget.accountUserId,
+                      ),
+                    ),
+                  ),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    decoration: BoxDecoration(
+                      color: GravitaColors.accent,
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Text(
+                      localized(
+                        context,
+                        LibraryStrings.programNoInputsAction,
+                        'Programını oluştur',
+                      ),
+                      textAlign: TextAlign.center,
+                      style: GravitaType.body(
+                        size: 15,
+                        weight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+        return _ProgramOverview(
+          content: widget.content,
+          program: data.program!,
+          initialSchedule: data.schedule!,
+          today: data.today,
+          daysPerWeek: data.inputs!.daysPerWeek,
+          accountUserId: widget.accountUserId,
+        );
+      },
+    ),
+  );
 }
 
 /// Takvimi KENDİ yerel durumu olarak taşır — `WorkoutScreen`in `_future`ı
@@ -166,6 +197,7 @@ class _ProgramOverview extends StatefulWidget {
     required this.initialSchedule,
     required this.today,
     required this.daysPerWeek,
+    this.accountUserId,
   });
 
   final ContentRepository content;
@@ -173,6 +205,7 @@ class _ProgramOverview extends StatefulWidget {
   final ProgramSchedule initialSchedule;
   final DateTime today;
   final int daysPerWeek;
+  final String? accountUserId;
 
   @override
   State<_ProgramOverview> createState() => _ProgramOverviewState();
@@ -183,7 +216,9 @@ class _ProgramOverviewState extends State<_ProgramOverview> {
 
   Future<void> _markDone(int dayIndex, int rpe) async {
     final ProgramSchedule updated = _schedule.withRpe(dayIndex, rpe);
-    await (await ProgramScheduleStore.open()).write(updated);
+    await (await ProgramScheduleStore.open(
+      accountUserId: widget.accountUserId,
+    )).write(updated);
     if (!mounted) return;
     setState(() => _schedule = updated);
   }
@@ -196,7 +231,9 @@ class _ProgramOverviewState extends State<_ProgramOverview> {
       slotSpacing: Duration(days: gapDays),
     );
     final ProgramSchedule updated = _schedule.withDates(updatedDates);
-    await (await ProgramScheduleStore.open()).write(updated);
+    await (await ProgramScheduleStore.open(
+      accountUserId: widget.accountUserId,
+    )).write(updated);
     if (!mounted) return;
     setState(() => _schedule = updated);
   }
@@ -216,16 +253,28 @@ class _ProgramOverviewState extends State<_ProgramOverview> {
           key: WorkoutScreen.disclaimerKey,
           sealed: true,
           icon: Icons.info_outline,
-          text: LibraryStrings.programOverviewDisclaimer,
+          text: localized(
+            context,
+            LibraryStrings.programOverviewDisclaimer,
+            'Bu genel bir çalışma rehberidir; koçluk veya tıbbi öneri '
+            'değildir. İlerleme düzeni hareket bilimi incelemesinden geçmedi.',
+          ),
         ),
         const SizedBox(height: 24),
         for (final int week in byWeek.keys.toList()..sort())
           Padding(
             padding: const EdgeInsets.only(bottom: 20),
             child: SurfaceSection(
-              title: LibraryStrings
-                  .programWeekLabel(week, widget.program.days[byWeek[week]!.first].isDeload)
-                  .toUpperCase(),
+              title: localized(
+                context,
+                LibraryStrings.programWeekLabel(
+                  week,
+                  widget.program.days[byWeek[week]!.first].isDeload,
+                ).toUpperCase(),
+                widget.program.days[byWeek[week]!.first].isDeload
+                    ? '$week. HAFTA — HAFİFLETME'
+                    : '$week. HAFTA',
+              ),
               children: <Widget>[
                 for (final int dayIndex in byWeek[week]!)
                   _DayCard(
@@ -281,65 +330,97 @@ class _DayCardState extends State<_DayCard> {
   /// Tarihi geçmiş VE bitmemiş — "kaçırıldı" tam bunu ifade eder, saat
   /// farkı DEĞİL (gün-bazlı karşılaştırma, `_dateOnly`).
   bool get _isMissed =>
-      !_isDone && _dateOnly(widget.scheduledDate).isBefore(_dateOnly(widget.today));
+      !_isDone &&
+      _dateOnly(widget.scheduledDate).isBefore(_dateOnly(widget.today));
 
   @override
   Widget build(BuildContext context) => GravitaCard(
-        radius: 18,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(LibraryStrings.programDayLabel(widget.day.dayNumber),
-                style: GravitaType.display(size: 14.5, weight: FontWeight.w500)),
-            const SizedBox(height: 10),
-            for (final PrescribedExercise e in widget.day.exercises)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        // HAM id YOK — displayName katalogdan, bulunamazsa
-                        // (yapısal olarak olmamalı, ama uydurma yerine
-                        // dürüst düşer) id'nin kendisi yerine boş geçilmez.
-                        widget.content.catalogue.byId(e.movementId)?.displayName ??
-                            e.movementId,
-                        style: GravitaType.body(size: 13.5),
-                      ),
-                    ),
-                    Text(
-                      e.isHold
-                          ? LibraryStrings.programSetsHold(
-                              e.sets, e.targetHoldSeconds!)
-                          : LibraryStrings.programSetsReps(
-                              e.sets, e.targetReps!),
-                      style: GravitaType.mono(
-                          size: 12, color: GravitaColors.textSecondary),
-                    ),
-                    const SizedBox(width: 8),
-                    GravitaPill(
-                      label: e.isLiveMeasured
-                          ? LibraryStrings.programLiveBadge
-                          : LibraryStrings.programManualLogBadge,
-                      tone: e.isLiveMeasured
-                          ? GravitaColors.accent
-                          : GravitaColors.textSecondary,
-                      filled: e.isLiveMeasured,
-                    ),
-                  ],
-                ),
-              ),
-            const SizedBox(height: 4),
-            _statusRow(),
-          ],
+    radius: 18,
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          localized(
+            context,
+            LibraryStrings.programDayLabel(widget.day.dayNumber),
+            '${widget.day.dayNumber}. gün',
+          ),
+          style: GravitaType.display(size: 14.5, weight: FontWeight.w500),
         ),
-      );
+        const SizedBox(height: 10),
+        for (final PrescribedExercise e in widget.day.exercises)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    // HAM id YOK — displayName katalogdan, bulunamazsa
+                    // (yapısal olarak olmamalı, ama uydurma yerine
+                    // dürüst düşer) id'nin kendisi yerine boş geçilmez.
+                    catalogName(
+                      context,
+                      e.movementId,
+                      widget.content.catalogue
+                              .byId(e.movementId)
+                              ?.displayName ??
+                          e.movementId,
+                    ),
+                    style: GravitaType.body(size: 13.5),
+                  ),
+                ),
+                Text(
+                  e.isHold
+                      ? localized(
+                          context,
+                          LibraryStrings.programSetsHold(
+                            e.sets,
+                            e.targetHoldSeconds!,
+                          ),
+                          '${e.sets} × ${e.targetHoldSeconds} sn tutuş',
+                        )
+                      : LibraryStrings.programSetsReps(e.sets, e.targetReps!),
+                  style: GravitaType.mono(
+                    size: 12,
+                    color: GravitaColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                GravitaPill(
+                  label: e.isLiveMeasured
+                      ? localized(
+                          context,
+                          LibraryStrings.programLiveBadge,
+                          'Canlı tekrar sayımı',
+                        )
+                      : localized(
+                          context,
+                          LibraryStrings.programManualLogBadge,
+                          'Elle kayıt',
+                        ),
+                  tone: e.isLiveMeasured
+                      ? GravitaColors.accent
+                      : GravitaColors.textSecondary,
+                  filled: e.isLiveMeasured,
+                ),
+              ],
+            ),
+          ),
+        const SizedBox(height: 4),
+        _statusRow(),
+      ],
+    ),
+  );
 
   Widget _statusRow() {
     if (_isDone) {
       return GravitaPill(
-        label: LibraryStrings.programDayDoneLabel(widget.rpe!),
+        label: localized(
+          context,
+          LibraryStrings.programDayDoneLabel(widget.rpe!),
+          'Tamamlandı · RPE ${widget.rpe}',
+        ),
         tone: GravitaColors.textSecondary,
         filled: false,
       );
@@ -347,20 +428,35 @@ class _DayCardState extends State<_DayCard> {
     if (_isMissed) {
       return Row(
         children: <Widget>[
-          const GravitaPill(
-            label: LibraryStrings.programDayMissedLabel,
+          GravitaPill(
+            label: localized(
+              context,
+              LibraryStrings.programDayMissedLabel,
+              'Kaçırıldı',
+            ),
             tone: GravitaColors.textSecondary,
             filled: false,
           ),
           const Spacer(),
           InkWell(
-            key: ValueKey<String>('workout.reschedule.${widget.day.weekNumber}.${widget.day.dayNumber}'),
+            key: ValueKey<String>(
+              'workout.reschedule.${widget.day.weekNumber}.${widget.day.dayNumber}',
+            ),
             onTap: widget.onReschedule,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
-              child: Text(LibraryStrings.programRescheduleAction,
-                  style: GravitaType.mono(
-                      size: 11, color: GravitaColors.accent, weight: FontWeight.w600)),
+              child: Text(
+                localized(
+                  context,
+                  LibraryStrings.programRescheduleAction,
+                  'Yeniden planla',
+                ),
+                style: GravitaType.mono(
+                  size: 11,
+                  color: GravitaColors.accent,
+                  weight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
         ],
@@ -368,21 +464,42 @@ class _DayCardState extends State<_DayCard> {
     }
     if (!_pickingRpe) {
       return InkWell(
-        key: ValueKey<String>('workout.markDone.${widget.day.weekNumber}.${widget.day.dayNumber}'),
+        key: ValueKey<String>(
+          'workout.markDone.${widget.day.weekNumber}.${widget.day.dayNumber}',
+        ),
         onTap: () => setState(() => _pickingRpe = true),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
-          child: Text(LibraryStrings.programMarkDoneAction,
-              style: GravitaType.mono(
-                  size: 11, color: GravitaColors.accent, weight: FontWeight.w600)),
+          child: Text(
+            localized(
+              context,
+              LibraryStrings.programMarkDoneAction,
+              'Tamamlandı olarak işaretle',
+            ),
+            style: GravitaType.mono(
+              size: 11,
+              color: GravitaColors.accent,
+              weight: FontWeight.w600,
+            ),
+          ),
         ),
       );
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(LibraryStrings.programRpeDialogBody,
-            style: GravitaType.body(size: 12.5, color: GravitaColors.textSecondary)),
+        Text(
+          localized(
+            context,
+            LibraryStrings.programRpeDialogBody,
+            'Çabanı 1 (çok kolay) ile 10 (en yoğun) arasında değerlendir. '
+            'Bu senin beyanındır; kamera bunu ölçmez.',
+          ),
+          style: GravitaType.body(
+            size: 12.5,
+            color: GravitaColors.textSecondary,
+          ),
+        ),
         const SizedBox(height: 8),
         Wrap(
           spacing: 6,
@@ -400,12 +517,16 @@ class _DayCardState extends State<_DayCard> {
         SizedBox(
           width: double.infinity,
           child: FilledButton(
-            key: ValueKey<String>('workout.saveRpe.${widget.day.weekNumber}.${widget.day.dayNumber}'),
+            key: ValueKey<String>(
+              'workout.saveRpe.${widget.day.weekNumber}.${widget.day.dayNumber}',
+            ),
             onPressed: () {
               widget.onMarkDone(_selectedRpe);
               setState(() => _pickingRpe = false);
             },
-            child: Text(LibraryStrings.programRpeSaveButton),
+            child: Text(
+              localized(context, LibraryStrings.programRpeSaveButton, 'Kaydet'),
+            ),
           ),
         ),
       ],

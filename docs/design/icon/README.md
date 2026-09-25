@@ -1,5 +1,9 @@
 # Gravita uygulama ikonu — D8 (F4, 2026-08-16)
 
+## 2026-09-23 — yeni görsel seçimi
+
+Kurucu, siyah/kırmızı zeminli tek el straddle handstand görselinin ilk özenli yeniden çizimini seçti ve figür değişmeden dış köşelerin hafif yumuşatılmasını istedi. Seçilen kaynak, yuvarlatılmış önizleme ve kare/opak mağaza boyutu adayları [`docs/store/icon-candidates/`](../../store/icon-candidates/README.md) altında kayıtlıdır. Aşağıdaki D8 üretim ve cihaz doğrulama kaydı tarihsel olarak önceki, eklem çizgili ikona aittir; yeni aday henüz native uygulama ikon varlıklarına uygulanmadı.
+
 **Durum: build'e girdi** (`ios/Runner/Assets.xcassets/AppIcon.appiconset/` +
 `android/app/src/main/res/mipmap-*/ic_launcher.png`, 2026-08-16). Şablon ikon (Flutter'ın
 varsayılan mavi "F" logosu — orkestratörün "turuncu" dediği DEĞİL, gerçek renk mavi; bu

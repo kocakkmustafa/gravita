@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../content_repository.dart';
+import '../app_locale.dart';
 import '../library_model.dart';
 import '../library_strings.dart';
 import '../theme.dart';
@@ -20,7 +21,11 @@ import 'program_store.dart';
 /// eksik ne fazla. Yaş/boy/kilo/hedef-beceri hâlâ HİÇBİR ürün kodunda
 /// okunmuyor; buraya da EKLENMEDİ.
 class ProgramSetupScreen extends StatefulWidget {
-  const ProgramSetupScreen({required this.content, super.key});
+  const ProgramSetupScreen({
+    required this.content,
+    this.accountUserId,
+    super.key,
+  });
 
   static const Key experienceKey = Key('programSetup.experience');
   static const Key equipmentKey = Key('programSetup.equipment');
@@ -28,6 +33,7 @@ class ProgramSetupScreen extends StatefulWidget {
   static const Key buildButtonKey = Key('programSetup.build');
 
   final ContentRepository content;
+  final String? accountUserId;
 
   @override
   State<ProgramSetupScreen> createState() => _ProgramSetupScreenState();
@@ -43,9 +49,9 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
   /// hareket yeni bir ekipman türü getirdiğinde bu ekran KENDİLİĞİNDEN
   /// güncellenir (`familyOrder`ı kütüphaneden ALAN aynı disiplin).
   Set<String> _allEquipment() => <String>{
-        for (final MovementEntry m in widget.content.catalogue.movements)
-          ...m.equipment,
-      };
+    for (final MovementEntry m in widget.content.catalogue.movements)
+      ...m.equipment,
+  };
 
   /// ⚠️ Yazma denemesi try/catch İÇİNDE — `onboarding_screen.dart`ın
   /// `_completeOnboarding`iyle AYNI gerekçe: depolama arızası (platform
@@ -62,14 +68,19 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
       experience: _experience,
     );
     try {
-      await (await ProgramStore.open()).write(inputs);
+      await (await ProgramStore.open(
+        accountUserId: widget.accountUserId,
+      )).write(inputs);
     } on Object {
       // Aşağıdaki geçiş yine de olur — WorkoutScreen kendi boş-durumuna düşer.
     }
     if (!mounted) return;
     Navigator.of(context).pushReplacement<void, void>(
       MaterialPageRoute<void>(
-        builder: (_) => WorkoutScreen(content: widget.content),
+        builder: (_) => WorkoutScreen(
+          content: widget.content,
+          accountUserId: widget.accountUserId,
+        ),
       ),
     );
   }
@@ -78,20 +89,45 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
   Widget build(BuildContext context) {
     final List<String> equipmentOptions = _allEquipment().toList()..sort();
     return Scaffold(
-      appBar: AppBar(title: const Text(LibraryStrings.programSetupTitle)),
+      appBar: AppBar(
+        title: Text(
+          localized(
+            context,
+            LibraryStrings.programSetupTitle,
+            'Programını oluştur',
+          ),
+        ),
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(18, 4, 18, 48),
         children: <Widget>[
-          Text(LibraryStrings.programSetupIntro,
-              style: GravitaType.body(
-                  size: 13.5, color: GravitaColors.textSecondary, height: 1.5)),
+          Text(
+            localized(
+              context,
+              LibraryStrings.programSetupIntro,
+              'Birkaç yanıt sekiz haftalık planını belirler. Yanıtlarını '
+              'değiştirip planı istediğin zaman yeniden oluşturabilirsin.',
+            ),
+            style: GravitaType.body(
+              size: 13.5,
+              color: GravitaColors.textSecondary,
+              height: 1.5,
+            ),
+          ),
           const SizedBox(height: 28),
-          Text(LibraryStrings.programExperienceLabel.toUpperCase(),
-              style: GravitaType.mono(
-                  size: 11,
-                  color: GravitaColors.textSecondary,
-                  weight: FontWeight.w600,
-                  letterSpacingEm: 0.12)),
+          Text(
+            localized(
+              context,
+              LibraryStrings.programExperienceLabel.toUpperCase(),
+              'DENEYİM',
+            ),
+            style: GravitaType.mono(
+              size: 11,
+              color: GravitaColors.textSecondary,
+              weight: FontWeight.w600,
+              letterSpacingEm: 0.12,
+            ),
+          ),
           const SizedBox(height: 10),
           Column(
             key: ProgramSetupScreen.experienceKey,
@@ -100,10 +136,16 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
                 RadioListTile<ExperienceLevel>(
                   contentPadding: EdgeInsets.zero,
                   title: Text(switch (level) {
-                    ExperienceLevel.beginner =>
+                    ExperienceLevel.beginner => localized(
+                      context,
                       LibraryStrings.programExperienceBeginner,
-                    ExperienceLevel.intermediate =>
+                      'Başlangıç',
+                    ),
+                    ExperienceLevel.intermediate => localized(
+                      context,
                       LibraryStrings.programExperienceIntermediate,
+                      'Orta',
+                    ),
                   }),
                   value: level,
                   // ignore: deprecated_member_use
@@ -115,12 +157,19 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
             ],
           ),
           const SizedBox(height: 24),
-          Text(LibraryStrings.programEquipmentLabel.toUpperCase(),
-              style: GravitaType.mono(
-                  size: 11,
-                  color: GravitaColors.textSecondary,
-                  weight: FontWeight.w600,
-                  letterSpacingEm: 0.12)),
+          Text(
+            localized(
+              context,
+              LibraryStrings.programEquipmentLabel.toUpperCase(),
+              'EKİPMANLARIN — YALNIZ VÜCUT AĞIRLIĞI İÇİN HEPSİNİ BOŞ BIRAK',
+            ),
+            style: GravitaType.mono(
+              size: 11,
+              color: GravitaColors.textSecondary,
+              weight: FontWeight.w600,
+              letterSpacingEm: 0.12,
+            ),
+          ),
           const SizedBox(height: 10),
           Wrap(
             key: ProgramSetupScreen.equipmentKey,
@@ -129,7 +178,7 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
             children: <Widget>[
               for (final String eq in equipmentOptions)
                 FilterChip(
-                  label: Text(eq.replaceAll('_', ' ')),
+                  label: Text(equipmentDisplayName(context, eq)),
                   selected: _equipment.contains(eq),
                   onSelected: (bool sel) => setState(() {
                     if (sel) {
@@ -142,12 +191,19 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
             ],
           ),
           const SizedBox(height: 24),
-          Text(LibraryStrings.programDaysPerWeekLabel.toUpperCase(),
-              style: GravitaType.mono(
-                  size: 11,
-                  color: GravitaColors.textSecondary,
-                  weight: FontWeight.w600,
-                  letterSpacingEm: 0.12)),
+          Text(
+            localized(
+              context,
+              LibraryStrings.programDaysPerWeekLabel.toUpperCase(),
+              'HAFTALIK GÜN SAYISI',
+            ),
+            style: GravitaType.mono(
+              size: 11,
+              color: GravitaColors.textSecondary,
+              weight: FontWeight.w600,
+              letterSpacingEm: 0.12,
+            ),
+          ),
           Row(
             key: ProgramSetupScreen.daysPerWeekKey,
             children: <Widget>[
@@ -157,8 +213,10 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
                     ? () => setState(() => _daysPerWeek--)
                     : null,
               ),
-              Text('$_daysPerWeek',
-                  style: GravitaType.display(size: 20, weight: FontWeight.w500)),
+              Text(
+                '$_daysPerWeek',
+                style: GravitaType.display(size: 20, weight: FontWeight.w500),
+              ),
               IconButton(
                 icon: const Icon(Icons.add_circle_outline),
                 onPressed: _daysPerWeek < 6
@@ -178,9 +236,16 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14)),
+                  borderRadius: BorderRadius.circular(14),
+                ),
               ),
-              child: Text(LibraryStrings.programBuildButton),
+              child: Text(
+                localized(
+                  context,
+                  LibraryStrings.programBuildButton,
+                  'Programımı oluştur',
+                ),
+              ),
             ),
           ),
         ],

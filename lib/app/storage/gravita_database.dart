@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
+import '../account_data_directory.dart';
 
 // `sqlite3_flutter_libs` içe aktarılmıyor — yalnız `pubspec.yaml`de bir
 // bağımlılık olarak durması yeterli, native kütüphaneyi Flutter'ın plugin
@@ -65,8 +66,10 @@ class GravitaDatabase extends _$GravitaDatabase {
   /// Gerçek uygulama-destek dizininde kalıcı bir veritabanı açar —
   /// `JsonlSessionStore`nun KENDİ deseni (`ProgramStore`/`ProgramScheduleStore`
   /// ile AYNI: `path_provider` çağrısı KABLOLAMA katmanında, kurucu değil).
-  static Future<GravitaDatabase> open() async {
-    final Directory dir = await getApplicationSupportDirectory();
+  static Future<GravitaDatabase> open({String? accountUserId}) async {
+    final Directory dir = accountDataDirectory(
+      await getApplicationSupportDirectory(), accountUserId);
+    await dir.create(recursive: true);
     return GravitaDatabase(
       NativeDatabase.createInBackground(
         File('${dir.path}/gravita_projection.sqlite'),

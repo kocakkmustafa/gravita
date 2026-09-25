@@ -7,9 +7,9 @@ Ostinato'nun (motion-core ailesi) O-080 reçetesinden — YALNIZ BİÇİM alınd
 ## Neden var (koordinatör bulgusu, 2026-08-11)
 
 `live_strings.dart`/`library_strings.dart`/`progress_strings.dart`'ta "video
-bu cihazda kalır, hiç çıkmaz" iddiası VAR ve BUGÜN doğru (ağ/telemetri paketi
-0, `pubspec.yaml`'da doğrudan tek ağ-yetenekli bağımlılık yok) — ama HİÇBİR
-kapı bunu enforce etmiyordu. *Korunmayan doğru iddia gelecekteki bir yalandır.*
+bu cihazda kalır, hiç çıkmaz" iddiası VAR. Ortak Motion hesabı ağ kullanır;
+bu iddianın öznesi kamera verisidir ve onun için yükleme kodu yoktur.
+*Korunmayan doğru iddia gelecekteki bir yalandır.*
 
 ## Üç kanal (hiçbiri diğerini geçersiz kılmaz)
 
@@ -96,6 +96,15 @@ NETWORK_CAPABLE_HINTS = (
 #: yapmaya başlarsa bu dosya YALAN söyler — o yüzden yeni paket eklerken
 #: bucket seçimi bir KARARDIR, bir formalite değil.
 NO_NETWORK = frozenset({
+    # Ortak hesap eklentilerinin yerel UI, URI, kripto ve oturum saklama
+    # yardımcıları; ağ taşıyıcıları aşağıdaki kayıtlı gruptadır.
+    "app_links", "app_links_linux", "app_links_platform_interface",
+    "app_links_web", "dart_jsonwebtoken", "flutter_localizations",
+    "gtk", "intl", "passkeys_platform_interface", "pointycastle",
+    "shared_preferences", "shared_preferences_android",
+    "shared_preferences_foundation", "shared_preferences_linux",
+    "shared_preferences_platform_interface", "shared_preferences_web",
+    "shared_preferences_windows", "yet_another_json_isolate",
     "args", "async", "boolean_selector", "characters",
     "clock", "code_assets", "collection", "crypto",
     "fake_async", "ffi", "flutter", "flutter_test",
@@ -136,11 +145,9 @@ NO_NETWORK = frozenset({
 #: kaldırıldı (fontlar artık asset, `pubspec.yaml` `fonts:`), `flutter pub
 #: get` üçünü de ağaçtan düşürdüğünü ÖLÇTÜ (`http`/`http_parser` `google_
 #: fonts`un TRANSİTİF vasıtasıydı, kendi başlarına kullanılmıyorlardı —
-#: kanıt eskiden buradaydı). Bugün Gravita'nın bağımlılık ağacında ağa-
-#: çıkabilen SIFIR paket var; bu boş sözlük o durumun kendisi, unutulmuş
-#: bir liste değil. Bir gün yeniden dolarsa `channel_dependency_registry`
-#: SINIFLANDIRILMAMIŞ diye öter — boş kalmak varsayılan güven değil, ölçülen
-#: taban.
+#: kanıt eskiden buradaydı). 2026-09-24 ortak hesap eklenince ağ-yetenekli
+#: bağımlılıklar yeniden geldi; aşağıda hesap trafiği ve yerel kodgen
+#: taşıyıcıları ayrı gerekçelerle kayıtlıdır.
 #:
 #: ⚠️ GRA-P1-004 Step 3 (G-277): yedi paket eklendi — `drift_dev`/
 #: `build_runner`nın YEREL derleme DAEMON'u (birden çok `dart run
@@ -152,14 +159,35 @@ NO_NETWORK = frozenset({
 #: uygulama HİÇ koşmuyorken). Kanal 1'in (kod izi) kapsamı zaten `lib/`e
 #: sınırlı — bu paketler `lib/`de HİÇ görünmüyor, yalnız `pubspec.lock`ta.
 NETWORK_DEPS_RECORDED = {
+    # Motion hesabı e-posta/profil/uygulama-özel üyelik verisini aktarır.
+    # Video ve kamera ölçümü bu istemcilere verilmez; yüzey iddiasının öznesi
+    # kameradır. Genel "tamamen çevrimdışı" iddiası artık doğru değildir.
+    "motion_account": "ortak Auth/profil/üyelik istemcisi; kamera verisi aktarmaz",
+    "http": "Supabase transitif HTTP taşıyıcısı; hesap istekleri",
+    "functions_client": "hesap silme Edge Function HTTP çağrısı",
+    "gotrue": "Auth e-posta/şifre ve oturum istekleri",
+    "postgrest": "profil ve uygulama-özel üyelik sorguları",
+    "realtime_client": "Supabase transitif WebSocket istemcisi; burada Realtime çağrısı yok",
+    "storage_client": "Supabase transitif depolama istemcisi; burada Storage çağrısı yok",
+    "supabase": "ortak hesap API/Auth istemcisi; kamera verisi aktarmaz",
+    "supabase_common": "Supabase HTTP/WS ortak altyapısı; hesap trafiği",
+    "supabase_flutter": "Auth oturumu ve deep-link köprüsü; hesap trafiği",
+    "url_launcher": "dış URL açma yeteneği, tarayıcı ağı tetikleyebilir",
+    "url_launcher_android": "url_launcher Android platform katmanı",
+    "url_launcher_ios": "url_launcher iOS platform katmanı",
+    "url_launcher_linux": "url_launcher Linux platform katmanı",
+    "url_launcher_macos": "url_launcher macOS platform katmanı",
+    "url_launcher_platform_interface": "url_launcher platform sözleşmesi",
+    "url_launcher_web": "url_launcher web platform katmanı",
+    "url_launcher_windows": "url_launcher Windows platform katmanı",
     "build_daemon": "drift_dev/build_runner'ın yerel kodgen daemon'u — "
         "yalnız localhost, yalnız dev_dependencies, release binary'ye girmez",
     "http_multi_server": "build_daemon'ın yerel HTTP sunucusu — aynı gerekçe",
     "http_parser": "build_daemon'ın yerel HTTP mesajlarını ayrıştırır — aynı gerekçe",
     "shelf": "build_daemon'ın yerel HTTP sunucu çatısı — aynı gerekçe",
     "shelf_web_socket": "build_daemon'ın yerel WebSocket ucu — aynı gerekçe",
-    "web_socket": "build_daemon'ın yerel WebSocket istemcisi — aynı gerekçe",
-    "web_socket_channel": "build_daemon'ın yerel WebSocket kanalı — aynı gerekçe",
+    "web_socket": "build_daemon yerel + Supabase Realtime transitif WebSocket taşıyıcısı",
+    "web_socket_channel": "build_daemon yerel + Supabase Realtime transitif WebSocket kanalı",
 }
 
 
@@ -371,22 +399,16 @@ def _self_test():
         probe.unlink(missing_ok=True)
 
     # Kanal 2: sahte bir "kayıtsız ağa-çıkan paket" senaryosu.
-    # ✅ F2 (D1, 2026-08-16): eskiden gerçek `http`i GEÇİCİ olarak
-    # `NETWORK_DEPS_RECORDED`den çıkarıyordu — `http` `google_fonts`un
-    # transitif vasıtasıydı ve fontlar paketlenince İKİSİ DE ağaçtan
-    # düştü. Bugün lockfile'da `NETWORK_CAPABLE_HINTS`e uyan SIFIR paket
-    # var (ölçüldü) — gerçek bir fikstür kalmadı, bu yüzden SENTETİK
-    # enjekte ediliyor (`defter_freshness.py`nin "sentetik korpusta,
-    # deponun HÂLİNDE değil" ilkesiyle aynı desen): `_lockfile_packages`i
-    # GEÇİCİ olarak sahte bir `http` girdisi taşıyacak şekilde yamalıyoruz.
+    # Kayıtlı gerçek HTTP paketleri varken kapıyı sınıflandırılmamış bir
+    # sentetik `dio` girdisiyle yokla. Lockfile yalnız bu çağrı için yamalı.
     global _lockfile_packages
     real_lockfile_packages = _lockfile_packages
-    _lockfile_packages = lambda: real_lockfile_packages() + ["http"]
+    _lockfile_packages = lambda: real_lockfile_packages() + ["dio"]
     try:
         _, suspects_before = channel_dependency_registry()
-        if "http" not in suspects_before:
+        if "dio" not in suspects_before:
             print("   ⛔ Kanal-2 enjeksiyonu YANLIŞ varsayım yapıyor — "
-                  "sahte 'http' suspects'te değil, NETWORK_CAPABLE_HINTS "
+                  "sahte 'dio' suspects'te değil, NETWORK_CAPABLE_HINTS "
                   "kırılmış olabilir")
             ok = False
             fired += 1

@@ -1,0 +1,17 @@
+{
+  "$doc": "Türkçe mağaza metni taslağı. Gönderim ve sağlayıcı onayı yapılmadı. İngilizce kaynak: listing.json.",
+  "appStore": {
+    "name": "Gravita: Güç ve Beceri",
+    "subtitle": "Vücut becerileri kütüphanesi",
+    "promotionalText": "Vücut ağırlığı hareketlerini ve hazırlık durumlarını incele. Kamerayla tekrar sayma ve abonelikler bu sürümde açık değil.",
+    "keywords": "vücut ağırlığı,egzersiz,fitness,çömelme,şınav,calisthenics,hareket,antrenman"
+  },
+  "playStore": {
+    "shortDescription": "Vücut ağırlığı hareketlerini incele; kamera seansları açık değil."
+  },
+  "description": "Gravita; çömelme, itiş, çekiş, merkez bölge ve başka becerileri içeren bir vücut ağırlığı hareketleri kütüphanesidir. Hareket açıklamalarını ve ölçüm yollarının hazırlık durumunu inceleyebilirsin.\n\nBu ilk sürümde kataloğu inceleyebilir ve isteğe bağlı ortak Motion hesabını kullanabilirsin. Kamerayla tekrar sayma, antrenman seansları ve abonelikler açık değildir. Mikrofon izni istenmez.\n\nMotion hesabı e-posta adresini, hesap kimliğini ve eklersen görünen adını kullanır. Hesap ekranından silme isteğinde bulunabilirsin. Gravita bir fitness referansıdır; tıbbi tavsiye veya antrenörün yerini alan bir hizmet değildir.",
+  "cameraPermissionRationale": {
+    "ios": "Gravita, tam tekrarları saymak ve tempoyu ölçmek için kamerayı kullanır. Video yalnızca bu cihazda işlenir; yüklenmez veya saklanmaz. Hareket, tekrar sayısı ve oturum süresi cihazda saklanır."
+  },
+  "$releasePolicy20260925": "Founder deferred all paid camera sessions and subscription sales in the first release. Provider listings must use only the external fields above; older dollar-prefixed research notes describe deferred capabilities."
+}

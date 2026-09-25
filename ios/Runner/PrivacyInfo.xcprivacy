@@ -2,55 +2,50 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!--
-	  Gravita — gizlilik manifesti (G-191, 2026-08-12).
+	<!-- Ortak Motion hesabı e-posta, isteğe bağlı görünen ad ve kullanıcı
+	     kimliğini sunucuya gönderir. Kamera ve oturum geçmişi cihazda kalır.
+	     Eklenti manifestleri ve Required-Reason API kullanımı arşivden önce
+	     yeniden doğrulanmalıdır. -->
 
-	  ⚠️ Bu dosyanın HER alanı ÖLÇÜLDÜ, şablondan kopyalanmadı.
-	  Ölçüm: uygulama `lib/` + `packages/gravita_engine` + PİNLİ ÇEKİRDEK
-	  (motion_core/motion_camera @ f13bdc9) taranarak.
-	  Pozitif kontrol: `JsonlSessionStore` 2 isabet (çekirdek okunabiliyor),
-	  uydurma dizge 0 isabet (tarama körlüğü yok).
-
-	  ⚠️ KAPSAM: burada beyan edilen şey YALNIZ bu app'in kendi kodudur.
-	  Eklentiler kendi manifestlerini taşır ve ÇİFT BEYAN YAPILMAZ — sahiplik
-	  bulanıklaşır. Ölçüldü: `permission_handler_apple` kendi
-	  `PrivacyInfo.xcprivacy`sini taşıyor ✅; Flutter engine de kendi
-	  `Flutter.framework/PrivacyInfo.xcprivacy`siyle geliyor ✅.
-	  (`path_provider_foundation` 2.6.0'da manifest YOK — eklentinin kendi
-	  kalemi, buradan telafi EDİLMEZ: başkasının davranışını beyan etmek
-	  onu doğru yapmaz.)
-	-->
-
-	<!-- İzleme YOK: ürün hiçbir izleme SDK'sı taşımıyor ve `NSPrivacyTrackingDomains`
-	     boş. Bu iddia bir yorum değil, `tools/network_claim_audit.py`nin
-	     bölmesiyle ölçülüyor.
-
-	     ⚠️ Bu sayı F2'den (D1, 2026-08-16) ÖNCE "63/63 paket sınıflandırılmış,
-	     ağa çıkabilen 3" idi (üçü `google_fonts` + iki transitif vasıtası
-	     `http`/`http_parser`). D1 fontları PAKETLEDİ, üçü de bağımlılık
-	     ağacından TAMAMEN kalktı — koordinatör (H-40) bu satırın donmuş
-	     kaldığını buldu: dondurma emri "yeni iddia ekleme" demekti, "yanlışa
-	     dönüşmüş iddiayı koru" değil. Güncel ölçüm: **60/60 paket
-	     sınıflandırılmış, ağa çıkabilen 0** — `python3 tools/network_claim_audit.py`
-	     her turda bunu yeniden ölçer, sayı burada TEKRAR bayatlarsa aynı
-	     gate onu bir sonraki `run_all_gates.sh`te SÖYLEMEZ (bu belirli metin
-	     hiçbir testte çivilenmedi — adıyla bir kapsam-boşluğu, H-25 sınıfı). -->
+	<!-- İzleme SDK'sı yok; Auth/profil/üyelik trafiği izleme amacı taşımaz. -->
 	<key>NSPrivacyTracking</key>
 	<false/>
 	<key>NSPrivacyTrackingDomains</key>
 	<array/>
 
-	<!--
-	  TOPLANAN VERİ: YOK.
-	  Ölçüldü (G-184): diske yazan ÜÇ yer var — seans kaydı (hareket · zaman ·
-	  süre · tekrar), onboarding biti, ve poz modeli dosyası. Hiçbiri cihazdan
-	  ÇIKMIYOR. Apple'ın "collect" tanımı cihazdan çıkarmayı gerektirir; bu
-	  yüzden dizi BOŞ ve bu boşluk bir ihmal değil bir ÖLÇÜM sonucudur.
-	  ⚠️ Kamera görüntüsü de burada YOK: hiçbir kare saklanmıyor — izin
-	  metninin iddiası da bu (ölçülüp düzeltildi, G-184).
-	-->
 	<key>NSPrivacyCollectedDataTypes</key>
-	<array/>
+	<array>
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeEmailAddress</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array><string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string></array>
+		</dict>
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeName</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array><string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string></array>
+		</dict>
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeUserID</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array><string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string></array>
+		</dict>
+	</array>
 
 	<!--
 	  GEREKÇE-ZORUNLU API'ler: YOK.

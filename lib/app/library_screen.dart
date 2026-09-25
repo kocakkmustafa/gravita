@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'account_connection.dart';
 
+import 'app_locale.dart';
+import 'catalog_copy_tr.dart';
 import 'content_repository.dart';
 import 'library_model.dart';
 import 'library_strings.dart';
@@ -22,7 +25,7 @@ import 'why_not_here_screen.dart';
 /// tip düzeyinde "hiç hareket yok" ile "kapsam dışı" ayrı duruyor, ekran
 /// ikisini karıştıramıyor.
 class LibraryScreen extends StatefulWidget {
-  const LibraryScreen({required this.content, super.key});
+  const LibraryScreen({required this.content, this.onStartSession, super.key});
 
   static const Key searchFieldKey = Key('library.search');
   static const Key exclusionResultsKey = Key('library.searchExclusions');
@@ -32,6 +35,7 @@ class LibraryScreen extends StatefulWidget {
   static const Key skillTreesKey = Key('library.skillTrees');
 
   final ContentRepository content;
+  final StartMovementSession? onStartSession;
 
   @override
   State<LibraryScreen> createState() => _LibraryScreenState();
@@ -49,11 +53,15 @@ class _LibraryScreenState extends State<LibraryScreen> {
   LibraryCatalogue get _catalogue => widget.content.catalogue;
 
   void _openMovement(MovementEntry m) => Navigator.of(context).push<void>(
-        MaterialPageRoute<void>(
-          builder: (_) =>
-              MovementPage(movement: m, content: widget.content),
-        ),
-      );
+    MaterialPageRoute<void>(
+      builder: (_) => MovementPage(
+        movement: m,
+        content: widget.content,
+        onStartSession: widget.onStartSession,
+        accountUserId: AccountScope.maybeOf(context)?.currentUserId,
+      ),
+    ),
+  );
 
   void _openWhyNot({String? focusSectionId}) =>
       Navigator.of(context).push<void>(
@@ -70,106 +78,136 @@ class _LibraryScreenState extends State<LibraryScreen> {
     final LibrarySearchResult result = _catalogue.search(_query.text);
     return Scaffold(
       backgroundColor: Colors.transparent,
-      appBar: AppBar(title: const Text(LibraryStrings.libraryTitle)),
+      appBar: AppBar(
+        title: Text(
+          localized(context, LibraryStrings.libraryTitle, 'Kütüphane'),
+        ),
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(18, 4, 18, 96),
         children: <Widget>[
           Text(
-            LibraryStrings.libraryCount(
-                _catalogue.movements.length, _catalogue.liveCount),
+            localized(
+              context,
+              LibraryStrings.libraryCount(
+                _catalogue.movements.length,
+                _catalogue.liveCount,
+              ),
+              '${_catalogue.movements.length} hareket · '
+              '${_catalogue.liveCount} açık · '
+              '${_catalogue.movements.length - _catalogue.liveCount} '
+              'ölçüm bekliyor',
+            ),
             style: GravitaType.mono(
-                size: 11, color: GravitaColors.textSecondary),
+              size: 11,
+              color: GravitaColors.textSecondary,
+            ),
           ),
           const SizedBox(height: 14),
           _searchField(),
           const SizedBox(height: 22),
-          if (result.hasQuery)
-            ..._searchResults(result)
-          else
-            ..._browse(),
+          if (result.hasQuery) ..._searchResults(result) else ..._browse(),
         ],
       ),
     );
   }
 
   Widget _searchField() => TextField(
-        key: LibraryScreen.searchFieldKey,
-        controller: _query,
-        onChanged: (_) => setState(() {}),
-        style: GravitaType.body(size: 15),
-        decoration: InputDecoration(
-          hintText: LibraryStrings.searchHint,
-          // İpucu metni de METİNDİR — placeholder olması WCAG'den muaf
-          // tutmaz; kullanıcı onu okuyup ne yazacağını anlıyor.
-          hintStyle: GravitaType.body(
-              size: 15, color: GravitaColors.textSecondary),
-          prefixIcon:
-              const Icon(Icons.search, color: GravitaColors.textTertiary),
-          suffixIcon: _query.text.isEmpty
-              ? null
-              : IconButton(
-                  tooltip: LibraryStrings.searchClear,
-                  icon: const Icon(Icons.close, size: 18),
-                  onPressed: () => setState(_query.clear),
-                ),
-          filled: true,
-          fillColor: Colors.white.withValues(alpha: 0.55),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(999),
-            borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.7)),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(999),
-            borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.7)),
-          ),
-        ),
-      );
+    key: LibraryScreen.searchFieldKey,
+    controller: _query,
+    onChanged: (_) => setState(() {}),
+    style: GravitaType.body(size: 15),
+    decoration: InputDecoration(
+      hintText: localized(context, LibraryStrings.searchHint, 'Hareket ara'),
+      // İpucu metni de METİNDİR — placeholder olması WCAG'den muaf
+      // tutmaz; kullanıcı onu okuyup ne yazacağını anlıyor.
+      hintStyle: GravitaType.body(size: 15, color: GravitaColors.textSecondary),
+      prefixIcon: const Icon(Icons.search, color: GravitaColors.textTertiary),
+      suffixIcon: _query.text.isEmpty
+          ? null
+          : IconButton(
+              tooltip: localized(
+                context,
+                LibraryStrings.searchClear,
+                'Aramayı temizle',
+              ),
+              icon: const Icon(Icons.close, size: 18),
+              onPressed: () => setState(_query.clear),
+            ),
+      filled: true,
+      fillColor: Colors.white.withValues(alpha: 0.55),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(999),
+        borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.7)),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(999),
+        borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.7)),
+      ),
+    ),
+  );
 
   // ── Arama sonuçları ─────────────────────────────────────────────────────
 
   List<Widget> _searchResults(LibrarySearchResult result) => <Widget>[
-        if (result.movements.isNotEmpty)
-          SurfaceSection(
-            key: LibraryScreen.movementResultsKey,
-            title: LibraryStrings.searchMovementHeading(
-                result.movements.length),
-            children: result.movements
-                .map((MovementEntry m) =>
-                    MovementCard(movement: m, onTap: () => _openMovement(m)))
-                .toList(growable: false),
-          ),
-        // ⭐ KRİTİK KISIT: kapsam-dışı eşleşme, hareket eşleşmesi olsa da
-        // olmasa da GÖSTERİLİR. Yalnız "hareket bulunamadıysa" gösterseydik,
-        // "squat" arayan kullanıcı hem hack squat'ı hem gerekçesini kaçırırdı.
-        if (result.exclusions.isNotEmpty) ...<Widget>[
-          if (result.movements.isNotEmpty) const SizedBox(height: 30),
-          SurfaceSection(
-            key: LibraryScreen.exclusionResultsKey,
-            title: LibraryStrings.searchExclusionHeading,
-            children: result.exclusions
-                .map((ExclusionSection s) => InkWell(
-                      onTap: () => _openWhyNot(focusSectionId: s.id),
-                      borderRadius: BorderRadius.circular(22),
-                      child: NoteCard(
-                        key: Key('library.exclusion.${s.id}'),
-                        sealed: true,
-                        title: s.title,
-                        text: s.userReason,
-                      ),
-                    ))
-                .toList(growable: false),
-          ),
-        ],
-        // GERÇEK boşluk — sessiz boş liste değil, bir cümle.
-        if (result.isEmpty)
-          NoteCard(
-            key: LibraryScreen.emptyResultKey,
-            icon: Icons.search_off,
-            text: LibraryStrings.searchNothing(result.query.trim()),
-          ),
-        const SizedBox(height: 24),
-        _whyNotLink(),
-      ];
+    if (result.movements.isNotEmpty)
+      SurfaceSection(
+        key: LibraryScreen.movementResultsKey,
+        title: localized(
+          context,
+          LibraryStrings.searchMovementHeading(result.movements.length),
+          '${result.movements.length} hareket',
+        ),
+        children: result.movements
+            .map(
+              (MovementEntry m) =>
+                  MovementCard(movement: m, onTap: () => _openMovement(m)),
+            )
+            .toList(growable: false),
+      ),
+    // ⭐ KRİTİK KISIT: kapsam-dışı eşleşme, hareket eşleşmesi olsa da
+    // olmasa da GÖSTERİLİR. Yalnız "hareket bulunamadıysa" gösterseydik,
+    // "squat" arayan kullanıcı hem hack squat'ı hem gerekçesini kaçırırdı.
+    if (result.exclusions.isNotEmpty) ...<Widget>[
+      if (result.movements.isNotEmpty) const SizedBox(height: 30),
+      SurfaceSection(
+        key: LibraryScreen.exclusionResultsKey,
+        title: localized(
+          context,
+          LibraryStrings.searchExclusionHeading,
+          'Gravita kapsamı dışında — nedeni',
+        ),
+        children: result.exclusions
+            .map(
+              (ExclusionSection s) => InkWell(
+                onTap: () => _openWhyNot(focusSectionId: s.id),
+                borderRadius: BorderRadius.circular(22),
+                child: NoteCard(
+                  key: Key('library.exclusion.${s.id}'),
+                  sealed: true,
+                  title: exclusionSectionTitle(context, s),
+                  text: exclusionSectionReason(context, s),
+                ),
+              ),
+            )
+            .toList(growable: false),
+      ),
+    ],
+    // GERÇEK boşluk — sessiz boş liste değil, bir cümle.
+    if (result.isEmpty)
+      NoteCard(
+        key: LibraryScreen.emptyResultKey,
+        icon: Icons.search_off,
+        text: localized(
+          context,
+          LibraryStrings.searchNothing(result.query.trim()),
+          'Katalogda "${result.query.trim()}" ile eşleşen bir hareket '
+          'veya kapsam dışı gerekçe bulunamadı.',
+        ),
+      ),
+    const SizedBox(height: 24),
+    _whyNotLink(),
+  ];
 
   // ── Gezinme (arama yokken) ──────────────────────────────────────────────
 
@@ -177,19 +215,25 @@ class _LibraryScreenState extends State<LibraryScreen> {
     final List<Widget> out = <Widget>[];
     for (final ({String family, String label, List<MovementEntry> movements}) f
         in _catalogue.families) {
-      out.add(SurfaceSection(
-        key: Key('library.family.${f.family}'),
-        title: f.label.toUpperCase(),
-        trailing: Text(
-          '${f.movements.length}',
-          style: GravitaType.mono(
-              size: 11, color: GravitaColors.textSecondary),
+      out.add(
+        SurfaceSection(
+          key: Key('library.family.${f.family}'),
+          title: familyDisplayName(context, f.family, f.label).toUpperCase(),
+          trailing: Text(
+            '${f.movements.length}',
+            style: GravitaType.mono(
+              size: 11,
+              color: GravitaColors.textSecondary,
+            ),
+          ),
+          children: f.movements
+              .map(
+                (MovementEntry m) =>
+                    MovementCard(movement: m, onTap: () => _openMovement(m)),
+              )
+              .toList(growable: false),
         ),
-        children: f.movements
-            .map((MovementEntry m) =>
-                MovementCard(movement: m, onTap: () => _openMovement(m)))
-            .toList(growable: false),
-      ));
+      );
       out.add(const SizedBox(height: 30));
     }
     out.add(_skillTrees());
@@ -213,40 +257,52 @@ class _LibraryScreenState extends State<LibraryScreen> {
   /// model `nodes[]`i hiç ayrıştırmadığı için (satır ~342) taslak bir
   /// paketin eşiği bu ekrandan yapısal olarak SIZAMAZ.
   Widget _skillTrees() => SurfaceSection(
-        key: LibraryScreen.skillTreesKey,
-        title: LibraryStrings.skillTreesTitle.toUpperCase(),
-        children: <Widget>[
-          NoteCard(
-            sealed: true,
-            icon: Icons.account_tree_outlined,
-            text: LibraryStrings.skillTreesBody(
-                _catalogue.skillTrees.drafted.length,
-                _catalogue.skillTrees.draftedNames),
-          ),
-        ],
-      );
+    key: LibraryScreen.skillTreesKey,
+    title: localized(
+      context,
+      LibraryStrings.skillTreesTitle.toUpperCase(),
+      'BECERİ AĞAÇLARI',
+    ),
+    children: <Widget>[
+      NoteCard(
+        sealed: true,
+        icon: Icons.account_tree_outlined,
+        text: LibraryStrings.skillTreesBody(
+          _catalogue.skillTrees.drafted.length,
+          _catalogue.skillTrees.draftedNames,
+        ),
+      ),
+    ],
+  );
 
   Widget _whyNotLink() => InkWell(
-        key: LibraryScreen.whyNotLinkKey,
-        onTap: _openWhyNot,
-        borderRadius: BorderRadius.circular(18),
-        child: GravitaCard(
-          radius: 18,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-          child: Row(
-            children: <Widget>[
-              const Icon(Icons.help_outline,
-                  size: 18, color: GravitaColors.accent),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(LibraryStrings.whyNotLink,
-                    style: GravitaType.body(
-                        size: 14, weight: FontWeight.w500)),
+    key: LibraryScreen.whyNotLinkKey,
+    onTap: _openWhyNot,
+    borderRadius: BorderRadius.circular(18),
+    child: GravitaCard(
+      radius: 18,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+      child: Row(
+        children: <Widget>[
+          const Icon(Icons.help_outline, size: 18, color: GravitaColors.accent),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              localized(
+                context,
+                LibraryStrings.whyNotLink,
+                'Bir hareket neden burada yok?',
               ),
-              const Icon(Icons.chevron_right,
-                  size: 20, color: GravitaColors.textTertiary),
-            ],
+              style: GravitaType.body(size: 14, weight: FontWeight.w500),
+            ),
           ),
-        ),
-      );
+          const Icon(
+            Icons.chevron_right,
+            size: 20,
+            color: GravitaColors.textTertiary,
+          ),
+        ],
+      ),
+    ),
+  );
 }

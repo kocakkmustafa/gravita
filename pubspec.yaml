@@ -9,6 +9,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  # Shared Motion account uses the same immutable revision as core and camera.
+  motion_account:
+    git:
+      url: https://github.com/kocakkmustafa/motion-core.git
+      path: packages/motion_account
+      ref: f2ea161c7e974d57b114ba7773836c72be17a381
 
   # Motor AYRI paket ve Flutter bağımlılığı YOK (M-F-160, JabLab/Choreia
   # yerleşim aynası): ölçüm/hüküm mantığı widget ağacı olmadan test edilebilir
@@ -24,20 +32,17 @@ dependencies:
   # ⚠️ PİN EŞİTLİĞİ: bu ref, `packages/gravita_engine`in ref'iyle AYNI olmak
   # ZORUNDA — farklı ref'ler pub'a aynı paket için iki kaynak gösterir
   # (JabLab J-071 bulgusu). `test/shell_contract_test.dart` eşitliği zorluyor.
-  # Kamera köprüsü (`motion_camera`) bağlanınca TAM-40-SHA zeyli gelecek;
-  # bugün kamera KAPSAM DIŞI, o yüzden sahte pin yazmıyorum.
   # ⚠️ PİN TAG DEĞİL TAM-40-SHA (J-071 bulgusu, M-F-154 zeyli): plugin
   # `motion_core`u PATH ile çekiyor; pub onun transitif core'unu ÇÖZÜLMÜŞ
   # SHA, buradaki pini TAG ADI olarak görür ve aynı commit olsalar bile
   # descriptor'ları FARKLI sayar ("incompatible with ... from path").
-  #   f13bdc93b2eae2f741bfcdb4c9270a88e5d75e5d
-  #     == motion_core-v0.11.0 VE motion_camera-v0.1.2 (tek commit, M-F-260)
-  # Tag'ler ayrı commit'lerde durur; f13bdc9 İKİSİNİ birden taşır.
+  # Onaylı ref `f2ea161c` hesap/üyelik, core ve kamera paketlerini birlikte
+  # taşır; aşağıdaki iki doğrudan pin aynı tam commit'i kullanır.
   motion_core:
     git:
       url: https://github.com/kocakkmustafa/motion-core.git
       path: packages/motion_core
-      ref: f13bdc93b2eae2f741bfcdb4c9270a88e5d75e5d
+      ref: f2ea161c7e974d57b114ba7773836c72be17a381
   # KAMERA KÖPRÜSÜ (M-F-263). Pin motion_core ile AYNI commit olmak ZORUNDA
   # — `shell_contract_test` eşitliği zorluyor (eski "motion_camera YOK"
   # nöbeti bu teste DÖNÜŞTÜ, silinmedi).
@@ -45,7 +50,7 @@ dependencies:
     git:
       url: https://github.com/kocakkmustafa/motion-core.git
       path: packages/motion_camera
-      ref: f13bdc93b2eae2f741bfcdb4c9270a88e5d75e5d
+      ref: f2ea161c7e974d57b114ba7773836c72be17a381
   # Kamera izni: reddedilme DÜRÜST bir hâldir, sessizce boş ekran değil.
   permission_handler: ^12.0.3
 

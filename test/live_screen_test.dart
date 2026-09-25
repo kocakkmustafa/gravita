@@ -213,14 +213,8 @@ void main() {
   /// Kusuru bulan şey bir kapı değildi: uygulamayı açıp `push_up` sayfasını
   /// **okumaktı**. Kapı şimdi var, ki bir dahakine okumaya kalmasın.
   ///
-  /// ## Neden YALNIZ ulaşılabilir hareket
-  ///
-  /// `push_up`ın aynı cümlesi **bugün hâlâ DOĞRU** — o hareketin seansı
-  /// başlatılamıyor (`startable_reach_test`), dolayısıyla tempoyu ona
-  /// gösteren bir ekran gerçekten yok. Cümleyi orada da değiştirmek,
-  /// düzeltmek değil **yeni bir yanlış beyan üretmek** olurdu.
-  /// ⇒ Kapı `liveConfig`in döndürdüğü harekete bağlanıyor: `push_up`
-  /// başlatılabilir olduğu gün otomatik olarak onu da kapsar.
+  /// Hareket sayfası artık `push_up`ı da aynı seans ekranına açıyor. Bu yüzden
+  /// kapı tek hızlı girişe değil, her başlatılabilir hareketin içeriğine bakar.
   group('içerik, gösterilen bir ölçümü "gösterilmiyor" diye ANLATMIYOR (G-210)',
       () {
     testWidgets('ulaşılabilir hareket tempoyu "hiçbir ekran göstermiyor" DEMİYOR',
@@ -229,11 +223,12 @@ void main() {
       await tester
           .runAsync(() async => repo = await ContentRepository.load(rootBundle));
 
-      final MovementConfig? giris = repo.liveConfig;
-      expect(giris, isNotNull, reason: 'VAKUM: canlı giriş yoksa kapı boştur.');
-
-      final MovementEntry hareket = repo.catalogue.movements
-          .firstWhere((MovementEntry m) => m.catalogId == giris!.id);
+      final List<MovementEntry> hareketler = repo.catalogue.movements
+          .where((MovementEntry m) => repo.startableConfigFor(m.id) != null)
+          .toList(growable: false);
+      expect(hareketler.map((MovementEntry m) => m.id),
+          containsAll(<String>['bodyweight_squat', 'push_up']),
+          reason: 'iki canlı hareketin ikisi de testte görülmeli');
 
       // Seans özeti tempoyu ÇİZİYOR — bu testin dayanağı budur.
       final LiveFinished ornek = LiveFinished(
@@ -246,12 +241,14 @@ void main() {
               'dayanıyor. Tempo yüzeyden kalkarsa bu kapı da yeniden '
               'gerekçelendirilmeli.');
 
-      for (final String cumle in hareket.comingSoon) {
-        final String c = cumle.toLowerCase();
-        if (!c.contains('tempo')) continue;
-        expect(c, isNot(contains('no screen in this app shows it')),
-            reason: 'İçerik tempoyu "hiçbir ekran göstermiyor" diye anlatıyor, '
-                'ama seans özeti onu ÇİZİYOR. Beyan geride kalmış: $cumle');
+      for (final MovementEntry hareket in hareketler) {
+        for (final String cumle in hareket.comingSoon) {
+          final String c = cumle.toLowerCase();
+          if (!c.contains('tempo')) continue;
+          expect(c, isNot(contains('no screen in this app shows it')),
+              reason: 'İçerik tempoyu "hiçbir ekran göstermiyor" diye anlatıyor, '
+                  'ama seans özeti onu ÇİZİYOR. Beyan geride kalmış: $cumle');
+        }
       }
     });
   });
@@ -484,12 +481,12 @@ void main() {
       expect(find.text(LiveStrings.permissionBlockedTitle), findsNothing);
     });
 
-    testWidgets('ham durum ADIYLA gösteriliyor — sabit "denied" değil',
+    testWidgets('ham izin durumu kullanıcıya sızmıyor',
         (WidgetTester tester) async {
-      // Eski kod `detail`e SABİT 'permission_handler: denied' yazıyordu:
-      // gerçek durum `permanentlyDenied` olsa bile "denied" diyordu.
       await pumpScreen(tester, status: 4);
-      expect(find.textContaining('permanentlyDenied'), findsOneWidget);
+      expect(find.textContaining('permanentlyDenied'), findsNothing);
+      expect(find.textContaining('permission_handler'), findsNothing);
+      expect(find.byKey(LiveSessionScreen.openSettingsKey), findsOneWidget);
     });
   });
 }

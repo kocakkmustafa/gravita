@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// Gravita's visual language — design panel v1, 2026-08-05
 /// (`docs/design/DESIGN-PANEL-PROMPT.md`; `claude.ai/design` project
@@ -371,6 +372,7 @@ abstract final class GravitaTheme {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         foregroundColor: GravitaColors.ink,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
         titleTextStyle: GravitaType.display(size: 20),
       ),
       filledButtonTheme: FilledButtonThemeData(

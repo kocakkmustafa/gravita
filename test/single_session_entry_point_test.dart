@@ -6,16 +6,17 @@ import 'package:flutter_test/flutter_test.dart';
 /// bir kapıya mı bağlı, yoksa yalnız DÜZYAZIYA mı?**
 ///
 /// `content_repository.dart:189-190` ve `free_bucket_integrity_test.dart`
-/// (G-211) AYNI olguyu anlatıyor: `LiveSessionScreen`e bugün **tek giriş**
-/// var ve o giriş HAREKET düzeyinde (`gravita_app.dart`), DERS bağlamlı
-/// değil — bu yüzden her seans serbest kovaya yazılıyor, dallanma yok. İki
+/// (G-211) AYNI olguyu anlatıyor: `LiveSessionScreen`in **tek kurulum noktası**
+/// var (`gravita_app.dart`); Today ve Library hareket sayfaları bu ortak
+/// noktaya hareket config'i geçirir, DERS bağlamı taşımaz.
+/// Bu yüzden her seans serbest kovaya yazılıyor, dallanma yok. İki
 /// dosya da bunu ŞİMDİYE KADAR yalnız düzyazıyla anlatıyordu; bu test o
 /// olguyu ölçüyor (koordinatör H-44: yokluk beyanlarını mümkünse gerçek bir
 /// teste bağla).
 ///
 /// Bir kurs sayfası inşa edilip `LiveSessionScreen`e İKİNCİ bir çağrı yeri
 /// eklendiği gün bu test KIRMIZI yanar — o an `content_repository.dart`daki
-/// "serbest/ders" yönlendirme kararı YENİDEN yazılmalı, tek-giriş varsayımı
+/// "serbest/ders" yönlendirme kararı YENİDEN yazılmalı, tek-kurulum varsayımı
 /// artık geçerli değil.
 void main() {
   test('LiveSessionScreen tam olarak TEK yerden inşa ediliyor — HAREKET '
@@ -41,11 +42,20 @@ void main() {
       }
     }
 
-    expect(siteler, <String>['lib/app/gravita_app.dart:217'],
-        reason: 'LiveSessionScreen inşa yerleri değişti ⇒ '
-            'content_repository.dart:189-190 ve free_bucket_integrity_test.'
-            'dart\'ın (G-211) "tek giriş, ders bağlamı yok" iddiası artık '
-            'YANLIŞ olabilir (H-44) — o yorumlar ve serbest/ders '
-            'yönlendirme kararı elden geçirilmeli. Bulunan: $siteler');
+    expect(
+      siteler,
+      hasLength(1),
+      reason:
+          'LiveSessionScreen inşa yerleri değişti ⇒ '
+          'content_repository.dart:189-190 ve free_bucket_integrity_test.'
+          'dart\'ın (G-211) "tek giriş, ders bağlamı yok" iddiası artık '
+          'YANLIŞ olabilir (H-44) — o yorumlar ve serbest/ders '
+          'yönlendirme kararı elden geçirilmeli. Bulunan: $siteler',
+    );
+    expect(
+      siteler.single,
+      matches(RegExp(r'^lib/app/gravita_app\.dart:\d+$')),
+      reason: 'Tek canlı oturum kurulum noktası Gravita kabuğunda kalmalı.',
+    );
   });
 }

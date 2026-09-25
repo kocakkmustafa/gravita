@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Gravita watches you while you train to count your reps and time your tempo. Video stays on this device and is never uploaded — and nothing from the camera is stored, not even body landmarks. What gets saved is your session: which movement, how many reps, and how long.</string>
+	<string>Gravita uses the camera to count complete reps and measure tempo. Video is processed on this device and is not uploaded or saved; movement, rep count and session duration are saved locally.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
@@ -20,6 +20,17 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>gravita</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.yulalab.gravita</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

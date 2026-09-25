@@ -459,7 +459,7 @@ abstract final class LibraryStrings {
   /// M-F-186 grubunun aynı disiplini) — bu yüzden çağıran taraf her zaman
   /// `MovementEntry.displayName`i geçirir, id'yi DEĞİL.
   static const String programManualLogBadge = 'Manual log';
-  static const String programLiveBadge = 'Camera-coached';
+  static const String programLiveBadge = 'Live rep count';
 
   static const String programNoInputs =
       'You have not set up a program. Answer a few questions and we will '

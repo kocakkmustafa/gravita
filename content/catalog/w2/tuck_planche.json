@@ -141,8 +141,7 @@
   },
   "safety": {
     "warnings": [
-      "High wrist and elbow load. Build the lean gradually; stop at joint pain.",
-      "This is an aspirational skill — progress is guided but not badged."
+      "High wrist and elbow load. Build the lean gradually; stop at joint pain."
     ],
     "hardGate": true
   },

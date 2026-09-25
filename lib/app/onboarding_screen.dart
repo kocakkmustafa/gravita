@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'app_locale.dart';
 import 'onboarding_strings.dart';
 import 'theme.dart';
 
@@ -148,15 +149,37 @@ class _ValueStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => _StepScaffold(
-    title: OnboardingStrings.valueTitle,
-    primaryLabel: OnboardingStrings.valueContinue,
+    title: localized(
+      context,
+      OnboardingStrings.valueTitle,
+      'Gravita nedir, ne değildir?',
+    ),
+    primaryLabel: localized(
+      context,
+      OnboardingStrings.valueContinue,
+      'Devam et',
+    ),
     primaryKey: OnboardingFlow.valueContinueKey,
     onPrimary: onContinue,
     body: <Widget>[
-      Text(OnboardingStrings.valueWhatWeDo, style: GravitaType.body(size: 16)),
+      Text(
+        localized(
+          context,
+          OnboardingStrings.valueWhatWeDo,
+          'Telefonunuzun kamerası tekrarlarınızı cihazda sayar; yalnız hareketi '
+          'gerçekten yaptığınızı gördüğünde tekrar sayar. Duruşunuza puan '
+          'vermez ve antrenman sırasında düzeltme yapmaz.',
+        ),
+        style: GravitaType.body(size: 16),
+      ),
       const SizedBox(height: 18),
       Text(
-        OnboardingStrings.valueWhatWeDont,
+        localized(
+          context,
+          OnboardingStrings.valueWhatWeDont,
+          'Tıbbi araç değildir. Antrenörün yerini almaz. Düşmenizi '
+          'önleyemez.',
+        ),
         style: GravitaType.body(size: 14, color: GravitaColors.textSecondary),
       ),
     ],
@@ -169,18 +192,33 @@ class _SafetyStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => _StepScaffold(
-    title: OnboardingStrings.safetyTitle,
-    primaryLabel: OnboardingStrings.safetyConsent,
+    title: localized(context, OnboardingStrings.safetyTitle, 'Başlamadan önce'),
+    primaryLabel: localized(
+      context,
+      OnboardingStrings.safetyConsent,
+      'Anladım ve kabul ediyorum',
+    ),
     primaryKey: OnboardingFlow.safetyConsentKey,
     onPrimary: onConsent,
     body: <Widget>[
       Text(
-        OnboardingStrings.safetyDisclaimer,
+        localized(
+          context,
+          OnboardingStrings.safetyDisclaimer,
+          'Gravita bir hareket çalışma aracıdır; tıbbi hizmet veya yüz '
+          'yüze antrenörün yerini almaz. Düşmeyi önleyemez.',
+        ),
         style: GravitaType.body(size: 16),
       ),
       const SizedBox(height: 18),
       Text(
-        OnboardingStrings.safetySpaceRule,
+        localized(
+          context,
+          OnboardingStrings.safetySpaceRule,
+          'Başlamadan önce düz, kaymayan bir zemin seçin ve kol '
+          'mesafenizdeki eşyaları kaldırın. Duvar gereken hareketlerde '
+          'duvarın tamamı kamera kadrajında görünsün.',
+        ),
         style: GravitaType.body(size: 14, color: GravitaColors.textSecondary),
       ),
     ],
@@ -204,11 +242,23 @@ class _CameraStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) => _StepScaffold(
     title: denied
-        ? OnboardingStrings.cameraDeniedTitle
-        : OnboardingStrings.cameraTitle,
+        ? localized(
+            context,
+            OnboardingStrings.cameraDeniedTitle,
+            'Kamera erişimi kapalı',
+          )
+        : localized(context, OnboardingStrings.cameraTitle, 'Kamera erişimi'),
     primaryLabel: denied
-        ? OnboardingStrings.cameraContinueWithout
-        : OnboardingStrings.cameraAllow,
+        ? localized(
+            context,
+            OnboardingStrings.cameraContinueWithout,
+            'Kamerasız devam et',
+          )
+        : localized(
+            context,
+            OnboardingStrings.cameraAllow,
+            'Kameraya izin ver',
+          ),
     primaryKey: denied
         ? OnboardingFlow.cameraContinueWithoutKey
         : OnboardingFlow.cameraAllowKey,
@@ -217,8 +267,18 @@ class _CameraStep extends StatelessWidget {
     body: <Widget>[
       Text(
         denied
-            ? OnboardingStrings.cameraDeniedBody
-            : OnboardingStrings.cameraRationale,
+            ? localized(
+                context,
+                OnboardingStrings.cameraDeniedBody,
+                'Kamerayı daha sonra Ayarlar’dan açabilirsiniz. Kütüphaneyi '
+                've dersleri kamera olmadan da inceleyebilirsiniz.',
+              )
+            : localized(
+                context,
+                OnboardingStrings.cameraRationale,
+                'Gravita tekrarlarınızı saymak için kameraya ihtiyaç duyar. '
+                'Görüntü kaydedilmez veya yüklenmez; cihazınızda kalır.',
+              ),
         key: denied ? OnboardingFlow.cameraDeniedKey : null,
         style: GravitaType.body(size: 16),
       ),

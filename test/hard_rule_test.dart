@@ -36,8 +36,9 @@ void main() {
       // hesaplarsa, adı bunlardan biri olma ihtimali yüksek — ve bu kapı
       // niyeti ADIYLA yakalar, aritmetiği izlemeye çalışmaz.
       final RegExp summing = RegExp(
-          r'\b(overallScore|totalScore|compositeScore|finalScore|'
-          r'combinedScore|aggregateScore|genelSkor|toplamSkor)\b');
+        r'\b(overallScore|totalScore|compositeScore|finalScore|'
+        r'combinedScore|aggregateScore|genelSkor|toplamSkor)\b',
+      );
       final List<String> offenders = <String>[
         for (final File f in <File>[
           ...dartIn('lib'),
@@ -45,10 +46,14 @@ void main() {
         ])
           if (summing.hasMatch(f.readAsStringSync())) f.path,
       ];
-      expect(offenders, isEmpty,
-          reason: 'Toplayıcı bir skor kimliği belirdi: $offenders. 7 bileşen '
-              'AYRIDIR ve asla toplanmaz — tek sayı, ölçülmemiş bir bütünlük '
-              'iddiasıdır.');
+      expect(
+        offenders,
+        isEmpty,
+        reason:
+            'Toplayıcı bir skor kimliği belirdi: $offenders. 7 bileşen '
+            'AYRIDIR ve asla toplanmaz — tek sayı, ölçülmemiş bir bütünlük '
+            'iddiasıdır.',
+      );
     });
 
     test('hiçbir hareket SAYISAL skor göstermiyor — hepsi `band`', () {
@@ -56,20 +61,26 @@ void main() {
       // gösterilmez. `validate_catalog` V4 bunu zaten denetliyor; buradaki
       // ikizi, kapının SONUCUNU bağımsız ölçüyor (V4 bir gün gevşerse).
       final Set<String?> displays = <String?>{};
-      for (final FileSystemEntity d
-          in Directory('content/catalog').listSync()) {
+      for (final FileSystemEntity d in Directory(
+        'content/catalog',
+      ).listSync()) {
         if (d is! Directory) continue;
         for (final FileSystemEntity f in d.listSync()) {
           if (f is! File || !f.path.endsWith('.json')) continue;
           final Map<String, dynamic> m =
               (jsonDecode(f.readAsStringSync()) as Map).cast<String, dynamic>();
           displays.add(
-              (m['measurementContract'] as Map?)?['scoreDisplay'] as String?);
+            (m['measurementContract'] as Map?)?['scoreDisplay'] as String?,
+          );
         }
       }
-      expect(displays, <String>{'band'},
-          reason: 'Bir hareket `band` dışında bir skor gösterimi bildiriyor: '
-              '$displays. Kalibre edilmemiş sayısal skor YOK (K8).');
+      expect(
+        displays,
+        <String>{'band'},
+        reason:
+            'Bir hareket `band` dışında bir skor gösterimi bildiriyor: '
+            '$displays. Kalibre edilmemiş sayısal skor YOK (K8).',
+      );
     });
   });
 
@@ -87,8 +98,9 @@ void main() {
     // Ağaç çizildiği gün bu liste hazır olacak.
     test('aspirasyonel düğümler İSİMLİ — sessizce sıradanlaşmıyorlar', () {
       final List<String> aspirational = <String>[];
-      for (final FileSystemEntity f
-          in Directory('content/skill-graph').listSync()) {
+      for (final FileSystemEntity f in Directory(
+        'content/skill-graph',
+      ).listSync()) {
         if (f is! File || !f.path.endsWith('.json')) continue;
         final Map<String, dynamic> pack =
             (jsonDecode(f.readAsStringSync()) as Map).cast<String, dynamic>();
@@ -99,10 +111,14 @@ void main() {
           }
         }
       }
-      expect(aspirational, isNotEmpty,
-          reason: 'Hiçbir düğüm `aspirational` işaretli değil. Ya işaret '
-              'silindi ya da elit beceriler sıradan düğüm gibi duruyor — '
-              'ikisi de rozet yasağını anlamsızlaştırır.');
+      expect(
+        aspirational,
+        isNotEmpty,
+        reason:
+            'Hiçbir düğüm `aspirational` işaretli değil. Ya işaret '
+            'silindi ya da elit beceriler sıradan düğüm gibi duruyor — '
+            'ikisi de rozet yasağını anlamsızlaştırır.',
+      );
     });
 
     test('uygulamada ROZET/ÖDÜL yüzeyi YOK — çizilemez, verilemez', () {
@@ -122,91 +138,118 @@ void main() {
       // düzeltmesiyle aynı hamle: rozet yasağının asıl garantisi
       // **uygulamada rozet/ödül yüzeyinin HİÇ OLMAMASI.** Bir düğüm
       // rozetlenemez, çünkü rozet diye bir şey yok.
-      const List<String> rewardUi = <String>[
-        'Badge(', 'AchievementCard', 'TrophyWidget', 'RewardBanner',
-        'StreakCounter',
+      final List<RegExp> rewardUi = <RegExp>[
+        RegExp(r'\bBadge(?:\.\w+)?\s*\('),
+        RegExp(r'\bAchievementCard\s*\('),
+        RegExp(r'\bTrophyWidget\s*\('),
+        RegExp(r'\bRewardBanner\s*\('),
+        RegExp(r'\bStreakCounter\s*\('),
       ];
       final List<String> found = <String>[
         for (final File f in dartIn('lib'))
-          for (final String w in rewardUi)
-            if (f.readAsStringSync().contains(w)) '${f.path}: $w',
+          for (final RegExp pattern in rewardUi)
+            if (pattern.hasMatch(f.readAsStringSync()))
+              '${f.path}: ${pattern.pattern}',
       ];
-      expect(found, isEmpty,
-          reason: 'Uygulamada bir ödül/rozet yüzeyi belirdi: $found. '
-              'Aspirasyonel düğümler ROZETSİZDİR (blueprint §8) — ve rozet '
-              'diye bir şey olmadığı sürece bu yapısal olarak garanti.');
+      expect(
+        found,
+        isEmpty,
+        reason:
+            'Uygulamada bir ödül/rozet yüzeyi belirdi: $found. '
+            'Aspirasyonel düğümler ROZETSİZDİR (blueprint §8) — ve rozet '
+            'diye bir şey olmadığı sürece bu yapısal olarak garanti.',
+      );
 
       // İkinci yarı: `GravitaPill` rozet-benzeri TEK bileşen ve yalnız
       // DURUM etiketi taşıyor (OPEN/CLOSED/LOCKED/CLASS). Bir başarı adı
       // taşırsa ödül rozetine dönüşür.
       const List<String> statusOnly = <String>[
-        'OPEN', 'CLOSED', 'LOCKED', 'CLASS',
+        'OPEN',
+        'CLOSED',
+        'LOCKED',
+        'CLASS',
       ];
-      final String strings =
-          File('lib/app/library_strings.dart').readAsStringSync();
+      final String strings = File(
+        'lib/app/library_strings.dart',
+      ).readAsStringSync();
       final RegExp pillLabel = RegExp(r"Badge\s*=\s*'([A-Z ]+)'");
       for (final RegExpMatch m in pillLabel.allMatches(strings)) {
-        expect(statusOnly.any((String s) => m.group(1)!.contains(s)), isTrue,
-            reason: 'Rozet etiketi bir DURUM değil: "${m.group(1)}" — '
-                'başarı adı taşıyan pill, ödül rozetidir.');
+        expect(
+          statusOnly.any((String s) => m.group(1)!.contains(s)),
+          isTrue,
+          reason:
+              'Rozet etiketi bir DURUM değil: "${m.group(1)}" — '
+              'başarı adı taşıyan pill, ödül rozetidir.',
+        );
       }
     });
 
-    test('aspirasyonel düğüm metninde ödül dili — YALNIZ olumsuzlanmış hâlde',
-        () {
-      // ⚠️ Kapsam DAR: yalnız OLUMSUZLANMAMIŞ kullanım ihlaldir. Bu ayrım
-      // olmadan kapı, kuralı doğrulayan cümleyi cezalandırıyordu.
-      const List<String> reward = <String>[
-        'badge', 'reward', 'achievement', 'trophy', 'earn',
-      ];
-      const List<String> negation = <String>['not ', 'no ', 'never ', "n't "];
-      for (final FileSystemEntity f
-          in Directory('content/skill-graph').listSync()) {
-        if (f is! File || !f.path.endsWith('.json')) continue;
-        final Map<String, dynamic> pack =
-            (jsonDecode(f.readAsStringSync()) as Map).cast<String, dynamic>();
-        for (final dynamic n
-            in (pack['nodes'] as List<dynamic>?) ?? const <dynamic>[]) {
-          if ((n as Map)['aspirational'] != true) continue;
-          // ⚠️ YALNIZ DEĞERLER taranıyor, ANAHTARLAR değil — ve bu bir
-          // düzeltmenin ürünü. İlk hâli tüm JSON'u tarıyordu ve `unlock`
-          // anahtarında öttü: o bir ÖDÜL sözcüğü değil, beceri grafiğinin
-          // kendi YAPISAL alanı (`unlock: {allOf: [...]}` = ilerleme
-          // ölçütü). Ödül yasağı ilerleme ölçütünü yasaklamaz — düğümün
-          // ROZETLENMESİNİ yasaklar.
-          //
-          // Bu, bu gecede kurduğum kapıların BEŞİNCİ fazla-geniş ilk hâli.
-          // Desen artık tartışmasız: ilk taslak hep geniş çıkıyor.
-          final List<String> values = <String>[];
-          void harvest(Object? v) {
-            if (v is String) {
-              values.add(v.toLowerCase());
-            } else if (v is Map) {
-              v.values.forEach(harvest);
-            } else if (v is List) {
-              v.forEach(harvest);
+    test(
+      'aspirasyonel düğüm metninde ödül dili — YALNIZ olumsuzlanmış hâlde',
+      () {
+        // ⚠️ Kapsam DAR: yalnız OLUMSUZLANMAMIŞ kullanım ihlaldir. Bu ayrım
+        // olmadan kapı, kuralı doğrulayan cümleyi cezalandırıyordu.
+        const List<String> reward = <String>[
+          'badge',
+          'reward',
+          'achievement',
+          'trophy',
+          'earn',
+        ];
+        const List<String> negation = <String>['not ', 'no ', 'never ', "n't "];
+        for (final FileSystemEntity f in Directory(
+          'content/skill-graph',
+        ).listSync()) {
+          if (f is! File || !f.path.endsWith('.json')) continue;
+          final Map<String, dynamic> pack =
+              (jsonDecode(f.readAsStringSync()) as Map).cast<String, dynamic>();
+          for (final dynamic n
+              in (pack['nodes'] as List<dynamic>?) ?? const <dynamic>[]) {
+            if ((n as Map)['aspirational'] != true) continue;
+            // ⚠️ YALNIZ DEĞERLER taranıyor, ANAHTARLAR değil — ve bu bir
+            // düzeltmenin ürünü. İlk hâli tüm JSON'u tarıyordu ve `unlock`
+            // anahtarında öttü: o bir ÖDÜL sözcüğü değil, beceri grafiğinin
+            // kendi YAPISAL alanı (`unlock: {allOf: [...]}` = ilerleme
+            // ölçütü). Ödül yasağı ilerleme ölçütünü yasaklamaz — düğümün
+            // ROZETLENMESİNİ yasaklar.
+            //
+            // Bu, bu gecede kurduğum kapıların BEŞİNCİ fazla-geniş ilk hâli.
+            // Desen artık tartışmasız: ilk taslak hep geniş çıkıyor.
+            final List<String> values = <String>[];
+            void harvest(Object? v) {
+              if (v is String) {
+                values.add(v.toLowerCase());
+              } else if (v is Map) {
+                v.values.forEach(harvest);
+              } else if (v is List) {
+                v.forEach(harvest);
+              }
             }
-          }
 
-          harvest(n);
-          for (final String w in reward) {
-            final Iterable<String> affirmative = values.where((String v) {
-              final int i = v.indexOf(w);
-              if (i < 0) return false;
-              // Sözcükten ÖNCEKİ 12 karakterde olumsuzlama varsa, cümle
-              // kuralı ANLATIYOR demektir — ihlal değil.
-              final String before = v.substring((i - 12).clamp(0, i), i);
-              return !negation.any(before.contains);
-            });
-            expect(affirmative, isEmpty,
-                reason: '${n['id']}: aspirasyonel düğümün metninde ödül dili '
+            harvest(n);
+            for (final String w in reward) {
+              final Iterable<String> affirmative = values.where((String v) {
+                final int i = v.indexOf(w);
+                if (i < 0) return false;
+                // Sözcükten ÖNCEKİ 12 karakterde olumsuzlama varsa, cümle
+                // kuralı ANLATIYOR demektir — ihlal değil.
+                final String before = v.substring((i - 12).clamp(0, i), i);
+                return !negation.any(before.contains);
+              });
+              expect(
+                affirmative,
+                isEmpty,
+                reason:
+                    '${n['id']}: aspirasyonel düğümün metninde ödül dili '
                     '"$w" OLUMLU kullanılmış — rehberli ilerleme VAR, ödül '
                     'YOK (blueprint §8). Geçtiği yer: '
-                    '${affirmative.take(1).join()}');
+                    '${affirmative.take(1).join()}',
+              );
+            }
           }
         }
-      }
-    });
+      },
+    );
   });
 
   group('⛔ SAVUNMACI VARSAYILAN, ÖLÇÜLMEMİŞ İDDİAYA DÖNÜŞEMEZ (O-070)', () {
@@ -236,14 +279,19 @@ void main() {
     });
 
     test('her kapsam-dışı bölüm SINIRIN SINIFINI beyan ediyor', () {
-      final Map<String, dynamic> page = (jsonDecode(
-              File('content/exclusions.page.json').readAsStringSync()) as Map)
-          .cast<String, dynamic>();
+      final Map<String, dynamic> page =
+          (jsonDecode(File('content/exclusions.page.json').readAsStringSync())
+                  as Map)
+              .cast<String, dynamic>();
       for (final dynamic s
           in (page['sections'] as List<dynamic>?) ?? const <dynamic>[]) {
-        expect((s as Map)['limitClass'], isNotNull,
-            reason: '${s['id']}: sınır sınıfı YOK — eksikse "kamera '
-                'göremiyor" varsayılırdı ve o sınıf VAAT taşıyor.');
+        expect(
+          (s as Map)['limitClass'],
+          isNotNull,
+          reason:
+              '${s['id']}: sınır sınıfı YOK — eksikse "kamera '
+              'göremiyor" varsayılırdı ve o sınıf VAAT taşıyor.',
+        );
       }
     });
 
@@ -257,15 +305,24 @@ void main() {
       // yorum. Kapı, kodu ondan bahseden metinden ayırmak zorunda.
       final String model = File('lib/app/library_model.dart')
           .readAsLinesSync()
-          .where((String l) =>
-              !l.trimLeft().startsWith('//') && !l.trimLeft().startsWith('///'))
+          .where(
+            (String l) =>
+                !l.trimLeft().startsWith('//') &&
+                !l.trimLeft().startsWith('///'),
+          )
           .join('\n');
       for (final String bad in <String>[
-        "?? 'A'", "?? 'beginner'", "?? 'capability'",
+        "?? 'A'",
+        "?? 'beginner'",
+        "?? 'capability'",
       ]) {
-        expect(model.contains(bad), isFalse,
-            reason: 'Savunmacı varsayılan geri gelmiş ($bad) — eksik veri '
-                'yine bir iddiaya dönüşüyor.');
+        expect(
+          model.contains(bad),
+          isFalse,
+          reason:
+              'Savunmacı varsayılan geri gelmiş ($bad) — eksik veri '
+              'yine bir iddiaya dönüşüyor.',
+        );
       }
     });
   });
@@ -279,10 +336,14 @@ void main() {
         for (final File f in dartIn('lib'))
           if (f.readAsStringSync().contains('identityGapShare')) f.path,
       ];
-      expect(leaked, isEmpty,
-          reason: 'identityGapShare kabuğa sızdı: $leaked. RAPOR-ONLY kalması '
-              'gerekiyordu — yüzeye çıkan her ölçüm bir hükme dönüşmeye '
-              'adaydır.');
+      expect(
+        leaked,
+        isEmpty,
+        reason:
+            'identityGapShare kabuğa sızdı: $leaked. RAPOR-ONLY kalması '
+            'gerekiyordu — yüzeye çıkan her ölçüm bir hükme dönüşmeye '
+            'adaydır.',
+      );
     });
   });
 
@@ -299,13 +360,18 @@ void main() {
           in (lib['movements'] as List<dynamic>).cast<Map<String, dynamic>>()) {
         for (final dynamic c
             in (m['courses'] as List<dynamic>?) ?? const <dynamic>[]) {
-          for (final dynamic l in ((c as Map)['lessons'] as List<dynamic>?) ??
-              const <dynamic>[]) {
+          for (final dynamic l
+              in ((c as Map)['lessons'] as List<dynamic>?) ??
+                  const <dynamic>[]) {
             if ((l as Map)['status'] != 'locked') continue;
-            expect(l['lockClass'], 'measurement',
-                reason: '${l['id']}: kilit sınıfı `measurement` değil — '
-                    'ders izlemekle ya da başka bir davranışla açılabilir '
-                    'görünüyor.');
+            expect(
+              l['lockClass'],
+              'measurement',
+              reason:
+                  '${l['id']}: kilit sınıfı `measurement` değil — '
+                  'ders izlemekle ya da başka bir davranışla açılabilir '
+                  'görünüyor.',
+            );
           }
         }
       }

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
+import '../account_data_directory.dart';
 
 import 'program_model.dart';
 
@@ -20,8 +21,9 @@ class ProgramStore {
 
   final File _file;
 
-  static Future<ProgramStore> open() async {
-    final Directory dir = await getApplicationSupportDirectory();
+  static Future<ProgramStore> open({String? accountUserId}) async {
+    final Directory dir = accountDataDirectory(
+      await getApplicationSupportDirectory(), accountUserId);
     return ProgramStore._(File('${dir.path}/program_inputs.json'));
   }
 

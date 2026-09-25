@@ -70,38 +70,44 @@ abstract final class LiveStrings {
 
   /// Arıza başlıkları — her ret ADIYLA anlatılır, ham kod gösterilmez.
   static String failureTitle(CameraFailure? f) => switch (f) {
-        CameraFailure.permissionDenied => 'Camera access is off',
-        CameraFailure.modelLoadFailed => "We couldn't load our pose model",
-        CameraFailure.alreadyRunning => 'A session is already running',
-        CameraFailure.notRunning => 'No session is running',
-        CameraFailure.noSuchCamera => "We couldn't find that camera",
-        null => "The camera stopped for a reason we don't recognise",
-      };
+    CameraFailure.permissionDenied => 'Camera access is off',
+    CameraFailure.modelLoadFailed => "We couldn't load our pose model",
+    CameraFailure.alreadyRunning => 'A session is already running',
+    CameraFailure.notRunning => 'No session is running',
+    CameraFailure.lifecycleUnavailable => 'The camera is unavailable',
+    CameraFailure.sessionInterrupted => 'The camera session was interrupted',
+    CameraFailure.noSuchCamera => "The camera couldn't start",
+    null => "The camera stopped for a reason we don't recognise",
+  };
 
   static String failureBody(CameraFailure? f) => switch (f) {
-        CameraFailure.permissionDenied =>
-          'Gravita needs the camera to count your reps. You can turn it on in '
-              'Settings; nothing is recorded or uploaded — video stays on this '
-              'device and never leaves it.',
-        CameraFailure.modelLoadFailed =>
-          'The pose model that ships with the app could not be opened. '
-              'Reinstalling usually fixes it. Your lessons and history are '
-              'unaffected.',
-        CameraFailure.alreadyRunning =>
-          'Only one camera session runs at a time. Stopping the other one '
-              'frees it up.',
-        CameraFailure.notRunning =>
-          'The session had already stopped when we tried to stop it. Nothing '
-              'was lost.',
-        CameraFailure.noSuchCamera =>
-          'This device did not offer the camera we asked for. If it has a '
-              'front and a back camera, switching may help.',
-        null =>
-          'We would rather name the problem than guess at it. The technical '
-              'detail is below; your lessons and history are unaffected.',
-      };
-
-  static const String detailLabel = 'Technical detail';
+    CameraFailure.permissionDenied =>
+      'Gravita needs the camera to count your reps. You can turn it on in '
+          'Settings; nothing is recorded or uploaded — video stays on this '
+          'device and never leaves it.',
+    CameraFailure.modelLoadFailed =>
+      'The pose model that ships with the app could not be opened. '
+          'Reinstalling usually fixes it. Your lessons and history are '
+          'unaffected.',
+    CameraFailure.alreadyRunning =>
+      'Only one camera session runs at a time. Stopping the other one '
+          'frees it up.',
+    CameraFailure.notRunning =>
+      'The session had already stopped when we tried to stop it. Nothing '
+          'was lost.',
+    CameraFailure.lifecycleUnavailable =>
+      'The camera cannot start in this view. Return to the app and '
+          'try again.',
+    CameraFailure.sessionInterrupted =>
+      'The camera session ended before it was ready. Open this screen '
+          'again and retry.',
+    CameraFailure.noSuchCamera =>
+      'The camera could not open on this device. You can try again; '
+          'no session was saved from this attempt. Your lessons and history are unaffected.',
+    null =>
+      'The camera stopped unexpectedly. You can try again. '
+          'Your lessons and history are unaffected.',
+  };
 
   /// ⚠️ Kalibrasyon kapısı beyanı (katalog `camera.calibrationGate: true`).
   /// K8 uyumu: kalibrasyon yokken SAYISAL SKOR yok — ama sayım ve tempo

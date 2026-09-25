@@ -183,7 +183,7 @@ void main() {
       // Bu test bir pin bump'ta KIRILIR ve kırılması DOĞRUDUR: bump bilinçli
       // bir karardır, sessiz bir kayma değil. Kıran kişi buradaki sabitleri
       // de günceller ve böylece bump kayda geçer.
-      const String sealedRef = 'f13bdc93b2eae2f741bfcdb4c9270a88e5d75e5d';
+      const String sealedRef = 'f2ea161c7e974d57b114ba7773836c72be17a381';
       const String sealedCoreVersion = '0.11.0';
       const String sealedCameraVersion = '0.1.2';
 

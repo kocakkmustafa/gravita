@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'catalog_copy_tr.dart';
 import 'library_model.dart';
-import 'library_strings.dart';
 import 'theme.dart';
 
 /// "Neden yok?" — kapsamın SINIRI, gerekçesiyle.
@@ -42,19 +42,19 @@ class WhyNotHereScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(page.title)),
+      appBar: AppBar(title: Text(exclusionPageTitle(context, page))),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(18, 8, 18, 40),
         children: <Widget>[
           Text(
-            page.intro,
+            exclusionPageIntro(context, page),
             key: introKey,
             style: GravitaType.body(
                 size: 14.5, color: GravitaColors.inkMuted, height: 1.6),
           ),
           const SizedBox(height: 26),
           for (final ExclusionSection s in page.sections) ...<Widget>[
-            _section(s, focused: s.id == focusSectionId),
+            _section(context, s, focused: s.id == focusSectionId),
             const SizedBox(height: 14),
           ],
         ],
@@ -62,7 +62,9 @@ class WhyNotHereScreen extends StatelessWidget {
     );
   }
 
-  Widget _section(ExclusionSection s, {required bool focused}) => GravitaCard(
+  Widget _section(BuildContext context, ExclusionSection s,
+          {required bool focused}) =>
+      GravitaCard(
         key: sectionKey(s.id),
         // Vurgu MÜHÜR ile yapılıyor, ayrı bir "seçili" rengiyle değil: aynı
         // görsel dil, ikinci bir anlam katmanı eklemeden.
@@ -75,7 +77,7 @@ class WhyNotHereScreen extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    s.title,
+                    exclusionSectionTitle(context, s),
                     style: GravitaType.display(
                         size: 17,
                         weight: FontWeight.w600,
@@ -85,7 +87,9 @@ class WhyNotHereScreen extends StatelessWidget {
                 if (s.movementClass != null) ...<Widget>[
                   const SizedBox(width: 10),
                   GravitaPill(
-                    label: 'CLASS ${s.movementClass}',
+                    label: Localizations.localeOf(context).languageCode == 'tr'
+                        ? 'SINIF ${s.movementClass}'
+                        : 'CLASS ${s.movementClass}',
                     tone: GravitaColors.textSecondary,
                     filled: false,
                   ),
@@ -94,7 +98,7 @@ class WhyNotHereScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              s.userReason,
+              exclusionSectionReason(context, s),
               style: GravitaType.body(
                   size: 13.5,
                   height: 1.6,
@@ -111,7 +115,7 @@ class WhyNotHereScreen extends StatelessWidget {
             // *"demek teknoloji gelişince eklenir"* diye düşündüğü an tam
             // burası.
             Text(
-              LibraryStrings.limitClassLine(s.limitClass),
+              exclusionClassLine(context, s.limitClass),
               key: Key('whyNot.class.${s.id}'),
               style: GravitaType.mono(
                   size: 11,
@@ -128,7 +132,7 @@ class WhyNotHereScreen extends StatelessWidget {
                 runSpacing: 7,
                 children: s.examples
                     .map((String e) => GravitaPill(
-                          label: e,
+                          label: exclusionExample(context, e),
                           tone: GravitaColors.textSecondary,
                           filled: false,
                         ))

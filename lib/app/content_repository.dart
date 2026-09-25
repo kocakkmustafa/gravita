@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/services.dart' show AssetBundle;
 import 'package:gravita_engine/gravita_engine.dart';
 import 'package:path_provider/path_provider.dart';
+import 'account_data_directory.dart';
 
 import 'content_failure.dart';
 import 'library_model.dart';
@@ -30,7 +31,7 @@ import 'program/program_model.dart';
 /// (`tools/promote_library.py`), yani katalog yalnız ÖLÇÜM tarafı için gerekli.
 ///
 /// Bu yüzden açılışta yalnız **kursu olan** hareketlerin kataloğu okunur
-/// (`LessonSurface.deriveAll`in ihtiyacı bu) — bugün bir tane. Kalanı hareket
+/// (`LessonSurface.deriveAll`in ihtiyacı bu) — bugün iki tane. Kalanı hareket
 /// sayfası açıldığında [catalogFor] ile gelir.
 /// Kabuğun ayrıştırabileceği `library.json` şema sürümü.
 const int _librarySchemaVersion = 1;
@@ -164,11 +165,24 @@ final class ContentRepository {
   /// tuttuğunda çizilir (ölü buton yasağının çalışma-zamanı hâli).
   MovementConfig? get liveConfig {
     for (final MovementEntry m in catalogue.movements) {
-      if (!m.isLive) continue;
-      final MovementConfig? c = _catalog[m.catalogId];
-      if (c != null && c.preconditionDerived) return c;
+      final MovementConfig? c = startableConfigFor(m.id);
+      if (c != null) return c;
     }
     return null;
+  }
+
+  /// A named movement can start only when the visible status and its loaded
+  /// measurement contract both agree. Live movements have courses, so their
+  /// configs are loaded during [load]; an unavailable config fails closed.
+  MovementConfig? startableConfigFor(String movementId) {
+    final MovementEntry? movement = catalogue.byId(movementId);
+    if (movement == null || !movement.isLive) return null;
+    final MovementConfig? config = _catalog[movement.catalogId];
+    return config != null &&
+            config.id == movement.id &&
+            config.preconditionDerived
+        ? config
+        : null;
   }
 
   /// GRA-P1-003: `content/programs/foundation.v1.json` — bundle'dan.
@@ -208,8 +222,9 @@ final class ContentRepository {
   }
 
   /// DERS seansı geçmişi. `ProgressSummary` YALNIZ bunu okur.
-  static Future<SessionStore> openSessionStore() async {
-    final Directory dir = await getApplicationSupportDirectory();
+  static Future<SessionStore> openSessionStore({String? accountUserId}) async {
+    final Directory dir = accountDataDirectory(
+      await getApplicationSupportDirectory(), accountUserId);
     return JsonlSessionStore(File('${dir.path}/sessions.jsonl'));
   }
 
@@ -281,8 +296,9 @@ final class ContentRepository {
     }
   }
 
-  static Future<SessionStore> openFreeSessionStore() async {
-    final Directory dir = await getApplicationSupportDirectory();
+  static Future<SessionStore> openFreeSessionStore({String? accountUserId}) async {
+    final Directory dir = accountDataDirectory(
+      await getApplicationSupportDirectory(), accountUserId);
     return JsonlSessionStore(File('${dir.path}/free_sessions.jsonl'));
   }
 
