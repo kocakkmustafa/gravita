@@ -43,6 +43,9 @@ jobs:
 
       - run: flutter pub get
 
+      - name: gravita_engine test bağımlılıkları
+        run: (cd packages/gravita_engine && dart pub get)
+
       - name: flutter analyze
         run: flutter analyze
 
