@@ -55,20 +55,32 @@ class GravitaDatabase extends _$GravitaDatabase {
   /// AÇIK kalmalı). Testte bu her zaman GÜVENLİ, ölçüldü (`storage_
   /// migration_test.dart` — çoklu test AYNI dosyada çakışmaz, her biri
   /// KENDİ belleğinde).
-  GravitaDatabase.forTesting()
-      : super(NativeDatabase.memory()) {
+  GravitaDatabase.forTesting() : super(NativeDatabase.memory()) {
     driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
   }
 
   @override
   int get schemaVersion => 1;
 
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onUpgrade: (_, from, to) async {
+      // No historical transition exists yet. Preserve unfamiliar databases;
+      // a rebuildable projection is not permission to erase a user's file.
+      throw UnsupportedError(
+        'Unsupported Gravita schema transition $from → $to',
+      );
+    },
+  );
+
   /// Gerçek uygulama-destek dizininde kalıcı bir veritabanı açar —
   /// `JsonlSessionStore`nun KENDİ deseni (`ProgramStore`/`ProgramScheduleStore`
   /// ile AYNI: `path_provider` çağrısı KABLOLAMA katmanında, kurucu değil).
   static Future<GravitaDatabase> open({String? accountUserId}) async {
     final Directory dir = accountDataDirectory(
-      await getApplicationSupportDirectory(), accountUserId);
+      await getApplicationSupportDirectory(),
+      accountUserId,
+    );
     await dir.create(recursive: true);
     return GravitaDatabase(
       NativeDatabase.createInBackground(

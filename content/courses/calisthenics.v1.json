@@ -1,0 +1,3776 @@
+{
+  "schemaVersion": 1,
+  "id": "calisthenics-foundations",
+  "version": "1.0.0",
+  "title": {
+    "en": "Calisthenics: a complete foundation",
+    "tr": "Calisthenics: bütünlüklü temel"
+  },
+  "description": {
+    "en": "56 original lessons from supported basics to independent practice, with intermediate options and advanced skill literacy. Follow your own pace; adaptations remain valid.",
+    "tr": "Destekli temelden bağımsız pratiğe 56 özgün ders; orta seviye seçenekler ve ileri beceri bilgisi. Kendi hızında ilerle; uyarlamalar geçerlidir."
+  },
+  "evidenceMode": "self_report",
+  "healthNotice": {
+    "en": "General education for adults, not personalized treatment or medical clearance. For injury, pregnancy or a chronic condition, consult a clinician or qualified professional about appropriate activity. Avoid beginning fall-risk inversions during pregnancy; adapt prolonged supine tasks with your care team. Stop for new or worsening pain, dizziness, chest discomfort, faintness or unusual breathlessness and seek appropriate help. Progress is self-reported; camera mastery scoring is not part of this course.",
+    "tr": "Yetişkinler için genel eğitim; kişiye özel tedavi veya tıbbi uygunluk izni değildir. Yaralanma, gebelik veya kronik durumda uygun etkinliği klinisyen ya da yetkin uzmanla görüş. Gebelikte düşme riskli ters duruşlara başlamaktan kaçın; uzun sırtüstü görevleri bakım ekibiyle uyarla. Yeni/artan ağrı, baş dönmesi, göğüs rahatsızlığı, baygınlık hissi veya alışılmadık nefes darlığında dur ve uygun yardım al. İlerleme öz bildirimdir; kamera ustalık puanı bu kursa dahil değildir."
+  },
+  "sources": [
+    {
+      "id": "acsm2026",
+      "title": "ACSM: 2026 resistance training guidance",
+      "url": "https://acsm.org/resistance-training-guidelines-update-2026/"
+    },
+    {
+      "id": "who",
+      "title": "WHO: Physical activity",
+      "url": "https://www.who.int/initiatives/behealthy/physical-activity"
+    },
+    {
+      "id": "nhs_strength",
+      "title": "NHS: Strength exercises",
+      "url": "https://www.nhs.uk/live-well/exercise/strength-exercises/"
+    },
+    {
+      "id": "ace",
+      "title": "ACE: Exercise library",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/"
+    },
+    {
+      "id": "ace_bird",
+      "title": "ACE: Bird-dog",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/14/bird-dog/"
+    },
+    {
+      "id": "nasm_push",
+      "title": "NASM: Push-up",
+      "url": "https://www.nasm.org/resource-center/exercise-library/push-up"
+    },
+    {
+      "id": "nasm_pull",
+      "title": "NASM: Pull-up",
+      "url": "https://www.nasm.org/resource-center/exercise-library/pull-up"
+    },
+    {
+      "id": "nasm_plank",
+      "title": "NASM: Plank",
+      "url": "https://www.nasm.org/resource-center/exercise-library/plank"
+    },
+    {
+      "id": "nasm_dead",
+      "title": "NASM: Dead bug",
+      "url": "https://www.nasm.org/resource-center/exercise-library/dead-bug"
+    },
+    {
+      "id": "nasm_pike",
+      "title": "NASM: Pike push-up",
+      "url": "https://www.nasm.org/resource-center/exercise-library/pike-push-up"
+    },
+    {
+      "id": "acog",
+      "title": "ACOG: Exercise during pregnancy",
+      "url": "https://www.acog.org/womens-health/faqs/exercise-during-pregnancy"
+    },
+    {
+      "id": "nhs_pregnancy",
+      "title": "NHS: Exercise in pregnancy",
+      "url": "https://www.nhs.uk/pregnancy/keeping-well/exercise/"
+    }
+  ],
+  "modules": [
+    {
+      "id": "foundations",
+      "title": {
+        "en": "Build a repeatable foundation",
+        "tr": "Tekrarlanabilir temel kur"
+      },
+      "lessons": [
+        {
+          "id": "cal-01",
+          "title": {
+            "en": "Your training space",
+            "tr": "Çalışma alanın"
+          },
+          "objective": {
+            "en": "Prepare stable supports before loading them.",
+            "tr": "Yük vermeden önce destekleri hazırla."
+          },
+          "steps": [
+            {
+              "en": "Clear a non-slip floor and enough room for a full reach; keep pets and loose objects outside it.",
+              "tr": "Kaymayan zemini ve tam uzanma alanını boşalt; evcil hayvan ve gevşek eşyaları dışarıda tut."
+            },
+            {
+              "en": "Use a chair without wheels against a wall; check the mat and your footwear for sliding.",
+              "tr": "Tekerleksiz sandalyeyi duvara daya; mat ve ayakkabının kaymasını kontrol et."
+            },
+            {
+              "en": "Pulling needs a purpose-built, correctly installed, load-rated bar; a table or door trim is not a substitute.",
+              "tr": "Çekiş için amaca uygun, doğru takılmış, taşıma sınırı bilinen bar gerekir; masa veya kapı pervazı yerine geçmez."
+            }
+          ],
+          "practice": {
+            "en": "Learning task: inspect the space once and describe where you will stand, sit and exit. Squat and pressing practice starts after their technique lessons.",
+            "tr": "Öğrenme görevi: alanı bir kez incele, duracağın, oturacağın ve çıkacağın yeri tarif et. Squat ve itiş pratiği teknik derslerinden sonra başlar."
+          },
+          "selfCheck": [
+            {
+              "en": "Nothing moves when I gently test the support.",
+              "tr": "Desteği hafifçe kontrol ettiğimde oynamıyor."
+            },
+            {
+              "en": "I can exit the space without stepping over equipment.",
+              "tr": "Ekipmanın üzerinden geçmeden alandan çıkabiliyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Begin with seated learning and wall-based movements; equipment lessons can be studied without performing them.",
+            "tr": "Oturarak öğrenme ve duvar hareketleriyle başla; ekipman derslerini uygulamadan inceleyebilirsin."
+          },
+          "stop": {
+            "en": "Do not load a loose, damaged or unrated support.",
+            "tr": "Gevşek, hasarlı veya taşıma sınırı belirsiz desteğe yük verme."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "who",
+            "nhs_strength"
+          ],
+          "prerequisites": [],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Wide room audit, close-up of fixed chair feet and manufacturer rating label; no improvised anchor.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Geniş alan kontrolü, sabit sandalye ayakları ve üretici taşıma etiketi yakın plan; doğaçlama bağlantı yok."
+          }
+        },
+        {
+          "id": "cal-02",
+          "title": {
+            "en": "Health and the right to adapt",
+            "tr": "Sağlık ve uyarlama hakkı"
+          },
+          "objective": {
+            "en": "Recognize when a lesson needs individual advice.",
+            "tr": "Bir dersin ne zaman bireysel danışma gerektirdiğini tanı."
+          },
+          "steps": [
+            {
+              "en": "Read the health notice before choosing a physical variant; pain is not a required training stimulus.",
+              "tr": "Fiziksel varyasyonu seçmeden sağlık notunu oku; ağrı gerekli bir antrenman uyaranı değildir."
+            },
+            {
+              "en": "For injury, surgery, pregnancy or a chronic condition, discuss suitable activities with your clinician or qualified professional.",
+              "tr": "Yaralanma, ameliyat, gebelik veya kronik durumda uygun etkinlikleri klinisyenin ya da yetkin uzmanla görüş."
+            },
+            {
+              "en": "During pregnancy do not use this course to begin fall-risk inversions; prolonged flat-on-back tasks need adaptation with your care team.",
+              "tr": "Gebelikte bu kursla düşme riski taşıyan ters duruşlara başlama; uzun sırtüstü görevler bakım ekibiyle uyarlanmalıdır."
+            }
+          ],
+          "practice": {
+            "en": "Write one personal question for a qualified professional and identify a supported alternative; this is a learning task, not a screening test.",
+            "tr": "Yetkin uzmana soracağın bir soruyu yaz ve destekli bir alternatif belirle; bu bir öğrenme görevi, sağlık taraması değildir."
+          },
+          "selfCheck": [
+            {
+              "en": "I know how to pause rather than chase the next lesson.",
+              "tr": "Sonraki derse yetişmek yerine nasıl duracağımı biliyorum."
+            },
+            {
+              "en": "I have not treated a completed lesson as medical clearance.",
+              "tr": "Tamamlanan dersi tıbbi uygunluk izni saymadım."
+            }
+          ],
+          "adaptation": {
+            "en": "Read the course without physical practice while obtaining advice; no diagnostic answer is collected.",
+            "tr": "Danışma alırken fiziksel uygulama yapmadan kursu oku; tanısal yanıt toplanmaz."
+          },
+          "stop": {
+            "en": "Stop for chest pain, faintness or unusual breathlessness; seek appropriate care. Pregnancy bleeding, fluid leakage or painful contractions need prompt care-team advice.",
+            "tr": "Göğüs ağrısı, baygınlık hissi veya alışılmadık nefes darlığında dur ve uygun sağlık desteği al. Gebelikte kanama, sıvı sızıntısı veya ağrılı kasılma için bakım ekibine hemen danış."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "who",
+            "nhs_strength",
+            "acog",
+            "nhs_pregnancy"
+          ],
+          "prerequisites": [
+            "cal-01"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Calm seated presenter and supported standing alternative; no pregnancy inversion demonstration.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sakin oturan anlatıcı ve ayakta destekli alternatif; gebelikte ters duruş gösterimi yok."
+          }
+        },
+        {
+          "id": "cal-03",
+          "title": {
+            "en": "Breathing and effort",
+            "tr": "Nefes ve efor"
+          },
+          "objective": {
+            "en": "Use subjective effort to choose a manageable task.",
+            "tr": "Yönetilebilir görev için öznel eforu kullan."
+          },
+          "steps": [
+            {
+              "en": "First observe ordinary breathing while seated; later, in taught movements, keep breathing and allow an unforced exhale during effort.",
+              "tr": "Önce oturarak normal nefesi gözle; sonra öğretilen hareketlerde nefesi sürdür ve eforda zorlanmayan nefes ver."
+            },
+            {
+              "en": "Use a personal 0–10 effort scale, where 0 is rest and 10 is your maximum; an initial 3–5 is an option, not a medical limit.",
+              "tr": "0 dinlenme, 10 kendi en yüksek eforun olan 0–10 ölçeğini kullan; başlangıçta 3–5 bir seçenek, tıbbi sınır değildir."
+            },
+            {
+              "en": "End a set before breathing or coordination breaks down; keep several comfortable repetitions in reserve.",
+              "tr": "Nefes veya koordinasyon bozulmadan seti bitir; birkaç rahat tekrar daha yapabilecek pay bırak."
+            }
+          ],
+          "practice": {
+            "en": "Sit comfortably with feet supported and take 3 ordinary unforced breaths; describe rest on your effort scale. Do not hold your breath or test maximum effort.",
+            "tr": "Ayaklar destekli rahat otur ve zorlamadan 3 normal nefes al; efor ölçeğinde dinlenmeyi tarif et. Nefes tutma veya en yüksek eforu test etme."
+          },
+          "selfCheck": [
+            {
+              "en": "I can describe my effort rather than guess a camera score.",
+              "tr": "Kamera puanı tahmin etmek yerine eforumu tarif edebiliyorum."
+            },
+            {
+              "en": "I did not hold or force my breathing.",
+              "tr": "Nefesimi tutmadım veya zorlamadım."
+            }
+          ],
+          "adaptation": {
+            "en": "Reduce repetitions or move to seated practice; during pregnancy use the care-team guidance and conversational effort.",
+            "tr": "Tekrarı azalt veya oturarak çalış; gebelikte bakım ekibinin önerisi ve konuşabilecek eforu kullan."
+          },
+          "stop": {
+            "en": "Stop if breathlessness is unusual for you, or dizziness or chest discomfort appears.",
+            "tr": "Sana alışılmadık nefes darlığı, baş dönmesi ya da göğüs rahatsızlığı olursa dur."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "who",
+            "nhs_strength"
+          ],
+          "prerequisites": [
+            "cal-02"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Seated natural breathing observation and effort-scale diagram; no physical press before its lesson.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Oturarak doğal nefes gözlemi ve efor ölçeği şeması; dersinden önce fiziksel itiş yok."
+          }
+        },
+        {
+          "id": "cal-04",
+          "title": {
+            "en": "Warm up the supports",
+            "tr": "Destekleri ısıt"
+          },
+          "objective": {
+            "en": "Prepare wrists, shoulders and legs gradually.",
+            "tr": "Bilek, omuz ve bacakları kademeli hazırla."
+          },
+          "steps": [
+            {
+              "en": "Begin with easy walking or seated marching rather than a cold maximal hold.",
+              "tr": "Soğuk en uzun tutuş yerine rahat yürüyüş veya oturarak adımlamayla başla."
+            },
+            {
+              "en": "Move shoulders and wrists gently in comfortable ranges; keep wrist loading light at a wall.",
+              "tr": "Omuz ve bileği rahat aralıkta nazikçe hareket ettir; bileğe duvarda hafif yük ver."
+            },
+            {
+              "en": "Keep this warm-up to familiar gentle movements; later add taught regressions, leaving energy for learning.",
+              "tr": "Bu ısınmayı tanıdık nazik hareketlerle sınırla; sonra öğretilen kolay yolları ekle ve öğrenmeye enerji bırak."
+            }
+          ],
+          "practice": {
+            "en": "Choose 2–4 minutes of familiar easy walking or seated marching; then 4 small comfortable shoulder circles each way and 4 unloaded wrist movements.",
+            "tr": "2–4 dakika tanıdık rahat yürüyüş veya oturarak adımlama seç; ardından iki yönde 4 küçük rahat omuz dairesi ve yüksüz 4 bilek hareketi yap."
+          },
+          "selfCheck": [
+            {
+              "en": "The range stays comfortable without forcing the joint.",
+              "tr": "Eklem zorlanmadan hareket aralığı rahat kalıyor."
+            },
+            {
+              "en": "I feel prepared, not fatigued.",
+              "tr": "Yorgun değil, hazır hissediyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Use smaller seated circles and omit any uncomfortable weight bearing.",
+            "tr": "Oturarak küçük daireler kullan; rahatsız yük vermeyi çıkar."
+          },
+          "stop": {
+            "en": "Stop sharp wrist or shoulder pain; warming up does not make pain safe to ignore.",
+            "tr": "Keskin bilek veya omuz ağrısında dur; ısınmak ağrıyı yok sayma izni değildir."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "who",
+            "nhs_strength"
+          ],
+          "prerequisites": [
+            "cal-03"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Wide seated march, small shoulder circles and unloaded wrist close-up; no squat, pressing or forced stretching yet.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Geniş oturarak adım, küçük omuz daireleri ve yüksüz bilek yakın plan; henüz squat, itiş veya zorlanan esneme yok."
+          }
+        },
+        {
+          "id": "cal-05",
+          "title": {
+            "en": "Sets, rest and recovery",
+            "tr": "Set, dinlenme ve toparlanma"
+          },
+          "objective": {
+            "en": "Separate practice quality from exhaustion.",
+            "tr": "Pratik kalitesini tükenmeden ayır."
+          },
+          "steps": [
+            {
+              "en": "A set is a short group of repetitions or a hold, not a competition.",
+              "tr": "Set kısa tekrar grubu veya tutuş süresidir, yarış değildir."
+            },
+            {
+              "en": "Rest until breathing settles and you can reproduce the setup; 60–120 seconds is a starting option, longer is allowed.",
+              "tr": "Nefes sakinleşip kurulumu tekrarlayana kadar dinlen; başlangıç seçeneği 60–120 saniye, daha uzun olabilir."
+            },
+            {
+              "en": "Leave recovery between demanding strength sessions; distribute major movement groups across your week.",
+              "tr": "Zorlu kuvvet günleri arasında toparlanma bırak; temel hareket gruplarını haftaya dağıt."
+            }
+          ],
+          "practice": {
+            "en": "Learning task: write where you would place a rest between two future practice sets, and how you would decide to rest longer. No press is required before its technique lesson.",
+            "tr": "Öğrenme görevi: gelecekteki iki pratik seti arasına dinlenmeyi nereye koyacağını ve uzatmaya nasıl karar vereceğini yaz. Teknik dersinden önce itiş gerekli değil."
+          },
+          "selfCheck": [
+            {
+              "en": "My plan allows breathing and control to return before another set.",
+              "tr": "Planım sonraki setten önce nefes ve kontrolün dönmesine izin veriyor."
+            },
+            {
+              "en": "My schedule includes easier or rest days.",
+              "tr": "Takvimimde kolay veya dinlenme günleri var."
+            }
+          ],
+          "adaptation": {
+            "en": "One short set is enough for a first exposure; study the rest plan if physical activity is not appropriate today.",
+            "tr": "İlk tanışmada tek kısa set yeterli; bugün fiziksel etkinlik uygun değilse dinlenme planını incele."
+          },
+          "stop": {
+            "en": "End the session when unusual fatigue prevents an easy setup; do not compensate with rushed repetitions.",
+            "tr": "Alışılmadık yorgunluk kolay kurulumu engelliyorsa seansı bitir; acele tekrarlarla telafi etme."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "who",
+            "nhs_strength"
+          ],
+          "prerequisites": [
+            "cal-04"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Planning diagram with two task blocks and seated rest between; no untaught physical sets.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: İki görev bloğu ve arada oturarak dinlenmeli plan şeması; öğretilmeyen fiziksel set yok."
+          }
+        },
+        {
+          "id": "cal-06",
+          "title": {
+            "en": "A useful practice record",
+            "tr": "İşe yarayan pratik kaydı"
+          },
+          "objective": {
+            "en": "Record observations before increasing difficulty.",
+            "tr": "Zorluğu artırmadan gözlemlerini kaydet."
+          },
+          "steps": [
+            {
+              "en": "Seen means opened; practised means you tried the chosen task; completion is your own learning statement.",
+              "tr": "Görüldü açıldığı, pratik seçilen görevin denendiği, tamamlama kendi öğrenme bildirimin olduğu anlamına gelir."
+            },
+            {
+              "en": "Record the variant, repetitions or hold, effort and one observation in your own notes; the app stores only its progress states.",
+              "tr": "Varyasyon, tekrar veya tutuş, efor ve bir gözlemi kendi notuna yaz; uygulama yalnız ilerleme durumlarını saklar."
+            },
+            {
+              "en": "Use repeated controlled sessions to decide a small next change; reading alone never unlocks a camera skill.",
+              "tr": "Küçük sonraki değişimi tekrarlanan kontrollü seanslarla seç; yalnız okumak kamera becerisini açmaz."
+            }
+          ],
+          "practice": {
+            "en": "Learning task: make a blank log with variant, dose, effort and observation fields; record today’s space or breathing review, not an untaught movement.",
+            "tr": "Öğrenme görevi: varyasyon, doz, efor ve gözlem alanlı boş kayıt hazırla; öğretilmeyen hareket yerine bugünkü alan veya nefes incelemesini yaz."
+          },
+          "selfCheck": [
+            {
+              "en": "My completion describes learning, not verified mastery.",
+              "tr": "Tamamlama kaydım doğrulanmış ustalık değil, öğrenmeyi anlatıyor."
+            },
+            {
+              "en": "I know which version of the course I am using.",
+              "tr": "Kursun hangi sürümünü kullandığımı biliyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Use the easier variant or a written learning task; do not invent a completed physical attempt.",
+            "tr": "Kolay varyasyon veya yazılı öğrenme görevi kullan; yapılmayan fiziksel denemeyi yapılmış sayma."
+          },
+          "stop": {
+            "en": "Pause progression if symptoms worsen between sessions; seek individual advice as appropriate.",
+            "tr": "Seanslar arasında belirtiler artarsa ilerlemeyi durdur; gerektiğinde bireysel danışma al."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "who",
+            "nhs_strength"
+          ],
+          "prerequisites": [
+            "cal-05"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Notebook beside stable chair; distinct Seen, Practised and Self-reported labels without certificate graphics.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sabit sandalyenin yanında not defteri; sertifika görseli olmadan ayrı Görüldü, Pratik, Öz bildirim etiketleri."
+          }
+        }
+      ]
+    },
+    {
+      "id": "lower",
+      "title": {
+        "en": "Lower-body control",
+        "tr": "Alt beden kontrolü"
+      },
+      "lessons": [
+        {
+          "id": "cal-07",
+          "title": {
+            "en": "Sit to stand",
+            "tr": "Otur-kalk"
+          },
+          "objective": {
+            "en": "Learn a controlled squat entry from a chair.",
+            "tr": "Sandalyeyle kontrollü squat girişini öğren."
+          },
+          "steps": [
+            {
+              "en": "Place a fixed chair against a wall and feet where you can stand without rocking.",
+              "tr": "Sabit sandalyeyi duvara daya; ayakları sallanmadan kalkabileceğin yere koy."
+            },
+            {
+              "en": "Lean from the hips enough to bring weight over the feet, then push the floor away to stand.",
+              "tr": "Ağırlığı ayakların üzerine almak için kalçadan yeterince eğil; zemini iterek kalk."
+            },
+            {
+              "en": "Sit back slowly, contacting the seat without dropping onto it.",
+              "tr": "Yavaşça geriye otur; koltuğa kendini bırakmadan dokun."
+            }
+          ],
+          "practice": {
+            "en": "Try 1 set of 3–5; if controlled, a second set after 60–120 seconds. Use hands on a stable support when needed.",
+            "tr": "1 set 3–5 dene; kontrollüyse 60–120 saniye sonra ikinci set. Gerektiğinde sabit destekten ellerle yardım al."
+          },
+          "selfCheck": [
+            {
+              "en": "I do not bounce off the chair.",
+              "tr": "Sandalyeden sekmiyorum."
+            },
+            {
+              "en": "Both feet remain planted.",
+              "tr": "İki ayağım da zeminde kalıyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Use a higher stable seat and hand assistance.",
+            "tr": "Daha yüksek sabit oturak ve el desteği kullan."
+          },
+          "stop": {
+            "en": "Stop knee or hip pain, loss of balance or chair movement.",
+            "tr": "Diz ya da kalça ağrısı, denge kaybı veya sandalye hareketinde dur."
+          },
+          "sourceIds": [
+            "nhs_strength",
+            "acsm2026",
+            "ace"
+          ],
+          "prerequisites": [
+            "cal-06"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Front and side chair sequence; show higher-seat regression and quiet seat contact.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Önden ve yandan sandalye dizisi; yüksek oturak kolay yolu ve yumuşak oturma teması."
+          }
+        },
+        {
+          "id": "cal-08",
+          "title": {
+            "en": "Squat: stance and depth",
+            "tr": "Squat: duruş ve derinlik"
+          },
+          "objective": {
+            "en": "Choose a repeatable depth without a universal angle target.",
+            "tr": "Evrensel açı hedefi olmadan tekrarlanabilir derinlik seç."
+          },
+          "steps": [
+            {
+              "en": "Start near a support; choose a comfortable foot width and toe direction for your body.",
+              "tr": "Desteğin yanında başla; bedenine rahat ayak genişliği ve parmak yönünü seç."
+            },
+            {
+              "en": "Bend hips and knees together; let knees follow the general direction of the toes rather than forcing them inward.",
+              "tr": "Kalça ve dizi birlikte bük; dizi içeri zorlamak yerine parmakların genel yönünde ilerlet."
+            },
+            {
+              "en": "Stop at the depth where feet, balance and trunk control remain steady, then stand smoothly.",
+              "tr": "Ayak, denge ve gövde kontrolünün korunduğu derinlikte dur; akıcı şekilde kalk."
+            }
+          ],
+          "practice": {
+            "en": "Practice 2 sets of 4–6 shallow squats with 90 seconds rest; gradually explore a little more depth only if comfortable.",
+            "tr": "90 saniye dinlenmeyle 2 set 4–6 sığ squat yap; yalnız rahatsa biraz daha derinliği kademeli dene."
+          },
+          "selfCheck": [
+            {
+              "en": "My heels stay supported and I can pause briefly.",
+              "tr": "Topuklarım destekli kalıyor ve kısa durabiliyorum."
+            },
+            {
+              "en": "Depth is chosen for control, not a forced camera score.",
+              "tr": "Derinlik zorlanan kamera puanı için değil, kontrol için seçiliyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Hold a fixed support or return to sit-to-stand.",
+            "tr": "Sabit destek tut veya otur-kalka dön."
+          },
+          "stop": {
+            "en": "Stop pinching joint pain, instability or a slipping foot.",
+            "tr": "Eklemde sıkışma ağrısı, dengesizlik veya ayak kaymasında dur."
+          },
+          "sourceIds": [
+            "nhs_strength",
+            "acsm2026",
+            "ace"
+          ],
+          "prerequisites": [
+            "cal-07"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Front/side shallow-to-comfortable squat; show feet and hips, no numerical depth overlay.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Önden/yandan sığdan rahat derinliğe squat; ayak ve kalça görünür, sayısal derinlik etiketi yok."
+          }
+        },
+        {
+          "id": "cal-09",
+          "title": {
+            "en": "Hip hinge to a wall",
+            "tr": "Duvara kalça menteşesi"
+          },
+          "objective": {
+            "en": "Distinguish a hip hinge from a squat.",
+            "tr": "Kalça menteşesini squattan ayır."
+          },
+          "steps": [
+            {
+              "en": "Stand a short distance in front of a wall with soft knees and hands on your hip creases.",
+              "tr": "Duvardan kısa mesafe önde, dizler yumuşak ve eller kalça kıvrımında dur."
+            },
+            {
+              "en": "Send the hips backwards to touch the wall; keep your head following your trunk instead of craning up.",
+              "tr": "Kalçayı duvara değmek için geriye gönder; baş gövdeyi izlesin, yukarı uzatma."
+            },
+            {
+              "en": "Return by standing tall through the feet without leaning backwards at the finish.",
+              "tr": "Ayaklardan destekle dikleş; bitişte geriye yaslanma."
+            }
+          ],
+          "practice": {
+            "en": "Perform 1–2 sets of 5 wall taps, rest 60–90 seconds; move only a little farther from the wall if control stays easy.",
+            "tr": "1–2 set 5 duvar dokunuşu yap, 60–90 saniye dinlen; kontrol kolaysa duvardan yalnız biraz uzaklaş."
+          },
+          "selfCheck": [
+            {
+              "en": "I feel hips move back rather than knees travel far forward.",
+              "tr": "Dizlerin çok ileri gitmesinden çok kalçanın geriye gittiğini hissediyorum."
+            },
+            {
+              "en": "My finish is upright, not arched backwards.",
+              "tr": "Bitişim dik, geriye bükülü değil."
+            }
+          ],
+          "adaptation": {
+            "en": "Reduce the wall distance or rehearse seated hip folding.",
+            "tr": "Duvar mesafesini azalt veya oturarak kalçadan katlanmayı prova et."
+          },
+          "stop": {
+            "en": "Stop back pain, radiating symptoms or balance loss.",
+            "tr": "Bel ağrısı, yayılan belirti veya denge kaybında dur."
+          },
+          "sourceIds": [
+            "nhs_strength",
+            "acsm2026",
+            "ace"
+          ],
+          "prerequisites": [
+            "cal-08"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side hip-wall tap with floor marker; compare two small controlled ranges.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan kalça-duvar dokunuşu ve zemin işareti; iki küçük kontrollü aralık."
+          }
+        },
+        {
+          "id": "cal-10",
+          "title": {
+            "en": "Glute bridge",
+            "tr": "Kalça köprüsü"
+          },
+          "objective": {
+            "en": "Extend the hips without chasing height.",
+            "tr": "Yükseklik kovalamadan kalçayı aç."
+          },
+          "steps": [
+            {
+              "en": "Lie on a mat with knees bent and feet comfortable; keep shoulders supported.",
+              "tr": "Dizler bükülü, ayaklar rahat şekilde mata uzan; omuzları destekli tut."
+            },
+            {
+              "en": "Press through the feet and raise the hips only while the ribs and pelvis remain controlled.",
+              "tr": "Ayaklardan it ve kaburga ile leğen kontrolü korunurken kalçayı kaldır."
+            },
+            {
+              "en": "Lower slowly; avoid pushing the finish into the lower back.",
+              "tr": "Yavaş indir; bitişi bele zorlayarak yapma."
+            }
+          ],
+          "practice": {
+            "en": "Try 1–2 sets of 4–6 with 60–90 seconds rest; a small lift is sufficient for learning.",
+            "tr": "60–90 saniye dinlenmeyle 1–2 set 4–6 dene; öğrenmek için küçük kaldırış yeterli."
+          },
+          "selfCheck": [
+            {
+              "en": "I do not increase height by arching the back.",
+              "tr": "Beli bükerek yüksekliği artırmıyorum."
+            },
+            {
+              "en": "Feet and shoulders do not slide.",
+              "tr": "Ayak ve omuzlar kaymıyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Use standing hip extension with hand support if lying down is uncomfortable; pregnancy supine work needs care-team adaptation.",
+            "tr": "Uzanmak rahatsızsa el destekli ayakta kalça açma kullan; gebelikte sırtüstü çalışma bakım ekibiyle uyarlanmalıdır."
+          },
+          "stop": {
+            "en": "Stop back pain, dizziness when supine or persistent hamstring cramping.",
+            "tr": "Bel ağrısı, sırtüstü baş dönmesi veya süren arka bacak krampında dur."
+          },
+          "sourceIds": [
+            "nhs_strength",
+            "acsm2026",
+            "ace",
+            "nhs_pregnancy"
+          ],
+          "prerequisites": [
+            "cal-09"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side small bridge and standing supported alternative; avoid lumbar overextension.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan küçük köprü ve ayakta destekli alternatif; aşırı bel açılması yok."
+          }
+        },
+        {
+          "id": "cal-11",
+          "title": {
+            "en": "Supported split squat",
+            "tr": "Destekli split squat"
+          },
+          "objective": {
+            "en": "Control a staggered stance before stepping lunges.",
+            "tr": "Adımlı lunge öncesi ayrık duruşu kontrol et."
+          },
+          "steps": [
+            {
+              "en": "Hold a fixed rail lightly; place feet on two tracks, not a tightrope.",
+              "tr": "Sabit korkuluğu hafif tut; ayakları ip üzeri gibi değil iki hat üzerine koy."
+            },
+            {
+              "en": "Bend both knees a little while keeping the front foot fully supported.",
+              "tr": "Ön ayağın tamamı destekliyken iki dizi biraz bük."
+            },
+            {
+              "en": "Rise through both legs without twisting; change sides after the set.",
+              "tr": "Dönmeden iki bacakla yüksel; setten sonra taraf değiştir."
+            }
+          ],
+          "practice": {
+            "en": "Begin with 1 set of 3–5 per side, 60–90 seconds rest; use a second set if both sides stay steady.",
+            "tr": "Taraf başına 1 set 3–5 ile başla, 60–90 saniye dinlen; iki taraf da dengeliyse ikinci set kullan."
+          },
+          "selfCheck": [
+            {
+              "en": "I can keep a wide enough base for balance.",
+              "tr": "Denge için yeterli geniş tabanı koruyabiliyorum."
+            },
+            {
+              "en": "Front knee and foot turn together, not oppositely.",
+              "tr": "Ön diz ve ayak birlikte yönleniyor, ters değil."
+            }
+          ],
+          "adaptation": {
+            "en": "Make the bend shallower or use a seated leg task.",
+            "tr": "Bükülmeyi sığlaştır veya oturarak bacak görevi kullan."
+          },
+          "stop": {
+            "en": "Stop knee pain or needing to hang your bodyweight on the support.",
+            "tr": "Diz ağrısında veya beden ağırlığını desteğe asman gerektiğinde dur."
+          },
+          "sourceIds": [
+            "nhs_strength",
+            "acsm2026",
+            "ace"
+          ],
+          "prerequisites": [
+            "cal-10"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Front diagonal supported split squat; floor tracks visible and shallow regression.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Önden çapraz destekli split squat; zemin hatları ve sığ kolay yol görünür."
+          }
+        },
+        {
+          "id": "cal-12",
+          "title": {
+            "en": "Reverse lunge",
+            "tr": "Geri lunge"
+          },
+          "objective": {
+            "en": "Add a controlled backward step.",
+            "tr": "Kontrollü geriye adım ekle."
+          },
+          "steps": [
+            {
+              "en": "Start beside a stable support; take a short step back onto the ball of the foot.",
+              "tr": "Sabit desteğin yanında başla; ayağın önüne kısa geriye adım at."
+            },
+            {
+              "en": "Lower a small amount with the front foot planted and torso controlled.",
+              "tr": "Ön ayak sabit, gövde kontrollüyken biraz alçal."
+            },
+            {
+              "en": "Push the front floor away and bring the back foot forward without a hop.",
+              "tr": "Öndeki zemini it ve arkadaki ayağı sıçramadan öne getir."
+            }
+          ],
+          "practice": {
+            "en": "Practice 1–2 sets of 3–4 each side, resting 90 seconds; repeat the supported split squat if the step disrupts balance.",
+            "tr": "90 saniye dinlenerek taraf başına 1–2 set 3–4 yap; adım dengeyi bozuyorsa destekli split squatı yinele."
+          },
+          "selfCheck": [
+            {
+              "en": "I place the back foot quietly.",
+              "tr": "Arka ayağı yumuşak yerleştiriyorum."
+            },
+            {
+              "en": "I return without bouncing or twisting.",
+              "tr": "Sekmeden ve dönmeden dönüyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Keep both feet in place and use the earlier split squat.",
+            "tr": "İki ayağı yerinde tut ve önceki split squatı kullan."
+          },
+          "stop": {
+            "en": "Stop if a knee buckles, a foot slips or pain changes your step.",
+            "tr": "Diz boşalır, ayak kayar veya ağrı adımı değiştirirse dur."
+          },
+          "sourceIds": [
+            "nhs_strength",
+            "acsm2026",
+            "ace"
+          ],
+          "prerequisites": [
+            "cal-11"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side and front stepping sequence beside rail; no fast alternating lunge.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Korkuluk yanında yandan/önden adım dizisi; hızlı değişen lunge yok."
+          }
+        },
+        {
+          "id": "cal-13",
+          "title": {
+            "en": "Low step-up",
+            "tr": "Alçak basamağa çıkış"
+          },
+          "objective": {
+            "en": "Step up without pushing mostly from the trailing foot.",
+            "tr": "İtişin çoğunu arkadaki ayaktan almadan basamağa çık."
+          },
+          "steps": [
+            {
+              "en": "Use a low, non-slip purpose-built step and nearby rail; put the whole lead foot on it.",
+              "tr": "Alçak, kaymayan uygun basamak ve yakın korkuluk kullan; ön ayağın tamamını yerleştir."
+            },
+            {
+              "en": "Rise through the lead leg with light rail assistance, avoiding a bounce from the floor foot.",
+              "tr": "Zemindeki ayaktan sekmeden, hafif korkuluk desteğiyle ön bacak üzerinden yüksel."
+            },
+            {
+              "en": "Step down slowly to the same clear floor area before changing lead legs.",
+              "tr": "Ön bacağı değiştirmeden aynı boş zemin alanına yavaş in."
+            }
+          ],
+          "practice": {
+            "en": "Try 1 set of 3–5 each side; rest 90 seconds and optionally repeat. Choose a lower step before adding reps.",
+            "tr": "Taraf başına 1 set 3–5 dene; 90 saniye dinlen ve istersen yinele. Tekrar eklemeden önce daha alçak basamak seç."
+          },
+          "selfCheck": [
+            {
+              "en": "The entire lead foot fits on the step.",
+              "tr": "Ön ayağın tamamı basamağa sığıyor."
+            },
+            {
+              "en": "I control the descent rather than dropping.",
+              "tr": "Kendimi bırakmadan inişi kontrol ediyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Practice floor weight shifts or sit-to-stand with support.",
+            "tr": "Zeminde ağırlık aktarımı veya destekli otur-kalk yap."
+          },
+          "stop": {
+            "en": "Stop unstable equipment, loss of balance or knee pain.",
+            "tr": "Oynayan ekipman, denge kaybı veya diz ağrısında dur."
+          },
+          "sourceIds": [
+            "nhs_strength",
+            "acsm2026",
+            "ace"
+          ],
+          "prerequisites": [
+            "cal-12"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Low step and rail fully visible; foot placement close-up and quiet descent.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Alçak basamak ve korkuluk tamamen görünür; ayak yerleşimi yakın plan ve yumuşak iniş."
+          }
+        },
+        {
+          "id": "cal-14",
+          "title": {
+            "en": "Calf raise",
+            "tr": "Baldır kaldırma"
+          },
+          "objective": {
+            "en": "Use a controlled ankle rise and return.",
+            "tr": "Kontrollü ayak bileği yükselişi ve dönüşü kullan."
+          },
+          "steps": [
+            {
+              "en": "Stand on level ground with both feet supported and fingertips on a fixed surface.",
+              "tr": "İki ayak destekli düz zeminde dur, parmak uçlarını sabit yüzeye koy."
+            },
+            {
+              "en": "Rise through the forefeet evenly; choose a height that does not roll the ankles outward.",
+              "tr": "Ayak önlerinden dengeli yüksel; bilekleri dışarı devirmeyen yüksekliği seç."
+            },
+            {
+              "en": "Lower both heels gently to the ground, not below an improvised ledge.",
+              "tr": "İki topuğu nazikçe zemine indir; doğaçlama kenarın altına sarkıtma."
+            }
+          ],
+          "practice": {
+            "en": "Perform 1–2 sets of 5–8, resting 60 seconds; stay with two legs before considering harder variants.",
+            "tr": "60 saniye dinlenerek 1–2 set 5–8 yap; zor varyasyon düşünmeden iki bacakla kal."
+          },
+          "selfCheck": [
+            {
+              "en": "I avoid rocking onto the outer edge of the foot.",
+              "tr": "Ayağın dış kenarına devrilmiyorum."
+            },
+            {
+              "en": "The lowering remains quiet and controlled.",
+              "tr": "İniş yumuşak ve kontrollü kalıyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Use seated heel raises or a smaller standing rise.",
+            "tr": "Oturarak topuk kaldır veya ayakta daha küçük yüksel."
+          },
+          "stop": {
+            "en": "Stop ankle pain, sudden calf pain or balance loss.",
+            "tr": "Bilek ağrısı, ani baldır ağrısı veya denge kaybında dur."
+          },
+          "sourceIds": [
+            "nhs_strength",
+            "acsm2026",
+            "ace"
+          ],
+          "prerequisites": [
+            "cal-13"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Front ankle detail and full-body support view; no ledge or one-leg challenge.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Önden bilek detayı ve tam beden destek görünümü; kenar veya tek bacak meydan okuması yok."
+          }
+        }
+      ]
+    },
+    {
+      "id": "push",
+      "title": {
+        "en": "Progressive pushing",
+        "tr": "Kademeli itiş"
+      },
+      "lessons": [
+        {
+          "id": "cal-15",
+          "title": {
+            "en": "Wall push-up",
+            "tr": "Duvar şınavı"
+          },
+          "objective": {
+            "en": "Learn whole-body pressing at a light load.",
+            "tr": "Hafif yükte bütün beden itişini öğren."
+          },
+          "steps": [
+            {
+              "en": "Place hands on a firm wall at comfortable chest height; step back a small distance.",
+              "tr": "Elleri sağlam duvarda rahat göğüs yüksekliğine koy; biraz geriye adım at."
+            },
+            {
+              "en": "Bend the elbows and bring your body toward the wall as one unit, keeping feet planted.",
+              "tr": "Ayaklar sabitken dirsekleri bük, bedeni tek parça duvara yaklaştır."
+            },
+            {
+              "en": "Press away smoothly without shrugging or forcing elbows wide.",
+              "tr": "Omuz silkmeden veya dirseği çok yana zorlamadan akıcı it."
+            }
+          ],
+          "practice": {
+            "en": "Try 2 sets of 4–6 with 60–90 seconds rest; move feet closer to reduce effort.",
+            "tr": "60–90 saniye dinlenmeyle 2 set 4–6 dene; eforu azaltmak için ayakları yaklaştır."
+          },
+          "selfCheck": [
+            {
+              "en": "My hips travel with the shoulders.",
+              "tr": "Kalçam omuzlarla birlikte ilerliyor."
+            },
+            {
+              "en": "Hands remain comfortable and do not slip.",
+              "tr": "Eller rahat kalıyor ve kaymıyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Stand closer or rehearse a seated forward press without loading the wrists.",
+            "tr": "Daha yakın dur veya bileğe yük vermeden oturarak öne itiş prova et."
+          },
+          "stop": {
+            "en": "Stop wrist, elbow or shoulder pain, not just after the target count.",
+            "tr": "Hedef sayıyı beklemeden bilek, dirsek veya omuz ağrısında dur."
+          },
+          "sourceIds": [
+            "nasm_push",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-14"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side wall press plus hand placement close-up; show closer-foot regression.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan duvar itişi ve el yerleşimi yakın plan; yakın ayak kolay yolu."
+          }
+        },
+        {
+          "id": "cal-16",
+          "title": {
+            "en": "Incline push-up",
+            "tr": "Yükseltide şınav"
+          },
+          "objective": {
+            "en": "Lower the support gradually while preserving control.",
+            "tr": "Kontrolü koruyarak desteği kademeli alçalt."
+          },
+          "steps": [
+            {
+              "en": "Choose a fixed counter or rated bench that cannot tip or slide; test it before leaning.",
+              "tr": "Devrilmeyen/kaymayan sabit tezgâh veya uygun bank seç; eğilmeden kontrol et."
+            },
+            {
+              "en": "Keep trunk and legs together as elbows bend; allow a comfortable elbow path rather than a fixed angle.",
+              "tr": "Dirsekler bükülürken gövde ve bacak birlikte kalsın; sabit açı yerine rahat dirsek yolu kullan."
+            },
+            {
+              "en": "Press back to the starting line and reset your breath before repeating.",
+              "tr": "Başlangıç çizgisine it ve yinelemeden nefesi düzenle."
+            }
+          ],
+          "practice": {
+            "en": "Use 1–2 sets of 4–6 with 90 seconds rest. Keep the same height for several controlled sessions before lowering it.",
+            "tr": "90 saniye dinlenmeyle 1–2 set 4–6. Alçaltmadan önce birkaç kontrollü seans aynı yükseklikte kal."
+          },
+          "selfCheck": [
+            {
+              "en": "Support stability was checked before the set.",
+              "tr": "Setten önce destek sağlamlığı kontrol edildi."
+            },
+            {
+              "en": "My trunk does not sag behind my shoulders.",
+              "tr": "Gövdem omuzların gerisinde sarkmıyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Use a higher fixed support or the wall.",
+            "tr": "Daha yüksek sabit destek veya duvar kullan."
+          },
+          "stop": {
+            "en": "Stop support movement or pain during pressing.",
+            "tr": "İtişte destek oynarsa veya ağrı olursa dur."
+          },
+          "sourceIds": [
+            "nasm_push",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-15"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Fixed bench side view with support feet visible; two stable heights without a stool.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Destek ayakları görünen sabit bank yandan; tabure olmadan iki sabit yükseklik."
+          }
+        },
+        {
+          "id": "cal-17",
+          "title": {
+            "en": "Knee-supported floor push",
+            "tr": "Diz destekli yerde şınav"
+          },
+          "objective": {
+            "en": "Control a shorter body lever on the floor.",
+            "tr": "Yerde daha kısa beden kolunu kontrol et."
+          },
+          "steps": [
+            {
+              "en": "Use a mat under the knees and hands in a comfortable position under or near the shoulders.",
+              "tr": "Diz altına mat, elleri omuz altı veya yakınında rahat yere koy."
+            },
+            {
+              "en": "Keep a connected line from knees through hips to shoulders as you lower.",
+              "tr": "Alçalırken diz-kalça-omuz bağlantılı çizgiyi koru."
+            },
+            {
+              "en": "Press back without sitting the hips onto the heels.",
+              "tr": "Kalçayı topuklara oturtmadan geri it."
+            }
+          ],
+          "practice": {
+            "en": "Try 1 set of 3–5, rest 90 seconds and optionally repeat; range can be small while learning.",
+            "tr": "1 set 3–5 dene, 90 saniye dinlen ve istersen yinele; öğrenirken aralık küçük olabilir."
+          },
+          "selfCheck": [
+            {
+              "en": "My hips do not lead the push.",
+              "tr": "İtişi kalçam başlatmıyor."
+            },
+            {
+              "en": "I can breathe without compressing the wrists painfully.",
+              "tr": "Bileği ağrılı sıkıştırmadan nefes alabiliyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Choose incline push-ups instead if kneeling or floor access is uncomfortable.",
+            "tr": "Diz üstü veya yere erişim rahatsızsa yükseltide şınav seç."
+          },
+          "stop": {
+            "en": "Stop knee pressure pain, wrist pain or losing the body line.",
+            "tr": "Diz basınç ağrısı, bilek ağrısı veya beden çizgisi kaybında dur."
+          },
+          "sourceIds": [
+            "nasm_push",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-16"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side knee-to-shoulder line and padded knees; show small range and incline alternative.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan diz-omuz çizgisi ve yastıklı diz; küçük aralık ve yükselti alternatifi."
+          }
+        },
+        {
+          "id": "cal-18",
+          "title": {
+            "en": "Controlled lowering",
+            "tr": "Kontrollü alçalma"
+          },
+          "objective": {
+            "en": "Learn the descent without assuming the ascent is ready.",
+            "tr": "Yükseliş hazır sayılmadan inişi öğren."
+          },
+          "steps": [
+            {
+              "en": "Use an incline you already control, or the floor only after comfortable supported presses.",
+              "tr": "Kontrol ettiğin yükseltiyi kullan; yerde yalnız rahat destekli itişlerden sonra çalış."
+            },
+            {
+              "en": "Lower for an easy count of two or three without collapsing; choose less range if needed.",
+              "tr": "Çökmeden rahat iki-üç sayımda alçal; gerekirse aralığı azalt."
+            },
+            {
+              "en": "Step or place the knees down to reset; this drill does not require a full floor press up.",
+              "tr": "Yenilenmek için adımla veya dizleri koy; bu çalışma tam yer şınavıyla yükselmeyi gerektirmez."
+            }
+          ],
+          "practice": {
+            "en": "Practice 1–2 sets of 2–3 descents with 90–120 seconds rest; keep reserve and avoid repeated slow failure.",
+            "tr": "90–120 saniye dinlenmeyle 1–2 set 2–3 iniş; pay bırak, tekrar tekrar yavaş tükenme yapma."
+          },
+          "selfCheck": [
+            {
+              "en": "I choose the exit before starting.",
+              "tr": "Başlamadan çıkışı seçiyorum."
+            },
+            {
+              "en": "Every descent is controlled, not a drop.",
+              "tr": "Her iniş kontrollü, düşme değil."
+            }
+          ],
+          "adaptation": {
+            "en": "Return to ordinary wall presses; no eccentric-only drill is mandatory.",
+            "tr": "Normal duvar itişine dön; yalnız negatif çalışma zorunlu değil."
+          },
+          "stop": {
+            "en": "Stop a sudden drop, joint pain or next-session soreness that interferes with ordinary movement.",
+            "tr": "Ani düşüş, eklem ağrısı veya sonraki seansta günlük hareketi bozan ağrıda dur."
+          },
+          "sourceIds": [
+            "nasm_push",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-17"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side incline descent and explicit knee reset; no floor crash or maximum-effort count.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan yükselti inişi ve belirgin dizle yenilenme; yere çökme veya en yüksek efor sayımı yok."
+          }
+        },
+        {
+          "id": "cal-19",
+          "title": {
+            "en": "Floor push-up option",
+            "tr": "Yerde şınav seçeneği"
+          },
+          "objective": {
+            "en": "Combine the descent and press only when both stay controlled.",
+            "tr": "İniş ve itişi ikisi de kontrollüyken birleştir."
+          },
+          "steps": [
+            {
+              "en": "From a supported plank choose a hand and foot spacing that feels stable; keep the floor clear.",
+              "tr": "Destekli planktan dengeli el ve ayak aralığını seç; zemini boş tut."
+            },
+            {
+              "en": "Lower the chest within a comfortable range with hips following shoulders.",
+              "tr": "Kalça omuzları izlerken göğsü rahat aralıkta indir."
+            },
+            {
+              "en": "Press the body back together; if the first repetition stalls, use the earlier incline rather than grind.",
+              "tr": "Bedeni birlikte geri it; ilk tekrar takılırsa zorlamak yerine önceki yükseltiyi kullan."
+            }
+          ],
+          "practice": {
+            "en": "Choose 1–2 sets of 1–4 controlled repetitions with 120 seconds rest; incline sets remain a valid course path.",
+            "tr": "120 saniye dinlenmeyle 1–2 set 1–4 kontrollü tekrar seç; yükselti setleri geçerli kurs yolu olmaya devam eder."
+          },
+          "selfCheck": [
+            {
+              "en": "Shoulders and hips rise together.",
+              "tr": "Omuz ve kalça birlikte yükseliyor."
+            },
+            {
+              "en": "I stop before the next rep would lose control.",
+              "tr": "Sonraki tekrar kontrolü bozacaksa önceden duruyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Use a high incline or knee-supported variant without treating it as failure.",
+            "tr": "Başarısızlık saymadan yüksek yükselti veya diz desteği kullan."
+          },
+          "stop": {
+            "en": "Stop pain, wrist numbness or repeated trunk collapse.",
+            "tr": "Ağrı, bilekte uyuşma veya tekrarlanan gövde çökmesinde dur."
+          },
+          "sourceIds": [
+            "nasm_push",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-18"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Full-body side floor press with one clean rep; matched incline regression, no score overlay.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Tek temiz tekrarlı tam beden yandan yer şınavı; eş yükselti kolay yolu, puan etiketi yok."
+          }
+        },
+        {
+          "id": "cal-20",
+          "title": {
+            "en": "Scapular support control",
+            "tr": "Kürek kemiği destek kontrolü"
+          },
+          "objective": {
+            "en": "Move the shoulder girdle gently without bending the elbows.",
+            "tr": "Dirseği bükmeden omuz kuşağını nazikçe hareket ettir."
+          },
+          "steps": [
+            {
+              "en": "Begin at a wall or high incline with straight but unforced arms.",
+              "tr": "Duvarda veya yüksek yükseltide düz ama zorlanmayan kollarla başla."
+            },
+            {
+              "en": "Allow a small movement of the chest between the shoulders, then gently push the surface away.",
+              "tr": "Göğsün omuzlar arasında küçük hareketine izin ver; sonra yüzeyi nazikçe it."
+            },
+            {
+              "en": "Keep the head and trunk quiet; this is small shoulder-blade movement, not a deep push-up.",
+              "tr": "Baş ve gövde sakin; bu derin şınav değil küçük kürek kemiği hareketi."
+            }
+          ],
+          "practice": {
+            "en": "Try 1–2 sets of 4 small movements, rest 60–90 seconds; increase control before changing height.",
+            "tr": "1–2 set 4 küçük hareket dene, 60–90 saniye dinlen; yükseklikten önce kontrolü artır."
+          },
+          "selfCheck": [
+            {
+              "en": "My elbows stay nearly still.",
+              "tr": "Dirseklerim neredeyse sabit."
+            },
+            {
+              "en": "I do not thrust the head forward.",
+              "tr": "Başımı öne fırlatmıyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Practice standing shoulder-blade movement without hand loading.",
+            "tr": "Ele yük vermeden ayakta kürek kemiği hareketi yap."
+          },
+          "stop": {
+            "en": "Stop shoulder pinching, tingling or forced end-range.",
+            "tr": "Omuz sıkışması, karıncalanma veya zorlanan son aralıkta dur."
+          },
+          "sourceIds": [
+            "nasm_push",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-19"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Rear-diagonal wall support close-up plus side trunk; small protraction/retraction only.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Arkadan çapraz duvar desteği yakın plan ve yandan gövde; yalnız küçük öne/geriye kürek hareketi."
+          }
+        },
+        {
+          "id": "cal-21",
+          "title": {
+            "en": "Dip preparation, feet supported",
+            "tr": "Ayak destekli dip hazırlığı"
+          },
+          "objective": {
+            "en": "Learn support before a deep parallel-bar dip.",
+            "tr": "Derin paralel bar dipten önce desteği öğren."
+          },
+          "steps": [
+            {
+              "en": "Use fixed rated parallel handles low enough to keep both feet down; do not use two loose chairs.",
+              "tr": "İki ayağı yerde tutacak kadar alçak sabit uygun paralel tutacak kullan; iki gevşek sandalye kullanma."
+            },
+            {
+              "en": "Hold lightly through the hands with shoulders comfortable, feet carrying most of the weight.",
+              "tr": "Omuzlar rahat, yükün çoğu ayakta olacak şekilde ellerden hafif destek al."
+            },
+            {
+              "en": "Explore only a tiny elbow bend and return; deep shoulder extension is not part of this preparation.",
+              "tr": "Yalnız çok küçük dirsek bükme ve dönüş dene; derin omuz geriye açılması bu hazırlığa ait değil."
+            }
+          ],
+          "practice": {
+            "en": "Choose 2 supported holds of 5–10 seconds or 3 tiny bends; rest 90 seconds. Without rated handles, study the setup and use wall presses.",
+            "tr": "2 destekli 5–10 saniye tutuş veya 3 küçük bükme seç; 90 saniye dinlen. Uygun tutacak yoksa kurulumu incele ve duvar itişi kullan."
+          },
+          "selfCheck": [
+            {
+              "en": "Feet remain able to unload the arms immediately.",
+              "tr": "Ayaklar koldaki yükü hemen alabilecek durumda."
+            },
+            {
+              "en": "Shoulders do not sink into an uncomfortable depth.",
+              "tr": "Omuzlar rahatsız derinliğe çökmüyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Keep all weight on the feet or repeat incline pressing; full dips are optional later with coaching.",
+            "tr": "Tüm yükü ayakta tut veya yükselti itişini yinele; tam dip daha sonra eğitmenle isteğe bağlı."
+          },
+          "stop": {
+            "en": "Stop front-shoulder pain, unstable handles or loss of foot support.",
+            "tr": "Ön omuz ağrısı, oynayan tutacak veya ayak desteği kaybında dur."
+          },
+          "sourceIds": [
+            "nasm_push",
+            "acsm2026",
+            "ace"
+          ],
+          "prerequisites": [
+            "cal-20"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Rated low parallel handles and planted feet wide shot; tiny bend, no chair dip or deep range.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Uygun alçak paralel tutacak ve yerde ayak geniş plan; küçük bükme, sandalye dip veya derin aralık yok."
+          }
+        }
+      ]
+    },
+    {
+      "id": "pull",
+      "title": {
+        "en": "Pulling with reliable equipment",
+        "tr": "Güvenilir ekipmanla çekiş"
+      },
+      "lessons": [
+        {
+          "id": "cal-22",
+          "title": {
+            "en": "Pulling equipment and exits",
+            "tr": "Çekiş ekipmanı ve çıkışlar"
+          },
+          "objective": {
+            "en": "Choose an anchor and exit before leaving the ground.",
+            "tr": "Zeminden ayrılmadan bağlantı ve çıkışı seç."
+          },
+          "steps": [
+            {
+              "en": "Read the manufacturer installation and load instructions for the bar or suspension system; ask qualified help if uncertain.",
+              "tr": "Bar veya askı sisteminin üretici montaj ve yük talimatını oku; belirsizse yetkin yardım al."
+            },
+            {
+              "en": "Inspect mounts, straps and handles; clear the floor and avoid swinging, jumping onto the bar or makeshift door trim.",
+              "tr": "Bağlantı, kayış ve tutacakları incele; zemini boşalt, sallanma, bara sıçrama veya doğaçlama pervazdan kaçın."
+            },
+            {
+              "en": "Use a stable access step and foot support that let you return immediately; rated equipment is a prerequisite, not a camera check.",
+              "tr": "Hemen dönebileceğin sabit erişim basamağı ve ayak desteği kullan; uygun ekipman kamera kontrolü değil önkoşuldur."
+            }
+          ],
+          "practice": {
+            "en": "Perform an unloaded inspection and rehearse the foot-supported entry/exit twice; do not hang to test unknown hardware.",
+            "tr": "Yüksüz kontrol yap, ayak destekli giriş/çıkışı iki kez prova et; bilinmeyen ekipmanı asılarak test etme."
+          },
+          "selfCheck": [
+            {
+              "en": "I have verified the mounting instructions, not guessed from appearance.",
+              "tr": "Montaj talimatını doğruladım, görünüşten tahmin etmedim."
+            },
+            {
+              "en": "I can step down without jumping.",
+              "tr": "Sıçramadan inebiliyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Without suitable equipment, complete the learning task and use an unloaded seated pulling rehearsal; this does not replace resistance pulling.",
+            "tr": "Uygun ekipman yoksa öğrenme görevini ve yüksüz oturarak çekiş provasını yap; bu dirençli çekişin yerine geçmez."
+          },
+          "stop": {
+            "en": "Do not start if mounting, load rating or inspection is uncertain.",
+            "tr": "Montaj, taşıma sınırı veya kontrol belirsizse başlama."
+          },
+          "sourceIds": [
+            "nasm_pull",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-21"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Anchor rating and attachment detail, then wide access step and exit; no table/door improvisation.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Bağlantı taşıma etiketi ve detay, ardından geniş erişim basamağı ve çıkış; masa/kapı doğaçlaması yok."
+          }
+        },
+        {
+          "id": "cal-23",
+          "title": {
+            "en": "Bent-knee body row",
+            "tr": "Diz bükülü beden row"
+          },
+          "objective": {
+            "en": "Learn horizontal pulling while feet stay supported.",
+            "tr": "Ayaklar destekliyken yatay çekişi öğren."
+          },
+          "steps": [
+            {
+              "en": "Low bar: sit underneath, grip it, face upward and keep bent knees with feet planted before lightly raising hips. Suspension: face the rated anchor, grip handles, step feet forward slightly and lean back with both feet planted.",
+              "tr": "Alçak bar: altına otur, tut, yüz yukarı ve diz bükülü ayaklar basılıyken kalçayı hafif kaldır. Askı: uygun bağlantıya dön, tutacakları tut, ayakları biraz öne al ve iki ayak basılı geriye eğil."
+            },
+            {
+              "en": "For either setup, pull the chest toward the bar or handles with hips following shoulders; use a comfortable grip and keep foot assistance.",
+              "tr": "İki düzende de kalça omzu izlerken göğsü bar veya tutacağa çek; rahat tutuş ve ayak yardımını koru."
+            },
+            {
+              "en": "Lower slowly: at a low bar put hips back on the mat before releasing; with suspension step feet back to stand upright before releasing. Keep enough foot pressure to exit immediately.",
+              "tr": "Yavaş alçal: alçak barda bırakmadan kalçayı mata koy; askıda bırakmadan ayakları geriye alıp dikleş. Hemen çıkmak için yeterli ayak basıncı bırak."
+            }
+          ],
+          "practice": {
+            "en": "Try 1–2 sets of 3–5 with 90–120 seconds rest; a more upright suspension angle is easier.",
+            "tr": "90–120 saniye dinlenmeyle 1–2 set 3–5 dene; askıda daha dik açı daha kolaydır."
+          },
+          "selfCheck": [
+            {
+              "en": "Hips do not sag behind the chest.",
+              "tr": "Kalça göğsün gerisinde sarkmıyor."
+            },
+            {
+              "en": "I do not jerk the first pull.",
+              "tr": "İlk çekişi ani yapmıyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Choose a more upright rated suspension row or study the movement if no equipment is available.",
+            "tr": "Daha dik uygun askı row seç; ekipman yoksa hareketi incele."
+          },
+          "stop": {
+            "en": "Stop grip slippage, shoulder pain or movement of the anchor.",
+            "tr": "Tutuş kayması, omuz ağrısı veya bağlantı hareketinde dur."
+          },
+          "sourceIds": [
+            "nasm_pull",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-22"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Low-bar side row with bent knees and feet in frame; upright suspension alternative.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Bükülü diz ve ayak kadrajıyla alçak bar yandan row; dik askı alternatifi."
+          }
+        },
+        {
+          "id": "cal-24",
+          "title": {
+            "en": "A longer row lever",
+            "tr": "Row kolunu uzatmak"
+          },
+          "objective": {
+            "en": "Increase row demand by one small lever change.",
+            "tr": "Tek küçük kol değişimiyle row yükünü artır."
+          },
+          "steps": [
+            {
+              "en": "First repeat the bent-knee row with stable breathing and an immediate foot exit.",
+              "tr": "Önce dengeli nefes ve hemen ayak çıkışıyla diz bükülü rowu yinele."
+            },
+            {
+              "en": "Move the feet a small amount farther out or make the body less upright, not both at once.",
+              "tr": "Ayakları biraz uzaklaştır veya bedeni daha yatay yap; ikisini aynı anda değil."
+            },
+            {
+              "en": "Keep the same chest-to-handle path and controlled return; a hard lever is optional.",
+              "tr": "Aynı göğüs-tutacak yolunu ve kontrollü dönüşü koru; zor kol isteğe bağlı."
+            }
+          ],
+          "practice": {
+            "en": "Compare 3 repetitions at the familiar lever with 2 at the slightly harder lever, resting 120 seconds; stay easier if control changes.",
+            "tr": "Tanıdık kolda 3 tekrar ile biraz zor kolda 2 tekrarı 120 saniye dinlenerek karşılaştır; kontrol değişirse kolayda kal."
+          },
+          "selfCheck": [
+            {
+              "en": "I changed one variable only.",
+              "tr": "Yalnız bir değişken değiştirdim."
+            },
+            {
+              "en": "The return remains as controlled as the pull.",
+              "tr": "Dönüş çekiş kadar kontrollü kalıyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Keep bent knees or a more upright body.",
+            "tr": "Dizleri bükülü veya bedeni daha dik tut."
+          },
+          "stop": {
+            "en": "Stop elbow/shoulder pain or inability to lower smoothly.",
+            "tr": "Dirsek/omuz ağrısı veya akıcı inememede dur."
+          },
+          "sourceIds": [
+            "nasm_pull",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-23"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Matched side shots of two modest lever lengths with same rated anchor; no maximum horizontal challenge.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Aynı uygun bağlantıda iki küçük kol farkının eş yandan planları; en zor yatay meydan okuma yok."
+          }
+        },
+        {
+          "id": "cal-25",
+          "title": {
+            "en": "Foot-supported hang",
+            "tr": "Ayak destekli asılma"
+          },
+          "objective": {
+            "en": "Explore an overhead grip without a forced full hang.",
+            "tr": "Zorunlu tam asılma olmadan baş üstü tutuşu tanı."
+          },
+          "steps": [
+            {
+              "en": "Use the inspected bar and a stable step that keeps both feet supported.",
+              "tr": "Kontrol edilen bar ve iki ayağı destekleyen sabit basamak kullan."
+            },
+            {
+              "en": "Grip comfortably and transfer only a small part of the weight to the arms; avoid forcing the shoulders into an end-range.",
+              "tr": "Rahat tut ve yükün yalnız küçük bölümünü kola aktar; omuzu son aralığa zorlama."
+            },
+            {
+              "en": "Return weight to the feet before releasing the hands.",
+              "tr": "Elleri bırakmadan yükü ayaklara geri ver."
+            }
+          ],
+          "practice": {
+            "en": "Try 2–3 supported holds of 5 seconds with 60–90 seconds rest; no free hang is required.",
+            "tr": "60–90 saniye dinlenmeyle 2–3 destekli 5 saniye tutuş dene; serbest asılma gerekli değil."
+          },
+          "selfCheck": [
+            {
+              "en": "I can unload onto my feet at any moment.",
+              "tr": "Her an yükü ayağa alabiliyorum."
+            },
+            {
+              "en": "Grip and shoulder position remain comfortable.",
+              "tr": "Tutuş ve omuz konumu rahat kalıyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Keep all weight on the feet and rehearse the grip, or remain with rows.",
+            "tr": "Tüm yükü ayakta tutup tutuşu prova et veya rowda kal."
+          },
+          "stop": {
+            "en": "Stop tingling, shoulder pain or unreliable foot support.",
+            "tr": "Karıncalanma, omuz ağrısı veya güvenilmez ayak desteğinde dur."
+          },
+          "sourceIds": [
+            "nasm_pull",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-24"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Wide overhead bar with feet firmly on rated step, close grip detail; no dangling beginner.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Uygun basamakta sağlam ayaklarla geniş baş üstü bar, tutuş detayı; boşta sallanan başlangıç modeli yok."
+          }
+        },
+        {
+          "id": "cal-26",
+          "title": {
+            "en": "Supported scapular pull",
+            "tr": "Destekli kürek çekişi"
+          },
+          "objective": {
+            "en": "Explore a small shoulder-girdle action before vertical pulling.",
+            "tr": "Dikey çekişten önce küçük omuz kuşağı hareketini tanı."
+          },
+          "steps": [
+            {
+              "en": "Keep feet supported in the previous hang setup and elbows nearly straight.",
+              "tr": "Önceki asılma düzeninde ayakları destekli, dirsekleri neredeyse düz tut."
+            },
+            {
+              "en": "Gently lift the chest a small amount by moving the shoulder girdle; do not turn it into a full pull-up.",
+              "tr": "Omuz kuşağıyla göğsü az yükselt; tam barfikse dönüştürme."
+            },
+            {
+              "en": "Release the small motion slowly while feet still share the load.",
+              "tr": "Ayaklar yükü paylaşırken küçük hareketi yavaş bırak."
+            }
+          ],
+          "practice": {
+            "en": "Use 1–2 sets of 3 small motions, resting 90 seconds; stop well before grip fatigue.",
+            "tr": "90 saniye dinlenerek 1–2 set 3 küçük hareket; tutuş yorgunluğundan çok önce bitir."
+          },
+          "selfCheck": [
+            {
+              "en": "Elbows do not supply the movement by bending.",
+              "tr": "Dirsek bükülmesi hareketi üretmiyor."
+            },
+            {
+              "en": "I can distinguish a small shrug change from a pull-up.",
+              "tr": "Küçük omuz hareketini barfiksten ayırabiliyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Rehearse shoulder-blade motion standing with no overhead load.",
+            "tr": "Baş üstü yük olmadan ayakta kürek kemiği hareketini prova et."
+          },
+          "stop": {
+            "en": "Stop shoulder pinching or neck strain.",
+            "tr": "Omuz sıkışması veya boyun zorlanmasında dur."
+          },
+          "sourceIds": [
+            "nasm_pull",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-25"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Rear diagonal of tiny supported shoulder movement with elbow and feet in frame.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Dirsek ve ayak kadrajda, destekli küçük omuz hareketinin arkadan çapraz görüntüsü."
+          }
+        },
+        {
+          "id": "cal-27",
+          "title": {
+            "en": "Assisted vertical pull",
+            "tr": "Yardımlı dikey çekiş"
+          },
+          "objective": {
+            "en": "Learn a controlled pull with reliable assistance.",
+            "tr": "Güvenilir yardımla kontrollü çekiş öğren."
+          },
+          "steps": [
+            {
+              "en": "Prefer a correctly adjusted assisted machine or coached foot assistance on rated equipment; bands need inspected anchors and rebound awareness.",
+              "tr": "Doğru ayarlı yardım makinesi veya uygun ekipmanda eğitmenli ayak yardımını tercih et; bantta kontrol edilmiş bağlantı ve geri sıçrama farkındalığı gerekir."
+            },
+            {
+              "en": "Pull the chest upward without kicking or craning the chin; use a comfortable range.",
+              "tr": "Tekme veya çeneyi uzatmadan göğsü yukarı çek; rahat aralık kullan."
+            },
+            {
+              "en": "Return slowly with the assistance present throughout; do not drop into a free hang.",
+              "tr": "Yardım boyunca mevcutken yavaş dön; serbest asılmaya düşme."
+            }
+          ],
+          "practice": {
+            "en": "If equipment and guidance are available, try 1–2 sets of 2–4 with 120 seconds rest. Otherwise study the setup and repeat rows.",
+            "tr": "Ekipman ve rehberlik varsa 120 saniye dinlenerek 1–2 set 2–4 dene. Yoksa kurulumu incele ve rowu yinele."
+          },
+          "selfCheck": [
+            {
+              "en": "Assistance is predictable through the whole range.",
+              "tr": "Yardım tüm aralık boyunca öngörülebilir."
+            },
+            {
+              "en": "I do not swing or reach the chin to fake height.",
+              "tr": "Yüksekliği taklit için sallanmıyorum veya çeneyi uzatmıyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Use more reliable assistance or retain the horizontal row.",
+            "tr": "Daha güvenilir yardım kullan veya yatay rowda kal."
+          },
+          "stop": {
+            "en": "Stop band damage/rebound risk, shoulder pain or lost assistance.",
+            "tr": "Bant hasarı/geri sıçrama riski, omuz ağrısı veya yardım kaybında dur."
+          },
+          "sourceIds": [
+            "nasm_pull",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-26"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Assisted machine demonstration with pin adjustment and controlled return; foot-supported alternative, no band snap.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Pim ayarı ve kontrollü dönüşle yardım makinesi; ayak destekli alternatif, bant sıçraması yok."
+          }
+        },
+        {
+          "id": "cal-28",
+          "title": {
+            "en": "Negative pull-up: optional",
+            "tr": "Negatif barfiks: isteğe bağlı"
+          },
+          "objective": {
+            "en": "Understand the eccentric option and its exit before trying it.",
+            "tr": "Negatif seçeneği denemeden çıkışını anla."
+          },
+          "steps": [
+            {
+              "en": "Only consider this after comfortable assisted pulls and reliable grip; use rated bar, a stable access step and qualified guidance if uncertain.",
+              "tr": "Yalnız rahat yardımlı çekiş ve güvenilir tutuş sonrası düşün; uygun bar, sabit erişim basamağı ve belirsizse yetkin rehber kullan."
+            },
+            {
+              "en": "Step into an assisted top position without jumping; keep the step reachable while lowering a short controlled distance.",
+              "tr": "Sıçramadan yardımlı üst konuma adımla; kısa kontrollü inerken basamak erişilebilir kalsın."
+            },
+            {
+              "en": "Put weight back on the feet before grip fades; a full unsupported descent is not required.",
+              "tr": "Tutuş azalmadan yükü ayağa geri ver; tam desteksiz iniş gerekli değil."
+            }
+          ],
+          "practice": {
+            "en": "Optional: 1 set of 1–3 short assisted descents with 120 seconds rest. The valid alternative is 3–5 easy rows plus a written exit plan.",
+            "tr": "İsteğe bağlı: 120 saniye dinlenmeyle 1 set 1–3 kısa yardımlı iniş. Geçerli alternatif 3–5 kolay row ve yazılı çıkış planı."
+          },
+          "selfCheck": [
+            {
+              "en": "I can reach the step before releasing.",
+              "tr": "Bırakmadan basamağa erişebiliyorum."
+            },
+            {
+              "en": "No repetition ends in an uncontrolled drop.",
+              "tr": "Hiçbir tekrar kontrolsüz düşmeyle bitmiyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Remain with assisted pulls or rows; eccentric soreness can be larger than the task feels.",
+            "tr": "Yardımlı çekiş veya rowda kal; negatif çalışma sonradan beklenenden fazla ağrı yapabilir."
+          },
+          "stop": {
+            "en": "Stop sudden descent, tendon/joint pain or grip loss; do not repeat to failure.",
+            "tr": "Ani iniş, tendon/eklem ağrısı veya tutuş kaybında dur; tükenene kadar yineleme."
+          },
+          "sourceIds": [
+            "nasm_pull",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-27"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Close stable step placement then short supported descent; label optional and retain feet in frame.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sabit basamak yerleşimi yakın plan, kısa destekli iniş; isteğe bağlı etiketi ve ayaklar kadrajda."
+          }
+        }
+      ]
+    },
+    {
+      "id": "core",
+      "title": {
+        "en": "Trunk control through changing levers",
+        "tr": "Değişen kollarda gövde kontrolü"
+      },
+      "lessons": [
+        {
+          "id": "cal-29",
+          "title": {
+            "en": "Bird-dog, one limb first",
+            "tr": "Bird-dog, önce tek uzuv"
+          },
+          "objective": {
+            "en": "Keep the trunk quiet as a limb moves.",
+            "tr": "Uzuv hareket ederken gövdeyi sakin tut."
+          },
+          "steps": [
+            {
+              "en": "From padded hands and knees, place hands near shoulders and knees near hips.",
+              "tr": "Eller-dizler yastıklıyken elleri omuz, dizleri kalça yakınına koy."
+            },
+            {
+              "en": "Slide one leg back on the floor first; then reach the opposite arm only if trunk control remains easy.",
+              "tr": "Önce bir bacağı zeminde geri kaydır; gövde kontrolü kolaysa karşı kolu uzat."
+            },
+            {
+              "en": "Return quietly and change sides; height matters less than avoiding trunk rotation.",
+              "tr": "Yumuşak dön ve taraf değiştir; yükseklikten çok gövdenin dönmemesi önemlidir."
+            }
+          ],
+          "practice": {
+            "en": "Try 1–2 sets of 3 each side with 60 seconds rest; start with only a leg slide.",
+            "tr": "60 saniye dinlenmeyle taraf başına 1–2 set 3 dene; yalnız bacak kaydırmayla başla."
+          },
+          "selfCheck": [
+            {
+              "en": "My hips do not roll as I reach.",
+              "tr": "Uzanırken kalçam dönmüyor."
+            },
+            {
+              "en": "I can keep breathing rather than brace maximally.",
+              "tr": "En sert sıkılma yerine nefes sürdürebiliyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Use standing hand-supported reaches if kneeling or wrist loading is uncomfortable.",
+            "tr": "Diz üstü veya bilek yükü rahatsızsa ayakta el destekli uzanma kullan."
+          },
+          "stop": {
+            "en": "Stop wrist/knee pain or back symptoms increasing during the reach.",
+            "tr": "Bilek/diz ağrısı veya uzanırken artan bel belirtisinde dur."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "nasm_plank",
+            "ace_bird"
+          ],
+          "prerequisites": [
+            "cal-28"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Rear diagonal trunk view and side leg slide; opposite reach stays low, no balancing objects.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Arkadan çapraz gövde ve yandan bacak kaydırma; karşı uzanma alçak, denge nesnesi yok."
+          }
+        },
+        {
+          "id": "cal-30",
+          "title": {
+            "en": "Dead bug, short lever",
+            "tr": "Dead bug, kısa kol"
+          },
+          "objective": {
+            "en": "Move a heel while controlling the rib-pelvis relationship.",
+            "tr": "Kaburga-leğen ilişkisini kontrol ederek topuğu hareket ettir."
+          },
+          "steps": [
+            {
+              "en": "Lie comfortably on a mat with knees bent; begin with feet supported rather than both legs raised.",
+              "tr": "Dizler bükülü rahat uzan; iki bacağı havaya almak yerine ayak destekli başla."
+            },
+            {
+              "en": "Exhale gently as one heel slides away; keep the back in a comfortable, steady position without forcing it flat.",
+              "tr": "Bir topuk uzaklaşırken nazikçe nefes ver; beli zorla düzleştirmeden rahat sabit tut."
+            },
+            {
+              "en": "Return the heel and alternate; opposite arm reaching is a later option.",
+              "tr": "Topuğu geri getir ve değiştir; karşı kol uzatma daha sonraki seçenek."
+            }
+          ],
+          "practice": {
+            "en": "Practice 1–2 sets of 3–5 heel slides per side, resting 60 seconds; reduce the slide before raising the legs.",
+            "tr": "60 saniye dinlenerek taraf başına 1–2 set 3–5 topuk kaydır; bacağı kaldırmadan kaydırmayı küçült."
+          },
+          "selfCheck": [
+            {
+              "en": "The range does not pull my trunk into an arch.",
+              "tr": "Aralık gövdemi bükülmeye çekmiyor."
+            },
+            {
+              "en": "I breathe without a maximal breath hold.",
+              "tr": "En sert nefes tutuşu olmadan nefes alıyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Use seated alternating foot lifts or standing reaches; pregnancy supine tasks require care-team adaptation, especially prolonged lying.",
+            "tr": "Oturarak sırayla ayak kaldır veya ayakta uzan; gebelikte özellikle uzun sırtüstü görev bakım ekibiyle uyarlanmalıdır."
+          },
+          "stop": {
+            "en": "Stop back pain or dizziness when lying down; do not continue an unsuitable supine position.",
+            "tr": "Bel ağrısı veya uzanırken baş dönmesinde dur; uygun olmayan sırtüstü konumu sürdürme."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "nasm_plank",
+            "nasm_dead",
+            "nhs_pregnancy"
+          ],
+          "prerequisites": [
+            "cal-29"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side short heel slide with rib/pelvis visible; seated alternative, no forced spine flattening.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Kaburga/leğen görünen yandan kısa topuk kaydırma; oturarak alternatif, zorla bel düzleştirme yok."
+          }
+        },
+        {
+          "id": "cal-31",
+          "title": {
+            "en": "Incline plank",
+            "tr": "Yükseltide plank"
+          },
+          "objective": {
+            "en": "Build a comfortable support hold before the floor.",
+            "tr": "Yerden önce rahat destek tutuşu kur."
+          },
+          "steps": [
+            {
+              "en": "Place hands or forearms on a fixed high surface and feet on non-slip ground.",
+              "tr": "El veya önkolları sabit yüksek yüzeye, ayakları kaymayan zemine koy."
+            },
+            {
+              "en": "Keep head, trunk and legs connected without forcing the pelvis into an exaggerated tuck.",
+              "tr": "Leğeni aşırı kıvırmadan baş, gövde ve bacağı bağlantılı tut."
+            },
+            {
+              "en": "Breathe through a short hold, then step closer before releasing support.",
+              "tr": "Kısa tutuşta nefes al; desteği bırakmadan yakına adımla."
+            }
+          ],
+          "practice": {
+            "en": "Try 2–3 holds of 5–10 seconds with 45–90 seconds rest; shorter comfortable holds are useful.",
+            "tr": "45–90 saniye dinlenmeyle 2–3 tutuş 5–10 saniye dene; daha kısa rahat tutuşlar işe yarar."
+          },
+          "selfCheck": [
+            {
+              "en": "My support is stable.",
+              "tr": "Desteğim sabit."
+            },
+            {
+              "en": "I finish while breathing and posture remain manageable.",
+              "tr": "Nefes ve duruş yönetilebilirken bitiriyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Use the wall or stand closer; forearm contact can reduce hand pressure if comfortable.",
+            "tr": "Duvar kullan veya yakına gel; rahatsa önkol teması el basıncını azaltabilir."
+          },
+          "stop": {
+            "en": "Stop shoulder/wrist pain or breath holding that you cannot comfortably release.",
+            "tr": "Omuz/bilek ağrısı veya rahat bırakamadığın nefes tutuşunda dur."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "nasm_plank"
+          ],
+          "prerequisites": [
+            "cal-30"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side high counter hold and wall regression; hands, feet and support base visible.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan yüksek tezgâh tutuşu ve duvar kolay yolu; el, ayak ve destek tabanı görünür."
+          }
+        },
+        {
+          "id": "cal-32",
+          "title": {
+            "en": "Floor plank option",
+            "tr": "Yerde plank seçeneği"
+          },
+          "objective": {
+            "en": "Choose a short floor hold without a duration contest.",
+            "tr": "Süre yarışına girmeden kısa yer tutuşu seç."
+          },
+          "steps": [
+            {
+              "en": "Use padded forearms near shoulder level; start with knees down if needed.",
+              "tr": "Önkolu omuz yakınında yastıkla; gerekirse diz yerde başla."
+            },
+            {
+              "en": "Lift into a manageable knee or toe support while keeping the trunk from sagging.",
+              "tr": "Gövde sarkmadan yönetilebilir diz veya parmak desteğine yüksel."
+            },
+            {
+              "en": "End by putting knees down gently before the body collapses.",
+              "tr": "Beden çökmeden dizleri nazikçe koyarak bitir."
+            }
+          ],
+          "practice": {
+            "en": "Choose 2 holds of 5–15 seconds with 60–90 seconds rest; use shorter holds if breathing changes.",
+            "tr": "60–90 saniye dinlenmeyle 2 tutuş 5–15 saniye seç; nefes değişirse daha kısa tut."
+          },
+          "selfCheck": [
+            {
+              "en": "I can speak a few comfortable words.",
+              "tr": "Rahat birkaç kelime söyleyebiliyorum."
+            },
+            {
+              "en": "I use a controlled exit rather than collapse.",
+              "tr": "Çöküş yerine kontrollü çıkış kullanıyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Return to incline plank; floor work is an option, not an achievement gate.",
+            "tr": "Yükseltide planka dön; yer çalışması seçenek, başarı kapısı değil."
+          },
+          "stop": {
+            "en": "Stop back, shoulder or elbow pain; numbness is not an endurance target.",
+            "tr": "Bel, omuz veya dirsek ağrısında dur; uyuşma dayanıklılık hedefi değildir."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "nasm_plank"
+          ],
+          "prerequisites": [
+            "cal-31"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side forearm hold with knee-supported alternative and deliberate knee-down exit.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Diz destekli alternatif ve bilinçli dizle çıkışla yandan önkol tutuşu."
+          }
+        },
+        {
+          "id": "cal-33",
+          "title": {
+            "en": "Short-lever side support",
+            "tr": "Kısa kollu yan destek"
+          },
+          "objective": {
+            "en": "Learn lateral support with bent knees.",
+            "tr": "Diz bükülü yan desteği öğren."
+          },
+          "steps": [
+            {
+              "en": "Lie on your side with padded forearm and bent knees; position elbow near shoulder.",
+              "tr": "Yastıklı önkol ve bükülü dizle yan uzan; dirseği omuz yakınına koy."
+            },
+            {
+              "en": "Press the forearm and knees down to lift the hips slightly, keeping shoulders and pelvis facing the same direction.",
+              "tr": "Önkol ve dizi iterek kalçayı az kaldır; omuz ve leğen aynı yöne baksın."
+            },
+            {
+              "en": "Lower gently and turn through sitting rather than rolling quickly onto the other arm.",
+              "tr": "Nazik indir; diğer kola hızla yuvarlanmak yerine oturarak taraf değiştir."
+            }
+          ],
+          "practice": {
+            "en": "Try 2 holds of 5–8 seconds per side, resting 60 seconds; use one hold if this is new.",
+            "tr": "Taraf başına 2 tutuş 5–8 saniye dene, 60 saniye dinlen; yeniyse tek tutuş kullan."
+          },
+          "selfCheck": [
+            {
+              "en": "I do not sink heavily onto the shoulder.",
+              "tr": "Omzuma ağır çökmüyorum."
+            },
+            {
+              "en": "My trunk does not rotate to extend the hold.",
+              "tr": "Süreyi uzatmak için gövdem dönmüyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Use a standing side press against a wall or keep hips on the mat.",
+            "tr": "Duvarda ayakta yana itiş kullan veya kalçayı matta tut."
+          },
+          "stop": {
+            "en": "Stop shoulder compression pain or inability to lower gently.",
+            "tr": "Omuz basınç ağrısı veya nazik inememede dur."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "nasm_plank"
+          ],
+          "prerequisites": [
+            "cal-32"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Front diagonal knee-supported side hold with elbow cushion; wall alternative.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Dirsek yastıklı diz destekli yan tutuş önden çapraz; duvar alternatifi."
+          }
+        },
+        {
+          "id": "cal-34",
+          "title": {
+            "en": "Longer side-plank option",
+            "tr": "Uzun yan plank seçeneği"
+          },
+          "objective": {
+            "en": "Change the support lever without chasing a long hold.",
+            "tr": "Uzun süre kovalamadan destek kolunu değiştir."
+          },
+          "steps": [
+            {
+              "en": "First reproduce the short-lever side hold without shoulder or back discomfort.",
+              "tr": "Önce omuz veya bel rahatsızlığı olmadan kısa yan tutuşu yinele."
+            },
+            {
+              "en": "Extend the legs and stagger the feet for a broad base; keep the lower forearm supported.",
+              "tr": "Bacakları uzat ve geniş taban için ayakları şaşırt; alttaki önkol destekli kalsın."
+            },
+            {
+              "en": "Lift for a brief controlled hold; bend knees to exit as soon as control fades.",
+              "tr": "Kısa kontrollü tutuş için yüksel; kontrol azalınca diz bükerek çık."
+            }
+          ],
+          "practice": {
+            "en": "Choose 1–2 holds of 3–8 seconds per side with 90 seconds rest, or retain knee support.",
+            "tr": "90 saniye dinlenmeyle taraf başına 1–2 tutuş 3–8 saniye seç veya diz desteğinde kal."
+          },
+          "selfCheck": [
+            {
+              "en": "I can keep a steady shoulder rather than hike it toward my ear.",
+              "tr": "Omzu kulağa çekmek yerine dengeli tutabiliyorum."
+            },
+            {
+              "en": "Both sides use a manageable variant.",
+              "tr": "İki taraf da yönetilebilir varyasyon kullanıyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Bend one or both knees or return to wall side support.",
+            "tr": "Bir veya iki dizi bük ya da duvar yan desteğine dön."
+          },
+          "stop": {
+            "en": "Stop shoulder pain, dizziness or sudden loss of lateral support.",
+            "tr": "Omuz ağrısı, baş dönmesi veya ani yan destek kaybında dur."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "nasm_plank"
+          ],
+          "prerequisites": [
+            "cal-33"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Staggered feet detail and brief side hold; show knee exit, no elevated-foot variation.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Şaşırtılmış ayak detayı ve kısa yan tutuş; dizle çıkış, yükseltilmiş ayak varyasyonu yok."
+          }
+        },
+        {
+          "id": "cal-35",
+          "title": {
+            "en": "Tuck hollow preparation",
+            "tr": "Tuck hollow hazırlığı"
+          },
+          "objective": {
+            "en": "Understand a short trunk lever before long hollow holds.",
+            "tr": "Uzun hollow tutuşundan önce kısa gövde kolunu anla."
+          },
+          "steps": [
+            {
+              "en": "On a mat, keep knees bent and feet initially supported; choose a comfortable head position.",
+              "tr": "Matta diz bükülü, ayak başlangıçta destekli; rahat baş konumunu seç."
+            },
+            {
+              "en": "Gently organize ribs and pelvis, then lift one foot or a small part of the upper trunk only if comfortable.",
+              "tr": "Kaburga ve leğeni nazik düzenle; rahatsa bir ayağı veya üst gövdenin küçük bölümünü kaldır."
+            },
+            {
+              "en": "Return before neck strain or back arching; lifting arms overhead is not required.",
+              "tr": "Boyun zorlanması veya bel bükülmesinden önce dön; kolları baş üstüne kaldırmak gerekmez."
+            }
+          ],
+          "practice": {
+            "en": "Try 2 holds of 3–6 seconds with 60 seconds rest; the heel-slide alternative is equally valid.",
+            "tr": "60 saniye dinlenmeyle 2 tutuş 3–6 saniye dene; topuk kaydırma alternatifi aynı ölçüde geçerli."
+          },
+          "selfCheck": [
+            {
+              "en": "My neck is comfortable rather than pulled forward.",
+              "tr": "Boynum öne çekilmek yerine rahat."
+            },
+            {
+              "en": "I reduce the lever when my back position changes.",
+              "tr": "Bel konumu değişince kolu kısaltıyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Use supported dead-bug heel slides or upright practice; adapt supine work with pregnancy care advice.",
+            "tr": "Destekli dead-bug topuk kaydırma veya dik çalışma kullan; gebelikte sırtüstü çalışmayı bakım önerisiyle uyarla."
+          },
+          "stop": {
+            "en": "Stop neck/back pain or supine dizziness; never use a painful lower-back press as a target.",
+            "tr": "Boyun/bel ağrısı veya sırtüstü baş dönmesinde dur; ağrılı bel bastırmayı hedef yapma."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "nasm_plank",
+            "nasm_dead",
+            "nhs_pregnancy"
+          ],
+          "prerequisites": [
+            "cal-34"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side bent-knee short lever with supported head alternative; no straight-leg maximal hollow.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan bükülü diz kısa kol ve baş destekli alternatif; düz bacak en zor hollow yok."
+          }
+        },
+        {
+          "id": "cal-36",
+          "title": {
+            "en": "Hanging knee raise option",
+            "tr": "Asılı diz kaldırma seçeneği"
+          },
+          "objective": {
+            "en": "Move knees without swinging when equipment and grip are ready.",
+            "tr": "Ekipman ve tutuş hazırsa sallanmadan dizleri hareket ettir."
+          },
+          "steps": [
+            {
+              "en": "Use the inspected bar with a stable return step; attempt only after comfortable supported hanging and pulling.",
+              "tr": "Kontrol edilen bar ve sabit dönüş basamağı kullan; yalnız rahat destekli asılma ve çekiş sonrası dene."
+            },
+            {
+              "en": "Keep one foot firmly on the stable step while lifting only the other knee a small amount; do not throw the leg or remove both feet. Full leg raises and toes-to-bar are later skills.",
+              "tr": "Yalnız öteki dizi az kaldırırken bir ayağı sabit basamakta sağlam tut; bacağı fırlatma veya iki ayağı kaldırma. Tam bacak ve ayak-bara sonraki beceriler."
+            },
+            {
+              "en": "Fully replace the lifted foot on the step before changing sides; finish with both feet carrying the weight before releasing the bar.",
+              "tr": "Taraf değiştirmeden kaldırılan ayağı tam basamağa koy; barı bırakmadan iki ayak yükü taşıyarak bitir."
+            }
+          ],
+          "practice": {
+            "en": "Optional: 1–2 sets of 2–3 small lifts with 120 seconds rest. Without equipment or readiness, use 3–5 seated alternating knee lifts.",
+            "tr": "İsteğe bağlı: 120 saniye dinlenmeyle 1–2 set 2–3 küçük kaldırış. Ekipman/hazır oluş yoksa 3–5 oturarak sırayla diz kaldır."
+          },
+          "selfCheck": [
+            {
+              "en": "I do not swing to gain height.",
+              "tr": "Yükseklik için sallanmıyorum."
+            },
+            {
+              "en": "My exit remains available throughout.",
+              "tr": "Çıkışım her an erişilebilir."
+            }
+          ],
+          "adaptation": {
+            "en": "Keep feet on support, or use seated marching; free hanging is never required for completion.",
+            "tr": "Ayakları destekli tut veya oturarak adımla; tamamlamak için serbest asılma gerekmez."
+          },
+          "stop": {
+            "en": "Stop grip loss, shoulder pain or swinging that you cannot settle.",
+            "tr": "Tutuş kaybı, omuz ağrısı veya durduramadığın sallanmada dur."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "nasm_plank",
+            "nasm_pull"
+          ],
+          "prerequisites": [
+            "cal-35"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Wide single knee lift, opposite foot planted on stable step throughout; replace foot before switching, then seated option. Never both feet free.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Bir diz kaldır geniş plan; karşı ayak boyunca sabit basamakta. Değiştirmeden ayağı geri koy, sonra oturarak seçenek. İki ayak boşta asla değil."
+          }
+        }
+      ]
+    },
+    {
+      "id": "conditioning",
+      "title": {
+        "en": "Controlled conditioning",
+        "tr": "Kontrollü kondisyon"
+      },
+      "lessons": [
+        {
+          "id": "cal-37",
+          "title": {
+            "en": "March and step-jack",
+            "tr": "Adımlama ve adımlı jack"
+          },
+          "objective": {
+            "en": "Build rhythm without jumping.",
+            "tr": "Sıçramadan ritim kur."
+          },
+          "steps": [
+            {
+              "en": "Begin with easy marching, seated or standing beside a support.",
+              "tr": "Oturarak veya destek yanında ayakta kolay adımlamayla başla."
+            },
+            {
+              "en": "If comfortable, step one foot sideways and return before changing sides; arm height is optional.",
+              "tr": "Rahatsa bir ayağı yana koyup dön, sonra değiştir; kol yüksekliği isteğe bağlı."
+            },
+            {
+              "en": "Keep a conversational effort and an easy stop; speed is not the goal.",
+              "tr": "Konuşabilecek efor ve kolay duruş koru; hız hedef değil."
+            }
+          ],
+          "practice": {
+            "en": "Try 2 rounds of 20–30 seconds with 60 seconds rest; reduce time or keep seated marching as needed.",
+            "tr": "60 saniye dinlenmeyle 2 tur 20–30 saniye dene; gerektiğinde süreyi azalt veya oturarak adımla."
+          },
+          "selfCheck": [
+            {
+              "en": "I can stop without stumbling.",
+              "tr": "Tökezlemeden durabiliyorum."
+            },
+            {
+              "en": "Breathing remains familiar and manageable.",
+              "tr": "Nefes tanıdık ve yönetilebilir kalıyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Use slower seated steps without arm movement.",
+            "tr": "Kol hareketi olmadan yavaş oturarak adım kullan."
+          },
+          "stop": {
+            "en": "Stop unusual breathlessness, chest pain or dizziness.",
+            "tr": "Alışılmadık nefes darlığı, göğüs ağrısı veya baş dönmesinde dur."
+          },
+          "sourceIds": [
+            "who",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-36"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Wide low-impact side step and seated march; no jumping jack or breathless montage.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Geniş düşük etkili yan adım ve oturarak adım; sıçramalı jack veya nefessiz montaj yok."
+          }
+        },
+        {
+          "id": "cal-38",
+          "title": {
+            "en": "Slow incline mountain climber",
+            "tr": "Yavaş yükseltide mountain climber"
+          },
+          "objective": {
+            "en": "Alternate a knee lift while support stays stable.",
+            "tr": "Destek sabitken sırayla diz kaldır."
+          },
+          "steps": [
+            {
+              "en": "Use the same fixed incline as the push-up and check its stability.",
+              "tr": "Şınavdaki sabit yükseltiyi kullan ve sağlamlığını kontrol et."
+            },
+            {
+              "en": "Bring one knee forward slowly while the supporting foot and arms remain steady.",
+              "tr": "Destek ayak ve kol dengeliyken bir dizi yavaş öne getir."
+            },
+            {
+              "en": "Return the foot before switching; do not run the feet to beat a timer.",
+              "tr": "Değiştirmeden ayağı geri koy; sayacı yenmek için ayakları koşturma."
+            }
+          ],
+          "practice": {
+            "en": "Practice 1–2 sets of 3–5 each side with 60–90 seconds rest; use standing knee lifts if wrists dislike loading.",
+            "tr": "60–90 saniye dinlenmeyle taraf başına 1–2 set 3–5 yap; bilek yükü rahatsızsa ayakta diz kaldır."
+          },
+          "selfCheck": [
+            {
+              "en": "My hips do not bounce with every step.",
+              "tr": "Her adımda kalçam zıplamıyor."
+            },
+            {
+              "en": "Hands and support remain secure.",
+              "tr": "El ve destek sağlam kalıyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Use a higher support or standing supported marching.",
+            "tr": "Daha yüksek destek veya ayakta destekli adım kullan."
+          },
+          "stop": {
+            "en": "Stop wrist pain, unstable support or inability to keep a slow pace.",
+            "tr": "Bilek ağrısı, oynayan destek veya yavaş kalamamanda dur."
+          },
+          "sourceIds": [
+            "who",
+            "acsm2026",
+            "nasm_push"
+          ],
+          "prerequisites": [
+            "cal-37"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side fixed incline with alternating slow knee lift; clear planted foot between switches.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sabit yükseltide yandan yavaş sırayla diz kaldır; değişimler arasında belirgin basan ayak."
+          }
+        },
+        {
+          "id": "cal-39",
+          "title": {
+            "en": "Step-back burpee, no jump",
+            "tr": "Geri adımlı burpee, sıçrama yok"
+          },
+          "objective": {
+            "en": "Connect standing and incline support without impact.",
+            "tr": "Ayakta duruş ve yükselti desteğini darbesiz bağla."
+          },
+          "steps": [
+            {
+              "en": "Use a fixed high bench; hinge and place hands before moving either foot.",
+              "tr": "Sabit yüksek bank kullan; ayak hareketinden önce kalçadan eğilip elleri koy."
+            },
+            {
+              "en": "Step one foot back then the other to a brief incline support; no push-up is required.",
+              "tr": "Bir ayağı sonra diğerini geriye koyarak kısa yükselti desteğine geç; şınav gerekmez."
+            },
+            {
+              "en": "Step forward in sequence and stand smoothly; omit jumping and racing.",
+              "tr": "Sırayla öne adımla ve akıcı kalk; sıçrama ve yarış çıkarılır."
+            }
+          ],
+          "practice": {
+            "en": "Try 1–2 sets of 2–4 slow cycles with 90 seconds rest; separate the hinge and steps if coordination is new.",
+            "tr": "90 saniye dinlenmeyle 1–2 set 2–4 yavaş döngü dene; koordinasyon yeniyse eğilme ve adımları ayır."
+          },
+          "selfCheck": [
+            {
+              "en": "Hands are secure before feet move.",
+              "tr": "Ayak hareketinden önce eller sağlam."
+            },
+            {
+              "en": "I can pause at every stage.",
+              "tr": "Her bölümde durabiliyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Use wall touch plus a single backward step or simple sit-to-stand.",
+            "tr": "Duvara dokunma ve tek geriye adım veya basit otur-kalk kullan."
+          },
+          "stop": {
+            "en": "Stop dizziness when changing level, slipping or back/wrist pain.",
+            "tr": "Seviye değişiminde baş dönmesi, kayma veya bel/bilek ağrısında dur."
+          },
+          "sourceIds": [
+            "who",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-38"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Wide fixed high bench full cycle, all contacts visible; no jump, push-up or speed edit.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sabit yüksek bankta geniş tam döngü, tüm temaslar görünür; sıçrama, şınav veya hızlandırma yok."
+          }
+        },
+        {
+          "id": "cal-40",
+          "title": {
+            "en": "An easy circuit",
+            "tr": "Kolay devre"
+          },
+          "objective": {
+            "en": "Combine familiar tasks without turning fatigue into proof.",
+            "tr": "Yorgunluğu kanıt saymadan tanıdık görevleri birleştir."
+          },
+          "steps": [
+            {
+              "en": "Choose three familiar options: supported squat, wall push and easy march.",
+              "tr": "Üç tanıdık seçenek seç: destekli squat, duvar itişi, kolay adımlama."
+            },
+            {
+              "en": "Finish each task with control and take enough rest to reset before the next.",
+              "tr": "Her görevi kontrolle bitir; sonrakinden önce yenilenecek kadar dinlen."
+            },
+            {
+              "en": "Check how you feel after the round; more rounds are optional, not a completion requirement.",
+              "tr": "Tur sonrası hissini kontrol et; ek tur isteğe bağlı, tamamlama şartı değil."
+            }
+          ],
+          "practice": {
+            "en": "One round: 3–5 squats, 3–5 wall pushes, 20 seconds easy march; rest 60–120 seconds between tasks. Optionally repeat once.",
+            "tr": "Bir tur: 3–5 squat, 3–5 duvar itişi, 20 saniye kolay adım; görev arası 60–120 saniye dinlen. İstersen bir kez yinele."
+          },
+          "selfCheck": [
+            {
+              "en": "Each movement uses a familiar regression.",
+              "tr": "Her hareket tanıdık kolay yol kullanıyor."
+            },
+            {
+              "en": "I do not skip rest to prove fitness.",
+              "tr": "Formumu kanıtlamak için dinlenmeyi atlamıyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Choose one task or seated versions and longer rests.",
+            "tr": "Tek görev veya oturarak varyasyonlar ve uzun dinlenme seç."
+          },
+          "stop": {
+            "en": "Stop if unusual fatigue alters balance, coordination or breathing.",
+            "tr": "Alışılmadık yorgunluk denge, koordinasyon veya nefesi değiştirirse dur."
+          },
+          "sourceIds": [
+            "who",
+            "acsm2026"
+          ],
+          "prerequisites": [
+            "cal-39"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Three quiet station shots separated by visible rest; no competitive timer or calorie claims.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Görünür dinlenmeyle ayrılmış üç sakin istasyon; yarış sayacı veya kalori iddiası yok."
+          }
+        }
+      ]
+    },
+    {
+      "id": "support",
+      "title": {
+        "en": "Support and compression preparation",
+        "tr": "Destek ve kompresyon hazırlığı"
+      },
+      "lessons": [
+        {
+          "id": "cal-41",
+          "title": {
+            "en": "Light wrist loading",
+            "tr": "Bileğe hafif yük"
+          },
+          "objective": {
+            "en": "Explore tolerated hand support without forcing wrist extension.",
+            "tr": "Bileği zorla açmadan tolere edilen el desteğini tanı."
+          },
+          "steps": [
+            {
+              "en": "Begin with palms on a wall; place fingers comfortably and spread contact across the hand.",
+              "tr": "Avuç duvarda başla; parmakları rahat yerleştir ve teması ele dağıt."
+            },
+            {
+              "en": "Lean a small amount toward the hands, then return; only use hands-and-knees if this is comfortable.",
+              "tr": "Ellere biraz eğil ve dön; yalnız rahatsa eller-dizlere geç."
+            },
+            {
+              "en": "Keep the movement small and unload before discomfort; more range is not inherently better.",
+              "tr": "Hareketi küçük tut, rahatsızlıktan önce yükü al; fazla aralık kendiliğinden daha iyi değil."
+            }
+          ],
+          "practice": {
+            "en": "Try 1–2 sets of 4 gentle wall leans with 45–60 seconds rest; do not stretch through pain.",
+            "tr": "45–60 saniye dinlenmeyle 1–2 set 4 nazik duvar eğilmesi dene; ağrının içinden esneme."
+          },
+          "selfCheck": [
+            {
+              "en": "I can distribute contact without a sharp pressure point.",
+              "tr": "Keskin basınç noktası olmadan teması dağıtabiliyorum."
+            },
+            {
+              "en": "I unload smoothly rather than shake out pain.",
+              "tr": "Ağrıyı silkelemek yerine yükü akıcı alıyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Use forearm-supported tasks or study the setup; alternative handles must also be stable and suitable.",
+            "tr": "Önkol destekli görev veya kurulum incelemesi kullan; alternatif tutacak da sabit ve uygun olmalı."
+          },
+          "stop": {
+            "en": "Stop sharp pain, tingling or symptoms that persist after unloading.",
+            "tr": "Keskin ağrı, karıncalanma veya yük alınca süren belirtide dur."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "nasm_push"
+          ],
+          "prerequisites": [
+            "cal-40"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Palm close-up at wall and small full-body lean; no forced wrist end-range.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Duvarda avuç yakın plan ve küçük tam beden eğilmesi; bilek son aralığı zorlanmıyor."
+          }
+        },
+        {
+          "id": "cal-42",
+          "title": {
+            "en": "Shoulder support and reach",
+            "tr": "Omuz desteği ve uzanma"
+          },
+          "objective": {
+            "en": "Keep a comfortable shoulder support while changing hand pressure.",
+            "tr": "El basıncı değişirken rahat omuz desteğini koru."
+          },
+          "steps": [
+            {
+              "en": "Use a high fixed incline and establish the earlier scapular support.",
+              "tr": "Yüksek sabit yükselti kullan ve önceki kürek desteğini kur."
+            },
+            {
+              "en": "Shift a small amount of weight between hands while both remain in contact.",
+              "tr": "İki el temaslıyken küçük miktar yükü eller arasında aktar."
+            },
+            {
+              "en": "Only if steady, lighten one hand briefly without fully lifting it; maintain an easy foot exit.",
+              "tr": "Yalnız dengeliyse bir eli tam kaldırmadan kısa hafiflet; kolay ayak çıkışı kalsın."
+            }
+          ],
+          "practice": {
+            "en": "Practice 1–2 sets of 3 weight shifts each side, resting 60–90 seconds; fully lifting a hand is not required.",
+            "tr": "60–90 saniye dinlenmeyle taraf başına 1–2 set 3 yük aktarımı yap; eli tam kaldırmak gerekmez."
+          },
+          "selfCheck": [
+            {
+              "en": "I do not rotate the whole trunk to move pressure.",
+              "tr": "Basıncı değiştirmek için tüm gövdeyi döndürmüyorum."
+            },
+            {
+              "en": "The supporting shoulder stays comfortable.",
+              "tr": "Destek omuz rahat kalıyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Use a wall and keep both hands equally loaded.",
+            "tr": "Duvar kullan ve iki eli eşit yükte tut."
+          },
+          "stop": {
+            "en": "Stop shoulder pain or wrist pressure increasing as you shift.",
+            "tr": "Aktarımda omuz ağrısı veya artan bilek basıncında dur."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "nasm_push"
+          ],
+          "prerequisites": [
+            "cal-41"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: High incline rear diagonal pressure shift with both hands contacting; wall regression.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: İki el temaslı yüksek yükseltide arkadan çapraz yük aktarımı; duvar kolay yolu."
+          }
+        },
+        {
+          "id": "cal-43",
+          "title": {
+            "en": "Ground pike preparation",
+            "tr": "Zeminde pike hazırlığı"
+          },
+          "objective": {
+            "en": "Recognize an overhead pressing direction while feet remain grounded.",
+            "tr": "Ayaklar yerdeyken baş üstü itiş yönünü tanı."
+          },
+          "steps": [
+            {
+              "en": "After comfortable pressing and wrist/shoulder support, begin on padded hands and knees, hands near shoulders and knees near hips; curl toes onto non-slip ground.",
+              "tr": "Rahat itiş ve bilek/omuz desteği sonrası yastıklı eller-dizlerde başla; eller omuz, dizler kalça yakını; parmakları kaymayan zemine kıvır."
+            },
+            {
+              "en": "Press lightly through palms and toes to lift knees and hips only a little, knees remaining bent; keep both hands and feet grounded and the head unloaded.",
+              "tr": "Avuç ve parmaklardan hafif iterek diz ve kalçayı yalnız az kaldır, diz bükülü kalsın; iki el ve ayak yerde, baş yüksüz."
+            },
+            {
+              "en": "Pause briefly, then lower both knees to the mat before releasing hands. Do not press the head toward the floor; pike push-ups and elevated feet are later coached options.",
+              "tr": "Kısa dur, elleri bırakmadan iki dizi mata indir. Başı zemine itme; pike şınavı ve yükseltilmiş ayak sonra eğitmenli seçenek."
+            }
+          ],
+          "practice": {
+            "en": "Optional 2 holds of 3–5 seconds with 90 seconds rest, or review the diagram and repeat wall pressing.",
+            "tr": "İsteğe bağlı 90 saniye dinlenmeyle 2 tutuş 3–5 saniye veya şemayı incele ve duvar itişini yinele."
+          },
+          "selfCheck": [
+            {
+              "en": "Hands and feet remain grounded with an easy exit.",
+              "tr": "Kolay çıkışla el ve ayak yerde kalıyor."
+            },
+            {
+              "en": "My head carries no bodyweight.",
+              "tr": "Başım beden ağırlığı taşımıyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Use wall presses; pregnancy or balance/pressure concerns need individual advice rather than starting inverted practice.",
+            "tr": "Duvar itişi kullan; gebelik veya denge/basınç endişesinde ters çalışmaya başlamak yerine bireysel danışma gerekir."
+          },
+          "stop": {
+            "en": "Stop head pressure, dizziness, neck symptoms or wrist/shoulder pain.",
+            "tr": "Baş basıncı, baş dönmesi, boyun belirtisi veya bilek/omuz ağrısında dur."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "nasm_push",
+            "nasm_pike",
+            "acog"
+          ],
+          "prerequisites": [
+            "cal-42"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side hands-knees entry, toe placement, tiny bent-knee hip rise and knees-down exit; head never contacts floor. Wall press alternative.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan eller-dizlerde giriş, parmak yerleşimi, küçük diz bükülü kalça yükselişi ve dizle çıkış; baş zemine değmez. Duvar itişi alternatifi."
+          }
+        },
+        {
+          "id": "cal-44",
+          "title": {
+            "en": "Seated compression",
+            "tr": "Oturarak kompresyon"
+          },
+          "objective": {
+            "en": "Lift a short leg lever without forcing a fold.",
+            "tr": "Katlanmayı zorlamadan kısa bacak kolunu kaldır."
+          },
+          "steps": [
+            {
+              "en": "Sit on a mat or stable seat with a comfortable tall trunk; bend knees enough to avoid pulling the back.",
+              "tr": "Mat veya sabit oturakta rahat uzun gövdeyle otur; beli çekmeyecek kadar diz bük."
+            },
+            {
+              "en": "Keep hands supporting you beside the hips and lift one foot a small amount.",
+              "tr": "Elleri kalçanın yanında destekli tut ve bir ayağı az kaldır."
+            },
+            {
+              "en": "Lower quietly and alternate; straight legs and deep forward folding are optional later.",
+              "tr": "Yumuşak indir ve değiştir; düz bacak ve derin öne katlanma sonra isteğe bağlı."
+            }
+          ],
+          "practice": {
+            "en": "Use 1–2 sets of 3 lifts each side with 60 seconds rest; a brief unweighting counts as learning.",
+            "tr": "60 saniye dinlenmeyle taraf başına 1–2 set 3 kaldırış; kısa yük hafifletme öğrenme sayılır."
+          },
+          "selfCheck": [
+            {
+              "en": "I do not hold my breath to force height.",
+              "tr": "Yüksekliği zorlamak için nefes tutmuyorum."
+            },
+            {
+              "en": "The trunk does not round painfully.",
+              "tr": "Gövde ağrılı yuvarlanmıyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Use seated marching on a higher fixed seat and keep hands lightly supported.",
+            "tr": "Yüksek sabit oturakta adımla; elleri hafif destekli tut."
+          },
+          "stop": {
+            "en": "Stop hip pinching, back pain or pressure that prevents comfortable breathing.",
+            "tr": "Kalça sıkışması, bel ağrısı veya rahat nefesi engelleyen basınçta dur."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "nasm_push"
+          ],
+          "prerequisites": [
+            "cal-43"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Front diagonal seated bent-knee single foot lift, hands visible; higher-seat option.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Eller görünen önden çapraz oturarak diz bükülü tek ayak kaldırış; yüksek oturak seçeneği."
+          }
+        },
+        {
+          "id": "cal-45",
+          "title": {
+            "en": "Foot-assisted L-sit preparation",
+            "tr": "Ayak yardımlı L-sit hazırlığı"
+          },
+          "objective": {
+            "en": "Combine support and compression without a suspended hold.",
+            "tr": "Asılı tutuş olmadan destek ve kompresyonu birleştir."
+          },
+          "steps": [
+            {
+              "en": "Use fixed rated low parallel handles, or study the setup if none are available.",
+              "tr": "Sabit uygun alçak paralel tutacak kullan; yoksa kurulumu incele."
+            },
+            {
+              "en": "Keep feet planted and hands beside the hips; push lightly to make the seat feel a little lighter.",
+              "tr": "Ayak yerde, el kalça yanında; oturuşu biraz hafifletmek için hafif it."
+            },
+            {
+              "en": "If comfortable, lift one heel briefly while the other foot remains loaded; do not chase straight suspended legs.",
+              "tr": "Rahatsa diğer ayak yüklüyken bir topuğu kısa kaldır; havada düz bacak kovalamama."
+            }
+          ],
+          "practice": {
+            "en": "Try 2–3 supported holds of 3–5 seconds with 90 seconds rest; alternatively combine 3 wall pushes and 3 seated knee lifts.",
+            "tr": "90 saniye dinlenmeyle 2–3 destekli 3–5 saniye tutuş dene; alternatif 3 duvar itişi ve 3 oturarak diz kaldır."
+          },
+          "selfCheck": [
+            {
+              "en": "At least one foot can immediately take the load.",
+              "tr": "En az bir ayak yükü hemen alabilir."
+            },
+            {
+              "en": "The shoulders do not sink painfully.",
+              "tr": "Omuzlar ağrılı çökmüyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Keep both feet down or retain seated compression without arm loading.",
+            "tr": "İki ayağı yerde tut veya kola yük vermeden oturarak kompresyonda kal."
+          },
+          "stop": {
+            "en": "Stop hand/shoulder pain, unstable handles or breath holding under strain.",
+            "tr": "El/omuz ağrısı, oynayan tutacak veya zorlanırken nefes tutmada dur."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "nasm_push"
+          ],
+          "prerequisites": [
+            "cal-44"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Low rated handles, planted feet and one heel lift; never a floating L-sit hero shot.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Alçak uygun tutacak, basan ayak ve tek topuk kaldır; havada L-sit kahraman planı yok."
+          }
+        }
+      ]
+    },
+    {
+      "id": "literacy",
+      "title": {
+        "en": "Advanced skill literacy",
+        "tr": "İleri beceri bilgisi"
+      },
+      "lessons": [
+        {
+          "id": "cal-46",
+          "title": {
+            "en": "Wall handstand: understand the pathway",
+            "tr": "Duvar amudu: yolu anla"
+          },
+          "objective": {
+            "en": "Identify prerequisites and fall-management needs.",
+            "tr": "Önkoşul ve düşme yönetimi ihtiyacını belirle."
+          },
+          "steps": [
+            {
+              "en": "Inversion changes balance and head position; a wall does not remove fall or wrist/shoulder risks.",
+              "tr": "Ters duruş denge ve baş konumunu değiştirir; duvar düşme veya bilek/omuz riskini kaldırmaz."
+            },
+            {
+              "en": "Comfortable wrist loading, shoulder support, trunk control and a coached exit are prerequisites to assess with a qualified coach.",
+              "tr": "Rahat bilek yükü, omuz desteği, gövde kontrolü ve eğitmenli çıkış yetkin eğitmenle değerlendirilecek önkoşullardır."
+            },
+            {
+              "en": "Learn where the wall, clear floor and spotter would be; do not kick up alone from this lesson.",
+              "tr": "Duvar, boş zemin ve destekçinin yerini öğren; bu dersle tek başına yukarı tekmeleme."
+            }
+          ],
+          "practice": {
+            "en": "Learning only: sketch the space and list 3 questions for a qualified coach; no inversion attempt is required or recommended here.",
+            "tr": "Yalnız öğrenme: alanı çiz ve yetkin eğitmene 3 soru yaz; burada ters duruş denemesi gerekli veya önerilen değildir."
+          },
+          "selfCheck": [
+            {
+              "en": "I can explain why a wall is not medical clearance.",
+              "tr": "Duvarın neden tıbbi uygunluk izni olmadığını açıklayabiliyorum."
+            },
+            {
+              "en": "I have identified a coached exit before physical progression.",
+              "tr": "Fiziksel ilerlemeden önce eğitmenli çıkışı belirledim."
+            }
+          ],
+          "adaptation": {
+            "en": "Continue wall presses and supported trunk work. During pregnancy avoid beginning fall-risk inversion practice through this course.",
+            "tr": "Duvar itişi ve destekli gövde çalışmasına devam et. Gebelikte bu kursla düşme riskli ters çalışmaya başlama."
+          },
+          "stop": {
+            "en": "Do not attempt alone; health concerns or symptoms need individual professional advice.",
+            "tr": "Tek başına deneme; sağlık endişesi veya belirtiler bireysel uzman danışması gerektirir."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "ace",
+            "acog",
+            "nhs_pregnancy"
+          ],
+          "prerequisites": [
+            "cal-45"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Non-performing diagram of wall, mat, coach and exit arrows; no kick-up or pregnant inversion actor.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Duvar, mat, eğitmen ve çıkış oklarının uygulamasız şeması; tekmeleme veya gebe ters duruş modeli yok."
+          }
+        },
+        {
+          "id": "cal-47",
+          "title": {
+            "en": "Planche: leverage and patience",
+            "tr": "Planche: kol uzunluğu ve sabır"
+          },
+          "objective": {
+            "en": "Understand straight-arm load without a solo attempt.",
+            "tr": "Tek başına denemeden düz kol yükünü anla."
+          },
+          "steps": [
+            {
+              "en": "A planche places large demands on wrists and straight-arm shoulder support; it is not the next mandatory push-up.",
+              "tr": "Planche bilek ve düz kol omuz desteğine yüksek yük verir; sonraki zorunlu şınav değildir."
+            },
+            {
+              "en": "Use earlier supported pressing and small pressure shifts as foundations, not proof of planche readiness.",
+              "tr": "Önceki destekli itiş ve küçük basınç aktarımlarını temel kullan; planche hazır oluş kanıtı sayma."
+            },
+            {
+              "en": "A qualified coach should select progressions and assess equipment and exits; fixed readiness angles are not supplied.",
+              "tr": "Yetkin eğitmen ilerlemeyi seçip ekipman ve çıkışı değerlendirmeli; sabit hazır oluş açıları verilmez."
+            }
+          ],
+          "practice": {
+            "en": "Learning only: compare a supported wall press with a planche diagram and identify how the support lever changes; record one coach question.",
+            "tr": "Yalnız öğrenme: destekli duvar itişini planche şemasıyla karşılaştır, destek kolunun değişimini belirle; bir eğitmen sorusu yaz."
+          },
+          "selfCheck": [
+            {
+              "en": "I can distinguish education from an instruction to attempt.",
+              "tr": "Bilgilendirmeyi deneme talimatından ayırabiliyorum."
+            },
+            {
+              "en": "I do not mark a diagram review as verified planche ability.",
+              "tr": "Şema incelemesini doğrulanmış planche yeteneği saymıyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Repeat comfortable wall/incline presses; a tuck planche is not necessary to finish the course.",
+            "tr": "Rahat duvar/yükselti itişini yinele; kursu bitirmek için tuck planche gerekmez."
+          },
+          "stop": {
+            "en": "Do not force straight-arm leaning into wrist or shoulder pain.",
+            "tr": "Düz kol eğilmesini bilek veya omuz ağrısına zorlamama."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "ace",
+            "acog",
+            "nhs_pregnancy"
+          ],
+          "prerequisites": [
+            "cal-46"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Annotated static leverage diagram, contact points and coach icon; no physical planche attempt.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Açıklamalı sabit kol şeması, temas noktaları ve eğitmen simgesi; fiziksel planche denemesi yok."
+          }
+        },
+        {
+          "id": "cal-48",
+          "title": {
+            "en": "Front lever: pulling skill pathway",
+            "tr": "Front lever: çekiş becerisi yolu"
+          },
+          "objective": {
+            "en": "Understand why hanging strength does not prove lever readiness.",
+            "tr": "Asılma kuvvetinin neden lever hazır oluşunu kanıtlamadığını anla."
+          },
+          "steps": [
+            {
+              "en": "The front lever uses a long horizontal body lever and a reliable overhead anchor.",
+              "tr": "Front lever uzun yatay beden kolu ve güvenilir baş üstü bağlantı kullanır."
+            },
+            {
+              "en": "Rows, supported hanging and controlled pulling are foundations; none is a validated automatic readiness test.",
+              "tr": "Row, destekli asılma ve kontrollü çekiş temeldir; hiçbiri doğrulanmış otomatik hazır oluş testi değildir."
+            },
+            {
+              "en": "Further tucked-lever work needs a qualified coach and appropriate equipment; do not learn by dropping from a bar.",
+              "tr": "İleri tuck-lever çalışma yetkin eğitmen ve uygun ekipman ister; bardan düşerek öğrenme."
+            }
+          ],
+          "practice": {
+            "en": "Learning only: list anchor, grip and exit checks and describe why shortening a lever changes demand; no lever hold.",
+            "tr": "Yalnız öğrenme: bağlantı, tutuş ve çıkış kontrollerini yaz, kol kısaltmanın yükü neden değiştirdiğini anlat; lever tutuşu yok."
+          },
+          "selfCheck": [
+            {
+              "en": "I know equipment inspection remains necessary at higher levels.",
+              "tr": "Üst seviyede de ekipman kontrolünün gerektiğini biliyorum."
+            },
+            {
+              "en": "I have not assumed course completion is lever clearance.",
+              "tr": "Kurs tamamlamayı lever izni saymadım."
+            }
+          ],
+          "adaptation": {
+            "en": "Retain foot-supported hangs or easy rows with reliable equipment.",
+            "tr": "Güvenilir ekipmanda ayak destekli asılma veya kolay rowda kal."
+          },
+          "stop": {
+            "en": "No solo lever attempt from this lesson; shoulder, elbow or grip symptoms need review.",
+            "tr": "Bu dersle tek başına lever denemesi yok; omuz, dirsek veya tutuş belirtileri inceleme gerektirir."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "ace",
+            "acog",
+            "nhs_pregnancy",
+            "nasm_pull"
+          ],
+          "prerequisites": [
+            "cal-47"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Static bar-and-body lever diagram and shorter lever comparison; no hanging transition stunt.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sabit bar-beden kol şeması ve kısa kol karşılaştırması; asılı geçiş gösterisi yok."
+          }
+        },
+        {
+          "id": "cal-49",
+          "title": {
+            "en": "Muscle-up: transition literacy",
+            "tr": "Muscle-up: geçiş bilgisi"
+          },
+          "objective": {
+            "en": "Separate pulling, transition and support requirements.",
+            "tr": "Çekiş, geçiş ve destek gereklerini ayır."
+          },
+          "steps": [
+            {
+              "en": "A muscle-up joins a high pull, a transition and upper support; adding speed does not solve missing foundations.",
+              "tr": "Muscle-up yüksek çekiş, geçiş ve üst desteği bağlar; hız eklemek eksik temeli çözmez."
+            },
+            {
+              "en": "Controlled pulling and dip support need individual coaching before a transition plan; no kipping requirement is introduced.",
+              "tr": "Geçiş planından önce kontrollü çekiş ve dip desteği bireysel eğitmen ister; kipping şartı konmaz."
+            },
+            {
+              "en": "Equipment, height and a coached exit must match the skill; this course does not prescribe a bar turnover attempt.",
+              "tr": "Ekipman, yükseklik ve eğitmenli çıkış beceriye uymalı; bu kurs bardan aşma denemesi yazmaz."
+            }
+          ],
+          "practice": {
+            "en": "Learning only: label the three phases on a diagram and write which foundation you would revisit; no jumping or turnover practice.",
+            "tr": "Yalnız öğrenme: şemada üç bölümü etiketle ve döneceğin temeli yaz; sıçrama veya barı aşma pratiği yok."
+          },
+          "selfCheck": [
+            {
+              "en": "I can name the transition as a separate learning problem.",
+              "tr": "Geçişi ayrı öğrenme sorunu olarak adlandırabiliyorum."
+            },
+            {
+              "en": "I choose coaching rather than compensating with momentum.",
+              "tr": "Momentumla telafi yerine eğitmen seçiyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Continue assisted pulling and foot-supported dip preparation.",
+            "tr": "Yardımlı çekiş ve ayak destekli dip hazırlığına devam et."
+          },
+          "stop": {
+            "en": "Do not attempt an unsupported transition alone; pain or unreliable equipment ends the pathway.",
+            "tr": "Tek başına desteksiz geçiş deneme; ağrı veya güvenilmez ekipman yolu durdurur."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "ace",
+            "acog",
+            "nhs_pregnancy",
+            "nasm_pull"
+          ],
+          "prerequisites": [
+            "cal-48"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Three labelled static panels for pull/transition/support with coach gate; no moving muscle-up demo.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Çekiş/geçiş/destek için üç etiketli sabit panel ve eğitmen kapısı; hareketli muscle-up demosu yok."
+          }
+        }
+      ]
+    },
+    {
+      "id": "programming",
+      "title": {
+        "en": "Build your own manageable practice",
+        "tr": "Yönetilebilir pratiğini kur"
+      },
+      "lessons": [
+        {
+          "id": "cal-50",
+          "title": {
+            "en": "Choose a regression honestly",
+            "tr": "Kolay yolu dürüstçe seç"
+          },
+          "objective": {
+            "en": "Select the variant you can repeat today.",
+            "tr": "Bugün tekrarlayabileceğin varyasyonu seç."
+          },
+          "steps": [
+            {
+              "en": "Begin with one easy trial repetition or short hold, not a maximum test.",
+              "tr": "En yüksek test yerine bir kolay deneme tekrarı veya kısa tutuşla başla."
+            },
+            {
+              "en": "Choose the variant whose breathing, exit and coordination remain manageable.",
+              "tr": "Nefes, çıkış ve koordinasyonu yönetilebilir varyasyonu seç."
+            },
+            {
+              "en": "Change one variable later: range, repetitions, support height or leverage; do not change all together.",
+              "tr": "Sonra tek değişken değiştir: aralık, tekrar, destek yüksekliği veya kol; hepsini birlikte değil."
+            }
+          ],
+          "practice": {
+            "en": "Compare 3 wall pushes with 3 familiar incline pushes after 90 seconds rest, or only study the options if needed; choose one for today.",
+            "tr": "90 saniye dinlenerek 3 duvar itişini 3 tanıdık yükselti itişiyle karşılaştır veya gerekirse yalnız seçenekleri incele; bugün için birini seç."
+          },
+          "selfCheck": [
+            {
+              "en": "I choose based on control rather than the lesson number.",
+              "tr": "Ders numarasına değil kontrole göre seçiyorum."
+            },
+            {
+              "en": "I leave reserve instead of testing failure.",
+              "tr": "Tükenmeyi test etmek yerine pay bırakıyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Stay with the easiest familiar option, including supported or seated tasks.",
+            "tr": "Destekli veya oturarak görev dahil en kolay tanıdık seçenekte kal."
+          },
+          "stop": {
+            "en": "Stop progression when symptoms or repeated loss of control occur.",
+            "tr": "Belirti veya tekrarlanan kontrol kaybında ilerlemeyi durdur."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "who"
+          ],
+          "prerequisites": [
+            "cal-49"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Split screen wall and incline at matching pace; neutral choice labels, no winner.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Eş tempoda duvar ve yükselti bölünmüş ekran; nötr seçim etiketleri, kazanan yok."
+          }
+        },
+        {
+          "id": "cal-51",
+          "title": {
+            "en": "A balanced week",
+            "tr": "Dengeli hafta"
+          },
+          "objective": {
+            "en": "Plan movement groups and recovery rather than daily exhaustion.",
+            "tr": "Günlük tükenme yerine hareket grupları ve toparlanma planla."
+          },
+          "steps": [
+            {
+              "en": "General adult guidance includes strength work for major muscle groups on at least two days weekly; individual needs can differ.",
+              "tr": "Genel yetişkin önerisi temel kas gruplarına haftada en az iki gün kuvvet çalışması içerir; bireysel ihtiyaç farklı olabilir."
+            },
+            {
+              "en": "Choose squat/hinge, push, reliable pull and trunk options, with light aerobic movement; do not force pulling without equipment.",
+              "tr": "Squat/hinge, itiş, güvenilir çekiş ve gövde seçeneğiyle hafif aerobik hareket seç; ekipmansız çekişi zorlama."
+            },
+            {
+              "en": "Leave recovery between demanding sessions and use easy practice or rest when control is not restored.",
+              "tr": "Zorlu seanslar arasında toparlanma bırak; kontrol dönmemişse kolay pratik veya dinlenme kullan."
+            }
+          ],
+          "practice": {
+            "en": "Write a sample two-day strength week separated by recovery, using 1–2 short sets per chosen task; this is a planning example, not a personalized prescription.",
+            "tr": "Arada toparlanma olan örnek iki günlük kuvvet haftası yaz; seçilen görevde 1–2 kısa set kullan. Bu plan örneği, kişiye özel reçete değil."
+          },
+          "selfCheck": [
+            {
+              "en": "My week includes pulling only where reliable equipment is available.",
+              "tr": "Haftam yalnız güvenilir ekipman varsa çekiş içeriyor."
+            },
+            {
+              "en": "I can reduce volume without treating it as failure.",
+              "tr": "Hacmi azaltmayı başarısızlık saymıyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Plan shorter sessions or consult a professional about health-specific scheduling.",
+            "tr": "Kısa seans planla veya sağlık durumuna özel takvimi uzmanla görüş."
+          },
+          "stop": {
+            "en": "Do not schedule through worsening symptoms or poor recovery.",
+            "tr": "Artan belirtiler veya yetersiz toparlanmanın içinden takvim sürdürme."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "who"
+          ],
+          "prerequisites": [
+            "cal-50"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Plain weekly cards with two example strength days and recovery spaces; no personalized health promise.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: İki örnek kuvvet günü ve toparlanma boşluklu sade hafta kartları; kişiye özel sağlık vaadi yok."
+          }
+        },
+        {
+          "id": "cal-52",
+          "title": {
+            "en": "Progress, repeat or recover",
+            "tr": "İlerle, yinele veya toparlan"
+          },
+          "objective": {
+            "en": "Decide the next session from repeated observations.",
+            "tr": "Sonraki seansı tekrarlanan gözlemlerle seç."
+          },
+          "steps": [
+            {
+              "en": "Look for several sessions where the chosen range and exit remain controlled; a single good repetition is not a guarantee.",
+              "tr": "Seçilen aralık ve çıkışın kontrollü kaldığı birkaç seansa bak; tek iyi tekrar garanti değil."
+            },
+            {
+              "en": "If comfortable, add one or two repetitions or a small lever change; keep the other variables unchanged.",
+              "tr": "Rahatsa bir-iki tekrar veya küçük kol değişimi ekle; diğer değişkenleri sabit tut."
+            },
+            {
+              "en": "If fatigue or symptoms increase, repeat an easier task or recover instead; a course checklist is not a training deadline.",
+              "tr": "Yorgunluk veya belirti artarsa kolay görevi yinele veya toparlan; kurs listesi antrenman son tarihi değil."
+            }
+          ],
+          "practice": {
+            "en": "Write three next-session choices for your current squat or push: repeat, small increase, easier/rest; state what would lead to each.",
+            "tr": "Mevcut squat veya itiş için sonraki seansa üç seçim yaz: yinele, küçük artış, kolay/dinlenme; her birinin nedenini belirt."
+          },
+          "selfCheck": [
+            {
+              "en": "I can name a reason to stay easier.",
+              "tr": "Kolayda kalmak için bir neden söyleyebiliyorum."
+            },
+            {
+              "en": "I do not confuse lesson completion with physiological readiness.",
+              "tr": "Ders tamamlamayı fizyolojik hazır oluşla karıştırmıyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Choose recovery and review one earlier lesson without physical practice.",
+            "tr": "Toparlanmayı seç ve fiziksel pratik olmadan önceki bir dersi incele."
+          },
+          "stop": {
+            "en": "Persistent or worsening pain needs individual review, not a harder progression.",
+            "tr": "Süren veya artan ağrı daha zor ilerleme değil bireysel inceleme ister."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "who"
+          ],
+          "prerequisites": [
+            "cal-51"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Three neutral next-session choices beside a practice log; no automatic readiness gauge.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Pratik kaydının yanında üç nötr sonraki seans seçimi; otomatik hazır oluş göstergesi yok."
+          }
+        }
+      ]
+    },
+    {
+      "id": "integration",
+      "title": {
+        "en": "Independent practice and review",
+        "tr": "Bağımsız pratik ve değerlendirme"
+      },
+      "lessons": [
+        {
+          "id": "cal-53",
+          "title": {
+            "en": "Lower body and push review",
+            "tr": "Alt beden ve itiş değerlendirmesi"
+          },
+          "objective": {
+            "en": "Apply the setup and control checks to two familiar tasks.",
+            "tr": "Kurulum ve kontrol denetimini iki tanıdık göreve uygula."
+          },
+          "steps": [
+            {
+              "en": "Choose a comfortable sit-to-stand or squat and a wall or incline push-up.",
+              "tr": "Rahat otur-kalk veya squat ve duvar/yükselti şınavı seç."
+            },
+            {
+              "en": "Check support, foot/hand contact, breath and exit before each set.",
+              "tr": "Her setten önce destek, ayak/el teması, nefes ve çıkışı kontrol et."
+            },
+            {
+              "en": "After each set describe one control observation and keep the next set no harder if unsure.",
+              "tr": "Her set sonrası bir kontrol gözlemi anlat; belirsizse sonraki seti zorlaştırma."
+            }
+          ],
+          "practice": {
+            "en": "One or two rounds of 3–6 squats and 3–6 pushes, resting 90–120 seconds between tasks; use your easier variant.",
+            "tr": "Görev arasında 90–120 saniye dinlenerek bir-iki tur 3–6 squat ve 3–6 itiş; kendi kolay varyasyonunu kullan."
+          },
+          "selfCheck": [
+            {
+              "en": "My squat uses an individually comfortable depth.",
+              "tr": "Squatım kişisel rahat derinliği kullanıyor."
+            },
+            {
+              "en": "My push keeps hips and shoulders connected.",
+              "tr": "İtişim kalça ve omzu bağlantılı tutuyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Use supported sit-to-stand and wall pressing, or review without exertion.",
+            "tr": "Destekli otur-kalk ve duvar itişi veya efor olmadan inceleme kullan."
+          },
+          "stop": {
+            "en": "Stop changing joint pain or fatigue that alters your exit.",
+            "tr": "Değişen eklem ağrısı veya çıkışı bozan yorgunlukta dur."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "who",
+            "nhs_strength"
+          ],
+          "prerequisites": [
+            "cal-52"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Matched squat and wall-press control shots with support audit; no before/after physique claim.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Destek kontrolüyle eş squat ve duvar itişi planları; önce/sonra fizik görünümü iddiası yok."
+          }
+        },
+        {
+          "id": "cal-54",
+          "title": {
+            "en": "Pull and trunk review",
+            "tr": "Çekiş ve gövde değerlendirmesi"
+          },
+          "objective": {
+            "en": "Keep equipment limits visible while combining pulling and trunk work.",
+            "tr": "Çekiş ve gövdeyi birleştirirken ekipman sınırını görünür tut."
+          },
+          "steps": [
+            {
+              "en": "Use the reliable row setup if available; otherwise review its checks instead of improvising equipment.",
+              "tr": "Varsa güvenilir row düzenini kullan; yoksa doğaçlama ekipman yerine kontrollerini incele."
+            },
+            {
+              "en": "Choose bird-dog or incline plank at a comfortable support level.",
+              "tr": "Rahat destek seviyesinde bird-dog veya yükseltide plank seç."
+            },
+            {
+              "en": "Rest between tasks and check whether grip or shoulder fatigue changes the trunk task.",
+              "tr": "Görev arasında dinlen; tutuş/omuz yorgunluğu gövde görevini değiştiriyor mu kontrol et."
+            }
+          ],
+          "practice": {
+            "en": "If equipped, 1–2 sets of 3–5 easy rows and 3 bird-dogs each side or 5–10 seconds incline plank, with 90–120 seconds rest.",
+            "tr": "Ekipman varsa 90–120 saniye dinlenerek 1–2 set 3–5 kolay row ve taraf başına 3 bird-dog veya 5–10 saniye yükseltide plank."
+          },
+          "selfCheck": [
+            {
+              "en": "I retained a foot-supported exit during pulling.",
+              "tr": "Çekişte ayak destekli çıkışı korudum."
+            },
+            {
+              "en": "Trunk control remains steady after the pull.",
+              "tr": "Çekiş sonrası gövde kontrolü dengeli kalıyor."
+            }
+          ],
+          "adaptation": {
+            "en": "Study the row and use a standing supported trunk task; do not label unloaded rehearsal as strength-equivalent pulling.",
+            "tr": "Rowu incele ve ayakta destekli gövde görevi kullan; yüksüz provayı eş kuvvetli çekiş sayma."
+          },
+          "stop": {
+            "en": "Stop grip failure, anchor movement or shoulder/back pain.",
+            "tr": "Tutuş tükenmesi, bağlantı hareketi veya omuz/bel ağrısında dur."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "who",
+            "nhs_strength",
+            "nasm_pull",
+            "ace_bird"
+          ],
+          "prerequisites": [
+            "cal-53"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Rated row setup, then supported bird-dog or incline plank; no improvised-table row.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Uygun row düzeni, ardından destekli bird-dog veya yükseltide plank; doğaçlama masa row yok."
+          }
+        },
+        {
+          "id": "cal-55",
+          "title": {
+            "en": "Design your own short session",
+            "tr": "Kendi kısa seansını tasarla"
+          },
+          "objective": {
+            "en": "Choose a workable sequence with explicit rest and alternatives.",
+            "tr": "Açık dinlenme ve alternatifle uygulanabilir sıra seç."
+          },
+          "steps": [
+            {
+              "en": "Begin with an easy warm-up, then choose one lower, one push, one available pull and one trunk task.",
+              "tr": "Kolay ısınmayla başla; bir alt beden, bir itiş, bir mevcut çekiş ve bir gövde görevi seç."
+            },
+            {
+              "en": "Use familiar small doses and rests; omit unavailable equipment work and note the gap honestly.",
+              "tr": "Tanıdık küçük doz ve dinlenme kullan; olmayan ekipman çalışmasını çıkar ve boşluğu dürüst yaz."
+            },
+            {
+              "en": "Finish with easy walking or seated movement and one observation for next time.",
+              "tr": "Rahat yürüyüş/oturarak hareket ve sonraki sefere bir gözlemle bitir."
+            }
+          ],
+          "practice": {
+            "en": "Write a 10–20 minute example with 1 short set per task and 60–120 seconds rest, then optionally rehearse only the first two tasks.",
+            "tr": "Görev başına 1 kısa set ve 60–120 saniye dinlenmeyle 10–20 dakikalık örnek yaz; istersen yalnız ilk iki görevi prova et."
+          },
+          "selfCheck": [
+            {
+              "en": "I included an easier option for every task.",
+              "tr": "Her göreve kolay seçenek ekledim."
+            },
+            {
+              "en": "My plan has no forced inversion or maximum test.",
+              "tr": "Planımda zorunlu ters duruş veya en yüksek test yok."
+            }
+          ],
+          "adaptation": {
+            "en": "Build a seated/support-based session or discuss a tailored plan with a qualified professional.",
+            "tr": "Oturarak/destekli seans kur veya yetkin uzmanla uyarlanmış plan görüş."
+          },
+          "stop": {
+            "en": "Stop if symptoms appear during rehearsal; editing the plan is part of learning.",
+            "tr": "Provada belirti varsa dur; planı değiştirmek öğrenmenin parçası."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "who",
+            "nhs_strength"
+          ],
+          "prerequisites": [
+            "cal-54"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Original session worksheet with warm-up, four options, rest and exit notes; no automated medical plan.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Isınma, dört seçenek, dinlenme ve çıkış notlu özgün seans sayfası; otomatik tıbbi plan yok."
+          }
+        },
+        {
+          "id": "cal-56",
+          "title": {
+            "en": "A repeatable independent practice",
+            "tr": "Tekrarlanabilir bağımsız pratik"
+          },
+          "objective": {
+            "en": "Finish with a repeatable plan and clear limits.",
+            "tr": "Tekrarlanabilir plan ve açık sınırlarla bitir."
+          },
+          "steps": [
+            {
+              "en": "Revisit your chosen variants and explain their setup, one control cue and one easier path without the lesson text.",
+              "tr": "Ders metni olmadan seçtiğin varyasyonun kurulumu, bir kontrol ipucu ve bir kolay yolunu anlat."
+            },
+            {
+              "en": "If appropriate today, perform the familiar short session without adding a new skill or intensity.",
+              "tr": "Bugün uygunsa yeni beceri/yoğunluk eklemeden tanıdık kısa seansı yap."
+            },
+            {
+              "en": "Choose what to repeat next week and what needs a coach; completion records your learning, not professional mastery.",
+              "tr": "Gelecek hafta yineleyeceğini ve eğitmen gerekeni seç; tamamlama profesyonel ustalık değil öğrenme kaydıdır."
+            }
+          ],
+          "practice": {
+            "en": "Use your previous plan once with its rests, or complete a written walkthrough if physical practice is unsuitable; record the appropriate progress state.",
+            "tr": "Önceki planını dinlenmeleriyle bir kez kullan veya fiziksel pratik uygun değilse yazılı yürüt; uygun ilerleme durumunu kaydet."
+          },
+          "selfCheck": [
+            {
+              "en": "I can explain my regressions and stop signs.",
+              "tr": "Kolay yollarımı ve durma işaretlerini açıklayabiliyorum."
+            },
+            {
+              "en": "I know this course did not certify inversions, force, angles or medical safety.",
+              "tr": "Bu kursun ters duruş, kuvvet, açı veya tıbbi güvenliği onaylamadığını biliyorum."
+            }
+          ],
+          "adaptation": {
+            "en": "Repeat earlier modules at the same supported level; completing the reading does not oblige harder practice.",
+            "tr": "Önceki modülleri aynı destekli seviyede yinele; okumayı bitirmek zor pratiği zorunlu yapmaz."
+          },
+          "stop": {
+            "en": "Stop new or worsening symptoms and seek appropriate advice; a finished checklist does not override them.",
+            "tr": "Yeni/artan belirtilerde dur ve uygun danışma al; tamamlanan liste bunları geçersiz kılmaz."
+          },
+          "sourceIds": [
+            "acsm2026",
+            "who",
+            "nhs_strength"
+          ],
+          "prerequisites": [
+            "cal-55"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Calm repeat session and personal next-week notebook; no certificate, elite badge or guaranteed transformation.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sakin yineleme seansı ve kişisel gelecek hafta notu; sertifika, elit rozet veya garantili dönüşüm yok."
+          }
+        }
+      ]
+    }
+  ],
+  "catalogueGuides": [
+    {
+      "movementId": "bodyweight_squat",
+      "kind": "practice",
+      "lessonIds": [
+        "cal-08"
+      ]
+    },
+    {
+      "movementId": "push_up",
+      "kind": "practice",
+      "lessonIds": [
+        "cal-15",
+        "cal-16",
+        "cal-17",
+        "cal-18",
+        "cal-19",
+        "cal-20"
+      ]
+    },
+    {
+      "movementId": "bird_dog",
+      "kind": "practice",
+      "lessonIds": [
+        "cal-29"
+      ]
+    },
+    {
+      "movementId": "dead_bug",
+      "kind": "practice",
+      "lessonIds": [
+        "cal-30"
+      ]
+    },
+    {
+      "movementId": "hanging_leg_raise",
+      "kind": "preparation",
+      "lessonIds": [
+        "cal-36"
+      ]
+    },
+    {
+      "movementId": "hollow_hold",
+      "kind": "preparation",
+      "lessonIds": [
+        "cal-35"
+      ]
+    },
+    {
+      "movementId": "mountain_climber",
+      "kind": "preparation",
+      "lessonIds": [
+        "cal-38"
+      ]
+    },
+    {
+      "movementId": "plank",
+      "kind": "practice",
+      "lessonIds": [
+        "cal-31",
+        "cal-32"
+      ]
+    },
+    {
+      "movementId": "side_plank",
+      "kind": "practice",
+      "lessonIds": [
+        "cal-33",
+        "cal-34"
+      ]
+    },
+    {
+      "movementId": "glute_bridge",
+      "kind": "practice",
+      "lessonIds": [
+        "cal-10"
+      ]
+    },
+    {
+      "movementId": "lunge",
+      "kind": "practice",
+      "lessonIds": [
+        "cal-11",
+        "cal-12"
+      ]
+    },
+    {
+      "movementId": "calf_raise",
+      "kind": "practice",
+      "lessonIds": [
+        "cal-14"
+      ]
+    },
+    {
+      "movementId": "step_up",
+      "kind": "practice",
+      "lessonIds": [
+        "cal-13"
+      ]
+    },
+    {
+      "movementId": "burpee",
+      "kind": "preparation",
+      "lessonIds": [
+        "cal-39"
+      ]
+    },
+    {
+      "movementId": "inverted_row",
+      "kind": "practice",
+      "lessonIds": [
+        "cal-23",
+        "cal-24"
+      ]
+    },
+    {
+      "movementId": "pull_up",
+      "kind": "preparation",
+      "lessonIds": [
+        "cal-25",
+        "cal-26",
+        "cal-27",
+        "cal-28"
+      ]
+    },
+    {
+      "movementId": "dip",
+      "kind": "preparation",
+      "lessonIds": [
+        "cal-21"
+      ]
+    },
+    {
+      "movementId": "wall_handstand",
+      "kind": "readingOnly",
+      "lessonIds": [
+        "cal-46"
+      ]
+    },
+    {
+      "movementId": "tuck_planche",
+      "kind": "readingOnly",
+      "lessonIds": [
+        "cal-47"
+      ]
+    }
+  ]
+}

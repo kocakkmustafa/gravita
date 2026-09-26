@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'course_progress_io.dart';
+
 final RegExp _canonicalAccountUuid = RegExp(
   r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$',
 );
@@ -39,5 +41,6 @@ Future<List<String>> localAccountIds(Directory root) async {
 /// remote sign-out. Sign-out/switch only clear navigation and in-memory state.
 Future<void> deleteAccountData(Directory root, String accountUserId) async {
   final directory = accountDataDirectory(root, accountUserId);
+  await invalidateCourseProgressDirectory(directory);
   if (await directory.exists()) await directory.delete(recursive: true);
 }

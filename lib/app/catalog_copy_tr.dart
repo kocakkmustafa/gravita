@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'app_locale.dart';
+import 'camera_release_policy.dart';
 import 'library_model.dart';
 import 'library_strings.dart';
 
@@ -10,6 +11,17 @@ bool _isTurkish(BuildContext context) =>
 /// Display copy is guarded by the shipped English source. A changed source
 /// remains visible in English until its meaning is reviewed again.
 String movementBlurb(BuildContext context, MovementEntry movement) {
+  // Catalogue readiness does not override the release access policy, even
+  // when an untranslated historical source still describes live counting.
+  if (movement.isLive && !motionPaidCameraLaunchEnabled) {
+    return localized(
+      context,
+      LibraryStrings.cameraClosedMovementBlurb,
+      'Bu hareket ölçüm kataloğunda yer alır. Canlı kamera seansları '
+      'bu sürümde kullanılamıyor. Öğrenme rehberleri yalnız kendi '
+      'pratik bildirimini kaydeder.',
+    );
+  }
   if (!_isTurkish(context)) return movement.blurb;
   if (movement.isLive) {
     final copy = _liveBlurbs[movement.id];
@@ -333,6 +345,15 @@ String exclusionSectionTitle(BuildContext context, ExclusionSection section) {
 }
 
 String exclusionSectionReason(BuildContext context, ExclusionSection section) {
+  if (section.id == 'one_rep_max' && !motionPaidCameraLaunchEnabled) {
+    return localized(
+      context,
+      LibraryStrings.cameraClosedStrengthReason,
+      'Telefon kamerası kuvveti veya maksimum kuvveti ölçmez. Canlı kamera '
+      'seansları bu sürümde kullanılamıyor. Kurs ve öğrenme rehberi '
+      'ilerlemesi yalnız kendi pratik bildirimini kaydeder.',
+    );
+  }
   final copy = _exclusionCopy[section.id];
   return _isTurkish(context) && copy?.reason == section.userReason
       ? copy!.reasonTr

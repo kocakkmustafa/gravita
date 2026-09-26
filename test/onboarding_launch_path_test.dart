@@ -1,6 +1,9 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gravita/app/calisthenics_course_screen.dart';
 import 'package:gravita/app/gravita_app.dart';
 import 'package:gravita/app/onboarding_screen.dart';
 import 'package:gravita/app/onboarding_store.dart';
@@ -43,40 +46,117 @@ void main() {
     if (await tmp.exists()) await tmp.delete(recursive: true);
   });
 
-  testWidgets('TAZE KULLANICI: açılış onboarding\'e VARIR — kabuk çizilmez',
-      (WidgetTester tester) async {
-    await bootGravitaRoot(tester,
-        supportPath: tmp.path, restoreTo: defaultProvider);
+  testWidgets('TAZE KULLANICI: açılış onboarding\'e VARIR — kabuk çizilmez', (
+    WidgetTester tester,
+  ) async {
+    await bootGravitaRoot(
+      tester,
+      supportPath: tmp.path,
+      restoreTo: defaultProvider,
+    );
 
-    expect(find.byType(OnboardingFlow), findsOneWidget,
-        reason: 'İlk açılışın TEK kapısı burası. Bu satır düşüyorsa '
-            'onboarding kullanıcının yolundan koparılmış demektir — '
-            'dosyaların VARLIĞI bunu göstermez (G-181 sabotaj ölçümü).');
-    expect(find.byType(GravitaShell), findsNothing,
-        reason: 'Onay alınmadan kabuk ÇİZİLMEZ; "önce göster sonra sor" '
-            'güvenlik onayını süse çevirir.');
+    expect(
+      find.byType(OnboardingFlow),
+      findsOneWidget,
+      reason:
+          'İlk açılışın TEK kapısı burası. Bu satır düşüyorsa '
+          'onboarding kullanıcının yolundan koparılmış demektir — '
+          'dosyaların VARLIĞI bunu göstermez (G-181 sabotaj ölçümü).',
+    );
+    expect(
+      find.byType(GravitaShell),
+      findsNothing,
+      reason:
+          'Onay alınmadan kabuk ÇİZİLMEZ; "önce göster sonra sor" '
+          'güvenlik onayını süse çevirir.',
+    );
   });
 
   testWidgets(
-      'POZİTİF İKİZ — onboarding TAMAMLANMIŞSA kabuk gelir, akış TEKRARLAMAZ',
-      (WidgetTester tester) async {
-    // Bit'i ürünün KENDİ yazıcısıyla kur (şema anahtarını elle yazmak,
-    // ailenin ölçülmüş enjeksiyon-hatası dersidir: gerçek yazıcıyı kullan).
-    await realIo(
+    'POZİTİF İKİZ — onboarding TAMAMLANMIŞSA kabuk gelir, akış TEKRARLAMAZ',
+    (WidgetTester tester) async {
+      // Bit'i ürünün KENDİ yazıcısıyla kur (şema anahtarını elle yazmak,
+      // ailenin ölçülmüş enjeksiyon-hatası dersidir: gerçek yazıcıyı kullan).
+      await realIo(
         tester,
-        () => OnboardingStore.forFile(File('${tmp.path}/onboarding.json'))
-            .markComplete());
-    await bootGravitaRoot(tester,
-        supportPath: tmp.path, restoreTo: defaultProvider);
+        () => OnboardingStore.forFile(
+          File('${tmp.path}/onboarding.json'),
+        ).markComplete(),
+      );
+      await bootGravitaRoot(
+        tester,
+        supportPath: tmp.path,
+        restoreTo: defaultProvider,
+      );
 
-    expect(find.byType(GravitaShell), findsOneWidget);
-    expect(find.byType(OnboardingFlow), findsNothing,
-        reason: 'Bu ikiz olmadan üstteki iddia, onboarding\'i HER açılışta '
+      expect(find.byType(GravitaShell), findsOneWidget);
+      expect(
+        find.byType(OnboardingFlow),
+        findsNothing,
+        reason:
+            'Bu ikiz olmadan üstteki iddia, onboarding\'i HER açılışta '
             'gösteren bir uygulamada da geçerdi — koşulsuz doğru bir kapı '
-            'hiçbir şey ölçmez.');
-  });
+            'hiçbir şey ölçmez.',
+      );
+    },
+  );
 
   group('HAPPY PATH — G-218\'in belirsiz bıraktığı gözlem (2026-08-16, A1)', () {
+    testWidgets('fresh guest can skip camera, persist onboarding and open '
+        'the course without any permission calls', (tester) async {
+      const channel = MethodChannel('flutter.baseflow.com/permissions/methods');
+      final calls = <MethodCall>[];
+      final messenger = tester.binding.defaultBinaryMessenger;
+      messenger.setMockMethodCallHandler(channel, (call) async {
+        calls.add(call);
+        throw StateError('The guest course path must not request permission');
+      });
+      addTearDown(() => messenger.setMockMethodCallHandler(channel, null));
+      await bootGravitaRoot(
+        tester,
+        supportPath: tmp.path,
+        restoreTo: defaultProvider,
+        size: const Size(390, 844),
+      );
+      await tester.tap(find.byKey(OnboardingFlow.valueContinueKey));
+      await tester.pump();
+      await tester.tap(find.byKey(OnboardingFlow.safetyConsentKey));
+      await tester.pump();
+      expect(find.byKey(OnboardingFlow.cameraDeniedKey), findsNothing);
+      expect(find.byKey(OnboardingFlow.cameraAllowKey), findsOneWidget);
+      final skip = find.byKey(OnboardingFlow.cameraContinueWithoutKey);
+      expect(skip.hitTestable(), findsOneWidget);
+
+      PathProviderPlatform.instance = FakeSupportDir(tmp.path);
+      await tester.tap(skip);
+      await settleUntil(
+        tester,
+        () => find.byType(GravitaShell).evaluate().isNotEmpty,
+      );
+      expect(find.byType(GravitaShell), findsOneWidget);
+      expect(
+        await realIo(
+          tester,
+          () => OnboardingStore.forFile(
+            File('${tmp.path}/onboarding.json'),
+          ).isComplete(),
+        ),
+        isTrue,
+      );
+      final courseEntry = find.byKey(const Key('calisthenics.entry')).first;
+      await tester.ensureVisible(courseEntry);
+      await tester.tap(courseEntry);
+      await tester.pumpAndSettle();
+      await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 50)),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byType(CalisthenicsCourseScreen), findsOneWidget);
+      expect(find.textContaining('Progress could not be read'), findsNothing);
+      expect(calls, isEmpty);
+      await tester.pumpWidget(const SizedBox.shrink());
+    });
+
     /// ⭐ G-218 (2026-08-14) bu akışı GERÇEK simülatörde yürütürken
     /// `flutter run` sona erdi; "akışın tamamlanıp tamamlanmadığı belirsiz"
     /// kaldı. O turda zorlanmadı (G-219'un kararı: belirsiz gözlemden sebep
@@ -91,76 +171,100 @@ void main() {
     /// `_requestCamera`in `status.isGranted` bacağı (`onboarding_screen.
     /// dart:42-44`) bugüne dek ölçülmemiş bir koddu.
     testWidgets(
-        'akış GERÇEK tıklamalarla + kamera-izni-VERİLDİ ile tamamlanır, '
-        'SONRAKİ açılış onboarding\'i atlar', (WidgetTester tester) async {
-      mockPermissionChannel(status: 1); // granted
-      await bootGravitaRoot(tester,
-          supportPath: tmp.path, restoreTo: defaultProvider);
-      expect(find.byType(OnboardingFlow), findsOneWidget);
+      'akış GERÇEK tıklamalarla + kamera-izni-VERİLDİ ile tamamlanır, '
+      'SONRAKİ açılış onboarding\'i atlar',
+      (WidgetTester tester) async {
+        mockPermissionChannel(status: 1); // granted
+        await bootGravitaRoot(
+          tester,
+          supportPath: tmp.path,
+          restoreTo: defaultProvider,
+        );
+        expect(find.byType(OnboardingFlow), findsOneWidget);
 
-      // ① UI-GÖZLEMLİ İDDİA: akışı gerçek kontrollerle yürü, O1 → O2 → O5.
-      await tester.tap(find.byKey(OnboardingFlow.valueContinueKey));
-      await tester.pump();
-      await tester.tap(find.byKey(OnboardingFlow.safetyConsentKey));
-      await tester.pump();
-      expect(find.text(OnboardingStrings.cameraRationale), findsOneWidget);
+        // ① UI-GÖZLEMLİ İDDİA: akışı gerçek kontrollerle yürü, O1 → O2 → O5.
+        await tester.tap(find.byKey(OnboardingFlow.valueContinueKey));
+        await tester.pump();
+        await tester.tap(find.byKey(OnboardingFlow.safetyConsentKey));
+        await tester.pump();
+        expect(find.text(OnboardingStrings.cameraRationale), findsOneWidget);
 
-      // ⭐ KENDİ BULGUM (A1 turu): `bootGravitaRoot` sahte sağlayıcıyı
-      // yalnız İLK `pumpWidget` penceresinde açık tutuyor (harness'ın kendi
-      // ② numaralı tuzağı — "sağlayıcı O AN açık olmalı, sonrasında değil").
-      // Ama `OnboardingStore.open()` İKİ AYRI yerde çağrılıyor
-      // (`gravita_app.dart:86` okuma-boot'ta · `:102` yazma-tamamlanmada) —
-      // harness yalnız BİRİNCİYİ hesaba katıyordu. Bu tap ikinci çağrıyı
-      // tetikliyor; sağlayıcı burada YENİDEN açılmazsa `getApplication
-      // SupportDirectory()` GERÇEK platforma düşer (`flutter test`te
-      // uygulaması yok → fırlatır), ürünün KENDİ fail-open tasarımı
-      // (`_completeOnboarding`, `on Object` yutar) bunu SESSİZCE yutar ve
-      // kabuk yine görünür — ama dosya HİÇ yazılmaz. İlk denemem TAM BUNA
-      // düştü: kabuk göründü, `wrote` `false` çıktı — ürün kusuru değil,
-      // testin kendi sağlayıcı penceresi kapalıydı.
-      PathProviderPlatform.instance = FakeSupportDir(tmp.path);
-      await tester.tap(find.byKey(OnboardingFlow.cameraAllowKey));
-      // `Permission.camera.request()` (kanal) → `onComplete()` (GERÇEK G/Ç,
-      // önceki denemeden farklı olarak bu kez GERÇEKTEN yazıyor, sahte
-      // sağlayıcı sayesinde) zinciri sahte saatli gövdede tek pump'la
-      // bitmez. Sabit tur sayısı YETMİYOR (harness'ın kendi ③ numaralı
-      // dersi — `bootGravitaRoot`un kendisi de bunun için SABİT değil
-      // KOŞULLU döngü kullanıyor): burada da aynı desen — yükleyici/eski
-      // ekran gidene kadar tur aç, uydurma bir sayıda durma.
-      for (int round = 0;
+        // ⭐ KENDİ BULGUM (A1 turu): `bootGravitaRoot` sahte sağlayıcıyı
+        // yalnız İLK `pumpWidget` penceresinde açık tutuyor (harness'ın kendi
+        // ② numaralı tuzağı — "sağlayıcı O AN açık olmalı, sonrasında değil").
+        // Ama `OnboardingStore.open()` İKİ AYRI yerde çağrılıyor
+        // (`gravita_app.dart:86` okuma-boot'ta · `:102` yazma-tamamlanmada) —
+        // harness yalnız BİRİNCİYİ hesaba katıyordu. Bu tap ikinci çağrıyı
+        // tetikliyor; sağlayıcı burada YENİDEN açılmazsa `getApplication
+        // SupportDirectory()` GERÇEK platforma düşer (`flutter test`te
+        // uygulaması yok → fırlatır), ürünün KENDİ fail-open tasarımı
+        // (`_completeOnboarding`, `on Object` yutar) bunu SESSİZCE yutar ve
+        // kabuk yine görünür — ama dosya HİÇ yazılmaz. İlk denemem TAM BUNA
+        // düştü: kabuk göründü, `wrote` `false` çıktı — ürün kusuru değil,
+        // testin kendi sağlayıcı penceresi kapalıydı.
+        PathProviderPlatform.instance = FakeSupportDir(tmp.path);
+        await tester.tap(find.byKey(OnboardingFlow.cameraAllowKey));
+        // `Permission.camera.request()` (kanal) → `onComplete()` (GERÇEK G/Ç,
+        // önceki denemeden farklı olarak bu kez GERÇEKTEN yazıyor, sahte
+        // sağlayıcı sayesinde) zinciri sahte saatli gövdede tek pump'la
+        // bitmez. Sabit tur sayısı YETMİYOR (harness'ın kendi ③ numaralı
+        // dersi — `bootGravitaRoot`un kendisi de bunun için SABİT değil
+        // KOŞULLU döngü kullanıyor): burada da aynı desen — yükleyici/eski
+        // ekran gidene kadar tur aç, uydurma bir sayıda durma.
+        for (
+          int round = 0;
           round < 8 && find.byType(OnboardingFlow).evaluate().isNotEmpty;
-          round++) {
-        await tester.runAsync(
-            () => Future<void>.delayed(const Duration(milliseconds: 150)));
-        await tester.pump(const Duration(milliseconds: 80));
-      }
-      PathProviderPlatform.instance = defaultProvider;
+          round++
+        ) {
+          await tester.runAsync(
+            () => Future<void>.delayed(const Duration(milliseconds: 150)),
+          );
+          await tester.pump(const Duration(milliseconds: 80));
+        }
+        PathProviderPlatform.instance = defaultProvider;
 
-      expect(find.byType(GravitaShell), findsOneWidget,
-          reason: 'UI-GÖZLEMLİ İDDİA: akış tamamlandı, kabuk göründü. '
+        expect(
+          find.byType(GravitaShell),
+          findsOneWidget,
+          reason:
+              'UI-GÖZLEMLİ İDDİA: akış tamamlandı, kabuk göründü. '
               'cameraDeniedKey EKRANA GELMEMELİ — bu status:1 dalı, '
-              'status:0 dalından FARKLI bir kod yolu.');
-      expect(find.byKey(OnboardingFlow.cameraDeniedKey), findsNothing);
+              'status:0 dalından FARKLI bir kod yolu.',
+        );
+        expect(find.byKey(OnboardingFlow.cameraDeniedKey), findsNothing);
 
-      // ② MOTOR-SONUCU İDDİASI — AYRI ölçülür: UI kabuğa geçti diye
-      // dosyanın GERÇEKTEN yazıldığı çıkarılmaz.
-      final bool wrote = await realIo(
-          tester, () => File('${tmp.path}/onboarding.json').exists());
-      expect(wrote, isTrue,
-          reason: 'MOTOR-SONUCU İDDİASI: kalıcı bit gerçekten diske yazıldı.');
+        // ② MOTOR-SONUCU İDDİASI — AYRI ölçülür: UI kabuğa geçti diye
+        // dosyanın GERÇEKTEN yazıldığı çıkarılmaz.
+        final bool wrote = await realIo(
+          tester,
+          () => File('${tmp.path}/onboarding.json').exists(),
+        );
+        expect(
+          wrote,
+          isTrue,
+          reason: 'MOTOR-SONUCU İDDİASI: kalıcı bit gerçekten diske yazıldı.',
+        );
 
-      // ③ G-218'İN TAM SORUSU: bu kalıcılık bir SONRAKİ, TAMAMEN YENİ
-      // widget ağacında (gerçek bir yeniden-açılışın testteki karşılığı)
-      // GERÇEKTEN iş görüyor mu? `bootGravitaRoot`un kendi `pumpWidget`ı
-      // ağacı zaten baştan kurar — ayrı bir temizleme adımı gerekmiyor.
-      await bootGravitaRoot(tester,
-          supportPath: tmp.path, restoreTo: defaultProvider);
+        // ③ G-218'İN TAM SORUSU: bu kalıcılık bir SONRAKİ, TAMAMEN YENİ
+        // widget ağacında (gerçek bir yeniden-açılışın testteki karşılığı)
+        // GERÇEKTEN iş görüyor mu? `bootGravitaRoot`un kendi `pumpWidget`ı
+        // ağacı zaten baştan kurar — ayrı bir temizleme adımı gerekmiyor.
+        await bootGravitaRoot(
+          tester,
+          supportPath: tmp.path,
+          restoreTo: defaultProvider,
+        );
 
-      expect(find.byType(GravitaShell), findsOneWidget,
-          reason: 'G-218: SONRAKİ açılış onboarding\'i atlamalı — bu soru '
-              'o gece flutter run çöktüğü için hiç ölçülememişti.');
-      expect(find.byType(OnboardingFlow), findsNothing);
-    });
+        expect(
+          find.byType(GravitaShell),
+          findsOneWidget,
+          reason:
+              'G-218: SONRAKİ açılış onboarding\'i atlamalı — bu soru '
+              'o gece flutter run çöktüğü için hiç ölçülememişti.',
+        );
+        expect(find.byType(OnboardingFlow), findsNothing);
+      },
+    );
   });
 
   group('DEPOLAMA ARIZASI — göster, ama kalıcılaştırma (G-183 / hüküm b)', () {
@@ -180,13 +284,20 @@ void main() {
     /// HİÇBİR YERDE geçmiyor → eski dalda kullanıcı güvenlik uyarısını ve
     /// açık onayı HİÇ görmüyordu. *Bir kuralı en çok ihtiyaç duyulan anda
     /// askıya alan tasarım, o kuralı taşımıyordur.*
-    testWidgets('okunamayan depoda onboarding GÖSTERİLİR — onay atlanmaz',
-        (WidgetTester tester) async {
-      await bootGravitaRoot(tester,
-          supportPath: null, restoreTo: defaultProvider);
+    testWidgets('okunamayan depoda onboarding GÖSTERİLİR — onay atlanmaz', (
+      WidgetTester tester,
+    ) async {
+      await bootGravitaRoot(
+        tester,
+        supportPath: null,
+        restoreTo: defaultProvider,
+      );
 
-      expect(find.byType(OnboardingFlow), findsOneWidget,
-          reason: 'Arıza, güvenlik onayını askıya alamaz.');
+      expect(
+        find.byType(OnboardingFlow),
+        findsOneWidget,
+        reason: 'Arıza, güvenlik onayını askıya alamaz.',
+      );
       expect(find.byType(GravitaShell), findsNothing);
     });
 
@@ -194,10 +305,14 @@ void main() {
     /// Okuma fail-closed olunca yazma da yutulmazsa, bozuk depolamalı bir
     /// cihazda kullanıcı onayı verir ve HİÇBİR YERE gidemezdi. Bu test tam
     /// o çıkmaz sokağı yasaklıyor.
-    testWidgets('onay verilince kabuğa GEÇİLİR — yazma hatası KİLİTLEMEZ',
-        (WidgetTester tester) async {
-      await bootGravitaRoot(tester,
-          supportPath: null, restoreTo: defaultProvider);
+    testWidgets('onay verilince kabuğa GEÇİLİR — yazma hatası KİLİTLEMEZ', (
+      WidgetTester tester,
+    ) async {
+      await bootGravitaRoot(
+        tester,
+        supportPath: null,
+        restoreTo: defaultProvider,
+      );
       expect(find.byType(OnboardingFlow), findsOneWidget);
 
       // Akışı gerçek kontrollerle geç: O1 → O2 → O5.
@@ -212,29 +327,41 @@ void main() {
       await tester.tap(find.byKey(OnboardingFlow.cameraAllowKey));
       await tester.pump();
       await tester.pump();
-      expect(find.byKey(OnboardingFlow.cameraDeniedKey), findsOneWidget,
-          reason: 'Ret dalı çizilmeliydi; kanal yanıtı ürüne ulaşmamış.');
+      expect(
+        find.byKey(OnboardingFlow.cameraDeniedKey),
+        findsOneWidget,
+        reason: 'Ret dalı çizilmeliydi; kanal yanıtı ürüne ulaşmamış.',
+      );
       await tester.tap(find.byKey(OnboardingFlow.cameraContinueWithoutKey));
       // `markComplete` GERÇEK G/Ç dener ve arızada FIRLATIR; ürün onu yutup
       // yine de kabuğa geçmeli. Gerçek-zaman turu o denemeye yer açıyor.
       await tester.runAsync(
-          () => Future<void>.delayed(const Duration(milliseconds: 150)));
+        () => Future<void>.delayed(const Duration(milliseconds: 150)),
+      );
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 80));
 
-      expect(find.byType(GravitaShell), findsOneWidget,
-          reason: 'Kalıcılık BAŞARISIZ olabilir; giriş engellenemez. Aksi '
-              'hâlde bozuk depolamalı cihazda uygulama ÇIKMAZ SOKAK olurdu.');
+      expect(
+        find.byType(GravitaShell),
+        findsOneWidget,
+        reason:
+            'Kalıcılık BAŞARISIZ olabilir; giriş engellenemez. Aksi '
+            'hâlde bozuk depolamalı cihazda uygulama ÇIKMAZ SOKAK olurdu.',
+      );
     });
 
     /// Ve "kalıcılaştırılmaz" gerçekten ÖLÇÜLÜYOR: arızalı depoda hiçbir
     /// dosya doğmaz, dolayısıyla bir sonraki açılış akışı TEKRAR sorar.
     /// Tekrar sorması KABUL EDİLMİŞ maliyettir (hüküm b), gizlenecek kusur
     /// değil — bu yüzden test onu iddia olarak DEĞİL, ölçüm olarak tutuyor.
-    testWidgets('arızalı depoda BİT YAZILMAZ — sonraki açılış tekrar sorar',
-        (WidgetTester tester) async {
-      await bootGravitaRoot(tester,
-          supportPath: null, restoreTo: defaultProvider);
+    testWidgets('arızalı depoda BİT YAZILMAZ — sonraki açılış tekrar sorar', (
+      WidgetTester tester,
+    ) async {
+      await bootGravitaRoot(
+        tester,
+        supportPath: null,
+        restoreTo: defaultProvider,
+      );
       await tester.tap(find.byKey(OnboardingFlow.valueContinueKey));
       await tester.pump();
       await tester.tap(find.byKey(OnboardingFlow.safetyConsentKey));
@@ -244,13 +371,19 @@ void main() {
       await tester.pump();
       await tester.tap(find.byKey(OnboardingFlow.cameraContinueWithoutKey));
       await tester.runAsync(
-          () => Future<void>.delayed(const Duration(milliseconds: 150)));
+        () => Future<void>.delayed(const Duration(milliseconds: 150)),
+      );
       await tester.pump();
 
       final bool wrote = await realIo(
-          tester, () => File('${tmp.path}/onboarding.json').exists());
-      expect(wrote, isFalse,
-          reason: 'Arızalı depoya yazılamaz; "kalıcılaştırılmaz" yarısı.');
+        tester,
+        () => File('${tmp.path}/onboarding.json').exists(),
+      );
+      expect(
+        wrote,
+        isFalse,
+        reason: 'Arızalı depoya yazılamaz; "kalıcılaştırılmaz" yarısı.',
+      );
     });
   });
 }

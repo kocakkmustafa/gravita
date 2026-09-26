@@ -88,6 +88,7 @@ class _StepScaffold extends StatelessWidget {
     required this.primaryKey,
     required this.onPrimary,
     this.busy = false,
+    this.secondaryAction,
   });
 
   final String title;
@@ -96,6 +97,7 @@ class _StepScaffold extends StatelessWidget {
   final Key primaryKey;
   final VoidCallback? onPrimary;
   final bool busy;
+  final Widget? secondaryAction;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -113,6 +115,10 @@ class _StepScaffold extends StatelessWidget {
             ),
           ),
         ),
+        if (secondaryAction != null) ...<Widget>[
+          secondaryAction!,
+          const SizedBox(height: 8),
+        ],
         SizedBox(
           width: double.infinity,
           child: FilledButton(
@@ -166,9 +172,10 @@ class _ValueStep extends StatelessWidget {
         localized(
           context,
           OnboardingStrings.valueWhatWeDo,
-          'Telefonunuzun kamerası tekrarlarınızı cihazda sayar; yalnız hareketi '
-          'gerçekten yaptığınızı gördüğünde tekrar sayar. Duruşunuza puan '
-          'vermez ve antrenman sırasında düzeltme yapmaz.',
+          'Misafir olarak 56 calisthenics dersini keşfet, kendi hızında çalış '
+          've öz bildirimli öğrenme ilerlemeni bu cihazda kaydet. Canlı kamera '
+          'seansları bu sürümde kullanılamıyor. Öğrenme ilerlemesi formuna puan '
+          'vermez veya tekniğini doğrulamaz.',
         ),
         style: GravitaType.body(size: 16),
       ),
@@ -252,7 +259,7 @@ class _CameraStep extends StatelessWidget {
         ? localized(
             context,
             OnboardingStrings.cameraContinueWithout,
-            'Kamerasız devam et',
+            'Kamera izni vermeden devam et',
           )
         : localized(
             context,
@@ -264,6 +271,22 @@ class _CameraStep extends StatelessWidget {
         : OnboardingFlow.cameraAllowKey,
     onPrimary: denied ? onContinueWithout : onAllow,
     busy: requesting,
+    secondaryAction: denied
+        ? null
+        : SizedBox(
+            width: double.infinity,
+            child: TextButton(
+              key: OnboardingFlow.cameraContinueWithoutKey,
+              onPressed: requesting ? null : onContinueWithout,
+              child: Text(
+                localized(
+                  context,
+                  OnboardingStrings.cameraContinueWithout,
+                  'Kamera izni vermeden devam et',
+                ),
+              ),
+            ),
+          ),
     body: <Widget>[
       Text(
         denied
@@ -276,8 +299,9 @@ class _CameraStep extends StatelessWidget {
             : localized(
                 context,
                 OnboardingStrings.cameraRationale,
-                'Gravita tekrarlarınızı saymak için kameraya ihtiyaç duyar. '
-                'Görüntü kaydedilmez veya yüklenmez; cihazınızda kalır.',
+                'Kurs ve öz bildirimli ilerleme kamera izni gerektirmez. '
+                'Canlı kamera seansları bu sürümde kullanılamıyor. İzin '
+                'vermeden devam edebilirsin; görüntü kaydedilmez veya yüklenmez.',
               ),
         key: denied ? OnboardingFlow.cameraDeniedKey : null,
         style: GravitaType.body(size: 16),

@@ -2,20 +2,20 @@
   "$doc": "Magaza liste metni TASLAGI — makine-okur kaynak. Insan-okur baglam: docs/store/STORE-LISTING-TASLAK.md. Sema: ostinato/app/docs/store/listing.json (aile emsali, orkestrator sevki 2026-08-16, 'semayi al sonucu degil'). Gonderim KURUCU kalemi (B7) — bu dosya yalniz TASLAK, onay bekliyor. SUBMIT edilmiyor.",
   "appStore": {
     "name": "Gravita: Skills & Strength",
-    "subtitle": "Bodyweight skills library",
-    "promotionalText": "Browse bodyweight movements and clear readiness notes. Camera rep counting and subscriptions are not open in this release.",
+    "subtitle": "Calisthenics at your pace",
+    "promotionalText": "Build your bodyweight practice from setup to independent sessions, with pushing, pulling, legs, core, progression options and a visible lesson path.",
     "keywords": "bodyweight,exercise,fitness,squat,pushup,calisthenics,movement,training"
   },
   "playStore": {
-    "shortDescription": "Browse bodyweight skills and readiness notes; camera sessions are not open."
+    "shortDescription": "Build bodyweight practice with progressive lessons and a local progress path."
   },
-  "description": "Gravita is a bodyweight movement library covering squats, pushes, pulls, core work and other skills. Browse movement descriptions and see which measurement paths are still being prepared.\n\nThis first release is for exploring the catalogue and using an optional shared Motion account. Camera rep counting, training sessions and subscriptions are not available. The app does not request microphone access.\n\nThe Motion account uses your email address, account ID and an optional display name. Account deletion is available from the account screen. Gravita is a fitness reference, not medical advice or a substitute for a coach.",
+  "description": "Gravita offers 56 original English and Turkish calisthenics lessons across 10 modules. Learn preparation, bodyweight squats and hinges, progressive pushing and pulling, core control, balance and session planning. Equipment-dependent tasks explain setup and alternatives. Advanced skill lessons explain prerequisites and supervision rather than requiring risky attempts.\n\nRead original text lessons, follow practice tasks, review your own practice and continue from your local lesson record. You can browse without signing in and use an optional shared Motion account. The account uses your email address, account ID and optional display name; account deletion is available in the app. Course records stay on the device within the current guest or account scope. No lesson completion certifies mastery. Demonstration video is not included in this content preparation version.\n\nCourse progress is your own practice record. Camera coaching, exercise form grades and subscription sales are not open. General adaptations do not determine personal health suitability.",
   "$claimAuditWhy": "F4/D6 taslagi (2026-08-16, orkestrator sevki: H-46 uyarinca attach/detach cagrilmadan, yalniz cihaz-kapsamli screenshot). Hicbir cumle sifirdan pazarlama dili degil — uygulamanin KENDI zaten G-212/G-213'te bir kez yalan soyleyip DUZELTILMIS metinlerinden turetildi (asagidaki alan-bazli $-notlar). 'Graded'/'scored'/'coach' gibi asiri-vaat kelimeleri KULLANILMADI (G-213'un kapattigi tam o sinif).",
   "$whatItDoesWhy": "lib/app/onboarding_strings.dart OnboardingStrings.valueWhatWeDo (G-213, bir kez yalan soyleyip duzeltilmis, bugun dogrulugu olculu): 'Your phone camera counts your reps, on-device, and only counts one when it can see you are really doing the movement. It does not grade your form, and nothing corrects you while you train.' Birebir aktarildi, degistirilmedi.",
   "$whatItDoesntWhy": "AYNI dosya, OnboardingStrings.valueWhatWeDont: 'Not medical. Not a substitute for a coach. We cannot stop you from falling.' Birebir.",
   "$readinessClaimWhy": "lib/app/library_strings.dart LibraryStrings.libraryCount(total, live)'in KENDI deseni: '$total movements . $live open . ${total - live} waiting on a measurement'. Sayilar bugun olculdu (python3 -c \"json.load(open('content/library.json'))\", 2026-08-16): 31 toplam, canli yalniz bodyweight_squat + push_up (ikisinin de derived precondition kapisi var — squat: hip-diz Pearson korelasyonu, push_up: torso_angle_from_vertical, M-F-38-PILOT-RAPORU.md). ✅ H-58 (orkestratör, 2026-08-16): bu not yalniz DUZYAZIYDI, sifir okuyucusu vardi — artik tools/validate_store_listing.py run_all_gates.sh'in SUIT 3'unde bu sayilari content/library.json'in GERCEK sayimina karsi sinar (bu dosya + STORE-LISTING-TASLAK.md'nin ikisi de), hasat turu ilerleyip metin guncellenmezse KIRMIZI yanar. Bayatlama artik SESSIZ olamaz.",
   "$privacyClaimWhy": "Kamera ve video iddialari yerel isleme akisina dayanir. Ortak Motion hesabi e-posta, istege bagli ad ve kullanici kimligini Auth/profil/uyelik icin isler; kamera verisi ve yerel seans ozeti yuklenmez. Provider ve magaza veri beyanlari yayin oncesi dogrulanir.",
-  "$notClaimed": "Bu taslak 'cihazda dogrulandi/kanitlandi' turunde hicbir cumle icermiyor — description'daki her cumle BUGUN kod-gercegine dayanir (lib/ + content/library.json okuma, bu oturumda), roadmap'in hedef-durumuna degil. Cihaz-performansi/upload/submit iddiasi tasimaz — B7 kurucu kalemi. 'Coach'/'training plan'/'personal trainer' gibi hizmet-vaadi kelimeleri KULLANILMADI (valueWhatWeDont'un yasakladigi tam sinif).",
+  "$notClaimed": "No independent skill/mastery outcome, physical-phone performance, clinical suitability, camera form grade or approved AI demonstration is asserted. This local content-preparation draft has not been uploaded.",
   "$openingClosingReframeWhy": "H-85 (kurucu, 2026-08-17): appStore/name 'Gravita: Rep Counter'dan ASC'deki canli ada ('Gravita: Skills & Strength') cekildi (orkestrator yazdi, mekanik kalem). Ama description'in acilis/kapanis cumleleri hala salt 'rep counter' kimligi anlatiyordu ⇒ baslik ile govde CELISIYORDU (baslik genis vaat ediyor, govde dar taniniyordu). Bu bir hat-yargisi kalemiydi (orkestrator metni yazmadi, 'senin' dedi). DUZELTME, YALNIZ iki cumle: acilis 'Gravita counts your reps...' -> 'Gravita is a skills-and-strength practice app, built around one honest rule: ...' ve kapanis 'a movement-practice tool' -> 'a skills-and-strength practice tool'. URUNU GENISLETMEDI: hicbir yeni yetenek/vaat eklenmedi (coach/plan/program kelimeleri hala yok), 'HONEST ABOUT WHAT'S READY' paragrafi (31 toplam / 2 canli, tools/validate_store_listing.py'nin GERCEK kapisi) BIREBIR AYNI birakildi — degisen yalniz KIMLIK cercevesi, KAPSAM iddiasi degil. 'squats, pushes, pulls, core' zaten mevcut govdede vardi (31-hareket paragrafi), yalniz acilista da GORUNUR kilindi.",
   "cameraPermissionRationale": {
     "ios": "Gravita uses the camera to count complete reps and measure tempo. Video is processed on this device and is not uploaded or saved; movement, rep count and session duration are saved locally.",
@@ -38,5 +38,15 @@
   "supportUrl": "https://yulalab.com/support",
   "privacyPolicyUrl": "https://yulalab.com/privacy/motion",
   "$urlWhy": "Kurucu karari 2026-08-17 (H-85): supportUrl+privacyPolicyUrl Apple'in ZORUNLU alanlari, bes app ORTAK sayfa kullanir. Sayfalar yulalab.com'da yazildi (/privacy/motion bes app icin ortak politika; /support Motion'i kapsayacak sekilde guncellendi). Deger hat tarafindan SECILMEDI, kurucu karari olarak yazildi.",
-  "$releasePolicy20260925": "Founder deferred all paid camera sessions and subscription sales in the first release. Provider listings must use only the external fields above; older dollar-prefixed research notes describe deferred capabilities."
+  "$releasePolicy20260925": "Founder deferred all paid camera sessions and subscription sales in the first release. Provider listings must use only the external fields above; older dollar-prefixed research notes describe deferred capabilities.",
+  "$coursePreparation20260926": {
+    "status": "local_content_preparation_not_provider_readback_or_release_acceptance",
+    "asset": "content/courses/calisthenics.v1.json",
+    "sha256": "10ca089a71ba03c01d3ab8839a26003a1934a8f24ad8ed111a11bec1d4d8bb75",
+    "lessonCount": 56,
+    "moduleCount": 10,
+    "mediaIncluded": false,
+    "physicalDeviceAccepted": false
+  },
+  "$sourceOfFacts": "Current course: content/courses/calisthenics.v1.json; its app-local UI and account-scoped practice store. Camera paid-access policy is unchanged. Readback of provider metadata is separate."
 }

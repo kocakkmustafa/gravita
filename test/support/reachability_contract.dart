@@ -14,6 +14,7 @@
 library;
 
 import 'dart:io';
+import 'package:gravita/app/camera_release_policy.dart';
 
 /// Aday envanteri — **DESENDEN türetilir** (sözleşme ②a). Desen `koddan`
 /// okur; elle liste `hafızadan`.
@@ -30,8 +31,9 @@ import 'dart:io';
 /// içinde çizilen görünüm; deseni gevşetmek envanteri şişirirdi.
 Set<String> declaredScreens() {
   final RegExp cls = RegExp(
-      r'^class\s+(\w+(?:Screen|Page|Tab|Flow))\s+extends\s+(?:Stateless|Stateful)Widget',
-      multiLine: true);
+    r'^class\s+(\w+(?:Screen|Page|Tab|Flow))\s+extends\s+(?:Stateless|Stateful)Widget',
+    multiLine: true,
+  );
   final Set<String> out = <String>{};
   for (final File f in _appSources()) {
     for (final RegExpMatch m in cls.allMatches(f.readAsStringSync())) {
@@ -70,10 +72,10 @@ Iterable<File> _appSources() => Directory('lib/app')
 /// `MaterialPageRoute(builder:)` içinde itilir. İkisi de **kullanıcı hedefi**
 /// anlamını taşır; `Scaffold` ise yalnız *"tam ekran çiziyorum"* der.
 Set<String> mountedScreens() {
-  final RegExp pushed =
-      RegExp(r'builder:\s*\(_\)\s*=>\s*([A-Z]\w*)\s*\(');
-  final RegExp shellBlock =
-      RegExp(r'IndexedStack\([\s\S]*?children:\s*<Widget>\[([\s\S]*?)\n\s*\],');
+  final RegExp pushed = RegExp(r'builder:\s*\(_\)\s*=>\s*([A-Z]\w*)\s*\(');
+  final RegExp shellBlock = RegExp(
+    r'IndexedStack\([\s\S]*?children:\s*<Widget>\[([\s\S]*?)\n\s*\],',
+  );
   final RegExp child = RegExp(r'^\s+([A-Z]\w*)\s*\(', multiLine: true);
 
   final Set<String> out = <String>{};
@@ -164,7 +166,10 @@ const Set<String> kRootArrivals = <String>{'GravitaShell'};
 ///
 /// ⚠️ Bu satır **sebebi TAŞIMAZ, İDDİA EDER** — sebep [derivedExclusionReasons]
 /// tarafından her koşumda **kaynaktan türetilir** (G-200).
-const Set<String> kDeliberatelyUnreachable = <String>{'ContentFailureScreen'};
+const Set<String> kDeliberatelyUnreachable = <String>{
+  'ContentFailureScreen',
+  if (!motionPaidCameraLaunchEnabled) 'LiveSessionScreen',
+};
 
 /// **(c) DIŞLAMA SEBEBİ — düzyazı değil, HER KOŞUMDA KAYNAKTAN türetilir.**
 ///
@@ -186,6 +191,14 @@ Map<String, String> derivedExclusionReasons() {
   final Map<String, String> out = <String, String>{};
 
   for (final String cls in kDeliberatelyUnreachable) {
+    if (cls == 'LiveSessionScreen' && !motionPaidCameraLaunchEnabled) {
+      final launch = File('lib/app/gravita_app.dart').readAsStringSync();
+      if (launch.contains('if (!motionPaidCameraLaunchEnabled) return;')) {
+        out[cls] =
+            'shared first-release policy closes camera launch before route construction';
+        continue;
+      }
+    }
     final RegExp decl = RegExp('^class\\s+$cls\\b', multiLine: true);
     final List<String> sites = <String>[];
 
@@ -202,10 +215,12 @@ Map<String, String> derivedExclusionReasons() {
     }
 
     if (mounts.contains(cls)) {
-      out[cls] = '⛔ SEBEP ÇÜRÜDÜ: montaj noktasında görünüyor — kullanıcı '
+      out[cls] =
+          '⛔ SEBEP ÇÜRÜDÜ: montaj noktasında görünüyor — kullanıcı '
           'basarak varabiliyor, bu bir dışlama kalemi DEĞİL';
     } else if (sites.isEmpty) {
-      out[cls] = '⛔ SEBEP ÇÜRÜDÜ: hiçbir yerde inşa edilmiyor — bu dışlama '
+      out[cls] =
+          '⛔ SEBEP ÇÜRÜDÜ: hiçbir yerde inşa edilmiyor — bu dışlama '
           'değil ÖLÜ KOD kalemi (ayrı kova, ayrı karar)';
     } else {
       out[cls] = 'yalnız sistem dalından inşa ediliyor (${sites.join(' · ')})';

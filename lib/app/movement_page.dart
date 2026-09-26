@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gravita_engine/gravita_engine.dart';
 import 'app_locale.dart';
 import 'catalog_copy_tr.dart';
+import 'camera_release_policy.dart';
 
 import 'content_repository.dart';
+import 'calisthenics_course.dart';
+import 'calisthenics_course_screen.dart';
 import 'library_model.dart';
 import 'library_strings.dart';
 import 'skills/skill_tree_screen.dart';
@@ -62,6 +65,7 @@ class MovementPage extends StatefulWidget {
   static const Key queueKey = Key('movement.queue');
   static const Key skillTreeKey = Key('movement.skillTree');
   static const Key startSessionKey = Key('movement.startSession');
+  static const Key learningGuideKey = Key('movement.learningGuide');
 
   final MovementEntry movement;
   final String? accountUserId;
@@ -135,13 +139,19 @@ class _MovementPageState extends State<MovementPage> {
               alignment: Alignment.centerLeft,
               child: FilledButton.icon(
                 key: MovementPage.startSessionKey,
-                onPressed: () => widget.onStartSession!(startable),
+                onPressed: motionPaidCameraLaunchEnabled
+                    ? () => widget.onStartSession!(startable)
+                    : null,
                 icon: const Icon(Icons.videocam_outlined),
                 label: Text(
                   localized(
                     context,
-                    LibraryStrings.startSession,
-                    'Seansı başlat',
+                    motionPaidCameraLaunchEnabled
+                        ? LibraryStrings.startSession
+                        : LibraryStrings.cameraUnavailable,
+                    motionPaidCameraLaunchEnabled
+                        ? 'Seansı başlat'
+                        : 'Kamera kapalı',
                   ),
                 ),
               ),
@@ -153,6 +163,10 @@ class _MovementPageState extends State<MovementPage> {
           // ⭐ Dürüstlük kutusu sayfanın ÜST YARISINDA. Aşağıya atmak onu
           // "küçük yazı" hâline getirirdi; ürünün iddiası tam olarak bu kutu.
           _honestyBox(m),
+          if (widget.content.calisthenicsCourse.guideFor(m.id) != null) ...[
+            const SizedBox(height: 20),
+            _learningGuide(m),
+          ],
           const SizedBox(height: 28),
           if (m.comingSoon.isNotEmpty) ...<Widget>[
             _queue(m),
@@ -188,7 +202,11 @@ class _MovementPageState extends State<MovementPage> {
         children: <Widget>[
           GravitaPill(
             label: m.isLive
-                ? localized(context, LibraryStrings.openBadge, 'AÇIK')
+                ? localized(
+                    context,
+                    LibraryStrings.openBadge,
+                    motionPaidCameraLaunchEnabled ? 'AÇIK' : 'KAMERA KAPALI',
+                  )
                 : localized(context, LibraryStrings.queuedBadge, 'KAPALI'),
             tone: m.isLive ? GravitaColors.accent : GravitaColors.textSecondary,
             filled: m.isLive,
@@ -269,12 +287,97 @@ class _MovementPageState extends State<MovementPage> {
 
   // ── 3. ⭐ Dürüstlük kutusu — ÜRETİLMİŞ, esnek yükseklik ─────────────────
 
+  Widget _learningGuide(MovementEntry movement) {
+    final course = widget.content.calisthenicsCourse;
+    final guide = course.guideFor(movement.id)!;
+    final (en, tr) = switch (guide.kind) {
+      MovementGuideKind.practice => (
+        'Related practice · self-report',
+        'İlgili pratik · öz bildirim',
+      ),
+      MovementGuideKind.preparation => (
+        'Preparation variants · self-report',
+        'Hazırlık varyasyonları · öz bildirim',
+      ),
+      MovementGuideKind.readingOnly => (
+        'Reading pathway · no physical task',
+        'Bilgi yolu · fiziksel görev yok',
+      ),
+    };
+    return SurfaceSection(
+      key: MovementPage.learningGuideKey,
+      title: localized(context, en, tr),
+      children: [
+        Text(
+          localized(
+            context,
+            'Read the prerequisites and adaptations first. Learning records do not validate technique or open camera coaching.',
+            'Önce önkoşulları ve uyarlamaları oku. Öğrenme kaydı teknik doğrulamaz veya kamera koçluğunu açmaz.',
+          ),
+          style: GravitaType.body(size: 13, color: GravitaColors.textSecondary),
+        ),
+        for (final id in guide.lessonIds)
+          TextButton.icon(
+            key: Key('movement.guide.$id'),
+            icon: const Icon(Icons.menu_book_outlined),
+            label: Text(
+              course.lessons
+                  .singleWhere((l) => l.id == id)
+                  .title
+                  .inLanguage(Localizations.localeOf(context).languageCode),
+            ),
+            onPressed: () => Navigator.of(context).push<void>(
+              MaterialPageRoute<void>(
+                builder: (_) => CalisthenicsLessonScreen(
+                  course: course,
+                  lesson: course.lessons.singleWhere((l) => l.id == id),
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
+  /// Catalogue contracts remain intact. A closed release must not present
+  /// their historical counting/comparison copy as a service the user receives.
+  String _honestyCopy(MovementEntry m, String source) {
+    if (!motionPaidCameraLaunchEnabled && m.isLive) {
+      if (m.honesty.measured.contains(source)) {
+        return localized(
+          context,
+          LibraryStrings.cameraClosedCountBody,
+          'Tekrar sayımı ölçüm kataloğunda yer alır. Bu sürüm '
+          'tekrarlarını saymaz veya zamanlamaz.',
+        );
+      }
+      if (source == m.honesty.scoring) {
+        return localized(
+          context,
+          LibraryStrings.cameraClosedScoreBody,
+          'Bu sürüm formunu ölçmez veya puanlamaz. Kurs ve öğrenme rehberi '
+          'ilerlemesi yalnız kendi pratik bildirimini kaydeder.',
+        );
+      }
+      if (source.startsWith('How your form compares to instructors.')) {
+        return localized(
+          context,
+          LibraryStrings.cameraClosedComparisonBody,
+          'Bu sürüm hareketini eğitmenlerle karşılaştırmaz veya form puanı sunmaz.',
+        );
+      }
+    }
+    return liveHonestyCopy(context, m.id, source);
+  }
+
   Widget _honestyBox(MovementEntry m) => SurfaceSection(
     key: MovementPage.honestyKey,
     title: localized(
       context,
       LibraryStrings.honestyTitle.toUpperCase(),
-      'NEYİ ÖLÇÜYORUZ, NEYİ ÖLÇMÜYORUZ',
+      motionPaidCameraLaunchEnabled
+          ? 'NEYİ ÖLÇÜYORUZ, NEYİ ÖLÇMÜYORUZ'
+          : 'ÖLÇÜM KATALOĞU VE SINIRLAR',
     ),
     children: <Widget>[
       GravitaCard(
@@ -288,7 +391,7 @@ class _MovementPageState extends State<MovementPage> {
               localized(
                 context,
                 LibraryStrings.honestyMeasuredLabel,
-                'Ölçülen',
+                motionPaidCameraLaunchEnabled ? 'Ölçülen' : 'Katalog ölçümleri',
               ),
             ),
             const SizedBox(height: 10),
@@ -310,7 +413,7 @@ class _MovementPageState extends State<MovementPage> {
             else
               ReasonList(
                 items: m.honesty.measured
-                    .map((source) => liveHonestyCopy(context, m.id, source))
+                    .map((source) => _honestyCopy(m, source))
                     .toList(growable: false),
                 color: GravitaColors.honestyText,
                 bulletColor: GravitaColors.honestySeal,
@@ -336,7 +439,7 @@ class _MovementPageState extends State<MovementPage> {
                   color: GravitaColors.honestySeal.withValues(alpha: 0.05),
                 ),
                 child: Text(
-                  liveHonestyCopy(context, m.id, m.honesty.scoring!),
+                  _honestyCopy(m, m.honesty.scoring!),
                   key: MovementPage.scoringKey,
                   style: GravitaType.body(
                     size: 12.5,
@@ -379,7 +482,7 @@ class _MovementPageState extends State<MovementPage> {
               const SizedBox(height: 10),
               ReasonList(
                 items: m.honesty.notMeasured
-                    .map((source) => liveHonestyCopy(context, m.id, source))
+                    .map((source) => _honestyCopy(m, source))
                     .toList(growable: false),
                 color: GravitaColors.honestyText,
                 bulletColor: GravitaColors.honestySeal,
@@ -455,7 +558,10 @@ class _MovementPageState extends State<MovementPage> {
             ? localized(
                 context,
                 LibraryStrings.formErrorsBodyLive(c.formErrors.length),
-                '${c.formErrors.length} kural kayıtlı görüntülerde ve canlı çalışmada değerlendirilir; sonuçlar set sırasında gösterilmez.',
+                motionPaidCameraLaunchEnabled
+                    ? '${c.formErrors.length} kural kayıtlı görüntülerde ve canlı çalışmada değerlendirilir; sonuçlar set sırasında gösterilmez.'
+                    : '${c.formErrors.length} kural kayıtlı görüntü tekrarları için yapılandırılmıştır. '
+                          'Canlı kamera seansları bu sürümde kullanılamıyor; kamera geri bildirimi veya form puanı sunulmaz.',
               )
             : localized(
                 context,
@@ -508,7 +614,7 @@ class _MovementPageState extends State<MovementPage> {
     title: localized(
       context,
       LibraryStrings.coursesTitle.toUpperCase(),
-      'KURSLAR',
+      'KAMERA DERSİ KATALOĞU',
     ),
     children: <Widget>[
       if (m.courseCount == 0)
@@ -517,7 +623,7 @@ class _MovementPageState extends State<MovementPage> {
           text: localized(
             context,
             LibraryStrings.coursesNone,
-            'Bu hareket için açık bir kurs yok. Yapılabilir dersler olmadan boş bir kurs listesi göstermiyoruz.',
+            'Bu hareket için kamera dersi yapılandırılmadı. Yukarıda listelenen ilgili öğrenme rehberleri yalnız kendi pratik beyanını kaydeder.',
           ),
         )
       else
@@ -552,7 +658,7 @@ class _MovementPageState extends State<MovementPage> {
             text: localized(
               context,
               LibraryStrings.trendNoLesson,
-              'Burada ders yok; oturumun ilişkilendirileceği bir ders de yok. Gösterilecek veri olmadığı için boş grafik çizmiyoruz.',
+              'Bu hareket için kamera ölçüm geçmişi kullanılamıyor. Öz bildirimli kurs ilerlemesi kursta ayrı tutulur.',
             ),
           ),
         ],

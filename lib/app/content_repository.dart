@@ -5,6 +5,9 @@ import 'package:flutter/services.dart' show AssetBundle;
 import 'package:gravita_engine/gravita_engine.dart';
 import 'package:path_provider/path_provider.dart';
 import 'account_data_directory.dart';
+import 'calisthenics_course.dart';
+import 'calisthenics_progress.dart';
+import 'foundation_coverage.dart';
 
 import 'content_failure.dart';
 import 'library_model.dart';
@@ -39,12 +42,19 @@ const int _librarySchemaVersion = 1;
 final class ContentRepository {
   ContentRepository._({
     required this.library,
+    required this.calisthenicsCourse,
     required this.catalogue,
     required this.lessonSurfaces,
     required Map<String, MovementConfig> eagerCatalog,
     required AssetBundle bundle,
-  })  : _catalog = eagerCatalog,
-        _bundle = bundle;
+  }) : _catalog = eagerCatalog,
+       _bundle = bundle {
+    for (final guide in calisthenicsCourse.catalogueGuides) {
+      if (catalogue.byId(guide.movementId) == null) {
+        throw FormatException('Unknown teaching movement: ${guide.movementId}');
+      }
+    }
+  }
 
   /// İçeriği asset bundle'dan yükler.
   ///
@@ -65,12 +75,13 @@ final class ContentRepository {
     final int schema = (lib['schemaVersion'] as num?)?.toInt() ?? 0;
     if (schema != _librarySchemaVersion) {
       throw StateError(
-          'library.json şema sürümü $schema; bu kabuk '
-          '$_librarySchemaVersion bekliyor. İçerik ile kod ayrışmış.');
+        'library.json şema sürümü $schema; bu kabuk '
+        '$_librarySchemaVersion bekliyor. İçerik ile kod ayrışmış.',
+      );
     }
 
-    final List<Map<String, dynamic>> raw =
-        (lib['movements'] as List<dynamic>).cast<Map<String, dynamic>>();
+    final List<Map<String, dynamic>> raw = (lib['movements'] as List<dynamic>)
+        .cast<Map<String, dynamic>>();
 
     final Map<String, MovementConfig> eager = <String, MovementConfig>{};
     for (final Map<String, dynamic> m in raw) {
@@ -84,6 +95,9 @@ final class ContentRepository {
     }
 
     return ContentRepository._(
+      calisthenicsCourse: CalisthenicsCourse.parse(
+        await bundle.loadString('content/courses/calisthenics.v1.json'),
+      ),
       library: lib,
       bundle: bundle,
       eagerCatalog: eager,
@@ -92,9 +106,11 @@ final class ContentRepository {
             .map((Map<String, dynamic> m) => MovementEntry.fromJson(m))
             .toList(growable: false),
         exclusions: ExclusionsPage.parse(
-            await bundle.loadString('content/exclusions.page.json')),
+          await bundle.loadString('content/exclusions.page.json'),
+        ),
         skillTrees: SkillTreeIndex.parse(
-            await bundle.loadString('content/skill-trees.index.json')),
+          await bundle.loadString('content/skill-trees.index.json'),
+        ),
       ),
       lessonSurfaces: LessonSurface.deriveAll(
         library: lib,
@@ -104,18 +120,47 @@ final class ContentRepository {
   }
 
   static Future<MovementConfig> _loadCatalog(
-      AssetBundle bundle, Map<String, dynamic> movement, String catalogId) async {
+    AssetBundle bundle,
+    Map<String, dynamic> movement,
+    String catalogId,
+  ) async {
     final String? wave = movement['wave'] as String?;
     if (wave == null) {
       throw StateError(
-          'library.json: ${movement['id']} `wave` bildirmiyor — katalog adresi '
-          'kurulamaz. Dalga beyanı zorunlu.');
+        'library.json: ${movement['id']} `wave` bildirmiyor — katalog adresi '
+        'kurulamaz. Dalga beyanı zorunlu.',
+      );
     }
-    return MovementConfig.parse(await bundle
-        .loadString('content/catalog/${wave.toLowerCase()}/$catalogId.json'));
+    return MovementConfig.parse(
+      await bundle.loadString(
+        'content/catalog/${wave.toLowerCase()}/$catalogId.json',
+      ),
+    );
   }
 
   final Map<String, dynamic> library;
+  final CalisthenicsCourse calisthenicsCourse;
+
+  FoundationCoverage get foundationCoverage => FoundationCoverage(
+    catalogueIds: catalogue.movements.map((movement) => movement.id),
+    startableCameraIds: catalogue.movements
+        .where((movement) => startableConfigFor(movement.id) != null)
+        .map((movement) => movement.id),
+    practiceGuideIds: calisthenicsCourse.catalogueGuides
+        .where((guide) => guide.kind != MovementGuideKind.readingOnly)
+        .map((guide) => guide.movementId),
+    readingGuideIds: calisthenicsCourse.catalogueGuides
+        .where((guide) => guide.kind == MovementGuideKind.readingOnly)
+        .map((guide) => guide.movementId),
+  );
+
+  static Future<CalisthenicsProgressStore> openCalisthenicsProgressStore({
+    String? accountUserId,
+    Directory? supportDirectory,
+  }) async => calisthenicsProgressStoreFor(
+    supportDirectory ?? await getApplicationSupportDirectory(),
+    accountUserId,
+  );
 
   /// Kütüphane yüzeyinin okuduğu tipli hâl (31 hareket + "Neden yok?").
   final LibraryCatalogue catalogue;
@@ -147,11 +192,17 @@ final class ContentRepository {
     if (cached != null) return cached;
     final Map<String, dynamic> m = (library['movements'] as List<dynamic>)
         .cast<Map<String, dynamic>>()
-        .firstWhere((Map<String, dynamic> e) => e['id'] == movementId,
-            orElse: () => throw StateError(
-                'library.json: `$movementId` diye bir hareket YOK'));
+        .firstWhere(
+          (Map<String, dynamic> e) => e['id'] == movementId,
+          orElse: () => throw StateError(
+            'library.json: `$movementId` diye bir hareket YOK',
+          ),
+        );
     final MovementConfig config = await _loadCatalog(
-        _bundle, m, (m['catalogId'] ?? m['id']) as String);
+      _bundle,
+      m,
+      (m['catalogId'] ?? m['id']) as String,
+    );
     _catalog[config.id] = config;
     return config;
   }
@@ -189,11 +240,13 @@ final class ContentRepository {
   /// `ProgramBuilder`ın kendisi bunu BİLMEZ (parametre olarak alır); bu
   /// yalnız KABLOLAMA — `_loadCatalog`la AYNI ayrım (saf mantık / Flutter
   /// kablolaması).
-  static Future<ProgramConfig> loadProgramConfig(AssetBundle bundle) async =>
-      ProgramConfig.fromJson((jsonDecode(
-              await bundle.loadString('content/programs/foundation.v1.json'))
-          as Map)
-        .cast<String, dynamic>());
+  static Future<ProgramConfig> loadProgramConfig(
+    AssetBundle bundle,
+  ) async => ProgramConfig.fromJson(
+    (jsonDecode(await bundle.loadString('content/programs/foundation.v1.json'))
+            as Map)
+        .cast<String, dynamic>(),
+  );
 
   /// [ProgramBuilder]ın ihtiyaç duyduğu katalog alt kümesi — 31 hareketin
   /// HEPSİ için (yalnız kursu olanlar değil, `catalogFor` burada HER
@@ -205,18 +258,20 @@ final class ContentRepository {
     final List<ProgramCatalogEntry> out = <ProgramCatalogEntry>[];
     for (final MovementEntry m in catalogue.movements) {
       final MovementConfig config = await catalogFor(m.id);
-      out.add(ProgramCatalogEntry(
-        id: m.id,
-        family: m.family,
-        // `level` `library.json`da YOKSA (O-070 dersi: eksik veri varsayılan
-        // ALMAZ) program üretimi bu hareketi hiçbir seviyeye eşleyemez —
-        // en KISITLAYICI varsayım ('intermediate', beginner girdisinde
-        // ELENİR) seçildi, en olumlu (beginner) DEĞİL.
-        level: m.level ?? 'intermediate',
-        equipment: m.equipment.toSet(),
-        isHold: config.engineType == EngineType.staticHold,
-        isLive: m.isLive,
-      ));
+      out.add(
+        ProgramCatalogEntry(
+          id: m.id,
+          family: m.family,
+          // `level` `library.json`da YOKSA (O-070 dersi: eksik veri varsayılan
+          // ALMAZ) program üretimi bu hareketi hiçbir seviyeye eşleyemez —
+          // en KISITLAYICI varsayım ('intermediate', beginner girdisinde
+          // ELENİR) seçildi, en olumlu (beginner) DEĞİL.
+          level: m.level ?? 'intermediate',
+          equipment: m.equipment.toSet(),
+          isHold: config.engineType == EngineType.staticHold,
+          isLive: m.isLive,
+        ),
+      );
     }
     return out;
   }
@@ -224,7 +279,9 @@ final class ContentRepository {
   /// DERS seansı geçmişi. `ProgressSummary` YALNIZ bunu okur.
   static Future<SessionStore> openSessionStore({String? accountUserId}) async {
     final Directory dir = accountDataDirectory(
-      await getApplicationSupportDirectory(), accountUserId);
+      await getApplicationSupportDirectory(),
+      accountUserId,
+    );
     return JsonlSessionStore(File('${dir.path}/sessions.jsonl'));
   }
 
@@ -296,9 +353,13 @@ final class ContentRepository {
     }
   }
 
-  static Future<SessionStore> openFreeSessionStore({String? accountUserId}) async {
+  static Future<SessionStore> openFreeSessionStore({
+    String? accountUserId,
+  }) async {
     final Directory dir = accountDataDirectory(
-      await getApplicationSupportDirectory(), accountUserId);
+      await getApplicationSupportDirectory(),
+      accountUserId,
+    );
     return JsonlSessionStore(File('${dir.path}/free_sessions.jsonl'));
   }
 

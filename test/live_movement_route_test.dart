@@ -12,46 +12,53 @@ import 'package:gravita_engine/gravita_engine.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('Today Push-Up opens the Push-Up measurement contract', (
-    WidgetTester tester,
-  ) async {
-    late ContentRepository content;
-    await tester.runAsync(() async {
-      content = await ContentRepository.load(rootBundle);
-    });
-    final MovementConfig? pushUp = content.startableConfigFor('push_up');
-    expect(pushUp, isNotNull);
-    expect(pushUp!.preconditionDerived, isTrue);
-    expect(pushUp.engineType, EngineType.repFsm);
+  testWidgets(
+    'Today Push-Up keeps configured contract but release camera is closed',
+    (WidgetTester tester) async {
+      late ContentRepository content;
+      await tester.runAsync(() async {
+        content = await ContentRepository.load(rootBundle);
+      });
+      final MovementConfig? pushUp = content.startableConfigFor('push_up');
+      expect(pushUp, isNotNull);
+      expect(pushUp!.preconditionDerived, isTrue);
+      expect(pushUp.engineType, EngineType.repFsm);
 
-    await tester.pumpWidget(
-      MaterialApp(
-        locale: const Locale('tr'),
-        supportedLocales: appSupportedLocales,
-        localizationsDelegates: appLocalizationsDelegates,
-        home: GravitaShell(content: content),
-      ),
-    );
-    await tester.pump();
-    final Finder pushUpCard = find.text('Şınav');
-    await tester.ensureVisible(pushUpCard);
-    await tester.tap(pushUpCard);
-    await tester.pumpAndSettle();
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: const Locale('tr'),
+          supportedLocales: appSupportedLocales,
+          localizationsDelegates: appLocalizationsDelegates,
+          home: GravitaShell(content: content),
+        ),
+      );
+      await tester.pump();
+      final Finder pushUpCard = find.text('Şınav');
+      await tester.ensureVisible(pushUpCard);
+      await tester.pump();
+      expect(pushUpCard.hitTestable(), findsOneWidget);
+      await tester.tap(pushUpCard);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 350));
 
-    expect(find.byType(MovementPage), findsOneWidget);
-    expect(find.byKey(MovementPage.startSessionKey), findsOneWidget);
-    await tester.tap(find.byKey(MovementPage.startSessionKey));
-    await tester.pumpAndSettle();
+      expect(find.byType(MovementPage), findsOneWidget);
+      expect(find.byKey(MovementPage.startSessionKey), findsOneWidget);
+      expect(
+        tester
+            .widget<FilledButton>(find.byKey(MovementPage.startSessionKey))
+            .onPressed,
+        isNull,
+      );
+      await tester.tap(find.byKey(MovementPage.startSessionKey));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 350));
 
-    final LiveSessionScreen session = tester.widget<LiveSessionScreen>(
-      find.byType(LiveSessionScreen),
-    );
-    expect(session.config.id, 'push_up');
-    expect(identical(session.config, pushUp), isTrue);
-    expect(find.byKey(LiveSessionScreen.startButtonKey), findsOneWidget);
-  });
+      expect(find.byType(LiveSessionScreen), findsNothing);
+      expect(content.startableConfigFor('push_up'), same(pushUp));
+    },
+  );
 
-  testWidgets('paid access denied keeps the movement page open', (
+  testWidgets('release policy prevents reaching account guard or camera page', (
     WidgetTester tester,
   ) async {
     late ContentRepository content;
@@ -83,12 +90,16 @@ void main() {
     await tester.pump();
     final Finder pushUpCard = find.text('Şınav');
     await tester.ensureVisible(pushUpCard);
+    await tester.pump();
+    expect(pushUpCard.hitTestable(), findsOneWidget);
     await tester.tap(pushUpCard);
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 350));
 
     await tester.tap(find.byKey(MovementPage.startSessionKey));
-    await tester.pumpAndSettle();
-    expect(guardCalls, 1);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 350));
+    expect(guardCalls, 0);
     expect(find.byType(MovementPage), findsOneWidget);
     expect(find.byType(LiveSessionScreen), findsNothing);
   });

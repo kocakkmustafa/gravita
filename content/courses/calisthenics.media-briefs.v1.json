@@ -1,0 +1,513 @@
+{
+  "schemaVersion": 1,
+  "courseId": "calisthenics-foundations",
+  "courseVersion": "1.0.0",
+  "status": "brief_only_not_generated_or_coach_reviewed",
+  "trainingData": false,
+  "lessons": [
+    {
+      "moduleId": "foundations",
+      "lessonId": "cal-01",
+      "practiceType": "learning_only",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Wide room audit, close-up of fixed chair feet and manufacturer rating label; no improvised anchor.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Geniş alan kontrolü, sabit sandalye ayakları ve üretici taşıma etiketi yakın plan; doğaçlama bağlantı yok."
+      }
+    },
+    {
+      "moduleId": "foundations",
+      "lessonId": "cal-02",
+      "practiceType": "learning_only",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Calm seated presenter and supported standing alternative; no pregnancy inversion demonstration.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sakin oturan anlatıcı ve ayakta destekli alternatif; gebelikte ters duruş gösterimi yok."
+      }
+    },
+    {
+      "moduleId": "foundations",
+      "lessonId": "cal-03",
+      "practiceType": "learning_only",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Seated natural breathing observation and effort-scale diagram; no physical press before its lesson.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Oturarak doğal nefes gözlemi ve efor ölçeği şeması; dersinden önce fiziksel itiş yok."
+      }
+    },
+    {
+      "moduleId": "foundations",
+      "lessonId": "cal-04",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Wide seated march, small shoulder circles and unloaded wrist close-up; no squat, pressing or forced stretching yet.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Geniş oturarak adım, küçük omuz daireleri ve yüksüz bilek yakın plan; henüz squat, itiş veya zorlanan esneme yok."
+      }
+    },
+    {
+      "moduleId": "foundations",
+      "lessonId": "cal-05",
+      "practiceType": "learning_only",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Planning diagram with two task blocks and seated rest between; no untaught physical sets.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: İki görev bloğu ve arada oturarak dinlenmeli plan şeması; öğretilmeyen fiziksel set yok."
+      }
+    },
+    {
+      "moduleId": "foundations",
+      "lessonId": "cal-06",
+      "practiceType": "learning_only",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Notebook beside stable chair; distinct Seen, Practised and Self-reported labels without certificate graphics.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sabit sandalyenin yanında not defteri; sertifika görseli olmadan ayrı Görüldü, Pratik, Öz bildirim etiketleri."
+      }
+    },
+    {
+      "moduleId": "lower",
+      "lessonId": "cal-07",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Front and side chair sequence; show higher-seat regression and quiet seat contact.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Önden ve yandan sandalye dizisi; yüksek oturak kolay yolu ve yumuşak oturma teması."
+      }
+    },
+    {
+      "moduleId": "lower",
+      "lessonId": "cal-08",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Front/side shallow-to-comfortable squat; show feet and hips, no numerical depth overlay.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Önden/yandan sığdan rahat derinliğe squat; ayak ve kalça görünür, sayısal derinlik etiketi yok."
+      }
+    },
+    {
+      "moduleId": "lower",
+      "lessonId": "cal-09",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side hip-wall tap with floor marker; compare two small controlled ranges.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan kalça-duvar dokunuşu ve zemin işareti; iki küçük kontrollü aralık."
+      }
+    },
+    {
+      "moduleId": "lower",
+      "lessonId": "cal-10",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side small bridge and standing supported alternative; avoid lumbar overextension.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan küçük köprü ve ayakta destekli alternatif; aşırı bel açılması yok."
+      }
+    },
+    {
+      "moduleId": "lower",
+      "lessonId": "cal-11",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Front diagonal supported split squat; floor tracks visible and shallow regression.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Önden çapraz destekli split squat; zemin hatları ve sığ kolay yol görünür."
+      }
+    },
+    {
+      "moduleId": "lower",
+      "lessonId": "cal-12",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side and front stepping sequence beside rail; no fast alternating lunge.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Korkuluk yanında yandan/önden adım dizisi; hızlı değişen lunge yok."
+      }
+    },
+    {
+      "moduleId": "lower",
+      "lessonId": "cal-13",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Low step and rail fully visible; foot placement close-up and quiet descent.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Alçak basamak ve korkuluk tamamen görünür; ayak yerleşimi yakın plan ve yumuşak iniş."
+      }
+    },
+    {
+      "moduleId": "lower",
+      "lessonId": "cal-14",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Front ankle detail and full-body support view; no ledge or one-leg challenge.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Önden bilek detayı ve tam beden destek görünümü; kenar veya tek bacak meydan okuması yok."
+      }
+    },
+    {
+      "moduleId": "push",
+      "lessonId": "cal-15",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side wall press plus hand placement close-up; show closer-foot regression.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan duvar itişi ve el yerleşimi yakın plan; yakın ayak kolay yolu."
+      }
+    },
+    {
+      "moduleId": "push",
+      "lessonId": "cal-16",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Fixed bench side view with support feet visible; two stable heights without a stool.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Destek ayakları görünen sabit bank yandan; tabure olmadan iki sabit yükseklik."
+      }
+    },
+    {
+      "moduleId": "push",
+      "lessonId": "cal-17",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side knee-to-shoulder line and padded knees; show small range and incline alternative.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan diz-omuz çizgisi ve yastıklı diz; küçük aralık ve yükselti alternatifi."
+      }
+    },
+    {
+      "moduleId": "push",
+      "lessonId": "cal-18",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side incline descent and explicit knee reset; no floor crash or maximum-effort count.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan yükselti inişi ve belirgin dizle yenilenme; yere çökme veya en yüksek efor sayımı yok."
+      }
+    },
+    {
+      "moduleId": "push",
+      "lessonId": "cal-19",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Full-body side floor press with one clean rep; matched incline regression, no score overlay.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Tek temiz tekrarlı tam beden yandan yer şınavı; eş yükselti kolay yolu, puan etiketi yok."
+      }
+    },
+    {
+      "moduleId": "push",
+      "lessonId": "cal-20",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Rear-diagonal wall support close-up plus side trunk; small protraction/retraction only.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Arkadan çapraz duvar desteği yakın plan ve yandan gövde; yalnız küçük öne/geriye kürek hareketi."
+      }
+    },
+    {
+      "moduleId": "push",
+      "lessonId": "cal-21",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Rated low parallel handles and planted feet wide shot; tiny bend, no chair dip or deep range.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Uygun alçak paralel tutacak ve yerde ayak geniş plan; küçük bükme, sandalye dip veya derin aralık yok."
+      }
+    },
+    {
+      "moduleId": "pull",
+      "lessonId": "cal-22",
+      "practiceType": "learning_only",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Anchor rating and attachment detail, then wide access step and exit; no table/door improvisation.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Bağlantı taşıma etiketi ve detay, ardından geniş erişim basamağı ve çıkış; masa/kapı doğaçlaması yok."
+      }
+    },
+    {
+      "moduleId": "pull",
+      "lessonId": "cal-23",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Low-bar side row with bent knees and feet in frame; upright suspension alternative.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Bükülü diz ve ayak kadrajıyla alçak bar yandan row; dik askı alternatifi."
+      }
+    },
+    {
+      "moduleId": "pull",
+      "lessonId": "cal-24",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Matched side shots of two modest lever lengths with same rated anchor; no maximum horizontal challenge.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Aynı uygun bağlantıda iki küçük kol farkının eş yandan planları; en zor yatay meydan okuma yok."
+      }
+    },
+    {
+      "moduleId": "pull",
+      "lessonId": "cal-25",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Wide overhead bar with feet firmly on rated step, close grip detail; no dangling beginner.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Uygun basamakta sağlam ayaklarla geniş baş üstü bar, tutuş detayı; boşta sallanan başlangıç modeli yok."
+      }
+    },
+    {
+      "moduleId": "pull",
+      "lessonId": "cal-26",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Rear diagonal of tiny supported shoulder movement with elbow and feet in frame.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Dirsek ve ayak kadrajda, destekli küçük omuz hareketinin arkadan çapraz görüntüsü."
+      }
+    },
+    {
+      "moduleId": "pull",
+      "lessonId": "cal-27",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Assisted machine demonstration with pin adjustment and controlled return; foot-supported alternative, no band snap.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Pim ayarı ve kontrollü dönüşle yardım makinesi; ayak destekli alternatif, bant sıçraması yok."
+      }
+    },
+    {
+      "moduleId": "pull",
+      "lessonId": "cal-28",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Close stable step placement then short supported descent; label optional and retain feet in frame.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sabit basamak yerleşimi yakın plan, kısa destekli iniş; isteğe bağlı etiketi ve ayaklar kadrajda."
+      }
+    },
+    {
+      "moduleId": "core",
+      "lessonId": "cal-29",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Rear diagonal trunk view and side leg slide; opposite reach stays low, no balancing objects.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Arkadan çapraz gövde ve yandan bacak kaydırma; karşı uzanma alçak, denge nesnesi yok."
+      }
+    },
+    {
+      "moduleId": "core",
+      "lessonId": "cal-30",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side short heel slide with rib/pelvis visible; seated alternative, no forced spine flattening.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Kaburga/leğen görünen yandan kısa topuk kaydırma; oturarak alternatif, zorla bel düzleştirme yok."
+      }
+    },
+    {
+      "moduleId": "core",
+      "lessonId": "cal-31",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side high counter hold and wall regression; hands, feet and support base visible.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan yüksek tezgâh tutuşu ve duvar kolay yolu; el, ayak ve destek tabanı görünür."
+      }
+    },
+    {
+      "moduleId": "core",
+      "lessonId": "cal-32",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side forearm hold with knee-supported alternative and deliberate knee-down exit.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Diz destekli alternatif ve bilinçli dizle çıkışla yandan önkol tutuşu."
+      }
+    },
+    {
+      "moduleId": "core",
+      "lessonId": "cal-33",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Front diagonal knee-supported side hold with elbow cushion; wall alternative.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Dirsek yastıklı diz destekli yan tutuş önden çapraz; duvar alternatifi."
+      }
+    },
+    {
+      "moduleId": "core",
+      "lessonId": "cal-34",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Staggered feet detail and brief side hold; show knee exit, no elevated-foot variation.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Şaşırtılmış ayak detayı ve kısa yan tutuş; dizle çıkış, yükseltilmiş ayak varyasyonu yok."
+      }
+    },
+    {
+      "moduleId": "core",
+      "lessonId": "cal-35",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side bent-knee short lever with supported head alternative; no straight-leg maximal hollow.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan bükülü diz kısa kol ve baş destekli alternatif; düz bacak en zor hollow yok."
+      }
+    },
+    {
+      "moduleId": "core",
+      "lessonId": "cal-36",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Wide single knee lift, opposite foot planted on stable step throughout; replace foot before switching, then seated option. Never both feet free.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Bir diz kaldır geniş plan; karşı ayak boyunca sabit basamakta. Değiştirmeden ayağı geri koy, sonra oturarak seçenek. İki ayak boşta asla değil."
+      }
+    },
+    {
+      "moduleId": "conditioning",
+      "lessonId": "cal-37",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Wide low-impact side step and seated march; no jumping jack or breathless montage.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Geniş düşük etkili yan adım ve oturarak adım; sıçramalı jack veya nefessiz montaj yok."
+      }
+    },
+    {
+      "moduleId": "conditioning",
+      "lessonId": "cal-38",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side fixed incline with alternating slow knee lift; clear planted foot between switches.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sabit yükseltide yandan yavaş sırayla diz kaldır; değişimler arasında belirgin basan ayak."
+      }
+    },
+    {
+      "moduleId": "conditioning",
+      "lessonId": "cal-39",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Wide fixed high bench full cycle, all contacts visible; no jump, push-up or speed edit.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sabit yüksek bankta geniş tam döngü, tüm temaslar görünür; sıçrama, şınav veya hızlandırma yok."
+      }
+    },
+    {
+      "moduleId": "conditioning",
+      "lessonId": "cal-40",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Three quiet station shots separated by visible rest; no competitive timer or calorie claims.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Görünür dinlenmeyle ayrılmış üç sakin istasyon; yarış sayacı veya kalori iddiası yok."
+      }
+    },
+    {
+      "moduleId": "support",
+      "lessonId": "cal-41",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Palm close-up at wall and small full-body lean; no forced wrist end-range.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Duvarda avuç yakın plan ve küçük tam beden eğilmesi; bilek son aralığı zorlanmıyor."
+      }
+    },
+    {
+      "moduleId": "support",
+      "lessonId": "cal-42",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: High incline rear diagonal pressure shift with both hands contacting; wall regression.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: İki el temaslı yüksek yükseltide arkadan çapraz yük aktarımı; duvar kolay yolu."
+      }
+    },
+    {
+      "moduleId": "support",
+      "lessonId": "cal-43",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side hands-knees entry, toe placement, tiny bent-knee hip rise and knees-down exit; head never contacts floor. Wall press alternative.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan eller-dizlerde giriş, parmak yerleşimi, küçük diz bükülü kalça yükselişi ve dizle çıkış; baş zemine değmez. Duvar itişi alternatifi."
+      }
+    },
+    {
+      "moduleId": "support",
+      "lessonId": "cal-44",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Front diagonal seated bent-knee single foot lift, hands visible; higher-seat option.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Eller görünen önden çapraz oturarak diz bükülü tek ayak kaldırış; yüksek oturak seçeneği."
+      }
+    },
+    {
+      "moduleId": "support",
+      "lessonId": "cal-45",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Low rated handles, planted feet and one heel lift; never a floating L-sit hero shot.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Alçak uygun tutacak, basan ayak ve tek topuk kaldır; havada L-sit kahraman planı yok."
+      }
+    },
+    {
+      "moduleId": "literacy",
+      "lessonId": "cal-46",
+      "practiceType": "learning_only",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Non-performing diagram of wall, mat, coach and exit arrows; no kick-up or pregnant inversion actor.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Duvar, mat, eğitmen ve çıkış oklarının uygulamasız şeması; tekmeleme veya gebe ters duruş modeli yok."
+      }
+    },
+    {
+      "moduleId": "literacy",
+      "lessonId": "cal-47",
+      "practiceType": "learning_only",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Annotated static leverage diagram, contact points and coach icon; no physical planche attempt.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Açıklamalı sabit kol şeması, temas noktaları ve eğitmen simgesi; fiziksel planche denemesi yok."
+      }
+    },
+    {
+      "moduleId": "literacy",
+      "lessonId": "cal-48",
+      "practiceType": "learning_only",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Static bar-and-body lever diagram and shorter lever comparison; no hanging transition stunt.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sabit bar-beden kol şeması ve kısa kol karşılaştırması; asılı geçiş gösterisi yok."
+      }
+    },
+    {
+      "moduleId": "literacy",
+      "lessonId": "cal-49",
+      "practiceType": "learning_only",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Three labelled static panels for pull/transition/support with coach gate; no moving muscle-up demo.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Çekiş/geçiş/destek için üç etiketli sabit panel ve eğitmen kapısı; hareketli muscle-up demosu yok."
+      }
+    },
+    {
+      "moduleId": "programming",
+      "lessonId": "cal-50",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Split screen wall and incline at matching pace; neutral choice labels, no winner.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Eş tempoda duvar ve yükselti bölünmüş ekran; nötr seçim etiketleri, kazanan yok."
+      }
+    },
+    {
+      "moduleId": "programming",
+      "lessonId": "cal-51",
+      "practiceType": "learning_only",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Plain weekly cards with two example strength days and recovery spaces; no personalized health promise.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: İki örnek kuvvet günü ve toparlanma boşluklu sade hafta kartları; kişiye özel sağlık vaadi yok."
+      }
+    },
+    {
+      "moduleId": "programming",
+      "lessonId": "cal-52",
+      "practiceType": "learning_only",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Three neutral next-session choices beside a practice log; no automatic readiness gauge.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Pratik kaydının yanında üç nötr sonraki seans seçimi; otomatik hazır oluş göstergesi yok."
+      }
+    },
+    {
+      "moduleId": "integration",
+      "lessonId": "cal-53",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Matched squat and wall-press control shots with support audit; no before/after physique claim.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Destek kontrolüyle eş squat ve duvar itişi planları; önce/sonra fizik görünümü iddiası yok."
+      }
+    },
+    {
+      "moduleId": "integration",
+      "lessonId": "cal-54",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Rated row setup, then supported bird-dog or incline plank; no improvised-table row.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Uygun row düzeni, ardından destekli bird-dog veya yükseltide plank; doğaçlama masa row yok."
+      }
+    },
+    {
+      "moduleId": "integration",
+      "lessonId": "cal-55",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Original session worksheet with warm-up, four options, rest and exit notes; no automated medical plan.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Isınma, dört seçenek, dinlenme ve çıkış notlu özgün seans sayfası; otomatik tıbbi plan yok."
+      }
+    },
+    {
+      "moduleId": "integration",
+      "lessonId": "cal-56",
+      "practiceType": "physical",
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Calm repeat session and personal next-week notebook; no certificate, elite badge or guaranteed transformation.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sakin yineleme seansı ve kişisel gelecek hafta notu; sertifika, elit rozet veya garantili dönüşüm yok."
+      }
+    }
+  ]
+}

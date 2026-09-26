@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'account_connection.dart';
+import 'camera_release_policy.dart';
 
 import 'app_locale.dart';
 import 'content_repository.dart';
+import 'calisthenics_course_screen.dart';
 import 'library_model.dart';
 import 'library_strings.dart';
 import 'movement_page.dart';
@@ -60,6 +62,8 @@ class HomeScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(18, 4, 18, 96),
         children: <Widget>[
+          CalisthenicsEntryCard(content: content),
+          const SizedBox(height: 20),
           NoteCard(
             key: noPlanKey,
             icon: Icons.event_busy_outlined,
@@ -71,9 +75,13 @@ class HomeScreen extends StatelessWidget {
             text: localized(
               context,
               LibraryStrings.homeNoPlanBody,
-              'Gravita günlük antrenman planlayıcısı içermez. Aşağıda '
-              'şu anda ölçebildiğimiz hareketleri ve diğer hareketlerin '
-              'durumunu görebilirsiniz.',
+              motionPaidCameraLaunchEnabled
+                  ? 'Gravita günlük antrenman planlayıcısı içermez. Aşağıda '
+                        'şu anda ölçebildiğimiz hareketleri ve diğer hareketlerin '
+                        'durumunu görebilirsiniz.'
+                  : 'Kursu, öğrenme rehberlerini ve ölçüm kataloğunu incele. '
+                        'Gravita günlük antrenman planı oluşturmaz. '
+                        'Canlı kamera seansları bu sürümde kullanılamıyor.',
             ),
           ),
           const SizedBox(height: 30),
@@ -82,13 +90,16 @@ class HomeScreen extends StatelessWidget {
             title: localized(
               context,
               LibraryStrings.homeOpenNowTitle.toUpperCase(),
-              'ŞU ANDA AÇIK',
+              motionPaidCameraLaunchEnabled ? 'ŞU ANDA AÇIK' : 'ÖLÇÜM KATALOĞU',
             ),
             subtitle: localized(
               context,
               LibraryStrings.homeOpenBody(live.length),
-              '${live.length} harekette canlı tekrar sayımı açık. '
-              'Duruşunuz puanlanmaz.',
+              motionPaidCameraLaunchEnabled
+                  ? '${live.length} harekette canlı tekrar sayımı açık. Duruşunuz puanlanmaz.'
+                  : '${live.length} yapılandırılmış ölçüm sözleşmesi. '
+                        'Canlı kamera seansları bu sürümde kullanılamıyor. '
+                        'Öğrenme rehberleri yalnız kendi pratik bildirimini kaydeder.',
             ),
             children: live
                 .map(
@@ -96,14 +107,14 @@ class HomeScreen extends StatelessWidget {
                     movement: m,
                     onTap: () => Navigator.of(context).push<void>(
                       MaterialPageRoute<void>(
-                        builder: (_) =>
-                            MovementPage(
-                              movement: m,
-                              content: content,
-                              onStartSession: onStartSession,
-                              accountUserId:
-                                  AccountScope.maybeOf(context)?.currentUserId,
-                            ),
+                        builder: (_) => MovementPage(
+                          movement: m,
+                          content: content,
+                          onStartSession: onStartSession,
+                          accountUserId: AccountScope.maybeOf(
+                            context,
+                          )?.currentUserId,
+                        ),
                       ),
                     ),
                   ),
@@ -144,7 +155,9 @@ class HomeScreen extends StatelessWidget {
                   MaterialPageRoute<void>(
                     builder: (_) => WorkoutScreen(
                       content: content,
-                      accountUserId: AccountScope.maybeOf(context)?.currentUserId,
+                      accountUserId: AccountScope.maybeOf(
+                        context,
+                      )?.currentUserId,
                     ),
                   ),
                 ),
@@ -186,7 +199,9 @@ class HomeScreen extends StatelessWidget {
                   MaterialPageRoute<void>(
                     builder: (_) => ProgramSetupScreen(
                       content: content,
-                      accountUserId: AccountScope.maybeOf(context)?.currentUserId,
+                      accountUserId: AccountScope.maybeOf(
+                        context,
+                      )?.currentUserId,
                     ),
                   ),
                 ),
@@ -320,8 +335,11 @@ class HomeScreen extends StatelessWidget {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          localized(context, LibraryStrings.libraryTitle,
-                              'Kütüphane'),
+                          localized(
+                            context,
+                            LibraryStrings.libraryTitle,
+                            'Kütüphane',
+                          ),
                           style: GravitaType.body(
                             size: 14,
                             weight: FontWeight.w500,

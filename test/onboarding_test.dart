@@ -27,8 +27,9 @@ void main() {
     });
 
     test('dosya YOKSA tamamlanmadı sayılır (ilk açılış)', () async {
-      final OnboardingStore s =
-          OnboardingStore.forFile(File('${tmp.path}/onboarding.json'));
+      final OnboardingStore s = OnboardingStore.forFile(
+        File('${tmp.path}/onboarding.json'),
+      );
       expect(await s.isComplete(), isFalse);
     });
 
@@ -41,8 +42,7 @@ void main() {
       expect(await OnboardingStore.forFile(f).isComplete(), isTrue);
     });
 
-    test('BOZUK dosya tamamlanmadı sayılır — sonsuza dek kilitlemez',
-        () async {
+    test('BOZUK dosya tamamlanmadı sayılır — sonsuza dek kilitlemez', () async {
       final File f = File('${tmp.path}/onboarding.json')
         ..createSync(recursive: true);
       f.writeAsStringSync('{ bozuk json');
@@ -83,20 +83,25 @@ void main() {
         'doğru okunur (ileriye dönük uyum)', () async {
       final File f = File('${tmp.path}/onboarding.json')
         ..createSync(recursive: true);
-      f.writeAsStringSync(jsonEncode(<String, dynamic>{
-        'completed': true,
-        'schemaVersion': 999,
-        'gelecekAlan': <String, dynamic>{'iceIce': 'baby'},
-      }));
-      expect(await OnboardingStore.forFile(f).isComplete(), isTrue,
-          reason: 'isComplete() yalnız `completed` okur; bilinmeyen sürüm '
-              'numarası ya da fazladan alan onu SAPTIRMAMALI.');
+      f.writeAsStringSync(
+        jsonEncode(<String, dynamic>{
+          'completed': true,
+          'schemaVersion': 999,
+          'gelecekAlan': <String, dynamic>{'iceIce': 'baby'},
+        }),
+      );
+      expect(
+        await OnboardingStore.forFile(f).isComplete(),
+        isTrue,
+        reason:
+            'isComplete() yalnız `completed` okur; bilinmeyen sürüm '
+            'numarası ya da fazladan alan onu SAPTIRMAMALI.',
+      );
     });
 
     test('markComplete alt dizinleri oluşturur (getApplicationSupport '
         'ilk açılışta yok olabilir)', () async {
-      final File f =
-          File('${tmp.path}/nested/does/not/exist/onboarding.json');
+      final File f = File('${tmp.path}/nested/does/not/exist/onboarding.json');
       await OnboardingStore.forFile(f).markComplete();
       expect(await f.exists(), isTrue);
       final Map<String, dynamic> j =
@@ -106,55 +111,61 @@ void main() {
   });
 
   group('OnboardingFlow — O1 → O2 → O5, GERÇEK ekranlardan', () {
-    testWidgets('O1: değer ekranı ne yaptığımızı VE yapmadığımızı gösterir',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(MaterialApp(
-        home: OnboardingFlow(onComplete: () async {}),
-      ));
+    testWidgets('O1: değer ekranı ne yaptığımızı VE yapmadığımızı gösterir', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(home: OnboardingFlow(onComplete: () async {})),
+      );
       expect(find.text(OnboardingStrings.valueWhatWeDo), findsOneWidget);
       expect(find.text(OnboardingStrings.valueWhatWeDont), findsOneWidget);
       // İki adım ötesi henüz GÖRÜNMEMELİ.
       expect(find.text(OnboardingStrings.safetyDisclaimer), findsNothing);
     });
 
-    testWidgets('O1 → O2: Continue basınca güvenlik onayına geçer',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(MaterialApp(
-        home: OnboardingFlow(onComplete: () async {}),
-      ));
+    testWidgets('O1 → O2: Continue basınca güvenlik onayına geçer', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(home: OnboardingFlow(onComplete: () async {})),
+      );
       await tester.tap(find.byKey(OnboardingFlow.valueContinueKey));
       await tester.pump();
       expect(find.text(OnboardingStrings.safetyDisclaimer), findsOneWidget);
       // safetyCopy.generalDisclaimer content/skill-graph/handstand.v1.json'dan
       // BİREBİR — elle yazılmadığının kanıtı: kaynakla AYNI dize.
       expect(
-          OnboardingStrings.safetyDisclaimer,
-          'Gravita is a movement-practice tool, not a medical service and '
-          'not a substitute for an in-person coach. It cannot prevent a '
-          'fall.');
+        OnboardingStrings.safetyDisclaimer,
+        'Gravita is a movement-practice tool, not a medical service and '
+        'not a substitute for an in-person coach. It cannot prevent a '
+        'fall.',
+      );
     });
 
     testWidgets(
-        'O2 DISMISS EDİLEMEZ — sistem geri tuşu adımı atlamıyor (UI-BRIEF '
-        'O2: "açık onay olmadan devam YOK")', (WidgetTester tester) async {
-      await tester.pumpWidget(MaterialApp(
-        home: OnboardingFlow(onComplete: () async {}),
-      ));
-      await tester.tap(find.byKey(OnboardingFlow.valueContinueKey));
-      await tester.pump();
-      expect(find.text(OnboardingStrings.safetyDisclaimer), findsOneWidget);
+      'O2 DISMISS EDİLEMEZ — sistem geri tuşu adımı atlamıyor (UI-BRIEF '
+      'O2: "açık onay olmadan devam YOK")',
+      (WidgetTester tester) async {
+        await tester.pumpWidget(
+          MaterialApp(home: OnboardingFlow(onComplete: () async {})),
+        );
+        await tester.tap(find.byKey(OnboardingFlow.valueContinueKey));
+        await tester.pump();
+        expect(find.text(OnboardingStrings.safetyDisclaimer), findsOneWidget);
 
-      // `PopScope.canPop=false` — bu, sistem geri tuşunu/kaydırmasını
-      // REDDEDEN gerçek Flutter mekanizmasıdır (framework'ün kendisi
-      // uygular; burada test edilebilir olan onun DOĞRU KURULDUĞU).
-      expect(tester.widget<PopScope>(find.byType(PopScope)).canPop, isFalse);
-    });
+        // `PopScope.canPop=false` — bu, sistem geri tuşunu/kaydırmasını
+        // REDDEDEN gerçek Flutter mekanizmasıdır (framework'ün kendisi
+        // uygular; burada test edilebilir olan onun DOĞRU KURULDUĞU).
+        expect(tester.widget<PopScope>(find.byType(PopScope)).canPop, isFalse);
+      },
+    );
 
-    testWidgets('O2 → O5: onay basınca kamera adımına geçer',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(MaterialApp(
-        home: OnboardingFlow(onComplete: () async {}),
-      ));
+    testWidgets('O2 → O5: onay basınca kamera adımına geçer', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(home: OnboardingFlow(onComplete: () async {})),
+      );
       await tester.tap(find.byKey(OnboardingFlow.valueContinueKey));
       await tester.pump();
       await tester.tap(find.byKey(OnboardingFlow.safetyConsentKey));
@@ -163,10 +174,11 @@ void main() {
       // Aynı cümlenin ikinci yarısı `live_strings.dart`ın ret metniyle
       // BİREBİR — iki yerde iki farklı gerekçe olmasın diye.
       expect(
-          OnboardingStrings.cameraRationale.contains(
-              'Nothing is recorded or uploaded — video stays on this '
-              'device and never leaves it.'),
-          isTrue);
+        OnboardingStrings.cameraRationale.contains(
+          'nothing is recorded or uploaded',
+        ),
+        isTrue,
+      );
     });
   });
 }

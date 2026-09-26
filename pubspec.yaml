@@ -1,7 +1,7 @@
 name: gravita
 description: "Gravita — Skills & Strength. Kamera-tabanlı kuvvet ve beceri antrenmanı, cihazda."
 publish_to: none
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ^3.9.0
@@ -81,6 +81,8 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.24
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
   lints: ^4.0.0
@@ -130,6 +132,7 @@ flutter:
     # eşik yok, ve OKUYUCU (`content_repository.dart::loadProgramConfig`)
     # ARTIK var — "beyan var, okuyanı yok" satırı bu turda kapandı.
     - content/programs/foundation.v1.json
+    - content/courses/calisthenics.v1.json
     # Poz modeli — git'te DEĞİL (aile kuralı, .gitignore); `tool/fetch_pose_model.sh`
     # indirir ve SHA-256 DOĞRULAR. Asset olarak paketlenir, çalışma-zamanında
     # dosyaya yazılır (plugin dosya yolu ister, bundle değil).

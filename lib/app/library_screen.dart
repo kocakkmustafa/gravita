@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'account_connection.dart';
+import 'camera_release_policy.dart';
 
 import 'app_locale.dart';
 import 'catalog_copy_tr.dart';
 import 'content_repository.dart';
+import 'calisthenics_course_screen.dart';
 import 'library_model.dart';
 import 'library_strings.dart';
 import 'movement_page.dart';
@@ -86,6 +88,23 @@ class _LibraryScreenState extends State<LibraryScreen> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(18, 4, 18, 96),
         children: <Widget>[
+          CalisthenicsEntryCard(content: widget.content),
+          const SizedBox(height: 10),
+          Text(
+            localized(
+              context,
+              '${widget.content.foundationCoverage.practiceGuideIds.length} movement guides · '
+                  '${widget.content.foundationCoverage.readingGuideIds.length} reading pathways · self-report',
+              '${widget.content.foundationCoverage.practiceGuideIds.length} hareket rehberi · '
+                  '${widget.content.foundationCoverage.readingGuideIds.length} bilgi yolu · öz bildirim',
+            ),
+            key: const Key('library.learningCoverage'),
+            style: GravitaType.body(
+              size: 12,
+              color: GravitaColors.textSecondary,
+            ),
+          ),
+          const SizedBox(height: 20),
           Text(
             localized(
               context,
@@ -93,16 +112,36 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 _catalogue.movements.length,
                 _catalogue.liveCount,
               ),
-              '${_catalogue.movements.length} hareket · '
-              '${_catalogue.liveCount} açık · '
-              '${_catalogue.movements.length - _catalogue.liveCount} '
-              'ölçüm bekliyor',
+              motionPaidCameraLaunchEnabled
+                  ? '${_catalogue.movements.length} hareket · '
+                        '${_catalogue.liveCount} açık · '
+                        '${_catalogue.movements.length - _catalogue.liveCount} '
+                        'ölçüm bekliyor'
+                  : '${_catalogue.movements.length} hareket · '
+                        '${_catalogue.liveCount} yapılandırılmış ölçüm · '
+                        '${_catalogue.movements.length - _catalogue.liveCount} ölçüm kanıtı bekliyor',
             ),
             style: GravitaType.mono(
               size: 11,
               color: GravitaColors.textSecondary,
             ),
           ),
+          if (!motionPaidCameraLaunchEnabled) ...[
+            const SizedBox(height: 10),
+            Text(
+              localized(
+                context,
+                LibraryStrings.cameraUnavailableBody,
+                'Canlı kamera seansları bu sürümde kullanılamıyor. '
+                'Öğrenme rehberleri yalnız kendi pratik bildirimini kaydeder.',
+              ),
+              key: const Key('library.cameraUnavailable'),
+              style: GravitaType.body(
+                size: 12,
+                color: GravitaColors.textSecondary,
+              ),
+            ),
+          ],
           const SizedBox(height: 14),
           _searchField(),
           const SizedBox(height: 22),

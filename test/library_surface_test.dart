@@ -96,8 +96,8 @@ void main() {
       final int live = c.catalogue.liveCount;
       final int waiting = c.catalogue.movements.length - live;
       expect(find.textContaining('$catalogued movements'), findsOneWidget);
-      expect(find.textContaining('$live open'), findsOneWidget);
-      expect(find.textContaining('$waiting waiting'), findsOneWidget);
+      expect(find.textContaining('$live configured measurements'), findsOneWidget);
+      expect(find.textContaining('$waiting pending measurement evidence'), findsOneWidget);
     });
 
     testWidgets('her aile bölümü ÇİZİLİYOR — hiçbiri sessizce düşmüyor',
@@ -559,18 +559,32 @@ void main() {
         await tester.pump();
 
         final List<String> mustAppear = <String>[
-          ...m.honesty.measured,
+          if (!m.isLive) ...m.honesty.measured,
           ...m.honesty.waitingOnMeasurement,
-          ...m.honesty.notMeasured,
+          ...m.honesty.notMeasured.where((item) =>
+              !m.isLive || !item.startsWith('How your form compares to instructors.')),
           ...m.comingSoon,
           ...m.safetyWarnings,
-          if (m.honesty.scoring != null) m.honesty.scoring!,
-          m.blurb,
+          if (m.honesty.scoring != null && !m.isLive) m.honesty.scoring!,
+          if (!m.isLive) m.blurb,
         ];
         for (final String text in mustAppear) {
           expect(find.text(text, skipOffstage: false), findsOneWidget,
               reason: '${m.id}: içerikte VAR, ekranda YOK — "$text". '
                   'Kapı bir sessizliği koruyor.');
+        }
+        if (m.isLive) {
+          // Closed release: catalogue metadata remains in the asset, but the
+          // visible contract must not promise counting or scoring to users.
+          expect(find.text(LibraryStrings.cameraClosedCountBody,
+              skipOffstage: false), findsOneWidget);
+          expect(find.text(LibraryStrings.cameraClosedScoreBody,
+              skipOffstage: false), findsOneWidget);
+          expect(find.text(LibraryStrings.cameraClosedMovementBlurb,
+              skipOffstage: false), findsOneWidget);
+          for (final raw in [...m.honesty.measured, m.honesty.scoring!, m.blurb]) {
+            expect(find.text(raw, skipOffstage: false), findsNothing);
+          }
         }
       }
     });
@@ -604,7 +618,11 @@ void main() {
       // Kutunun her maddesi GERÇEKTEN çizilmiş olmalı — taşmama, kırpılarak
       // da sağlanabilir ve o "geçti" en kötü geçiştir.
       for (final String item in longest.honesty.notMeasured) {
-        expect(find.text(item, skipOffstage: false), findsOneWidget,
+        final displayed = longest.isLive &&
+                item.startsWith('How your form compares to instructors.')
+            ? LibraryStrings.cameraClosedComparisonBody
+            : item;
+        expect(find.text(displayed, skipOffstage: false), findsOneWidget,
             reason: '${longest.id}: madde çizilmedi — "$item"');
       }
     });
@@ -640,8 +658,13 @@ void main() {
             findsWidgets,
             reason: '${s.id}: sınır SINIFI ekranda yok — "kamera göremiyor" '
                 'örtük bir vaat taşır, "bu bir çizgi" taşımaz.');
-        expect(find.text(s.userReason, skipOffstage: false), findsOneWidget,
+        final displayedReason = s.id == 'one_rep_max'
+            ? LibraryStrings.cameraClosedStrengthReason : s.userReason;
+        expect(find.text(displayedReason, skipOffstage: false), findsOneWidget,
             reason: '${s.id} gerekçesi kırpıldı ya da çizilmedi');
+        if (s.id == 'one_rep_max') {
+          expect(find.text(s.userReason, skipOffstage: false), findsNothing);
+        }
       }
     });
 
@@ -841,8 +864,9 @@ void main() {
       await tester.pump();
       expect(find.byKey(MovementPage.scoringKey, skipOffstage: false),
           findsOneWidget);
-      expect(find.text(live.honesty.scoring!, skipOffstage: false),
+      expect(find.text(LibraryStrings.cameraClosedScoreBody, skipOffstage: false),
           findsOneWidget);
+      expect(find.text(live.honesty.scoring!, skipOffstage: false), findsNothing);
     });
 
     test('canlı seans AYRI KOVAYA yazılıyor — ders trendine karışmıyor', () {

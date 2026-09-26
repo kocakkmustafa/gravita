@@ -1,4 +1,5 @@
 import 'library_model.dart';
+import 'camera_release_policy.dart';
 
 /// Kütüphane · Home · Hareket sayfası · Profil metinleri (V1 yalnız `en`).
 ///
@@ -21,6 +22,27 @@ abstract final class LibraryStrings {
   static const String tabProgress = 'Progress';
   static const String tabProfile = 'Profile';
   static const String startSession = 'Start';
+  static const String cameraUnavailable = 'Camera unavailable';
+  static const String cameraUnavailableBody =
+      'Live camera sessions are unavailable in this release. '
+      'Learning guides record only your own practice report.';
+  static const String cameraClosedCountBody =
+      'Repetition counting is listed in the measurement catalogue. This release '
+      'does not count or time your repetitions.';
+  static const String cameraClosedScoreBody =
+      'This release does not measure or grade your form. Course and learning '
+      'guide progress records only your own report of practice.';
+  static const String cameraClosedComparisonBody =
+      'This release does not compare your movement to instructors or deliver '
+      'a form score.';
+  static const String cameraClosedMovementBlurb =
+      'This movement is in the measurement catalogue. Live camera sessions '
+      'are unavailable in this release. Learning guides record only your '
+      'own practice report.';
+  static const String cameraClosedStrengthReason =
+      'A phone camera does not measure force or maximum strength. Live camera '
+      'sessions are unavailable in this release. Course and learning guide '
+      'progress records only your own practice report.';
 
   // ── Home / Today ───────────────────────────────────────────────────────
   static const String homeTitle = 'Today';
@@ -29,12 +51,18 @@ abstract final class LibraryStrings {
   /// bir PLANLAYICI varsayıyor; öyle bir motor YOK. Uydurulmuş bir "bugünün
   /// antrenmanı" placeholder veri olurdu (aile kuralı: sahte veri YASAK).
   static const String homeNoPlanTitle = 'We don\'t plan your day';
-  static const String homeNoPlanBody =
-      'Gravita has no training planner, so there is nothing here pretending to '
-      'be today\'s workout. What we do have is below: the movements we can '
-      'measure right now, and the honest state of everything else.';
+  static const String homeNoPlanBody = motionPaidCameraLaunchEnabled
+      ? 'Gravita has no training planner, so there is nothing here pretending to '
+            'be today\'s workout. What we do have is below: the movements we can '
+            'measure right now, and the honest state of everything else.'
+      : 'Explore the course, learning guides and measurement catalogue. '
+            'Gravita does not create a daily workout plan. '
+            'Live camera sessions are unavailable in this release.';
 
-  static const String homeOpenNowTitle = 'Open right now';
+  static const String homeOpenNowTitle = motionPaidCameraLaunchEnabled
+      ? 'Open right now'
+      : 'Measurement catalogue';
+
   /// ⚠️ *"In the measurement queue"* DEĞİL — ve bu bir YAPISAL VAAT
   /// düzeltmesidir (J-150 sınıfı).
   ///
@@ -49,9 +77,12 @@ abstract final class LibraryStrings {
 
   /// Kuyruğun cümlesi — sayılar VERİDEN gelir, elle yazılmaz.
   static String homeQueueBody(int queued, int total) =>
-      '$queued of our $total catalogued movements are not open. That is not a '
-      'gap we forgot about — each one names the measurement it is waiting on, '
-      'on its own page.';
+      motionPaidCameraLaunchEnabled
+      ? '$queued of our $total catalogued movements are not open. That is not a '
+            'gap we forgot about — each one names the measurement it is waiting on, '
+            'on its own page.'
+      : '$queued of $total catalogue movements have pending measurement evidence. '
+            'Each movement page explains the missing measurements.';
 
   /// ⚠️ *"to be coached"* iddiası KALDIRILDI (yayın envanteri, J-124 sınıfı).
   ///
@@ -62,10 +93,12 @@ abstract final class LibraryStrings {
   ///
   /// Yeni cümle yalnız KABUĞUN TESLİM ETTİĞİNİ anlatıyor: sayma, ve saymanın
   /// dayandığı kimlik kapısı.
-  static String homeOpenBody(int live) => live == 1
+  static String homeOpenBody(int live) => !motionPaidCameraLaunchEnabled
+      ? '$live configured measurement contracts. $cameraUnavailableBody'
+      : live == 1
       ? 'One movement is open: we count your reps during a live session, and '
-          'the engine refuses to count unless it can see you are actually in '
-          'position. We do not grade your form — not here, not anywhere.'
+            'the engine refuses to count unless it can see you are actually in '
+            'position. We do not grade your form — not here, not anywhere.'
       : '$live movements are open for live rep counting.';
 
   // ── Library ────────────────────────────────────────────────────────────
@@ -74,7 +107,10 @@ abstract final class LibraryStrings {
   /// Başlık altı sayacı. İki sayı da GÖSTERİLİR: yalnız toplamı göstermek
   /// 31'i vitrin gibi sunardı, yalnız canlıyı göstermek kapsamı saklardı.
   static String libraryCount(int total, int live) =>
-      '$total movements · $live open · ${total - live} waiting on a measurement';
+      motionPaidCameraLaunchEnabled
+      ? '$total movements · $live open · ${total - live} waiting on a measurement'
+      : '$total movements · $live configured measurements · '
+            '${total - live} pending measurement evidence';
 
   static const String searchHint = 'Search movements';
   static const String searchClear = 'Clear search';
@@ -98,16 +134,17 @@ abstract final class LibraryStrings {
   /// `null` → BOŞ. Sınıfı bilinmeyen bir sınır hakkında *"kamera göremiyor"*
   /// demek, üç sınıftan **vaat taşıyanını** varsaymak olurdu (G-163).
   static String limitClassLine(String? limitClass) => switch (limitClass) {
-        null => '',
-        'authority' =>
-          'This is a line we drew, not a limit we hit. Better technology '
-              'would not change it.',
-        'equipment' =>
-          'This needs hardware we do not ask you to own.',
-        _ => 'A single phone camera cannot see what this would need.',
-      };
+    null => '',
+    'authority' =>
+      'This is a line we drew, not a limit we hit. Better technology '
+          'would not change it.',
+    'equipment' => 'This needs hardware we do not ask you to own.',
+    _ => 'A single phone camera cannot see what this would need.',
+  };
 
-  static const String openBadge = 'OPEN';
+  static const String openBadge = motionPaidCameraLaunchEnabled
+      ? 'OPEN'
+      : 'CAMERA CLOSED';
 
   /// ⚠️ `MEASURING` DEĞİL. Ölçüldü (yayın envanteri, J-124 sınıfı): o sözcük
   /// *"uygulama seni ölçüyor"* diye okunuyordu — oysa gerçek TAM TERSİ:
@@ -163,14 +200,19 @@ abstract final class LibraryStrings {
   /// düzeltildi.
   static String skillTreesBody(int drafted, String names) =>
       '${drafted == 1 ? 'One progression tree is' : '$drafted progression '
-          'trees are'} drafted ($names), but their unlock criteria have not '
+                'trees are'} drafted ($names), but their unlock criteria have not '
       'been through a movement-science review. We are not drawing a tree '
       'whose gates would be numbers we picked ourselves. The movements inside '
       'those progressions are in the library like everything else.';
 
   // ── Hareket sayfası ────────────────────────────────────────────────────
-  static const String honestyTitle = 'What we measure — and what we do not';
-  static const String honestyMeasuredLabel = 'Measured';
+  static const String honestyTitle = motionPaidCameraLaunchEnabled
+      ? 'What we measure — and what we do not'
+      : 'Measurement catalogue and limits';
+  static const String honestyMeasuredLabel = motionPaidCameraLaunchEnabled
+      ? 'Measured'
+      : 'Configured measurements';
+
   /// KALICI sınırlar başlığı — "henüz" değil, HİÇ.
   static const String honestyNotMeasuredLabel =
       'A single camera cannot see this';
@@ -217,6 +259,7 @@ abstract final class LibraryStrings {
       'nothing than draw a figure we made up.';
 
   static const String formErrorsTitle = 'What the rules watch for';
+
   /// ⛔ YOKLUK BEYANI (H-44, 2026-08-16): *"It does not run"* — motor
   /// (`RepEngine.correctionFor`/`.topCorrection`/`.repMetrics`) `lib/` içinden
   /// hiç çağrılmadığı sürece doğru. Bu artık DÜZYAZIYA değil gerçek bir
@@ -226,6 +269,7 @@ abstract final class LibraryStrings {
   static String formErrorsBody(int n) => n == 1
       ? 'One rule is written for this movement. It does not run.'
       : '$n rules are written for this movement. They do not run.';
+
   /// ⛔ **BU CÜMLE BİR KEZ YALAN SÖYLEDİ — G-212.** Eski hâli:
   /// *"$n rules run during a session."*
   ///
@@ -261,20 +305,23 @@ abstract final class LibraryStrings {
   /// (çevrimdışı `tool/replay_gate.dart` DEĞİŞMEDİ) ve onu SÖYLEMEMEK ürünü
   /// hak ettiğinden KÖTÜ gösterirdi — "yasak cümleyi silmek yetmez, doğru
   /// olanı da ATMAMALISIN" dersinin AYNISI, ters yönde.
-  static String formErrorsBodyLive(int n) => n == 1
+  static String formErrorsBodyLive(int n) => !motionPaidCameraLaunchEnabled
+      ? '$n rules are configured for replay of recorded footage. '
+            'Live camera sessions are unavailable in this release; '
+            'no camera feedback or form score is delivered.'
+      : n == 1
       ? 'One rule is written for this movement. It fires on recorded '
-          'footage and is checked live while you train, but the result is '
-          'not shown to you mid-set.'
+            'footage and is checked live while you train, but the result is '
+            'not shown to you mid-set.'
       : '$n rules are written for this movement. They fire on recorded '
-          'footage and are checked live while you train, but the results '
-          'are not shown to you mid-set.';
+            'footage and are checked live while you train, but the results '
+            'are not shown to you mid-set.';
 
   static const String safetyTitle = 'Before you start';
-  static const String coursesTitle = 'Courses';
+  static const String coursesTitle = 'Camera lesson catalogue';
   static const String coursesNone =
-      'No course is open for this movement. A course would be a list of '
-      'lessons you could actually do; there is nothing behind one here, '
-      'so we are not listing an empty shell.';
+      'No camera lesson is configured for this movement. Related learning '
+      'guides, when listed above, record only your own practice report.';
   static String coursesCount(int courses, int lessons) =>
       '$courses ${courses == 1 ? 'course' : 'courses'} · '
       '$lessons ${lessons == 1 ? 'lesson' : 'lessons'}';
@@ -289,9 +336,8 @@ abstract final class LibraryStrings {
   /// Kanıtlanabilir olan şey içerikten okunur: burada kaydedilecek bir ders
   /// YOK. Söylenebilecek en güçlü doğru cümle odur.
   static const String trendNoLesson =
-      'There is no lesson here, so there is nothing a session could have '
-      'been recorded against. No chart, because there is nothing to chart — we '
-      'do not draw an empty axis to fill the space.';
+      'Camera measurement history is unavailable for this movement. '
+      'Self-reported course progress is kept separately in the course.';
 
   static const String trendNoSessions =
       'No sessions recorded for this movement.';
@@ -310,6 +356,7 @@ abstract final class LibraryStrings {
 
   static const String queueTitle = 'What is missing';
   static const String skillTreeLinkTitle = 'Part of a progression';
+
   /// ⚠️ HAM DÜĞÜM KİMLİĞİ GÖSTERİLMİYOR — ve bu bir düzeltmenin ürünü.
   ///
   /// Eski hâli *'This movement is node "hollow_body" in a drafted
@@ -366,18 +413,20 @@ abstract final class LibraryStrings {
   /// `null` → BOŞ. Sınıfı bilinmeyen bir harekette kamera-görünürlüğü
   /// hakkında cümle kurmak, ölçülmemiş bir iddiadır.
   static String classBadgeExplainer(String? cls) => switch (cls) {
-        null => '',
-        'B' => 'Class B — the camera looks down this movement\'s path, so we '
-            'count and time it but never judge its shape.',
-        // ⛔ *"we **coach** your body"* İDİ (G-213 süpürmesi). Ürün hiçbir
-        // harekette koçluk ETMİYOR: kural değerlendirmesi üründe hiç
-        // çağrılmıyor (`G-212`) ⇒ kimseye bir şey söylenmiyor. Sınıf ayrımının
-        // anlattığı şey zaten koçluk değil **ÖLÇÜMÜN KONUSU**: beden mi,
-        // ekipman mı. Doğru sözcük o.
-        'D' => 'Class D — our measurements are about your body; the equipment '
-            'itself is not detected.',
-        _ => 'Class A — everything the camera needs is visible from the side.',
-      };
+    null => '',
+    'B' =>
+      'Class B — the camera looks down this movement\'s path, so we '
+          'count and time it but never judge its shape.',
+    // ⛔ *"we **coach** your body"* İDİ (G-213 süpürmesi). Ürün hiçbir
+    // harekette koçluk ETMİYOR: kural değerlendirmesi üründe hiç
+    // çağrılmıyor (`G-212`) ⇒ kimseye bir şey söylenmiyor. Sınıf ayrımının
+    // anlattığı şey zaten koçluk değil **ÖLÇÜMÜN KONUSU**: beden mi,
+    // ekipman mı. Doğru sözcük o.
+    'D' =>
+      'Class D — our measurements are about your body; the equipment '
+          'itself is not detected.',
+    _ => 'Class A — everything the camera needs is visible from the side.',
+  };
 
   /// ⚠️ Alt çizgi TEMİZLENİR. Simülatörde ölçüldü: hareket sayfası ve
   /// kütüphane kartı kullanıcıya **"Parallel_bars"** yazıyordu — ham katalog
@@ -387,14 +436,16 @@ abstract final class LibraryStrings {
   /// düzeltme tek tek değil DESENE yazıldı.
   static String equipmentLine(List<String> equipment) => equipment.isEmpty
       ? 'No equipment'
-      : equipment.map((String e) => _titleCase(e.replaceAll('_', ' '))).join(' · ');
+      : equipment
+            .map((String e) => _titleCase(e.replaceAll('_', ' ')))
+            .join(' · ');
 
   /// Eksik alan SATIRDAN DÜŞER, uydurulmuş bir değerle doldurulmaz.
   static String metaLine(MovementEntry m) => <String>[
-        LibraryCatalogue.labelFor(m.family),
-        if (m.level != null) _titleCase(m.level!),
-        equipmentLine(m.equipment),
-      ].join(' · ');
+    LibraryCatalogue.labelFor(m.family),
+    if (m.level != null) _titleCase(m.level!),
+    equipmentLine(m.equipment),
+  ].join(' · ');
 
   // ── Profil ─────────────────────────────────────────────────────────────
   static const String profileTitle = 'Profile';

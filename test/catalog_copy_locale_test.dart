@@ -93,51 +93,59 @@ void main() {
     expect(introTranslated, isTrue);
   });
 
-  testWidgets('English and changed source copy stay untouched', (tester) async {
-    final original = MovementEntry.fromJson(
-      (rawLibrary['movements'] as List<dynamic>)[2] as Map<String, dynamic>,
-    );
-    final changed = MovementEntry.fromJson(<String, dynamic>{
-      ...(rawLibrary['movements'] as List<dynamic>)[2] as Map<String, dynamic>,
-      'blurb': 'New source wording requiring review.',
-    });
-    final liveSource = (rawLibrary['movements'] as List<dynamic>)
-        .cast<Map<String, dynamic>>()
-        .firstWhere((movement) => movement['id'] == 'bodyweight_squat');
-    final changedLive = MovementEntry.fromJson(<String, dynamic>{
-      ...liveSource,
-      'blurb': 'Changed live description requiring review.',
-    });
-    late String english;
-    late String changedTurkish;
-    late String changedLiveTurkish;
-    await tester.pumpWidget(
-      host(
-        const Locale('en'),
-        Builder(
-          builder: (context) {
-            english = movementBlurb(context, original);
-            return const SizedBox();
-          },
+  testWidgets(
+    'closed metadata stays guarded and live copy obeys release policy',
+    (tester) async {
+      final original = MovementEntry.fromJson(
+        (rawLibrary['movements'] as List<dynamic>)[2] as Map<String, dynamic>,
+      );
+      final changed = MovementEntry.fromJson(<String, dynamic>{
+        ...(rawLibrary['movements'] as List<dynamic>)[2]
+            as Map<String, dynamic>,
+        'blurb': 'New source wording requiring review.',
+      });
+      final liveSource = (rawLibrary['movements'] as List<dynamic>)
+          .cast<Map<String, dynamic>>()
+          .firstWhere((movement) => movement['id'] == 'bodyweight_squat');
+      final changedLive = MovementEntry.fromJson(<String, dynamic>{
+        ...liveSource,
+        'blurb': 'Changed live description requiring review.',
+      });
+      late String english;
+      late String changedTurkish;
+      late String changedLiveTurkish;
+      await tester.pumpWidget(
+        host(
+          const Locale('en'),
+          Builder(
+            builder: (context) {
+              english = movementBlurb(context, original);
+              return const SizedBox();
+            },
+          ),
         ),
-      ),
-    );
-    await tester.pumpWidget(
-      host(
-        const Locale('tr'),
-        Builder(
-          builder: (context) {
-            changedTurkish = movementBlurb(context, changed);
-            changedLiveTurkish = movementBlurb(context, changedLive);
-            return const SizedBox();
-          },
+      );
+      await tester.pumpWidget(
+        host(
+          const Locale('tr'),
+          Builder(
+            builder: (context) {
+              changedTurkish = movementBlurb(context, changed);
+              changedLiveTurkish = movementBlurb(context, changedLive);
+              return const SizedBox();
+            },
+          ),
         ),
-      ),
-    );
-    expect(english, original.blurb);
-    expect(changedTurkish, changed.blurb);
-    expect(changedLiveTurkish, changedLive.blurb);
-  });
+      );
+      expect(english, original.blurb);
+      expect(changedTurkish, changed.blurb);
+      expect(
+        changedLiveTurkish,
+        contains('Canlı kamera seansları bu sürümde kullanılamıyor'),
+      );
+      expect(changedLiveTurkish, isNot(changedLive.blurb));
+    },
+  );
 
   testWidgets('live blurbs and closed planche match startable contracts', (
     tester,
@@ -177,9 +185,15 @@ void main() {
         ),
       ),
     );
-    expect(squatTurkish, contains('kalça ve dizin'));
-    expect(pushUpTurkish, contains('Doğrulanan şınav tekrarlarını'));
-    expect(pushUpTurkish, contains('sığ tekrar uyarısı gösterilmez'));
+    for (final displayed in [squatTurkish, pushUpTurkish]) {
+      expect(
+        displayed,
+        contains('Canlı kamera seansları bu sürümde kullanılamıyor'),
+      );
+      expect(displayed, isNot(contains('sayar')));
+      expect(displayed, isNot(contains('temponu ölçeriz')));
+      expect(displayed, isNot(contains('ortancasını gösteririz')));
+    }
   });
 
   testWidgets('both live honesty contracts have guarded Turkish copy', (
@@ -246,28 +260,33 @@ void main() {
     expect(english, 'Force or load');
   });
 
-  testWidgets('Turkish Push-Up detail renders measured limits and score', (
-    tester,
-  ) async {
-    await tester.pumpWidget(
-      host(
-        const Locale('tr'),
-        MovementPage(
-          movement: content.catalogue.byId('push_up')!,
-          content: content,
+  testWidgets(
+    'Turkish Push-Up detail states unavailable measurements and limits',
+    (tester) async {
+      await tester.pumpWidget(
+        host(
+          const Locale('tr'),
+          MovementPage(
+            movement: content.catalogue.byId('push_up')!,
+            content: content,
+          ),
         ),
-      ),
-    );
-    expect(find.textContaining('gövdeniz gerçekten yatay'), findsOneWidget);
-    expect(find.text('Kuvvet veya yük'), findsOneWidget);
-    expect(find.text('Kas aktivasyonu'), findsOneWidget);
-    expect(find.text('Eldeki basınç dağılımı'), findsOneWidget);
-    expect(find.text('Force or load'), findsNothing);
-    expect(
-      find.textContaining('Bunların hiçbiri puan değildir'),
-      findsOneWidget,
-    );
-  });
+      );
+      expect(
+        find.textContaining('tekrarlarını saymaz veya zamanlamaz'),
+        findsOneWidget,
+      );
+      expect(find.textContaining('gövdeniz gerçekten yatay'), findsNothing);
+      expect(find.text('Kuvvet veya yük'), findsOneWidget);
+      expect(find.text('Kas aktivasyonu'), findsOneWidget);
+      expect(find.text('Eldeki basınç dağılımı'), findsOneWidget);
+      expect(find.text('Force or load'), findsNothing);
+      expect(
+        find.textContaining('Bu sürüm formunu ölçmez veya puanlamaz'),
+        findsOneWidget,
+      );
+    },
+  );
 
   testWidgets('Turkish Library exclusion search opens a Turkish reason page', (
     tester,

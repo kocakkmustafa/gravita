@@ -70,7 +70,7 @@ void main() {
     expect(missing, isEmpty);
   });
 
-  testWidgets('Turkish movement card shows catalog name and live status', (
+  testWidgets('Turkish movement card shows catalog name and camera closure', (
     tester,
   ) async {
     final movement = MovementEntry.fromJson(
@@ -88,6 +88,8 @@ void main() {
     );
     expect(find.text('Vücut ağırlığıyla squat'), findsOneWidget);
     expect(find.text('Bacak · Başlangıç · Ekipmansız'), findsOneWidget);
-    expect(find.text('AÇIK'), findsOneWidget);
+    expect(movement.isLive, isTrue);
+    expect(find.text('KAMERA KAPALI'), findsOneWidget);
+    expect(find.text('AÇIK'), findsNothing);
   });
 }

@@ -9,6 +9,7 @@ library;
 
 import 'package:flutter/material.dart';
 import 'app_locale.dart';
+import 'camera_release_policy.dart';
 
 import 'library_model.dart';
 import 'library_strings.dart';
@@ -119,7 +120,8 @@ class MovementCard extends StatelessWidget {
             const SizedBox(width: 12),
             GravitaPill(
               label: live
-                  ? localized(context, LibraryStrings.openBadge, 'AÇIK')
+                  ? localized(context, LibraryStrings.openBadge,
+                      motionPaidCameraLaunchEnabled ? 'AÇIK' : 'KAMERA KAPALI')
                   : localized(context, LibraryStrings.queuedBadge, 'KAPALI'),
               // Pill ETİKETİ metindir (mono 10) → non-text token kullanılamaz.
               tone: live ? GravitaColors.accent : GravitaColors.textSecondary,

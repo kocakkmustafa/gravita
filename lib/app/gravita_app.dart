@@ -4,6 +4,7 @@ import 'package:gravita_engine/gravita_engine.dart';
 
 import 'app_locale.dart';
 import 'account_connection.dart';
+import 'camera_release_policy.dart';
 import 'content_failure.dart';
 import 'content_failure_screen.dart';
 import 'content_repository.dart';
@@ -194,6 +195,7 @@ class _GravitaShellState extends State<GravitaShell> {
   int _index = 0;
 
   Future<void> _openLiveSession(MovementConfig config) async {
+    if (!motionPaidCameraLaunchEnabled) return;
     final MovementConfig? startable = widget.content.startableConfigFor(
       config.id,
     );
@@ -262,10 +264,18 @@ class _GravitaShellState extends State<GravitaShell> {
               // yapmıyor: bu düğme canlı ölçümün hızlı girişidir.
               backgroundColor: GravitaColors.accent,
               foregroundColor: Colors.white,
-              onPressed: () => _openLiveSession(live),
+              onPressed: motionPaidCameraLaunchEnabled
+                  ? () => _openLiveSession(live)
+                  : null,
               icon: const Icon(Icons.videocam_outlined),
               label: Text(
-                localized(context, LibraryStrings.startSession, 'Başla'),
+                localized(
+                  context,
+                  motionPaidCameraLaunchEnabled
+                      ? LibraryStrings.startSession
+                      : LibraryStrings.cameraUnavailable,
+                  motionPaidCameraLaunchEnabled ? 'Başla' : 'Kamera kapalı',
+                ),
               ),
             ),
       bottomNavigationBar: NavigationBar(
