@@ -1,5 +1,21 @@
 # PROGRESS — Gravita
 
+## 2026-09-28 — Calisthenics ilk kursu; kaynak PASS, ürün kabulü açık
+
+İlk calisthenics kursu **56 ders** ve canlı v8d kaynak paketinde. Ders
+gösterim briefi ve hazırlık/ekipman çiti kaynak düzeyinde denetlendi;
+gerçek onaylı video, uzman kişi-ayrık hareket hata verisi ve tam-kurs
+form modeli **0**. Ortak `motion_content` için uygulama içi okuyucu ve
+üretim manifesti henüz bağlanmadı; medya oynatıcı ve fiziksel cihaz kabulü
+de açık. Held Squat ZIP ve başarısız bir-seferlik deneyler korunur.
+
+Güncel kurs `b8b1147` commitinde mevcut PR #1 incelemesine taşındı.
+Üreticinin denetlenmiş 56 derslik v8d kaynağı eski metne döndürme riski,
+SHA bağlı içerik katmanı ve `--check` CI kapısıyla giderildi; kök ve bağımsız
+inceleme dar PASS. GitHub Actions'ın üç işi bütçe engeliyle başlamadı;
+bu kaynaklar için yararlı CI, merge veya mağaza kabulü yok. Kanonik devam:
+`holding/plans/MOTION-MODEL-RESUME-2026-09-27.md`.
+
 ## 2026-08-19 — SOLO model (v3): GRA-P1-003 kapandı + GRA-P1-004 Step 1/2 canlı yola kablı + Step 3 temeli (G-272…G-277)
 
 > Orkestrasyon/koordinatör katmanı bu turda iptal edildi — hat roadmap'ini
