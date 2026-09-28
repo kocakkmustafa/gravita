@@ -1,6 +1,21 @@
 # PROGRESS — Gravita
 
-## 2026-09-28 — Calisthenics ilk kursu; kaynak PASS, ürün kabulü açık
+## 2026-09-28 — kurs JSON bütünlüğü PR'da
+
+56 derslik kaynak SHA `eca53870045d2c0c0e5fd2abc0d93190bc092a1ba3c254a64d908ae13040f83d`
+değişmedi. Beş kursun güncel v8e paketinde bu kaynak bağı bağımsız PASS;
+yalnız Ostinato'nun iki ders gövdesi değişti. Gravita'nın uygulama açılışı,
+tek `calisthenics.v1.json` varlığını boyut/SHA kapısından geçirdikten sonra
+mevcut 10 modül/56 ders ayrıştırıcısına veriyor. Bu entegrasyon `3e73775`
+commitinde PR #1'e push edildi. 37/37 odak testi ve hedefli analiz geçti;
+bağımsız kaynak incelemesi P0/P1/P2 kusur bulmadı.
+
+Manifest yalnız kurs dosyasının bütünlüğünü denetliyor. Gerçek medya/oynatıcı,
+uzman kişi-ayrık tam-kurs form modeli, fiziksel cihaz ve kurucu kabulü hâlâ
+**0/açık**. Son baştaki üç GitHub Actions işi bütçe engeli nedeniyle başlamadı;
+yararlı CI ve merge yok.
+
+## 2026-09-28 — önceki kaynak aşaması; ürün kabulü açık
 
 İlk calisthenics kursu **56 ders** ve canlı v8d kaynak paketinde. Ders
 gösterim briefi ve hazırlık/ekipman çiti kaynak düzeyinde denetlendi;
@@ -10,7 +25,7 @@ kurs-JSON bayt bütünlüğü çalışma zamanına bağlandı; ders medyası man
 oynatıcı ve fiziksel cihaz kabulü açık. Held Squat ZIP ve başarısız
 bir-seferlik deneyler korunur.
 
-**2026-09-28 yerel çalışma zamanı devamı:** `ContentRepository.load`,
+**2026-09-28 yerel çalışma zamanı kaydı (artık PR'da):** `ContentRepository.load`,
 paketlenmiş `content/motion_content/manifest.json` üzerinden mevcut
 `calisthenics.v1.json` baytlarını Core'un uzunluk/SHA kapısıyla doğrulayıp
 aynı 10 modül/56 ders ayrıştırıcısına veriyor. Manifest, yalnız tek kurs
@@ -20,7 +35,7 @@ kurs JSON'undan üretir ve yerel/CI `tools/run_all_gates.sh` sapmayı denetler.
 Yanlış hash bütünlük hatası olarak yeniden denemesiz, eksik manifest veya
 kurs asseti okunamama olarak yeniden denemeli sınıflanır. Eski sentetik
 köprü testi gerçek manifesti okuyacak biçimde güncellendi; ikinci elle SHA
-pini kaldırıldı. Değişiklikler yerel kaynak aşamasında; fiziksel cihaz,
+pini kaldırıldı. Bu kaydın yerel kaynak aşamasından sonra PR durumu yukarıda; fiziksel cihaz,
 gerçek gösterim, uzman veri/model ve GitHub yararlı CI kabulü verilmedi.
 
 **2026-09-28 yerel devam:** Paketlenmiş kurs baytları için app-local
