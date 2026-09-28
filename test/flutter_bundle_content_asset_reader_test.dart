@@ -8,10 +8,6 @@ import 'package:motion_content/motion_content.dart';
 
 const String _manifestPath = 'content/motion_content/manifest.json';
 const String _coursePath = 'content/courses/calisthenics.v1.json';
-// Pin for the reviewed course bytes. Any authored course change needs a repin.
-const int _courseByteLength = 261754;
-const String _courseSha256 =
-    'eca53870045d2c0c0e5fd2abc0d93190bc092a1ba3c254a64d908ae13040f83d';
 
 final class _ManifestOverlayBundle extends CachingAssetBundle {
   _ManifestOverlayBundle(this.manifestBytes);
@@ -35,51 +31,20 @@ final class _ManifestOverlayBundle extends CachingAssetBundle {
   }
 }
 
-Uint8List _manifestBytes({String? assetPath, String? assetSha256}) {
-  final Map<String, Object?> manifest = <String, Object?>{
-    'schemaVersion': 1,
-    'contentVersion': '1.0.0',
-    'appId': 'com.yulalab.gravita',
-    'minimumCoreContract': '1.0.0',
-    'locales': <String>['tr', 'en'],
-    'courses': <Object?>[
-      <String, Object?>{
-        'id': 'calisthenics-bridge-test',
-        'order': 0,
-        'visibility': 'free',
-        'title': <String, String>{'tr': 'Kalistenik', 'en': 'Calisthenics'},
-        'description': <String, String>{
-          'tr': 'Paket doğrulama testi',
-          'en': 'Bundle verification test',
-        },
-        'lessonIds': <String>['calisthenics-asset-test'],
-      },
-    ],
-    'lessons': <Object?>[
-      <String, Object?>{
-        'id': 'calisthenics-asset-test',
-        'type': 'practice',
-        'title': <String, String>{'tr': 'Ders', 'en': 'Lesson'},
-        'description': <String, String>{'tr': 'Test', 'en': 'Test'},
-        'instruction': <String, String>{'tr': 'Oku', 'en': 'Read'},
-        'accessibilityLabel': <String, String>{
-          'tr': 'Dersi aç',
-          'en': 'Open lesson',
-        },
-        'modelIds': <String>[],
-        'assetIds': <String>['calisthenics-asset'],
-      },
-    ],
-    'models': <Object?>[],
-    'assets': <Object?>[
-      <String, Object?>{
-        'id': 'calisthenics-asset',
-        'path': assetPath ?? _coursePath,
-        'byteLength': _courseByteLength,
-        'sha256': assetSha256 ?? _courseSha256,
-      },
-    ],
-  };
+Future<Uint8List> _manifestBytes({
+  String? assetPath,
+  String? assetSha256,
+}) async {
+  final ByteData data = await rootBundle.load(_manifestPath);
+  final Uint8List bytes = Uint8List.fromList(Uint8List.sublistView(data));
+  if (assetPath == null && assetSha256 == null) return bytes;
+
+  final Map<String, dynamic> manifest = (jsonDecode(utf8.decode(bytes)) as Map)
+      .cast<String, dynamic>();
+  final Map<String, dynamic> asset =
+      ((manifest['assets'] as List).single as Map).cast<String, dynamic>();
+  if (assetPath != null) asset['path'] = assetPath;
+  if (assetSha256 != null) asset['sha256'] = assetSha256;
   manifest['catalogDigest'] = computeCatalogDigest(manifest);
   return Uint8List.fromList(utf8.encode(jsonEncode(manifest)));
 }
@@ -88,7 +53,7 @@ ContentBundleLoader _loader(_ManifestOverlayBundle bundle) =>
     ContentBundleLoader(
       reader: FlutterBundleContentAssetReader(bundle: bundle),
       expectedAppId: 'com.yulalab.gravita',
-      currentCoreContract: SemanticVersion.parse('1.0.0'),
+      currentCoreContract: currentMotionContentContract,
       manifestPath: _manifestPath,
     );
 
@@ -99,18 +64,24 @@ void main() {
     'reads pinned Calisthenics bytes and parses the active course',
     () async {
       final _ManifestOverlayBundle bundle = _ManifestOverlayBundle(
-        _manifestBytes(),
+        await _manifestBytes(),
       );
       final ContentLoadResult result = await _loader(bundle).load();
 
       expect(result, isA<ContentReady>());
       final ContentReady ready = result as ContentReady;
       expect(ready.catalog.manifest.assets.single.path, _coursePath);
+      expect(ready.catalog.manifest.courses, isEmpty);
+      expect(ready.catalog.manifest.lessons, isEmpty);
+      expect(ready.catalog.manifest.models, isEmpty);
       expect(bundle.requestedPaths, <String>[_manifestPath, _coursePath]);
 
       final Uint8List bytes = await ready.assets.read(_coursePath);
-      expect(bytes.length, _courseByteLength);
-      expect(computeSha256Hex(bytes), _courseSha256);
+      expect(bytes.length, ready.catalog.manifest.assets.single.byteLength);
+      expect(
+        computeSha256Hex(bytes),
+        ready.catalog.manifest.assets.single.sha256,
+      );
       final CalisthenicsCourse course = CalisthenicsCourse.parse(
         utf8.decode(bytes),
       );
@@ -123,7 +94,7 @@ void main() {
 
   test('wrong pinned hash blocks course before exposure', () async {
     final _ManifestOverlayBundle bundle = _ManifestOverlayBundle(
-      _manifestBytes(assetSha256: List<String>.filled(64, '0').join()),
+      await _manifestBytes(assetSha256: List<String>.filled(64, '0').join()),
     );
     final ContentLoadResult result = await _loader(bundle).load();
 
@@ -136,7 +107,7 @@ void main() {
 
   test('unsafe manifest path blocks without a course bundle read', () async {
     final _ManifestOverlayBundle bundle = _ManifestOverlayBundle(
-      _manifestBytes(assetPath: 'content/../private.json'),
+      await _manifestBytes(assetPath: 'content/../private.json'),
     );
     final ContentLoadResult result = await _loader(bundle).load();
 
@@ -147,7 +118,7 @@ void main() {
 
   test('direct reader rejects unsafe path before Flutter lookup', () async {
     final _ManifestOverlayBundle bundle = _ManifestOverlayBundle(
-      _manifestBytes(),
+      await _manifestBytes(),
     );
     final FlutterBundleContentAssetReader reader =
         FlutterBundleContentAssetReader(bundle: bundle);

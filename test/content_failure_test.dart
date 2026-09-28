@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:motion_content/motion_content.dart';
 import 'package:gravita/app/content_failure.dart';
 import 'package:gravita/app/content_failure_screen.dart';
 import 'package:gravita/app/progress_strings.dart';
@@ -12,6 +13,29 @@ import 'package:gravita_engine/gravita_engine.dart';
 /// M-F-194 uygulanıyor: her "X yok" kapısının yanında "X var" ikizi var.
 void main() {
   group('sınıflandırma METİNDEN değil TİPTEN', () {
+    test('typed content errors keep integrity and retryable reads apart', () {
+      for (final ContentErrorCode code in <ContentErrorCode>[
+        ContentErrorCode.hashMismatch,
+        ContentErrorCode.sizeMismatch,
+        ContentErrorCode.schema,
+        ContentErrorCode.catalogDigestMismatch,
+      ]) {
+        expect(
+          ContentFailure.from(ContentException(ContentError(code: code))).kind,
+          ContentFailureKind.integrity,
+        );
+      }
+      for (final ContentErrorCode code in <ContentErrorCode>[
+        ContentErrorCode.missingAsset,
+        ContentErrorCode.timeout,
+        ContentErrorCode.io,
+      ]) {
+        expect(
+          ContentFailure.from(ContentException(ContentError(code: code))).kind,
+          ContentFailureKind.unreadable,
+        );
+      }
+    });
     test('ContentIntegrityException → integrity, ihlaller detayda', () {
       final ContentFailure f = ContentFailure.from(
           const ContentIntegrityException(<String>['a bozuk', 'b eksik']));

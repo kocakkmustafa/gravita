@@ -3,11 +3,13 @@ import 'dart:io';
 
 import 'package:flutter/services.dart' show AssetBundle;
 import 'package:gravita_engine/gravita_engine.dart';
+import 'package:motion_content/motion_content.dart';
 import 'package:path_provider/path_provider.dart';
 import 'account_data_directory.dart';
 import 'calisthenics_course.dart';
 import 'calisthenics_progress.dart';
 import 'foundation_coverage.dart';
+import 'flutter_bundle_content_asset_reader.dart';
 
 import 'content_failure.dart';
 import 'library_model.dart';
@@ -38,6 +40,9 @@ import 'program/program_model.dart';
 /// sayfası açıldığında [catalogFor] ile gelir.
 /// Kabuğun ayrıştırabileceği `library.json` şema sürümü.
 const int _librarySchemaVersion = 1;
+const String _calisthenicsAssetPath = 'content/courses/calisthenics.v1.json';
+const String _calisthenicsIntegrityManifestPath =
+    'content/motion_content/manifest.json';
 
 final class ContentRepository {
   ContentRepository._({
@@ -95,9 +100,7 @@ final class ContentRepository {
     }
 
     return ContentRepository._(
-      calisthenicsCourse: CalisthenicsCourse.parse(
-        await bundle.loadString('content/courses/calisthenics.v1.json'),
-      ),
+      calisthenicsCourse: await _loadVerifiedCalisthenicsCourse(bundle),
       library: lib,
       bundle: bundle,
       eagerCatalog: eager,
@@ -117,6 +120,25 @@ final class ContentRepository {
         catalogFor: (String id) => eager[id]!,
       ),
     );
+  }
+
+  static Future<CalisthenicsCourse> _loadVerifiedCalisthenicsCourse(
+    AssetBundle bundle,
+  ) async {
+    final ContentLoadResult result = await ContentBundleLoader(
+      reader: FlutterBundleContentAssetReader(bundle: bundle),
+      expectedAppId: 'com.yulalab.gravita',
+      currentCoreContract: currentMotionContentContract,
+      manifestPath: _calisthenicsIntegrityManifestPath,
+    ).load();
+    if (result is ContentBlocked) throw ContentException(result.error);
+    if (result is! ContentReady) {
+      throw const ContentException(
+        ContentError(code: ContentErrorCode.capability),
+      );
+    }
+    final bytes = await result.assets.read(_calisthenicsAssetPath);
+    return CalisthenicsCourse.parse(utf8.decode(bytes));
   }
 
   static Future<MovementConfig> _loadCatalog(

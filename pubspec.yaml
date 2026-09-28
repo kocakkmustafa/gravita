@@ -140,6 +140,8 @@ flutter:
     # ARTIK var — "beyan var, okuyanı yok" satırı bu turda kapandı.
     - content/programs/foundation.v1.json
     - content/courses/calisthenics.v1.json
+    # Course-JSON byte integrity only. This is not a video or model catalogue.
+    - content/motion_content/manifest.json
     # Poz modeli — git'te DEĞİL (aile kuralı, .gitignore); `tool/fetch_pose_model.sh`
     # indirir ve SHA-256 DOĞRULAR. Asset olarak paketlenir, çalışma-zamanında
     # dosyaya yazılır (plugin dosya yolu ister, bundle değil).

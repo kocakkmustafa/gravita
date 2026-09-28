@@ -5,9 +5,23 @@
 İlk calisthenics kursu **56 ders** ve canlı v8d kaynak paketinde. Ders
 gösterim briefi ve hazırlık/ekipman çiti kaynak düzeyinde denetlendi;
 gerçek onaylı video, uzman kişi-ayrık hareket hata verisi ve tam-kurs
-form modeli **0**. Ortak `motion_content` için uygulama içi okuyucu dar
-kaynak köprüsü düzeyinde bağlı; üretim manifesti, medya oynatıcı ve fiziksel
-cihaz kabulü açık. Held Squat ZIP ve başarısız bir-seferlik deneyler korunur.
+form modeli **0**. Ortak `motion_content` için uygulama içi okuyucu ve
+kurs-JSON bayt bütünlüğü çalışma zamanına bağlandı; ders medyası manifesti,
+oynatıcı ve fiziksel cihaz kabulü açık. Held Squat ZIP ve başarısız
+bir-seferlik deneyler korunur.
+
+**2026-09-28 yerel çalışma zamanı devamı:** `ContentRepository.load`,
+paketlenmiş `content/motion_content/manifest.json` üzerinden mevcut
+`calisthenics.v1.json` baytlarını Core'un uzunluk/SHA kapısıyla doğrulayıp
+aynı 10 modül/56 ders ayrıştırıcısına veriyor. Manifest, yalnız tek kurs
+varlığını içerir; `courses=[]`, `lessons=[]`, `models=[]` ve gerçek medya0.
+`tool/build_calisthenics_integrity_manifest.dart --write/--check` bunu canlı
+kurs JSON'undan üretir ve yerel/CI `tools/run_all_gates.sh` sapmayı denetler.
+Yanlış hash bütünlük hatası olarak yeniden denemesiz, eksik manifest veya
+kurs asseti okunamama olarak yeniden denemeli sınıflanır. Eski sentetik
+köprü testi gerçek manifesti okuyacak biçimde güncellendi; ikinci elle SHA
+pini kaldırıldı. Değişiklikler yerel kaynak aşamasında; fiziksel cihaz,
+gerçek gösterim, uzman veri/model ve GitHub yararlı CI kabulü verilmedi.
 
 **2026-09-28 yerel devam:** Paketlenmiş kurs baytları için app-local
 `FlutterBundleContentAssetReader` eklendi. `motion_content` aynı mühürlü Core
@@ -15,7 +29,7 @@ commitine (`f2ea161c…`) bağlandı; kilit sürümü `0.1.0`. Yalnız testte ü
 manifest, mevcut `calisthenics.v1.json` dosyasını 261.754 bayt ve
 `eca53870…40f83d` SHA ile okuyup 10 modül/56 dersi doğruladı. Yanlış hash ve
 güvensiz yol içerik açılmadan reddedildi. Kurs kaynağı değiştirilmedi;
-üretim manifesti, gerçek medya ve oynatıcı hâlâ açık. Üç odaklı test dosyası
+ders medyası manifesti, gerçek medya ve oynatıcı hâlâ açık. Üç odaklı test dosyası
 25/25 geçti, üç ilgili Dart dosyasında analiz temiz. Köprü `7b6524b`
 commitinde mevcut PR #1 dalına push edildi; GitHub push sonucunu doğruladı.
 Yeni baştaki yararlı CI sonucu ve ürün kabulü hâlâ açık.

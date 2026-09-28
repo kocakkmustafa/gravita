@@ -139,9 +139,12 @@ run "dart test" bash -c "cd packages/gravita_engine && dart test"
 # (aşağıdaki `gate` çağrılarının sardığı DİSTİNCT .py dosyası; --check/
 # --self-test varyantları ayrı araç sayılmaz). Bu betiğin kendi başlığı,
 # denetlediği tam sınıfın (bayat sayı iddiası) canlı bir örneğiydi.
-line; echo "SÜİT 3 — içerik kapıları (14 araç)"; line
+line; echo "SÜİT 3 — içerik kapıları (Python + Dart manifest)"; line
 gate() { py_total=$((py_total+1)); if run "$@"; then py_ok=$((py_ok+1)); fi; }
 gate "calisthenics_course --check"  python3 tool/generate_calisthenics_course.py --check
+# The course JSON is the only lesson source. The generated bundle manifest
+# must match its exact bytes before CI can report a green content lane.
+run "calisthenics_integrity --check" dart run tool/build_calisthenics_integrity_manifest.dart --check
 gate "reference_model"             python3 tools/validate_reference_model.py
 gate "reference_model --self-test" python3 tools/validate_reference_model.py --self-test
 gate "validate_library"            python3 tools/validate_library.py
