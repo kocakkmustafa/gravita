@@ -207,6 +207,238 @@ void main() {
     expect(tester.takeException(), isNull);
   });
   testWidgets(
+    'fresh physical pull lesson needs preparation before practice save',
+    (tester) async {
+      size(tester);
+      final course = content.calisthenicsCourse;
+      final lesson = course.lessons.singleWhere((item) => item.id == 'cal-23');
+      await tester.pumpWidget(
+        host(
+          CalisthenicsLessonScreen(
+            course: course,
+            lesson: lesson,
+            storeLoader: (id) async => calisthenicsProgressStoreFor(temp, id),
+          ),
+        ),
+      );
+      await settleUntil(
+        tester,
+        () => find
+            .byKey(const Key('calisthenics.prepared'))
+            .evaluate()
+            .isNotEmpty,
+      );
+      expect(find.text('Bu oturuma hazırlan'), findsOneWidget);
+      expect(find.textContaining('Dayanağı ve güvenli çıkışı'), findsOneWidget);
+      await to(tester, const Key('calisthenics.practiceOptions'));
+      expect(find.text(lesson.practice.tr), findsNothing);
+      expect(
+        find.textContaining('Fiziksel pratik seçenekleri'),
+        findsOneWidget,
+      );
+      await to(tester, const Key('calisthenics.practised'));
+      expect(
+        tester
+            .widget<OutlinedButton>(
+              find.byKey(const Key('calisthenics.practised')),
+            )
+            .onPressed,
+        isNull,
+      );
+      await to(tester, const Key('calisthenics.prepared'), delta: -200);
+      await tester.tap(find.byKey(const Key('calisthenics.prepared')));
+      await tester.pump();
+      expect(
+        tester
+            .widget<CheckboxListTile>(
+              find.byKey(const Key('calisthenics.prepared')),
+            )
+            .value,
+        isTrue,
+      );
+      await to(tester, const Key('calisthenics.practiceOptions'));
+      expect(find.text(lesson.practice.tr), findsOneWidget);
+      await to(tester, const Key('calisthenics.practised'));
+      await settleUntil(
+        tester,
+        () =>
+            tester
+                .widget<OutlinedButton>(
+                  find.byKey(const Key('calisthenics.practised')),
+                )
+                .onPressed !=
+            null,
+      );
+      await tester.tap(find.byKey(const Key('calisthenics.practised')));
+      await settleUntil(
+        tester,
+        () => find.text('Görev bildirimleri: 1').evaluate().isNotEmpty,
+      );
+      final persisted = await realIo(
+        tester,
+        () => calisthenicsProgressStoreFor(temp, null).load(),
+      );
+      expect(persisted.forLesson(lesson, course.version)?.practiceCount, 1);
+      expect(tester.takeException(), isNull);
+    },
+  );
+  testWidgets('preparation expires on a new day and app background', (
+    tester,
+  ) async {
+    size(tester);
+    var clock = DateTime(2026, 9, 28, 9);
+    final course = content.calisthenicsCourse;
+    final lesson = course.lessons.singleWhere((item) => item.id == 'cal-54');
+    Widget screen() => host(
+      CalisthenicsLessonScreen(
+        course: course,
+        lesson: lesson,
+        now: () => clock,
+        storeLoader: (id) async => calisthenicsProgressStoreFor(temp, id),
+      ),
+    );
+    await tester.pumpWidget(screen());
+    await settleUntil(
+      tester,
+      () =>
+          find.byKey(const Key('calisthenics.prepared')).evaluate().isNotEmpty,
+    );
+    expect(find.textContaining('Çekiş dayanağını'), findsOneWidget);
+    expect(find.textContaining('oturarak yerinde adımla'), findsOneWidget);
+    await to(tester, const Key('calisthenics.prepared'));
+    await tester.tap(find.byKey(const Key('calisthenics.prepared')));
+    await tester.pump();
+    expect(
+      tester
+          .widget<CheckboxListTile>(
+            find.byKey(const Key('calisthenics.prepared')),
+          )
+          .value,
+      isTrue,
+    );
+    await to(tester, const Key('calisthenics.newSession'));
+    await tester.tap(find.byKey(const Key('calisthenics.newSession')));
+    await tester.pump();
+    expect(
+      tester
+          .widget<CheckboxListTile>(
+            find.byKey(const Key('calisthenics.prepared')),
+          )
+          .value,
+      isFalse,
+    );
+    await to(tester, const Key('calisthenics.prepared'));
+    await tester.tap(find.byKey(const Key('calisthenics.prepared')));
+    await tester.pump();
+    clock = DateTime(2026, 9, 29, 9);
+    await tester.pumpWidget(screen());
+    await to(tester, const Key('calisthenics.practised'));
+    expect(
+      tester
+          .widget<OutlinedButton>(
+            find.byKey(const Key('calisthenics.practised')),
+          )
+          .onPressed,
+      isNull,
+    );
+    await to(tester, const Key('calisthenics.prepared'), delta: -200);
+    expect(
+      tester
+          .widget<CheckboxListTile>(
+            find.byKey(const Key('calisthenics.prepared')),
+          )
+          .value,
+      isFalse,
+    );
+    await tester.tap(find.byKey(const Key('calisthenics.prepared')));
+    await tester.pump();
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+    await tester.pump();
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    await tester.pump();
+    expect(
+      tester
+          .widget<CheckboxListTile>(
+            find.byKey(const Key('calisthenics.prepared')),
+          )
+          .value,
+      isFalse,
+    );
+    await to(tester, const Key('calisthenics.practised'));
+    expect(
+      tester
+          .widget<OutlinedButton>(
+            find.byKey(const Key('calisthenics.practised')),
+          )
+          .onPressed,
+      isNull,
+    );
+  });
+  testWidgets('physical preparation is not shared across accounts', (
+    tester,
+  ) async {
+    size(tester);
+    const first = '11111111-1111-4111-8111-111111111111';
+    const second = '22222222-2222-4222-8222-222222222222';
+    final userId = ValueNotifier<String?>(first);
+    addTearDown(userId.dispose);
+    final course = content.calisthenicsCourse;
+    final lesson = course.lessons.singleWhere((item) => item.id == 'cal-23');
+    final connection = AccountConnection(
+      userId: userId,
+      pageBuilder: (_) => const SizedBox(),
+    );
+    await tester.pumpWidget(
+      host(
+        AccountScope(
+          connection: connection,
+          currentUserId: first,
+          child: CalisthenicsLessonScreen(
+            course: course,
+            lesson: lesson,
+            storeLoader: (id) async => calisthenicsProgressStoreFor(temp, id),
+          ),
+        ),
+      ),
+    );
+    await settleUntil(
+      tester,
+      () =>
+          find.byKey(const Key('calisthenics.prepared')).evaluate().isNotEmpty,
+    );
+    await to(tester, const Key('calisthenics.prepared'));
+    await tester.tap(find.byKey(const Key('calisthenics.prepared')));
+    await tester.pump();
+    expect(
+      tester
+          .widget<CheckboxListTile>(
+            find.byKey(const Key('calisthenics.prepared')),
+          )
+          .value,
+      isTrue,
+    );
+    userId.value = second;
+    await tester.pump();
+    await to(tester, const Key('calisthenics.practised'));
+    expect(
+      tester
+          .widget<OutlinedButton>(
+            find.byKey(const Key('calisthenics.practised')),
+          )
+          .onPressed,
+      isNull,
+    );
+    await to(tester, const Key('calisthenics.prepared'), delta: -200);
+    expect(
+      tester
+          .widget<CheckboxListTile>(
+            find.byKey(const Key('calisthenics.prepared')),
+          )
+          .value,
+      isFalse,
+    );
+  });
+  testWidgets(
     'identity switch discards previous lesson state and confirmation',
     (tester) async {
       size(tester);

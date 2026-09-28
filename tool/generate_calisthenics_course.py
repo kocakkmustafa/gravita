@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Original TR/EN authoring source. No source media or model training data."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
@@ -48,7 +49,7 @@ lesson('Your training space|Çalışma alanın','Prepare stable supports before 
 ['Nothing moves when I gently test the support.|Desteği hafifçe kontrol ettiğimde oynamıyor.','I can exit the space without stepping over equipment.|Ekipmanın üzerinden geçmeden alandan çıkabiliyorum.'],
 'Begin with seated learning and wall-based movements; equipment lessons can be studied without performing them.|Oturarak öğrenme ve duvar hareketleriyle başla; ekipman derslerini uygulamadan inceleyebilirsin.',
 'Do not load a loose, damaged or unrated support.|Gevşek, hasarlı veya taşıma sınırı belirsiz desteğe yük verme.',
-'Wide room audit, close-up of fixed chair feet and manufacturer rating label; no improvised anchor.|Geniş alan kontrolü, sabit sandalye ayakları ve üretici taşıma etiketi yakın plan; doğaçlama bağlantı yok.',kind='learning_only')
+'Two separate scenes: first a stable wheel-free chair against a wall with all chair feet on the floor and no load-rating claim; then a purpose-built pulling bar with its correctly installed mount and actual manufacturer-marked load-rating label, only after a human technical check of that equipment and installation. Never fabricate a label or numeric rating, never use a chair label as proof for the bar, and withhold the bar scene if verification is unavailable; no improvised anchor.|İki ayrı sahne: önce duvara dayalı tekerleksiz sağlam sandalye ve zemine basan bütün ayakları, sandalye için taşıma sınırı iddiası olmadan; sonra yalnız ekipman ve kurulum insan teknik incelemesinden geçince amaca uygun çekiş barının doğru takılmış bağlantısı ve gerçek üretici taşıma sınırı etiketi. Etiket veya sayısal sınır uydurma, sandalye etiketini barın kanıtı sayma; doğrulama yoksa bar sahnesini yayımlama, doğaçlama bağlantı kullanma.',kind='learning_only')
 lesson('Health and the right to adapt|Sağlık ve uyarlama hakkı','Recognize when a lesson needs individual advice.|Bir dersin ne zaman bireysel danışma gerektirdiğini tanı.',[
 'Read the health notice before choosing a physical variant; pain is not a required training stimulus.|Fiziksel varyasyonu seçmeden sağlık notunu oku; ağrı gerekli bir antrenman uyaranı değildir.',
 'For injury, surgery, pregnancy or a chronic condition, discuss suitable activities with your clinician or qualified professional.|Yaralanma, ameliyat, gebelik veya kronik durumda uygun etkinlikleri klinisyenin ya da yetkin uzmanla görüş.',
@@ -594,10 +595,38 @@ course['catalogueGuides'] = [
         ('tuck_planche', 'readingOnly', [47]),
     ]
 ]
-manifest={'schemaVersion':1,'courseId':course['id'],'courseVersion':course['version'],'status':'brief_only_not_generated_or_coach_reviewed','trainingData':False,'lessons':[{'moduleId':m['id'],'lessonId':l['id'],'practiceType':l['practiceType'],'mediaBrief':l['mediaBrief']} for m in modules for l in m['lessons']]}
 root=Path(__file__).resolve().parents[1]
+# The original authoring script still owns the lesson skeleton and media
+# briefs. The reviewed v8d layer owns later pedagogy/source edits. Applying it
+# keeps the course comparison independent of the shipped JSON. The reviewed
+# course has noncanonical whitespace, so a normal run validates its exact
+# pinned bytes rather than rewriting it and invalidating the v8d source SHA.
+baseline=json.dumps(course,ensure_ascii=False,indent=2)+'\n'
+overlay=json.loads((root/'content/courses/calisthenics.v8d-overlay.json').read_text(encoding='utf-8'))
+if overlay.get('schemaVersion') != 1 or overlay.get('editorialLayer') != 'v8d':
+    raise ValueError('Unsupported calisthenics editorial layer')
+if hashlib.sha256(baseline.encode('utf-8')).hexdigest() != overlay['baselineSha256']:
+    raise ValueError('Calisthenics authoring baseline changed; review and repin the v8d layer')
+lesson_by_id={item['id']:item for module in modules for item in module['lessons']}
+changes=overlay['lessonOverrides']
+if set(changes) != set(lesson_by_id):
+    raise ValueError('Calisthenics editorial layer must name all 56 current lessons')
+allowed={'objective','steps','practice','selfCheck','sourceIds'}
+for lesson_id, fields in changes.items():
+    if not fields or not set(fields) <= allowed:
+        raise ValueError(f'Unexpected editorial fields for {lesson_id}')
+    lesson_by_id[lesson_id].update(fields)
+course['description']=overlay['description']
+course['sources']=overlay['sources']
+course_path=root/'content/courses/calisthenics.v1.json'
+reviewed_course=course_path.read_text(encoding='utf-8')
+if hashlib.sha256(reviewed_course.encode('utf-8')).hexdigest() != overlay['courseSha256']:
+    raise ValueError('Shipped calisthenics course bytes differ from reviewed v8d SHA')
+if json.loads(reviewed_course) != course:
+    raise ValueError('Shipped calisthenics course differs from the authoring and editorial layers')
+manifest={'schemaVersion':1,'courseId':course['id'],'courseVersion':course['version'],'status':'brief_only_not_generated_or_coach_reviewed','trainingData':False,'lessons':[{'moduleId':m['id'],'lessonId':l['id'],'practiceType':l['practiceType'],'mediaBrief':l['mediaBrief']} for m in modules for l in m['lessons']]}
 parser=argparse.ArgumentParser(); parser.add_argument('--check',action='store_true');args=parser.parse_args()
-for path,data in [('content/courses/calisthenics.v1.json',course),('content/courses/calisthenics.media-briefs.v1.json',manifest)]:
+for path,data in [('content/courses/calisthenics.media-briefs.v1.json',manifest)]:
     rendered=json.dumps(data,ensure_ascii=False,indent=2)+'\n'
     target=root/path
     if args.check:

@@ -5,6 +5,7 @@ import 'account_connection.dart';
 import 'app_locale.dart';
 import 'calisthenics_course.dart';
 import 'calisthenics_progress.dart';
+import 'calisthenics_knowledge_diagrams.dart';
 import 'content_repository.dart';
 import 'theme.dart';
 
@@ -359,20 +360,59 @@ class CalisthenicsLessonScreen extends StatefulWidget {
     required this.course,
     required this.lesson,
     this.storeLoader,
+    this.now,
     super.key,
   });
   final CalisthenicsCourse course;
   final CalisthenicsLesson lesson;
   final CalisthenicsStoreLoader? storeLoader;
+  final DateTime Function()? now;
   @override
   State<CalisthenicsLessonScreen> createState() =>
       _CalisthenicsLessonScreenState();
 }
 
 class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
-    with _CourseIdentity<CalisthenicsLessonScreen> {
+    with _CourseIdentity<CalisthenicsLessonScreen>, WidgetsBindingObserver {
   bool confirmed = false;
+  bool prepared = false;
+  DateTime? preparedOn;
   bool saving = false;
+  bool get requiresPreparation =>
+      !widget.lesson.learningOnly && widget.lesson.id != 'cal-04';
+  DateTime get today => widget.now?.call() ?? DateTime.now();
+  bool get preparedThisSession {
+    final recorded = preparedOn;
+    final current = today;
+    return prepared &&
+        recorded != null &&
+        recorded.year == current.year &&
+        recorded.month == current.month &&
+        recorded.day == current.day;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state != AppLifecycleState.resumed && prepared) {
+      setState(() {
+        prepared = false;
+        preparedOn = null;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
   @override
   CalisthenicsStoreLoader get loader => widget.storeLoader ?? _defaultLoader;
   @override
@@ -381,12 +421,18 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
   @override
   void identityReset() {
     confirmed = false;
+    prepared = false;
+    preparedOn = null;
     saving = false;
   }
 
   Future<void> save(bool complete) async {
     final active = store;
-    if (active == null || saving) return;
+    if (active == null ||
+        saving ||
+        (requiresPreparation && !preparedThisSession)) {
+      return;
+    }
     final turn = epoch;
     setState(() => saving = true);
     try {
@@ -439,6 +485,60 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
       ),
     ),
   );
+
+  String preparationFocus() {
+    final module = widget.course.modules.singleWhere(
+      (item) => item.lessons.contains(widget.lesson),
+    );
+    return switch (module.id) {
+      'lower' => localized(
+        context,
+        'Rehearse an easy sit-to-stand, shallow squat or supported hinge before this lower-body task.',
+        'Bu alt vücut görevinden önce kolay otur-kalk, sığ squat veya destekli kalça menteşesi dene.',
+      ),
+      'push' || 'support' => localized(
+        context,
+        'Move shoulders and wrists gently; rehearse the wall or lightly supported version first.',
+        'Omuzları ve bilekleri rahatça hareket ettir; önce duvar veya hafif destekli seçeneği dene.',
+      ),
+      'pull' => localized(
+        context,
+        'Check the anchor and exit path; begin with a supported, short-range pull.',
+        'Dayanağı ve güvenli çıkışı kontrol et; destekli, kısa hareket aralıklı çekişle başla.',
+      ),
+      'core' => localized(
+        context,
+        'Begin with an easy bird-dog or short-lever trunk rehearsal before increasing the hold.',
+        'Tutuş süresini artırmadan önce kolay bird-dog veya kısa kaldıraçlı gövde provası yap.',
+      ),
+      'conditioning' => localized(
+        context,
+        'Start with a gentle march, then practise the first pattern slowly without a jump.',
+        'Hafif yürüyüşle başla; sonra ilk hareketi sıçramadan yavaşça dene.',
+      ),
+      'integration' when widget.lesson.id == 'cal-53' => localized(
+        context,
+        'Choose easy lower-body and push versions first. Rehearse a supported sit-to-stand and a wall push before your review.',
+        'Önce kolay alt beden ve itiş seçeneklerini seç. Değerlendirmeden önce destekli otur-kalk ve duvar itişini prova et.',
+      ),
+      'integration' when widget.lesson.id == 'cal-54' => localized(
+        context,
+        'Check the pull anchor and exit path. Rehearse a supported short row and an easy trunk option before combining them.',
+        'Çekiş dayanağını ve güvenli çıkışı kontrol et. Birleştirmeden önce destekli kısa row ve kolay gövde seçeneğini prova et.',
+      ),
+      'integration' => localized(
+        context,
+        'Choose an easy version of each movement in your plan and rehearse them one at a time before the short session.',
+        'Planındaki her hareketin kolay seçeneğini seç ve kısa seanstan önce tek tek prova et.',
+      ),
+      _ => localized(
+        context,
+        'Rehearse the easiest version of the movement you chose before increasing range or effort.',
+        'Seçtiğin hareketin en kolay seçeneğini, aralığı veya eforu artırmadan önce dene.',
+      ),
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     final lesson = widget.lesson;
@@ -489,13 +589,88 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                 'Fiziksel deneme gerekli değil. Yazılı veya şema görevini çalış.',
               ),
             ], sealed: true),
+          if (requiresPreparation)
+            GravitaCard(
+              sealed: true,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    localized(
+                      context,
+                      'Prepare for this session',
+                      'Bu oturuma hazırlan',
+                    ),
+                    style: GravitaType.display(size: 19),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    localized(
+                      context,
+                      'If this is a fresh session, walk or march gently, including seated marching if needed, until you feel lightly warm. Move the joints used today through a comfortable range, then rehearse at low effort. If you are still warm from the same session, review the rehearsal before continuing.',
+                      'Yeni bir oturumsa hafifçe ısınana kadar yürü veya gerekirse oturarak yerinde adımla. Bugün kullanılacak eklemleri rahat aralıkta hareket ettir, sonra düşük eforla prova yap. Aynı oturumdan hâlâ ısınmışsan devam etmeden önce provayı gözden geçir.',
+                    ),
+                    style: GravitaType.body(size: 15),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(preparationFocus(), style: GravitaType.body(size: 15)),
+                  CheckboxListTile(
+                    key: const Key('calisthenics.prepared'),
+                    contentPadding: EdgeInsets.zero,
+                    value: preparedThisSession,
+                    onChanged: saving
+                        ? null
+                        : (value) => setState(() {
+                            prepared = value ?? false;
+                            preparedOn = prepared ? today : null;
+                          }),
+                    title: Text(
+                      localized(
+                        context,
+                        'I prepared for this session or am continuing while still warm · self-report',
+                        'Bu oturuma hazırlandım veya hâlâ ısınmışken sürdürüyorum · öz bildirim',
+                      ),
+                      style: GravitaType.body(size: 13),
+                    ),
+                  ),
+                  if (preparedThisSession)
+                    TextButton(
+                      key: const Key('calisthenics.newSession'),
+                      onPressed: saving
+                          ? null
+                          : () => setState(() {
+                              prepared = false;
+                              preparedOn = null;
+                            }),
+                      child: Text(
+                        localized(
+                          context,
+                          'Starting again after a break? Prepare again',
+                          'Moladan sonra yeniden mi başlıyorsun? Yeniden hazırlan',
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
           section('Learn the movement', 'Hareketi öğren', <String>[
             for (var i = 0; i < lesson.steps.length; i++)
               '${i + 1}. ${_text(context, lesson.steps[i])}',
           ]),
-          section('Practice options', 'Pratik seçenekleri', <String>[
-            _text(context, lesson.practice),
-          ]),
+          if (CalisthenicsKnowledgeDiagrams.supports(lesson.id))
+            CalisthenicsKnowledgeDiagrams(lessonId: lesson.id),
+          KeyedSubtree(
+            key: const Key('calisthenics.practiceOptions'),
+            child: section('Practice options', 'Pratik seçenekleri', <String>[
+              requiresPreparation && !preparedThisSession
+                  ? localized(
+                      context,
+                      'Read the learning steps now. Physical practice options open after you report this session preparation above.',
+                      'Öğrenme adımlarını şimdi okuyabilirsin. Fiziksel pratik seçenekleri yukarıdaki oturum hazırlığını bildirdikten sonra açılır.',
+                    )
+                  : _text(context, lesson.practice),
+            ]),
+          ),
           section(
             'Self-check',
             'Öz denetim',
@@ -527,7 +702,10 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                   const SizedBox(height: 10),
                   OutlinedButton(
                     key: const Key('calisthenics.practised'),
-                    onPressed: store == null || saving
+                    onPressed:
+                        store == null ||
+                            saving ||
+                            (requiresPreparation && !preparedThisSession)
                         ? null
                         : () => save(false),
                     child: Text(
@@ -562,7 +740,11 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                   FilledButton(
                     key: const Key('calisthenics.complete'),
                     onPressed:
-                        store == null || saving || !confirmed || !practised
+                        store == null ||
+                            saving ||
+                            !confirmed ||
+                            !practised ||
+                            (requiresPreparation && !preparedThisSession)
                         ? null
                         : () => save(true),
                     child: Text(

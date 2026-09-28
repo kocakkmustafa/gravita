@@ -1,0 +1,1885 @@
+{
+  "schemaVersion": 1,
+  "editorialLayer": "v8d",
+  "baselineSha256": "3c2d8b6c13c6fde1f608fc9ff1903b893ec4475d0aa3c816f25ce9eaa17ec8e8",
+  "courseSha256": "eca53870045d2c0c0e5fd2abc0d93190bc092a1ba3c254a64d908ae13040f83d",
+  "description": {
+    "en": "56 original lessons from supported basics to independent practice, with intermediate options and advanced skill literacy. Vertical pressing is preparation only here; a pike hold does not demonstrate a resisted vertical press or handstand. Follow your own pace; adaptations remain valid.",
+    "tr": "Destekli temelden bağımsız pratiğe 56 özgün ders; orta seviye seçenekler ve ileri beceri bilgisi. Dikey itiş bu kursta yalnız hazırlıktır; pike tutuşu dirençli dikey itiş veya amut becerisi göstermez. Kendi hızında ilerle; uyarlamalar geçerlidir."
+  },
+  "sources": [
+    {
+      "id": "acsm2026",
+      "title": "ACSM: 2026 resistance training guidance",
+      "url": "https://acsm.org/resistance-training-guidelines-update-2026/"
+    },
+    {
+      "id": "who",
+      "title": "WHO: Physical activity",
+      "url": "https://www.who.int/initiatives/behealthy/physical-activity"
+    },
+    {
+      "id": "nhs_strength",
+      "title": "NHS: Strength exercises",
+      "url": "https://www.nhs.uk/live-well/exercise/strength-exercises/"
+    },
+    {
+      "id": "ace",
+      "title": "ACE: Exercise library",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/"
+    },
+    {
+      "id": "ace_bird",
+      "title": "ACE: Bird-dog",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/14/bird-dog/"
+    },
+    {
+      "id": "nasm_push",
+      "title": "NASM: Push-up",
+      "url": "https://www.nasm.org/resource-center/exercise-library/push-up"
+    },
+    {
+      "id": "nasm_pull",
+      "title": "NASM: Pull-up",
+      "url": "https://www.nasm.org/resource-center/exercise-library/pull-up"
+    },
+    {
+      "id": "nasm_plank",
+      "title": "NASM: Plank",
+      "url": "https://www.nasm.org/resource-center/exercise-library/plank"
+    },
+    {
+      "id": "nasm_dead",
+      "title": "NASM: Dead bug",
+      "url": "https://www.nasm.org/resource-center/exercise-library/dead-bug"
+    },
+    {
+      "id": "nasm_pike",
+      "title": "NASM: Pike push-up",
+      "url": "https://www.nasm.org/resource-center/exercise-library/pike-push-up"
+    },
+    {
+      "id": "acog",
+      "title": "ACOG: Exercise during pregnancy",
+      "url": "https://www.acog.org/womens-health/faqs/exercise-during-pregnancy"
+    },
+    {
+      "id": "nhs_pregnancy",
+      "title": "NHS: Exercise in pregnancy",
+      "url": "https://www.nhs.uk/pregnancy/keeping-well/exercise/"
+    },
+    {
+      "id": "nsca_progression",
+      "title": "NSCA: Progressive strategies for teaching fundamental resistance training movement patterns",
+      "url": "https://www.nsca.com/education/articles/ptq/teaching-resistance-training-movement-patterns/"
+    },
+    {
+      "id": "nsca_progression_pdf",
+      "title": "NSCA official full progression article",
+      "url": "https://www.nsca.com/contentassets/3d09f06f0b4c4f6fbd8cc382ed1f3d4a/ptq-10.2.1-progressive-strategies-for-teaching-fundamental-resistance-training-movement-patterns.pdf"
+    }
+  ],
+  "lessonOverrides": {
+    "cal-01": {
+      "practice": {
+        "en": "Learning task: inspect the space once and describe where you will stand, sit and exit. Squat and pressing practice starts after their technique lessons.\n\nCommon mistake: Equipment obstructs the intended exit. Correction: Place the route before placing equipment.\n\nExplain the same exit with the chair in a second stable location.",
+        "tr": "Öğrenme görevi: alanı bir kez incele, duracağın, oturacağın ve çıkacağın yeri tarif et. Squat ve itiş pratiği teknik derslerinden sonra başlar.\n\nSık hata: Ekipman planlanan çıkışı kapatır. Düzeltme: Ekipmanı yerleştirmeden önce hareket yolunu belirle.\n\nSandalyenin ikinci sağlam konumunda aynı çıkışı açıkla."
+      },
+      "selfCheck": [
+        {
+          "en": "Nothing moves when I gently test the support.",
+          "tr": "Desteği hafifçe kontrol ettiğimde oynamıyor."
+        },
+        {
+          "en": "I can exit the space without stepping over equipment.",
+          "tr": "Ekipmanın üzerinden geçmeden alandan çıkabiliyorum."
+        },
+        {
+          "en": "Can you explain this in your own words? Place the route before placing equipment.",
+          "tr": "Şunu kendi sözlerinle açıklayabilir misin? Ekipmanı yerleştirmeden önce hareket yolunu belirle."
+        },
+        {
+          "en": "Next practice, explain this idea without the page: Place the route before placing equipment. Then check what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan şu fikri anlat: Ekipmanı yerleştirmeden önce hareket yolunu belirle. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "who",
+        "nhs_strength",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-02": {
+      "practice": {
+        "en": "Write one personal question for a qualified professional and identify a supported alternative; this is a learning task, not a screening test.\n\nCommon mistake: A completed lesson is treated as medical clearance. Correction: An adaptation is a choice, not medical clearance.\n\nCompare learning by observation with supported practice without judging either as failure.",
+        "tr": "Yetkin uzmana soracağın bir soruyu yaz ve destekli bir alternatif belirle; bu bir öğrenme görevi, sağlık taraması değildir.\n\nSık hata: Tamamlanan ders tıbbi uygunluk onayı sayılır. Düzeltme: Uyarlama bir seçimdir; tıbbi uygunluk onayı değildir.\n\nGözlemle öğrenme ile destekli çalışmayı başarısızlık saymadan karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I know how to pause rather than chase the next lesson.",
+          "tr": "Sonraki derse yetişmek yerine nasıl duracağımı biliyorum."
+        },
+        {
+          "en": "I have not treated a completed lesson as medical clearance.",
+          "tr": "Tamamlanan dersi tıbbi uygunluk izni saymadım."
+        },
+        {
+          "en": "Can you explain this in your own words? An adaptation is a choice, not medical clearance.",
+          "tr": "Şunu kendi sözlerinle açıklayabilir misin? Uyarlama bir seçimdir; tıbbi uygunluk onayı değildir."
+        },
+        {
+          "en": "Next practice, explain this idea without the page: An adaptation is a choice, not medical clearance. Then check what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan şu fikri anlat: Uyarlama bir seçimdir; tıbbi uygunluk onayı değildir. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "who",
+        "nhs_strength",
+        "acog",
+        "nhs_pregnancy",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-03": {
+      "practice": {
+        "en": "Sit comfortably with feet supported and take 3 ordinary unforced breaths; describe rest on your effort scale. Do not hold your breath or test maximum effort.\n\nCommon mistake: Breathing is held to demonstrate effort. Correction: Leave the breath ordinary while describing effort.\n\nDescribe rest and an easy everyday task on your own effort scale.",
+        "tr": "Ayaklar destekli rahat otur ve zorlamadan 3 normal nefes al; efor ölçeğinde dinlenmeyi tarif et. Nefes tutma veya en yüksek eforu test etme.\n\nSık hata: Çabayı göstermek için nefes tutulur. Düzeltme: Çabayı anlatırken nefesi doğal bırak.\n\nDinlenmeyi ve kolay günlük işi kendi çaba ölçeğinde anlat."
+      },
+      "selfCheck": [
+        {
+          "en": "I can describe my effort rather than guess a camera score.",
+          "tr": "Kamera puanı tahmin etmek yerine eforumu tarif edebiliyorum."
+        },
+        {
+          "en": "I did not hold or force my breathing.",
+          "tr": "Nefesimi tutmadım veya zorlamadım."
+        },
+        {
+          "en": "Can you explain this in your own words? Leave the breath ordinary while describing effort.",
+          "tr": "Şunu kendi sözlerinle açıklayabilir misin? Çabayı anlatırken nefesi doğal bırak."
+        },
+        {
+          "en": "Next practice, explain this idea without the page: Leave the breath ordinary while describing effort. Then check what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan şu fikri anlat: Çabayı anlatırken nefesi doğal bırak. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "who",
+        "nhs_strength",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-04": {
+      "practice": {
+        "en": "Choose 2–4 minutes of familiar easy walking or seated marching; then 4 small comfortable shoulder circles each way and 4 unloaded wrist movements.\n\nCommon mistake: Preparation is pushed until the wrists or shoulders are tired. Correction: Prepare each support without tiring it.\n\nCompare easy walking with seated marching at a comfortable pace.",
+        "tr": "2–4 dakika tanıdık rahat yürüyüş veya oturarak adımlama seç; ardından iki yönde 4 küçük rahat omuz dairesi ve yüksüz 4 bilek hareketi yap.\n\nSık hata: Hazırlık el bileği veya omuz yorulana kadar zorlanır. Düzeltme: Her destek bölgesini yormadan hazırla.\n\nRahat hızda kolay yürüyüş ile oturarak adımlamayı karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "The range stays comfortable without forcing the joint.",
+          "tr": "Eklem zorlanmadan hareket aralığı rahat kalıyor."
+        },
+        {
+          "en": "I feel prepared, not fatigued.",
+          "tr": "Yorgun değil, hazır hissediyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Prepare each support without tiring it.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Her destek bölgesini yormadan hazırla."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Prepare each support without tiring it. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Her destek bölgesini yormadan hazırla. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "who",
+        "nhs_strength",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-05": {
+      "practice": {
+        "en": "Learning task: write where you would place a rest between two future practice sets, and how you would decide to rest longer. No press is required before its technique lesson.\n\nCommon mistake: The next set starts before breathing and control return. Correction: Rest until control and ordinary breathing return.\n\nPlan a longer rest for a day when the same task feels harder.",
+        "tr": "Öğrenme görevi: gelecekteki iki pratik seti arasına dinlenmeyi nereye koyacağını ve uzatmaya nasıl karar vereceğini yaz. Teknik dersinden önce itiş gerekli değil.\n\nSık hata: Nefes ve kontrol dönmeden sonraki sete başlanır. Düzeltme: Kontrol ve doğal nefes dönene kadar dinlen.\n\nAynı işin daha zor geldiği gün için daha uzun mola planla."
+      },
+      "selfCheck": [
+        {
+          "en": "My plan allows breathing and control to return before another set.",
+          "tr": "Planım sonraki setten önce nefes ve kontrolün dönmesine izin veriyor."
+        },
+        {
+          "en": "My schedule includes easier or rest days.",
+          "tr": "Takvimimde kolay veya dinlenme günleri var."
+        },
+        {
+          "en": "Can you explain this in your own words? Rest until control and ordinary breathing return.",
+          "tr": "Şunu kendi sözlerinle açıklayabilir misin? Kontrol ve doğal nefes dönene kadar dinlen."
+        },
+        {
+          "en": "Next practice, explain this idea without the page: Rest until control and ordinary breathing return. Then check what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan şu fikri anlat: Kontrol ve doğal nefes dönene kadar dinlen. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "who",
+        "nhs_strength",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-06": {
+      "practice": {
+        "en": "Learning task: make a blank log with variant, dose, effort and observation fields; record today’s space or breathing review, not an untaught movement.\n\nCommon mistake: A supported variant is logged as the unsupported movement. Correction: Write the exact support and variant beside the dose.\n\nRecord observation separately from a physical attempt.",
+        "tr": "Öğrenme görevi: varyasyon, doz, efor ve gözlem alanlı boş kayıt hazırla; öğretilmeyen hareket yerine bugünkü alan veya nefes incelemesini yaz.\n\nSık hata: Destekli biçim desteksiz hareket diye kaydedilir. Düzeltme: Dozun yanına gerçek desteği ve varyasyonu yaz.\n\nGözlemi fiziksel denemeden ayrı kaydet."
+      },
+      "selfCheck": [
+        {
+          "en": "My completion describes learning, not verified mastery.",
+          "tr": "Tamamlama kaydım doğrulanmış ustalık değil, öğrenmeyi anlatıyor."
+        },
+        {
+          "en": "I know which version of the course I am using.",
+          "tr": "Kursun hangi sürümünü kullandığımı biliyorum."
+        },
+        {
+          "en": "Can you explain this in your own words? Write the exact support and variant beside the dose.",
+          "tr": "Şunu kendi sözlerinle açıklayabilir misin? Dozun yanına gerçek desteği ve varyasyonu yaz."
+        },
+        {
+          "en": "Next practice, explain this idea without the page: Write the exact support and variant beside the dose. Then check what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan şu fikri anlat: Dozun yanına gerçek desteği ve varyasyonu yaz. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "who",
+        "nhs_strength",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-07": {
+      "practice": {
+        "en": "Try 1 set of 3–5; if controlled, a second set after 60–120 seconds. Use hands on a stable support when needed.\n\nCommon mistake: The learner bounces off the chair or drops onto it. Correction: Bring the chest forward before leaving the chair; return quietly.\n\nCompare hand-assisted and lighter hand support at the same chair height.",
+        "tr": "1 set 3–5 dene; kontrollüyse 60–120 saniye sonra ikinci set. Gerektiğinde sabit destekten ellerle yardım al.\n\nSık hata: Öğrenci sandalyeden yaylanır veya sandalyeye düşer. Düzeltme: Sandalyeden ayrılmadan göğsü öne getir; sessizce otur.\n\nAynı sandalye yüksekliğinde elle destek ile daha hafif el desteğini karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I do not bounce off the chair.",
+          "tr": "Sandalyeden sekmiyorum."
+        },
+        {
+          "en": "Both feet remain planted.",
+          "tr": "İki ayağım da zeminde kalıyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Bring the chest forward before leaving the chair; return quietly.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Sandalyeden ayrılmadan göğsü öne getir; sessizce otur."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Bring the chest forward before leaving the chair; return quietly. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Sandalyeden ayrılmadan göğsü öne getir; sessizce otur. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nhs_strength",
+        "acsm2026",
+        "ace",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-08": {
+      "practice": {
+        "en": "Practice 2 sets of 4–6 shallow squats with 90 seconds rest; gradually explore a little more depth only if comfortable.\n\nCommon mistake: Depth increases while the foot loses support. Correction: Keep the whole foot supported while choosing your own depth.\n\nCompare a shallow squat with a slightly deeper controlled squat; keep the same stance.",
+        "tr": "90 saniye dinlenmeyle 2 set 4–6 sığ squat yap; yalnız rahatsa biraz daha derinliği kademeli dene.\n\nSık hata: Ayak desteği kaybolurken derinlik artırılır. Düzeltme: Derinliği kendin seçerken ayağın tamamını destekli tut.\n\nAynı duruşta sığ çömelme ile biraz daha derin kontrollü çömelmeyi karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "My heels stay supported and I can pause briefly.",
+          "tr": "Topuklarım destekli kalıyor ve kısa durabiliyorum."
+        },
+        {
+          "en": "Depth is chosen for control, not a forced camera score.",
+          "tr": "Derinlik zorlanan kamera puanı için değil, kontrol için seçiliyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Keep the whole foot supported while choosing your own depth.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Derinliği kendin seçerken ayağın tamamını destekli tut."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Keep the whole foot supported while choosing your own depth. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Derinliği kendin seçerken ayağın tamamını destekli tut. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nhs_strength",
+        "acsm2026",
+        "ace",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-09": {
+      "practice": {
+        "en": "Perform 1–2 sets of 5 wall taps, rest 60–90 seconds; move only a little farther from the wall if control stays easy.\n\nCommon mistake: The wall tap becomes a deep knee bend or a back arch. Correction: Send the hips towards the wall rather than turning the hinge into a squat.\n\nCompare a close wall tap with a small step farther away.",
+        "tr": "1–2 set 5 duvar dokunuşu yap, 60–90 saniye dinlen; kontrol kolaysa duvardan yalnız biraz uzaklaş.\n\nSık hata: Duvar teması derin diz bükmeye veya bel çukuruna dönüşür. Düzeltme: Katlanmayı çömelmeye çevirmeden kalçayı duvara gönder.\n\nYakın duvar temasını duvardan küçük bir adım uzaktaki temasla karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I feel hips move back rather than knees travel far forward.",
+          "tr": "Dizlerin çok ileri gitmesinden çok kalçanın geriye gittiğini hissediyorum."
+        },
+        {
+          "en": "My finish is upright, not arched backwards.",
+          "tr": "Bitişim dik, geriye bükülü değil."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Send the hips towards the wall rather than turning the hinge into a squat.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Katlanmayı çömelmeye çevirmeden kalçayı duvara gönder."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Send the hips towards the wall rather than turning the hinge into a squat. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Katlanmayı çömelmeye çevirmeden kalçayı duvara gönder. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nhs_strength",
+        "acsm2026",
+        "ace",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-10": {
+      "practice": {
+        "en": "Try 1–2 sets of 4–6 with 60–90 seconds rest; a small lift is sufficient for learning.\n\nCommon mistake: Bridge height comes from forced back arching. Correction: Lift only as far as the pelvis moves without a forced back arch.\n\nCompare a small bridge with a shorter lift using unchanged foot placement.",
+        "tr": "60–90 saniye dinlenmeyle 1–2 set 4–6 dene; öğrenmek için küçük kaldırış yeterli.\n\nSık hata: Köprü yüksekliği zorla bel çukurlaştırmadan gelir. Düzeltme: Kalça hareket ederken beli zorla çukurlaştırmadan kaldır.\n\nAyak yerini değiştirmeden küçük köprü ile daha kısa kaldırmayı karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I do not increase height by arching the back.",
+          "tr": "Beli bükerek yüksekliği artırmıyorum."
+        },
+        {
+          "en": "Feet and shoulders do not slide.",
+          "tr": "Ayak ve omuzlar kaymıyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Lift only as far as the pelvis moves without a forced back arch.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Kalça hareket ederken beli zorla çukurlaştırmadan kaldır."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Lift only as far as the pelvis moves without a forced back arch. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Kalça hareket ederken beli zorla çukurlaştırmadan kaldır. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nhs_strength",
+        "acsm2026",
+        "ace",
+        "nhs_pregnancy",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-11": {
+      "practice": {
+        "en": "Begin with 1 set of 3–5 per side, 60–90 seconds rest; use a second set if both sides stay steady.\n\nCommon mistake: The narrow base makes the split squat wobble. Correction: Use two parallel tracks and a support before bending either knee.\n\nCompare a shorter and familiar split stance, holding the support in both.",
+        "tr": "Taraf başına 1 set 3–5 ile başla, 60–90 saniye dinlen; iki taraf da dengeliyse ikinci set kullan.\n\nSık hata: Dar taban ayrık çömelmeyi sallandırır. Düzeltme: Dizleri bükmeden iki ayrı ayak hattı ve destek kur.\n\nİkisinde de destek tutarak daha kısa ve tanıdık ayrık duruşu karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I can keep a wide enough base for balance.",
+          "tr": "Denge için yeterli geniş tabanı koruyabiliyorum."
+        },
+        {
+          "en": "Front knee and foot turn together, not oppositely.",
+          "tr": "Ön diz ve ayak birlikte yönleniyor, ters değil."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Use two parallel tracks and a support before bending either knee.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Dizleri bükmeden iki ayrı ayak hattı ve destek kur."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Use two parallel tracks and a support before bending either knee. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Dizleri bükmeden iki ayrı ayak hattı ve destek kur. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nhs_strength",
+        "acsm2026",
+        "ace",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-12": {
+      "steps": [
+        {
+          "en": "Start beside a stable support; take a short step back onto the ball of the foot.",
+          "tr": "Sabit desteğin yanında başla; kısa bir geri adım atıp arkadaki ayağın ön kısmına bas."
+        },
+        {
+          "en": "Lower a small amount with the front foot planted and torso controlled.",
+          "tr": "Ön ayak sabit, gövde kontrollüyken biraz alçal."
+        },
+        {
+          "en": "Push the front floor away and bring the back foot forward without a hop.",
+          "tr": "Öndeki zemini it ve arkadaki ayağı sıçramadan öne getir."
+        }
+      ],
+      "practice": {
+        "en": "Practice 1–2 sets of 3–4 each side, resting 90 seconds; repeat the supported split squat if the step disrupts balance.\n\nCommon mistake: The learner descends before placing the back foot. Correction: Place the back foot first, then descend; return by reversing the steps.\n\nCompare a fixed supported split squat with a short reverse step.",
+        "tr": "90 saniye dinlenerek taraf başına 1–2 set 3–4 yap; adım dengeyi bozuyorsa destekli split squatı yinele.\n\nSık hata: Arka ayağı yerleştirmeden alçalınır. Düzeltme: Önce arka ayağı yerleştir, sonra alçal; adımları tersine çevirerek dön.\n\nSabit destekli ayrık çömelme ile kısa geri adımı karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I place the back foot quietly.",
+          "tr": "Arka ayağı yumuşak yerleştiriyorum."
+        },
+        {
+          "en": "I return without bouncing or twisting.",
+          "tr": "Sekmeden ve dönmeden dönüyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Place the back foot first, then descend; return by reversing the steps.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Önce arka ayağı yerleştir, sonra alçal; adımları tersine çevirerek dön."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Place the back foot first, then descend; return by reversing the steps. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Önce arka ayağı yerleştir, sonra alçal; adımları tersine çevirerek dön. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nhs_strength",
+        "acsm2026",
+        "ace",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-13": {
+      "practice": {
+        "en": "Try 1 set of 3–5 each side; rest 90 seconds and optionally repeat. Choose a lower step before adding reps.\n\nCommon mistake: The lead foot overhangs the step and the descent drops. Correction: Fit the whole lead foot on the step and control the step down.\n\nCompare the familiar low step with floor weight shifts beside a support.",
+        "tr": "Taraf başına 1 set 3–5 dene; 90 saniye dinlen ve istersen yinele. Tekrar eklemeden önce daha alçak basamak seç.\n\nSık hata: Öndeki ayak basamaktan taşar ve iniş düşüşe dönüşür. Düzeltme: Öndeki ayağın tamamını basamağa koy ve inişi kontrol et.\n\nTanıdık alçak basamak ile desteğin yanında yerde ağırlık aktarımını karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "The entire lead foot fits on the step.",
+          "tr": "Ön ayağın tamamı basamağa sığıyor."
+        },
+        {
+          "en": "I control the descent rather than dropping.",
+          "tr": "Kendimi bırakmadan inişi kontrol ediyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Fit the whole lead foot on the step and control the step down.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Öndeki ayağın tamamını basamağa koy ve inişi kontrol et."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Fit the whole lead foot on the step and control the step down. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Öndeki ayağın tamamını basamağa koy ve inişi kontrol et. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nhs_strength",
+        "acsm2026",
+        "ace",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-14": {
+      "practice": {
+        "en": "Perform 1–2 sets of 5–8, resting 60 seconds; stay with two legs before considering harder variants.\n\nCommon mistake: The ankles roll outward during the heel raise. Correction: Rise through both forefeet without rolling to the outer edges.\n\nCompare a small heel lift with the familiar higher lift while retaining support.",
+        "tr": "60 saniye dinlenerek 1–2 set 5–8 yap; zor varyasyon düşünmeden iki bacakla kal.\n\nSık hata: Topuk kaldırmada bilekler dışa yuvarlanır. Düzeltme: Dış kenarlara yuvarlanmadan iki ön ayak üzerinden yüksel.\n\nDesteği koruyarak küçük topuk kaldırma ile tanıdık daha yüksek kaldırmayı karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I avoid rocking onto the outer edge of the foot.",
+          "tr": "Ayağın dış kenarına devrilmiyorum."
+        },
+        {
+          "en": "The lowering remains quiet and controlled.",
+          "tr": "İniş yumuşak ve kontrollü kalıyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Rise through both forefeet without rolling to the outer edges.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Dış kenarlara yuvarlanmadan iki ön ayak üzerinden yüksel."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Rise through both forefeet without rolling to the outer edges. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Dış kenarlara yuvarlanmadan iki ön ayak üzerinden yüksel. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nhs_strength",
+        "acsm2026",
+        "ace",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-15": {
+      "practice": {
+        "en": "Try 2 sets of 4–6 with 60–90 seconds rest; move feet closer to reduce effort.\n\nCommon mistake: The hips lag while the chest moves to the wall. Correction: Move shoulders and hips towards the wall together.\n\nCompare a close foot position with a small step farther from the wall.",
+        "tr": "60–90 saniye dinlenmeyle 2 set 4–6 dene; eforu azaltmak için ayakları yaklaştır.\n\nSık hata: Göğüs duvara giderken kalça geride kalır. Düzeltme: Omuzları ve kalçayı birlikte duvara yaklaştır.\n\nDuvara yakın ayak konumu ile küçük bir adım uzak konumu karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "My hips travel with the shoulders.",
+          "tr": "Kalçam omuzlarla birlikte ilerliyor."
+        },
+        {
+          "en": "Hands remain comfortable and do not slip.",
+          "tr": "Eller rahat kalıyor ve kaymıyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Move shoulders and hips towards the wall together.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Omuzları ve kalçayı birlikte duvara yaklaştır."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Move shoulders and hips towards the wall together. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Omuzları ve kalçayı birlikte duvara yaklaştır. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nasm_push",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-16": {
+      "practice": {
+        "en": "Use 1–2 sets of 4–6 with 90 seconds rest. Keep the same height for several controlled sessions before lowering it.\n\nCommon mistake: The trunk sags when the support height is lowered. Correction: Keep the chosen body line as a unit throughout the incline press.\n\nCompare two verified stable support heights, starting with the higher one.",
+        "tr": "90 saniye dinlenmeyle 1–2 set 4–6. Alçaltmadan önce birkaç kontrollü seans aynı yükseklikte kal.\n\nSık hata: Destek alçaltılınca gövde çöker. Düzeltme: Eğimli itiş boyunca seçtiğin gövde hattını bir bütün tut.\n\nİki doğrulanmış sağlam destek yüksekliğini yüksek olandan başlayarak karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "Support stability was checked before the set.",
+          "tr": "Setten önce destek sağlamlığı kontrol edildi."
+        },
+        {
+          "en": "My trunk does not sag behind my shoulders.",
+          "tr": "Gövdem omuzların gerisinde sarkmıyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Keep the chosen body line as a unit throughout the incline press.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Eğimli itiş boyunca seçtiğin gövde hattını bir bütün tut."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Keep the chosen body line as a unit throughout the incline press. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Eğimli itiş boyunca seçtiğin gövde hattını bir bütün tut. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nasm_push",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-17": {
+      "practice": {
+        "en": "Try 1 set of 3–5, rest 90 seconds and optionally repeat; range can be small while learning.\n\nCommon mistake: The hips rise first from the knee-supported press. Correction: Use the head-to-knee line; do not leave the hips behind during the push.\n\nCompare a short knee-supported range with the familiar incline option.",
+        "tr": "1 set 3–5 dene, 90 saniye dinlen ve istersen yinele; öğrenirken aralık küçük olabilir.\n\nSık hata: Diz destekli itişte önce kalça kalkar. Düzeltme: Baş-diz hattını kullan; itişte kalçayı geride bırakma.\n\nKısa diz destekli aralık ile tanıdık eğimli seçeneği karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "My hips do not lead the push.",
+          "tr": "İtişi kalçam başlatmıyor."
+        },
+        {
+          "en": "I can breathe without compressing the wrists painfully.",
+          "tr": "Bileği ağrılı sıkıştırmadan nefes alabiliyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Use the head-to-knee line; do not leave the hips behind during the push.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Baş-diz hattını kullan; itişte kalçayı geride bırakma."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Use the head-to-knee line; do not leave the hips behind during the push. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Baş-diz hattını kullan; itişte kalçayı geride bırakma. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nasm_push",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-18": {
+      "practice": {
+        "en": "Practice 1–2 sets of 2–3 descents with 90–120 seconds rest; keep reserve and avoid repeated slow failure.\n\nCommon mistake: The descent becomes a drop with no planned supported reset. Correction: Choose the supported reset before descending: step out from an incline, or place the knees down after a floor descent.\n\nCompare a shorter descent with the familiar descent; use the planned incline step-out or floor knee reset after each.",
+        "tr": "90–120 saniye dinlenmeyle 1–2 set 2–3 iniş; pay bırak, tekrar tekrar yavaş tükenme yapma.\n\nSık hata: Destekli çıkış planlanmadan iniş düşüşe dönüşür. Düzeltme: İnişe başlamadan destekli çıkış yolunu seç: yükselti seçeneğinde adımlayarak, yer seçeneğinde ise inişten sonra dizleri koyarak yeniden kurul.\n\nKısa iniş ile tanıdık inişi karşılaştır; her inişten sonra planladığın yükseltiden adımla çıkış veya yerde dizle yeniden kurulma yolunu kullan."
+      },
+      "selfCheck": [
+        {
+          "en": "I choose the exit before starting.",
+          "tr": "Başlamadan çıkışı seçiyorum."
+        },
+        {
+          "en": "Every descent is controlled, not a drop.",
+          "tr": "Her iniş kontrollü, düşme değil."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Choose the supported reset before descending: step out from an incline, or place the knees down after a floor descent.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? İnişe başlamadan destekli çıkış yolunu seç: yükselti seçeneğinde adımlayarak, yer seçeneğinde ise inişten sonra dizleri koyarak yeniden kurul."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Choose the supported reset before descending: step out from an incline, or place the knees down after a floor descent. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: İnişe başlamadan destekli çıkış yolunu seç: yükselti seçeneğinde adımlayarak, yer seçeneğinde ise inişten sonra dizleri koyarak yeniden kurul. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nasm_push",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-19": {
+      "practice": {
+        "en": "Choose 1–2 sets of 1–4 controlled repetitions with 120 seconds rest; incline sets remain a valid course path.\n\nCommon mistake: A second floor rep is attempted after the body line breaks. Correction: Start a floor rep only when the exit remains available.\n\nCompare one floor attempt with the familiar incline; choose incline if the line changes.",
+        "tr": "120 saniye dinlenmeyle 1–2 set 1–4 kontrollü tekrar seç; yükselti setleri geçerli kurs yolu olmaya devam eder.\n\nSık hata: Gövde hattı bozulduktan sonra ikinci yer tekrarı denenir. Düzeltme: Yerden tekrara yalnız çıkış hâlâ mümkünken başla.\n\nBir yer denemesini tanıdık eğimle karşılaştır; hat değişirse eğimi seç."
+      },
+      "selfCheck": [
+        {
+          "en": "Shoulders and hips rise together.",
+          "tr": "Omuz ve kalça birlikte yükseliyor."
+        },
+        {
+          "en": "I stop before the next rep would lose control.",
+          "tr": "Sonraki tekrar kontrolü bozacaksa önceden duruyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Start a floor rep only when the exit remains available.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Yerden tekrara yalnız çıkış hâlâ mümkünken başla."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Start a floor rep only when the exit remains available. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Yerden tekrara yalnız çıkış hâlâ mümkünken başla. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nasm_push",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-20": {
+      "practice": {
+        "en": "Try 1–2 sets of 4 small movements, rest 60–90 seconds; increase control before changing height.\n\nCommon mistake: Elbow bending disguises scapular movement. Correction: Let the shoulder blades move while the elbows stay nearly still.\n\nCompare a very small wall-supported scapular movement with an ordinary wall press.",
+        "tr": "1–2 set 4 küçük hareket dene, 60–90 saniye dinlen; yükseklikten önce kontrolü artır.\n\nSık hata: Dirsek bükülmesi kürek hareketini gizler. Düzeltme: Dirsekler neredeyse sabitken kürek kemiklerinin hareketine izin ver.\n\nÇok küçük duvar destekli kürek hareketini olağan duvar itişiyle karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "My elbows stay nearly still.",
+          "tr": "Dirseklerim neredeyse sabit."
+        },
+        {
+          "en": "I do not thrust the head forward.",
+          "tr": "Başımı öne fırlatmıyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Let the shoulder blades move while the elbows stay nearly still.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Dirsekler neredeyse sabitken kürek kemiklerinin hareketine izin ver."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Let the shoulder blades move while the elbows stay nearly still. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Dirsekler neredeyse sabitken kürek kemiklerinin hareketine izin ver. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nasm_push",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-21": {
+      "practice": {
+        "en": "Choose 2 supported holds of 5–10 seconds or 3 tiny bends; rest 90 seconds. Without rated handles, study the setup and use wall presses.\n\nCommon mistake: Feet lose the ability to unload during a deep dip attempt. Correction: Keep both feet able to unload the arms; do not chase dip depth.\n\nCompare a feet-supported hold with tiny bends only on rated handles.",
+        "tr": "2 destekli 5–10 saniye tutuş veya 3 küçük bükme seç; 90 saniye dinlen. Uygun tutacak yoksa kurulumu incele ve duvar itişi kullan.\n\nSık hata: Derin dip denemesinde ayakların yük azaltma imkânı kaybolur. Düzeltme: İki ayak kolların yükünü azaltabilsin; dip derinliğini kovalama.\n\nYalnız yükü onaylı tutacaklarda ayak destekli tutuş ile çok küçük bükülmeleri karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "Feet remain able to unload the arms immediately.",
+          "tr": "Ayaklar koldaki yükü hemen alabilecek durumda."
+        },
+        {
+          "en": "Shoulders do not sink into an uncomfortable depth.",
+          "tr": "Omuzlar rahatsız derinliğe çökmüyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Keep both feet able to unload the arms; do not chase dip depth.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? İki ayak kolların yükünü azaltabilsin; dip derinliğini kovalama."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Keep both feet able to unload the arms; do not chase dip depth. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: İki ayak kolların yükünü azaltabilsin; dip derinliğini kovalama. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nasm_push",
+        "acsm2026",
+        "ace",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-22": {
+      "practice": {
+        "en": "Perform an unloaded inspection and rehearse the foot-supported entry/exit twice; do not hang to test unknown hardware.\n\nCommon mistake: A hang is used to test unknown mounting hardware. Correction: Read the mounting and load limits; appearance does not prove an anchor.\n\nExplain the entry and step-down exit for a second manufacturer-approved setup.",
+        "tr": "Yüksüz kontrol yap, ayak destekli giriş/çıkışı iki kez prova et; bilinmeyen ekipmanı asılarak test etme.\n\nSık hata: Bilinmeyen bağlantı asılarak sınanır. Düzeltme: Montaj ve yük sınırlarını oku; görünüm bağlantıyı kanıtlamaz.\n\nÜretici onaylı ikinci kurulumun girişini ve basarak çıkışını açıkla."
+      },
+      "selfCheck": [
+        {
+          "en": "I have verified the mounting instructions, not guessed from appearance.",
+          "tr": "Montaj talimatını doğruladım, görünüşten tahmin etmedim."
+        },
+        {
+          "en": "I can step down without jumping.",
+          "tr": "Sıçramadan inebiliyorum."
+        },
+        {
+          "en": "Can you explain this in your own words? Read the mounting and load limits; appearance does not prove an anchor.",
+          "tr": "Şunu kendi sözlerinle açıklayabilir misin? Montaj ve yük sınırlarını oku; görünüm bağlantıyı kanıtlamaz."
+        },
+        {
+          "en": "Next practice, explain this idea without the page: Read the mounting and load limits; appearance does not prove an anchor. Then check what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan şu fikri anlat: Montaj ve yük sınırlarını oku; görünüm bağlantıyı kanıtlamaz. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nasm_pull",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-23": {
+      "practice": {
+        "en": "Try 1–2 sets of 3–5 with 90–120 seconds rest; a more upright suspension angle is easier.\n\nCommon mistake: The row begins with a jerk while the hips sag. Correction: Pull the chest towards the handles while the hips follow the same line.\n\nCompare a more upright row with the familiar angle without changing grip.",
+        "tr": "90–120 saniye dinlenmeyle 1–2 set 3–5 dene; askıda daha dik açı daha kolaydır.\n\nSık hata: Kalça çökerken row ani çekişle başlar. Düzeltme: Kalça aynı hattı izlerken göğsü tutacaklara çek.\n\nTutuşu değiştirmeden daha dik row ile tanıdık açıyı karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "Hips do not sag behind the chest.",
+          "tr": "Kalça göğsün gerisinde sarkmıyor."
+        },
+        {
+          "en": "I do not jerk the first pull.",
+          "tr": "İlk çekişi ani yapmıyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Pull the chest towards the handles while the hips follow the same line.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Kalça aynı hattı izlerken göğsü tutacaklara çek."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Pull the chest towards the handles while the hips follow the same line. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Kalça aynı hattı izlerken göğsü tutacaklara çek. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nasm_pull",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-24": {
+      "practice": {
+        "en": "Compare 3 repetitions at the familiar lever with 2 at the slightly harder lever, resting 120 seconds; stay easier if control changes.\n\nCommon mistake: Lever and repetitions are increased at the same time. Correction: Lengthen the lever a little; keep the return controlled.\n\nCompare bent-knee and slightly longer-lever rows with the same rated anchor.",
+        "tr": "Tanıdık kolda 3 tekrar ile biraz zor kolda 2 tekrarı 120 saniye dinlenerek karşılaştır; kontrol değişirse kolayda kal.\n\nSık hata: Kol ve tekrar sayısı aynı anda artırılır. Düzeltme: Kolu biraz uzat; geri dönüşü kontrollü tut.\n\nAynı onaylı bağlantıda diz bükülü ve biraz daha uzun kollu row biçimlerini karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I changed one variable only.",
+          "tr": "Yalnız bir değişken değiştirdim."
+        },
+        {
+          "en": "The return remains as controlled as the pull.",
+          "tr": "Dönüş çekiş kadar kontrollü kalıyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Lengthen the lever a little; keep the return controlled.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Kolu biraz uzat; geri dönüşü kontrollü tut."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Lengthen the lever a little; keep the return controlled. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Kolu biraz uzat; geri dönüşü kontrollü tut. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nasm_pull",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-25": {
+      "practice": {
+        "en": "Try 2–3 supported holds of 5 seconds with 60–90 seconds rest; no free hang is required.\n\nCommon mistake: Grip fatigue develops before the feet can take load. Correction: Keep the feet on a stable step and use them before grip fades.\n\nCompare more and less foot assistance without moving the step.",
+        "tr": "60–90 saniye dinlenmeyle 2–3 destekli 5 saniye tutuş dene; serbest asılma gerekli değil.\n\nSık hata: Ayaklar yük almadan tutuş yorgunluğu oluşur. Düzeltme: Ayakları sağlam basamakta tut; tutuş zayıflamadan ayak desteğini kullan.\n\nBasamağı taşımadan daha çok ve daha az ayak desteğini karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I can unload onto my feet at any moment.",
+          "tr": "Her an yükü ayağa alabiliyorum."
+        },
+        {
+          "en": "Grip and shoulder position remain comfortable.",
+          "tr": "Tutuş ve omuz konumu rahat kalıyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Keep the feet on a stable step and use them before grip fades.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Ayakları sağlam basamakta tut; tutuş zayıflamadan ayak desteğini kullan."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Keep the feet on a stable step and use them before grip fades. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Ayakları sağlam basamakta tut; tutuş zayıflamadan ayak desteğini kullan. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nasm_pull",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-26": {
+      "practice": {
+        "en": "Use 1–2 sets of 3 small motions, resting 90 seconds; stop well before grip fatigue.\n\nCommon mistake: Elbow flexion turns the scapular pull into a pull-up. Correction: Make a small shoulder-girdle motion without turning it into an elbow pull.\n\nCompare a supported still hang with one small scapular movement.",
+        "tr": "90 saniye dinlenerek 1–2 set 3 küçük hareket; tutuş yorgunluğundan çok önce bitir.\n\nSık hata: Dirsek bükülmesi kürek çekişini barfikse dönüştürür. Düzeltme: Dirsekle çekişe çevirmeden omuz kuşağında küçük hareket yap.\n\nDestekli sabit asılmayı bir küçük kürek hareketiyle karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "Elbows do not supply the movement by bending.",
+          "tr": "Dirsek bükülmesi hareketi üretmiyor."
+        },
+        {
+          "en": "I can distinguish a small shrug change from a pull-up.",
+          "tr": "Küçük omuz hareketini barfiksten ayırabiliyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Make a small shoulder-girdle motion without turning it into an elbow pull.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Dirsekle çekişe çevirmeden omuz kuşağında küçük hareket yap."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Make a small shoulder-girdle motion without turning it into an elbow pull. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Dirsekle çekişe çevirmeden omuz kuşağında küçük hareket yap. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nasm_pull",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-27": {
+      "practice": {
+        "en": "If equipment and guidance are available, try 1–2 sets of 2–4 with 120 seconds rest. Otherwise study the setup and repeat rows.\n\nCommon mistake: Swing or chin reaching substitutes for an assisted pull. Correction: Choose predictable assistance for both the ascent and descent.\n\nCompare an assisted vertical pull with the earlier row; do not remove help mid-rep.",
+        "tr": "Ekipman ve rehberlik varsa 120 saniye dinlenerek 1–2 set 2–4 dene. Yoksa kurulumu incele ve rowu yinele.\n\nSık hata: Sallanma veya çeneyi uzatma destekli çekişin yerine geçer. Düzeltme: Hem yükseliş hem iniş için öngörülebilir yardım seç.\n\nDestekli dikey çekişi önceki row ile karşılaştır; tekrar ortasında yardımı kaldırma."
+      },
+      "selfCheck": [
+        {
+          "en": "Assistance is predictable through the whole range.",
+          "tr": "Yardım tüm aralık boyunca öngörülebilir."
+        },
+        {
+          "en": "I do not swing or reach the chin to fake height.",
+          "tr": "Yüksekliği taklit için sallanmıyorum veya çeneyi uzatmıyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Choose predictable assistance for both the ascent and descent.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Hem yükseliş hem iniş için öngörülebilir yardım seç."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Choose predictable assistance for both the ascent and descent. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Hem yükseliş hem iniş için öngörülebilir yardım seç. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nasm_pull",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-28": {
+      "practice": {
+        "en": "Optional: 1 set of 1–3 short assisted descents with 120 seconds rest. The valid alternative is 3–5 easy rows plus a written exit plan.\n\nCommon mistake: The step-down exit is unavailable at the end of the negative. Correction: Start from a supported position and finish on the step before release.\n\nCompare a short assisted descent with an easy row, keeping the exit plan explicit.",
+        "tr": "İsteğe bağlı: 120 saniye dinlenmeyle 1 set 1–3 kısa yardımlı iniş. Geçerli alternatif 3–5 kolay row ve yazılı çıkış planı.\n\nSık hata: Negatifin sonunda basarak çıkış mümkün değildir. Düzeltme: Destekli konumdan başla; bırakmadan basamağa dön.\n\nÇıkışı açık tutarak kısa destekli iniş ile kolay row biçimini karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I can reach the step before releasing.",
+          "tr": "Bırakmadan basamağa erişebiliyorum."
+        },
+        {
+          "en": "No repetition ends in an uncontrolled drop.",
+          "tr": "Hiçbir tekrar kontrolsüz düşmeyle bitmiyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Start from a supported position and finish on the step before release.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Destekli konumdan başla; bırakmadan basamağa dön."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Start from a supported position and finish on the step before release. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Destekli konumdan başla; bırakmadan basamağa dön. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "nasm_pull",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-29": {
+      "practice": {
+        "en": "Try 1–2 sets of 3 each side with 60 seconds rest; start with only a leg slide.\n\nCommon mistake: The pelvis rolls to raise a limb higher. Correction: Slide one limb without rolling the pelvis; add the opposite arm only later.\n\nCompare a toe slide with a small leg lift without adding arm movement.",
+        "tr": "60 saniye dinlenmeyle taraf başına 1–2 set 3 dene; yalnız bacak kaydırmayla başla.\n\nSık hata: Uzvu yüksek kaldırmak için kalça döner. Düzeltme: Kalçayı döndürmeden tek uzvu kaydır; karşı kolu sonra ekle.\n\nKol hareketi eklemeden parmak kaydırma ile küçük bacak kaldırmayı karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "My hips do not roll as I reach.",
+          "tr": "Uzanırken kalçam dönmüyor."
+        },
+        {
+          "en": "I can keep breathing rather than brace maximally.",
+          "tr": "En sert sıkılma yerine nefes sürdürebiliyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Slide one limb without rolling the pelvis; add the opposite arm only later.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Kalçayı döndürmeden tek uzvu kaydır; karşı kolu sonra ekle."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Slide one limb without rolling the pelvis; add the opposite arm only later. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Kalçayı döndürmeden tek uzvu kaydır; karşı kolu sonra ekle. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "nasm_plank",
+        "ace_bird",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-30": {
+      "practice": {
+        "en": "Practice 1–2 sets of 3–5 heel slides per side, resting 60 seconds; reduce the slide before raising the legs.\n\nCommon mistake: The heel slide extends until the trunk arches. Correction: Shorten the heel slide before the trunk begins to arch.\n\nCompare two comfortable heel-slide lengths while the other foot stays down.",
+        "tr": "60 saniye dinlenerek taraf başına 1–2 set 3–5 topuk kaydır; bacağı kaldırmadan kaydırmayı küçült.\n\nSık hata: Topuk kaydırma gövde çukurlaşana kadar uzatılır. Düzeltme: Gövde çukurlaşmaya başlamadan topuk kaydırmayı kısalt.\n\nÖteki ayak yerdeyken iki rahat topuk kaydırma uzunluğunu karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "The range does not pull my trunk into an arch.",
+          "tr": "Aralık gövdemi bükülmeye çekmiyor."
+        },
+        {
+          "en": "I breathe without a maximal breath hold.",
+          "tr": "En sert nefes tutuşu olmadan nefes alıyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Shorten the heel slide before the trunk begins to arch.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Gövde çukurlaşmaya başlamadan topuk kaydırmayı kısalt."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Shorten the heel slide before the trunk begins to arch. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Gövde çukurlaşmaya başlamadan topuk kaydırmayı kısalt. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "nasm_plank",
+        "nasm_dead",
+        "nhs_pregnancy",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-31": {
+      "practice": {
+        "en": "Try 2–3 holds of 5–10 seconds with 45–90 seconds rest; shorter comfortable holds are useful.\n\nCommon mistake: The hold is extended after the chosen body line changes. Correction: End the hold while the head, trunk and pelvis remain connected.\n\nCompare a higher incline with the familiar lower incline for the same short hold.",
+        "tr": "45–90 saniye dinlenmeyle 2–3 tutuş 5–10 saniye dene; daha kısa rahat tutuşlar işe yarar.\n\nSık hata: Seçilen gövde hattı değiştikten sonra tutuş uzatılır. Düzeltme: Baş, gövde ve kalça bağlantısı korunurken tutuşu bitir.\n\nAynı kısa tutuşta yüksek eğim ile tanıdık alçak eğimi karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "My support is stable.",
+          "tr": "Desteğim sabit."
+        },
+        {
+          "en": "I finish while breathing and posture remain manageable.",
+          "tr": "Nefes ve duruş yönetilebilirken bitiriyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? End the hold while the head, trunk and pelvis remain connected.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Baş, gövde ve kalça bağlantısı korunurken tutuşu bitir."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: End the hold while the head, trunk and pelvis remain connected. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Baş, gövde ve kalça bağlantısı korunurken tutuşu bitir. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "nasm_plank",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-32": {
+      "practice": {
+        "en": "Choose 2 holds of 5–15 seconds with 60–90 seconds rest; use shorter holds if breathing changes.\n\nCommon mistake: The plank ends in a collapse rather than a knee-down exit. Correction: Place the knees down deliberately before the body line collapses.\n\nCompare knees-down and optional full support without increasing hold time.",
+        "tr": "60–90 saniye dinlenmeyle 2 tutuş 5–15 saniye seç; nefes değişirse daha kısa tut.\n\nSık hata: Plank dizle çıkış yerine çöküşle biter. Düzeltme: Gövde hattı dağılmadan dizleri bilinçli yere koy.\n\nTutuş süresini artırmadan diz destekli ve seçmeli tam desteği karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I can speak a few comfortable words.",
+          "tr": "Rahat birkaç kelime söyleyebiliyorum."
+        },
+        {
+          "en": "I use a controlled exit rather than collapse.",
+          "tr": "Çöküş yerine kontrollü çıkış kullanıyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Place the knees down deliberately before the body line collapses.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Gövde hattı dağılmadan dizleri bilinçli yere koy."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Place the knees down deliberately before the body line collapses. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Gövde hattı dağılmadan dizleri bilinçli yere koy. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "nasm_plank",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-33": {
+      "practice": {
+        "en": "Try 2 holds of 5–8 seconds per side, resting 60 seconds; use one hold if this is new.\n\nCommon mistake: The trunk rotates to prolong the side hold. Correction: Keep the bent-knee base close enough to leave the side support calmly.\n\nCompare a shorter side hold with the familiar hold on both sides.",
+        "tr": "Taraf başına 2 tutuş 5–8 saniye dene, 60 saniye dinlen; yeniyse tek tutuş kullan.\n\nSık hata: Yan tutuşu uzatmak için gövde döner. Düzeltme: Yan destekten sakin çıkabilecek kadar yakın diz bükülü taban kur.\n\nİki tarafta kısa yan tutuş ile tanıdık tutuşu karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I do not sink heavily onto the shoulder.",
+          "tr": "Omzuma ağır çökmüyorum."
+        },
+        {
+          "en": "My trunk does not rotate to extend the hold.",
+          "tr": "Süreyi uzatmak için gövdem dönmüyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Keep the bent-knee base close enough to leave the side support calmly.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Yan destekten sakin çıkabilecek kadar yakın diz bükülü taban kur."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Keep the bent-knee base close enough to leave the side support calmly. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Yan destekten sakin çıkabilecek kadar yakın diz bükülü taban kur. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "nasm_plank",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-34": {
+      "practice": {
+        "en": "Choose 1–2 holds of 3–8 seconds per side with 90 seconds rest, or retain knee support.\n\nCommon mistake: The longer lever is retained despite an unstable shoulder. Correction: Lengthen the leg lever only while the supporting shoulder remains steady.\n\nCompare knee-supported and optional longer-lever side support at a shorter duration.",
+        "tr": "90 saniye dinlenmeyle taraf başına 1–2 tutuş 3–8 saniye seç veya diz desteğinde kal.\n\nSık hata: Omuz kararsızken uzun kol korunur. Düzeltme: Destek omuz sabitken bacak kolunu uzat.\n\nDaha kısa sürede diz destekli ve seçmeli uzun kollu yan desteği karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I can keep a steady shoulder rather than hike it toward my ear.",
+          "tr": "Omzu kulağa çekmek yerine dengeli tutabiliyorum."
+        },
+        {
+          "en": "Both sides use a manageable variant.",
+          "tr": "İki taraf da yönetilebilir varyasyon kullanıyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Lengthen the leg lever only while the supporting shoulder remains steady.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Destek omuz sabitken bacak kolunu uzat."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Lengthen the leg lever only while the supporting shoulder remains steady. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Destek omuz sabitken bacak kolunu uzat. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "nasm_plank",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-35": {
+      "practice": {
+        "en": "Try 2 holds of 3–6 seconds with 60 seconds rest; the heel-slide alternative is equally valid.\n\nCommon mistake: The neck is pulled forward to maintain a hollow shape. Correction: Tuck the lever before the back or neck must strain to keep the shape.\n\nCompare the tuck preparation with a heel slide; both are legitimate options.",
+        "tr": "60 saniye dinlenmeyle 2 tutuş 3–6 saniye dene; topuk kaydırma alternatifi aynı ölçüde geçerli.\n\nSık hata: Hollow şekli için boyun öne çekilir. Düzeltme: Şekli korumak bel veya boynu zorlamadan kolu kısalt.\n\nToplu hazırlığı topuk kaydırmayla karşılaştır; ikisi de geçerli seçenektir."
+      },
+      "selfCheck": [
+        {
+          "en": "My neck is comfortable rather than pulled forward.",
+          "tr": "Boynum öne çekilmek yerine rahat."
+        },
+        {
+          "en": "I reduce the lever when my back position changes.",
+          "tr": "Bel konumu değişince kolu kısaltıyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Tuck the lever before the back or neck must strain to keep the shape.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Şekli korumak bel veya boynu zorlamadan kolu kısalt."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Tuck the lever before the back or neck must strain to keep the shape. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Şekli korumak bel veya boynu zorlamadan kolu kısalt. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "nasm_plank",
+        "nasm_dead",
+        "nhs_pregnancy",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-36": {
+      "practice": {
+        "en": "Optional: 1–2 sets of 2–3 small lifts with 120 seconds rest. Without equipment or readiness, use 3–5 seated alternating knee lifts.\n\nCommon mistake: Swing creates knee height while the exit is lost. Correction: Raise one knee a little without swinging and keep the step-down exit.\n\nCompare supported hanging knee movement with seated knee lifts; record them as different tasks.",
+        "tr": "İsteğe bağlı: 120 saniye dinlenmeyle 1–2 set 2–3 küçük kaldırış. Ekipman/hazır oluş yoksa 3–5 oturarak sırayla diz kaldır.\n\nSık hata: Çıkış kaybolurken sallanma diz yüksekliği oluşturur. Düzeltme: Sallanmadan bir dizi az kaldır; basarak çıkışı koru.\n\nDestekli asılı diz hareketini oturarak diz kaldırmayla karşılaştır; ayrı görevler olarak kaydet."
+      },
+      "selfCheck": [
+        {
+          "en": "I do not swing to gain height.",
+          "tr": "Yükseklik için sallanmıyorum."
+        },
+        {
+          "en": "My exit remains available throughout.",
+          "tr": "Çıkışım her an erişilebilir."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Raise one knee a little without swinging and keep the step-down exit.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Sallanmadan bir dizi az kaldır; basarak çıkışı koru."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Raise one knee a little without swinging and keep the step-down exit. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Sallanmadan bir dizi az kaldır; basarak çıkışı koru. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "nasm_plank",
+        "nasm_pull",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-37": {
+      "practice": {
+        "en": "Try 2 rounds of 20–30 seconds with 60 seconds rest; reduce time or keep seated marching as needed.\n\nCommon mistake: Speed prevents a quiet stop between steps. Correction: Change direction with a quiet foot placement rather than speed.\n\nCompare marching with a small step-jack at the same easy effort.",
+        "tr": "60 saniye dinlenmeyle 2 tur 20–30 saniye dene; gerektiğinde süreyi azalt veya oturarak adımla.\n\nSık hata: Hız adımlar arasında sakin durmayı engeller. Düzeltme: Hız yerine sessiz ayak yerleştirmeyle yön değiştir.\n\nAynı kolay çabada adımlama ile küçük yana adım açmayı karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I can stop without stumbling.",
+          "tr": "Tökezlemeden durabiliyorum."
+        },
+        {
+          "en": "Breathing remains familiar and manageable.",
+          "tr": "Nefes tanıdık ve yönetilebilir kalıyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Change direction with a quiet foot placement rather than speed.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Hız yerine sessiz ayak yerleştirmeyle yön değiştir."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Change direction with a quiet foot placement rather than speed. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Hız yerine sessiz ayak yerleştirmeyle yön değiştir. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "who",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-38": {
+      "practice": {
+        "en": "Practice 1–2 sets of 3–5 each side with 60–90 seconds rest; use standing knee lifts if wrists dislike loading.\n\nCommon mistake: Hip bouncing replaces deliberate incline knee steps. Correction: Move one foot while the hand support stays secure.\n\nCompare slow incline knee steps with standing knee lifts.",
+        "tr": "60–90 saniye dinlenmeyle taraf başına 1–2 set 3–5 yap; bilek yükü rahatsızsa ayakta diz kaldır.\n\nSık hata: Bilinçli eğimli diz adımı yerine kalça zıplar. Düzeltme: El desteği sağlamken tek ayağı hareket ettir.\n\nYavaş eğimli diz adımlarını ayakta diz kaldırmayla karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "My hips do not bounce with every step.",
+          "tr": "Her adımda kalçam zıplamıyor."
+        },
+        {
+          "en": "Hands and support remain secure.",
+          "tr": "El ve destek sağlam kalıyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Move one foot while the hand support stays secure.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? El desteği sağlamken tek ayağı hareket ettir."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Move one foot while the hand support stays secure. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: El desteği sağlamken tek ayağı hareket ettir. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "who",
+        "acsm2026",
+        "nasm_push",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-39": {
+      "practice": {
+        "en": "Try 1–2 sets of 2–4 slow cycles with 90 seconds rest; separate the hinge and steps if coordination is new.\n\nCommon mistake: Feet move before the hands are secure. Correction: Secure the hands before stepping back; reverse one stage at a time.\n\nCompare separated hinge-and-step stations with one slow linked cycle.",
+        "tr": "90 saniye dinlenmeyle 1–2 set 2–4 yavaş döngü dene; koordinasyon yeniyse eğilme ve adımları ayır.\n\nSık hata: Eller sabitlenmeden ayaklar hareket eder. Düzeltme: Geri adım öncesi elleri sabitle; her aşamayı ayrı tersine çevir.\n\nAyrı katlanma ve adım duraklarını tek yavaş bağlantılı çevrimle karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "Hands are secure before feet move.",
+          "tr": "Ayak hareketinden önce eller sağlam."
+        },
+        {
+          "en": "I can pause at every stage.",
+          "tr": "Her bölümde durabiliyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Secure the hands before stepping back; reverse one stage at a time.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Geri adım öncesi elleri sabitle; her aşamayı ayrı tersine çevir."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Secure the hands before stepping back; reverse one stage at a time. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Geri adım öncesi elleri sabitle; her aşamayı ayrı tersine çevir. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "who",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-40": {
+      "practice": {
+        "en": "One round: 3–5 squats, 3–5 wall pushes, 20 seconds easy march; rest 60–120 seconds between tasks. Optionally repeat once.\n\nCommon mistake: Circuit rest is skipped to prove fitness. Correction: Retain a familiar variant and a rest between the three tasks.\n\nCompare one circuit round with the same tasks done separately with more rest.",
+        "tr": "Bir tur: 3–5 squat, 3–5 duvar itişi, 20 saniye kolay adım; görev arası 60–120 saniye dinlen. İstersen bir kez yinele.\n\nSık hata: Kondisyon göstermek için devre molası atlanır. Düzeltme: Üç iş arasında tanıdık varyasyonu ve molayı koru.\n\nTek devreyi aynı işlerin daha çok molayla ayrı yapılmasıyla karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "Each movement uses a familiar regression.",
+          "tr": "Her hareket tanıdık kolay yol kullanıyor."
+        },
+        {
+          "en": "I do not skip rest to prove fitness.",
+          "tr": "Formumu kanıtlamak için dinlenmeyi atlamıyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Retain a familiar variant and a rest between the three tasks.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Üç iş arasında tanıdık varyasyonu ve molayı koru."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Retain a familiar variant and a rest between the three tasks. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Üç iş arasında tanıdık varyasyonu ve molayı koru. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "who",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-41": {
+      "practice": {
+        "en": "Try 1–2 sets of 4 gentle wall leans with 45–60 seconds rest; do not stretch through pain.\n\nCommon mistake: A wall lean is forced through wrist pressure or pain. Correction: Shift pressure gradually into the wall; unload without bouncing.\n\nCompare a lighter lean with the familiar lean using unchanged hand placement.",
+        "tr": "45–60 saniye dinlenmeyle 1–2 set 4 nazik duvar eğilmesi dene; ağrının içinden esneme.\n\nSık hata: El bileği basıncı veya ağrısı üzerinden duvar yaslanması zorlanır. Düzeltme: Basıncı aşamalı duvara aktar; yaylanmadan yükü bırak.\n\nEl yerini değiştirmeden daha hafif yaslanma ile tanıdık yaslanmayı karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I can distribute contact without a sharp pressure point.",
+          "tr": "Keskin basınç noktası olmadan teması dağıtabiliyorum."
+        },
+        {
+          "en": "I unload smoothly rather than shake out pain.",
+          "tr": "Ağrıyı silkelemek yerine yükü akıcı alıyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Shift pressure gradually into the wall; unload without bouncing.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Basıncı aşamalı duvara aktar; yaylanmadan yükü bırak."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Shift pressure gradually into the wall; unload without bouncing. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Basıncı aşamalı duvara aktar; yaylanmadan yükü bırak. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "nasm_push",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-42": {
+      "practice": {
+        "en": "Practice 1–2 sets of 3 weight shifts each side, resting 60–90 seconds; fully lifting a hand is not required.\n\nCommon mistake: The trunk rotates to free a hand instead of shifting weight. Correction: Shift weight before reaching; keep both hands available if needed.\n\nCompare a two-hand weight shift with a short reach, retaining the easy exit.",
+        "tr": "60–90 saniye dinlenmeyle taraf başına 1–2 set 3 yük aktarımı yap; eli tam kaldırmak gerekmez.\n\nSık hata: Ağırlık aktarmak yerine eli boşaltmak için gövde döner. Düzeltme: Uzanmadan ağırlığı aktar; gerekirse iki el de kullanılabilsin.\n\nKolay çıkışı koruyarak iki elli ağırlık aktarımı ile kısa uzanmayı karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I do not rotate the whole trunk to move pressure.",
+          "tr": "Basıncı değiştirmek için tüm gövdeyi döndürmüyorum."
+        },
+        {
+          "en": "The supporting shoulder stays comfortable.",
+          "tr": "Destek omuz rahat kalıyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Shift weight before reaching; keep both hands available if needed.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Uzanmadan ağırlığı aktar; gerekirse iki el de kullanılabilsin."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Shift weight before reaching; keep both hands available if needed. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Uzanmadan ağırlığı aktar; gerekirse iki el de kullanılabilsin. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "nasm_push",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-43": {
+      "objective": {
+        "en": "Recognize an overhead pressing direction while feet remain grounded; this is preparation, not a resisted vertical press.",
+        "tr": "Ayaklar yerdeyken baş üstü itiş yönünü tanı; bu, dirençli dikey itiş değil hazırlıktır."
+      },
+      "practice": {
+        "en": "Optional 2 holds of 3–5 seconds with 90 seconds rest, or review the diagram and repeat wall pressing.\n\nCommon mistake: The head becomes a contact or support point. Correction: Keep hands and feet grounded; the head is not a support point.\n\nCompare the ground-pike diagram with wall pressing; the diagram is not inversion clearance.",
+        "tr": "İsteğe bağlı 90 saniye dinlenmeyle 2 tutuş 3–5 saniye veya şemayı incele ve duvar itişini yinele.\n\nSık hata: Baş temas veya destek noktasına dönüşür. Düzeltme: El ve ayaklar yerde kalsın; baş destek noktası değildir.\n\nYer pike çizimini duvar itişiyle karşılaştır; çizim ters duruş onayı değildir."
+      },
+      "selfCheck": [
+        {
+          "en": "Hands and feet remain grounded with an easy exit.",
+          "tr": "Kolay çıkışla el ve ayak yerde kalıyor."
+        },
+        {
+          "en": "My head carries no bodyweight.",
+          "tr": "Başım beden ağırlığı taşımıyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Keep hands and feet grounded; the head is not a support point.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? El ve ayaklar yerde kalsın; baş destek noktası değildir."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Keep hands and feet grounded; the head is not a support point. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: El ve ayaklar yerde kalsın; baş destek noktası değildir. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "nasm_push",
+        "nasm_pike",
+        "acog",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-44": {
+      "practice": {
+        "en": "Use 1–2 sets of 3 lifts each side with 60 seconds rest; a brief unweighting counts as learning.\n\nCommon mistake: Breath holding is used to force seated leg height. Correction: Unweight one foot slightly without forcing the trunk to fold.\n\nCompare a toe unweighting with a small lift at the same seat height.",
+        "tr": "60 saniye dinlenmeyle taraf başına 1–2 set 3 kaldırış; kısa yük hafifletme öğrenme sayılır.\n\nSık hata: Oturarak bacak yüksekliği için nefes tutulur. Düzeltme: Gövdeyi zorla katlamadan tek ayağın yükünü az kaldır.\n\nAynı oturuş yüksekliğinde parmak yükünü azaltma ile küçük kaldırmayı karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I do not hold my breath to force height.",
+          "tr": "Yüksekliği zorlamak için nefes tutmuyorum."
+        },
+        {
+          "en": "The trunk does not round painfully.",
+          "tr": "Gövde ağrılı yuvarlanmıyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Unweight one foot slightly without forcing the trunk to fold.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Gövdeyi zorla katlamadan tek ayağın yükünü az kaldır."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Unweight one foot slightly without forcing the trunk to fold. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Gövdeyi zorla katlamadan tek ayağın yükünü az kaldır. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "nasm_push",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-45": {
+      "practice": {
+        "en": "Try 2–3 supported holds of 3–5 seconds with 90 seconds rest; alternatively combine 3 wall pushes and 3 seated knee lifts.\n\nCommon mistake: Both feet are removed before support control is retained. Correction: Leave at least one foot ready to take bodyweight immediately.\n\nCompare a feet-supported hold with the separate wall press and seated lift alternative.",
+        "tr": "90 saniye dinlenmeyle 2–3 destekli 3–5 saniye tutuş dene; alternatif 3 duvar itişi ve 3 oturarak diz kaldır.\n\nSık hata: Destek kontrolü korunmadan iki ayak kaldırılır. Düzeltme: En az bir ayak vücut yükünü hemen alabilsin.\n\nAyak destekli tutuşu ayrı duvar itişi ve oturarak kaldırma alternatifiyle karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "At least one foot can immediately take the load.",
+          "tr": "En az bir ayak yükü hemen alabilir."
+        },
+        {
+          "en": "The shoulders do not sink painfully.",
+          "tr": "Omuzlar ağrılı çökmüyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Leave at least one foot ready to take bodyweight immediately.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? En az bir ayak vücut yükünü hemen alabilsin."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Leave at least one foot ready to take bodyweight immediately. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: En az bir ayak vücut yükünü hemen alabilsin. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "nasm_push",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-46": {
+      "practice": {
+        "en": "Learning only: sketch the space and list 3 questions for a qualified coach; no inversion attempt is required or recommended here.\n\nCommon mistake: A wall diagram is interpreted as permission to invert alone. Correction: Learn a controlled exit with a qualified coach before attempting a handstand.\n\nCompare studying the wall diagram with discussing your setup and exit with a qualified coach.",
+        "tr": "Yalnız öğrenme: alanı çiz ve yetkin eğitmene 3 soru yaz; burada ters duruş denemesi gerekli veya önerilen değildir.\n\nSık hata: Duvar çizimi yalnız ters durma izni sayılır. Düzeltme: El duruşunu denemeden önce kontrollü çıkışı yetkin eğitmenle öğren.\n\nDuvar çizimini incelemek ile kurulumunu ve çıkışını yetkin eğitmenle konuşmayı karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I can explain why a wall is not medical clearance.",
+          "tr": "Duvarın neden tıbbi uygunluk izni olmadığını açıklayabiliyorum."
+        },
+        {
+          "en": "I have identified a coached exit before physical progression.",
+          "tr": "Fiziksel ilerlemeden önce eğitmenli çıkışı belirledim."
+        },
+        {
+          "en": "Can you explain this in your own words? Learn a controlled exit with a qualified coach before attempting a handstand.",
+          "tr": "Şunu kendi sözlerinle açıklayabilir misin? El duruşunu denemeden önce kontrollü çıkışı yetkin eğitmenle öğren."
+        },
+        {
+          "en": "Next practice, explain this idea without the page: Learn a controlled exit with a qualified coach before attempting a handstand. Then check what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan şu fikri anlat: El duruşunu denemeden önce kontrollü çıkışı yetkin eğitmenle öğren. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "ace",
+        "acog",
+        "nhs_pregnancy",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-47": {
+      "practice": {
+        "en": "Learning only: compare a supported wall press with a planche diagram and identify how the support lever changes; record one coach question.\n\nCommon mistake: A lever diagram is logged as planche performance. Correction: A longer lever raises demand; it does not make a planche compulsory.\n\nCompare two labeled lever diagrams without trying either hold.",
+        "tr": "Yalnız öğrenme: destekli duvar itişini planche şemasıyla karşılaştır, destek kolunun değişimini belirle; bir eğitmen sorusu yaz.\n\nSık hata: Kol çizimi planche uygulaması diye kaydedilir. Düzeltme: Uzun kol talebi artırır; planche zorunlu olmaz.\n\nİki etiketli kol çizimini tutuşları denemeden karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I can distinguish education from an instruction to attempt.",
+          "tr": "Bilgilendirmeyi deneme talimatından ayırabiliyorum."
+        },
+        {
+          "en": "I do not mark a diagram review as verified planche ability.",
+          "tr": "Şema incelemesini doğrulanmış planche yeteneği saymıyorum."
+        },
+        {
+          "en": "Can you explain this in your own words? A longer lever raises demand; it does not make a planche compulsory.",
+          "tr": "Şunu kendi sözlerinle açıklayabilir misin? Uzun kol talebi artırır; planche zorunlu olmaz."
+        },
+        {
+          "en": "Next practice, explain this idea without the page: A longer lever raises demand; it does not make a planche compulsory. Then check what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan şu fikri anlat: Uzun kol talebi artırır; planche zorunlu olmaz. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "ace",
+        "acog",
+        "nhs_pregnancy",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-48": {
+      "practice": {
+        "en": "Learning only: list anchor, grip and exit checks and describe why shortening a lever changes demand; no lever hold.\n\nCommon mistake: Anchor checks are omitted because the learner understands leverage. Correction: Separate anchor reliability, grip and leverage when studying front lever.\n\nCompare tuck and extended diagrams and name which support checks stay necessary.",
+        "tr": "Yalnız öğrenme: bağlantı, tutuş ve çıkış kontrollerini yaz, kol kısaltmanın yükü neden değiştirdiğini anlat; lever tutuşu yok.\n\nSık hata: Kol mantığı bilindiği için bağlantı kontrolleri atlanır. Düzeltme: Front lever incelerken bağlantı, tutuş ve kolu ayrı düşün.\n\nToplu ve uzanmış çizimleri karşılaştır; hangi destek kontrollerinin sürdüğünü adlandır."
+      },
+      "selfCheck": [
+        {
+          "en": "I know equipment inspection remains necessary at higher levels.",
+          "tr": "Üst seviyede de ekipman kontrolünün gerektiğini biliyorum."
+        },
+        {
+          "en": "I have not assumed course completion is lever clearance.",
+          "tr": "Kurs tamamlamayı lever izni saymadım."
+        },
+        {
+          "en": "Can you explain this in your own words? Separate anchor reliability, grip and leverage when studying front lever.",
+          "tr": "Şunu kendi sözlerinle açıklayabilir misin? Front lever incelerken bağlantı, tutuş ve kolu ayrı düşün."
+        },
+        {
+          "en": "Next practice, explain this idea without the page: Separate anchor reliability, grip and leverage when studying front lever. Then check what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan şu fikri anlat: Front lever incelerken bağlantı, tutuş ve kolu ayrı düşün. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "ace",
+        "acog",
+        "nhs_pregnancy",
+        "nasm_pull",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-49": {
+      "practice": {
+        "en": "Learning only: label the three phases on a diagram and write which foundation you would revisit; no jumping or turnover practice.\n\nCommon mistake: Momentum is proposed to bypass the turnover learning problem. Correction: Pull, turnover and support are separate muscle-up learning problems.\n\nIdentify a transition error on a labeled diagram and choose a foundation to revisit.",
+        "tr": "Yalnız öğrenme: şemada üç bölümü etiketle ve döneceğin temeli yaz; sıçrama veya barı aşma pratiği yok.\n\nSık hata: Geçiş öğrenmesini aşmak için momentum önerilir. Düzeltme: Çekiş, geçiş ve destek muscle-up için ayrı öğrenme konularıdır.\n\nEtiketli çizimde bir geçiş sorununu bul ve döneceğin temeli seç."
+      },
+      "selfCheck": [
+        {
+          "en": "I can name the transition as a separate learning problem.",
+          "tr": "Geçişi ayrı öğrenme sorunu olarak adlandırabiliyorum."
+        },
+        {
+          "en": "I choose coaching rather than compensating with momentum.",
+          "tr": "Momentumla telafi yerine eğitmen seçiyorum."
+        },
+        {
+          "en": "Can you explain this in your own words? Pull, turnover and support are separate muscle-up learning problems.",
+          "tr": "Şunu kendi sözlerinle açıklayabilir misin? Çekiş, geçiş ve destek muscle-up için ayrı öğrenme konularıdır."
+        },
+        {
+          "en": "Next practice, explain this idea without the page: Pull, turnover and support are separate muscle-up learning problems. Then check what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan şu fikri anlat: Çekiş, geçiş ve destek muscle-up için ayrı öğrenme konularıdır. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "ace",
+        "acog",
+        "nhs_pregnancy",
+        "nasm_pull",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-50": {
+      "practice": {
+        "en": "Compare 3 wall pushes with 3 familiar incline pushes after 90 seconds rest, or only study the options if needed; choose one for today.\n\nCommon mistake: The hardest variant is chosen to match the lesson number. Correction: Choose the repeatable version instead of testing your hardest version.\n\nCompare wall and familiar incline pressing on a day with lower energy.",
+        "tr": "90 saniye dinlenerek 3 duvar itişini 3 tanıdık yükselti itişiyle karşılaştır veya gerekirse yalnız seçenekleri incele; bugün için birini seç.\n\nSık hata: Ders numarasına uymak için en zor biçim seçilir. Düzeltme: En zorunu sınamak yerine yinelenebilir biçimi seç.\n\nEnerjisi düşük bir günde duvar ile tanıdık eğimli itişi karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I choose based on control rather than the lesson number.",
+          "tr": "Ders numarasına değil kontrole göre seçiyorum."
+        },
+        {
+          "en": "I leave reserve instead of testing failure.",
+          "tr": "Tükenmeyi test etmek yerine pay bırakıyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Choose the repeatable version instead of testing your hardest version.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? En zorunu sınamak yerine yinelenebilir biçimi seç."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Choose the repeatable version instead of testing your hardest version. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: En zorunu sınamak yerine yinelenebilir biçimi seç. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "who",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-51": {
+      "steps": [
+        {
+          "en": "General adult guidance includes strength work for major muscle groups on at least two days weekly; individual needs can differ.",
+          "tr": "Genel yetişkin önerisi temel kas gruplarına haftada en az iki gün kuvvet çalışması içerir; bireysel ihtiyaç farklı olabilir."
+        },
+        {
+          "en": "Plan the taught squat or sit-to-stand and wall hip hinge as distinct lower-body tasks across the week when appropriate; they need not share one session. Add taught horizontal push, reliable pull, trunk and light aerobic options; do not force pulling without equipment.",
+          "tr": "Uygunsa öğretilen squat veya otur-kalk ile duvar kalça menteşesini hafta içinde ayrı alt beden görevleri olarak planla; aynı seansta olmaları gerekmez. Öğretilen yatay itiş, güvenilir çekiş, gövde ve hafif aerobik seçenekleri ekle; ekipmansız çekişi zorlama."
+        },
+        {
+          "en": "Leave recovery between demanding sessions and use easy practice or rest when control is not restored.",
+          "tr": "Zorlu seanslar arasında toparlanma bırak; kontrol dönmemişse kolay pratik veya dinlenme kullan."
+        }
+      ],
+      "practice": {
+        "en": "Write a sample two-day strength week separated by recovery, using 1–2 short sets per chosen task. Mark which day revisits squat or sit-to-stand and which revisits the wall hip hinge; if either is unsuitable, mark it observed or skipped rather than practised. This is a planning example, not a personalized prescription.\n\nCommon mistake: The week demands pulling without reliable equipment or treats a planned hinge as completed. Correction: Place the taught squat and wall hinge on separate suitable days or label either observed/skipped; add pulling only with reliable equipment.\n\nWrite an equipment-free week and an equipped week with recovery days.",
+        "tr": "Arada toparlanma olan örnek iki günlük kuvvet haftası yaz; seçilen görevde 1–2 kısa set kullan. Hangi gün squat veya otur-kalkı, hangi gün duvar kalça menteşesini yineleyeceğini işaretle; biri uygun değilse yapılmış saymak yerine gözlendi veya atlandı diye kaydet. Bu plan örneği, kişiye özel reçete değil.\n\nSık hata: Sağlam ekipman yokken hafta çekiş gerektirir veya planlanan menteşe yapılmış sayılır. Düzeltme: Öğretilen squat ve duvar menteşesini uygun ayrı günlere koy ya da birini gözlendi/atlandı diye işaretle; çekişi yalnız güvenilir ekipmanla ekle.\n\nDinlenme günleriyle ekipmansız ve ekipmanlı hafta yaz."
+      },
+      "selfCheck": [
+        {
+          "en": "My week includes pulling only where reliable equipment is available.",
+          "tr": "Haftam yalnız güvenilir ekipman varsa çekiş içeriyor."
+        },
+        {
+          "en": "I can reduce volume without treating it as failure and distinguish a planned hinge from one I actually practised.",
+          "tr": "Hacmi azaltmayı başarısızlık saymıyorum; planlanan menteşe ile gerçekten çalıştığım menteşeyi ayırıyorum."
+        },
+        {
+          "en": "Can you explain this in your own words? Place the taught squat and wall hinge on separate suitable days or label either observed/skipped; add pulling only with reliable equipment.",
+          "tr": "Şunu kendi sözlerinle açıklayabilir misin? Öğretilen squat ve duvar menteşesini uygun ayrı günlere koy ya da birini gözlendi/atlandı diye işaretle; çekişi yalnız güvenilir ekipmanla ekle."
+        },
+        {
+          "en": "Next practice, explain this idea without the page: Place the taught squat and wall hinge on separate suitable days or label either observed/skipped; add pulling only with reliable equipment. Then check what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan şu fikri anlat: Öğretilen squat ve duvar menteşesini uygun ayrı günlere koy ya da birini gözlendi/atlandı diye işaretle; çekişi yalnız güvenilir ekipmanla ekle. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "who",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-52": {
+      "practice": {
+        "en": "Write three next-session choices for your current squat or push: repeat, small increase, easier/rest; state what would lead to each.\n\nCommon mistake: Completion is mistaken for readiness to increase every variable. Correction: Change one training variable only after repeatable control.\n\nUse the same log to justify repeat, small increase or rest.",
+        "tr": "Mevcut squat veya itiş için sonraki seansa üç seçim yaz: yinele, küçük artış, kolay/dinlenme; her birinin nedenini belirt.\n\nSık hata: Tamamlama her değişkeni artırma hazırlığı sayılır. Düzeltme: Yinelenebilir kontrolden sonra tek çalışma değişkenini değiştir.\n\nAynı kayıtla tekrar, küçük artış veya dinlenmeyi gerekçelendir."
+      },
+      "selfCheck": [
+        {
+          "en": "I can name a reason to stay easier.",
+          "tr": "Kolayda kalmak için bir neden söyleyebiliyorum."
+        },
+        {
+          "en": "I do not confuse lesson completion with physiological readiness.",
+          "tr": "Ders tamamlamayı fizyolojik hazır oluşla karıştırmıyorum."
+        },
+        {
+          "en": "Can you explain this in your own words? Change one training variable only after repeatable control.",
+          "tr": "Şunu kendi sözlerinle açıklayabilir misin? Yinelenebilir kontrolden sonra tek çalışma değişkenini değiştir."
+        },
+        {
+          "en": "Next practice, explain this idea without the page: Change one training variable only after repeatable control. Then check what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan şu fikri anlat: Yinelenebilir kontrolden sonra tek çalışma değişkenini değiştir. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "who",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-53": {
+      "objective": {
+        "en": "Review the familiar squat or sit-to-stand and horizontal push tasks; record the wall hip hinge separately in your own note.",
+        "tr": "Tanıdık squat veya otur-kalk ile yatay itiş görevlerini incele; duvar kalça menteşesini kendi notunda ayrı kaydet."
+      },
+      "steps": [
+        {
+          "en": "Choose a comfortable sit-to-stand or squat and a wall or incline push-up.",
+          "tr": "Rahat otur-kalk veya squat ve duvar/yükselti şınavı seç."
+        },
+        {
+          "en": "Check support, foot/hand contact, breath and exit before each set.",
+          "tr": "Her setten önce destek, ayak/el teması, nefes ve çıkışı kontrol et."
+        },
+        {
+          "en": "After each set describe one control observation and keep the next set no harder if unsure. This reviews squat and push, not the separate wall hip hinge.",
+          "tr": "Her set sonrası bir kontrol gözlemi anlat; belirsizse sonraki seti zorlaştırma. Bu, ayrı duvar kalça menteşesini değil squat ve itişi inceler."
+        }
+      ],
+      "practice": {
+        "en": "One or two rounds of 3–6 squats and 3–6 pushes, resting 90–120 seconds between tasks; use your easier variant.\n\nCommon mistake: Combining tasks changes the previously controlled variants. Correction: Keep the chosen squat and push variants even when combining tasks.\n\nCompare separate sets with one short paired round while keeping the rest.",
+        "tr": "Görev arasında 90–120 saniye dinlenerek bir-iki tur 3–6 squat ve 3–6 itiş; kendi kolay varyasyonunu kullan.\n\nSık hata: İşleri birleştirmek önceki kontrollü biçimleri değiştirir. Düzeltme: İşleri birleştirirken seçilen çömelme ve itiş biçimlerini koru.\n\nMolayı koruyarak ayrı setler ile bir kısa ikili turu karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "My squat uses an individually comfortable depth.",
+          "tr": "Squatım kişisel rahat derinliği kullanıyor."
+        },
+        {
+          "en": "My push keeps hips and shoulders connected.",
+          "tr": "İtişim kalça ve omzu bağlantılı tutuyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Keep the chosen squat and push variants even when combining tasks.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? İşleri birleştirirken seçilen çömelme ve itiş biçimlerini koru."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Keep the chosen squat and push variants even when combining tasks. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: İşleri birleştirirken seçilen çömelme ve itiş biçimlerini koru. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "who",
+        "nhs_strength",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-54": {
+      "practice": {
+        "en": "If equipped, 1–2 sets of 3–5 easy rows and 3 bird-dogs each side or 5–10 seconds incline plank, with 90–120 seconds rest.\n\nCommon mistake: Fatigue from pulling carries into an unprepared trunk task. Correction: Finish the pull before resetting for trunk work; do not skip the setup.\n\nCompare bird-dog and incline-plank trunk choices after an easy row.",
+        "tr": "Ekipman varsa 90–120 saniye dinlenerek 1–2 set 3–5 kolay row ve taraf başına 3 bird-dog veya 5–10 saniye yükseltide plank.\n\nSık hata: Çekiş yorgunluğu hazırlanmamış gövde işine taşınır. Düzeltme: Gövde işini kurmadan çekişi bitir; kurulumu atlama.\n\nKolay row ardından bird-dog ve eğimli plank gövde seçeneklerini karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I retained a foot-supported exit during pulling.",
+          "tr": "Çekişte ayak destekli çıkışı korudum."
+        },
+        {
+          "en": "Trunk control remains steady after the pull.",
+          "tr": "Çekiş sonrası gövde kontrolü dengeli kalıyor."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Finish the pull before resetting for trunk work; do not skip the setup.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Gövde işini kurmadan çekişi bitir; kurulumu atlama."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Finish the pull before resetting for trunk work; do not skip the setup. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Gövde işini kurmadan çekişi bitir; kurulumu atlama. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "who",
+        "nhs_strength",
+        "nasm_pull",
+        "ace_bird",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-55": {
+      "steps": [
+        {
+          "en": "Begin with an easy warm-up, then choose one lower-body task for this session: taught squat or sit-to-stand, or the wall hip hinge. Plan the other on a separate day if appropriate; choose one taught horizontal push, one available pull and one trunk task.",
+          "tr": "Kolay ısınmayla başla; bu seans için öğretilen squat veya otur-kalk ya da duvar kalça menteşesinden bir alt beden görevi seç. Uygunsa ötekini ayrı bir güne planla; öğretilen bir yatay itiş, bir mevcut çekiş ve bir gövde görevi seç."
+        },
+        {
+          "en": "Use familiar small doses and rests; omit unavailable equipment work and note the gap honestly.",
+          "tr": "Tanıdık küçük doz ve dinlenme kullan; olmayan ekipman çalışmasını çıkar ve boşluğu dürüst yaz."
+        },
+        {
+          "en": "Finish with easy walking or seated movement and one observation for next time.",
+          "tr": "Rahat yürüyüş/oturarak hareket ve sonraki sefere bir gözlemle bitir."
+        }
+      ],
+      "practice": {
+        "en": "Write a 10–20 minute example with 1 short set per task and 60–120 seconds rest, then optionally rehearse only the first two tasks. Put the other lower-body pattern on a separate suitable day or mark it observed/skipped; writing it down is not physical practice.\n\nCommon mistake: The plan includes an untaught skill or no easier option. Correction: List an entry, an easier option and an exit beside every selected task.\n\nDesign a shorter session containing only already taught tasks.",
+        "tr": "Görev başına 1 kısa set ve 60–120 saniye dinlenmeyle 10–20 dakikalık örnek yaz; istersen yalnız ilk iki görevi prova et. Öteki alt beden örüntüsünü uygun ayrı bir güne koy veya gözlendi/atlandı olarak işaretle; yazmak fiziksel pratik değildir.\n\nSık hata: Plan öğretilmemiş beceri veya kolay seçeneksiz iş içerir. Düzeltme: Her seçili görevin yanına giriş, kolay seçenek ve çıkış yaz.\n\nYalnız önceden öğretilen görevlerden kısa seans tasarla."
+      },
+      "selfCheck": [
+        {
+          "en": "I included an easier option for every task.",
+          "tr": "Her göreve kolay seçenek ekledim."
+        },
+        {
+          "en": "My plan has no forced inversion or maximum test.",
+          "tr": "Planımda zorunlu ters duruş veya en yüksek test yok."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? List an entry, an easier option and an exit beside every selected task.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Her seçili görevin yanına giriş, kolay seçenek ve çıkış yaz."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: List an entry, an easier option and an exit beside every selected task. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Her seçili görevin yanına giriş, kolay seçenek ve çıkış yaz. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "who",
+        "nhs_strength",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    },
+    "cal-56": {
+      "steps": [
+        {
+          "en": "Revisit your chosen variants and explain their setup, one control cue and one easier path without the lesson text.",
+          "tr": "Ders metni olmadan seçtiğin varyasyonun kurulumu, bir kontrol ipucu ve bir kolay yolunu anlat."
+        },
+        {
+          "en": "If appropriate today, perform the familiar short session without adding a new skill or intensity.",
+          "tr": "Bugün uygunsa yeni beceri/yoğunluk eklemeden tanıdık kısa seansı yap."
+        },
+        {
+          "en": "Choose when to revisit the other taught lower-body pattern next week, or mark it observed/skipped if unsuitable. Note what needs a coach; completion records your learning, not professional mastery.",
+          "tr": "Öğretilen diğer alt beden örüntüsünü gelecek hafta ne zaman yineleyeceğini seç veya uygun değilse gözlendi/atlandı diye kaydet. Eğitmen gerekeni belirle; tamamlama profesyonel ustalık değil öğrenme kaydıdır."
+        }
+      ],
+      "practice": {
+        "en": "Use your previous plan once with its rests, or complete a written walkthrough if physical practice is unsuitable. In your own note, record squat/sit-to-stand and wall hip hinge separately as practised, planned, observed or skipped; a written walkthrough is not physical practice.\n\nCommon mistake: Course completion is described as verified intermediate ability. Correction: Describe what you actually practised, retained and still need help with.\n\nRepeat the plan after a break with a different taught regression and explain the choice.",
+        "tr": "Önceki planını dinlenmeleriyle bir kez kullan veya fiziksel pratik uygun değilse yazılı yürüt. Kendi notunda squat/otur-kalk ile duvar kalça menteşesini ayrı ayrı yapıldı, planlandı, gözlendi veya atlandı diye kaydet; yazılı yürütme fiziksel pratik değildir.\n\nSık hata: Kurs tamamlanması doğrulanmış orta beceri diye anlatılır. Düzeltme: Gerçekte çalıştığını, hatırladığını ve yardım gerekeni anlat.\n\nAradan sonra planı başka öğretilmiş kolay biçimle yinele ve seçimi açıkla."
+      },
+      "selfCheck": [
+        {
+          "en": "I can explain my regressions and stop signs.",
+          "tr": "Kolay yollarımı ve durma işaretlerini açıklayabiliyorum."
+        },
+        {
+          "en": "I know this course did not certify resisted vertical pressing, inversions, force, angles or medical safety.",
+          "tr": "Bu kursun dirençli dikey itişi, ters duruşu, kuvveti, açıyı veya tıbbi güvenliği onaylamadığını biliyorum."
+        },
+        {
+          "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Describe what you actually practised, retained and still need help with.",
+          "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Gerçekte çalıştığını, hatırladığını ve yardım gerekeni anlat."
+        },
+        {
+          "en": "Next practice, try this without checking the instructions: Describe what you actually practised, retained and still need help with. Then review what you missed.",
+          "tr": "Sonraki çalışmada yönergeye bakmadan dene: Gerçekte çalıştığını, hatırladığını ve yardım gerekeni anlat. Ardından eksiklerini kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "acsm2026",
+        "who",
+        "nhs_strength",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ]
+    }
+  }
+}

@@ -9,7 +9,7 @@ jobs:
   gates:
     name: analyze + app/engine tests + içerik kapıları (GRA-P0-003)
     # Bu iş 2026-08-19'a kadar hiç yoktu — repo hiçbir CI koşturmuyordu.
-    # tools/run_all_gates.sh yerelde zaten olgun (app+engine+13 içerik
+    # tools/run_all_gates.sh yerelde zaten olgun (app+engine+14 içerik
     # kapısı); bu adım onu TEK doğruluk kaynağı olarak KULLANIR, YENİDEN
     # YAZMAZ — kapı listesini burada ayrıca saymak drift riski taşırdı
     # (yeni bir kapı script'e eklenip CI'a eklenmeyi unutulabilir).
@@ -57,7 +57,7 @@ jobs:
         # kapısı) — boş bir dizin bu şartı zararsızca karşılar.
         run: mkdir -p build
 
-      - name: tools/run_all_gates.sh (app 222 + engine 175 + içerik 13 araç)
+      - name: tools/run_all_gates.sh (app 222 + engine 175 + içerik 14 araç)
         run: bash tools/run_all_gates.sh
 
   android-release-build:
