@@ -17,11 +17,11 @@ manifest, mevcut `calisthenics.v1.json` dosyasını 261.754 bayt ve
 güvensiz yol içerik açılmadan reddedildi. Kurs kaynağı değiştirilmedi;
 üretim manifesti, gerçek medya ve oynatıcı hâlâ açık. Üç odaklı test dosyası
 25/25 geçti, üç ilgili Dart dosyasında analiz temiz. Köprü `7b6524b`
-commitinde mevcut PR #1 dalına push edildi; GitHub güncel başı doğruladı.
+commitinde mevcut PR #1 dalına push edildi; GitHub push sonucunu doğruladı.
 Yeni baştaki yararlı CI sonucu ve ürün kabulü hâlâ açık.
 
 Güncel kurs önce `b8b1147` commitinde mevcut PR #1 incelemesine taşındı;
-PR'ın güncel kaynak başı köprü sonrasında `7b6524b`.
+içerik köprüsü `7b6524b` ile eklendi.
 Üreticinin denetlenmiş 56 derslik v8d kaynağı eski metne döndürme riski,
 SHA bağlı içerik katmanı ve `--check` CI kapısıyla giderildi; kök ve bağımsız
 inceleme dar PASS. GitHub Actions'ın üç işi bütçe engeliyle başlamadı;
