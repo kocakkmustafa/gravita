@@ -2,7 +2,7 @@
 
 ## 2026-09-28 güncel kuyruk
 1. PR #1'e taşınan 56 derslik Calisthenics kaynağında Actions bütçe engeli kalkınca son başta yararlı CI al.
-2. App-local içerik okuyucusu/üretim manifesti, ekipman etiketli gösterim, altyazı ve gerçek cihaz oynatma kabulünü tamamla.
+2. App-local içerik okuyucusu kaynak ve odaklı test düzeyinde hazır; üretim manifesti, ekipman etiketli gösterim, altyazı ve gerçek cihaz oynatma kabulünü tamamla.
 3. Kişi-ayrık uzman hareket hatası ve güvenli hazırlık verisi olmadan tam-kurs form modeli fit veya otomatik güvenli-form hükmü yok; held Squat ZIP/once-failed deneyler korunur.
 4. Kurucu bütün dersleri en son toplu fiziksel test eder; mağaza kapıları ayrıdır.
 

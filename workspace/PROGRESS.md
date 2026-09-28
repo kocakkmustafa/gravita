@@ -5,9 +5,19 @@
 İlk calisthenics kursu **56 ders** ve canlı v8d kaynak paketinde. Ders
 gösterim briefi ve hazırlık/ekipman çiti kaynak düzeyinde denetlendi;
 gerçek onaylı video, uzman kişi-ayrık hareket hata verisi ve tam-kurs
-form modeli **0**. Ortak `motion_content` için uygulama içi okuyucu ve
-üretim manifesti henüz bağlanmadı; medya oynatıcı ve fiziksel cihaz kabulü
-de açık. Held Squat ZIP ve başarısız bir-seferlik deneyler korunur.
+form modeli **0**. Ortak `motion_content` için uygulama içi okuyucu dar
+kaynak köprüsü düzeyinde bağlı; üretim manifesti, medya oynatıcı ve fiziksel
+cihaz kabulü açık. Held Squat ZIP ve başarısız bir-seferlik deneyler korunur.
+
+**2026-09-28 yerel devam:** Paketlenmiş kurs baytları için app-local
+`FlutterBundleContentAssetReader` eklendi. `motion_content` aynı mühürlü Core
+commitine (`f2ea161c…`) bağlandı; kilit sürümü `0.1.0`. Yalnız testte üretilen
+manifest, mevcut `calisthenics.v1.json` dosyasını 261.754 bayt ve
+`eca53870…40f83d` SHA ile okuyup 10 modül/56 dersi doğruladı. Yanlış hash ve
+güvensiz yol içerik açılmadan reddedildi. Kurs kaynağı değiştirilmedi;
+üretim manifesti, gerçek medya ve oynatıcı hâlâ açık. Üç odaklı test dosyası
+25/25 geçti, üç ilgili Dart dosyasında analiz temiz. Bu yerel değişiklikler
+henüz commit/push edilmedi; GitHub CI engeli ve ürün kabulü sürüyor.
 
 Güncel kurs `b8b1147` commitinde mevcut PR #1 incelemesine taşındı.
 Üreticinin denetlenmiş 56 derslik v8d kaynağı eski metne döndürme riski,

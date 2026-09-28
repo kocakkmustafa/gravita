@@ -43,6 +43,13 @@ dependencies:
       url: https://github.com/kocakkmustafa/motion-core.git
       path: packages/motion_core
       ref: f2ea161c7e974d57b114ba7773836c72be17a381
+  # Bundled course bytes share the immutable Core revision. This reader bridge
+  # does not declare a production media manifest or enable delivery.
+  motion_content:
+    git:
+      url: https://github.com/kocakkmustafa/motion-core.git
+      path: packages/motion_content
+      ref: f2ea161c7e974d57b114ba7773836c72be17a381
   # KAMERA KÖPRÜSÜ (M-F-263). Pin motion_core ile AYNI commit olmak ZORUNDA
   # — `shell_contract_test` eşitliği zorluyor (eski "motion_camera YOK"
   # nöbeti bu teste DÖNÜŞTÜ, silinmedi).
