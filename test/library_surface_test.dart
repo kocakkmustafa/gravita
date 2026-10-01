@@ -1292,7 +1292,7 @@ void main() {
         final List<dynamic> rules =
             ((jsonDecode(
                       File(
-                        'content/catalog/${m['wave']}/${m['id']}.json',
+                        'content/catalog/${(m['wave'] as String).toLowerCase()}/${m['id']}.json',
                       ).readAsStringSync(),
                     )
                     as Map)['formErrors']

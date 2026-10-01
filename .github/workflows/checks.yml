@@ -16,6 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # defter_freshness compares the complete commit history with the
+          # committed ledger, including its named G-500/G-501 probe anchors.
+          fetch-depth: 0
 
       - uses: subosito/flutter-action@v2
         with:
