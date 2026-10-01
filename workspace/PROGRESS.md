@@ -1,5 +1,16 @@
 # PROGRESS — Gravita
 
+## 2026-10-01 — calisthenics kaynak paketi app pinine bağlandı
+
+56 ders, 392 sahne ve 392 varyantın kurs/dilim/projeksiyon SHA'ları
+uygulama Dart sabitleri ve paket testiyle doğrulandı. cal-01 gerçek bar
+ekipmanı gerektiren bir varyant **HOLD**. İlk kaynak/medya odak testi
+**23/23**, ek dilim testi **1/1**, hedefli analiz temiz. Bağımsız
+yeniden hesaplama ve ek SHA incelemesi dar PASS:
+`scratch/2026-10-01-choreia-gravita-app-pin-independent-peer/REPORT.md`
+ve `ADDENDUM-SLICE-PINS.md`. Gerçek video, uzman model ve cihaz kabulü açık.
+
+
 ## 2026-09-28 — kurs JSON bütünlüğü PR'da
 
 56 derslik kaynak SHA `eca53870045d2c0c0e5fd2abc0d93190bc092a1ba3c254a64d908ae13040f83d`

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Original TR/EN authoring source. No source media or model training data."""
 import argparse
+import copy
 import hashlib
 import json
 from pathlib import Path
@@ -599,10 +600,11 @@ root=Path(__file__).resolve().parents[1]
 # The original authoring script still owns the lesson skeleton and media
 # briefs. The reviewed v8d layer owns later pedagogy/source edits. Applying it
 # keeps the course comparison independent of the shipped JSON. The reviewed
-# course has noncanonical whitespace, so a normal run validates its exact
-# pinned bytes rather than rewriting it and invalidating the v8d source SHA.
+# Historical v8d output had noncanonical whitespace. Keep its exact byte SHA
+# as a parent pin; v8g renders a new canonical course asset below.
 baseline=json.dumps(course,ensure_ascii=False,indent=2)+'\n'
-overlay=json.loads((root/'content/courses/calisthenics.v8d-overlay.json').read_text(encoding='utf-8'))
+v8d_path=root/'content/courses/calisthenics.v8d-overlay.json'
+overlay=json.loads(v8d_path.read_text(encoding='utf-8'))
 if overlay.get('schemaVersion') != 1 or overlay.get('editorialLayer') != 'v8d':
     raise ValueError('Unsupported calisthenics editorial layer')
 if hashlib.sha256(baseline.encode('utf-8')).hexdigest() != overlay['baselineSha256']:
@@ -618,16 +620,279 @@ for lesson_id, fields in changes.items():
     lesson_by_id[lesson_id].update(fields)
 course['description']=overlay['description']
 course['sources']=overlay['sources']
-course_path=root/'content/courses/calisthenics.v1.json'
-reviewed_course=course_path.read_text(encoding='utf-8')
-if hashlib.sha256(reviewed_course.encode('utf-8')).hexdigest() != overlay['courseSha256']:
-    raise ValueError('Shipped calisthenics course bytes differ from reviewed v8d SHA')
-if json.loads(reviewed_course) != course:
-    raise ValueError('Shipped calisthenics course differs from the authoring and editorial layers')
+
+# v8d is immutable historical evidence. v8g applies only two instruction
+# corrections, with a digest of the complete v8d semantic parent. The old
+# reviewed JSON had a few noncanonical indentation lines, so its historical
+# byte SHA and its reproducible semantic SHA are intentionally distinct.
+v8g=json.loads((root/'content/courses/calisthenics.v8g-overlay.json').read_text(encoding='utf-8'))
+if v8g.get('schemaVersion') != 1 or v8g.get('editorialLayer') != 'v8g':
+    raise ValueError('Unsupported calisthenics v8g editorial layer')
+if hashlib.sha256(v8d_path.read_bytes()).hexdigest() != v8g['parentOverlaySha256']:
+    raise ValueError('Historical v8d overlay changed')
+if v8g['parentCourseSha256'] != overlay['courseSha256']:
+    raise ValueError('Historical reviewed course SHA changed')
+parent_semantic=json.dumps(course,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode('utf-8')
+if hashlib.sha256(parent_semantic).hexdigest() != v8g['parentSemanticSha256']:
+    raise ValueError('Historical v8d course semantics changed')
+if course['version'] != v8g['courseVersion'] or course['version'] != '1.0.0':
+    raise ValueError('This editorial correction must preserve progress version 1.0.0')
+expected_fields={
+    'cal-04': {'steps','practice','mediaBrief'},
+    'cal-24': {'steps','practice','selfCheck','mediaBrief'},
+}
+changes=v8g['lessonOverrides']
+if set(changes) != set(expected_fields):
+    raise ValueError('v8g may change only cal-04 and cal-24')
+for lesson_id, fields in changes.items():
+    if set(fields) != expected_fields[lesson_id]:
+        raise ValueError(f'Unexpected v8g fields for {lesson_id}')
+    prior=lesson_by_id[lesson_id]
+    if len(fields['steps']) != len(prior['steps']):
+        raise ValueError(f'v8g changed the lesson step count for {lesson_id}')
+    if 'selfCheck' in fields and len(fields['selfCheck']) != len(prior['selfCheck']):
+        raise ValueError(f'v8g changed the self-check count for {lesson_id}')
+    prior.update(copy.deepcopy(fields))
+added_sources=v8g['addedSources']
+if [item['id'] for item in added_sources] != ['nhs_warmup','ace_trx_angle','trx_low_row']:
+    raise ValueError('Unexpected v8g source registry addition')
+if {item['id'] for item in course['sources']} & {item['id'] for item in added_sources}:
+    raise ValueError('v8g source id already exists')
+course['sources'].extend(copy.deepcopy(added_sources))
+source_adds=v8g['lessonSourceAdds']
+if source_adds != {'cal-04':['nhs_warmup'],'cal-24':['ace_trx_angle','trx_low_row']}:
+    raise ValueError('Unexpected v8g lesson source additions')
+for lesson_id, ids in source_adds.items():
+    lesson_by_id[lesson_id]['sourceIds'].extend(ids)
+rendered_course=json.dumps(course,ensure_ascii=False,indent=2)+'\n'
+if hashlib.sha256(rendered_course.encode('utf-8')).hexdigest() != v8g['courseSha256']:
+    raise ValueError('v8g course SHA does not match the reviewed output')
+
+# v8h only attributes exact movement branches to original publisher pages.
+# Preserve the v8g lesson bodies and teaching dose: these URLs are teaching
+# references, never camera labels, equipment certificates or load thresholds.
+v8h=json.loads((root/'content/courses/calisthenics.v8h-overlay.json').read_text(encoding='utf-8'))
+if v8h.get('schemaVersion') != 1 or v8h.get('editorialLayer') != 'v8h':
+    raise ValueError('Unsupported calisthenics v8h source layer')
+if hashlib.sha256((root/'content/courses/calisthenics.v8g-overlay.json').read_bytes()).hexdigest() != v8h['parentOverlaySha256']:
+    raise ValueError('Historical v8g overlay changed')
+if hashlib.sha256(rendered_course.encode('utf-8')).hexdigest() != v8h['parentCourseSha256']:
+    raise ValueError('v8h source layer is not bound to the reviewed v8g course')
+if course['version'] != v8h['courseVersion'] or course['version'] != '1.0.0':
+    raise ValueError('Source attribution must preserve progress version 1.0.0')
+added_sources=v8h['addedSources']
+if [item['id'] for item in added_sources] != [
+    'ace_wrist_shoulder_options','nhs_seated_leg_march',
+    'tjc_fixed_bar_row','barbend_fixed_bar_row',
+]:
+    raise ValueError('Unexpected v8h source registry addition')
+if {item['id'] for item in course['sources']} & {item['id'] for item in added_sources}:
+    raise ValueError('v8h source id already exists')
+if any(not item['url'].startswith('https://') for item in added_sources):
+    raise ValueError('v8h source URL must use HTTPS')
+source_adds=v8h['lessonSourceAdds']
+if source_adds != {
+    'cal-04':['ace_wrist_shoulder_options','nhs_seated_leg_march'],
+    'cal-24':['tjc_fixed_bar_row','barbend_fixed_bar_row'],
+}:
+    raise ValueError('v8h may bind only verified warm-up and fixed-bar branches')
+if not {'ace_trx_angle','trx_low_row'} <= set(lesson_by_id['cal-24']['sourceIds']):
+    raise ValueError('v8h must preserve separate suspension sources')
+course['sources'].extend(copy.deepcopy(added_sources))
+for lesson_id, ids in source_adds.items():
+    lesson_by_id[lesson_id]['sourceIds'].extend(ids)
+rendered_course=json.dumps(course,ensure_ascii=False,indent=2)+'\n'
+if hashlib.sha256(rendered_course.encode('utf-8')).hexdigest() != v8h['courseSha256']:
+    raise ValueError('v8h course SHA does not match the reviewed source attribution')
+
+# v8i adds only the five directly inspected, narrow teaching citations. They
+# do not assert a tested load, camera event, clinical clearance or media grant.
+v8i=json.loads((root/'content/courses/calisthenics.v8i-overlay.json').read_text(encoding='utf-8'))
+if v8i.get('schemaVersion') != 1 or v8i.get('editorialLayer') != 'v8i':
+    raise ValueError('Unsupported calisthenics v8i source layer')
+if hashlib.sha256((root/'content/courses/calisthenics.v8h-overlay.json').read_bytes()).hexdigest() != v8i['parentOverlaySha256']:
+    raise ValueError('Historical v8h overlay changed')
+if hashlib.sha256(rendered_course.encode('utf-8')).hexdigest() != v8i['parentCourseSha256']:
+    raise ValueError('v8i source layer is not bound to the reviewed v8h course')
+if course['version'] != v8i['courseVersion'] or course['version'] != '1.0.0':
+    raise ValueError('v8i source attribution must preserve progress version 1.0.0')
+added_sources=v8i['addedSources']
+if [item['id'] for item in added_sources] != [
+    'psv_level_ground_calf_raise',
+    'mckenzie_standing_bar_dip_proposal',
+    'henderson_supported_scapular_pull',
+    'torbay_nhs_heel_slide',
+    'cleveland_step_supported_burpee',
+]:
+    raise ValueError('Unexpected v8i source registry addition')
+if {item['id'] for item in course['sources']} & {item['id'] for item in added_sources}:
+    raise ValueError('v8i source id already exists')
+if any(not item['url'].startswith('https://') for item in added_sources):
+    raise ValueError('v8i source URL must use HTTPS')
+source_adds=v8i['lessonSourceAdds']
+if source_adds != {
+    'cal-14':['psv_level_ground_calf_raise'],
+    'cal-21':['mckenzie_standing_bar_dip_proposal'],
+    'cal-26':['henderson_supported_scapular_pull'],
+    'cal-30':['torbay_nhs_heel_slide'],
+    'cal-39':['cleveland_step_supported_burpee'],
+}:
+    raise ValueError('v8i may bind only five verified teaching claims')
+course['sources'].extend(copy.deepcopy(added_sources))
+for lesson_id, ids in source_adds.items():
+    lesson_by_id[lesson_id]['sourceIds'].extend(ids)
+rendered_course=json.dumps(course,ensure_ascii=False,indent=2)+'\n'
+if hashlib.sha256(rendered_course.encode('utf-8')).hexdigest() != v8i['courseSha256']:
+    raise ValueError('v8i course SHA does not match the reviewed source attribution')
+attribution=json.loads((root/'tool/calisthenics_source_attribution.v1.json').read_text(encoding='utf-8'))
+if attribution.get('schemaVersion') != 1 or attribution['parentCourseSha256'] != v8i['parentCourseSha256'] or attribution['courseSha256'] != v8i['courseSha256']:
+    raise ValueError('v8i narrow attribution contract is not pinned to this course')
+if attribution['sourceResearchManifestSha256'] != '43fad359a41f456b6742d2bc2d54ce645943276afd1745da01146a11a9bac301':
+    raise ValueError('v8i source research provenance changed')
+if any(attribution[key] != 0 for key in ['generatedMediaCount','acceptedExpertLabelCount','qualifiedModelCount']):
+    raise ValueError('Teaching citations are not accepted media, labels, or models')
+if set(attribution['sources']) != {s['id'] for s in added_sources}:
+    raise ValueError('v8i source attribution must cover exactly the five new sources')
+expected_lesson_by_source={ids[0]:lesson_id for lesson_id,ids in source_adds.items()}
+for source in added_sources:
+    claim=attribution['sources'][source['id']]
+    if (claim['lessonId'] != expected_lesson_by_source[source['id']]
+            or any(claim[key] != source[key] for key in ['url','supports','doesNotSupport'])
+            or not claim['locator'] or not claim['rights']
+            or claim['realPersonErrorLabel'] is not False
+            or claim['modelTrainingRightsVerified'] is not False
+            or claim['automaticFormVerdictSupported'] is not False):
+        raise ValueError(f'Unsupported or unscoped v8i attribution: {source["id"]}')
+
+# v8j adds three original articles to four matching lesson variants. The
+# Harvard push-up article is one document and publisher, even though it covers
+# both a wall and a kneeling branch. The ACE hollowing lead stays unbound:
+# its pelvic-floor/core protocol is not taught in cal-35.
+v8j=json.loads((root/'content/courses/calisthenics.v8j-overlay.json').read_text(encoding='utf-8'))
+if v8j.get('schemaVersion') != 1 or v8j.get('editorialLayer') != 'v8j':
+    raise ValueError('Unsupported calisthenics v8j source layer')
+if hashlib.sha256((root/'content/courses/calisthenics.v8i-overlay.json').read_bytes()).hexdigest() != v8j['parentOverlaySha256']:
+    raise ValueError('Historical v8i overlay changed')
+if hashlib.sha256(rendered_course.encode('utf-8')).hexdigest() != v8j['parentCourseSha256']:
+    raise ValueError('v8j source layer is not bound to the reviewed v8i course')
+if course['version'] != v8j['courseVersion'] or course['version'] != '1.0.0':
+    raise ValueError('v8j source attribution must preserve progress version 1.0.0')
+added_sources=v8j['addedSources']
+if [item['id'] for item in added_sources] != [
+    'strongfirst_wall_hinge',
+    'harvard_wall_kneeling_pushups',
+    'harvard_forearm_plank_options',
+]:
+    raise ValueError('Unexpected v8j source registry addition')
+if {item['id'] for item in course['sources']} & {item['id'] for item in added_sources}:
+    raise ValueError('v8j source id already exists')
+if any(not item['url'].startswith('https://') or not item['supports'] or not item['doesNotSupport'] for item in added_sources):
+    raise ValueError('v8j sources require scoped HTTPS citations')
+source_adds=v8j['lessonSourceAdds']
+if source_adds != {
+    'cal-09':['strongfirst_wall_hinge'],
+    'cal-15':['harvard_wall_kneeling_pushups'],
+    'cal-17':['harvard_wall_kneeling_pushups'],
+    'cal-32':['harvard_forearm_plank_options'],
+}:
+    raise ValueError('v8j may bind only four verified teaching branches')
+course['sources'].extend(copy.deepcopy(added_sources))
+for lesson_id, ids in source_adds.items():
+    if set(ids) & set(lesson_by_id[lesson_id]['sourceIds']):
+        raise ValueError(f'v8j duplicate citation on {lesson_id}')
+    lesson_by_id[lesson_id]['sourceIds'].extend(ids)
+rendered_course=json.dumps(course,ensure_ascii=False,indent=2)+'\n'
+if hashlib.sha256(rendered_course.encode('utf-8')).hexdigest() != v8j['courseSha256']:
+    raise ValueError('v8j course SHA does not match the reviewed source attribution')
+attribution_v2=json.loads((root/'tool/calisthenics_source_attribution.v2.json').read_text(encoding='utf-8'))
+if (attribution_v2.get('schemaVersion') != 2
+        or attribution_v2['sourceResearchManifestSha256'] != 'dec2b43795a06b456bfb6b64f3645d836574a8d4ada8b41b09d959d4a2e8ebb6'
+        or attribution_v2['parentCourseSha256'] != v8j['parentCourseSha256']
+        or attribution_v2['courseSha256'] != v8j['courseSha256']):
+    raise ValueError('v8j narrow attribution contract is not pinned to this course')
+if any(attribution_v2[key] != 0 for key in ['generatedMediaCount','acceptedExpertLabelCount','qualifiedModelCount']):
+    raise ValueError('v8j citations are not accepted media, labels, or models')
+if attribution_v2['heldCandidateLessonId'] != 'cal-35' or attribution_v2['heldCandidateUrl'] != 'https://www.acefitness.org/resources/everyone/exercise-library/121/supine-hollowing-with-lower-extremity-movements/':
+    raise ValueError('ACE hollowing prerequisite hold must remain explicit')
+if set(attribution_v2['sources']) != {s['id'] for s in added_sources}:
+    raise ValueError('v8j attribution must cover the three added original articles')
+for source in added_sources:
+    claim=attribution_v2['sources'][source['id']]
+    lessons=[lesson for lesson,ids in source_adds.items() if source['id'] in ids]
+    if (claim['lessonIds'] != lessons
+            or any(claim[key] != source[key] for key in ['url','supports','doesNotSupport'])
+            or not claim['locator'] or not claim['rights']
+            or claim['realPersonErrorLabel'] is not False
+            or claim['modelTrainingRightsVerified'] is not False
+            or claim['automaticFormVerdictSupported'] is not False):
+        raise ValueError(f'Unsupported or unscoped v8j attribution: {source["id"]}')
+
+# v8k scopes three existing teaching citations and binds only four exact
+# branches. The Harvard URL is reused for cal-40's wall station, not counted
+# as another document. G391's historical shoulder_reach remains NO_CALL.
+v8k=json.loads((root/'content/courses/calisthenics.v8k-overlay.json').read_text(encoding='utf-8'))
+if set(v8k) != {
+    'schemaVersion','editorialLayer','parentOverlaySha256','parentCourseSha256',
+    'courseVersion','courseSha256','existingSourceScopes','addedSources',
+    'lessonSourceAdds',
+} or v8k['schemaVersion'] != 1 or v8k['editorialLayer'] != 'v8k':
+    raise ValueError('Unsupported calisthenics v8k source layer')
+if hashlib.sha256((root/'content/courses/calisthenics.v8j-overlay.json').read_bytes()).hexdigest() != v8k['parentOverlaySha256']:
+    raise ValueError('Historical v8j overlay changed')
+if hashlib.sha256(rendered_course.encode('utf-8')).hexdigest() != v8k['parentCourseSha256']:
+    raise ValueError('v8k source layer is not bound to the reviewed v8j course')
+if course['version'] != v8k['courseVersion'] or course['version'] != '1.0.0':
+    raise ValueError('v8k source attribution must preserve progress version 1.0.0')
+scope_updates=v8k['existingSourceScopes']
+if set(scope_updates) != {
+    'ace_wrist_shoulder_options','nhs_seated_leg_march','barbend_fixed_bar_row',
+}:
+    raise ValueError('v8k may scope only the three reviewed existing sources')
+sources_by_id={item['id']:item for item in course['sources']}
+for source_id, fields in scope_updates.items():
+    if set(fields) not in ({'supports','doesNotSupport'},
+                           {'title','supports','doesNotSupport'}):
+        raise ValueError(f'Unexpected existing source fields for {source_id}')
+    for field in ('supports','doesNotSupport'):
+        if set(fields[field]) != {'en','tr'} or any(not fields[field][lang].strip() for lang in ('en','tr')):
+            raise ValueError(f'Invalid v8k source scope for {source_id}')
+    sources_by_id[source_id].update(copy.deepcopy(fields))
+new_sources=v8k['addedSources']
+if [item['id'] for item in new_sources] != [
+    'trx_anchor_low_row','hybrid_assisted_bar_hang','worcs_nhs_wall_four_point_wrist',
+]:
+    raise ValueError('Unexpected v8k source registry addition')
+if set(s['id'] for s in new_sources) & set(sources_by_id):
+    raise ValueError('v8k source id already exists')
+for source in new_sources:
+    if set(source) != {'id','title','url','supports','doesNotSupport'} or not source['url'].startswith('https://'):
+        raise ValueError(f'Invalid v8k source record: {source["id"]}')
+    for field in ('supports','doesNotSupport'):
+        if set(source[field]) != {'en','tr'} or any(not source[field][lang].strip() for lang in ('en','tr')):
+            raise ValueError(f'Invalid v8k source scope: {source["id"]}')
+source_adds=v8k['lessonSourceAdds']
+if source_adds != {
+    'cal-24':['trx_anchor_low_row'],
+    'cal-25':['hybrid_assisted_bar_hang'],
+    'cal-40':['harvard_wall_kneeling_pushups'],
+    'cal-41':['worcs_nhs_wall_four_point_wrist'],
+}:
+    raise ValueError('v8k may bind only four exact teaching branches')
+course['sources'].extend(copy.deepcopy(new_sources))
+for lesson_id, ids in source_adds.items():
+    if set(ids) & set(lesson_by_id[lesson_id]['sourceIds']):
+        raise ValueError(f'v8k duplicate citation on {lesson_id}')
+    lesson_by_id[lesson_id]['sourceIds'].extend(ids)
+rendered_course=json.dumps(course,ensure_ascii=False,indent=2)+'\n'
+actual_sha=hashlib.sha256(rendered_course.encode('utf-8')).hexdigest()
+if actual_sha != v8k['courseSha256']:
+    raise ValueError(f'v8k course SHA does not match scoped attribution: {actual_sha}')
 manifest={'schemaVersion':1,'courseId':course['id'],'courseVersion':course['version'],'status':'brief_only_not_generated_or_coach_reviewed','trainingData':False,'lessons':[{'moduleId':m['id'],'lessonId':l['id'],'practiceType':l['practiceType'],'mediaBrief':l['mediaBrief']} for m in modules for l in m['lessons']]}
 parser=argparse.ArgumentParser(); parser.add_argument('--check',action='store_true');args=parser.parse_args()
-for path,data in [('content/courses/calisthenics.media-briefs.v1.json',manifest)]:
-    rendered=json.dumps(data,ensure_ascii=False,indent=2)+'\n'
+for path,rendered in [
+    ('content/courses/calisthenics.v1.json',rendered_course),
+    ('content/courses/calisthenics.media-briefs.v1.json',json.dumps(manifest,ensure_ascii=False,indent=2)+'\n'),
+]:
     target=root/path
     if args.check:
         assert target.read_text(encoding='utf-8')==rendered, f'Stale generated asset: {path}'

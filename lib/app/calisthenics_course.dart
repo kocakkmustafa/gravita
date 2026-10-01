@@ -21,14 +21,24 @@ final class CalisthenicsSource {
   CalisthenicsSource(Map<String, dynamic> json)
     : id = json['id'] as String,
       title = json['title'] as String,
-      url = json['url'] as String {
-    if (id.isEmpty || title.isEmpty || Uri.tryParse(url)?.scheme != 'https') {
+      url = json['url'] as String,
+      supports = json['supports'] == null
+          ? null
+          : CourseText.parse(json['supports']),
+      doesNotSupport = json['doesNotSupport'] == null
+          ? null
+          : CourseText.parse(json['doesNotSupport']) {
+    if (id.isEmpty ||
+        title.isEmpty ||
+        Uri.tryParse(url)?.scheme != 'https' ||
+        (supports == null) != (doesNotSupport == null)) {
       throw const FormatException('Invalid course source');
     }
   }
   final String id;
   final String title;
   final String url;
+  final CourseText? supports, doesNotSupport;
 }
 
 final class CalisthenicsLesson {

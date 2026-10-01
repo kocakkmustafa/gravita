@@ -66,12 +66,222 @@ void main() {
       text,
     );
   });
+  test('v8g warm-up and row cues preserve a prior progress record', () async {
+    expect(course.version, '1.0.0');
+    final warmup = course.lessons.singleWhere((item) => item.id == 'cal-04');
+    final row = course.lessons.singleWhere((item) => item.id == 'cal-24');
+    expect(warmup.practice.en, contains('not the complete warm-up'));
+    expect(warmup.mediaBrief.tr, contains('2–4 dakikayı herkes için yeterli'));
+    expect(row.steps[1].en, contains('at a low bar'));
+    expect(row.steps[1].en, contains('in suspension'));
+    expect(row.steps[1].en, isNot(contains('farther out')));
+    expect(
+      row.practice.en,
+      contains(
+        'compare 2 controlled repetitions at the familiar option with 2',
+      ),
+    );
+    expect(row.mediaBrief.en, contains('not a universal foot direction'));
+
+    final store = calisthenicsProgressStoreFor(support, a);
+    await store.file.parent.create(recursive: true);
+    await store.file.writeAsString(
+      jsonEncode({
+        'schemaVersion': 1,
+        'courseId': course.id,
+        'lessons': {
+          'cal-04': {
+            'contentVersion': '1.0.0',
+            'state': 'selfReportedComplete',
+            'seenAt': '2026-09-20T10:00:00Z',
+            'lastPractisedAt': '2026-09-22T10:00:00Z',
+            'completedAt': '2026-09-22T10:01:00Z',
+            'practiceCount': 2,
+          },
+        },
+      }),
+    );
+    final previous = await store.load();
+    expect(previous.forLesson(warmup, course.version)?.practiceCount, 2);
+    expect(previous.completedCount(course), 1);
+    expect(previous.nextLesson(course)?.id, 'cal-01');
+  });
+  test('v8h scopes warm-up and fixed-bar sources to their lessons', () {
+    final warmup = course.lessons.singleWhere((item) => item.id == 'cal-04');
+    final row = course.lessons.singleWhere((item) => item.id == 'cal-24');
+    const warmupSources = <String>{
+      'ace_wrist_shoulder_options',
+      'nhs_seated_leg_march',
+    };
+    const fixedBarSources = <String>{
+      'tjc_fixed_bar_row',
+      'barbend_fixed_bar_row',
+    };
+    expect(course.version, '1.0.0');
+    expect(warmup.sourceIds.toSet(), containsAll(warmupSources));
+    expect(row.sourceIds.toSet(), containsAll(fixedBarSources));
+    expect(
+      row.sourceIds.toSet(),
+      containsAll(<String>{'ace_trx_angle', 'trx_low_row'}),
+    );
+    expect(
+      course.lessons.where(
+        (lesson) =>
+            lesson.id != 'cal-04' &&
+            lesson.sourceIds.any(warmupSources.contains),
+      ),
+      isEmpty,
+    );
+    expect(
+      course.lessons.where(
+        (lesson) =>
+            lesson.id != 'cal-24' &&
+            lesson.sourceIds.any(fixedBarSources.contains),
+      ),
+      isEmpty,
+    );
+    final sourcesById = <String, CalisthenicsSource>{
+      for (final source in course.sources) source.id: source,
+    };
+    expect(sourcesById['tjc_fixed_bar_row']!.title, contains('Fixed-bar'));
+    expect(sourcesById['barbend_fixed_bar_row']!.title, contains('Fixed-bar'));
+    expect(
+      sourcesById['nhs_seated_leg_march']!.url,
+      contains('kingstonandrichmond.nhs.uk'),
+    );
+  });
+  test('v8i keeps five teaching citations on their exact variants', () {
+    const sourceByLesson = <String, String>{
+      'cal-14': 'psv_level_ground_calf_raise',
+      'cal-21': 'mckenzie_standing_bar_dip_proposal',
+      'cal-26': 'henderson_supported_scapular_pull',
+      'cal-30': 'torbay_nhs_heel_slide',
+      'cal-39': 'cleveland_step_supported_burpee',
+    };
+    final sourcesById = <String, CalisthenicsSource>{
+      for (final source in course.sources) source.id: source,
+    };
+    final attribution =
+        jsonDecode(
+              File(
+                'tool/calisthenics_source_attribution.v1.json',
+              ).readAsStringSync(),
+            )
+            as Map;
+    final claims = attribution['sources'] as Map;
+    expect(course.version, '1.0.0');
+    expect(course.lessons, hasLength(56));
+    expect(claims.keys.toSet(), sourceByLesson.values.toSet());
+    expect(attribution['generatedMediaCount'], 0);
+    expect(attribution['acceptedExpertLabelCount'], 0);
+    expect(attribution['qualifiedModelCount'], 0);
+    for (final lesson in course.lessons) {
+      final expected = sourceByLesson[lesson.id];
+      final bound = lesson.sourceIds.where(
+        sourceByLesson.values.toSet().contains,
+      );
+      expect(
+        bound,
+        expected == null ? isEmpty : contains(expected),
+        reason: lesson.id,
+      );
+      if (expected != null) {
+        expect(bound, hasLength(1), reason: lesson.id);
+        final source = sourcesById[expected]!;
+        final claim = claims[expected] as Map;
+        expect(claim['lessonId'], lesson.id);
+        expect(claim['url'], source.url);
+        expect(claim['supports']['en'], source.supports!.en);
+        expect(claim['doesNotSupport']['tr'], source.doesNotSupport!.tr);
+        expect((claim['locator'] as String).isNotEmpty, isTrue);
+        expect(claim['modelTrainingRightsVerified'], false);
+        expect(claim['automaticFormVerdictSupported'], false);
+      }
+    }
+    expect(
+      sourcesById['mckenzie_standing_bar_dip_proposal']!.title,
+      contains('not trialled'),
+    );
+    expect(
+      sourcesById['mckenzie_standing_bar_dip_proposal']!.url,
+      'https://pmc.ncbi.nlm.nih.gov/articles/PMC9603242/',
+    );
+    expect(
+      sourcesById['torbay_nhs_heel_slide']!.title,
+      contains('postpartum leaflet'),
+    );
+    expect(
+      sourcesById['cleveland_step_supported_burpee']!.title,
+      contains('transcript'),
+    );
+    expect(
+      course.lessons.singleWhere((l) => l.id == 'cal-28').sourceIds,
+      isNot(contains('orange_beach_negative_pull_up')),
+    );
+  });
+  test('v8j articles keep their scope and Harvard is reused for the wall station', () {
+    const sourceByLesson = <String, String>{
+      'cal-09': 'strongfirst_wall_hinge',
+      'cal-15': 'harvard_wall_kneeling_pushups',
+      'cal-17': 'harvard_wall_kneeling_pushups',
+      'cal-32': 'harvard_forearm_plank_options',
+      'cal-40': 'harvard_wall_kneeling_pushups',
+    };
+    final sourcesById = <String, CalisthenicsSource>{
+      for (final source in course.sources) source.id: source,
+    };
+    final attribution =
+        jsonDecode(
+              File(
+                'tool/calisthenics_source_attribution.v2.json',
+              ).readAsStringSync(),
+            )
+            as Map;
+    final claims = attribution['sources'] as Map;
+    expect(course.version, '1.0.0');
+    expect(course.lessons, hasLength(56));
+    expect(claims.keys.toSet(), sourceByLesson.values.toSet());
+    expect(attribution['generatedMediaCount'], 0);
+    expect(attribution['acceptedExpertLabelCount'], 0);
+    expect(attribution['qualifiedModelCount'], 0);
+    for (final lesson in course.lessons) {
+      final expected = sourceByLesson[lesson.id];
+      final bound = lesson.sourceIds.where(
+        sourceByLesson.values.toSet().contains,
+      );
+      expect(
+        bound,
+        expected == null ? isEmpty : contains(expected),
+        reason: lesson.id,
+      );
+      if (expected != null) {
+        expect(bound, hasLength(1), reason: lesson.id);
+        final source = sourcesById[expected]!;
+        final claim = claims[expected] as Map;
+        expect(claim['url'], source.url);
+        expect(claim['supports']['en'], source.supports!.en);
+        expect(claim['doesNotSupport']['tr'], source.doesNotSupport!.tr);
+        expect(claim['modelTrainingRightsVerified'], false);
+        expect(claim['automaticFormVerdictSupported'], false);
+      }
+    }
+    expect(
+      (claims['harvard_wall_kneeling_pushups'] as Map)['lessonIds'],
+      <String>['cal-15', 'cal-17'],
+    );
+    expect(
+      course.lessons.singleWhere((l) => l.id == 'cal-35').sourceIds,
+      isNot(contains('ace_supine_hollowing_one_leg')),
+    );
+  });
   test(
     'validator rejects missing translation, invalid source and prerequisites',
     () {
       for (final change in <void Function(Map<String, dynamic>)>[
         (j) => j['modules'][0]['lessons'][0]['title']['tr'] = '',
         (j) => j['modules'][0]['lessons'][0]['sourceIds'] = ['unbound'],
+        (j) => (j['sources'].last as Map).remove('doesNotSupport'),
+        (j) => j['sources'].last['supports']['tr'] = '',
         (j) => j['modules'][0]['lessons'][1]['prerequisites'] = ['cal-56'],
         (j) => j['modules'][7]['lessons'][0]['practiceType'] = 'physical',
         (j) => j['catalogueGuides'][0]['lessonIds'] = ['missing-lesson'],
@@ -127,6 +337,25 @@ void main() {
       expect(await File('${store.file.path}.tmp').exists(), false);
     },
   );
+  test('physical learning completion needs two practice reports', () async {
+    final store = calisthenicsProgressStoreFor(support, a);
+    final lesson = course.lessons.singleWhere((item) => item.id == 'cal-04');
+    expect(lesson.learningOnly, isFalse);
+    await store.markPractised(course, lesson);
+    await expectLater(
+      store.markCompleted(course, lesson, selfChecksConfirmed: true),
+      throwsStateError,
+    );
+    await store.markPractised(course, lesson);
+    final progress = await store.markCompleted(
+      course,
+      lesson,
+      selfChecksConfirmed: true,
+    );
+    final record = progress.forLesson(lesson, course.version)!;
+    expect(record.practiceCount, 2);
+    expect(record.state, CalisthenicsLessonState.selfReportedComplete);
+  });
   test('guest and two accounts stay isolated', () async {
     final guest = calisthenicsProgressStoreFor(support, null);
     final one = calisthenicsProgressStoreFor(support, a);

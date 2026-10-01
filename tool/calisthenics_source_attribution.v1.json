@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-09-30",
+  "scope": "Five exact lesson teaching attributions. Source IDs do not validate a whole lesson, its dose, personal safety or camera feedback.",
+  "sourceResearchManifestSha256": "43fad359a41f456b6742d2bc2d54ce645943276afd1745da01146a11a9bac301",
+  "parentCourseSha256": "652291837debd1799ca6381586d6d8c2495b79e2581c9098d21129cb912c8bb4",
+  "courseSha256": "0e16300607be233d914bd8e1dce6106054dfd3a8c4f9fad98c63dd5a51f3f6fc",
+  "generatedMediaCount": 0,
+  "acceptedExpertLabelCount": 0,
+  "qualifiedModelCount": 0,
+  "sources": {
+    "psv_level_ground_calf_raise": {
+      "lessonId": "cal-14",
+      "url": "https://psvcare.org/services/ankle-stretches-and-exercises/",
+      "locator": "Calf Raises section",
+      "accessMode": "publisher_original_text_reviewed",
+      "supports": {
+        "en": "Rising on level ground, returning the heels in control, and avoiding outward ankle roll.",
+        "tr": "Düz zeminde yükselme, topukları kontrollü indirme ve ayak bileğinin dışa devrilmemesi."
+      },
+      "doesNotSupport": {
+        "en": "This lesson's sets, repetitions, safe rise height, or camera ankle judgment.",
+        "tr": "Bu dersin setini, tekrarını, güvenli yükselme miktarını veya kameranın ayak bileği hükmünü."
+      },
+      "rights": "Teaching text attribution only. Commercial source imagery/audio/video reuse and model-training rights not verified.",
+      "realPersonErrorLabel": false,
+      "modelTrainingRightsVerified": false,
+      "automaticFormVerdictSupported": false
+    },
+    "mckenzie_standing_bar_dip_proposal": {
+      "lessonId": "cal-21",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9603242/",
+      "locator": "McKenzie et al., IJERPH 2022, Discussion 4.2 and Figure 5; PMC lines 201-208",
+      "accessMode": "published_peer_reviewed_article_via_pmc_opened",
+      "supports": {
+        "en": "A proposed standing bar dip with feet on the floor so the legs can share load; this regression was not tested in the study.",
+        "tr": "Ayaklar yerdeyken bacakların yükü paylaşabildiği önerilen ayakta bar dip kolay yolu; bu varyant çalışmada test edilmedi."
+      },
+      "doesNotSupport": {
+        "en": "A tested tiny elbow bend, load split, shoulder-safety threshold, or automatic form verdict.",
+        "tr": "Test edilmiş küçük dirsek bükümünü, yük paylaşımını, omuz güvenliği eşiğini veya otomatik form kararını."
+      },
+      "rights": "Teaching text attribution only. Commercial source imagery/audio/video reuse and model-training rights not verified.",
+      "realPersonErrorLabel": false,
+      "modelTrainingRightsVerified": false,
+      "automaticFormVerdictSupported": false
+    },
+    "henderson_supported_scapular_pull": {
+      "lessonId": "cal-26",
+      "url": "https://zackhenderson.com/pull-up-power/",
+      "locator": "The “Scapular” Pull-up section",
+      "accessMode": "coach_original_text_reviewed",
+      "supports": {
+        "en": "A small scapular pull at a bar while feet stay on the floor or a step.",
+        "tr": "Ayaklar yerde veya basamaktayken barda küçük bir skapula çekişini."
+      },
+      "doesNotSupport": {
+        "en": "A measured 50/50 load target, grip-fatigue threshold, personal shoulder comfort, or camera judgment.",
+        "tr": "Ölçülmüş 50/50 yük hedefini, tutuş yorgunluğu eşiğini, kişisel omuz rahatlığını veya kamera kararını."
+      },
+      "rights": "Teaching text attribution only. Commercial source imagery/audio/video reuse and model-training rights not verified.",
+      "realPersonErrorLabel": false,
+      "modelTrainingRightsVerified": false,
+      "automaticFormVerdictSupported": false
+    },
+    "torbay_nhs_heel_slide": {
+      "lessonId": "cal-30",
+      "url": "https://www.torbayandsouthdevon.nhs.uk/uploads/25751.pdf",
+      "locator": "Exercise 3 - Heel Slides, original NHS Trust PDF page 3",
+      "accessMode": "original_nhs_pdf_opened",
+      "supports": {
+        "en": "A heel slide beginning with feet flat and returning before the low back arches, in a postpartum leaflet.",
+        "tr": "Doğum sonrası broşürde ayaklar yerde başlayıp bel kavsi artmadan geri dönen topuk kaydırmayı."
+      },
+      "doesNotSupport": {
+        "en": "This general course's dose, postpartum treatment for every learner, or RGB camera assessment of lumbar position.",
+        "tr": "Bu genel kursun dozunu, herkese doğum sonrası tedaviyi veya RGB kamerayla bel konumu değerlendirmesini."
+      },
+      "rights": "Teaching text attribution only. Commercial source imagery/audio/video reuse and model-training rights not verified.",
+      "realPersonErrorLabel": false,
+      "modelTrainingRightsVerified": false,
+      "automaticFormVerdictSupported": false
+    },
+    "cleveland_step_supported_burpee": {
+      "lessonId": "cal-39",
+      "url": "https://my.clevelandclinic.org/podcasts/health-essentials/what-qualifies-as-low-impact-cardio",
+      "locator": "Katie Lawton modified-burpee question and answer in original transcript",
+      "accessMode": "publisher_original_transcript_reviewed",
+      "supports": {
+        "en": "Hands on a support, feet stepping back and forward, then standing without a jump.",
+        "tr": "Eller destekteyken ayaklarla geriye ve öne adımlayıp sıçramadan ayağa kalkmayı."
+      },
+      "doesNotSupport": {
+        "en": "Bench stability or rating, this lesson's pause or sets, personal safety, or an automatic form verdict.",
+        "tr": "Bankın sağlamlığını veya taşıma sınırını, bu dersin duraklamasını veya setini, kişisel güvenliği veya otomatik form kararını."
+      },
+      "rights": "Teaching text attribution only. Commercial source imagery/audio/video reuse and model-training rights not verified.",
+      "realPersonErrorLabel": false,
+      "modelTrainingRightsVerified": false,
+      "automaticFormVerdictSupported": false
+    }
+  }
+}

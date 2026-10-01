@@ -100,6 +100,72 @@ void main() {
       expect(content.catalogue.movements.where((m) => !m.isLive).length, 29);
     },
   );
+  testWidgets('dip source displays the proposed-only claim and its limit', (
+    tester,
+  ) async {
+    size(tester);
+    final course = content.calisthenicsCourse;
+    final lesson = course.lessons.singleWhere((item) => item.id == 'cal-21');
+    await tester.pumpWidget(
+      host(
+        CalisthenicsLessonScreen(
+          course: course,
+          lesson: lesson,
+          storeLoader: (id) async => calisthenicsProgressStoreFor(temp, id),
+        ),
+      ),
+    );
+    await to(
+      tester,
+      const Key('calisthenics.sourceScope.mckenzie_standing_bar_dip_proposal'),
+    );
+    expect(
+      find.textContaining('bu varyant çalışmada test edilmedi'),
+      findsOneWidget,
+    );
+    expect(
+      find.byKey(
+        const Key(
+          'calisthenics.sourceLimit.mckenzie_standing_bar_dip_proposal',
+        ),
+      ),
+      findsOneWidget,
+    );
+    expect(find.textContaining('omuz güvenliği eşiğini'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+  testWidgets('shared Harvard article shows limits in both push-up lessons', (
+    tester,
+  ) async {
+    size(tester);
+    final course = content.calisthenicsCourse;
+    for (final id in <String>['cal-15', 'cal-17']) {
+      final lesson = course.lessons.singleWhere((item) => item.id == id);
+      await tester.pumpWidget(
+        host(
+          CalisthenicsLessonScreen(
+            course: course,
+            lesson: lesson,
+            storeLoader: (account) async =>
+                calisthenicsProgressStoreFor(temp, account),
+          ),
+        ),
+      );
+      await to(
+        tester,
+        const Key('calisthenics.sourceScope.harvard_wall_kneeling_pushups'),
+      );
+      expect(
+        find.byKey(
+          const Key('calisthenics.sourceLimit.harvard_wall_kneeling_pushups'),
+        ),
+        findsOneWidget,
+      );
+      expect(find.textContaining('kalça-önce hata tespitini'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+      await tester.pumpWidget(const SizedBox.shrink());
+    }
+  });
   testWidgets('real lesson task/save/pop/reopen reads completed progress', (
     tester,
   ) async {
@@ -184,6 +250,11 @@ void main() {
           .widget<Text>(find.byKey(const Key('calisthenics.state')))
           .data!
           .startsWith('Öğrenme tamamlandı'),
+      maxRounds: 40,
+    );
+    expect(
+      tester.widget<Text>(find.byKey(const Key('calisthenics.state'))).data,
+      startsWith('Öğrenme tamamlandı'),
     );
     final persisted = await realIo(
       tester,
@@ -273,7 +344,9 @@ void main() {
       await settleUntil(
         tester,
         () => find.text('Görev bildirimleri: 1').evaluate().isNotEmpty,
+        maxRounds: 40,
       );
+      expect(find.text('Görev bildirimleri: 1'), findsOneWidget);
       final persisted = await realIo(
         tester,
         () => calisthenicsProgressStoreFor(temp, null).load(),
@@ -282,6 +355,135 @@ void main() {
       expect(tester.takeException(), isNull);
     },
   );
+  testWidgets('physical completion needs practice on two screen visits', (
+    tester,
+  ) async {
+    size(tester);
+    final course = content.calisthenicsCourse;
+    final lesson = course.lessons.singleWhere((item) => item.id == 'cal-04');
+    Future<CalisthenicsProgressStore> loader(String? id) async =>
+        calisthenicsProgressStoreFor(temp, id);
+    Widget screen() => host(
+      CalisthenicsLessonScreen(
+        course: course,
+        lesson: lesson,
+        storeLoader: loader,
+      ),
+    );
+
+    await tester.pumpWidget(screen());
+    await to(tester, const Key('calisthenics.practised'));
+    await settleUntil(
+      tester,
+      () =>
+          tester
+              .widget<OutlinedButton>(
+                find.byKey(const Key('calisthenics.practised')),
+              )
+              .onPressed !=
+          null,
+      maxRounds: 40,
+    );
+    expect(
+      tester
+          .widget<OutlinedButton>(
+            find.byKey(const Key('calisthenics.practised')),
+          )
+          .onPressed,
+      isNotNull,
+    );
+    await tester.tap(find.byKey(const Key('calisthenics.practised')));
+    await settleUntil(
+      tester,
+      () => find.text('Görev bildirimleri: 1').evaluate().isNotEmpty,
+      maxRounds: 40,
+    );
+    expect(find.text('Görev bildirimleri: 1'), findsOneWidget);
+    expect(
+      tester
+          .widget<OutlinedButton>(
+            find.byKey(const Key('calisthenics.practised')),
+          )
+          .onPressed,
+      isNull,
+    );
+    await to(tester, const Key('calisthenics.complete'));
+    expect(
+      tester
+          .widget<FilledButton>(find.byKey(const Key('calisthenics.complete')))
+          .onPressed,
+      isNull,
+    );
+
+    await tester.pumpWidget(const SizedBox.shrink());
+    await tester.pump();
+    await tester.pumpWidget(screen());
+    await to(tester, const Key('calisthenics.practised'));
+    await settleUntil(
+      tester,
+      () =>
+          tester
+              .widget<OutlinedButton>(
+                find.byKey(const Key('calisthenics.practised')),
+              )
+              .onPressed !=
+          null,
+      maxRounds: 40,
+    );
+    expect(
+      tester
+          .widget<OutlinedButton>(
+            find.byKey(const Key('calisthenics.practised')),
+          )
+          .onPressed,
+      isNotNull,
+    );
+    await tester.tap(find.byKey(const Key('calisthenics.practised')));
+    await settleUntil(
+      tester,
+      () => find.text('Görev bildirimleri: 2').evaluate().isNotEmpty,
+      maxRounds: 40,
+    );
+    expect(find.text('Görev bildirimleri: 2'), findsOneWidget);
+    await to(tester, const Key('calisthenics.confirm'));
+    await tester.tap(
+      find.descendant(
+        of: find.byKey(const Key('calisthenics.confirm')),
+        matching: find.byType(Checkbox),
+      ),
+    );
+    await tester.pump(const Duration(milliseconds: 150));
+    expect(
+      tester
+          .widget<CheckboxListTile>(
+            find.byKey(const Key('calisthenics.confirm')),
+          )
+          .value,
+      isTrue,
+    );
+    await to(tester, const Key('calisthenics.complete'));
+    expect(
+      tester
+          .widget<FilledButton>(find.byKey(const Key('calisthenics.complete')))
+          .onPressed,
+      isNotNull,
+    );
+    await tester.tap(find.byKey(const Key('calisthenics.complete')));
+    await to(tester, const Key('calisthenics.state'), delta: -200);
+    await settleUntil(
+      tester,
+      () => tester
+          .widget<Text>(find.byKey(const Key('calisthenics.state')))
+          .data!
+          .startsWith('Öğrenme tamamlandı'),
+      maxRounds: 40,
+    );
+    expect(
+      tester.widget<Text>(find.byKey(const Key('calisthenics.state'))).data,
+      startsWith('Öğrenme tamamlandı'),
+    );
+  });
+
   testWidgets('preparation expires on a new day and app background', (
     tester,
   ) async {

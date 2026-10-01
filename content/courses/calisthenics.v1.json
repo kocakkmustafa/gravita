@@ -85,6 +85,208 @@
       "id": "nsca_progression_pdf",
       "title": "NSCA official full progression article",
       "url": "https://www.nsca.com/contentassets/3d09f06f0b4c4f6fbd8cc382ed1f3d4a/ptq-10.2.1-progressive-strategies-for-teaching-fundamental-resistance-training-movement-patterns.pdf"
+    },
+    {
+      "id": "nhs_warmup",
+      "title": "NHS: How to warm up before exercising",
+      "url": "https://www.nhs.uk/live-well/exercise/how-to-warm-up-before-exercising/"
+    },
+    {
+      "id": "ace_trx_angle",
+      "title": "ACE Certified: TRX body-angle progression",
+      "url": "https://www.acefitness.org/continuing-education/certified/september-2024/8708/train-like-an-olympian-two-trx-muscular-training-workouts/"
+    },
+    {
+      "id": "trx_low_row",
+      "title": "TRX Training: Low row setup",
+      "url": "https://www.trxtraining.com/blogs/news/four-trx-moves-to-improve-your-rowing-performance"
+    },
+    {
+      "id": "ace_wrist_shoulder_options",
+      "title": "ACE: unloaded wrist movement; standing march and walk separately",
+      "url": "https://www.acefitness.org/resources/pros/expert-articles/6051/summer-exercise-choices-for-individuals-with-arthritis/",
+      "supports": {
+        "en": "In an arthritis-oriented article, unloaded wrist directions and standing marching and walking are separate movement options.",
+        "tr": "Artrit bağlamındaki yazıda yüksüz bilek yönleri ile ayakta adımlama ve yürüyüş ayrı hareket seçenekleridir."
+      },
+      "doesNotSupport": {
+        "en": "A full wrist circle, the historical shoulder_reach target, seated marching, the lesson's dose, fatigue threshold or personal safety.",
+        "tr": "Tam bilek dairesini, tarihsel shoulder_reach hedefini, oturarak adımlamayı, ders dozunu, yorgunluk eşiğini veya kişisel güvenliği."
+      }
+    },
+    {
+      "id": "nhs_seated_leg_march",
+      "title": "Kingston and Richmond NHS: seated alternating leg march",
+      "url": "https://www.kingstonandrichmond.nhs.uk/patients-and-families/patient-leaflets/home-exercise-programme-falls-prevention",
+      "supports": {
+        "en": "Seated alternating foot lifts and returns to the floor in a referred falls-prevention programme.",
+        "tr": "Sevkli düşme önleme programında ayakların oturarak sırayla kaldırılıp yere indirilmesini."
+      },
+      "doesNotSupport": {
+        "en": "Walking as the same movement, the historical shoulder_reach target, the lesson's dose or general clinical clearance.",
+        "tr": "Yürüyüşü aynı hareket saymayı, tarihsel shoulder_reach hedefini, ders dozunu veya genel klinik uygunluk onayını."
+      }
+    },
+    {
+      "id": "tjc_fixed_bar_row",
+      "title": "TJC Performance: Fixed-bar bent-knee to straight-leg inverted row",
+      "url": "https://tjcperformance.com/program-design/inverted-rows-definitive-guide/"
+    },
+    {
+      "id": "barbend_fixed_bar_row",
+      "title": "BarBend: Fixed-bar bent-knee inverted row",
+      "url": "https://barbend.com/inverted-row-guide/",
+      "supports": {
+        "en": "At a fixed bar, bent knees and planted feet are an easier inverted-row branch than a straighter-leg lever.",
+        "tr": "Sabit barda bükülü diz ve basılı ayakların daha düz bacaklı kola göre kolay bir ters row dalı olmasını."
+      },
+      "doesNotSupport": {
+        "en": "Suspension anchor foot direction, inspection of this bar, the lesson's repetitions or rest, personal load or camera form judgment.",
+        "tr": "Askı bağlantısına göre ayak yönünü, bu barın kontrolünü, dersin tekrarını veya molasını, kişisel yükü ya da kamera form kararını."
+      }
+    },
+    {
+      "id": "psv_level_ground_calf_raise",
+      "title": "Pediatric Specialists of Virginia: level-ground calf raise",
+      "url": "https://psvcare.org/services/ankle-stretches-and-exercises/",
+      "supports": {
+        "en": "Rising on level ground, returning the heels in control, and avoiding outward ankle roll.",
+        "tr": "Düz zeminde yükselme, topukları kontrollü indirme ve ayak bileğinin dışa devrilmemesi."
+      },
+      "doesNotSupport": {
+        "en": "This lesson's sets, repetitions, safe rise height, or camera ankle judgment.",
+        "tr": "Bu dersin setini, tekrarını, güvenli yükselme miktarını veya kameranın ayak bileği hükmünü."
+      }
+    },
+    {
+      "id": "mckenzie_standing_bar_dip_proposal",
+      "title": "McKenzie et al. 2022: standing bar dip regression proposal (not trialled)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9603242/",
+      "supports": {
+        "en": "A proposed standing bar dip with feet on the floor so the legs can share load; this regression was not tested in the study.",
+        "tr": "Ayaklar yerdeyken bacakların yükü paylaşabildiği önerilen ayakta bar dip kolay yolu; bu varyant çalışmada test edilmedi."
+      },
+      "doesNotSupport": {
+        "en": "A tested tiny elbow bend, load split, shoulder-safety threshold, or automatic form verdict.",
+        "tr": "Test edilmiş küçük dirsek bükümünü, yük paylaşımını, omuz güvenliği eşiğini veya otomatik form kararını."
+      }
+    },
+    {
+      "id": "henderson_supported_scapular_pull",
+      "title": "Zack Henderson: feet-supported scapular pull-up",
+      "url": "https://zackhenderson.com/pull-up-power/",
+      "supports": {
+        "en": "A small scapular pull at a bar while feet stay on the floor or a step.",
+        "tr": "Ayaklar yerde veya basamaktayken barda küçük bir skapula çekişini."
+      },
+      "doesNotSupport": {
+        "en": "A measured 50/50 load target, grip-fatigue threshold, personal shoulder comfort, or camera judgment.",
+        "tr": "Ölçülmüş 50/50 yük hedefini, tutuş yorgunluğu eşiğini, kişisel omuz rahatlığını veya kamera kararını."
+      }
+    },
+    {
+      "id": "torbay_nhs_heel_slide",
+      "title": "Torbay NHS: heel slide and return cue (postpartum leaflet)",
+      "url": "https://www.torbayandsouthdevon.nhs.uk/uploads/25751.pdf",
+      "supports": {
+        "en": "A heel slide beginning with feet flat and returning before the low back arches, in a postpartum leaflet.",
+        "tr": "Doğum sonrası broşürde ayaklar yerde başlayıp bel kavsi artmadan geri dönen topuk kaydırmayı."
+      },
+      "doesNotSupport": {
+        "en": "This general course's dose, postpartum treatment for every learner, or RGB camera assessment of lumbar position.",
+        "tr": "Bu genel kursun dozunu, herkese doğum sonrası tedaviyi veya RGB kamerayla bel konumu değerlendirmesini."
+      }
+    },
+    {
+      "id": "cleveland_step_supported_burpee",
+      "title": "Cleveland Clinic: supported step-back modified burpee transcript",
+      "url": "https://my.clevelandclinic.org/podcasts/health-essentials/what-qualifies-as-low-impact-cardio",
+      "supports": {
+        "en": "Hands on a support, feet stepping back and forward, then standing without a jump.",
+        "tr": "Eller destekteyken ayaklarla geriye ve öne adımlayıp sıçramadan ayağa kalkmayı."
+      },
+      "doesNotSupport": {
+        "en": "Bench stability or rating, this lesson's pause or sets, personal safety, or an automatic form verdict.",
+        "tr": "Bankın sağlamlığını veya taşıma sınırını, bu dersin duraklamasını veya setini, kişisel güvenliği veya otomatik form kararını."
+      }
+    },
+    {
+      "id": "strongfirst_wall_hinge",
+      "title": "StrongFirst: wall hip hinge",
+      "url": "https://www.strongfirst.com/enter-the-barbell-deadlift/",
+      "supports": {
+        "en": "Hip movement backward to a gentle wall tap, followed by returning upright.",
+        "tr": "Kalçayı hafifçe duvara değene kadar geriye götürüp yeniden dikleşmeyi."
+      },
+      "doesNotSupport": {
+        "en": "A prescribed wall distance, rep dose, lumbar angle, safety threshold or camera form verdict.",
+        "tr": "Sabit duvar mesafesini, tekrar dozunu, bel açısını, güvenlik eşiğini veya kamera form hükmünü."
+      }
+    },
+    {
+      "id": "harvard_wall_kneeling_pushups",
+      "title": "Harvard Health: wall and kneeling push-up variants",
+      "url": "https://www.health.harvard.edu/exercise-and-fitness/modify-your-push-ups-to-meet-your-fitness-level",
+      "supports": {
+        "en": "Separate wall and knee-supported push-up options, with controlled lower-and-press action.",
+        "tr": "Ayrı duvar ve diz destekli şınav seçeneklerini, kontrollü alçalma ve itmeyi."
+      },
+      "doesNotSupport": {
+        "en": "A universal elbow angle, the lessons’ sets or rest, hip-first error detection or personal wrist safety.",
+        "tr": "Evrensel dirsek açısını, derslerin setini veya dinlenmesini, kalça-önce hata tespitini ya da kişisel bilek güvenliğini."
+      }
+    },
+    {
+      "id": "harvard_forearm_plank_options",
+      "title": "Harvard Health: forearm plank knee and toe options",
+      "url": "https://www.health.harvard.edu/healthy-aging-and-longevity/try-this-move-for-better-core-strength",
+      "supports": {
+        "en": "Separate forearm-plank options with knee or toe support.",
+        "tr": "Diz veya ayak parmağı desteğiyle ayrı önkol plank seçeneklerini."
+      },
+      "doesNotSupport": {
+        "en": "The lesson’s timed hold or rest, a required knee-down exit, breathing inference or camera safety judgment.",
+        "tr": "Dersin tutuş veya dinlenme süresini, zorunlu dizle çıkışı, nefes çıkarımını veya kamerayla güvenlik kararını."
+      }
+    },
+    {
+      "id": "trx_anchor_low_row",
+      "title": "TRX: anchored suspension low row adjustment",
+      "url": "https://www.trxtraining.com/blogs/news/lower-lat-exercises",
+      "supports": {
+        "en": "In an anchored suspension low row, walking planted feet toward the anchor increases demand; return is controlled.",
+        "tr": "Bağlı askı low rowunda basılı ayaklarla bağlantıya yaklaşmak yükü artırır; dönüş kontrollüdür."
+      },
+      "doesNotSupport": {
+        "en": "Fixed-bar foot direction, anchor certification, the lesson's two-plus-two dose or 120-second rest, personal load or camera verdict.",
+        "tr": "Sabit bar ayak yönünü, bağlantı onayını, dersin ikişer tekrarını veya 120 saniye molasını, kişisel yükü ya da kamera kararını."
+      }
+    },
+    {
+      "id": "hybrid_assisted_bar_hang",
+      "title": "Hybrid Calisthenics: foot-assisted bar hang",
+      "url": "https://www.hybridcalisthenics.com/assistedbarhangs",
+      "supports": {
+        "en": "Feet on a box or ground can offload an assisted bar hang, with a controlled return.",
+        "tr": "Basamak veya zemindeki ayakların destekli bar asılmasında yükü azaltmasını ve kontrollü dönüşü."
+      },
+      "doesNotSupport": {
+        "en": "Both feet staying in contact, the step or bar's reliability, a five-second hold, shoulder tolerance or grip-fatigue threshold.",
+        "tr": "İki ayağın sürekli temasını, basamak veya barın sağlamlığını, beş saniye tutuşu, omuz toleransını ya da tutuş yorgunluğu eşiğini."
+      }
+    },
+    {
+      "id": "worcs_nhs_wall_four_point_wrist",
+      "title": "Worcestershire NHS: wall and four-point wrist supports in fracture rehabilitation",
+      "url": "https://www.worcsacute.nhs.uk/leaflets/wrist-fracture/",
+      "supports": {
+        "en": "In a wrist-fracture rehabilitation leaflet, wall press-up and four-point kneeling are distinct hand-support positions.",
+        "tr": "Bilek kırığı rehabilitasyon broşüründe duvar itişi ve dört nokta diz-el desteğinin ayrı el destekleri olmasını."
+      },
+      "doesNotSupport": {
+        "en": "A universal progression or wrist angle, the lesson's lean or dose, personal pain threshold, clinical clearance or camera judgment.",
+        "tr": "Evrensel ilerleme veya bilek açısını, dersin yaslanmasını veya dozunu, kişisel ağrı eşiğini, klinik uygunluğu ya da kamera kararını."
+      }
     }
   ],
   "modules": [
@@ -331,13 +533,13 @@
               "tr": "Omuz ve bileği rahat aralıkta nazikçe hareket ettir; bileğe duvarda hafif yük ver."
             },
             {
-              "en": "Keep this warm-up to familiar gentle movements; later add taught regressions, leaving energy for learning.",
-              "tr": "Bu ısınmayı tanıdık nazik hareketlerle sınırla; sonra öğretilen kolay yolları ekle ve öğrenmeye enerji bırak."
+              "en": "Treat this as a short, gentle first rehearsal. Before later strength sessions, prepare gradually for that day’s taught tasks; this example duration is not a complete warm-up for everyone.",
+              "tr": "Bunu kısa ve hafif bir ilk prova say. Sonraki kuvvet seanslarından önce o günün öğretilmiş görevlerine kademeli hazırlan; bu örnek süre herkes için tam ısınma değildir."
             }
           ],
           "practice": {
-            "en": "Choose 2–4 minutes of familiar easy walking or seated marching; then 4 small comfortable shoulder circles each way and 4 unloaded wrist movements.\n\nCommon mistake: Preparation is pushed until the wrists or shoulders are tired. Correction: Prepare each support without tiring it.\n\nCompare easy walking with seated marching at a comfortable pace.",
-            "tr": "2–4 dakika tanıdık rahat yürüyüş veya oturarak adımlama seç; ardından iki yönde 4 küçük rahat omuz dairesi ve yüksüz 4 bilek hareketi yap.\n\nSık hata: Hazırlık el bileği veya omuz yorulana kadar zorlanır. Düzeltme: Her destek bölgesini yormadan hazırla.\n\nRahat hızda kolay yürüyüş ile oturarak adımlamayı karşılaştır."
+            "en": "Choose 2–4 minutes of familiar easy walking or seated marching; then 4 small comfortable shoulder circles each way and 4 unloaded wrist movements. This is a short first rehearsal, not the complete warm-up for every later strength session.\n\nCommon mistake: Preparation is pushed until the wrists or shoulders are tired. Correction: Prepare each support without tiring it.\n\nCompare easy walking with seated marching at a comfortable pace.",
+            "tr": "2–4 dakika tanıdık rahat yürüyüş veya oturarak adımlama seç; ardından iki yönde 4 küçük rahat omuz dairesi ve yüksüz 4 bilek hareketi yap. Bu kısa ilk prova, sonraki her kuvvet seansının tam ısınması değildir.\n\nSık hata: Hazırlık el bileği veya omuz yorulana kadar zorlanır. Düzeltme: Her destek bölgesini yormadan hazırla.\n\nRahat hızda kolay yürüyüş ile oturarak adımlamayı karşılaştır."
           },
           "selfCheck": [
             {
@@ -370,7 +572,10 @@
             "who",
             "nhs_strength",
             "nsca_progression",
-            "nsca_progression_pdf"
+            "nsca_progression_pdf",
+            "nhs_warmup",
+            "ace_wrist_shoulder_options",
+            "nhs_seated_leg_march"
           ],
           "prerequisites": [
             "cal-03"
@@ -379,8 +584,8 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Wide seated march, small shoulder circles and unloaded wrist close-up; no squat, pressing or forced stretching yet.",
-            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Geniş oturarak adım, küçük omuz daireleri ve yüksüz bilek yakın plan; henüz squat, itiş veya zorlanan esneme yok."
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Seated march, small shoulder circles and unloaded wrists as a short first rehearsal. Explain that later strength sessions need gradual task-matched preparation; do not present 2–4 minutes as universally sufficient.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Kısa ilk prova olarak oturarak adım, küçük omuz daireleri ve yüksüz bilekler. Sonraki kuvvet seanslarının göreve uygun kademeli hazırlık gerektirdiğini açıkla; 2–4 dakikayı herkes için yeterli gösterme."
           }
         },
         {
@@ -739,7 +944,8 @@
             "acsm2026",
             "ace",
             "nsca_progression",
-            "nsca_progression_pdf"
+            "nsca_progression_pdf",
+            "strongfirst_wall_hinge"
           ],
           "prerequisites": [
             "cal-08"
@@ -1100,7 +1306,8 @@
             "acsm2026",
             "ace",
             "nsca_progression",
-            "nsca_progression_pdf"
+            "nsca_progression_pdf",
+            "psv_level_ground_calf_raise"
           ],
           "prerequisites": [
             "cal-13"
@@ -1180,7 +1387,8 @@
             "nasm_push",
             "acsm2026",
             "nsca_progression",
-            "nsca_progression_pdf"
+            "nsca_progression_pdf",
+            "harvard_wall_kneeling_pushups"
           ],
           "prerequisites": [
             "cal-14"
@@ -1322,7 +1530,8 @@
             "nasm_push",
             "acsm2026",
             "nsca_progression",
-            "nsca_progression_pdf"
+            "nsca_progression_pdf",
+            "harvard_wall_kneeling_pushups"
           ],
           "prerequisites": [
             "cal-16"
@@ -1607,7 +1816,8 @@
             "acsm2026",
             "ace",
             "nsca_progression",
-            "nsca_progression_pdf"
+            "nsca_progression_pdf",
+            "mckenzie_standing_bar_dip_proposal"
           ],
           "prerequisites": [
             "cal-20"
@@ -1787,8 +1997,8 @@
               "tr": "Önce dengeli nefes ve hemen ayak çıkışıyla diz bükülü rowu yinele."
             },
             {
-              "en": "Move the feet a small amount farther out or make the body less upright, not both at once.",
-              "tr": "Ayakları biraz uzaklaştır veya bedeni daha yatay yap; ikisini aynı anda değil."
+              "en": "Use only the checked setup you practised: at a low bar, keep both feet planted and make the knees slightly straighter than in the bent-knee version; in suspension, face the checked anchor and step both planted feet slightly toward it for a modestly less upright lean, only while an immediate standing exit remains possible. Change one variable at a time.",
+              "tr": "Yalnız çalıştığın kontrol edilmiş düzeneği kullan: alçak barda iki ayak basılıyken dizleri bükülü biçime göre biraz daha düzleştir; askıda kontrol edilmiş bağlantıya dönüp iki ayağını yere basarak ona doğru küçük bir adım at ve yalnız ayakla hemen dikleşip çıkabiliyorsan gövdeyi azıcık daha yatır. Tek seferde bir değişken değiştir."
             },
             {
               "en": "Keep the same chest-to-handle path and controlled return; a hard lever is optional.",
@@ -1796,8 +2006,8 @@
             }
           ],
           "practice": {
-            "en": "Compare 3 repetitions at the familiar lever with 2 at the slightly harder lever, resting 120 seconds; stay easier if control changes.\n\nCommon mistake: Lever and repetitions are increased at the same time. Correction: Lengthen the lever a little; keep the return controlled.\n\nCompare bent-knee and slightly longer-lever rows with the same rated anchor.",
-            "tr": "Tanıdık kolda 3 tekrar ile biraz zor kolda 2 tekrarı 120 saniye dinlenerek karşılaştır; kontrol değişirse kolayda kal.\n\nSık hata: Kol ve tekrar sayısı aynı anda artırılır. Düzeltme: Kolu biraz uzat; geri dönüşü kontrollü tut.\n\nAynı onaylı bağlantıda diz bükülü ve biraz daha uzun kollu row biçimlerini karşılaştır."
+            "en": "On the same checked low bar or suspension setup, compare 2 controlled repetitions at the familiar option with 2 at a slightly harder option, resting 120 seconds; stay easier if the controlled return or immediate foot exit changes.\n\nCommon mistake: A low bar and suspension trainer are treated as if one foot-direction cue works for both, or repetitions rise with lever demand. Correction: Keep the chosen setup and change only its small knee-support or lean adjustment; maintain control and a foot exit.\n\nCompare two modest options using the same checked setup; do not switch equipment during the comparison.",
+            "tr": "Aynı kontrol edilmiş alçak bar veya askı düzeneğinde tanıdık biçimde 2 kontrollü tekrarla biraz zor biçimde 2 tekrarı 120 saniye dinlenerek karşılaştır; kontrollü dönüş veya ayakla hemen çıkış değişirse kolayda kal.\n\nSık hata: Alçak bar ve askı için tek bir ayak yönü buyruğu kullanılır veya kol zorlaşırken tekrar artırılır. Düzeltme: Seçilen düzeneği koru, yalnız küçük diz desteği ya da yatış ayarını değiştir; kontrolü ve ayak çıkışını sürdür.\n\nEkipmanı değiştirmeden aynı kontrol edilmiş düzende iki küçük seçeneği karşılaştır."
           },
           "selfCheck": [
             {
@@ -1809,12 +2019,12 @@
               "tr": "Dönüş çekiş kadar kontrollü kalıyor."
             },
             {
-              "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Lengthen the lever a little; keep the return controlled.",
-              "tr": "İki ayrı rahat çalışmada, seçtiğin biçimde şu odağı koruyabildin mi? Kolu biraz uzat; geri dönüşü kontrollü tut."
+              "en": "On two separate comfortable practices, did I keep the same checked setup, change only one small support or lean variable, and retain an immediate foot exit?",
+              "tr": "İki ayrı rahat çalışmada aynı kontrol edilmiş düzende kalıp yalnız tek küçük destek veya yatış değişkenini değiştirdim ve ayakla hemen çıkabildim mi?"
             },
             {
-              "en": "Next practice, try this without checking the instructions: Lengthen the lever a little; keep the return controlled. Then review what you missed.",
-              "tr": "Sonraki çalışmada yönergeye bakmadan dene: Kolu biraz uzat; geri dönüşü kontrollü tut. Ardından eksiklerini kontrol et."
+              "en": "Next practice, explain the chosen low-bar or suspension adjustment without the page, then check that return and foot exit remain controlled.",
+              "tr": "Sonraki çalışmada seçtiğin alçak bar veya askı ayarını sayfaya bakmadan anlat; sonra dönüşün ve ayak çıkışının kontrollü kaldığını denetle."
             }
           ],
           "adaptation": {
@@ -1829,7 +2039,12 @@
             "nasm_pull",
             "acsm2026",
             "nsca_progression",
-            "nsca_progression_pdf"
+            "nsca_progression_pdf",
+            "ace_trx_angle",
+            "trx_low_row",
+            "tjc_fixed_bar_row",
+            "barbend_fixed_bar_row",
+            "trx_anchor_low_row"
           ],
           "prerequisites": [
             "cal-23"
@@ -1838,8 +2053,8 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Matched side shots of two modest lever lengths with same rated anchor; no maximum horizontal challenge.",
-            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Aynı uygun bağlantıda iki küçük kol farkının eş yandan planları; en zor yatay meydan okuma yok."
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Two distinct setups, not a universal foot direction: low bar with planted feet and a small bent-to-straighter-knee change; suspension facing the anchor with a small foot step toward it and a modest lean. Show grip, feet, controlled return and standing exit. AI footage does not certify any real mount or load rating.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Evrensel ayak yönü değil iki ayrı düzen: alçak barda ayaklar basılıyken bükülü dizden az daha düz dize geçiş; askıda bağlantıya dönükken ona doğru küçük ayak adımı ve az yatış. Tutuşu, ayakları, kontrollü dönüşü ve dik çıkışı göster. AI görüntüsü gerçek montajı veya yük sınırını onaylamaz."
           }
         },
         {
@@ -1900,7 +2115,8 @@
             "nasm_pull",
             "acsm2026",
             "nsca_progression",
-            "nsca_progression_pdf"
+            "nsca_progression_pdf",
+            "hybrid_assisted_bar_hang"
           ],
           "prerequisites": [
             "cal-24"
@@ -1971,7 +2187,8 @@
             "nasm_pull",
             "acsm2026",
             "nsca_progression",
-            "nsca_progression_pdf"
+            "nsca_progression_pdf",
+            "henderson_supported_scapular_pull"
           ],
           "prerequisites": [
             "cal-25"
@@ -2267,7 +2484,8 @@
             "nasm_dead",
             "nhs_pregnancy",
             "nsca_progression",
-            "nsca_progression_pdf"
+            "nsca_progression_pdf",
+            "torbay_nhs_heel_slide"
           ],
           "prerequisites": [
             "cal-29"
@@ -2409,7 +2627,8 @@
             "acsm2026",
             "nasm_plank",
             "nsca_progression",
-            "nsca_progression_pdf"
+            "nsca_progression_pdf",
+            "harvard_forearm_plank_options"
           ],
           "prerequisites": [
             "cal-31"
@@ -2919,7 +3138,8 @@
             "who",
             "acsm2026",
             "nsca_progression",
-            "nsca_progression_pdf"
+            "nsca_progression_pdf",
+            "cleveland_step_supported_burpee"
           ],
           "prerequisites": [
             "cal-38"
@@ -2990,7 +3210,8 @@
             "who",
             "acsm2026",
             "nsca_progression",
-            "nsca_progression_pdf"
+            "nsca_progression_pdf",
+            "harvard_wall_kneeling_pushups"
           ],
           "prerequisites": [
             "cal-39"
@@ -3070,7 +3291,8 @@
             "acsm2026",
             "nasm_push",
             "nsca_progression",
-            "nsca_progression_pdf"
+            "nsca_progression_pdf",
+            "worcs_nhs_wall_four_point_wrist"
           ],
           "prerequisites": [
             "cal-40"
@@ -3161,8 +3383,8 @@
             "tr": "Zeminde pike hazırlığı"
           },
           "objective": {
-          "en": "Recognize an overhead pressing direction while feet remain grounded; this is preparation, not a resisted vertical press.",
-          "tr": "Ayaklar yerdeyken baş üstü itiş yönünü tanı; bu, dirençli dikey itiş değil hazırlıktır."
+            "en": "Recognize an overhead pressing direction while feet remain grounded; this is preparation, not a resisted vertical press.",
+            "tr": "Ayaklar yerdeyken baş üstü itiş yönünü tanı; bu, dirençli dikey itiş değil hazırlıktır."
           },
           "steps": [
             {
@@ -3223,8 +3445,8 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-          "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side hands-knees entry, toe placement, tiny bent-knee hip rise and knees-down exit; head never contacts floor. Wall press alternative.",
-          "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan eller-dizlerde giriş, parmak yerleşimi, küçük diz bükülü kalça yükselişi ve dizle çıkış; baş zemine değmez. Duvar itişi alternatifi."
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Side hands-knees entry, toe placement, tiny bent-knee hip rise and knees-down exit; head never contacts floor. Wall press alternative.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Yandan eller-dizlerde giriş, parmak yerleşimi, küçük diz bükülü kalça yükselişi ve dizle çıkış; baş zemine değmez. Duvar itişi alternatifi."
           }
         },
         {
@@ -3768,8 +3990,8 @@
               "tr": "Genel yetişkin önerisi temel kas gruplarına haftada en az iki gün kuvvet çalışması içerir; bireysel ihtiyaç farklı olabilir."
             },
             {
-            "en": "Plan the taught squat or sit-to-stand and wall hip hinge as distinct lower-body tasks across the week when appropriate; they need not share one session. Add taught horizontal push, reliable pull, trunk and light aerobic options; do not force pulling without equipment.",
-            "tr": "Uygunsa öğretilen squat veya otur-kalk ile duvar kalça menteşesini hafta içinde ayrı alt beden görevleri olarak planla; aynı seansta olmaları gerekmez. Öğretilen yatay itiş, güvenilir çekiş, gövde ve hafif aerobik seçenekleri ekle; ekipmansız çekişi zorlama."
+              "en": "Plan the taught squat or sit-to-stand and wall hip hinge as distinct lower-body tasks across the week when appropriate; they need not share one session. Add taught horizontal push, reliable pull, trunk and light aerobic options; do not force pulling without equipment.",
+              "tr": "Uygunsa öğretilen squat veya otur-kalk ile duvar kalça menteşesini hafta içinde ayrı alt beden görevleri olarak planla; aynı seansta olmaları gerekmez. Öğretilen yatay itiş, güvenilir çekiş, gövde ve hafif aerobik seçenekleri ekle; ekipmansız çekişi zorlama."
             },
             {
               "en": "Leave recovery between demanding sessions and use easy practice or rest when control is not restored.",
@@ -3777,8 +3999,8 @@
             }
           ],
           "practice": {
-          "en": "Write a sample two-day strength week separated by recovery, using 1–2 short sets per chosen task. Mark which day revisits squat or sit-to-stand and which revisits the wall hip hinge; if either is unsuitable, mark it observed or skipped rather than practised. This is a planning example, not a personalized prescription.\n\nCommon mistake: The week demands pulling without reliable equipment or treats a planned hinge as completed. Correction: Place the taught squat and wall hinge on separate suitable days or label either observed/skipped; add pulling only with reliable equipment.\n\nWrite an equipment-free week and an equipped week with recovery days.",
-          "tr": "Arada toparlanma olan örnek iki günlük kuvvet haftası yaz; seçilen görevde 1–2 kısa set kullan. Hangi gün squat veya otur-kalkı, hangi gün duvar kalça menteşesini yineleyeceğini işaretle; biri uygun değilse yapılmış saymak yerine gözlendi veya atlandı diye kaydet. Bu plan örneği, kişiye özel reçete değil.\n\nSık hata: Sağlam ekipman yokken hafta çekiş gerektirir veya planlanan menteşe yapılmış sayılır. Düzeltme: Öğretilen squat ve duvar menteşesini uygun ayrı günlere koy ya da birini gözlendi/atlandı diye işaretle; çekişi yalnız güvenilir ekipmanla ekle.\n\nDinlenme günleriyle ekipmansız ve ekipmanlı hafta yaz."
+            "en": "Write a sample two-day strength week separated by recovery, using 1–2 short sets per chosen task. Mark which day revisits squat or sit-to-stand and which revisits the wall hip hinge; if either is unsuitable, mark it observed or skipped rather than practised. This is a planning example, not a personalized prescription.\n\nCommon mistake: The week demands pulling without reliable equipment or treats a planned hinge as completed. Correction: Place the taught squat and wall hinge on separate suitable days or label either observed/skipped; add pulling only with reliable equipment.\n\nWrite an equipment-free week and an equipped week with recovery days.",
+            "tr": "Arada toparlanma olan örnek iki günlük kuvvet haftası yaz; seçilen görevde 1–2 kısa set kullan. Hangi gün squat veya otur-kalkı, hangi gün duvar kalça menteşesini yineleyeceğini işaretle; biri uygun değilse yapılmış saymak yerine gözlendi veya atlandı diye kaydet. Bu plan örneği, kişiye özel reçete değil.\n\nSık hata: Sağlam ekipman yokken hafta çekiş gerektirir veya planlanan menteşe yapılmış sayılır. Düzeltme: Öğretilen squat ve duvar menteşesini uygun ayrı günlere koy ya da birini gözlendi/atlandı diye işaretle; çekişi yalnız güvenilir ekipmanla ekle.\n\nDinlenme günleriyle ekipmansız ve ekipmanlı hafta yaz."
           },
           "selfCheck": [
             {
@@ -3786,16 +4008,16 @@
               "tr": "Haftam yalnız güvenilir ekipman varsa çekiş içeriyor."
             },
             {
-            "en": "I can reduce volume without treating it as failure and distinguish a planned hinge from one I actually practised.",
-            "tr": "Hacmi azaltmayı başarısızlık saymıyorum; planlanan menteşe ile gerçekten çalıştığım menteşeyi ayırıyorum."
+              "en": "I can reduce volume without treating it as failure and distinguish a planned hinge from one I actually practised.",
+              "tr": "Hacmi azaltmayı başarısızlık saymıyorum; planlanan menteşe ile gerçekten çalıştığım menteşeyi ayırıyorum."
             },
             {
-            "en": "Can you explain this in your own words? Place the taught squat and wall hinge on separate suitable days or label either observed/skipped; add pulling only with reliable equipment.",
-            "tr": "Şunu kendi sözlerinle açıklayabilir misin? Öğretilen squat ve duvar menteşesini uygun ayrı günlere koy ya da birini gözlendi/atlandı diye işaretle; çekişi yalnız güvenilir ekipmanla ekle."
+              "en": "Can you explain this in your own words? Place the taught squat and wall hinge on separate suitable days or label either observed/skipped; add pulling only with reliable equipment.",
+              "tr": "Şunu kendi sözlerinle açıklayabilir misin? Öğretilen squat ve duvar menteşesini uygun ayrı günlere koy ya da birini gözlendi/atlandı diye işaretle; çekişi yalnız güvenilir ekipmanla ekle."
             },
             {
-            "en": "Next practice, explain this idea without the page: Place the taught squat and wall hinge on separate suitable days or label either observed/skipped; add pulling only with reliable equipment. Then check what you missed.",
-            "tr": "Sonraki çalışmada yönergeye bakmadan şu fikri anlat: Öğretilen squat ve duvar menteşesini uygun ayrı günlere koy ya da birini gözlendi/atlandı diye işaretle; çekişi yalnız güvenilir ekipmanla ekle. Ardından eksiklerini kontrol et."
+              "en": "Next practice, explain this idea without the page: Place the taught squat and wall hinge on separate suitable days or label either observed/skipped; add pulling only with reliable equipment. Then check what you missed.",
+              "tr": "Sonraki çalışmada yönergeye bakmadan şu fikri anlat: Öğretilen squat ve duvar menteşesini uygun ayrı günlere koy ya da birini gözlendi/atlandı diye işaretle; çekişi yalnız güvenilir ekipmanla ekle. Ardından eksiklerini kontrol et."
             }
           ],
           "adaptation": {
@@ -3819,8 +4041,8 @@
           "practiceType": "learning_only",
           "evidenceMode": "self_report",
           "mediaBrief": {
-          "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Plain weekly cards with two example strength days and recovery spaces; no personalized health promise.",
-          "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: İki örnek kuvvet günü ve toparlanma boşluklu sade hafta kartları; kişiye özel sağlık vaadi yok."
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Plain weekly cards with two example strength days and recovery spaces; no personalized health promise.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: İki örnek kuvvet günü ve toparlanma boşluklu sade hafta kartları; kişiye özel sağlık vaadi yok."
           }
         },
         {
@@ -3910,8 +4132,8 @@
             "tr": "Alt beden ve itiş değerlendirmesi"
           },
           "objective": {
-          "en": "Review the familiar squat or sit-to-stand and horizontal push tasks; record the wall hip hinge separately in your own note.",
-          "tr": "Tanıdık squat veya otur-kalk ile yatay itiş görevlerini incele; duvar kalça menteşesini kendi notunda ayrı kaydet."
+            "en": "Review the familiar squat or sit-to-stand and horizontal push tasks; record the wall hip hinge separately in your own note.",
+            "tr": "Tanıdık squat veya otur-kalk ile yatay itiş görevlerini incele; duvar kalça menteşesini kendi notunda ayrı kaydet."
           },
           "steps": [
             {
@@ -3923,8 +4145,8 @@
               "tr": "Her setten önce destek, ayak/el teması, nefes ve çıkışı kontrol et."
             },
             {
-            "en": "After each set describe one control observation and keep the next set no harder if unsure. This reviews squat and push, not the separate wall hip hinge.",
-            "tr": "Her set sonrası bir kontrol gözlemi anlat; belirsizse sonraki seti zorlaştırma. Bu, ayrı duvar kalça menteşesini değil squat ve itişi inceler."
+              "en": "After each set describe one control observation and keep the next set no harder if unsure. This reviews squat and push, not the separate wall hip hinge.",
+              "tr": "Her set sonrası bir kontrol gözlemi anlat; belirsizse sonraki seti zorlaştırma. Bu, ayrı duvar kalça menteşesini değil squat ve itişi inceler."
             }
           ],
           "practice": {
@@ -3971,8 +4193,8 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-          "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Matched squat and wall-press control shots with support audit; no before/after physique claim.",
-          "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Destek kontrolüyle eş squat ve duvar itişi planları; önce/sonra fizik görünümü iddiası yok."
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Matched squat and wall-press control shots with support audit; no before/after physique claim.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Destek kontrolüyle eş squat ve duvar itişi planları; önce/sonra fizik görünümü iddiası yok."
           }
         },
         {
@@ -4061,8 +4283,8 @@
           },
           "steps": [
             {
-            "en": "Begin with an easy warm-up, then choose one lower-body task for this session: taught squat or sit-to-stand, or the wall hip hinge. Plan the other on a separate day if appropriate; choose one taught horizontal push, one available pull and one trunk task.",
-            "tr": "Kolay ısınmayla başla; bu seans için öğretilen squat veya otur-kalk ya da duvar kalça menteşesinden bir alt beden görevi seç. Uygunsa ötekini ayrı bir güne planla; öğretilen bir yatay itiş, bir mevcut çekiş ve bir gövde görevi seç."
+              "en": "Begin with an easy warm-up, then choose one lower-body task for this session: taught squat or sit-to-stand, or the wall hip hinge. Plan the other on a separate day if appropriate; choose one taught horizontal push, one available pull and one trunk task.",
+              "tr": "Kolay ısınmayla başla; bu seans için öğretilen squat veya otur-kalk ya da duvar kalça menteşesinden bir alt beden görevi seç. Uygunsa ötekini ayrı bir güne planla; öğretilen bir yatay itiş, bir mevcut çekiş ve bir gövde görevi seç."
             },
             {
               "en": "Use familiar small doses and rests; omit unavailable equipment work and note the gap honestly.",
@@ -4074,8 +4296,8 @@
             }
           ],
           "practice": {
-          "en": "Write a 10–20 minute example with 1 short set per task and 60–120 seconds rest, then optionally rehearse only the first two tasks. Put the other lower-body pattern on a separate suitable day or mark it observed/skipped; writing it down is not physical practice.\n\nCommon mistake: The plan includes an untaught skill or no easier option. Correction: List an entry, an easier option and an exit beside every selected task.\n\nDesign a shorter session containing only already taught tasks.",
-          "tr": "Görev başına 1 kısa set ve 60–120 saniye dinlenmeyle 10–20 dakikalık örnek yaz; istersen yalnız ilk iki görevi prova et. Öteki alt beden örüntüsünü uygun ayrı bir güne koy veya gözlendi/atlandı olarak işaretle; yazmak fiziksel pratik değildir.\n\nSık hata: Plan öğretilmemiş beceri veya kolay seçeneksiz iş içerir. Düzeltme: Her seçili görevin yanına giriş, kolay seçenek ve çıkış yaz.\n\nYalnız önceden öğretilen görevlerden kısa seans tasarla."
+            "en": "Write a 10–20 minute example with 1 short set per task and 60–120 seconds rest, then optionally rehearse only the first two tasks. Put the other lower-body pattern on a separate suitable day or mark it observed/skipped; writing it down is not physical practice.\n\nCommon mistake: The plan includes an untaught skill or no easier option. Correction: List an entry, an easier option and an exit beside every selected task.\n\nDesign a shorter session containing only already taught tasks.",
+            "tr": "Görev başına 1 kısa set ve 60–120 saniye dinlenmeyle 10–20 dakikalık örnek yaz; istersen yalnız ilk iki görevi prova et. Öteki alt beden örüntüsünü uygun ayrı bir güne koy veya gözlendi/atlandı olarak işaretle; yazmak fiziksel pratik değildir.\n\nSık hata: Plan öğretilmemiş beceri veya kolay seçeneksiz iş içerir. Düzeltme: Her seçili görevin yanına giriş, kolay seçenek ve çıkış yaz.\n\nYalnız önceden öğretilen görevlerden kısa seans tasarla."
           },
           "selfCheck": [
             {
@@ -4117,8 +4339,8 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-          "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Original session worksheet with warm-up, four options, rest and exit notes; no automated medical plan.",
-          "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Isınma, dört seçenek, dinlenme ve çıkış notlu özgün seans sayfası; otomatik tıbbi plan yok."
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Original session worksheet with warm-up, four options, rest and exit notes; no automated medical plan.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Isınma, dört seçenek, dinlenme ve çıkış notlu özgün seans sayfası; otomatik tıbbi plan yok."
           }
         },
         {
@@ -4141,13 +4363,13 @@
               "tr": "Bugün uygunsa yeni beceri/yoğunluk eklemeden tanıdık kısa seansı yap."
             },
             {
-            "en": "Choose when to revisit the other taught lower-body pattern next week, or mark it observed/skipped if unsuitable. Note what needs a coach; completion records your learning, not professional mastery.",
-            "tr": "Öğretilen diğer alt beden örüntüsünü gelecek hafta ne zaman yineleyeceğini seç veya uygun değilse gözlendi/atlandı diye kaydet. Eğitmen gerekeni belirle; tamamlama profesyonel ustalık değil öğrenme kaydıdır."
+              "en": "Choose when to revisit the other taught lower-body pattern next week, or mark it observed/skipped if unsuitable. Note what needs a coach; completion records your learning, not professional mastery.",
+              "tr": "Öğretilen diğer alt beden örüntüsünü gelecek hafta ne zaman yineleyeceğini seç veya uygun değilse gözlendi/atlandı diye kaydet. Eğitmen gerekeni belirle; tamamlama profesyonel ustalık değil öğrenme kaydıdır."
             }
           ],
           "practice": {
-          "en": "Use your previous plan once with its rests, or complete a written walkthrough if physical practice is unsuitable. In your own note, record squat/sit-to-stand and wall hip hinge separately as practised, planned, observed or skipped; a written walkthrough is not physical practice.\n\nCommon mistake: Course completion is described as verified intermediate ability. Correction: Describe what you actually practised, retained and still need help with.\n\nRepeat the plan after a break with a different taught regression and explain the choice.",
-          "tr": "Önceki planını dinlenmeleriyle bir kez kullan veya fiziksel pratik uygun değilse yazılı yürüt. Kendi notunda squat/otur-kalk ile duvar kalça menteşesini ayrı ayrı yapıldı, planlandı, gözlendi veya atlandı diye kaydet; yazılı yürütme fiziksel pratik değildir.\n\nSık hata: Kurs tamamlanması doğrulanmış orta beceri diye anlatılır. Düzeltme: Gerçekte çalıştığını, hatırladığını ve yardım gerekeni anlat.\n\nAradan sonra planı başka öğretilmiş kolay biçimle yinele ve seçimi açıkla."
+            "en": "Use your previous plan once with its rests, or complete a written walkthrough if physical practice is unsuitable. In your own note, record squat/sit-to-stand and wall hip hinge separately as practised, planned, observed or skipped; a written walkthrough is not physical practice.\n\nCommon mistake: Course completion is described as verified intermediate ability. Correction: Describe what you actually practised, retained and still need help with.\n\nRepeat the plan after a break with a different taught regression and explain the choice.",
+            "tr": "Önceki planını dinlenmeleriyle bir kez kullan veya fiziksel pratik uygun değilse yazılı yürüt. Kendi notunda squat/otur-kalk ile duvar kalça menteşesini ayrı ayrı yapıldı, planlandı, gözlendi veya atlandı diye kaydet; yazılı yürütme fiziksel pratik değildir.\n\nSık hata: Kurs tamamlanması doğrulanmış orta beceri diye anlatılır. Düzeltme: Gerçekte çalıştığını, hatırladığını ve yardım gerekeni anlat.\n\nAradan sonra planı başka öğretilmiş kolay biçimle yinele ve seçimi açıkla."
           },
           "selfCheck": [
             {
@@ -4155,8 +4377,8 @@
               "tr": "Kolay yollarımı ve durma işaretlerini açıklayabiliyorum."
             },
             {
-            "en": "I know this course did not certify resisted vertical pressing, inversions, force, angles or medical safety.",
-            "tr": "Bu kursun dirençli dikey itişi, ters duruşu, kuvveti, açıyı veya tıbbi güvenliği onaylamadığını biliyorum."
+              "en": "I know this course did not certify resisted vertical pressing, inversions, force, angles or medical safety.",
+              "tr": "Bu kursun dirençli dikey itişi, ters duruşu, kuvveti, açıyı veya tıbbi güvenliği onaylamadığını biliyorum."
             },
             {
               "en": "On two separate comfortable practices, can you keep this focus in the chosen variant? Describe what you actually practised, retained and still need help with.",
@@ -4189,8 +4411,8 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-          "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Calm repeat session and personal next-week notebook; no certificate, elite badge or guaranteed transformation.",
-          "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sakin yineleme seansı ve kişisel gelecek hafta notu; sertifika, elit rozet veya garantili dönüşüm yok."
+            "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Calm repeat session and personal next-week notebook; no certificate, elite badge or guaranteed transformation.",
+            "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Sakin yineleme seansı ve kişisel gelecek hafta notu; sertifika, elit rozet veya garantili dönüşüm yok."
           }
         }
       ]

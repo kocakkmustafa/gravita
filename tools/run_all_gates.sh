@@ -128,7 +128,7 @@ count_dart() {
 
 line; echo "SÜİT 1 — app kabuğu ($(ls test/*.dart | wc -l | tr -d ' ') dosya)"; line
 app_n="$(count_dart flutter test)" || fail=1
-run "flutter test" flutter test
+run "flutter test (serial real-I/O fixtures)" flutter test --concurrency=1
 
 line; echo "SÜİT 2 — gravita_engine ($(ls packages/gravita_engine/test/*.dart | wc -l | tr -d ' ') dosya)"; line
 eng_n="$(count_dart bash -c "cd packages/gravita_engine && dart test")" || fail=1
@@ -142,6 +142,10 @@ run "dart test" bash -c "cd packages/gravita_engine && dart test"
 line; echo "SÜİT 3 — içerik kapıları (Python + Dart manifest)"; line
 gate() { py_total=$((py_total+1)); if run "$@"; then py_ok=$((py_ok+1)); fi; }
 gate "calisthenics_course --check"  python3 tool/generate_calisthenics_course.py --check
+# App-owned v2l source bytes, course identity, and the exact equipment HOLD.
+# This checker reads only app-local assets through FD/openat and needs no ops.
+gate "v2l_source_projection --check" python3 tool/check_v2l_source_projection.py --check
+gate "v2l_source_projection adversarial" python3 tool/test_check_v2l_source_projection.py
 # The course JSON is the only lesson source. The generated bundle manifest
 # must match its exact bytes before CI can report a green content lane.
 run "calisthenics_integrity --check" dart run tool/build_calisthenics_integrity_manifest.dart --check

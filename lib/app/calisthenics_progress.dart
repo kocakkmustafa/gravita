@@ -182,6 +182,13 @@ final class CalisthenicsProgressStore {
             old.state.index < CalisthenicsLessonState.practised.index)) {
       throw StateError('Practice must be self-reported before completion');
     }
+    if (requested == CalisthenicsLessonState.selfReportedComplete &&
+        !lesson.learningOnly &&
+        (old?.practiceCount ?? 0) < 2) {
+      throw StateError(
+        'Two practice reports are required for a physical lesson',
+      );
+    }
     final DateTime now = DateTime.now().toUtc();
     final CalisthenicsLessonState nextState =
         old != null && old.state.index > requested.index

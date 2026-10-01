@@ -50,6 +50,10 @@ dependencies:
       url: https://github.com/kocakkmustafa/motion-core.git
       path: packages/motion_content
       ref: f2ea161c7e974d57b114ba7773836c72be17a381
+
+  # Packaged, offline lesson demonstrations. The shipping media catalog is
+  # empty until a separately accepted media package is produced.
+  video_player: ^2.11.1
   # KAMERA KÖPRÜSÜ (M-F-263). Pin motion_core ile AYNI commit olmak ZORUNDA
   # — `shell_contract_test` eşitliği zorluyor (eski "motion_camera YOK"
   # nöbeti bu teste DÖNÜŞTÜ, silinmedi).
@@ -140,6 +144,10 @@ flutter:
     # ARTIK var — "beyan var, okuyanı yok" satırı bu turda kapandı.
     - content/programs/foundation.v1.json
     - content/courses/calisthenics.v1.json
+    # App-owned v2l source identities. These contain production briefs and one
+    # explicit equipment HOLD; they contain no MP4/VTT or playable media.
+    - content/courses/gravita.source-slice.v1.json
+    - content/courses/gravita.source-projection.v1.json
     # Course-JSON byte integrity only. This is not a video or model catalogue.
     - content/motion_content/manifest.json
     # Poz modeli — git'te DEĞİL (aile kuralı, .gitignore); `tool/fetch_pose_model.sh`

@@ -7,6 +7,7 @@ import 'calisthenics_course.dart';
 import 'calisthenics_progress.dart';
 import 'calisthenics_knowledge_diagrams.dart';
 import 'content_repository.dart';
+import 'lesson_media.dart';
 import 'theme.dart';
 
 typedef CalisthenicsStoreLoader =
@@ -376,6 +377,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
     with _CourseIdentity<CalisthenicsLessonScreen>, WidgetsBindingObserver {
   bool confirmed = false;
   bool prepared = false;
+  bool reportedThisVisit = false;
   DateTime? preparedOn;
   bool saving = false;
   bool get requiresPreparation =>
@@ -422,6 +424,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
   void identityReset() {
     confirmed = false;
     prepared = false;
+    reportedThisVisit = false;
     preparedOn = null;
     saving = false;
   }
@@ -446,6 +449,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
       if (!mounted || turn != epoch) return;
       setState(() {
         progress = result;
+        if (!complete) reportedThisVisit = true;
         saving = false;
         storageError = null;
       });
@@ -544,6 +548,8 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
     final lesson = widget.lesson;
     final record = progress.forLesson(lesson, widget.course.version);
     final practised = (record?.practiceCount ?? 0) > 0;
+    final enoughPracticeReports =
+        lesson.learningOnly || (record?.practiceCount ?? 0) >= 2;
     return Scaffold(
       backgroundColor: GravitaColors.page,
       appBar: AppBar(title: Text(localized(context, 'Lesson', 'Ders'))),
@@ -657,6 +663,13 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
             for (var i = 0; i < lesson.steps.length; i++)
               '${i + 1}. ${_text(context, lesson.steps[i])}',
           ]),
+          LessonMediaSlot.empty(
+            key: const Key('calisthenics.lesson.media'),
+            course: widget.course,
+            lessonId: lesson.id,
+            locale: Localizations.localeOf(context).languageCode,
+            accountUserId: AccountScope.maybeOf(context)?.connection?.userId,
+          ),
           if (CalisthenicsKnowledgeDiagrams.supports(lesson.id))
             CalisthenicsKnowledgeDiagrams(lessonId: lesson.id),
           KeyedSubtree(
@@ -699,12 +712,22 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                     ),
                     style: GravitaType.body(size: 13),
                   ),
+                  if (!lesson.learningOnly)
+                    Text(
+                      localized(
+                        context,
+                        'Physical lessons need two practice reports from separate visits before you can record learning completion. Reports do not assess form or skill.',
+                        'Fiziksel derslerde öğrenme tamamlamasını kaydetmeden önce ayrı ziyaretlerde iki pratik bildirimi gerekir. Bildirimler formu veya beceriyi ölçmez.',
+                      ),
+                      style: GravitaType.body(size: 13),
+                    ),
                   const SizedBox(height: 10),
                   OutlinedButton(
                     key: const Key('calisthenics.practised'),
                     onPressed:
                         store == null ||
                             saving ||
+                            reportedThisVisit ||
                             (requiresPreparation && !preparedThisSession)
                         ? null
                         : () => save(false),
@@ -744,6 +767,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                             saving ||
                             !confirmed ||
                             !practised ||
+                            !enoughPracticeReports ||
                             (requiresPreparation && !preparedThisSession)
                         ? null
                         : () => save(true),
@@ -785,6 +809,18 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                     style: GravitaType.body(size: 13, weight: FontWeight.w600),
                   ),
                   SelectableText(source.url, style: GravitaType.body(size: 12)),
+                  if (source.supports case final support?)
+                    Text(
+                      '${localized(context, 'Supports only:', 'Yalnız destekler:')} ${localized(context, support.en, support.tr)}',
+                      key: Key('calisthenics.sourceScope.${source.id}'),
+                      style: GravitaType.body(size: 12),
+                    ),
+                  if (source.doesNotSupport case final limit?)
+                    Text(
+                      '${localized(context, 'Does not establish:', 'Kanıtlamaz:')} ${localized(context, limit.en, limit.tr)}',
+                      key: Key('calisthenics.sourceLimit.${source.id}'),
+                      style: GravitaType.body(size: 12),
+                    ),
                   TextButton(
                     onPressed: () async {
                       await Clipboard.setData(ClipboardData(text: source.url));
