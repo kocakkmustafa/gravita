@@ -106,6 +106,7 @@ NO_NETWORK = frozenset({
     "shared_preferences_platform_interface", "shared_preferences_web",
     "shared_preferences_windows", "yet_another_json_isolate",
     "args", "async", "boolean_selector", "characters",
+    "csslib", "html", "motion_content",
     "clock", "code_assets", "collection", "crypto",
     "fake_async", "ffi", "flutter", "flutter_test",
     "flutter_web_plugins", "gravita_engine", "hooks", "jni",
@@ -159,6 +160,27 @@ NO_NETWORK = frozenset({
 #: uygulama HİÇ koşmuyorken). Kanal 1'in (kod izi) kapsamı zaten `lib/`e
 #: sınırlı — bu paketler `lib/`de HİÇ görünmüyor, yalnız `pubspec.lock`ta.
 NETWORK_DEPS_RECORDED = {
+    # Driver/debug packages are development and test tools. They can open
+    # VM/WebDriver/SSH transports but are not the app's camera-upload path.
+    "flutter_driver": "test driver can connect to the Dart VM service; no camera upload",
+    "fuchsia_remote_debug_protocol": "test-only Fuchsia SSH/debug transport",
+    "integration_test": "test automation can use driver transports; not release media upload",
+    "process": "test/debug subprocess wrapper, including Fuchsia SSH runner",
+    "sync_http": "test driver synchronous HTTP transport",
+    "webdriver": "test driver HTTP client for browser automation",
+    # Store traffic is product/purchase/restore verification, never video.
+    "in_app_purchase": "StoreKit/Google Billing purchase bridge; no camera payload",
+    "in_app_purchase_android": "Google Billing platform bridge; no camera payload",
+    "in_app_purchase_platform_interface": "purchase bridge interface; no camera payload",
+    "in_app_purchase_storekit": "StoreKit purchase bridge; no camera payload",
+    "motion_entitlements": "purchase verification uses StoreKit/Google Billing and Supabase Edge Function; no camera payload",
+    # Network URLs are supported by this package family even though current
+    # Gravita lessons instantiate asset controllers and ship no media assets.
+    "video_player": "network URL capable; current lessons use asset controllers only",
+    "video_player_android": "Android video URL capable; current lessons use assets only",
+    "video_player_avfoundation": "iOS video URL capable; current lessons use assets only",
+    "video_player_platform_interface": "video URL platform contract; current lessons use assets only",
+    "video_player_web": "web video URL capable; current lessons use assets only",
     # Motion hesabı e-posta/profil/uygulama-özel üyelik verisini aktarır.
     # Video ve kamera ölçümü bu istemcilere verilmez; yüzey iddiasının öznesi
     # kameradır. Genel "tamamen çevrimdışı" iddiası artık doğru değildir.

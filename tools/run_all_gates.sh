@@ -70,6 +70,7 @@ fail=0
 # Süit sayaçları — HER BİRİ AYRI. Tek toplam sayı, ikinci bir süitin
 # kırmızısını gizleyebilir; bu betiğin varlık sebebi tam olarak o gizlenme.
 app_n="?"; eng_n="?"; py_ok=0; py_total=0
+last_stdout=""
 
 # ⚠️ RAPOR KATMANI DÜZELTİLDİ (G-190, koordinatör ölçümü 2026-08-12).
 #
@@ -92,6 +93,7 @@ run() {                       # run <ad> <komut...>
   local out err rc summary
   err="$(mktemp)"
   out="$("$@" 2>"$err")" && rc=0 || rc=$?
+  last_stdout="$out"
 
   summary="$(printf '%s' "$out" | grep -v '^[[:space:]]*$' | tail -1)"
   if [ -z "$summary" ]; then
@@ -110,29 +112,24 @@ run() {                       # run <ad> <komut...>
     return 0
   fi
   printf '  ❌ %-34s %s\n' "$name" "$(printf '%s' "$summary" | cut -c1-58)"
+  case "$name" in
+    "flutter test (serial real-I/O fixtures)"|"dart test")
+      printf '%s\n' "$out" | tr '\r' '\n' | grep -E '\[E\]|failed|Expected:|Actual:|Exception|Error:' | tail -n 35 || true
+      ;;
+  esac
   fail=1
   return 1
 }
 
-# Dart süitlerinin GEÇEN TEST SAYISINI çıkarır ("00:06 +127: All tests…").
-# ⚠️ AYNI KUSUR BURADA DA VARDI ve gösterilen bir SAYI üretiyor: stderr
-# birleştirilince son satır bir uyarı olabiliyor, sayı deseni tutmuyor ve
-# "app /" gibi BOŞ bir sayı basılıyordu. stdout AYRI okunuyor; ayrıca son
-# satır değil, sayı deseni TUTAN son satır aranıyor (araçlar sonuç satırından
-# sonra özet/uyarı basabilir).
-count_dart() {
-  local out
-  out="$("$@" 2>/dev/null)" || { printf 'KIRMIZI'; return 1; }
-  printf '%s' "$out" | grep -oE '\+[0-9]+' | tail -1 | tr -d '+'
-}
-
 line; echo "SÜİT 1 — app kabuğu ($(ls test/*.dart | wc -l | tr -d ' ') dosya)"; line
-app_n="$(count_dart flutter test)" || fail=1
-run "flutter test (serial real-I/O fixtures)" flutter test --concurrency=1
+run "flutter test (serial real-I/O fixtures)" flutter test --concurrency=1 --reporter expanded
+app_n="$(printf '%s' "$last_stdout" | grep -oE '\+[0-9]+' | tail -1 | tr -d '+')"
+app_n="${app_n:-?}"
 
 line; echo "SÜİT 2 — gravita_engine ($(ls packages/gravita_engine/test/*.dart | wc -l | tr -d ' ') dosya)"; line
-eng_n="$(count_dart bash -c "cd packages/gravita_engine && dart test")" || fail=1
-run "dart test" bash -c "cd packages/gravita_engine && dart test"
+run "dart test" bash -c "cd packages/gravita_engine && dart test --reporter expanded"
+eng_n="$(printf '%s' "$last_stdout" | grep -oE '\+[0-9]+' | tail -1 | tr -d '+')"
+eng_n="${eng_n:-?}"
 
 # ⚠️ H-23 denetimi (2026-08-16) bu satırın KENDİSİNİ bayat buldu: "8 araç"
 # 2026-08-13'ten kalmaydı, depo o zamandan beri büyüdü — gerçek sayı 11

@@ -19,7 +19,7 @@
   "$coursePreparation20260926": {
     "status": "local_content_preparation_not_provider_readback_or_release_acceptance",
     "asset": "content/courses/calisthenics.v1.json",
-    "sha256": "10ca089a71ba03c01d3ab8839a26003a1934a8f24ad8ed111a11bec1d4d8bb75",
+    "sha256": "15930d335f377c9f48e1c7285f1c44e25973b9cccb3167fa99cc9b8599889502",
     "lessonCount": 56,
     "moduleCount": 10,
     "mediaIncluded": false,
