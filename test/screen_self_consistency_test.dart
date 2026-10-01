@@ -170,7 +170,7 @@ void main() {
         reason: 'Ürün koçluk etmiyor (G-212: kural değerlendirmesi hiç '
             'çağrılmıyor). Aynı iddia homeOpenBody\'den J-124\'te '
             'kaldırılmıştı; komşusunda kalmış.');
-    expect(s, contains('we can measure'),
+    expect(s, contains('measurement catalogue'),
         reason: 'Yasak sözcüğü silmek yetmez — ürünün GERÇEKTEN yaptığı '
             'söylenmeli, yoksa cümle anlamsızlaşır.');
   });
@@ -196,15 +196,14 @@ void main() {
   /// cümleyi silmek yetmez, YERİNE doğru olanı koymalı — burada da aynen
   /// uygulandı.
   test(
-      'canlı metin, kuralların ARTIK değerlendirildiğini AMA sonucun '
-      'gösterilmediğini söylüyor', () {
+      'kapalı yayın metni kayıtlı replay ile kullanıcıya sunulan erişimi ayırıyor', () {
     for (final int n in <int>[1, 4, 5]) {
       final String s = LibraryStrings.formErrorsBodyLive(n).toLowerCase();
-      expect(s, contains('checked live'),
+      expect(s, contains('camera sessions are unavailable'),
           reason: 'Yasak cümleyi silmek yetmez; yerine DOĞRU olanı koymalı — '
               'kurallar artık `LiveSessionRunner.consume()`dan GERÇEKTEN '
               'değerlendiriliyor (G-275).');
-      expect(s, contains('not shown to you'),
+      expect(s, contains('no camera feedback or form score'),
           reason: 'Değerlendirilmek BAŞKA, kullanıcıya İLETİLMEK başka — '
               'hiçbir UI/ses `latestFeedback`i henüz TESLİM ETMİYOR, bu '
               'ikinci olgu KAYBOLMAMALI.');

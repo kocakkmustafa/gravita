@@ -1,0 +1,30 @@
+{
+  "$doc": "Türkçe mağaza metni taslağı. Gönderim ve sağlayıcı onayı yapılmadı. İngilizce kaynak: listing.json.",
+  "appStore": {
+    "name": "Gravita: Güç ve Beceri",
+    "subtitle": "Kendi hızında calisthenics",
+    "promotionalText": "Hazırlıktan bağımsız çalışmaya ilerle: itiş, çekiş, bacak, merkez bölge, kolay seçenekler ve görünür ders yoluyla calisthenics çalış.",
+    "keywords": "vücut ağırlığı,egzersiz,fitness,çömelme,şınav,calisthenics,hareket,antrenman"
+  },
+  "playStore": {
+    "shortDescription": "Sıralı calisthenics dersleriyle çalış; kendi hızında ilerlemeni kaydet."
+  },
+  "description": "Gravita, 10 modülde 56 özgün Türkçe ve İngilizce calisthenics dersi sunar. Hazırlık, vücut ağırlığıyla çömelme ve kalça menteşesi, kademeli itiş ve çekiş, merkez bölge kontrolü, denge ve çalışma planını öğren. Ekipman gerektiren dersler kurulumu ve seçenekleri açıklar. İleri beceri dersleri riskli denemeyi zorunlu kılmadan önkoşulları ve gözetimi anlatır.\n\nÖzgün metin derslerini oku, uygulama görevlerini takip et, kendi çalışmanı değerlendir ve cihazdaki ders kaydından devam et. Hesabın olmadan kataloğu gezebilir, isteğe bağlı ortak Motion hesabını kullanabilirsin. Hesap; e-posta, hesap kimliği ve eklediysen görünen adını kullanır; uygulamadan hesap silme isteği yapabilirsin. Kurs kayıtları cihazda mevcut konuk veya hesap kapsamında kalır. Ders bitirme ustalık belgesi değildir. Bu içerik hazırlığı sürümünde gösterim videosu bulunmaz.\n\nKurs ilerlemesi kendi çalışma kaydındır. Kamera koçluğu, hareket form puanı ve abonelik satışı açık değildir. Genel uyarlamalar kişisel sağlık uygunluğu kararı vermez.",
+  "cameraPermissionRationale": {
+    "ios": "Gravita, tam tekrarları saymak ve tempoyu ölçmek için kamerayı kullanır. Video yalnızca bu cihazda işlenir; yüklenmez veya saklanmaz. Hareket, tekrar sayısı ve oturum süresi cihazda saklanır."
+  },
+  "$releasePolicy20260925": "Founder deferred all paid camera sessions and subscription sales in the first release. Provider listings must use only the external fields above; older dollar-prefixed research notes describe deferred capabilities.",
+  "supportUrl": "https://yulalab.com/support",
+  "privacyPolicyUrl": "https://yulalab.com/privacy/motion",
+  "$coursePreparation20260926": {
+    "status": "local_content_preparation_not_provider_readback_or_release_acceptance",
+    "asset": "content/courses/calisthenics.v1.json",
+    "sha256": "15930d335f377c9f48e1c7285f1c44e25973b9cccb3167fa99cc9b8599889502",
+    "lessonCount": 56,
+    "moduleCount": 10,
+    "mediaIncluded": false,
+    "physicalDeviceAccepted": false
+  },
+  "$sourceOfFacts": "Current course: content/courses/calisthenics.v1.json; its app-local UI and account-scoped practice store. Camera paid-access policy is unchanged. Readback of provider metadata is separate.",
+  "$notClaimed": "No independent skill/mastery outcome, physical-phone performance, clinical suitability, camera form grade or approved AI demonstration is asserted. This local content-preparation draft has not been uploaded."
+}

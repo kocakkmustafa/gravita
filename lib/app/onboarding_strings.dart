@@ -15,6 +15,7 @@
 abstract final class OnboardingStrings {
   // ── O1 — Value ──────────────────────────────────────────────────────
   static const String valueTitle = 'What Gravita is — and isn\'t';
+
   /// ⛔ **HER YENİ KULLANICININ GÖRDÜĞÜ İLK CÜMLE — ve bir kez YALAN
   /// SÖYLEDİ (G-213).** Eski hâli:
   /// *"Your phone camera watches your form and counts your reps, on-device.
@@ -36,9 +37,10 @@ abstract final class OnboardingStrings {
   /// bunu **tanımı gereği** bulamaz — nitekim benimki bulmadı; bunu
   /// uygulamayı AÇMAK buldu.
   static const String valueWhatWeDo =
-      'Your phone camera counts your reps, on-device, and only counts one '
-      'when it can see you are really doing the movement. It does not grade '
-      'your form, and nothing corrects you while you train.';
+      'Explore 56 calisthenics lessons as a guest, practise at your own pace, '
+      'and save self-reported learning progress on this device. Live camera '
+      'sessions are unavailable in this release. Learning progress does not '
+      'grade your form or verify your technique.';
   // UI-BRIEF §3.1 O1 — birebir.
   static const String valueWhatWeDont =
       'Not medical. Not a substitute for a coach. We cannot stop you from '
@@ -76,9 +78,9 @@ abstract final class OnboardingStrings {
   /// birebirdi, BİRİNCİ cümleler ayrışmıştı. Nöbetçisi:
   /// `test/onboarding_claims_test.dart`.
   static const String cameraRationale =
-      'Gravita needs your camera to count your reps. '
-      'Nothing is recorded or uploaded — video stays on this device and '
-      'never leaves it.';
+      'The course and self-reported progress do not need camera access. '
+      'Live camera sessions are unavailable in this release. You can '
+      'continue without granting permission; nothing is recorded or uploaded.';
   static const String cameraAllow = 'Allow camera access';
   static const String cameraDeniedTitle = 'Camera access is off';
   static const String cameraDeniedBody =

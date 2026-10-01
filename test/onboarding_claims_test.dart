@@ -66,18 +66,26 @@ void main() {
   test('onboarding ilk kartı, ürünün YAPMADIĞI bir şeyi vaat etmiyor', () {
     final String s = OnboardingStrings.valueWhatWeDo.toLowerCase();
     for (final String vaat in yapilmayanIsler) {
-      expect(s, isNot(contains(vaat)),
-          reason: 'İlk ekran "$vaat" vaat ediyor ama G-212\'de ölçüldü: '
-              'kural değerlendirmesi üründe hiç çağrılmıyor.');
+      expect(
+        s,
+        isNot(contains(vaat)),
+        reason:
+            'İlk ekran "$vaat" vaat ediyor ama G-212\'de ölçüldü: '
+            'kural değerlendirmesi üründe hiç çağrılmıyor.',
+      );
     }
   });
 
   test('kamera izni gerekçesi, yapılmayan bir işle GEREKÇELENDİRİLMİYOR', () {
     final String s = OnboardingStrings.cameraRationale.toLowerCase();
     for (final String vaat in yapilmayanIsler) {
-      expect(s, isNot(contains(vaat)),
-          reason: 'İzin gerekçesi "$vaat" diyor. Yapılmayan bir işle izin '
-              'istemek, izni yanlış gerekçeyle almaktır.');
+      expect(
+        s,
+        isNot(contains(vaat)),
+        reason:
+            'İzin gerekçesi "$vaat" diyor. Yapılmayan bir işle izin '
+            'istemek, izni yanlış gerekçeyle almaktır.',
+      );
     }
   });
 
@@ -87,21 +95,28 @@ void main() {
   /// `onboarding_strings.dart`taki yorum *"iki yerde iki farklı gerekçe
   /// olmaz"* diyordu — ama bu YALNIZ ikinci cümleler için tutuyordu; birinci
   /// cümleler ayrışmıştı ve ayrışan yarı YANLIŞ olandı.
-  test('iki izin gerekçesi AYNI yeteneği anlatıyor', () {
-    final String onb = OnboardingStrings.cameraRationale.toLowerCase();
-    final String ret =
-        LiveStrings.failureBody(CameraFailure.permissionDenied).toLowerCase();
+  test(
+    'onboarding needs no camera while the engine permission copy stays scoped',
+    () {
+      final String onb = OnboardingStrings.cameraRationale.toLowerCase();
+      final String ret = LiveStrings.failureBody(
+        CameraFailure.permissionDenied,
+      ).toLowerCase();
 
-    // İkisi de saymayı gerekçe gösterir…
-    expect(onb, contains('count'));
-    expect(ret, contains('count'));
+      expect(onb, contains('do not need camera access'));
+      expect(onb, contains('unavailable in this release'));
+      expect(ret, contains('count'));
 
-    // …ve ikisi de saymanın ÖTESİNDE bir yetenek iddia etmez.
-    for (final String vaat in yapilmayanIsler) {
-      expect(ret, isNot(contains(vaat)),
-          reason: 'Ret ekranı da aynı sınırda kalmalı.');
-    }
-  });
+      // …ve ikisi de saymanın ÖTESİNDE bir yetenek iddia etmez.
+      for (final String vaat in yapilmayanIsler) {
+        expect(
+          ret,
+          isNot(contains(vaat)),
+          reason: 'Ret ekranı da aynı sınırda kalmalı.',
+        );
+      }
+    },
+  );
 
   /// ⭐ POZİTİF YÖN — yasak cümleyi silmek yetmez.
   ///
@@ -110,10 +125,10 @@ void main() {
   /// yaptığını söylemek zorunda.
   test('ilk kart, ürünün GERÇEKTEN yaptığını söylüyor', () {
     final String s = OnboardingStrings.valueWhatWeDo.toLowerCase();
-    expect(s, contains('counts your reps'),
-        reason: 'Ürünün bugün teslim ettiği şey bu — söylenmeli.');
-    expect(s, contains('does not grade'),
-        reason: 'Notlamadığını söylemek, bu ürünün taban beyanı.');
+    expect(s, contains('56 calisthenics lessons as a guest'));
+    expect(s, contains('save self-reported learning progress on this device'));
+    expect(s, isNot(contains('camera counts')));
+    expect(s, contains('does not grade'));
   });
 
   /// ⭐ OLUMSUZ HÂL SERBEST — ve bunu bir kapı KORUYOR.
@@ -122,12 +137,15 @@ void main() {
   /// yaktı. O yanlışın en olası "düzeltmesi" cümleyi SİLMEKTİ — yani kapıyı
   /// geçmek için dürüstlüğü atmak. Bu test onu imkânsız kılıyor: ürün
   /// düzeltmediğini SÖYLEMEK ZORUNDA.
-  test('düzeltmediğini SÖYLEYEN cümle korunuyor — sessizlik dürüstlük değil',
-      () {
-    final String s = OnboardingStrings.valueWhatWeDo.toLowerCase();
-    expect(s, contains('nothing corrects you'),
-        reason: 'Kullanıcı, seans sırasında kendisine bir şey söylenmeyeceğini '
-            'İLK EKRANDA öğrenmeli. Bu cümleyi silmek kapıyı geçirir ama '
-            'ürünü sessizleştirir — ve sessizlik dürüstlük değildir.');
-  });
+  test(
+    'düzeltmediğini SÖYLEYEN cümle korunuyor — sessizlik dürüstlük değil',
+    () {
+      final String s = OnboardingStrings.valueWhatWeDo.toLowerCase();
+      expect(
+        s,
+        contains('live camera sessions are unavailable in this release'),
+      );
+      expect(s, contains('or verify your technique'));
+    },
+  );
 }

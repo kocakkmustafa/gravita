@@ -67,7 +67,7 @@ def check(src: str) -> list[str]:
     # ② Gürültülü durdurucu: AYRI bir whenReady bloğu, release görevinde
     #    imza kimliği yokken GradleException fırlatmalı — key.properties
     #    yokluğu VE debug'a bilerek geçilmemiş olması BİRLİKTE.
-    w = re.search(r"gradle\.taskGraph\.whenReady\s*\{(.*)\z", code, re.S)
+    w = re.search(r"gradle\.taskGraph\.whenReady\s*\{(.*)\Z", code, re.S)
     if w is None:
         problems.append(
             "`gradle.taskGraph.whenReady { … }` durdurucu bloğu YOK — "

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
+import '../account_data_directory.dart';
 
 /// Bir programın CANLI takvimi + tamamlanma durumu (GRA-P1-003 Step 3/4).
 ///
@@ -47,8 +48,9 @@ final class ProgramScheduleStore {
 
   final File _file;
 
-  static Future<ProgramScheduleStore> open() async {
-    final Directory dir = await getApplicationSupportDirectory();
+  static Future<ProgramScheduleStore> open({String? accountUserId}) async {
+    final Directory dir = accountDataDirectory(
+      await getApplicationSupportDirectory(), accountUserId);
     return ProgramScheduleStore._(File('${dir.path}/program_schedule.json'));
   }
 

@@ -1,155 +1,156 @@
 #!/usr/bin/env python3
-"""Mağaza metnindeki hareket sayıları KATALOGLA UYUŞUYOR MU (H-58, 2026-08-16).
+"""Read-only course/catalogue claim gate for EN/TR local store drafts.
 
-## Neden var
-
-`docs/store/listing.json`nin `$readinessClaimWhy` alanı kendi bayatlama riskini
-ADIYLA yazmıştı: *"Bu sayı hasat turu ilerledikçe DEĞİŞECEK... güncellenmezse bu
-alan H-44 sınıfında bir yokluk/eskime beyanı olur."* Orkestratörün ölçtüğü gerçek
-(H-58): `$`-önekli alanların SIFIR okuyucusu var — yazmak koruma değildir, kimse
-okumazsa uyarı hiçbir şeyi durdurmaz.
-
-Bu araç iki dosyadaki (`listing.json` İngilizce açıklama + `STORE-LISTING-
-TASLAK.md`nin Türkçe kontrol listesi) sayıları `content/library.json`nin GERÇEK
-sayımıyla karşılaştırır. Metni DÜZELTMEZ — yalnız UYUŞMAZSA kırmızı yanar; kararı
-(sayıyı güncelle mi, cümleyi değiştir mi) her zaman bir insan/oturum verir.
-
-    python3 tools/validate_store_listing.py            # gerçek dosyalarla
-    python3 tools/validate_store_listing.py --self-test # sabotaj + pozitif ikiz
+The public description is checked separately from its provenance metadata:
+correct metadata cannot compensate for absent or incorrect public claims.
+Historical STORE-LISTING-TASLAK catalogue counts remain a separate check.
+No provider/store acceptance is inferred and no draft is rewritten.
 """
+from copy import deepcopy
+import hashlib
 import json
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-LISTING = ROOT / "docs" / "store" / "listing.json"
-TASLAK_MD = ROOT / "docs" / "store" / "STORE-LISTING-TASLAK.md"
-LIBRARY = ROOT / "content" / "library.json"
+LISTINGS = {'en': ROOT / 'docs/store/listing.json',
+            'tr': ROOT / 'docs/store/listing.tr-TR.json'}
+TASLAK_MD = ROOT / 'docs/store/STORE-LISTING-TASLAK.md'
+LIBRARY = ROOT / 'content/library.json'
+COURSE_PATH = 'content/courses/calisthenics.v1.json'
+COURSE = ROOT / COURSE_PATH
+PREPARATION_KEY = '$coursePreparation20260926'
 
 
-def real_counts() -> tuple[int, int]:
-    """Katalogdaki GERÇEK toplam ve canlı hareket sayısı — tahmin değil."""
-    lib = json.loads(LIBRARY.read_text(encoding="utf-8"))
-    movements = lib["movements"]
-    total = len(movements)
-    live = sum(1 for m in movements if m.get("status") == "live")
-    return total, live
+def course_counts(course: dict) -> tuple[int, int]:
+    modules = course['modules']
+    return sum(len(module['lessons']) for module in modules), len(modules)
 
 
-def claimed_from_listing_json(text: str) -> tuple[int, int] | None:
-    m_total = re.search(r"covers (\d+) movements", text)
-    m_live = re.search(r"Today, (\d+) of them", text)
-    if not m_total or not m_live:
+def claimed_course(text: str, language: str) -> tuple[int, int] | None:
+    if language == 'en':
+        lessons = re.search(r'\b(\d+)\s+(?:original\s+)?(?:English and Turkish\s+)?calisthenics lessons\b', text)
+        modules = re.search(r'\bacross\s+(\d+)\s+modules\b', text)
+    else:
+        lessons = re.search(r'\b(\d+)\s+(?:özgün\s+)?(?:Türkçe ve İngilizce\s+)?calisthenics dersi\b', text)
+        modules = re.search(r'\b(\d+)\s+modülde\b', text)
+    if not lessons or not modules:
         return None
-    return int(m_total.group(1)), int(m_live.group(1))
+    return int(lessons.group(1)), int(modules.group(1))
 
 
 def claimed_from_taslak_md(text: str) -> tuple[int, int, int] | None:
-    m = re.search(r"(\d+) hareket,\s*(\d+) açık,\s*(\d+) ölçüm bekliyor", text)
-    if not m:
-        return None
-    return int(m.group(1)), int(m.group(2)), int(m.group(3))
+    match = re.search(r'(\d+) hareket,\s*(\d+) açık,\s*(\d+) ölçüm bekliyor', text)
+    return tuple(map(int, match.groups())) if match else None
 
 
-def check(listing_text: str, taslak_text: str, real_total: int, real_live: int
-          ) -> list[str]:
-    """Saf fonksiyon — dosya okumaz, verilen metinleri gerçek sayılara karşı
-    sınar. Öz-test bu fonksiyonu SAHTE metinle çağırır, gerçek dosyaya dokunmaz."""
+def check(listings: dict[str, dict], course: dict, source_sha: str,
+          taslak_text: str, real_total: int, real_live: int) -> list[str]:
+    """Pure gate; source content/hash and public/metadata claims are independent."""
     errors = []
-
-    lj = claimed_from_listing_json(listing_text)
-    if lj is None:
-        errors.append(
-            "⛔ listing.json'daki 'covers N movements'/'Today, N of them' "
-            "deseni BULUNAMADI — metin değişmiş, kapı KÖRLEŞMİŞ olabilir. "
-            "Deseni ya da bu aracı güncelle.")
-    elif lj != (real_total, real_live):
-        errors.append(
-            f"⛔ listing.json: 'covers {lj[0]} movements' / 'Today, {lj[1]} "
-            f"of them' diyor ama content/library.json GERÇEKTE "
-            f"{real_total} toplam / {real_live} canlı. Hasat turu ilerledi, "
-            f"metin ilerlemedi.")
-
-    tk = claimed_from_taslak_md(taslak_text)
-    if tk is None:
-        errors.append(
-            "⛔ STORE-LISTING-TASLAK.md'deki 'N hareket, N açık, N ölçüm "
-            "bekliyor' deseni BULUNAMADI — metin değişmiş, kapı KÖRLEŞMİŞ "
-            "olabilir. Deseni ya da bu aracı güncelle.")
-    else:
-        real_waiting = real_total - real_live
-        if tk != (real_total, real_live, real_waiting):
-            errors.append(
-                f"⛔ STORE-LISTING-TASLAK.md: '{tk[0]} hareket, {tk[1]} açık, "
-                f"{tk[2]} ölçüm bekliyor' diyor ama GERÇEKTE {real_total} "
-                f"hareket, {real_live} açık, {real_waiting} ölçüm bekliyor.")
-
+    expected_counts = course_counts(course)
+    if expected_counts[0] <= 0 or expected_counts[1] <= 0:
+        errors.append('course: empty lesson/module source')
+    for language in ('en', 'tr'):
+        listing = listings.get(language)
+        label = f'listing.{language}'
+        if not isinstance(listing, dict):
+            errors.append(f'{label}: missing draft')
+            continue
+        description = listing.get('description')
+        claims = claimed_course(description, language) if isinstance(description, str) else None
+        if claims is None:
+            errors.append(f'{label}: public course count claim ABSENT; parser or copy must be reviewed')
+        elif claims != expected_counts:
+            errors.append(f'{label}: public lesson/module claim {claims}, source {expected_counts}')
+        metadata = listing.get(PREPARATION_KEY)
+        if not isinstance(metadata, dict):
+            errors.append(f'{label}: source metadata ABSENT')
+            continue
+        expected = {'asset': COURSE_PATH, 'sha256': source_sha,
+                    'lessonCount': expected_counts[0], 'moduleCount': expected_counts[1]}
+        for field, value in expected.items():
+            if metadata.get(field) != value:
+                errors.append(f'{label}: source metadata {field}={metadata.get(field)!r}, expected {value!r}')
+    catalogue_claim = claimed_from_taslak_md(taslak_text)
+    expected_catalogue = real_total, real_live, real_total - real_live
+    if catalogue_claim is None:
+        errors.append('STORE-LISTING-TASLAK.md: catalogue claim ABSENT')
+    elif catalogue_claim != expected_catalogue:
+        errors.append(f'STORE-LISTING-TASLAK.md: catalogue {catalogue_claim}, source {expected_catalogue}')
     return errors
 
 
 def self_test() -> int:
-    real_total, real_live = 31, 2  # sabit sahte katalog — dosyaya dokunmuyor
-
-    # POZİTİF İKİZ: bugünkü gerçek metin gerçek sayılarla UYUŞMALI.
-    ok_listing = "Gravita's library covers 31 movements across squats. Today, 2 of them are open."
-    ok_taslak = "| 31 hareket, 2 açık, 29 ölçüm bekliyor | kaynak |"
-    errs = check(ok_listing, ok_taslak, real_total, real_live)
-    if errs:
-        print("⛔ TERS İKİZ BAŞARISIZ: doğru metin YANLIŞLIKLA kırmızı yaktı:")
-        for e in errs:
-            print(f"   {e}")
+    # Synthetic source independent of either public description; no repo writes.
+    course = {'modules': [{'lessons': [{}] * (6 if i < 6 else 5)} for i in range(10)]}
+    source_sha = hashlib.sha256(json.dumps(course).encode()).hexdigest()
+    counts = course_counts(course)
+    assert counts == (56, 10)
+    metadata = {'asset': COURSE_PATH, 'sha256': source_sha,
+                'lessonCount': 56, 'moduleCount': 10}
+    listings = {
+        'en': {'description': '56 original English and Turkish calisthenics lessons across 10 modules.',
+               PREPARATION_KEY: deepcopy(metadata)},
+        'tr': {'description': '10 modülde 56 özgün Türkçe ve İngilizce calisthenics dersi.',
+               PREPARATION_KEY: deepcopy(metadata)},
+    }
+    taslak = '| 31 hareket, 2 açık, 29 ölçüm bekliyor | kaynak |'
+    def evaluate(value=listings, source=course, sha=source_sha, catalogue=taslak):
+        return check(value, source, sha, catalogue, 31, 2)
+    if evaluate():
+        print('⛔ Positive bilingual source-bound control failed')
         return 1
-    print("✅ pozitif ikiz: doğru sayılar sessizce geçti")
-
-    # SABOTAJ: hasat turu ilerlemiş ama metin GÜNCELLENMEMİŞ gibi davran.
-    bad_listing = "Gravita's library covers 31 movements across squats. Today, 5 of them are open."
-    errs = check(bad_listing, ok_taslak, real_total, real_live)
-    if not errs or "listing.json" not in errs[0]:
-        print("⛔ SABOTAJ YAKALANMADI: bayat 'Today, 5' sayısı kırmızı yakmadı.")
-        return 1
-    print(f"✅ sabotaj (listing.json sayısı bayat): yakalandı — {errs[0][:70]}…")
-
-    bad_taslak = "| 31 hareket, 9 açık, 22 ölçüm bekliyor | kaynak |"
-    errs = check(ok_listing, bad_taslak, real_total, real_live)
-    if not errs or "TASLAK.md" not in errs[0]:
-        print("⛔ SABOTAJ YAKALANMADI: bayat TASLAK.md satırı kırmızı yakmadı.")
-        return 1
-    print(f"✅ sabotaj (TASLAK.md satırı bayat): yakalandı — {errs[0][:70]}…")
-
-    # VAKUM: desen kendisi kaybolursa (biri metni yeniden yazarsa) SESSİZCE
-    # geçmemeli — kapı kör olduğunu SÖYLEMELİ.
-    errs = check("Gravita counts your reps.", ok_taslak, real_total, real_live)
-    if not errs or "BULUNAMADI" not in errs[0]:
-        print("⛔ VAKUM YAKALANMADI: desensiz metin sessizce geçti (kapı kör "
-              "olduğunu fark etmedi).")
-        return 1
-    print(f"✅ vakum (desen kayboldu): yakalandı — {errs[0][:70]}…")
-
-    print("\n✅ 4/4 kapı ateşlendi (pozitif ikiz + 2 sabotaj + vakum)")
+    scenarios = []
+    for language in ('en', 'tr'):
+        bad = deepcopy(listings); bad[language]['description'] = bad[language]['description'].replace('56', '55')
+        scenarios.append((f'{language} wrong public lesson count', evaluate(bad), f'listing.{language}: public'))
+        bad = deepcopy(listings); bad[language]['description'] = 'Practice at your pace.'
+        scenarios.append((f'{language} absent public course claim', evaluate(bad), f'listing.{language}: public'))
+        bad = deepcopy(listings); bad[language][PREPARATION_KEY]['sha256'] = '0' * 64
+        scenarios.append((f'{language} wrong source hash', evaluate(bad), 'sha256'))
+        bad = deepcopy(listings); bad[language][PREPARATION_KEY]['moduleCount'] = 9
+        scenarios.append((f'{language} wrong module metadata', evaluate(bad), 'moduleCount'))
+        bad = deepcopy(listings); bad[language][PREPARATION_KEY]['lessonCount'] = 55
+        scenarios.append((f'{language} wrong lesson metadata', evaluate(bad), 'lessonCount'))
+    changed_source = deepcopy(course); changed_source['modules'][0]['lessons'].append({})
+    scenarios.append(('source gained lesson while copy stayed stale', evaluate(source=changed_source), 'public'))
+    scenarios.append(('legacy catalogue stale', evaluate(catalogue='31 hareket, 3 açık, 28 ölçüm bekliyor'), 'TASLAK.md'))
+    scenarios.append(('legacy catalogue absent', evaluate(catalogue='Only a catalogue.'), 'TASLAK.md'))
+    for name, errors, expected in scenarios:
+        if not any(expected in error for error in errors):
+            print(f'⛔ Negative control missed: {name}: {errors}')
+            return 1
+    print(f'✅ 1 positive + {len(scenarios)} negative controls passed; public claim, source count/hash and legacy catalogue independent')
     return 0
 
 
 def main() -> int:
-    if "--self-test" in sys.argv:
+    if '--self-test' in sys.argv:
         return self_test()
-
-    if not LISTING.exists() or not TASLAK_MD.exists() or not LIBRARY.exists():
-        print(f"⛔ beklenen dosya(lar) yok: {LISTING}, {TASLAK_MD}, {LIBRARY}")
+    try:
+        library = json.loads(LIBRARY.read_text(encoding='utf-8'))
+        movements = library['movements']
+        real_total = len(movements)
+        real_live = sum(m.get('status') == 'live' for m in movements)
+        raw_course = COURSE.read_bytes()
+        course = json.loads(raw_course)
+        errors = check({language: json.loads(path.read_text(encoding='utf-8'))
+                        for language, path in LISTINGS.items()}, course,
+                       hashlib.sha256(raw_course).hexdigest(),
+                       TASLAK_MD.read_text(encoding='utf-8'), real_total, real_live)
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        print(f'⛔ Source/draft cannot be read: {error}')
         return 1
-
-    real_total, real_live = real_counts()
-    errors = check(LISTING.read_text(encoding="utf-8"),
-                    TASLAK_MD.read_text(encoding="utf-8"),
-                    real_total, real_live)
     if errors:
-        for e in errors:
-            print(e)
+        for error in errors:
+            print(f'⛔ {error}')
         return 1
-    print(f"✅ mağaza metni katalogla UYUŞUYOR — {real_total} toplam / "
-          f"{real_live} canlı / {real_total - real_live} bekliyor")
+    lessons, modules = course_counts(course)
+    print(f'✅ EN/TR draft claims + SHA match source {lessons} lessons/{modules} modules; legacy catalogue {real_total}/{real_live}/{real_total-real_live}. Local draft only.')
     return 0
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     sys.exit(main())

@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "editorialLayer": "v8j",
+  "parentOverlaySha256": "abad385828435ae83871bd9d78e96e1608dee5ccbc66f5182934d54a5eec77aa",
+  "parentCourseSha256": "0e16300607be233d914bd8e1dce6106054dfd3a8c4f9fad98c63dd5a51f3f6fc",
+  "courseVersion": "1.0.0",
+  "courseSha256": "729cefc3a78882ca3ddb7d4bf6514bfcec0abaaa0e7e1a5db2161789ab47f961",
+  "addedSources": [
+    {
+      "id": "strongfirst_wall_hinge",
+      "title": "StrongFirst: wall hip hinge",
+      "url": "https://www.strongfirst.com/enter-the-barbell-deadlift/",
+      "supports": {
+        "en": "Hip movement backward to a gentle wall tap, followed by returning upright.",
+        "tr": "Kalçayı hafifçe duvara değene kadar geriye götürüp yeniden dikleşmeyi."
+      },
+      "doesNotSupport": {
+        "en": "A prescribed wall distance, rep dose, lumbar angle, safety threshold or camera form verdict.",
+        "tr": "Sabit duvar mesafesini, tekrar dozunu, bel açısını, güvenlik eşiğini veya kamera form hükmünü."
+      }
+    },
+    {
+      "id": "harvard_wall_kneeling_pushups",
+      "title": "Harvard Health: wall and kneeling push-up variants",
+      "url": "https://www.health.harvard.edu/exercise-and-fitness/modify-your-push-ups-to-meet-your-fitness-level",
+      "supports": {
+        "en": "Separate wall and knee-supported push-up options, with controlled lower-and-press action.",
+        "tr": "Ayrı duvar ve diz destekli şınav seçeneklerini, kontrollü alçalma ve itmeyi."
+      },
+      "doesNotSupport": {
+        "en": "A universal elbow angle, the lessons’ sets or rest, hip-first error detection or personal wrist safety.",
+        "tr": "Evrensel dirsek açısını, derslerin setini veya dinlenmesini, kalça-önce hata tespitini ya da kişisel bilek güvenliğini."
+      }
+    },
+    {
+      "id": "harvard_forearm_plank_options",
+      "title": "Harvard Health: forearm plank knee and toe options",
+      "url": "https://www.health.harvard.edu/healthy-aging-and-longevity/try-this-move-for-better-core-strength",
+      "supports": {
+        "en": "Separate forearm-plank options with knee or toe support.",
+        "tr": "Diz veya ayak parmağı desteğiyle ayrı önkol plank seçeneklerini."
+      },
+      "doesNotSupport": {
+        "en": "The lesson’s timed hold or rest, a required knee-down exit, breathing inference or camera safety judgment.",
+        "tr": "Dersin tutuş veya dinlenme süresini, zorunlu dizle çıkışı, nefes çıkarımını veya kamerayla güvenlik kararını."
+      }
+    }
+  ],
+  "lessonSourceAdds": {
+    "cal-09": [
+      "strongfirst_wall_hinge"
+    ],
+    "cal-15": [
+      "harvard_wall_kneeling_pushups"
+    ],
+    "cal-17": [
+      "harvard_wall_kneeling_pushups"
+    ],
+    "cal-32": [
+      "harvard_forearm_plank_options"
+    ]
+  }
+}

@@ -11,6 +11,8 @@
 /// gün değişir, sınıflandırma sessizce yanlışa döner, hiçbir test görmez.
 library;
 
+import 'package:motion_content/motion_content.dart';
+
 /// Ne tür bir başarısızlık — ve bu ayrım kullanıcıya SUNULAN EYLEMİ belirler.
 enum ContentFailureKind {
   /// İçerik okunabildi ama KENDİ İÇİNDE tutarsız: `wave` beyanı yok, katalog
@@ -21,8 +23,9 @@ enum ContentFailureKind {
   /// denemek anlamsız.
   integrity,
 
-  /// İçerik OKUNAMADI: asset yok, JSON bozuk, I/O hatası. Kurulum bozulmuş
-  /// olabilir; yeniden kurmak GERÇEKTEN çözebilir.
+  /// İçerik OKUNAMADI: asset yok, zaman aşımı veya I/O hatası. Kurulum
+  /// bozulmuş olabilir; yeniden kurmak GERÇEKTEN çözebilir. Paketlenmiş
+  /// manifestin bozuk şeması ise bütünlük hatasıdır.
   unreadable,
 }
 
@@ -49,6 +52,15 @@ final class ContentFailure {
   /// hatamız" demekten daha az yanlıştır — ikincisi kullanıcıya bizim adımıza
   /// teşhis koyar.
   factory ContentFailure.from(Object error) {
+    if (error is ContentException) {
+      final ContentFailureKind kind = switch (error.error.code) {
+        ContentErrorCode.missingAsset ||
+        ContentErrorCode.timeout ||
+        ContentErrorCode.io => ContentFailureKind.unreadable,
+        _ => ContentFailureKind.integrity,
+      };
+      return ContentFailure(kind: kind, detail: error.error.toString());
+    }
     if (error is ContentIntegrityException) {
       return ContentFailure(
         kind: ContentFailureKind.integrity,

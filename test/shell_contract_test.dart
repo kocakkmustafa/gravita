@@ -183,12 +183,17 @@ void main() {
       // Bu test bir pin bump'ta KIRILIR ve kırılması DOĞRUDUR: bump bilinçli
       // bir karardır, sessiz bir kayma değil. Kıran kişi buradaki sabitleri
       // de günceller ve böylece bump kayda geçer.
-      const String sealedRef = 'f13bdc93b2eae2f741bfcdb4c9270a88e5d75e5d';
+      const String sealedRef = 'f2ea161c7e974d57b114ba7773836c72be17a381';
       const String sealedCoreVersion = '0.11.0';
       const String sealedCameraVersion = '0.1.2';
+      const String sealedContentVersion = '0.1.0';
 
       final YamlMap deps = pubspec['dependencies'] as YamlMap;
-      for (final String pkg in <String>['motion_core', 'motion_camera']) {
+      for (final String pkg in <String>[
+        'motion_core',
+        'motion_camera',
+        'motion_content',
+      ]) {
         final String ref =
             ((deps[pkg] as YamlMap)['git'] as YamlMap)['ref'] as String;
         expect(ref, sealedRef,
@@ -228,6 +233,12 @@ void main() {
           reason: 'motion_camera kilitte beklenen sürüm değil.');
       expect(cam['resolved-ref'], sealedRef,
           reason: 'motion_camera çözülen commit mühürlü ref değil.');
+
+      final Map<String, String> content = lockBlock('motion_content');
+      expect(content['version'], sealedContentVersion,
+          reason: 'motion_content kilitte beklenen sürüm değil.');
+      expect(content['resolved-ref'], sealedRef,
+          reason: 'motion_content çözülen commit mühürlü ref değil.');
     });
 
     test('kısa-SHA YASAK — pub ref\'leri METİN olarak karşılaştırıyor', () {

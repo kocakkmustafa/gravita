@@ -143,7 +143,7 @@
       "status": "live",
       "wave": "W1",
       "catalogId": "push_up",
-      "blurb": "Set your phone down side-on so it can see you from head to heels. We count your reps, time your tempo, and tell you when a rep didn't go deep enough.",
+      "blurb": "Set your phone down side-on so it can see you from head to heels. We count verified push-up reps and show median down/up tempo after the set. A shallow-rep cue is not displayed during the set.",
       "honesty": {
         "measured": [
           "Rep count — the engine refuses to count unless your torso is actually horizontal (identity gate)"
@@ -208,7 +208,7 @@
         }
       ],
       "comingSoonInThisMovement": [
-        "Tempo (down/up timing) — the engine measures it from the real turnaround point, not from a threshold crossing, and that is proven on recorded footage. But no screen in this app shows it to you, so we do not count it as something you get.",
+        "Tempo while the set is running — the engine measures each rep's down and up timing from the real turnaround point. The end-of-set summary shows the median down and up; there is no live or per-rep tempo display.",
         "Elbow range of motion per rep — same situation: the engine computes it for every rep, and nothing in the app displays it.",
         "Being told a rep was too shallow — the shallow-rep rule fires correctly on recorded footage (8 of 8 rules live in the replay gate), but during a live session no cue appears on screen, so nothing actually tells you.",
         "Body-line grading (hip sag / pike / head drop / uneven press) — the rules fire correctly on real footage and the reference is now ATTESTED, but no joint tolerance is variance-derived (derivedJoints empty; all 9 floor-bound), so we show the cue and never a score",
@@ -1675,8 +1675,7 @@
       "aliases": [],
       "classBadge": "Form coaching",
       "safetyWarnings": [
-        "High wrist and elbow load. Build the lean gradually; stop at joint pain.",
-        "This is an aspirational skill — progress is guided but not badged."
+        "High wrist and elbow load. Build the lean gradually; stop at joint pain."
       ],
       "skillGraphNode": "tuck_planche",
       "blurb": "Tuck Planche is in our catalogue and closed. 4 measurements are missing before we would coach it — named below, in plain terms.",

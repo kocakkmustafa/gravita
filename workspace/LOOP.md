@@ -1,5 +1,12 @@
 # Gravita — LOOP (iş kuyruğu + oturum protokolü)
 
+## 2026-09-28 güncel kuyruk
+1. PR #1'e taşınan 56 derslik Calisthenics kaynağında Actions bütçe engeli kalkınca son başta yararlı CI al.
+2. Kurs JSON'u çalışma zamanında Core uzunluk/SHA kapısıyla okunuyor; ders medyası manifesti, ekipman etiketli gösterim, altyazı ve gerçek cihaz oynatma kabulünü tamamla.
+3. Kişi-ayrık uzman hareket hatası ve güvenli hazırlık verisi olmadan tam-kurs form modeli fit veya otomatik güvenli-form hükmü yok; held Squat ZIP/once-failed deneyler korunur.
+4. Kurucu bütün dersleri en son toplu fiziksel test eder; mağaza kapıları ayrıdır.
+
+
 ## Oturum açılışı
 1. `../VENTURE.md` + PROGRESS son mühür + DEFTER açık maddeler OKU.
 2. 🔓 **Kod kilidi 2026-07-26'da AÇILDI** (kurucu tetiği). G1/D1 kapısı **şartlı geçti** — ters-duruş hattında üretim kodu yalnız **ADR-001** (yönelim-farkında çıkarım) mimarisiyle yazılır.

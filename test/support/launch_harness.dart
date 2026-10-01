@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show MethodCall, MethodChannel, rootBundle;
+import 'package:flutter/services.dart'
+    show MethodCall, MethodChannel, rootBundle;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/gravita_app.dart';
@@ -105,12 +106,14 @@ Future<void> bootGravitaRoot(
   PathProviderPlatform.instance = FakeSupportDir(supportPath);
   await tester.pumpWidget(const MaterialApp(home: GravitaRoot()));
 
-  for (int round = 0;
-      round < 8 &&
-          find.byType(CircularProgressIndicator).evaluate().isNotEmpty;
-      round++) {
+  for (
+    int round = 0;
+    round < 8 && find.byType(CircularProgressIndicator).evaluate().isNotEmpty;
+    round++
+  ) {
     await tester.runAsync(
-        () => Future<void>.delayed(const Duration(milliseconds: 150)));
+      () => Future<void>.delayed(const Duration(milliseconds: 150)),
+    );
     await tester.pump(const Duration(milliseconds: 80));
   }
   for (int i = 0; i < 3; i++) {
@@ -132,25 +135,26 @@ Future<void> bootGravitaRoot(
 /// [status] `PermissionStatus` sırasıdır: 0 denied · 1 granted ·
 /// 2 restricted · 3 limited · 4 permanentlyDenied.
 void mockPermissionChannel({required int status}) {
-  const MethodChannel channel =
-      MethodChannel('flutter.baseflow.com/permissions/methods');
+  const MethodChannel channel = MethodChannel(
+    'flutter.baseflow.com/permissions/methods',
+  );
   TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
       .setMockMethodCallHandler(channel, (MethodCall call) async {
-    switch (call.method) {
-      case 'requestPermissions':
-        // İstenen izinlerin ADINI VARSAYMIYORUZ: gelen anahtarlar aynen
-        // yanıtlanıyor (camera'nın sayısal karşılığını elle yazmak,
-        // paket sürümüne bağlı kırılgan bir bilgi olurdu).
-        final List<dynamic> requested = call.arguments as List<dynamic>;
-        return <int, int>{
-          for (final dynamic p in requested) p as int: status,
-        };
-      case 'checkPermissionStatus':
-        return status;
-      default:
-        return null;
-    }
-  });
+        switch (call.method) {
+          case 'requestPermissions':
+            // İstenen izinlerin ADINI VARSAYMIYORUZ: gelen anahtarlar aynen
+            // yanıtlanıyor (camera'nın sayısal karşılığını elle yazmak,
+            // paket sürümüne bağlı kırılgan bir bilgi olurdu).
+            final List<dynamic> requested = call.arguments as List<dynamic>;
+            return <int, int>{
+              for (final dynamic p in requested) p as int: status,
+            };
+          case 'checkPermissionStatus':
+            return status;
+          default:
+            return null;
+        }
+      });
 }
 
 /// Gerçek G/Ç'yi `testWidgets` gövdesinde koşturmanın TEK doğru yolu.
@@ -173,11 +177,15 @@ Future<T> realIo<T>(WidgetTester tester, Future<T> Function() body) async {
 /// İKİNCİ gerçek çağıranı çıkınca (`program_setup_screen_test.dart`ın kendi
 /// yerinde yazılmış hâli → `workout_flow_test.dart`) buraya taşındı — G-079
 /// dersi: iki ev tutarsızlaşır.
-Future<void> settleUntil(WidgetTester tester, bool Function() until,
-    {int maxRounds = 10}) async {
+Future<void> settleUntil(
+  WidgetTester tester,
+  bool Function() until, {
+  int maxRounds = 10,
+}) async {
   for (int round = 0; round < maxRounds && !until(); round++) {
     await tester.runAsync(
-        () => Future<void>.delayed(const Duration(milliseconds: 150)));
+      () => Future<void>.delayed(const Duration(milliseconds: 150)),
+    );
     await tester.pump(const Duration(milliseconds: 80));
   }
 }

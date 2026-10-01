@@ -2,28 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/services.dart';
+import 'package:gravita/app/content_repository.dart';
 
-/// GRA-P1-002 — "20-movement paid foundation" kabul testi (roadmap Step 1).
-///
-/// ⭐ BU TEST BUGÜN KIRMIZI — ve öyle olması BEKLENİYOR, adıyla. Roadmap'in
-/// kendi disiplini: kabul testi önce yazılır, geçmesi GERÇEK kanıt (hasat +
-/// hakem/uzman onayı) gelince olur. Kırmızı olan tek şey `≥20 aktif hareket`
-/// eşiği — o eşik gerçek harvest+expert-review verisi ister (EXTERNAL_GATE,
-/// bu makinede mediapipe/cv2 ortamı yok, DEFTER G-084/G-087/G-262/G-266'da
-/// defalarca ölçülmüş). PATTERN kapsamı (push/pull/squat/hinge/core/carry/
-/// hold) ise BUGÜN ZATEN geçiyor — 31 hareketlik katalog bu yedi deseni
-/// önceki oturumlarda önceden doldurmuş, `docs/PREP-KATALOG-SINIFLANDIRMA-
-/// 2026-08-19.md`nin bulgusuyla tutarlı.
-///
-/// ⚠️ "Desen" (pattern) `content/catalog/*.json`da AYRI bir alan DEĞİL —
-/// `family`/`muscleGroups`/`engine.type`ten TÜRETİLİR. Aşağıdaki eşleme bir
-/// ÜRÜN sınıflandırması değil, bu TESTİN kendi denetim aracı: hareket-bilimi
-/// açısından tartışmalı sınırlar olabilir (ör. `glute_bridge` hem squat hem
-/// hinge ailesine yakın okunabilir) ama kapının sorusu yalnız "bu desende
-/// EN AZ BİR hareket var mı" — ince ayrım gerektirmiyor. Şema bir gün
-/// açıkça bir `pattern` alanı taşırsa bu test ONU okumalı, kendi eşlemesini
-/// DEĞİL.
+/// The historical target remains20 camera movement contracts. Teaching access
+/// is exercised separately and cannot promote the camera capability gate.
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   List<Map<String, dynamic>> movements() {
     final Map<String, dynamic> lib =
         (jsonDecode(File('content/library.json').readAsStringSync()) as Map)
@@ -36,9 +21,10 @@ void main() {
     final String catalogId =
         (movement['catalogId'] ?? movement['id']) as String;
     return (jsonDecode(
-            File('content/catalog/$wave/$catalogId.json').readAsStringSync())
-        as Map)
-      .cast<String, dynamic>();
+              File('content/catalog/$wave/$catalogId.json').readAsStringSync(),
+            )
+            as Map)
+        .cast<String, dynamic>();
   }
 
   group('desen kapsamı — push/pull/squat/hinge/core/carry/hold', () {
@@ -57,8 +43,11 @@ void main() {
             .where((Map<String, dynamic> m) => m['family'] == family)
             .map((Map<String, dynamic> m) => m['id'] as String)
             .toList();
-        expect(found, isNotEmpty,
-            reason: '$pattern deseni (family=$family) hiç hareket bulamadı');
+        expect(
+          found,
+          isNotEmpty,
+          reason: '$pattern deseni (family=$family) hiç hareket bulamadı',
+        );
       });
     }
 
@@ -92,52 +81,69 @@ void main() {
 
   group('en az 2 skill tree (roadmap §10 paid foundation şartı)', () {
     test('content/skill-trees.index.json en az 2 paket listeler', () {
-      final Map<String, dynamic> idx = (jsonDecode(File(
-                  'content/skill-trees.index.json')
-              .readAsStringSync()) as Map)
-          .cast<String, dynamic>();
+      final Map<String, dynamic> idx =
+          (jsonDecode(File('content/skill-trees.index.json').readAsStringSync())
+                  as Map)
+              .cast<String, dynamic>();
       final List<dynamic> trees = idx['trees'] as List<dynamic>;
       expect(trees.length, greaterThanOrEqualTo(2));
     });
   });
 
-  group('⭐ ASIL KABUL KAPISI — bugün SKIP, adıyla (kırmızı DEĞİL)', () {
-    // ⚠️ TASARIM KARARI: roadmap Step 1 "kırmızı yaz" diyor ve ilk
-    // yazışımım TAM ÖYLE yazdı — gerçek `expect()`, bugün GERÇEKTEN
-    // kırmızı (2 < 20). Ama ölçünce gördüm: `tools/run_all_gates.sh`ın
-    // SÜİT 1'i `flutter test` — TÜM `test/`i tarar, seçici DEĞİL. Kalıcı
-    // kırmızı bir dosya bu SÜİTİ (ve dolayısıyla HER gelecek commit'i)
-    // `ALLOW_RED=1`e mahkûm ederdi — kapının "yeşil = güvenli" anlamını
-    // sıfırlardı. Roadmap'in "kırmızı" niyeti kısa bir TDD döngüsü
-    // varsayıyor (yaz → hemen uygula → yeşil); buradaki eşik AYLARCA kapalı
-    // kalabilecek bir dış veriye bağlı — o TDD döngüsü değil.
-    //
-    // Panzehir `skip` — ve DİNAMİK: canlı sayı BURADA (main() içinde,
-    // senkron dosya okumasıyla) ÖNCEDEN hesaplanır, `skip` mesajına
-    // GÖMÜLÜR. Sayı 20'ye ulaştığı GÜN `skip` kendiliğinden `false` olur
-    // ve test GERÇEKTEN koşup zorlar — kimsenin "bu satırı aç" diye
-    // hatırlamasına gerek YOK. `run_all_gates.sh` skip'i kırmızı SAYMAZ
-    // (dart test skip'i ayrı raporlar) — kapı gerçek bir engeli gizlemiyor,
-    // yalnız onu "aktif ihlal" yerine "bilinen, adıyla bekleyen" olarak
-    // taşıyor.
-    final int liveCount =
-        movements().where((Map<String, dynamic> m) => m['status'] == 'live').length;
+  group('camera foundation readiness — teaching is not measurement', () {
+    test(
+      'real packaged contracts report the still-unmet20-movement target',
+      () async {
+        final content = await ContentRepository.load(rootBundle);
+        final coverage = content.foundationCoverage;
+        expect(coverage.catalogueIds.length, 31);
+        expect(coverage.configuredCameraIds, {'bodyweight_squat', 'push_up'});
+        expect(coverage.cameraShortfall, 18);
+        expect(coverage.configuredCameraTargetReached, isFalse);
+        expect(coverage.cameraUnavailableIds.length, 29);
+        expect(coverage.practiceGuideIds.length, 17);
+        expect(coverage.readingGuideIds, {'wall_handstand', 'tuck_planche'});
+        for (final id in coverage.cameraUnavailableIds) {
+          expect(content.startableConfigFor(id), isNull);
+        }
+      },
+    );
 
     test(
-      'en az 20 hareket AKTİF (status=live)',
-      () {
-        final int live = movements()
-            .where((Map<String, dynamic> m) => m['status'] == 'live')
-            .length;
-        expect(live, greaterThanOrEqualTo(20));
+      'a status-only promotion and real teaching links cannot open a camera contract',
+      () async {
+        final content = await ContentRepository.load(
+          _StatusOnlyPromotionBundle(),
+        );
+        expect(content.catalogue.byId('plank')!.isLive, isTrue);
+        expect(content.calisthenicsCourse.guideFor('plank'), isNotNull);
+        expect(content.startableConfigFor('plank'), isNull);
+        await content.catalogFor('plank');
+        expect(content.startableConfigFor('plank'), isNull);
+        expect(content.foundationCoverage.configuredCameraIds, {
+          'bodyweight_squat',
+          'push_up',
+        });
+        expect(
+          content.foundationCoverage.configuredCameraTargetReached,
+          isFalse,
+        );
       },
-      skip: liveCount >= 20
-          ? false
-          : 'EXTERNAL_GATE: bugün $liveCount/20 hareket aktif '
-              '(bodyweight_squat + push_up). Gerçek eğitmen hasadı + '
-              'hareket-bilimi geçişi olmadan bu sayı büyümez (bu makinede '
-              'mediapipe/cv2 ortamı yok — G-084/G-087/G-262/G-266). Sayı '
-              '20\'ye ulaştığında bu skip KENDİLİĞİNDEN kalkar.',
     );
   });
+}
+
+class _StatusOnlyPromotionBundle extends CachingAssetBundle {
+  @override
+  Future<ByteData> load(String key) => rootBundle.load(key);
+  @override
+  Future<String> loadString(String key, {bool cache = true}) async {
+    final source = await rootBundle.loadString(key);
+    if (key != 'content/library.json') return source;
+    final json = jsonDecode(source) as Map<String, dynamic>;
+    for (final movement in json['movements'] as List) {
+      if (movement['id'] == 'plank') movement['status'] = 'live';
+    }
+    return jsonEncode(json);
+  }
 }

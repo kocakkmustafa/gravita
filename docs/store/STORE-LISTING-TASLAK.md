@@ -24,9 +24,9 @@ deseniyle birebir aynı çerçeve.
 | Form derecelendirmiyor, canlıda düzeltme yok | Aynı dizge, ikinci yarı |
 | Tıbbi değil, koç yerine geçmez, düşmeyi engelleyemez | `valueWhatWeDont`, birebir |
 | 31 hareket, 2 açık, 29 ölçüm bekliyor | `LibraryStrings.libraryCount` deseni + `content/library.json` (bu oturumda ölçüldü) |
-| Ağa hiç çıkmıyor, video hiç yüklenmiyor | `tools/network_claim_audit.py` (SIFIR ağ-yetenekli paket, F2/G-227) + CLAUDE.md "ham video cihazda" |
-| Hesap yok | `pubspec.yaml` grep — auth/firebase bağımlılığı sıfır |
-| Sosyal paylaşım/UGC yok | `pubspec.yaml` grep — share/webview/url_launcher bağımlılığı sıfır |
+| Video yüklenmiyor; hesap için ağ kullanılıyor | Kamera akışı cihazda; `lib/app/motion_account_bootstrap.dart` ortak Auth/profil hizmetini başlatıyor |
+| İsteğe bağlı ortak hesap var | `lib/app/profile_screen.dart` hesap girişine yönlendiriyor; `lib/app/gravita_app.dart` misafir akışını koruyor |
+| Sosyal paylaşım/UGC ve serbest web gezintisi yok | Ortak hesap ekranı gizlilik bağlantısını dış tarayıcıda açabilir; kamera veya seans paylaşım akışı yok |
 
 ## Ne YAZILMADI (bilerek)
 
@@ -35,10 +35,9 @@ deseniyle birebir aynı çerçeve.
   kalem (D6'nın kapsamı: taslak + ekran görüntüsü, cihaz-üstü metin-doğrulaması değil).
 - **"Coach"/"training plan"/kişisel antrenör dili** — `valueWhatWeDont`ün yasakladığı tam
   sınıf, description hiçbir yerde kullanmıyor.
-- **`cameraPermissionRationale.ios`daki "yalnız push-up" darlığı DÜZELTİLMEDİ** — bu
-  cümle bugün BAYAT (squat da canlı) ama `Info.plist`in kendi kalemi, D6/mağaza-metni
-  kapsamı değil; `listing.json`da adıyla işaretli bırakıldı, sonraki bir turun H-44 sınıfı
-  kalemi.
+- **Kamera izin gerekçesi hareket adı saymaz.** `ios/Runner/Info.plist` ve
+  `en.lproj`/`tr.lproj/InfoPlist.strings` aynı gerçek kullanım sınırını anlatır:
+  tam tekrar sayımı, tempo ölçümü, cihazda kalan video ve yerel seans özeti.
 
 ## Ekran görüntüleri
 

@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 2,
+  "asOf": "2026-09-30",
+  "scope": "Four exact lesson teaching ties from three original articles. One Harvard push-up document supports two separate variants. No complete-lesson, dose, personal-safety or camera validation.",
+  "sourceResearchManifestSha256": "dec2b43795a06b456bfb6b64f3645d836574a8d4ada8b41b09d959d4a2e8ebb6",
+  "parentCourseSha256": "0e16300607be233d914bd8e1dce6106054dfd3a8c4f9fad98c63dd5a51f3f6fc",
+  "courseSha256": "729cefc3a78882ca3ddb7d4bf6514bfcec0abaaa0e7e1a5db2161789ab47f961",
+  "generatedMediaCount": 0,
+  "acceptedExpertLabelCount": 0,
+  "qualifiedModelCount": 0,
+  "heldCandidateLessonId": "cal-35",
+  "heldCandidateUrl": "https://www.acefitness.org/resources/everyone/exercise-library/121/supine-hollowing-with-lower-extremity-movements/",
+  "heldReason": "ACE one-leg lift follows pelvic-floor/core co-contraction protocol that cal-35 does not teach; keep existing pregnancy adaptation and course body unchanged.",
+  "sources": {
+    "strongfirst_wall_hinge": {
+      "lessonIds": [
+        "cal-09"
+      ],
+      "url": "https://www.strongfirst.com/enter-the-barbell-deadlift/",
+      "locator": "The Wall Hinge Builds the Base Movement, lines 32-43",
+      "accessMode": "original_publisher_page_opened",
+      "supports": {
+        "en": "Hip movement backward to a gentle wall tap, followed by returning upright.",
+        "tr": "Kalçayı hafifçe duvara değene kadar geriye götürüp yeniden dikleşmeyi."
+      },
+      "doesNotSupport": {
+        "en": "A prescribed wall distance, rep dose, lumbar angle, safety threshold or camera form verdict.",
+        "tr": "Sabit duvar mesafesini, tekrar dozunu, bel açısını, güvenlik eşiğini veya kamera form hükmünü."
+      },
+      "rights": "Teaching text attribution only; commercial imagery/audio/video reuse and model-training rights not verified.",
+      "realPersonErrorLabel": false,
+      "modelTrainingRightsVerified": false,
+      "automaticFormVerdictSupported": false
+    },
+    "harvard_wall_kneeling_pushups": {
+      "lessonIds": [
+        "cal-15",
+        "cal-17"
+      ],
+      "url": "https://www.health.harvard.edu/exercise-and-fitness/modify-your-push-ups-to-meet-your-fitness-level",
+      "locator": "Beginner level: Wall push-ups and Kneeling push-ups, lines 80-84",
+      "accessMode": "original_publisher_page_opened",
+      "supports": {
+        "en": "Separate wall and knee-supported push-up options, with controlled lower-and-press action.",
+        "tr": "Ayrı duvar ve diz destekli şınav seçeneklerini, kontrollü alçalma ve itmeyi."
+      },
+      "doesNotSupport": {
+        "en": "A universal elbow angle, the lessons’ sets or rest, hip-first error detection or personal wrist safety.",
+        "tr": "Evrensel dirsek açısını, derslerin setini veya dinlenmesini, kalça-önce hata tespitini ya da kişisel bilek güvenliğini."
+      },
+      "rights": "Teaching text attribution only; commercial imagery/audio/video reuse and model-training rights not verified.",
+      "realPersonErrorLabel": false,
+      "modelTrainingRightsVerified": false,
+      "automaticFormVerdictSupported": false
+    },
+    "harvard_forearm_plank_options": {
+      "lessonIds": [
+        "cal-32"
+      ],
+      "url": "https://www.health.harvard.edu/healthy-aging-and-longevity/try-this-move-for-better-core-strength",
+      "locator": "Modified front plank and Front plank, lines 70-99",
+      "accessMode": "original_publisher_page_opened",
+      "supports": {
+        "en": "Separate forearm-plank options with knee or toe support.",
+        "tr": "Diz veya ayak parmağı desteğiyle ayrı önkol plank seçeneklerini."
+      },
+      "doesNotSupport": {
+        "en": "The lesson’s timed hold or rest, a required knee-down exit, breathing inference or camera safety judgment.",
+        "tr": "Dersin tutuş veya dinlenme süresini, zorunlu dizle çıkışı, nefes çıkarımını veya kamerayla güvenlik kararını."
+      },
+      "rights": "Teaching text attribution only; commercial imagery/audio/video reuse and model-training rights not verified.",
+      "realPersonErrorLabel": false,
+      "modelTrainingRightsVerified": false,
+      "automaticFormVerdictSupported": false
+    }
+  }
+}

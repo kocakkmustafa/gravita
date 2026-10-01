@@ -13,14 +13,11 @@ import 'dart:io';
 /// dosyasının HER BİRİ `0` bastı. Sayaç geri alındı, bu dosya artık
 /// enstrümansız.
 ///
-/// **Mekanizma SİLİNMEDİ — artık bir REGRESYON KAPISI:** Gravita'nın
-/// bağımlılık ağacında bugün ağa-çıkabilen SIFIR paket var
-/// (`NETWORK_DEPS_RECORDED = {}`, `network_claim_audit.py`). Bu dosya o
-/// durumu korur — biri yarın (analitik SDK'sı, farklı bir font paketi...)
-/// ağ yapabilen bir bağımlılık eklerse ve KENDİ testi onu tetiklerse, bu
-/// istemci sessizce yutmak yerine **her zaman** açık bir `SocketException`
-/// fırlatır. Testte ağ olmaması bir varsayım değil, aktif olarak
-/// UYGULANAN bir kural.
+/// **Mekanizma SİLİNMEDİ — ağsız widget/birim testi kapısı:** Ortak Motion
+/// hesabı artık ağ-yetenekli paketler getiriyor; bunlar
+/// `network_claim_audit.py` içinde sınıflandırıldı. Bu test ortamı gerçek
+/// Auth E2E'si için kullanılmaz. Yanlışlıkla ağa çıkan bir widget/birim testi
+/// açık bir `SocketException` alır; gerçek servis kabulü ayrı koşulur.
 ///
 /// ## Tarihsel not (artık geçerli değil, silinmedi) — ailenin ölçülmüş
 /// tuzağı, ve tuzağın YANLIŞ panzehiri

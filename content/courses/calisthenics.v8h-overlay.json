@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "editorialLayer": "v8h",
+  "parentOverlaySha256": "eea1b3fbc65dbc42bf22104eeb25a0b8fbaed67db138a6d69373e29005146784",
+  "parentCourseSha256": "7540b20aa5b638968ead068642a35d09181435d648c88a2b854a5082cacb21ce",
+  "courseVersion": "1.0.0",
+  "courseSha256": "652291837debd1799ca6381586d6d8c2495b79e2581c9098d21129cb912c8bb4",
+  "addedSources": [
+    {
+      "id": "ace_wrist_shoulder_options",
+      "title": "ACE: Gentle wrist circles and shoulder rolls",
+      "url": "https://www.acefitness.org/resources/pros/expert-articles/6051/summer-exercise-choices-for-individuals-with-arthritis/"
+    },
+    {
+      "id": "nhs_seated_leg_march",
+      "title": "Kingston and Richmond NHS: Seated leg march and shoulder circles",
+      "url": "https://www.kingstonandrichmond.nhs.uk/patients-and-families/patient-leaflets/home-exercise-programme-falls-prevention"
+    },
+    {
+      "id": "tjc_fixed_bar_row",
+      "title": "TJC Performance: Fixed-bar bent-knee to straight-leg inverted row",
+      "url": "https://tjcperformance.com/program-design/inverted-rows-definitive-guide/"
+    },
+    {
+      "id": "barbend_fixed_bar_row",
+      "title": "BarBend: Fixed-bar bent-knee inverted row",
+      "url": "https://barbend.com/inverted-row-guide/"
+    }
+  ],
+  "lessonSourceAdds": {
+    "cal-04": [
+      "ace_wrist_shoulder_options",
+      "nhs_seated_leg_march"
+    ],
+    "cal-24": [
+      "tjc_fixed_bar_row",
+      "barbend_fixed_bar_row"
+    ]
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "editorialLayer": "v8k",
+  "parentOverlaySha256": "db1354ce25aa3b1467984f96727e3a9f6dcd1bde69a4497b91c66ee9b5fb161c",
+  "parentCourseSha256": "729cefc3a78882ca3ddb7d4bf6514bfcec0abaaa0e7e1a5db2161789ab47f961",
+  "courseVersion": "1.0.0",
+  "courseSha256": "15930d335f377c9f48e1c7285f1c44e25973b9cccb3167fa99cc9b8599889502",
+  "existingSourceScopes": {
+    "ace_wrist_shoulder_options": {
+      "title": "ACE: unloaded wrist movement; standing march and walk separately",
+      "supports": {
+        "en": "In an arthritis-oriented article, unloaded wrist directions and standing marching and walking are separate movement options.",
+        "tr": "Artrit bağlamındaki yazıda yüksüz bilek yönleri ile ayakta adımlama ve yürüyüş ayrı hareket seçenekleridir."
+      },
+      "doesNotSupport": {
+        "en": "A full wrist circle, the historical shoulder_reach target, seated marching, the lesson's dose, fatigue threshold or personal safety.",
+        "tr": "Tam bilek dairesini, tarihsel shoulder_reach hedefini, oturarak adımlamayı, ders dozunu, yorgunluk eşiğini veya kişisel güvenliği."
+      }
+    },
+    "nhs_seated_leg_march": {
+      "title": "Kingston and Richmond NHS: seated alternating leg march",
+      "supports": {
+        "en": "Seated alternating foot lifts and returns to the floor in a referred falls-prevention programme.",
+        "tr": "Sevkli düşme önleme programında ayakların oturarak sırayla kaldırılıp yere indirilmesini."
+      },
+      "doesNotSupport": {
+        "en": "Walking as the same movement, the historical shoulder_reach target, the lesson's dose or general clinical clearance.",
+        "tr": "Yürüyüşü aynı hareket saymayı, tarihsel shoulder_reach hedefini, ders dozunu veya genel klinik uygunluk onayını."
+      }
+    },
+    "barbend_fixed_bar_row": {
+      "supports": {
+        "en": "At a fixed bar, bent knees and planted feet are an easier inverted-row branch than a straighter-leg lever.",
+        "tr": "Sabit barda bükülü diz ve basılı ayakların daha düz bacaklı kola göre kolay bir ters row dalı olmasını."
+      },
+      "doesNotSupport": {
+        "en": "Suspension anchor foot direction, inspection of this bar, the lesson's repetitions or rest, personal load or camera form judgment.",
+        "tr": "Askı bağlantısına göre ayak yönünü, bu barın kontrolünü, dersin tekrarını veya molasını, kişisel yükü ya da kamera form kararını."
+      }
+    }
+  },
+  "addedSources": [
+    {
+      "id": "trx_anchor_low_row",
+      "title": "TRX: anchored suspension low row adjustment",
+      "url": "https://www.trxtraining.com/blogs/news/lower-lat-exercises",
+      "supports": {
+        "en": "In an anchored suspension low row, walking planted feet toward the anchor increases demand; return is controlled.",
+        "tr": "Bağlı askı low rowunda basılı ayaklarla bağlantıya yaklaşmak yükü artırır; dönüş kontrollüdür."
+      },
+      "doesNotSupport": {
+        "en": "Fixed-bar foot direction, anchor certification, the lesson's two-plus-two dose or 120-second rest, personal load or camera verdict.",
+        "tr": "Sabit bar ayak yönünü, bağlantı onayını, dersin ikişer tekrarını veya 120 saniye molasını, kişisel yükü ya da kamera kararını."
+      }
+    },
+    {
+      "id": "hybrid_assisted_bar_hang",
+      "title": "Hybrid Calisthenics: foot-assisted bar hang",
+      "url": "https://www.hybridcalisthenics.com/assistedbarhangs",
+      "supports": {
+        "en": "Feet on a box or ground can offload an assisted bar hang, with a controlled return.",
+        "tr": "Basamak veya zemindeki ayakların destekli bar asılmasında yükü azaltmasını ve kontrollü dönüşü."
+      },
+      "doesNotSupport": {
+        "en": "Both feet staying in contact, the step or bar's reliability, a five-second hold, shoulder tolerance or grip-fatigue threshold.",
+        "tr": "İki ayağın sürekli temasını, basamak veya barın sağlamlığını, beş saniye tutuşu, omuz toleransını ya da tutuş yorgunluğu eşiğini."
+      }
+    },
+    {
+      "id": "worcs_nhs_wall_four_point_wrist",
+      "title": "Worcestershire NHS: wall and four-point wrist supports in fracture rehabilitation",
+      "url": "https://www.worcsacute.nhs.uk/leaflets/wrist-fracture/",
+      "supports": {
+        "en": "In a wrist-fracture rehabilitation leaflet, wall press-up and four-point kneeling are distinct hand-support positions.",
+        "tr": "Bilek kırığı rehabilitasyon broşüründe duvar itişi ve dört nokta diz-el desteğinin ayrı el destekleri olmasını."
+      },
+      "doesNotSupport": {
+        "en": "A universal progression or wrist angle, the lesson's lean or dose, personal pain threshold, clinical clearance or camera judgment.",
+        "tr": "Evrensel ilerleme veya bilek açısını, dersin yaslanmasını veya dozunu, kişisel ağrı eşiğini, klinik uygunluğu ya da kamera kararını."
+      }
+    }
+  ],
+  "lessonSourceAdds": {
+    "cal-24": ["trx_anchor_low_row"],
+    "cal-25": ["hybrid_assisted_bar_hang"],
+    "cal-40": ["harvard_wall_kneeling_pushups"],
+    "cal-41": ["worcs_nhs_wall_four_point_wrist"]
+  }
+}

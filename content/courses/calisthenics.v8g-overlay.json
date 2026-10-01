@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "editorialLayer": "v8g",
+  "parentOverlaySha256": "1fce0e2e73ddbef3c6342638fefcf471e6b68be09d989a7032a339b31dfef4a5",
+  "parentCourseSha256": "eca53870045d2c0c0e5fd2abc0d93190bc092a1ba3c254a64d908ae13040f83d",
+  "parentSemanticSha256": "95fbed3590159447de7ef88723a761c57d2aab93ab26f635cdab962ba152a9b6",
+  "courseVersion": "1.0.0",
+  "courseSha256": "7540b20aa5b638968ead068642a35d09181435d648c88a2b854a5082cacb21ce",
+  "addedSources": [
+    {
+      "id": "nhs_warmup",
+      "title": "NHS: How to warm up before exercising",
+      "url": "https://www.nhs.uk/live-well/exercise/how-to-warm-up-before-exercising/"
+    },
+    {
+      "id": "ace_trx_angle",
+      "title": "ACE Certified: TRX body-angle progression",
+      "url": "https://www.acefitness.org/continuing-education/certified/september-2024/8708/train-like-an-olympian-two-trx-muscular-training-workouts/"
+    },
+    {
+      "id": "trx_low_row",
+      "title": "TRX Training: Low row setup",
+      "url": "https://www.trxtraining.com/blogs/news/four-trx-moves-to-improve-your-rowing-performance"
+    }
+  ],
+  "lessonSourceAdds": {
+    "cal-04": [
+      "nhs_warmup"
+    ],
+    "cal-24": [
+      "ace_trx_angle",
+      "trx_low_row"
+    ]
+  },
+  "lessonOverrides": {
+    "cal-04": {
+      "steps": [
+        {
+          "en": "Begin with easy walking or seated marching rather than a cold maximal hold.",
+          "tr": "Soğuk en uzun tutuş yerine rahat yürüyüş veya oturarak adımlamayla başla."
+        },
+        {
+          "en": "Move shoulders and wrists gently in comfortable ranges; keep wrist loading light at a wall.",
+          "tr": "Omuz ve bileği rahat aralıkta nazikçe hareket ettir; bileğe duvarda hafif yük ver."
+        },
+        {
+          "en": "Treat this as a short, gentle first rehearsal. Before later strength sessions, prepare gradually for that day’s taught tasks; this example duration is not a complete warm-up for everyone.",
+          "tr": "Bunu kısa ve hafif bir ilk prova say. Sonraki kuvvet seanslarından önce o günün öğretilmiş görevlerine kademeli hazırlan; bu örnek süre herkes için tam ısınma değildir."
+        }
+      ],
+      "practice": {
+        "en": "Choose 2–4 minutes of familiar easy walking or seated marching; then 4 small comfortable shoulder circles each way and 4 unloaded wrist movements. This is a short first rehearsal, not the complete warm-up for every later strength session.\n\nCommon mistake: Preparation is pushed until the wrists or shoulders are tired. Correction: Prepare each support without tiring it.\n\nCompare easy walking with seated marching at a comfortable pace.",
+        "tr": "2–4 dakika tanıdık rahat yürüyüş veya oturarak adımlama seç; ardından iki yönde 4 küçük rahat omuz dairesi ve yüksüz 4 bilek hareketi yap. Bu kısa ilk prova, sonraki her kuvvet seansının tam ısınması değildir.\n\nSık hata: Hazırlık el bileği veya omuz yorulana kadar zorlanır. Düzeltme: Her destek bölgesini yormadan hazırla.\n\nRahat hızda kolay yürüyüş ile oturarak adımlamayı karşılaştır."
+      },
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Seated march, small shoulder circles and unloaded wrists as a short first rehearsal. Explain that later strength sessions need gradual task-matched preparation; do not present 2–4 minutes as universally sufficient.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Kısa ilk prova olarak oturarak adım, küçük omuz daireleri ve yüksüz bilekler. Sonraki kuvvet seanslarının göreve uygun kademeli hazırlık gerektirdiğini açıkla; 2–4 dakikayı herkes için yeterli gösterme."
+      }
+    },
+    "cal-24": {
+      "steps": [
+        {
+          "en": "First repeat the bent-knee row with stable breathing and an immediate foot exit.",
+          "tr": "Önce dengeli nefes ve hemen ayak çıkışıyla diz bükülü rowu yinele."
+        },
+        {
+          "en": "Use only the checked setup you practised: at a low bar, keep both feet planted and make the knees slightly straighter than in the bent-knee version; in suspension, face the checked anchor and step both planted feet slightly toward it for a modestly less upright lean, only while an immediate standing exit remains possible. Change one variable at a time.",
+          "tr": "Yalnız çalıştığın kontrol edilmiş düzeneği kullan: alçak barda iki ayak basılıyken dizleri bükülü biçime göre biraz daha düzleştir; askıda kontrol edilmiş bağlantıya dönüp iki ayağını yere basarak ona doğru küçük bir adım at ve yalnız ayakla hemen dikleşip çıkabiliyorsan gövdeyi azıcık daha yatır. Tek seferde bir değişken değiştir."
+        },
+        {
+          "en": "Keep the same chest-to-handle path and controlled return; a hard lever is optional.",
+          "tr": "Aynı göğüs-tutacak yolunu ve kontrollü dönüşü koru; zor kol isteğe bağlı."
+        }
+      ],
+      "practice": {
+        "en": "On the same checked low bar or suspension setup, compare 2 controlled repetitions at the familiar option with 2 at a slightly harder option, resting 120 seconds; stay easier if the controlled return or immediate foot exit changes.\n\nCommon mistake: A low bar and suspension trainer are treated as if one foot-direction cue works for both, or repetitions rise with lever demand. Correction: Keep the chosen setup and change only its small knee-support or lean adjustment; maintain control and a foot exit.\n\nCompare two modest options using the same checked setup; do not switch equipment during the comparison.",
+        "tr": "Aynı kontrol edilmiş alçak bar veya askı düzeneğinde tanıdık biçimde 2 kontrollü tekrarla biraz zor biçimde 2 tekrarı 120 saniye dinlenerek karşılaştır; kontrollü dönüş veya ayakla hemen çıkış değişirse kolayda kal.\n\nSık hata: Alçak bar ve askı için tek bir ayak yönü buyruğu kullanılır veya kol zorlaşırken tekrar artırılır. Düzeltme: Seçilen düzeneği koru, yalnız küçük diz desteği ya da yatış ayarını değiştir; kontrolü ve ayak çıkışını sürdür.\n\nEkipmanı değiştirmeden aynı kontrol edilmiş düzende iki küçük seçeneği karşılaştır."
+      },
+      "selfCheck": [
+        {
+          "en": "I changed one variable only.",
+          "tr": "Yalnız bir değişken değiştirdim."
+        },
+        {
+          "en": "The return remains as controlled as the pull.",
+          "tr": "Dönüş çekiş kadar kontrollü kalıyor."
+        },
+        {
+          "en": "On two separate comfortable practices, did I keep the same checked setup, change only one small support or lean variable, and retain an immediate foot exit?",
+          "tr": "İki ayrı rahat çalışmada aynı kontrol edilmiş düzende kalıp yalnız tek küçük destek veya yatış değişkenini değiştirdim ve ayakla hemen çıkabildim mi?"
+        },
+        {
+          "en": "Next practice, explain the chosen low-bar or suspension adjustment without the page, then check that return and foot exit remain controlled.",
+          "tr": "Sonraki çalışmada seçtiğin alçak bar veya askı ayarını sayfaya bakmadan anlat; sonra dönüşün ve ayak çıkışının kontrollü kaldığını denetle."
+        }
+      ],
+      "mediaBrief": {
+        "en": "Original adult demonstrator, neutral Gravita studio, full body and equipment visible; no copied instructor likeness or source footage. Technical coach review before release. Focus: Two distinct setups, not a universal foot direction: low bar with planted feet and a small bent-to-straighter-knee change; suspension facing the anchor with a small foot step toward it and a modest lean. Show grip, feet, controlled return and standing exit. AI footage does not certify any real mount or load rating.",
+        "tr": "Özgün yetişkin model, nötr Gravita stüdyosu, beden ve ekipman kadrajda; eğitmen benzerliği veya kaynak görüntü kopyası yok. Yayından önce teknik eğitmen incelemesi. Odak: Evrensel ayak yönü değil iki ayrı düzen: alçak barda ayaklar basılıyken bükülü dizden az daha düz dize geçiş; askıda bağlantıya dönükken ona doğru küçük ayak adımı ve az yatış. Tutuşu, ayakları, kontrollü dönüşü ve dik çıkışı göster. AI görüntüsü gerçek montajı veya yük sınırını onaylamaz."
+      }
+    }
+  }
+}

@@ -6,3 +6,7 @@ analyzer:
     strict-raw-types: true
   errors:
     todo: ignore
+  exclude:
+    - build/**
+    - android/**
+    - ios/**

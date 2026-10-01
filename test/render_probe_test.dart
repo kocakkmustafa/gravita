@@ -3,6 +3,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/library_model.dart';
+import 'package:gravita/app/library_strings.dart';
 import 'package:gravita/app/movement_page.dart';
 import 'package:gravita/app/progress_strings.dart';
 import 'package:gravita/app/progress_view.dart';
@@ -113,7 +114,8 @@ void main() {
       // Her sayfa EN AZ bu dördünü söylemeli — boş bir sayfa sessizce
       // "hazır" görünmesin.
       expect(shown, contains(m.displayName), reason: '${m.id}: adı yok');
-      expect(shown.any((String s) => s == m.blurb), isTrue,
+      expect(shown.any((String s) => s == (m.isLive
+          ? LibraryStrings.cameraClosedMovementBlurb : m.blurb)), isTrue,
           reason: '${m.id}: özeti yok');
       expect(
           shown.any((String s) =>

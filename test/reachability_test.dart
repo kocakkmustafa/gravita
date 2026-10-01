@@ -369,7 +369,8 @@ void main() {
     // "Ulaşılamıyor ama var" listesi BOŞ OLMAK ZORUNDA DEĞİL; ama sessiz
     // kalamaz. Büyürse ötsün: yeni yazılan her ekran ya bağlanmalı ya da
     // burada bilerek listelenmeli.
-    // Bugün TEK kalem bekleniyor: `ContentFailureScreen` — sistemin
+    // Sistem hatası ve kapalı yayın kamerası kaybolmadan ayrı dışlanır.
+    // `ContentFailureScreen` — sistemin
     // gösterdiği hata hâli, kullanıcının BASARAK gitmediği bir ekran.
     // Sayı artarsa yeni bir ekran bağlanmadan yazılmış demektir.
     // KATI sayı da küçülemez: bir rota tetiği silinirse burası öter.
@@ -428,8 +429,8 @@ void main() {
     );
 
     expect(
-      unreachable.length,
-      lessThanOrEqualTo(1),
+      unreachable.toSet(),
+      kDeliberatelyUnreachable,
       reason:
           'Bağlanmamış ekran sayısı arttı: ${unreachable.join(', ')} — '
           'repliğin varlığı tetiğinin varlığı DEĞİLDİR.',

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gravita_engine/gravita_engine.dart';
 
+import 'app_locale.dart';
+import 'account_connection.dart';
+import 'camera_release_policy.dart';
 import 'content_failure.dart';
 import 'content_failure_screen.dart';
 import 'content_repository.dart';
@@ -30,16 +34,38 @@ import 'theme.dart';
 /// Progress (gerçek geçmiş) · Profile (sınırlar + veri yeri). Ortadaki seans
 /// düğmesi hâlâ NÖBETLİ: canlı yol yoksa ÇİZİLMEZ.
 class GravitaApp extends StatelessWidget {
-  const GravitaApp({super.key});
+  const GravitaApp({super.key, this.accountConnection});
+
+  final AccountConnection? accountConnection;
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
+  Widget build(BuildContext context) {
+    final AccountConnection? account = accountConnection;
+    Widget accountApp(String? userId) => AccountScope(
+      connection: account,
+      currentUserId: userId,
+      child: MaterialApp(
+        key: ValueKey<String>('gravita-account-${userId ?? 'signed-out'}'),
         title: 'Gravita',
         // M-F-282 giydirme turu: tema design panel v1'den (`theme.dart`).
         theme: GravitaTheme.light,
+        builder: (BuildContext context, Widget? child) =>
+            AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle.dark,
+              child: child ?? const SizedBox.shrink(),
+            ),
+        supportedLocales: appSupportedLocales,
+        localizationsDelegates: appLocalizationsDelegates,
         debugShowCheckedModeBanner: false,
         home: const GravitaRoot(),
-      );
+      ),
+    );
+    if (account == null) return accountApp(null);
+    return ValueListenableBuilder<String?>(
+      valueListenable: account.userId,
+      builder: (_, userId, __) => accountApp(userId),
+    );
+  }
 }
 
 /// İçeriğin TEK kapısı — uygulamanın ürün yolu buradan geçer.
@@ -109,45 +135,45 @@ class _GravitaRootState extends State<GravitaRoot> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      FutureBuilder<ContentRepository>(
-        future: _future,
-        builder: (BuildContext context,
-            AsyncSnapshot<ContentRepository> snapshot) {
-          // İçerik hatası TİPLİ ekrana gider — ham `StateError` gövdesi
-          // kullanıcıya gösterilmez ("çökmüyor" ≠ "dürüstçe açıklıyor").
-          if (snapshot.hasError) {
-            return ContentFailureScreen(
-              failure: ContentFailure.from(snapshot.error!),
-              onRetry: () async => setState(() => _future =
-                  ContentRepository.load(DefaultAssetBundle.of(context))),
+  Widget build(BuildContext context) => FutureBuilder<ContentRepository>(
+    future: _future,
+    builder: (BuildContext context, AsyncSnapshot<ContentRepository> snapshot) {
+      // İçerik hatası TİPLİ ekrana gider — ham `StateError` gövdesi
+      // kullanıcıya gösterilmez ("çökmüyor" ≠ "dürüstçe açıklıyor").
+      if (snapshot.hasError) {
+        return ContentFailureScreen(
+          failure: ContentFailure.from(snapshot.error!),
+          onRetry: () async => setState(
+            () => _future = ContentRepository.load(
+              DefaultAssetBundle.of(context),
+            ),
+          ),
+        );
+      }
+      final ContentRepository? content = snapshot.data;
+      if (content == null) {
+        return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      }
+      // ⭐ İçerik yüklendi AMA onboarding tamamlanmadıysa kabuk hiç
+      // ÇİZİLMEZ — ilk açılışın TEK kapısı burası (G-079 dersinin
+      // aynısı: kapı iki yerde durursa bir gün tutarsızlaşır).
+      if (_onboardingJustCompleted) return GravitaShell(content: content);
+      return FutureBuilder<bool>(
+        future: _onboardingDone,
+        builder: (BuildContext context, AsyncSnapshot<bool> onboardingSnap) {
+          if (!onboardingSnap.hasData) {
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
             );
           }
-          final ContentRepository? content = snapshot.data;
-          if (content == null) {
-            return const Scaffold(
-                body: Center(child: CircularProgressIndicator()));
+          if (onboardingSnap.data == true) {
+            return GravitaShell(content: content);
           }
-          // ⭐ İçerik yüklendi AMA onboarding tamamlanmadıysa kabuk hiç
-          // ÇİZİLMEZ — ilk açılışın TEK kapısı burası (G-079 dersinin
-          // aynısı: kapı iki yerde durursa bir gün tutarsızlaşır).
-          if (_onboardingJustCompleted) return GravitaShell(content: content);
-          return FutureBuilder<bool>(
-            future: _onboardingDone,
-            builder:
-                (BuildContext context, AsyncSnapshot<bool> onboardingSnap) {
-              if (!onboardingSnap.hasData) {
-                return const Scaffold(
-                    body: Center(child: CircularProgressIndicator()));
-              }
-              if (onboardingSnap.data == true) {
-                return GravitaShell(content: content);
-              }
-              return OnboardingFlow(onComplete: _completeOnboarding);
-            },
-          );
+          return OnboardingFlow(onComplete: _completeOnboarding);
         },
       );
+    },
+  );
 }
 
 /// Dört sekme + nöbetli seans düğmesi.
@@ -168,6 +194,25 @@ class GravitaShell extends StatefulWidget {
 class _GravitaShellState extends State<GravitaShell> {
   int _index = 0;
 
+  Future<void> _openLiveSession(MovementConfig config) async {
+    if (!motionPaidCameraLaunchEnabled) return;
+    final MovementConfig? startable = widget.content.startableConfigFor(
+      config.id,
+    );
+    if (!identical(startable, config)) return;
+    final guard = AccountScope.maybeOf(context)?.connection?.requirePaidAccess;
+    if (guard != null && !await guard(context)) return;
+    if (!mounted) return;
+    Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(
+        builder: (_) => LiveSessionScreen(
+          config: config,
+          accountUserId: AccountScope.maybeOf(context)?.currentUserId,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final MovementConfig? live = widget.content.liveConfig;
@@ -183,9 +228,16 @@ class _GravitaShellState extends State<GravitaShell> {
             HomeScreen(
               content: widget.content,
               onBrowseLibrary: () => setState(() => _index = 1),
+              onStartSession: _openLiveSession,
             ),
-            LibraryScreen(content: widget.content),
-            ProgressTab(content: widget.content),
+            LibraryScreen(
+              content: widget.content,
+              onStartSession: _openLiveSession,
+            ),
+            ProgressTab(
+              content: widget.content,
+              accountUserId: AccountScope.maybeOf(context)?.currentUserId,
+            ),
             ProfileScreen(content: widget.content),
           ],
         ),
@@ -209,16 +261,22 @@ class _GravitaShellState extends State<GravitaShell> {
               // SOLGUN pembe; simülatörde ürünün TEK birincil eylemi arka
               // planda kaybolmuş görünüyordu. Vurgu rengi burada "ölçülen
               // kriter / kapı / mühür" kuralının dışında bir dördüncü iş
-              // yapmıyor: bu düğme canlı ölçümün TEK girişi.
+              // yapmıyor: bu düğme canlı ölçümün hızlı girişidir.
               backgroundColor: GravitaColors.accent,
               foregroundColor: Colors.white,
-              onPressed: () => Navigator.of(context).push<void>(
-                MaterialPageRoute<void>(
-                  builder: (_) => LiveSessionScreen(config: live),
+              onPressed: motionPaidCameraLaunchEnabled
+                  ? () => _openLiveSession(live)
+                  : null,
+              icon: const Icon(Icons.videocam_outlined),
+              label: Text(
+                localized(
+                  context,
+                  motionPaidCameraLaunchEnabled
+                      ? LibraryStrings.startSession
+                      : LibraryStrings.cameraUnavailable,
+                  motionPaidCameraLaunchEnabled ? 'Başla' : 'Kamera kapalı',
                 ),
               ),
-              icon: const Icon(Icons.videocam_outlined),
-              label: const Text(LibraryStrings.startSession),
             ),
       bottomNavigationBar: NavigationBar(
         key: GravitaShell.navBarKey,
@@ -226,23 +284,27 @@ class _GravitaShellState extends State<GravitaShell> {
         onDestinationSelected: (int i) => setState(() => _index = i),
         backgroundColor: GravitaColors.page,
         indicatorColor: GravitaColors.accent.withValues(alpha: 0.1),
-        destinations: const <NavigationDestination>[
+        destinations: <NavigationDestination>[
           NavigationDestination(
-              icon: Icon(Icons.today_outlined),
-              selectedIcon: Icon(Icons.today),
-              label: LibraryStrings.tabToday),
+            icon: const Icon(Icons.today_outlined),
+            selectedIcon: const Icon(Icons.today),
+            label: localized(context, LibraryStrings.tabToday, 'Bugün'),
+          ),
           NavigationDestination(
-              icon: Icon(Icons.grid_view_outlined),
-              selectedIcon: Icon(Icons.grid_view),
-              label: LibraryStrings.tabLibrary),
+            icon: const Icon(Icons.grid_view_outlined),
+            selectedIcon: const Icon(Icons.grid_view),
+            label: localized(context, LibraryStrings.tabLibrary, 'Kütüphane'),
+          ),
           NavigationDestination(
-              icon: Icon(Icons.insights_outlined),
-              selectedIcon: Icon(Icons.insights),
-              label: LibraryStrings.tabProgress),
+            icon: const Icon(Icons.insights_outlined),
+            selectedIcon: const Icon(Icons.insights),
+            label: localized(context, LibraryStrings.tabProgress, 'İlerleme'),
+          ),
           NavigationDestination(
-              icon: Icon(Icons.person_outline),
-              selectedIcon: Icon(Icons.person),
-              label: LibraryStrings.tabProfile),
+            icon: const Icon(Icons.person_outline),
+            selectedIcon: const Icon(Icons.person),
+            label: localized(context, LibraryStrings.tabProfile, 'Profil'),
+          ),
         ],
       ),
     );
@@ -256,9 +318,10 @@ class _GravitaShellState extends State<GravitaShell> {
 /// BEYAN EDİLİR (Gravita deltası, `content_failure.dart`). `catch` içinde boş
 /// liste dönüp devam etmek, kullanıcının geçmişini "yok" ilan etmek olurdu.
 class ProgressTab extends StatefulWidget {
-  const ProgressTab({required this.content, super.key});
+  const ProgressTab({required this.content, this.accountUserId, super.key});
 
   final ContentRepository content;
+  final String? accountUserId;
 
   @override
   State<ProgressTab> createState() => _ProgressTabState();
@@ -266,18 +329,14 @@ class ProgressTab extends StatefulWidget {
 
 class _ProgressTabState extends State<ProgressTab> {
   late final Future<
-      ({
-        ProgressSummary summary,
-        HistoryStatus status,
-        List<SessionRecord> free
-      })> _future = _load();
+    ({ProgressSummary summary, HistoryStatus status, List<SessionRecord> free})
+  >
+  _future = _load();
 
   Future<
-      ({
-        ProgressSummary summary,
-        HistoryStatus status,
-        List<SessionRecord> free
-      })> _load() async {
+    ({ProgressSummary summary, HistoryStatus status, List<SessionRecord> free})
+  >
+  _load() async {
     List<SessionRecord> records = const <SessionRecord>[];
     // ⭐ SERBEST kova AYRI okunuyor ve `ProgressSummary`'ye HİÇ verilmiyor
     // (G-132: farklı `focus`lu dersler tek trendde toplanamaz). Ama ekranda
@@ -287,10 +346,14 @@ class _ProgressTabState extends State<ProgressTab> {
     List<SessionRecord> free = const <SessionRecord>[];
     HistoryStatus status = const HistoryOk();
     try {
-      final SessionStore store = await ContentRepository.openSessionStore();
+      final SessionStore store = await ContentRepository.openSessionStore(
+        accountUserId: widget.accountUserId,
+      );
       records = await store.recent();
       final SessionStore freeStore =
-          await ContentRepository.openFreeSessionStore();
+          await ContentRepository.openFreeSessionStore(
+            accountUserId: widget.accountUserId,
+          );
       free = await freeStore.recent();
       // Çekirdek 0.10.0: kayıp satır sayısı ÖLÇÜLEBİLİR. Aynı depodan okunur
       // ki sayılar ile kayıp aynı ana ait olsun.
@@ -331,39 +394,48 @@ class _ProgressTabState extends State<ProgressTab> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<
-        ({
-          ProgressSummary summary,
-          HistoryStatus status,
-          List<SessionRecord> free
-        })>(
+      ({
+        ProgressSummary summary,
+        HistoryStatus status,
+        List<SessionRecord> free,
+      })
+    >(
       future: _future,
-      builder: (BuildContext context,
-          AsyncSnapshot<
-                  ({
-                    ProgressSummary summary,
-                    HistoryStatus status,
-                    List<SessionRecord> free
-                  })>
-              s) {
-        final ({
-          ProgressSummary summary,
-          HistoryStatus status,
-          List<SessionRecord> free
-        })? data = s.data;
-        if (data == null) {
-          return const Scaffold(
-              body: Center(child: CircularProgressIndicator()));
-        }
-        return Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(title: const Text(ProgressStrings.measuredSection)),
-          body: ProgressView(
-            summary: data.summary,
-            historyStatus: data.status,
-            freeSessions: data.free,
-          ),
-        );
-      },
+      builder:
+          (
+            BuildContext context,
+            AsyncSnapshot<
+              ({
+                ProgressSummary summary,
+                HistoryStatus status,
+                List<SessionRecord> free,
+              })
+            >
+            s,
+          ) {
+            final ({
+              ProgressSummary summary,
+              HistoryStatus status,
+              List<SessionRecord> free,
+            })?
+            data = s.data;
+            if (data == null) {
+              return const Scaffold(
+                body: Center(child: CircularProgressIndicator()),
+              );
+            }
+            return Scaffold(
+              backgroundColor: Colors.transparent,
+              appBar: AppBar(
+                title: const Text(ProgressStrings.measuredSection),
+              ),
+              body: ProgressView(
+                summary: data.summary,
+                historyStatus: data.status,
+                freeSessions: data.free,
+              ),
+            );
+          },
     );
   }
 }

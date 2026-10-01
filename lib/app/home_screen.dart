@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'account_connection.dart';
+import 'camera_release_policy.dart';
 
+import 'app_locale.dart';
 import 'content_repository.dart';
+import 'calisthenics_course_screen.dart';
 import 'library_model.dart';
 import 'library_strings.dart';
 import 'movement_page.dart';
@@ -27,6 +31,7 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({
     required this.content,
     required this.onBrowseLibrary,
+    this.onStartSession,
     super.key,
   });
 
@@ -39,41 +44,81 @@ class HomeScreen extends StatelessWidget {
 
   final ContentRepository content;
   final VoidCallback onBrowseLibrary;
+  final StartMovementSession? onStartSession;
 
   @override
   Widget build(BuildContext context) {
     final LibraryCatalogue c = content.catalogue;
-    final List<MovementEntry> live =
-        c.movements.where((MovementEntry m) => m.isLive).toList(growable: false);
+    final List<MovementEntry> live = c.movements
+        .where((MovementEntry m) => m.isLive)
+        .toList(growable: false);
     final int queued = c.movements.length - live.length;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      appBar: AppBar(title: const Text(LibraryStrings.homeTitle)),
+      appBar: AppBar(
+        title: Text(localized(context, LibraryStrings.homeTitle, 'Bugün')),
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(18, 4, 18, 96),
         children: <Widget>[
-          const NoteCard(
+          CalisthenicsEntryCard(content: content),
+          const SizedBox(height: 20),
+          NoteCard(
             key: noPlanKey,
             icon: Icons.event_busy_outlined,
-            title: LibraryStrings.homeNoPlanTitle,
-            text: LibraryStrings.homeNoPlanBody,
+            title: localized(
+              context,
+              LibraryStrings.homeNoPlanTitle,
+              'Gününüzü planlamıyoruz',
+            ),
+            text: localized(
+              context,
+              LibraryStrings.homeNoPlanBody,
+              motionPaidCameraLaunchEnabled
+                  ? 'Gravita günlük antrenman planlayıcısı içermez. Aşağıda '
+                        'şu anda ölçebildiğimiz hareketleri ve diğer hareketlerin '
+                        'durumunu görebilirsiniz.'
+                  : 'Kursu, öğrenme rehberlerini ve ölçüm kataloğunu incele. '
+                        'Gravita günlük antrenman planı oluşturmaz. '
+                        'Canlı kamera seansları bu sürümde kullanılamıyor.',
+            ),
           ),
           const SizedBox(height: 30),
           SurfaceSection(
             key: openNowKey,
-            title: LibraryStrings.homeOpenNowTitle.toUpperCase(),
-            subtitle: LibraryStrings.homeOpenBody(live.length),
+            title: localized(
+              context,
+              LibraryStrings.homeOpenNowTitle.toUpperCase(),
+              motionPaidCameraLaunchEnabled ? 'ŞU ANDA AÇIK' : 'ÖLÇÜM KATALOĞU',
+            ),
+            subtitle: localized(
+              context,
+              LibraryStrings.homeOpenBody(live.length),
+              motionPaidCameraLaunchEnabled
+                  ? '${live.length} harekette canlı tekrar sayımı açık. Duruşunuz puanlanmaz.'
+                  : '${live.length} yapılandırılmış ölçüm sözleşmesi. '
+                        'Canlı kamera seansları bu sürümde kullanılamıyor. '
+                        'Öğrenme rehberleri yalnız kendi pratik bildirimini kaydeder.',
+            ),
             children: live
-                .map((MovementEntry m) => MovementCard(
-                      movement: m,
-                      onTap: () => Navigator.of(context).push<void>(
-                        MaterialPageRoute<void>(
-                          builder: (_) =>
-                              MovementPage(movement: m, content: content),
+                .map(
+                  (MovementEntry m) => MovementCard(
+                    movement: m,
+                    onTap: () => Navigator.of(context).push<void>(
+                      MaterialPageRoute<void>(
+                        builder: (_) => MovementPage(
+                          movement: m,
+                          content: content,
+                          onStartSession: onStartSession,
+                          accountUserId: AccountScope.maybeOf(
+                            context,
+                          )?.currentUserId,
                         ),
                       ),
-                    ))
+                    ),
+                  ),
+                )
                 .toList(growable: false),
           ),
           const SizedBox(height: 30),
@@ -98,28 +143,50 @@ class HomeScreen extends StatelessWidget {
           // bu kartın kendi async kapısı yok) VE her zaman görünür.
           SurfaceSection(
             key: programKey,
-            title: LibraryStrings.programOverviewTitle.toUpperCase(),
+            title: localized(
+              context,
+              LibraryStrings.programOverviewTitle.toUpperCase(),
+              '8 HAFTALIK PROGRAMINIZ',
+            ),
             children: <Widget>[
               InkWell(
                 borderRadius: BorderRadius.circular(18),
                 onTap: () => Navigator.of(context).push<void>(
                   MaterialPageRoute<void>(
-                    builder: (_) => WorkoutScreen(content: content),
+                    builder: (_) => WorkoutScreen(
+                      content: content,
+                      accountUserId: AccountScope.maybeOf(
+                        context,
+                      )?.currentUserId,
+                    ),
                   ),
                 ),
                 child: GravitaCard(
                   radius: 18,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 15),
+                    horizontal: 16,
+                    vertical: 15,
+                  ),
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                        child: Text(LibraryStrings.programOverviewTitle,
-                            style: GravitaType.body(
-                                size: 14, weight: FontWeight.w500)),
+                        child: Text(
+                          localized(
+                            context,
+                            LibraryStrings.programOverviewTitle,
+                            '8 haftalık programınız',
+                          ),
+                          style: GravitaType.body(
+                            size: 14,
+                            weight: FontWeight.w500,
+                          ),
+                        ),
                       ),
-                      const Icon(Icons.chevron_right,
-                          size: 20, color: GravitaColors.textTertiary),
+                      const Icon(
+                        Icons.chevron_right,
+                        size: 20,
+                        color: GravitaColors.textTertiary,
+                      ),
                     ],
                   ),
                 ),
@@ -130,22 +197,40 @@ class HomeScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(18),
                 onTap: () => Navigator.of(context).push<void>(
                   MaterialPageRoute<void>(
-                    builder: (_) => ProgramSetupScreen(content: content),
+                    builder: (_) => ProgramSetupScreen(
+                      content: content,
+                      accountUserId: AccountScope.maybeOf(
+                        context,
+                      )?.currentUserId,
+                    ),
                   ),
                 ),
                 child: GravitaCard(
                   radius: 18,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 15),
+                    horizontal: 16,
+                    vertical: 15,
+                  ),
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                        child: Text(LibraryStrings.programSetupTitle,
-                            style: GravitaType.body(
-                                size: 14, weight: FontWeight.w500)),
+                        child: Text(
+                          localized(
+                            context,
+                            LibraryStrings.programSetupTitle,
+                            'Programınızı kurun',
+                          ),
+                          style: GravitaType.body(
+                            size: 14,
+                            weight: FontWeight.w500,
+                          ),
+                        ),
                       ),
-                      const Icon(Icons.chevron_right,
-                          size: 20, color: GravitaColors.textTertiary),
+                      const Icon(
+                        Icons.chevron_right,
+                        size: 20,
+                        color: GravitaColors.textTertiary,
+                      ),
                     ],
                   ),
                 ),
@@ -171,9 +256,16 @@ class HomeScreen extends StatelessWidget {
           // yazışımda tam bu sebeple "ulaşılamıyor ama var" çıktı).
           SurfaceSection(
             key: skillTreesKey,
-            title: LibraryStrings.skillTreesTitle.toUpperCase(),
-            subtitle: LibraryStrings.homeSkillTreesBody(
-                c.skillTrees.trees.length),
+            title: localized(
+              context,
+              LibraryStrings.skillTreesTitle.toUpperCase(),
+              'BECERİ AĞAÇLARI',
+            ),
+            subtitle: localized(
+              context,
+              LibraryStrings.homeSkillTreesBody(c.skillTrees.trees.length),
+              '${c.skillTrees.trees.length} taslak ilerleme yolu',
+            ),
             children: <Widget>[
               InkWell(
                 borderRadius: BorderRadius.circular(18),
@@ -186,16 +278,29 @@ class HomeScreen extends StatelessWidget {
                 child: GravitaCard(
                   radius: 18,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 15),
+                    horizontal: 16,
+                    vertical: 15,
+                  ),
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                        child: Text(LibraryStrings.skillTreesTitle,
-                            style: GravitaType.body(
-                                size: 14, weight: FontWeight.w500)),
+                        child: Text(
+                          localized(
+                            context,
+                            LibraryStrings.skillTreesTitle,
+                            'Beceri ağaçları',
+                          ),
+                          style: GravitaType.body(
+                            size: 14,
+                            weight: FontWeight.w500,
+                          ),
+                        ),
                       ),
-                      const Icon(Icons.chevron_right,
-                          size: 20, color: GravitaColors.textTertiary),
+                      const Icon(
+                        Icons.chevron_right,
+                        size: 20,
+                        color: GravitaColors.textTertiary,
+                      ),
                     ],
                   ),
                 ),
@@ -205,9 +310,17 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(height: 30),
           SurfaceSection(
             key: queueKey,
-            title: LibraryStrings.homeQueueTitle.toUpperCase(),
-            subtitle:
-                LibraryStrings.homeQueueBody(queued, c.movements.length),
+            title: localized(
+              context,
+              LibraryStrings.homeQueueTitle.toUpperCase(),
+              'KAPALI HAREKETLER',
+            ),
+            subtitle: localized(
+              context,
+              LibraryStrings.homeQueueBody(queued, c.movements.length),
+              'Katalogdaki ${c.movements.length} hareketin $queued tanesi '
+              'açık değil. Her hareketin sayfasında eksik ölçüm yazılıdır.',
+            ),
             children: <Widget>[
               InkWell(
                 onTap: onBrowseLibrary,
@@ -215,16 +328,29 @@ class HomeScreen extends StatelessWidget {
                 child: GravitaCard(
                   radius: 18,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 15),
+                    horizontal: 16,
+                    vertical: 15,
+                  ),
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                        child: Text(LibraryStrings.libraryTitle,
-                            style: GravitaType.body(
-                                size: 14, weight: FontWeight.w500)),
+                        child: Text(
+                          localized(
+                            context,
+                            LibraryStrings.libraryTitle,
+                            'Kütüphane',
+                          ),
+                          style: GravitaType.body(
+                            size: 14,
+                            weight: FontWeight.w500,
+                          ),
+                        ),
                       ),
-                      const Icon(Icons.chevron_right,
-                          size: 20, color: GravitaColors.textTertiary),
+                      const Icon(
+                        Icons.chevron_right,
+                        size: 20,
+                        color: GravitaColors.textTertiary,
+                      ),
                     ],
                   ),
                 ),

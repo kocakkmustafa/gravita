@@ -1,5 +1,73 @@
 # PROGRESS — Gravita
 
+## 2026-10-01 — calisthenics kaynak paketi app pinine bağlandı
+
+56 ders, 392 sahne ve 392 varyantın kurs/dilim/projeksiyon SHA'ları
+uygulama Dart sabitleri ve paket testiyle doğrulandı. cal-01 gerçek bar
+ekipmanı gerektiren bir varyant **HOLD**. İlk kaynak/medya odak testi
+**23/23**, ek dilim testi **1/1**, hedefli analiz temiz. Bağımsız
+yeniden hesaplama ve ek SHA incelemesi dar PASS:
+`scratch/2026-10-01-choreia-gravita-app-pin-independent-peer/REPORT.md`
+ve `ADDENDUM-SLICE-PINS.md`. Gerçek video, uzman model ve cihaz kabulü açık.
+
+
+## 2026-09-28 — kurs JSON bütünlüğü PR'da
+
+56 derslik kaynak SHA `eca53870045d2c0c0e5fd2abc0d93190bc092a1ba3c254a64d908ae13040f83d`
+değişmedi. Beş kursun güncel v8e paketinde bu kaynak bağı bağımsız PASS;
+yalnız Ostinato'nun iki ders gövdesi değişti. Gravita'nın uygulama açılışı,
+tek `calisthenics.v1.json` varlığını boyut/SHA kapısından geçirdikten sonra
+mevcut 10 modül/56 ders ayrıştırıcısına veriyor. Bu entegrasyon `3e73775`
+commitinde PR #1'e push edildi. 37/37 odak testi ve hedefli analiz geçti;
+bağımsız kaynak incelemesi P0/P1/P2 kusur bulmadı.
+
+Manifest yalnız kurs dosyasının bütünlüğünü denetliyor. Gerçek medya/oynatıcı,
+uzman kişi-ayrık tam-kurs form modeli, fiziksel cihaz ve kurucu kabulü hâlâ
+**0/açık**. Son baştaki üç GitHub Actions işi bütçe engeli nedeniyle başlamadı;
+yararlı CI ve merge yok.
+
+## 2026-09-28 — önceki kaynak aşaması; ürün kabulü açık
+
+İlk calisthenics kursu **56 ders** ve canlı v8d kaynak paketinde. Ders
+gösterim briefi ve hazırlık/ekipman çiti kaynak düzeyinde denetlendi;
+gerçek onaylı video, uzman kişi-ayrık hareket hata verisi ve tam-kurs
+form modeli **0**. Ortak `motion_content` için uygulama içi okuyucu ve
+kurs-JSON bayt bütünlüğü çalışma zamanına bağlandı; ders medyası manifesti,
+oynatıcı ve fiziksel cihaz kabulü açık. Held Squat ZIP ve başarısız
+bir-seferlik deneyler korunur.
+
+**2026-09-28 yerel çalışma zamanı kaydı (artık PR'da):** `ContentRepository.load`,
+paketlenmiş `content/motion_content/manifest.json` üzerinden mevcut
+`calisthenics.v1.json` baytlarını Core'un uzunluk/SHA kapısıyla doğrulayıp
+aynı 10 modül/56 ders ayrıştırıcısına veriyor. Manifest, yalnız tek kurs
+varlığını içerir; `courses=[]`, `lessons=[]`, `models=[]` ve gerçek medya0.
+`tool/build_calisthenics_integrity_manifest.dart --write/--check` bunu canlı
+kurs JSON'undan üretir ve yerel/CI `tools/run_all_gates.sh` sapmayı denetler.
+Yanlış hash bütünlük hatası olarak yeniden denemesiz, eksik manifest veya
+kurs asseti okunamama olarak yeniden denemeli sınıflanır. Eski sentetik
+köprü testi gerçek manifesti okuyacak biçimde güncellendi; ikinci elle SHA
+pini kaldırıldı. Bu kaydın yerel kaynak aşamasından sonra PR durumu yukarıda; fiziksel cihaz,
+gerçek gösterim, uzman veri/model ve GitHub yararlı CI kabulü verilmedi.
+
+**2026-09-28 yerel devam:** Paketlenmiş kurs baytları için app-local
+`FlutterBundleContentAssetReader` eklendi. `motion_content` aynı mühürlü Core
+commitine (`f2ea161c…`) bağlandı; kilit sürümü `0.1.0`. Yalnız testte üretilen
+manifest, mevcut `calisthenics.v1.json` dosyasını 261.754 bayt ve
+`eca53870…40f83d` SHA ile okuyup 10 modül/56 dersi doğruladı. Yanlış hash ve
+güvensiz yol içerik açılmadan reddedildi. Kurs kaynağı değiştirilmedi;
+ders medyası manifesti, gerçek medya ve oynatıcı hâlâ açık. Üç odaklı test dosyası
+25/25 geçti, üç ilgili Dart dosyasında analiz temiz. Köprü `7b6524b`
+commitinde mevcut PR #1 dalına push edildi; GitHub push sonucunu doğruladı.
+Yeni baştaki yararlı CI sonucu ve ürün kabulü hâlâ açık.
+
+Güncel kurs önce `b8b1147` commitinde mevcut PR #1 incelemesine taşındı;
+içerik köprüsü `7b6524b` ile eklendi.
+Üreticinin denetlenmiş 56 derslik v8d kaynağı eski metne döndürme riski,
+SHA bağlı içerik katmanı ve `--check` CI kapısıyla giderildi; kök ve bağımsız
+inceleme dar PASS. GitHub Actions'ın üç işi bütçe engeliyle başlamadı;
+bu kaynaklar için yararlı CI, merge veya mağaza kabulü yok. Kanonik devam:
+`holding/plans/MOTION-MODEL-RESUME-2026-09-27.md`.
+
 ## 2026-08-19 — SOLO model (v3): GRA-P1-003 kapandı + GRA-P1-004 Step 1/2 canlı yola kablı + Step 3 temeli (G-272…G-277)
 
 > Orkestrasyon/koordinatör katmanı bu turda iptal edildi — hat roadmap'ini
