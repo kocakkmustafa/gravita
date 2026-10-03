@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:motion_content/motion_content.dart';
 import 'package:video_player/video_player.dart';
 
+import 'account_connection.dart';
+import 'account_store_epoch.dart';
 import 'calisthenics_course.dart';
 import 'flutter_bundle_content_asset_reader.dart';
 import 'gravita_source_projection_pin.dart';
@@ -478,6 +480,9 @@ class _LessonMediaSlotState extends State<LessonMediaSlot>
   VideoPlayerController? _controller;
   Future<void> _retiring = Future<void>.value();
   Future<void>? _nativeCommand;
+  Listenable? _identitySignals;
+  AccountConnection? _accountConnection;
+  StreamSubscription<void>? _ownerSessionSubscription;
   bool _commandPending = false;
 
   @override
@@ -485,7 +490,49 @@ class _LessonMediaSlotState extends State<LessonMediaSlot>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     widget.accountUserId?.addListener(_onAccount);
+    AccountStoreEpochRegistry.admissionChanges.addListener(
+      _onIdentityAdmission,
+    );
     _open();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final connection = AccountScope.maybeOf(context)?.connection;
+    if (identical(connection, _accountConnection)) return;
+    _identitySignals?.removeListener(_onIdentityAdmission);
+    unawaited(_ownerSessionSubscription?.cancel());
+    _accountConnection = connection;
+    void retireOwner() {
+      _accountRevoked = true;
+      _close();
+    }
+
+    _ownerSessionSubscription = connection?.ownerSessionChanges?.listen(
+      (_) => retireOwner(),
+      onError: (Object _, StackTrace __) => retireOwner(),
+    );
+    _identitySignals = connection == null
+        ? null
+        : Listenable.merge([
+            connection.passwordRecovery,
+            connection.identityAdmissionChanges,
+          ]);
+    _identitySignals?.addListener(_onIdentityAdmission);
+    _onIdentityAdmission();
+  }
+
+  void _onIdentityAdmission() {
+    final connection = _accountConnection;
+    if (connection?.passwordRecovery?.value == true ||
+        connection?.isIdentityAdmitted?.call() == false ||
+        AccountStoreEpochRegistry.isAccountErasureBlocked(
+          connection?.userId.value ?? widget.accountUserId?.value,
+        )) {
+      _accountRevoked = true;
+      _close();
+    }
   }
 
   @override
@@ -536,6 +583,9 @@ class _LessonMediaSlotState extends State<LessonMediaSlot>
         _closed ||
         _backgrounded ||
         _accountRevoked ||
+        AccountStoreEpochRegistry.isAccountErasureBlocked(
+          _accountConnection?.userId.value ?? widget.accountUserId?.value,
+        ) ||
         _nativePlaybackUnconfirmed ||
         sceneId == null ||
         variantStem == null) {
@@ -699,9 +749,16 @@ class _LessonMediaSlotState extends State<LessonMediaSlot>
   @override
   void dispose() {
     _epoch++;
+    _closed = true;
     widget.accountUserId?.removeListener(_onAccount);
+    AccountStoreEpochRegistry.admissionChanges.removeListener(
+      _onIdentityAdmission,
+    );
+    _identitySignals?.removeListener(_onIdentityAdmission);
+    unawaited(_ownerSessionSubscription?.cancel());
     WidgetsBinding.instance.removeObserver(this);
     final old = _controller;
+    _controller = null;
     if (old != null) {
       old.removeListener(_rebuild);
       _queueRetire(old);

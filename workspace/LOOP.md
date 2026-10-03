@@ -1,10 +1,12 @@
 # Gravita — LOOP (iş kuyruğu + oturum protokolü)
 
-## 2026-09-28 güncel kuyruk
-1. PR #1'e taşınan 56 derslik Calisthenics kaynağında Actions bütçe engeli kalkınca son başta yararlı CI al.
-2. Kurs JSON'u çalışma zamanında Core uzunluk/SHA kapısıyla okunuyor; ders medyası manifesti, ekipman etiketli gösterim, altyazı ve gerçek cihaz oynatma kabulünü tamamla.
-3. Kişi-ayrık uzman hareket hatası ve güvenli hazırlık verisi olmadan tam-kurs form modeli fit veya otomatik güvenli-form hükmü yok; held Squat ZIP/once-failed deneyler korunur.
-4. Kurucu bütün dersleri en son toplu fiziksel test eder; mağaza kapıları ayrıdır.
+## 2026-10-02 güncel kuyruk
+1. Kaynak WIP app425/425/engine176/176/tam analiz temiz; bağımsız final peer ve exact patch/hash receipts merkeze teslim. Main d7143f3 baseline CI36862661575 SUCCESS canlı okundu; yeni WIP CI/commit/push ayrı onay kapısı.
+2. G-404: scratch Core v2 host app 491/491, engine 176/176, tam analiz ve bağımsız bounded peer PASS; değişmez acceptance/freeze/patch korunur. Yeni G-405 retained dialog/locale iki kontrolü 0PASS/2FAIL ve G-406 same-token Session iki kontrolü 0PASS/2FAIL; genel source HOLD. V2 app/Core/config yerinde kalacak; ayrı V3 roots + dialog-safe accepted Core + yeni SDK grant + dialog2 + Session2 dört GREEN şart. Core sahibinden yeni AccountPage auth-error ve Session ABA successor archive/manifest al; aynı sürüm ve kök şartıyla ayrı successor kanıtını üret. Kanonik f2ea pinleri/lock sabit. Ardından merkez ağır native lease'iyle seri imzasız iOS ve Android compile-only; SDK cache miss/8GiB disk tabanı/signing task görürsen dur.
+3. NHS cal03/NASM cal34/Cleveland cal37 atıf proposalını isolated generator staging ve primary-source peer ile hazır tut. Canlı generator/course/integrity/slice/projection/catalog/QA/shared packet pinleri merkez atomic source refresh dışında değişmez.
+4. MANUAL-CARDS içindeki exact equipment HOLD, auth/mail/deletion, son toplu native/fiziksel ve imzalı store/reviewer kabulünü kanıtla. Gerçek medya/uzman kişi-ayrık veri yokken tam-kurs fit/form hükmü yok; held Squat/FMS ve frozen19 korunur. Mikrofon/ödeme kapısı açılmaz; Flow/fiziksel en son, otomasyon PAUSED.
+
+2026-09-28 ve aşağıdaki eski kuyruklar tarihsel karar bağlamıdır; güncel hüküm PROGRESS 2026-10-02 ve yayın haftası sözleşmesindedir. Merkez Vault/ortak kayıtların tek yazarı; bu lane yalnız Gravita kaynağı ve kendi rapor alanında yazar.
 
 
 ## Oturum açılışı

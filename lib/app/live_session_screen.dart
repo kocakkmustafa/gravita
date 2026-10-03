@@ -12,6 +12,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'content_repository.dart';
+import 'account_connection.dart';
+import 'account_store_epoch.dart';
 import 'app_locale.dart';
 import 'live_session.dart';
 import 'live_strings.dart';
@@ -93,14 +95,35 @@ class LiveSessionScreen extends StatefulWidget {
 
 class _LiveSessionScreenState extends State<LiveSessionScreen>
     with WidgetsBindingObserver {
+  // Keep uncertainty across route/account rebuilds. A new controller must
+  // never silently clear the native closure quarantine.
+  static final MotionCameraController _defaultController =
+      MotionCameraController();
   late final MotionCameraController _camera =
-      widget.controller ?? MotionCameraController();
+      widget.controller ?? _defaultController;
 
   LiveState _state = const LiveIdle();
   StreamSubscription<CameraFrameEnvelope>? _sub;
+  bool _starting = false;
   bool _running = false;
   bool _stopping = false;
   bool _foreground = true;
+  CameraCaptureLease? _capture;
+  bool _closeUncertain = false;
+  int _generation = 0;
+  Future<CameraReleaseResult>? _releaseFuture;
+  Future<void>? _finishFuture;
+  SessionRecord? _pendingRecord;
+  Future<void> Function(SessionRecord)? _pendingRecordSink;
+  String? _pendingRecordUserId;
+  AccountStoreEpoch? _captureStoreEpoch;
+  AccountStoreEpoch? _pendingRecordEpoch;
+  AccountConnection? _accountConnection;
+  StreamSubscription<void>? _ownerSessionSubscription;
+  String? _captureUserId;
+  bool _accountRetired = false;
+  bool _settingsRequested = false;
+  int _permissionRefreshGeneration = 0;
 
   /// İzin **kalıcı olarak** engelli mi (`permanentlyDenied` ya da
   /// `restricted`). `LiveFailed` bunu taşıyamıyor: `CameraFailure` PİNLİ
@@ -116,27 +139,290 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
   @override
   void initState() {
     super.initState();
+    if (CameraReleaseLatch.requiresRecovery) {
+      _closeUncertain = true;
+      _state = const LiveFailed(CameraFailure.closeUncertain);
+    }
     WidgetsBinding.instance.addObserver(this);
+    AccountStoreEpochRegistry.admissionChanges.addListener(
+      _accountAdmissionChanged,
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final connection = AccountScope.maybeOf(context)?.connection;
+    if (!identical(connection, _accountConnection)) {
+      if (_capture != null) _retireAccountCapture();
+      _removeAccountListeners();
+      _accountConnection = connection;
+      _ownerSessionSubscription = connection?.ownerSessionChanges?.listen(
+        (_) => _retireAccountCapture(),
+        onError: (Object _, StackTrace __) => _retireAccountCapture(),
+      );
+      connection?.userId.addListener(_accountAdmissionChanged);
+      connection?.passwordRecovery?.addListener(_accountAdmissionChanged);
+      connection?.currentIdentityChanges?.addListener(_freshIdentityChanged);
+      connection?.identityAdmissionChanges?.addListener(
+        _accountAdmissionChanged,
+      );
+    }
+    _accountAdmissionChanged();
+  }
+
+  void _removeAccountListeners() {
+    unawaited(_ownerSessionSubscription?.cancel());
+    _ownerSessionSubscription = null;
+    _accountConnection?.userId.removeListener(_accountAdmissionChanged);
+    _accountConnection?.passwordRecovery?.removeListener(
+      _accountAdmissionChanged,
+    );
+    _accountConnection?.currentIdentityChanges?.removeListener(_freshIdentityChanged);
+    _accountConnection?.identityAdmissionChanges?.removeListener(
+      _accountAdmissionChanged,
+    );
+  }
+
+  bool get _accountAdmissionOpen =>
+      !_accountRetired &&
+      (_capture != null || (_accountConnection?.isCurrentIdentityVerified?.call() ?? true)) &&
+      _accountConnection?.passwordRecovery?.value != true &&
+      (_accountConnection?.isIdentityAdmitted?.call() ?? true) &&
+      !AccountStoreEpochRegistry.isAccountErasureBlocked(
+        _captureUserId ??
+            _accountConnection?.userId.value ??
+            widget.accountUserId,
+      );
+
+  bool get _freshIdentityVerified =>
+      _accountConnection?.isCurrentIdentityVerified?.call() ?? true;
+
+  void _freshIdentityChanged() {
+    // Proof loss only cancels a pending new native admission. A live owner
+    // continues through ordinary refresh until an owner boundary retires it.
+    if (!_starting || _freshIdentityVerified) {
+      if (mounted) setState(() {});
+      return;
+    }
+    _invalidateAttempt();
+    if (mounted) setState(() => _state = const LiveIdle());
+    unawaited(_releaseCamera().then<void>((result) {
+      if (!result.released && mounted) {
+        setState(() => _state = _failureFor(result.error!));
+      }
+    }));
+  }
+
+  void _accountAdmissionChanged() {
+    if (_capture != null &&
+        (!_accountAdmissionOpen ||
+            (_accountConnection != null &&
+                _accountConnection!.userId.value != _captureUserId))) {
+      _retireAccountCapture();
+    }
+  }
+
+  void _retireAccountCapture() {
+    // Runtime signals are synchronous: fence native work before shell/UI pump.
+    _capture?.retire();
+    _accountRetired = true;
+    _invalidateAttempt();
+    _permissionRefreshGeneration++;
+    if (mounted) setState(() => _state = const LiveIdle());
+    unawaited(
+      _releaseCamera().then<void>((result) {
+        if (!result.released && mounted) {
+          setState(() => _state = _failureFor(result.error!));
+        }
+      }),
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant LiveSessionScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.accountUserId != widget.accountUserId ||
+        oldWidget.config.id != widget.config.id ||
+        oldWidget.controller != widget.controller) {
+      _capture?.retire();
+      _invalidateAttempt();
+      _permissionRefreshGeneration++;
+      _state = const LiveIdle();
+      // Account/route replacement releases only; it is not a completed set.
+      unawaited(
+        _releaseCamera().then<void>((result) {
+          if (!result.released && mounted) {
+            setState(() => _state = _failureFor(result.error!));
+          }
+        }),
+      );
+    }
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      _foreground = true;
+      // Idle/failed ekranı inactive sırasında disabled Start çizmiş olabilir.
+      // Foreground değişimi de UI durumudur; native kamera otomatik açılmaz.
+      if (mounted && !_foreground) {
+        setState(() => _foreground = true);
+      } else {
+        _foreground = true;
+      }
+      if (_permissionBlocked && _settingsRequested) {
+        unawaited(_refreshPermission());
+      }
       return;
     }
+    final activeAttempt =
+        _starting || (_capture != null && !_capture!.isRetired);
+    _capture?.retire();
     _foreground = false;
-    if (_running && !_stopping) CameraReleaseLatch.hold(_stop());
+    _permissionRefreshGeneration++;
+    if (_stopping || _finishFuture != null) return;
+    if (_running) {
+      unawaited(_stop());
+      return;
+    }
+    // Permission/model work has an owner before its first await. Returning
+    // from inactive never revives that retired attempt; Start is explicit.
+    if (activeAttempt) {
+      _invalidateAttempt();
+      final int generation = _generation;
+      if (mounted) setState(() => _state = const LiveIdle());
+      unawaited(
+        _releaseCamera().then<void>((result) {
+          if (!result.released && mounted && generation == _generation) {
+            setState(() => _state = _failureFor(result.error!));
+          }
+        }),
+      );
+    }
   }
 
   @override
   void dispose() {
+    _capture?.retire();
+    _removeAccountListeners();
+    AccountStoreEpochRegistry.admissionChanges.removeListener(
+      _accountAdmissionChanged,
+    );
     WidgetsBinding.instance.removeObserver(this);
-    unawaited(_sub?.cancel());
-    // ⭐ C-195: kapanış nöbeti BURADA kuruluyor — senkron, çünkü `dispose`
-    // senkron ve kilit bir sonraki `start`tan ÖNCE görünür olmalı.
-    if (_running && !_stopping) CameraReleaseLatch.hold(_camera.stop());
+    _foreground = false;
+    _permissionRefreshGeneration++;
+    _invalidateAttempt();
+    // Owned close settles admitted start + native cancel + fresh readback.
+    // Disposal and manual/background stop share this same safe result.
+    unawaited(_releaseCamera().then<void>((_) {}));
     super.dispose();
+  }
+
+  bool _isCurrent(int generation) =>
+      mounted && _foreground && generation == _generation &&
+      (!_starting || _freshIdentityVerified);
+
+  void _abandonUnadoptedStart(int generation) {
+    if (mounted && generation == _generation) {
+      setState(() => _state = const LiveIdle());
+    }
+  }
+
+  void _invalidateAttempt() {
+    _capture?.retire();
+    _generation++;
+    _starting = false;
+    _running = false;
+  }
+
+  LiveFailed _failureFor(Object error) => error is CameraException
+      ? LiveFailed(error.failure, detail: error.detail)
+      : LiveFailed(null, detail: error.toString());
+
+  Future<void> _cancelFrames(
+    StreamSubscription<CameraFrameEnvelope>? subscription,
+  ) async {
+    try {
+      await subscription?.cancel();
+    } on Object catch (_) {
+      // This is the lease's local app bus. Its late/paused cancellation must
+      // neither delay native close nor reach a successor's raw channel.
+    }
+  }
+
+  Future<CameraReleaseResult> _releaseCamera() {
+    final CameraCaptureLease? capture = _capture;
+    capture?.retire();
+    final Future<CameraReleaseResult>? existing = _releaseFuture;
+    if (existing != null) return existing;
+    _stopping = true;
+    final subscription = _sub;
+    _sub = null;
+    unawaited(_cancelFrames(subscription));
+    // Only owned close controls replacement admission. Core drains its one
+    // raw subscription and exact ACK/readback; app subscription is separate.
+    final Future<CameraReleaseResult> closing = capture != null
+        ? CameraReleaseLatch.hold(capture.close())
+        : Future<CameraReleaseResult>.value(
+            const CameraReleaseResult.success(),
+          );
+    final result = closing.then<CameraReleaseResult>((result) {
+      if (identical(capture, _capture)) {
+        void completeRelease() {
+          _closeUncertain = !result.released;
+          _stopping = false;
+          if (!result.released) _state = _failureFor(result.error!);
+        }
+
+        if (mounted) {
+          setState(completeRelease);
+        } else {
+          completeRelease();
+        }
+      }
+      return result;
+    });
+    _releaseFuture = result;
+    return result;
+  }
+
+  Future<void> _openSettings() async {
+    _settingsRequested = true;
+    try {
+      if (!await openAppSettings()) _settingsRequested = false;
+    } on Object catch (_) {
+      // Kullanılabilir Settings eylemi kalır; izin verildi varsayılmaz.
+    }
+  }
+
+  Future<void> _refreshPermission() async {
+    final int refreshGeneration = ++_permissionRefreshGeneration;
+    final int generation = _generation;
+    try {
+      final PermissionStatus permission = await Permission.camera.status;
+      if (!_isCurrent(generation) ||
+          refreshGeneration != _permissionRefreshGeneration ||
+          !_permissionBlocked ||
+          _starting ||
+          _running) {
+        return;
+      }
+      setState(() {
+        _permissionBlocked =
+            permission.isPermanentlyDenied || permission.isRestricted;
+        if (permission.isGranted) {
+          _settingsRequested = false;
+          _state = const LiveIdle();
+        } else {
+          _state = LiveFailed(
+            CameraFailure.permissionDenied,
+            detail: 'permission_handler: ${permission.name}',
+          );
+        }
+      });
+    } on Object catch (_) {
+      // Okuma başarısızsa eski engel korunur; native kamera otomatik açılmaz.
+    }
   }
 
   /// Asset'i dosyaya yazar — plugin bundle değil YOL istiyor.
@@ -153,20 +439,49 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
   }
 
   Future<void> _start() async {
+    // Buton henüz yeniden çizilmeden ikinci callback gelebilir. Nöbet ilk
+    // await'ten önce alınır; UI'nın spinner çizmesine güvenilmez.
+    if (!mounted ||
+        !_foreground ||
+        _starting ||
+        _running ||
+        _stopping ||
+        _closeUncertain ||
+        !_accountAdmissionOpen ||
+        !_freshIdentityVerified ||
+        CameraReleaseLatch.requiresRecovery ||
+        _finishFuture != null) {
+      return;
+    }
+    _starting = true;
+    final int generation = ++_generation;
+    // The actual Core lease exists before permission/model/latch awaits.
+    // Retirement therefore fences every delayed pre-native continuation.
+    final CameraCaptureLease capture = _camera.createCaptureLease();
+    _capture = capture;
+    _captureUserId = _accountConnection == null
+        ? widget.accountUserId
+        : _accountConnection!.userId.value;
+    _releaseFuture = null;
     // Çalışılan süre BURADAN ölçülür: kullanıcı başlat'a bastığı andan
     // durdurduğu ana. Kamera açılış gecikmesi de dahil — "çalıştığın süre"
     // iddiası ancak ölçülebilir bir çıpaya dayanırsa dürüsttür.
     _startedAt = DateTime.now();
     setState(() => _state = const LiveStarting());
     try {
+      // Capture this account lifetime before permission/model/native awaits.
+      // A late manual close must not acquire a fresh same-UUID store epoch.
+      _captureStoreEpoch = AccountStoreEpochRegistry.capture(_captureUserId);
       // İzin ÖNCE ve AÇIKÇA: reddedilirse adı olan bir hâl doğar, boş bir
       // ekran değil.
       final PermissionStatus perm = await Permission.camera.request();
-      if (!_foreground || !mounted) {
-        if (mounted) setState(() => _state = const LiveIdle());
+      if (!_isCurrent(generation)) {
+        _abandonUnadoptedStart(generation);
         return;
       }
       if (!perm.isGranted) {
+        capture.retire();
+        unawaited(_releaseCamera().then<void>((_) {}));
         if (!mounted) return;
         // ⭐ KALICI RET, GEÇİCİ RETTEN AYRILIYOR (G-185) — kural İCAT
         // EDİLMEDİ, Ostinato'nun ölçülmüş referansı: `isPermanentlyDenied ||
@@ -194,24 +509,32 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
 
       // ⚠️ ÖNCE uçmakta olan kapanışı bekle. Bu satır olmadan ikinci seans,
       // birincinin kapanışıyla yarışır ve `already-running` alır.
-      await CameraReleaseLatch.awaitRelease();
-
+      final CameraReleaseResult release =
+          await CameraReleaseLatch.awaitRelease();
+      if (!_isCurrent(generation)) {
+        _abandonUnadoptedStart(generation);
+        return;
+      }
+      if (!release.released) {
+        _closeUncertain = true;
+        capture.retire();
+        setState(() => _state = _failureFor(release.error!));
+        return;
+      }
       final String modelPath = await _modelPath();
-      if (!_foreground || !mounted) {
-        if (mounted) setState(() => _state = const LiveIdle());
+      if (!_isCurrent(generation)) {
+        _abandonUnadoptedStart(generation);
         return;
       }
 
-      final CameraSessionInfo info = await _camera.start(
+      final CameraSessionInfo info = await capture.start(
         modelPath: modelPath,
         modelId: PoseModelPin.modelId,
         lens: CameraLens.back,
         initialPlan: PassPlan.uprightOnly,
       );
-      // Native start may finish after the app has already left the foreground.
-      if (!_foreground || !mounted) {
-        CameraReleaseLatch.hold(_camera.stop());
-        if (mounted) setState(() => _state = const LiveIdle());
+      if (!_isCurrent(generation)) {
+        capture.retire();
         return;
       }
       final LiveSessionRunner runner = LiveSessionRunner(
@@ -220,76 +543,104 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
         // buna bağlı ve yanlış boyut açıları sessizce kaydırır (J-028).
         frameSize: FrameSize(info.width, info.height),
       );
-      _sub = _camera.frames().listen(
-        (CameraFrameEnvelope e) {
+      final subscription = capture.frames().listen((CameraFrameEnvelope e) {
+        if (!_isCurrent(generation)) return;
+        try {
           runner.consume(e);
-          if (mounted) setState(() => _state = runner.state);
-        },
-        onError: (Object err) {
-          if (!mounted) return;
-          setState(
-            () => _state = err is CameraException
-                ? LiveFailed(err.failure, detail: err.detail)
-                : LiveFailed(null, detail: err.toString()),
-          );
-        },
-      );
-      if (!mounted) return;
+          if (_isCurrent(generation)) {
+            setState(() => _state = runner.state);
+          }
+        } on Object catch (error) {
+          _failCamera(error, generation);
+        }
+      }, onError: (Object error) => _failCamera(error, generation));
+      if (!_isCurrent(generation)) {
+        unawaited(_cancelFrames(subscription));
+        return;
+      }
+      _sub = subscription;
       setState(() {
         _running = true;
         _state = runner.state;
       });
-    } on CameraException catch (e) {
-      if (mounted) {
-        setState(() => _state = LiveFailed(e.failure, detail: e.detail));
+    } on Object catch (error) {
+      if (_isCurrent(generation)) {
+        _failCamera(error, generation);
+      } else {
+        _abandonUnadoptedStart(generation);
       }
-    } on Object catch (e) {
-      if (mounted) {
-        setState(() => _state = LiveFailed(null, detail: e.toString()));
-      }
+    } finally {
+      // Eski continuation yeni bir Start'ın nöbetini indiremez.
+      if (generation == _generation) _starting = false;
     }
   }
 
-  Future<void> _stop() async {
-    if (_stopping || !_running) return;
-    _stopping = true;
-    await _sub?.cancel();
-    _sub = null;
-    try {
-      await _camera.stop();
-    } on Object catch (_) {
-      // Durdurmada arıza kullanıcıyı ilgilendirmez: oturum zaten bitiyor.
-    }
-    // ⭐ G-132: seans KAYDEDİLİR. Bu satırlardan önce `_stop()` aboneliği
-    // iptal edip `LiveIdle`a dönüyordu ve o seansın tekrarları ATILIYORDU —
-    // yani Progress ekranı hiçbir zaman gerçek bir seans göremezdi ve
-    // `HistoryStatus` makinesinin tamamı hiçbir şeyin yazmadığı bir dosyayı
-    // okuyordu.
-    // ⚠️ SIRA KORUNUYOR: `_persist()` `_state`i LiveRunning olarak okur
-    // (`buildFreeSessionRecord` yalnız o hâlde kayıt üretir). Aşağıdaki
-    // geçişten ÖNCE çağrılmak zorunda.
-    await _persist();
-    if (!mounted) {
-      _stopping = false;
-      return;
-    }
+  void _failCamera(Object error, int generation) {
+    if (!_isCurrent(generation)) return;
+    _invalidateAttempt();
+    setState(() => _state = _failureFor(error));
+    // Akış arızası Stop'u gizleyip kamerayı canlı bırakamaz. Kapanış sonucu
+    // bu arıza yüzeyini silmez; tekrar yalnız açık bir Start ile mümkündür.
+    unawaited(_releaseCamera().then<void>((_) {}));
+  }
 
-    // ⭐ G-207: sonuç EKRANDA KALIR. Önceden burada `LiveIdle()` vardı ve
-    // kullanıcı setini bitirdiği anda ekran "henüz başlamadın"a dönüyordu —
-    // ölçülen sayılar gözünün önünden siliniyordu.
-    final DateTime simdi = DateTime.now();
-    setState(() {
-      _running = false;
-      // Karar `live_session.dart`ta ve SAF — `buildFreeSessionRecord`ın
-      // kardeşi. Ekran onu SÜRER, taşımaz.
-      _state = buildFinishedState(
-        state: _state,
-        startedAt: _startedAt ?? simdi,
-        endedAt: simdi,
+  Future<void> _stop() {
+    final Future<void>? existing = _finishFuture;
+    if (existing != null) return existing;
+    if (!_running) return Future<void>.value();
+    // Başarı/arıza UI'si ve geç kareler bu ölçümü değiştiremez. G-132/G-207:
+    // gerçek kareli seans bir kez kaydedilir, sıfır kareli kayıt üretilmez.
+    final LiveState current = _state;
+    final LiveState snapshot = current is LiveRunning
+        ? LiveRunning(
+            reps: List<Rep>.unmodifiable(current.reps),
+            personVisible: current.personVisible,
+            framesSeen: current.framesSeen,
+          )
+        : current;
+    final DateTime endedAt = DateTime.now();
+    final DateTime startedAt = _startedAt ?? endedAt;
+    _pendingRecord = buildFreeSessionRecord(
+      movementId: widget.config.id,
+      state: snapshot,
+      startedAt: startedAt,
+      endedAt: endedAt,
+    );
+    _pendingRecordSink = widget.onSessionEnd;
+    _pendingRecordUserId = _captureUserId;
+    _pendingRecordEpoch = _captureStoreEpoch;
+    final LiveState finished = buildFinishedState(
+      state: snapshot,
+      startedAt: startedAt,
+      endedAt: endedAt,
+    );
+    _invalidateAttempt();
+    final int generation = _generation;
+    final release = _releaseCamera();
+    late final Future<void> finishing;
+    finishing = _finishStoppedSession(release, finished, generation)
+        .whenComplete(() {
+          if (identical(_finishFuture, finishing)) _finishFuture = null;
+        });
+    _finishFuture = finishing;
+    return finishing;
+  }
+
+  Future<void> _finishStoppedSession(
+    Future<CameraReleaseResult> release,
+    LiveState finished,
+    int generation,
+  ) async {
+    final CameraReleaseResult result = await release;
+    // Eski Stop semantiği korunur: kapanış hatası gerçek ölçüm kaydını
+    // düşürmez. Kaydın varlığı kamera bırakıldı iddiası değildir.
+    await _persistPendingRecord();
+    _startedAt = null;
+    if (mounted && generation == _generation) {
+      setState(
+        () => _state = result.released ? finished : _failureFor(result.error!),
       );
-      _startedAt = null;
-    });
-    _stopping = false;
+    }
   }
 
   /// Biten seansı SERBEST kovaya yazar (koordinatör hükmü G-132 + dar-kapsam).
@@ -301,22 +652,26 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
   /// **Sıfır TEKRAR ama kare VARSA yazılır:** kamera çalıştı, kişi göründü,
   /// hiç tam tekrar sayılmadı — bu GERÇEK bir sonuçtur ve saklanması,
   /// silinmesinden dürüsttür.
-  Future<void> _persist() async {
-    final SessionRecord? record = buildFreeSessionRecord(
-      movementId: widget.config.id,
-      state: _state,
-      startedAt: _startedAt ?? DateTime.now(),
-      endedAt: DateTime.now(),
-    );
-    if (record == null) return;
+  Future<void> _persistPendingRecord() async {
+    final SessionRecord? record = _pendingRecord;
+    final sink = _pendingRecordSink;
+    final accountUserId = _pendingRecordUserId;
+    final epoch = _pendingRecordEpoch;
+    // Sink beklenmeden alınır: dispose/tekrar Stop aynı kaydı ikinci kez yazamaz.
+    _pendingRecord = null;
+    _pendingRecordSink = null;
+    _pendingRecordUserId = null;
+    _pendingRecordEpoch = null;
+    if (record == null || _accountRetired) return;
     try {
-      final Future<void> Function(SessionRecord)? sink = widget.onSessionEnd;
+      epoch?.checkCurrent();
       if (sink != null) {
         await sink(record);
       } else {
         final SessionStore store = await ContentRepository.openFreeSessionStore(
-          accountUserId: widget.accountUserId,
+          accountUserId: accountUserId,
         );
+        epoch?.checkCurrent();
         await store.append(record);
       }
     } on Object catch (_) {
@@ -391,7 +746,16 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
         const SizedBox(height: 22),
         FilledButton(
           key: LiveSessionScreen.startButtonKey,
-          onPressed: _start,
+          onPressed:
+              _starting ||
+                  _stopping ||
+                  !_foreground ||
+                  _closeUncertain ||
+                  CameraReleaseLatch.requiresRecovery ||
+                  !_accountAdmissionOpen ||
+                  !_freshIdentityVerified
+              ? null
+              : _start,
           child: Text(localized(context, LiveStrings.start, 'Başlat')),
         ),
       ],
@@ -453,7 +817,7 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
         if (_permissionBlocked)
           FilledButton(
             key: LiveSessionScreen.openSettingsKey,
-            onPressed: openAppSettings,
+            onPressed: _stopping ? null : _openSettings,
             child: Text(
               localized(context, LiveStrings.openSettings, 'Ayarları aç'),
             ),
@@ -461,7 +825,16 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
         else
           FilledButton(
             key: LiveSessionScreen.startButtonKey,
-            onPressed: _start,
+            onPressed:
+                _starting ||
+                    _stopping ||
+                    !_foreground ||
+                    _closeUncertain ||
+                    CameraReleaseLatch.requiresRecovery ||
+                    !_accountAdmissionOpen ||
+                  !_freshIdentityVerified
+                ? null
+                : _start,
             child: Text(localized(context, LiveStrings.start, 'Başlat')),
           ),
       ],
@@ -523,7 +896,7 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
           const SizedBox(height: 22),
           FilledButton(
             key: LiveSessionScreen.stopButtonKey,
-            onPressed: _stop,
+            onPressed: _stopping || _finishFuture != null ? null : _stop,
             child: Text(localized(context, LiveStrings.stop, 'Durdur')),
           ),
         ],
@@ -657,6 +1030,9 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
     CameraFailure.notRunning => 'Çalışan seans yok',
     CameraFailure.lifecycleUnavailable => 'Kamera henüz hazır değil',
     CameraFailure.sessionInterrupted => 'Kamera seansı kesildi',
+    CameraFailure.ownedProtocolUnavailable =>
+      'Kamera köprüsü güncelleme istiyor',
+    CameraFailure.closeUncertain => 'Kamera kapanışı doğrulanamadı',
     CameraFailure.noSuchCamera => 'Kamera başlatılamadı',
     null => 'Kamera bilinmeyen bir nedenle durdu',
   };
@@ -674,6 +1050,10 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
       'Kamera bu ekranda henüz başlatılamıyor. Uygulamaya dönüp yeniden deneyebilirsin.',
     CameraFailure.sessionInterrupted =>
       'Kamera seansı hazır olmadan kesildi. Bu ekranı yeniden açıp deneyebilirsin.',
+    CameraFailure.ownedProtocolUnavailable =>
+      'Bu sürüm kamera sahipliğini doğrulayamıyor. Kamera kapalı kalır; güncel bir sürüm gerekir. Derslerin ve geçmişin etkilenmez.',
+    CameraFailure.closeUncertain =>
+      'Kamera ve poz modelinin kapandığı doğrulanamadı. Yeni kamera seansı açılmayacak. Derslerin ve geçmişin etkilenmez.',
     CameraFailure.noSuchCamera =>
       'Kamera bu cihazda açılamadı. Yeniden deneyebilirsin; bu denemede seans kaydedilmedi. Derslerin ve geçmişin etkilenmez.',
     null =>

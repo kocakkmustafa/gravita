@@ -116,7 +116,9 @@ mixin _CourseIdentity<T extends StatefulWidget> on State<T> {
       connection = next;
       connection?.userId.addListener(_changed);
     }
-    final id = connection?.userId.value ?? scope?.currentUserId;
+    final id = connection != null
+        ? connection!.userId.value
+        : scope?.currentUserId;
     if (!initialized || id != userId) {
       initialized = true;
       userId = id;

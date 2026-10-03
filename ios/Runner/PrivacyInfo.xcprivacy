@@ -80,21 +80,22 @@
 		</dict>
 	</array>
 
-	<!--
-	  GEREKÇE-ZORUNLU API'ler: YOK.
-	  Beş kategorinin BEŞİ de tarandı ve app+motor+pinli çekirdekte 0 isabet:
-	    · dosya zaman damgası (`stat`/`lastModified`/`creationDate`)
-	    · disk alanı (`statfs`/`volumeAvailable`)
-	    · sistem açılış zamanı (`systemUptime`/`kern.boottime`)
-	    · UserDefaults (`SharedPreferences`/`NSUserDefaults`)
-	    · aktif klavyeler (`activeInputModes`)
-	  Depo dosya OKUR/YAZAR ama zaman damgası SORMAZ — `File.exists()` ve
-	  `readAsString()` gerekçe-zorunlu API değildir. Ayrım kasıtlı: "dosya
-	  kullanıyoruz" ile "dosya META VERİSİ okuyoruz" aynı şey değil.
-	  Bu dizi, ölçüm değişirse DEĞİŞMEK ZORUNDA — `test/privacy_manifest_test.dart`
-	  beyanı ölçümle karşılaştırır ve ayrışırsa öter.
-	-->
+	<!-- App-container media cache file metadata and app-local shared preferences.
+	     Required reasons are tied to current selected Core source; archive readback remains separate. -->
 	<key>NSPrivacyAccessedAPITypes</key>
-	<array/>
+	<array>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array><string>C617.1</string></array>
+		</dict>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array><string>CA92.1</string></array>
+		</dict>
+	</array>
 </dict>
 </plist>

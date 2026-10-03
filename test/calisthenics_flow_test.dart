@@ -576,6 +576,58 @@ void main() {
       isNull,
     );
   });
+  for (final lessonPage in [false, true]) {
+    testWidgets(
+      'signed-out notifier owns ${lessonPage ? 'lesson' : 'course'} despite stale scope',
+      (tester) async {
+        size(tester);
+        const a = '11111111-1111-4111-8111-111111111111';
+        const b = '22222222-2222-4222-8222-222222222222';
+        final id = ValueNotifier<String?>(null);
+        addTearDown(id.dispose);
+        final connection = AccountConnection(
+          userId: id,
+          pageBuilder: (_) => const SizedBox(),
+        );
+        final loaded = <String?>[];
+        Future<CalisthenicsProgressStore> loader(String? account) async {
+          loaded.add(account);
+          // Identity selection is the subject here. Avoid unrelated real IO
+          // continuing after a failed assertion and temporary-directory cleanup.
+          throw StateError('identity-only loader fixture');
+        }
+
+        Widget page(String staleSnapshot) => host(
+          AccountScope(
+            connection: connection,
+            currentUserId: staleSnapshot,
+            child: lessonPage
+                ? CalisthenicsLessonScreen(
+                    course: content.calisthenicsCourse,
+                    lesson: content.calisthenicsCourse.lessons.first,
+                    storeLoader: loader,
+                  )
+                : CalisthenicsCourseScreen(
+                    course: content.calisthenicsCourse,
+                    storeLoader: loader,
+                  ),
+          ),
+        );
+        try {
+          await tester.pumpWidget(page(a));
+          await tester.pump();
+          expect(loaded, isNotEmpty);
+          expect(loaded, everyElement(isNull));
+          await tester.pumpWidget(page(b));
+          await tester.pump();
+          expect(loaded, everyElement(isNull));
+        } finally {
+          await tester.pumpWidget(const SizedBox());
+        }
+      },
+    );
+  }
+
   testWidgets('physical preparation is not shared across accounts', (
     tester,
   ) async {

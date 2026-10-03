@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gravita_engine/gravita_engine.dart';
 
 import 'app_locale.dart';
 import 'account_connection.dart';
+import 'account_store_epoch.dart';
 import 'camera_release_policy.dart';
 import 'content_failure.dart';
 import 'content_failure_screen.dart';
@@ -33,21 +36,177 @@ import 'theme.dart';
 /// Today (ne açık/ne kuyrukta) · Library (31 hareket + "Neden yok?") ·
 /// Progress (gerçek geçmiş) · Profile (sınırlar + veri yeri). Ortadaki seans
 /// düğmesi hâlâ NÖBETLİ: canlı yol yoksa ÇİZİLMEZ.
-class GravitaApp extends StatelessWidget {
+class GravitaApp extends StatefulWidget {
   const GravitaApp({super.key, this.accountConnection});
 
   final AccountConnection? accountConnection;
 
   @override
+  State<GravitaApp> createState() => _GravitaAppState();
+}
+
+class _GravitaAppState extends State<GravitaApp> {
+  Listenable? _signals;
+  StreamSubscription<void>? _ownerSessionSubscription;
+  String? _previousUser;
+  bool? _previousRecovery;
+  bool? _previousAdmission;
+  int _navigationRevision = 0;
+
+  bool get _managed => widget.accountConnection?.passwordRecovery != null;
+  bool get _recovery =>
+      widget.accountConnection?.passwordRecovery?.value ?? false;
+  bool get _admitted =>
+      (widget.accountConnection?.isIdentityAdmitted?.call() ?? true) &&
+      !AccountStoreEpochRegistry.isAccountErasureBlocked(
+        widget.accountConnection?.userId.value,
+      );
+
+  @override
+  void initState() {
+    super.initState();
+    _bind();
+  }
+
+  void _bind() {
+    final account = widget.accountConnection;
+    _signals = account == null
+        ? null
+        : Listenable.merge([
+            account.userId,
+            account.passwordRecovery,
+            account.identityAdmissionChanges,
+            if (_managed) AccountStoreEpochRegistry.admissionChanges,
+          ]);
+    _signals?.addListener(_identityChanged);
+    _ownerSessionSubscription = account?.ownerSessionChanges?.listen(
+      (_) {
+        _synchronizeAdmission(force: true);
+        if (mounted) setState(() {});
+      },
+      onError: (Object _, StackTrace __) {
+        // Core decides whether this is unavailable or an admitted guest.
+        // Rotate retained IO against that canonical state even when neither
+        // UUID nor phase changed (for example an already signed-out guest).
+        _synchronizeAdmission(force: true);
+        if (mounted) setState(() {});
+      },
+    );
+    _synchronizeAdmission(force: true);
+  }
+
+  void _synchronizeAdmission({bool force = false}) {
+    final user = widget.accountConnection?.userId.value;
+    final recovery = _recovery;
+    final admitted = _admitted;
+    if (!force &&
+        user == _previousUser &&
+        recovery == _previousRecovery &&
+        admitted == _previousAdmission) {
+      return;
+    }
+    _previousUser = user;
+    _previousRecovery = recovery;
+    _previousAdmission = admitted;
+    _navigationRevision++;
+    if (_managed) {
+      // Retirement closes every retained writer before a widget rebuild.
+      // Fresh activation carries the prior IO drain as its readiness barrier.
+      unawaited(AccountStoreEpochRegistry.retireAll());
+      if (admitted && !recovery) AccountStoreEpochRegistry.activate(user);
+    }
+  }
+
+  void _identityChanged() {
+    _synchronizeAdmission();
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void didUpdateWidget(covariant GravitaApp oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.accountConnection != widget.accountConnection) {
+      _signals?.removeListener(_identityChanged);
+      unawaited(_ownerSessionSubscription?.cancel());
+      if (oldWidget.accountConnection?.passwordRecovery != null) {
+        unawaited(AccountStoreEpochRegistry.retireAll());
+      }
+      _bind();
+    }
+  }
+
+  @override
+  void dispose() {
+    _signals?.removeListener(_identityChanged);
+    unawaited(_ownerSessionSubscription?.cancel());
+    if (_managed) unawaited(AccountStoreEpochRegistry.retireAll());
+    super.dispose();
+  }
+
+  Widget _closedAccountHome(AccountConnection? account, String? userId) {
+    if (!AccountStoreEpochRegistry.isAccountErasureBlocked(userId)) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+    final pending = AccountStoreEpochRegistry.isAccountErasurePending(userId);
+    final failed = AccountStoreEpochRegistry.erasureError(userId) != null;
+    return Scaffold(
+      body: Builder(
+        builder: (context) => Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  localized(
+                    context,
+                    pending
+                        ? 'Account history is unavailable while local cleanup completes.'
+                        : failed
+                        ? 'Local cleanup could not finish. Account history remains unavailable.'
+                        : 'This account was deleted. Its local history is unavailable.',
+                    pending
+                        ? 'Yerel temizlik tamamlanana kadar hesap geçmişi kullanılamıyor.'
+                        : failed
+                        ? 'Yerel temizlik tamamlanamadı. Hesap geçmişi kapalı tutuluyor.'
+                        : 'Bu hesap silindi. Yerel hesap geçmişi kullanılamıyor.',
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                if (account != null)
+                  TextButton(
+                    onPressed: () => Navigator.of(context).push<void>(
+                      MaterialPageRoute<void>(builder: account.pageBuilder),
+                    ),
+                    child: Text(
+                      localized(
+                        context,
+                        'Account options',
+                        'Hesap seçenekleri',
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final AccountConnection? account = accountConnection;
-    Widget accountApp(String? userId) => AccountScope(
+    final account = widget.accountConnection;
+    final userId = account?.userId.value;
+    final ownerKey = 'gravita-account-${userId ?? 'signed-out'}';
+    return AccountScope(
       connection: account,
       currentUserId: userId,
       child: MaterialApp(
-        key: ValueKey<String>('gravita-account-${userId ?? 'signed-out'}'),
+        key: ValueKey<String>(
+          _managed ? '$ownerKey-$_navigationRevision' : ownerKey,
+        ),
         title: 'Gravita',
-        // M-F-282 giydirme turu: tema design panel v1'den (`theme.dart`).
         theme: GravitaTheme.light,
         builder: (BuildContext context, Widget? child) =>
             AnnotatedRegion<SystemUiOverlayStyle>(
@@ -57,13 +216,12 @@ class GravitaApp extends StatelessWidget {
         supportedLocales: appSupportedLocales,
         localizationsDelegates: appLocalizationsDelegates,
         debugShowCheckedModeBanner: false,
-        home: const GravitaRoot(),
+        home: !_admitted
+            ? _closedAccountHome(account, userId)
+            : _recovery && account != null
+            ? Builder(builder: account.pageBuilder)
+            : const GravitaRoot(),
       ),
-    );
-    if (account == null) return accountApp(null);
-    return ValueListenableBuilder<String?>(
-      valueListenable: account.userId,
-      builder: (_, userId, __) => accountApp(userId),
     );
   }
 }

@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import '../account_data_directory.dart';
+import '../course_progress_io.dart';
+import '../account_store_epoch.dart';
 
 /// Bir programın CANLI takvimi + tamamlanma durumu (GRA-P1-003 Step 3/4).
 ///
@@ -32,36 +34,45 @@ final class ProgramSchedule {
   final Map<int, int> rpeByDayIndex;
 
   ProgramSchedule withRpe(int dayIndex, int rpe) => ProgramSchedule(
-        dates: dates,
-        rpeByDayIndex: <int, int>{...rpeByDayIndex, dayIndex: rpe},
-      );
+    dates: dates,
+    rpeByDayIndex: <int, int>{...rpeByDayIndex, dayIndex: rpe},
+  );
 
-  ProgramSchedule withDates(List<DateTime> newDates) => ProgramSchedule(
-        dates: newDates,
-        rpeByDayIndex: rpeByDayIndex,
-      );
+  ProgramSchedule withDates(List<DateTime> newDates) =>
+      ProgramSchedule(dates: newDates, rpeByDayIndex: rpeByDayIndex);
 }
 
 /// [ProgramStore]nun BİREBİR deseni — `open()`/`forFile()`/fail-open `read()`.
 final class ProgramScheduleStore {
-  const ProgramScheduleStore._(this._file);
+  ProgramScheduleStore._(File file, {AccountStoreEpoch? epoch})
+    : _file = file,
+      _lease = CourseProgressLease(file, epoch: epoch);
 
   final File _file;
+  final CourseProgressLease _lease;
 
   static Future<ProgramScheduleStore> open({String? accountUserId}) async {
+    final epoch = AccountStoreEpochRegistry.capture(accountUserId);
     final Directory dir = accountDataDirectory(
-      await getApplicationSupportDirectory(), accountUserId);
-    return ProgramScheduleStore._(File('${dir.path}/program_schedule.json'));
+      await getApplicationSupportDirectory(),
+      accountUserId,
+    );
+    epoch.checkCurrent();
+    return ProgramScheduleStore._(
+      File('${dir.path}/program_schedule.json'),
+      epoch: epoch,
+    );
   }
 
   /// Yalnız test/harness için — gerçek dizin yerine verilen dosyayı kullanır.
-  static ProgramScheduleStore forFile(File file) => ProgramScheduleStore._(file);
+  static ProgramScheduleStore forFile(File file) =>
+      ProgramScheduleStore._(file);
 
   /// Kayıtlı takvim — hiç kurulmamışsa ya da dosya okunamıyorsa `null`.
   /// ⚠️ Bozuk/okunamayan dosya "hiç kurulmamış" SAYILIR — `ProgramStore.read`
   /// ile AYNI fail-open gerekçesi: kullanıcı kilitlenmez, çağıran taraf
   /// (`WorkoutScreen._load`) yalnız takvimi SIFIRDAN kurar.
-  Future<ProgramSchedule?> read() async {
+  Future<ProgramSchedule?> read() => _lease.mutate(() async {
     if (!await _file.exists()) return null;
     try {
       final Map<String, dynamic> j =
@@ -71,27 +82,32 @@ final class ProgramScheduleStore {
             .map((dynamic e) => DateTime.parse(e as String))
             .toList(growable: false),
         rpeByDayIndex: (j['rpeByDayIndex'] as Map<String, dynamic>).map(
-            (String k, dynamic v) => MapEntry<int, int>(int.parse(k), v as int)),
+          (String k, dynamic v) => MapEntry<int, int>(int.parse(k), v as int),
+        ),
       );
     } on Object {
       return null;
     }
-  }
+  });
 
-  Future<void> write(ProgramSchedule schedule) async {
+  Future<void> write(ProgramSchedule schedule) => _lease.mutate(() async {
     await _file.parent.create(recursive: true);
-    await _file.writeAsString(jsonEncode(<String, dynamic>{
-      'schemaVersion': 1,
-      'dates':
-          schedule.dates.map((DateTime d) => d.toIso8601String()).toList(),
-      'rpeByDayIndex': schedule.rpeByDayIndex
-          .map((int k, int v) => MapEntry<String, int>(k.toString(), v)),
-    }));
-  }
+    await _file.writeAsString(
+      jsonEncode(<String, dynamic>{
+        'schemaVersion': 1,
+        'dates': schedule.dates
+            .map((DateTime d) => d.toIso8601String())
+            .toList(),
+        'rpeByDayIndex': schedule.rpeByDayIndex.map(
+          (int k, int v) => MapEntry<String, int>(k.toString(), v),
+        ),
+      }),
+    );
+  });
 
   /// Takvimi kaldırır (ör. kullanıcı programı yeniden kurarsa). Dosya yoksa
   /// sessizce başarılı sayılır — `ProgramStore.clear` ile AYNI gerekçe.
-  Future<void> clear() async {
+  Future<void> clear() => _lease.mutate(() async {
     if (await _file.exists()) await _file.delete();
-  }
+  });
 }

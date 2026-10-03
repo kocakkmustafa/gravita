@@ -6,6 +6,8 @@ import 'package:gravita_engine/gravita_engine.dart';
 import 'package:motion_content/motion_content.dart';
 import 'package:path_provider/path_provider.dart';
 import 'account_data_directory.dart';
+import 'account_session_store.dart';
+import 'account_store_epoch.dart';
 import 'calisthenics_course.dart';
 import 'calisthenics_progress.dart';
 import 'foundation_coverage.dart';
@@ -179,10 +181,12 @@ final class ContentRepository {
   static Future<CalisthenicsProgressStore> openCalisthenicsProgressStore({
     String? accountUserId,
     Directory? supportDirectory,
-  }) async => calisthenicsProgressStoreFor(
-    supportDirectory ?? await getApplicationSupportDirectory(),
-    accountUserId,
-  );
+  }) async {
+    final epoch = AccountStoreEpochRegistry.capture(accountUserId);
+    final support = supportDirectory ?? await getApplicationSupportDirectory();
+    epoch.checkCurrent();
+    return calisthenicsProgressStoreFor(support, accountUserId, epoch: epoch);
+  }
 
   /// Kütüphane yüzeyinin okuduğu tipli hâl (31 hareket + "Neden yok?").
   final LibraryCatalogue catalogue;
@@ -300,11 +304,16 @@ final class ContentRepository {
 
   /// DERS seansı geçmişi. `ProgressSummary` YALNIZ bunu okur.
   static Future<SessionStore> openSessionStore({String? accountUserId}) async {
+    final epoch = AccountStoreEpochRegistry.capture(accountUserId);
     final Directory dir = accountDataDirectory(
       await getApplicationSupportDirectory(),
       accountUserId,
     );
-    return JsonlSessionStore(File('${dir.path}/sessions.jsonl'));
+    epoch.checkCurrent();
+    return AccountSessionStore(
+      File('${dir.path}/sessions.jsonl'),
+      epoch: epoch,
+    );
   }
 
   /// ⭐ SERBEST seans kovası — AYRI DOSYA, koordinatör hükmü (G-132, 08-07).
@@ -378,11 +387,16 @@ final class ContentRepository {
   static Future<SessionStore> openFreeSessionStore({
     String? accountUserId,
   }) async {
+    final epoch = AccountStoreEpochRegistry.capture(accountUserId);
     final Directory dir = accountDataDirectory(
       await getApplicationSupportDirectory(),
       accountUserId,
     );
-    return JsonlSessionStore(File('${dir.path}/free_sessions.jsonl'));
+    epoch.checkCurrent();
+    return AccountSessionStore(
+      File('${dir.path}/free_sessions.jsonl'),
+      epoch: epoch,
+    );
   }
 
   /// Serbest seans kaydının hareket anahtarı. Gerçek tanım

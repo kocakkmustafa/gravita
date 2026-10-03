@@ -38,9 +38,27 @@ Future<List<String>> localAccountIds(Directory root) async {
 }
 
 /// Called after verified common-account deletion with an ID captured before
-/// remote sign-out. Sign-out/switch only clear navigation and in-memory state.
+/// remote sign-out. Sign-out/switch retire store admission but preserve files.
 Future<void> deleteAccountData(Directory root, String accountUserId) async {
   final directory = accountDataDirectory(root, accountUserId);
-  await invalidateCourseProgressDirectory(directory);
+  Future<void> checkBoundary() async {
+    for (final path in ['${root.path}/accounts', directory.path]) {
+      final type = await FileSystemEntity.type(path, followLinks: false);
+      if (type != FileSystemEntityType.directory &&
+          type != FileSystemEntityType.notFound) {
+        throw FileSystemException(
+          'Account deletion requires a directory',
+          path,
+        );
+      }
+    }
+  }
+
+  // The verified receipt closes admission before the first filesystem await.
+  final drain = invalidateCourseProgressDirectory(directory);
+  await checkBoundary();
+  await drain;
+  // An outstanding writer may have yielded while the boundary changed.
+  await checkBoundary();
   if (await directory.exists()) await directory.delete(recursive: true);
 }

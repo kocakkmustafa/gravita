@@ -76,6 +76,9 @@ abstract final class LiveStrings {
     CameraFailure.notRunning => 'No session is running',
     CameraFailure.lifecycleUnavailable => 'The camera is unavailable',
     CameraFailure.sessionInterrupted => 'The camera session was interrupted',
+    CameraFailure.ownedProtocolUnavailable =>
+      'The camera bridge needs an update',
+    CameraFailure.closeUncertain => 'Camera closure could not be confirmed',
     CameraFailure.noSuchCamera => "The camera couldn't start",
     null => "The camera stopped for a reason we don't recognise",
   };
@@ -101,6 +104,12 @@ abstract final class LiveStrings {
     CameraFailure.sessionInterrupted =>
       'The camera session ended before it was ready. Open this screen '
           'again and retry.',
+    CameraFailure.ownedProtocolUnavailable =>
+      'This version cannot confirm camera ownership. Capture stays unavailable; '
+          'an updated version is needed. Your lessons and history are unaffected.',
+    CameraFailure.closeUncertain =>
+      'The camera and pose model could not be confirmed closed. A new capture '
+          'will remain blocked. Your lessons and history are unaffected.',
     CameraFailure.noSuchCamera =>
       'The camera could not open on this device. You can try again; '
           'no session was saved from this attempt. Your lessons and history are unaffected.',
