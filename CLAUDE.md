@@ -1,23 +1,14 @@
 # CLAUDE.md — Gravita
 
-## 🟢 V0 KAPISI GEÇTİ (2026-07-26) — üretim kodu AÇIK
-**H-31 (2026-08-16):** bu satır önceden *"kurucu demeden kod yazılmaz"* diyordu — 217 commit'lik
-depoda hâlâ bu YANLIŞTI, her turun ilk okuduğu dosya bayat bir kilidi anlatıyordu. Düzeltildi.
+Ortak şirket/ürün/servis/durum bağlamı için önce [YULAlab ortak girişini](../../../AGENTS.md) oku. Teknik yöntemi model seçer; bu dosya işlem yetkisi üretmez. Yerel ürün ve güvenlik bilgileri aşağıdadır.
 
-**D1 — TERS-DURUŞ FİZİBİLİTESİ:** **🟢 ŞARTLI GEÇTİ**, kanıt [`docs/gates/G1-D1-RAPOR.md`](docs/gates/G1-D1-RAPOR.md)
-(Defter `G-001`/`M-001`, 2026-07-26). Ölçülen: S2 (yönelim-farkında çıkarım) ile **42/42 doğru
-eksen, 0/42 eksen hatası**; S1 (düz çıkarım) aynı sette **3/41 eksen hatası (%7,3)** — bu bant
-üretime girmezdi. Şart aşağıda `Sert kurallar`a taşındı, kalıcıdır.
+Beceri ve kuvvet gelişimi.
 
-Hâlâ geçerli okuma sırası (yeni oturum → önce oku): `../VENTURE.md` + `../workspace/` dörtlüsü →
-aile sözleşmesi (bağlayıcı, `ventures/motion-core/lib/docs/00-AILE-MIMARISI.md`, §1.1: sesli
-antrenör-vaadi çekirdek, V1=sıra taban DEĞİL) → `docs/gravita-plan.md`.
+## Yerel ürün ve güvenlik bağlamı
 
-## Sert kurallar
-- **D1 şartı KALICI:** ters-duruş/baş-aşağı hareketlerde çıkarım **yalnızca S2 (yönelim-farkında)**
-  mimariyle; düz S1 tek başına bu sınıfta YASAK (yukarıdaki ölçüm, eksen terslemesi sessiz ve
-  güven-yüksek çıkıyor — güven eşiği bu hatayı yakalayamaz).
-- Ortak altyapı motion-core'dan PİNLİ sürümle gelir; çekirdek kodu buraya KOPYALANMAZ, app mantığı çekirdeğe SIZMAZ.
-- Gerçek-zamanlı LLM yok · ham video cihazda · düşük güvende hüküm yok · kural = versiyonlu config · replay-fixture'sız teknik eklenmez · tıbbi dil yasak (wellness).
-- Danışmanlar: `motion-cv-engineer` + `movement-science-advisor`; submit öncesi `privacy-data-guardian` + `store-policy-officer`.
-- Bundle ID: `com.yulalab.gravita` (rezerve, 2026-07-25).
+- Ortak altyapı pinli Motion Core'dan gelir; app'e özgü içerik/kural/progresyon app reposundadır. Mevcut çekirdek/app sınırı korunur.
+- Ham video cihazda kalır; düşük güvende hüküm verilmez; tıbbi iddia yoktur (wellness).
+- Mevcut gerçek-zamanlı LLM yasağı güvenlik/ürün sınırı olarak korunur; kaldırılması bu belge düzenlemesinin kapsamı değildir.
+- Beş ayrı beceri alanında tam kurs hedefi ve güncel kabul/yayın durumu ortak PROJECTS'tedir; ilk kurs ve tarihsel kapı sonucu tam ürün kabulü değildir.
+- **D1 güvenlik şartı korunur:** ters-duruş/baş-aşağı hareketlerde çıkarım yalnız S2 (yönelim-farkında) mimariyle; düz S1 tek başına bu sınıfta yasaktır. [G1-D1 raporu](docs/gates/G1-D1-RAPOR.md): 2026-07-26 S2 42/42 doğru eksen; S1 3/41 eksen hatası. Güven eşiği bu sessiz yönelim hatasını yakalamaz. Bu kısıt teknik reçete olarak sessizce kaldırılmadı.
+- Bundle ID: `com.yulalab.gravita`.
