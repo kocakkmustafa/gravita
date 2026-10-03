@@ -1,68 +1,126 @@
 import 'dart:async';
 
-/// Süreç-geneli kamera KAPANIŞ nöbeti — C-195'in (Choreia) bu hattaki hâli.
+/// Kapanışın bitmesi ile kameranın bırakılması ayrı sonuçlardır.
+final class CameraReleaseResult {
+  const CameraReleaseResult.success() : error = null, stackTrace = null;
+  const CameraReleaseResult.failure(
+    Object this.error,
+    StackTrace this.stackTrace,
+  );
+
+  final Object? error;
+  final StackTrace? stackTrace;
+  bool get released => error == null;
+}
+
+/// Tek fiziksel kamera için süreç-geneli kapanış ve kurtarma sırası.
 ///
-/// ## Kusur
-///
-/// `State.dispose` **senkron**dur, yani `camera.stop()` beklenemez. Ama
-/// `stop` bir platform-kanalı gidiş-dönüşüdür. Kullanıcı bir seanstan çıkıp
-/// **hemen** yenisini açarsa `start()`, sistem kamerayı hâlâ kapatırken
-/// çağrılır → `already-running`.
-///
-/// > ***İkinci hareket, birinci hareketin sebep olduğu arızayla
-/// > karşılanır.***
-///
-/// **N=1'de yapısal olarak görünmez.** Bu hattın 145 testlik süiti bunun
-/// altından geçti: hepsi *"ekran çalışıyor mu"* diye soruyordu ve cevap
-/// **ilk seferinde** evetti.
-///
-/// ## Neden `static` (yani süreç-geneli)
-///
-/// Her ekran kendi controller'ını kurar — ama **cihazda tek kamera var.**
-/// Kaynak paylaşılıyorsa nöbet de paylaşılmalı; ekran-başına bir kilit
-/// hiçbir şeyi korumaz.
-///
-/// ## Neden [hold] `async` DEĞİL
-///
-/// `async` bir gövde, ilk `await`'e kadar senkron koşar ama **atamayı
-/// yayınlaması** çağıranın görebileceği ana bağlıdır. Kilidi `dispose`
-/// içinde **senkron** kurabilmek şart: `stop()` Future'ı anında döner,
-/// [hold] onu anında saklar, ve bir sonraki `start` onu **görmüş** olur.
-/// Sarmalayıcı `async` olsaydı kilit ilk `await`'ten sonra görünür olurdu
-/// ve yarış aynen kalırdı.
-///
-/// ## Maliyet
-///
-/// N=1'de **sıfır**: bekleyecek bir kapanış yoksa [awaitRelease] hemen döner.
+/// `dispose` bekleyemez: [hold] kapanışı senkron yayınlar. Sonuç Future'ı
+/// hata fırlatmaz; başarısız Stop ise başarılı bırakma gibi silinmez. Yeni
+/// Start, [awaitRelease] sonucunu kontrol eder ve gerekirse idempotent Stop
+/// ile bir kurtarma denemesi yapar. Pending Start bu nöbete dahil edilmez.
 class CameraReleaseLatch {
   CameraReleaseLatch._();
 
-  static Future<void>? _closing;
+  static final Set<Future<CameraReleaseResult>> _pending =
+      <Future<CameraReleaseResult>>{};
+  static CameraReleaseResult? _failure;
+  static Future<CameraReleaseResult>? _recovery;
+  static int _generation = 0;
+  static int _failureVersion = 0;
 
-  /// Uçmakta olan kapanışı kaydeder. `dispose` içinden SENKRON çağrılmalı.
-  ///
-  /// Hatalar burada yutulur: kapanışın başarısız olması, bir sonraki açılışı
-  /// ENGELLEMEMELİ — nöbetin işi sıralamak, hüküm vermek değil.
-  static void hold(Future<void> closing) {
-    final Future<void> guarded = closing.catchError((Object _) {});
-    _closing = guarded;
-    unawaited(guarded.whenComplete(() {
-      // Yalnız KENDİ kapanışını temizle: araya yeni bir kapanış girdiyse
-      // onu silmek nöbeti sessizce kaldırırdı.
-      if (identical(_closing, guarded)) _closing = null;
-    }));
+  /// Tüm uçmakta olan kapanışları tutar; ikinci kapanış ilkini örtmez.
+  static Future<CameraReleaseResult> hold(Future<void> closing) {
+    final int generation = _generation;
+    final completer = Completer<CameraReleaseResult>();
+    final Future<CameraReleaseResult> tracked = completer.future;
+    _pending.add(tracked);
+    unawaited(
+      closing.then<void>(
+        (_) {
+          if (generation == _generation) _pending.remove(tracked);
+          completer.complete(const CameraReleaseResult.success());
+        },
+        onError: (Object error, StackTrace stackTrace) {
+          final result = CameraReleaseResult.failure(error, stackTrace);
+          if (generation == _generation) {
+            _pending.remove(tracked);
+            _failure = result;
+            _failureVersion++;
+          }
+          completer.complete(result);
+        },
+      ),
+    );
+    return tracked;
   }
 
-  /// Kapanış bitene kadar bekler. Bekleyecek bir şey yoksa maliyeti yok.
-  static Future<void> awaitRelease() async {
-    final Future<void>? c = _closing;
-    if (c != null) await c;
+  static Future<void> _waitForPending() async {
+    while (_pending.isNotEmpty) {
+      // Beklerken eklenen kapanışlar bir sonraki turda görülür.
+      await Future.wait(_pending.toList());
+    }
   }
 
-  /// Testler için: nöbeti sıfırlar. Süreç-geneli durum testler arasında
-  /// sızarsa bir sonraki test öncekinin kapanışını beklerdi.
-  static void resetForTest() => _closing = null;
+  /// Başarısız bırakma varsa çağıranın verdiği Stop bir kez denenir.
+  /// Eşzamanlı çağıranlar aynı kurtarma Future'ını paylaşır; hata sonucunda
+  /// otomatik sonsuz retry yoktur, bir sonraki açık Start yeniden deneyebilir.
+  static Future<CameraReleaseResult> awaitRelease({
+    Future<void> Function()? recover,
+  }) async {
+    if (_pending.isEmpty && _recovery == null && _failure == null) {
+      return const CameraReleaseResult.success();
+    }
+    final Future<CameraReleaseResult>? observedRecovery = _recovery;
+    if (_pending.isNotEmpty) await _waitForPending();
+    final Future<CameraReleaseResult>? activeRecovery =
+        observedRecovery ?? _recovery;
+    if (activeRecovery != null) {
+      final result = await activeRecovery;
+      await _waitForPending();
+      return _failure ?? result;
+    }
+    final CameraReleaseResult? failure = _failure;
+    if (failure == null) return const CameraReleaseResult.success();
+    if (recover == null) return failure;
 
-  /// Şu an uçmakta olan bir kapanış var mı — yalnız ölçüm için.
-  static bool get isHolding => _closing != null;
+    final result = await _recover(recover);
+    await _waitForPending();
+    return _failure ?? result;
+  }
+
+  static Future<CameraReleaseResult> _recover(Future<void> Function() recover) {
+    final Future<CameraReleaseResult>? existing = _recovery;
+    if (existing != null) return existing;
+    final int generation = _generation;
+    final int failureVersion = _failureVersion;
+    final completer = Completer<CameraReleaseResult>();
+    final Future<CameraReleaseResult> shared = completer.future;
+    _recovery = shared;
+    final closing = hold(Future<void>.sync(recover));
+    unawaited(
+      closing.then<void>((result) {
+        if (generation == _generation) {
+          if (result.released && failureVersion == _failureVersion) {
+            _failure = null;
+          }
+          if (identical(_recovery, shared)) _recovery = null;
+        }
+        completer.complete(result);
+      }),
+    );
+    return shared;
+  }
+
+  static bool get isHolding => _pending.isNotEmpty || _recovery != null;
+  static bool get requiresRecovery => _failure != null;
+
+  /// Eski testin geç tamamlanan Future'ı yeni testin nöbetini değiştiremez.
+  static void resetForTest() {
+    _generation++;
+    _pending.clear();
+    _failure = null;
+    _recovery = null;
+    _failureVersion = 0;
+  }
 }

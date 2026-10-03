@@ -26,8 +26,10 @@ void main() {
   /// Katalogdan İSİMLE yükler — başlık ölçümü iki ayrı hareketi yan yana
   /// koymak zorunda (G-205 ikizi), tek bir sabit fixture yetmiyor.
   MovementConfig loadNamed(String id) => MovementConfig.parse(
-      File('packages/gravita_engine/../../content/catalog/w1/$id.json')
-          .readAsStringSync());
+    File(
+      'packages/gravita_engine/../../content/catalog/w1/$id.json',
+    ).readAsStringSync(),
+  );
 
   MovementConfig load() => loadNamed('push_up');
 
@@ -39,26 +41,37 @@ void main() {
         titles.add(LiveStrings.failureTitle(f));
         bodies.add(LiveStrings.failureBody(f));
       }
-      expect(titles.length, CameraFailure.values.length,
-          reason: 'İki arıza aynı cümleyi paylaşıyorsa biri diğerinin '
-              'arkasına saklanır.');
+      expect(
+        titles.length,
+        CameraFailure.values.length,
+        reason:
+            'İki arıza aynı cümleyi paylaşıyorsa biri diğerinin '
+            'arkasına saklanır.',
+      );
       expect(bodies.length, CameraFailure.values.length);
     });
 
     test('tanınmayan arıza da ADLANDIRILIYOR — boş bırakılmıyor', () {
       expect(LiveStrings.failureTitle(null), isNotEmpty);
       expect(LiveStrings.failureBody(null), isNotEmpty);
-      expect(LiveStrings.failureTitle(null).toLowerCase(),
-          contains("don't recognise"),
-          reason: 'Bilinmeyeni bilinen bir arıza gibi sunmak yalan olur.');
+      expect(
+        LiveStrings.failureTitle(null).toLowerCase(),
+        contains("don't recognise"),
+        reason: 'Bilinmeyeni bilinen bir arıza gibi sunmak yalan olur.',
+      );
     });
 
     test('izin metni gizliliği SÖYLÜYOR — kamera istemek açıklama ister', () {
-      final String body =
-          LiveStrings.failureBody(CameraFailure.permissionDenied).toLowerCase();
-      expect(body, contains('never leaves'),
-          reason: 'Kamera izni isterken verinin nereye gittiğini söylemeyen '
-              'metin, izni hak etmiyor.');
+      final String body = LiveStrings.failureBody(
+        CameraFailure.permissionDenied,
+      ).toLowerCase();
+      expect(
+        body,
+        contains('never leaves'),
+        reason:
+            'Kamera izni isterken verinin nereye gittiğini söylemeyen '
+            'metin, izni hak etmiyor.',
+      );
     });
 
     test('sayım metni SKOR DEĞİL diyor', () {
@@ -74,9 +87,11 @@ void main() {
     });
 
     test('YEDEK kapı cümlesi doğrulanmayanı ATTIĞINI söylüyor', () {
-      expect(LiveStrings.gateNoteFallback.toLowerCase(),
-          contains('rather than guessed'),
-          reason: 'Kapının varlığı değil, DAVRANIŞI beyan edilir.');
+      expect(
+        LiveStrings.gateNoteFallback.toLowerCase(),
+        contains('rather than guessed'),
+        reason: 'Kapının varlığı değil, DAVRANIŞI beyan edilir.',
+      );
     });
 
     /// ⭐ G-205 — yedek cümle HİÇBİR harekete özel kapı İDDİA ETMEZ.
@@ -94,9 +109,13 @@ void main() {
         'knee',
         'elbow',
       ]) {
-        expect(f, isNot(contains(kapiSizintisi)),
-            reason: 'Yedek cümle "$kapiSizintisi" içeriyor ⇒ artık genel '
-                'değil, BİR hareketin kapısı. Yanlış seansta yalan olur.');
+        expect(
+          f,
+          isNot(contains(kapiSizintisi)),
+          reason:
+              'Yedek cümle "$kapiSizintisi" içeriyor ⇒ artık genel '
+              'değil, BİR hareketin kapısı. Yanlış seansta yalan olur.',
+        );
       }
     });
   });
@@ -127,10 +146,16 @@ void main() {
 
     test('koşan seans BİTİŞ hâline geçer — LiveIdle DEĞİL', () {
       final LiveState s = buildFinishedState(
-          state: kosan, startedAt: t0, endedAt: t0.add(const Duration(seconds: 42)));
+        state: kosan,
+        startedAt: t0,
+        endedAt: t0.add(const Duration(seconds: 42)),
+      );
 
-      expect(s, isA<LiveFinished>(),
-          reason: 'Kusurun ta kendisi buydu: bitişte LiveIdle\'a dönmek.');
+      expect(
+        s,
+        isA<LiveFinished>(),
+        reason: 'Kusurun ta kendisi buydu: bitişte LiveIdle\'a dönmek.',
+      );
       expect((s as LiveFinished).elapsed, const Duration(seconds: 42));
       expect(s.framesSeen, 12);
     });
@@ -144,33 +169,48 @@ void main() {
         const LiveStarting(),
         const LiveFailed(CameraFailure.permissionDenied),
       ]) {
-        expect(buildFinishedState(state: girdi, startedAt: t0, endedAt: t0),
-            isA<LiveIdle>(),
-            reason: '${girdi.runtimeType} özetlenecek bir ölçüm taşımıyor.');
+        expect(
+          buildFinishedState(state: girdi, startedAt: t0, endedAt: t0),
+          isA<LiveIdle>(),
+          reason: '${girdi.runtimeType} özetlenecek bir ölçüm taşımıyor.',
+        );
       }
     });
 
     test('saat geri alınmışsa EKSİ süre gösterilmez', () {
       final LiveState s = buildFinishedState(
-          state: kosan, startedAt: t0, endedAt: t0.subtract(const Duration(minutes: 5)));
+        state: kosan,
+        startedAt: t0,
+        endedAt: t0.subtract(const Duration(minutes: 5)),
+      );
 
-      expect((s as LiveFinished).elapsed, Duration.zero,
-          reason: 'Eksi bir "çalışma" yazmaktansa 0 dürüst.');
+      expect(
+        (s as LiveFinished).elapsed,
+        Duration.zero,
+        reason: 'Eksi bir "çalışma" yazmaktansa 0 dürüst.',
+      );
     });
 
     /// "Kamera hiç kare vermedi" ile "izledik ama tam tekrar çıkmadı" AYRI
     /// sonuçlardır: biri ölçüm YOKLUĞU, öteki gerçek bir ölçüm. Yüzey ikisini
     /// ayrı cümlelerle anlatır; metinler eşitlenirse ayrım sessizce ölür.
     test('iki "hiçbir şey" hâli AYNI cümleyle anlatılmıyor', () {
-      expect(LiveStrings.finishedNoFrames,
-          isNot(equals(LiveStrings.finishedNoReps)));
-      expect(LiveStrings.finishedNoFramesNote,
-          isNot(equals(LiveStrings.finishedNoRepsNote)));
+      expect(
+        LiveStrings.finishedNoFrames,
+        isNot(equals(LiveStrings.finishedNoReps)),
+      );
+      expect(
+        LiveStrings.finishedNoFramesNote,
+        isNot(equals(LiveStrings.finishedNoRepsNote)),
+      );
     });
 
     test('kare yoksa sawFrames false — seans SAYILMAZ', () {
       const LiveFinished bos = LiveFinished(
-          reps: <Rep>[], framesSeen: 0, elapsed: Duration(seconds: 3));
+        reps: <Rep>[],
+        framesSeen: 0,
+        elapsed: Duration(seconds: 3),
+      );
       expect(bos.sawFrames, isFalse);
       expect(bos.tempo, isNull, reason: 'Tekrar yokken tempo UYDURULMAZ.');
     });
@@ -215,48 +255,66 @@ void main() {
   ///
   /// Hareket sayfası artık `push_up`ı da aynı seans ekranına açıyor. Bu yüzden
   /// kapı tek hızlı girişe değil, her başlatılabilir hareketin içeriğine bakar.
-  group('içerik, gösterilen bir ölçümü "gösterilmiyor" diye ANLATMIYOR (G-210)',
-      () {
-    testWidgets('ulaşılabilir hareket tempoyu "hiçbir ekran göstermiyor" DEMİYOR',
+  group(
+    'içerik, gösterilen bir ölçümü "gösterilmiyor" diye ANLATMIYOR (G-210)',
+    () {
+      testWidgets(
+        'ulaşılabilir hareket tempoyu "hiçbir ekran göstermiyor" DEMİYOR',
         (WidgetTester tester) async {
-      late ContentRepository repo;
-      await tester
-          .runAsync(() async => repo = await ContentRepository.load(rootBundle));
+          late ContentRepository repo;
+          await tester.runAsync(
+            () async => repo = await ContentRepository.load(rootBundle),
+          );
 
-      final List<MovementEntry> hareketler = repo.catalogue.movements
-          .where((MovementEntry m) => repo.startableConfigFor(m.id) != null)
-          .toList(growable: false);
-      expect(hareketler.map((MovementEntry m) => m.id),
-          containsAll(<String>['bodyweight_squat', 'push_up']),
-          reason: 'iki canlı hareketin ikisi de testte görülmeli');
+          final List<MovementEntry> hareketler = repo.catalogue.movements
+              .where((MovementEntry m) => repo.startableConfigFor(m.id) != null)
+              .toList(growable: false);
+          expect(
+            hareketler.map((MovementEntry m) => m.id),
+            containsAll(<String>['bodyweight_squat', 'push_up']),
+            reason: 'iki canlı hareketin ikisi de testte görülmeli',
+          );
 
-      // Seans özeti tempoyu ÇİZİYOR — bu testin dayanağı budur.
-      final LiveFinished ornek = LiveFinished(
-        reps: <Rep>[_rep(0, descentUs: 900000, ascentUs: 800000)],
-        framesSeen: 40,
-        elapsed: const Duration(seconds: 20),
+          // Seans özeti tempoyu ÇİZİYOR — bu testin dayanağı budur.
+          final LiveFinished ornek = LiveFinished(
+            reps: <Rep>[_rep(0, descentUs: 900000, ascentUs: 800000)],
+            framesSeen: 40,
+            elapsed: const Duration(seconds: 20),
+          );
+          expect(
+            ornek.tempo,
+            isNotNull,
+            reason:
+                'Tempo artık ölçülüp gösteriliyor; aşağıdaki beyan buna '
+                'dayanıyor. Tempo yüzeyden kalkarsa bu kapı da yeniden '
+                'gerekçelendirilmeli.',
+          );
+
+          for (final MovementEntry hareket in hareketler) {
+            for (final String cumle in hareket.comingSoon) {
+              final String c = cumle.toLowerCase();
+              if (!c.contains('tempo')) continue;
+              expect(
+                c,
+                isNot(contains('no screen in this app shows it')),
+                reason:
+                    'İçerik tempoyu "hiçbir ekran göstermiyor" diye anlatıyor, '
+                    'ama seans özeti onu ÇİZİYOR. Beyan geride kalmış: $cumle',
+              );
+            }
+          }
+        },
       );
-      expect(ornek.tempo, isNotNull,
-          reason: 'Tempo artık ölçülüp gösteriliyor; aşağıdaki beyan buna '
-              'dayanıyor. Tempo yüzeyden kalkarsa bu kapı da yeniden '
-              'gerekçelendirilmeli.');
-
-      for (final MovementEntry hareket in hareketler) {
-        for (final String cumle in hareket.comingSoon) {
-          final String c = cumle.toLowerCase();
-          if (!c.contains('tempo')) continue;
-          expect(c, isNot(contains('no screen in this app shows it')),
-              reason: 'İçerik tempoyu "hiçbir ekran göstermiyor" diye anlatıyor, '
-                  'ama seans özeti onu ÇİZİYOR. Beyan geride kalmış: $cumle');
-        }
-      }
-    });
-  });
+    },
+  );
 
   group('hâller birbirinin yerine geçmiyor', () {
     test('"kimse yok" LiveRunning içinde, LiveFailed DEĞİL', () {
-      const LiveState s =
-          LiveRunning(reps: <Rep>[], personVisible: false, framesSeen: 3);
+      const LiveState s = LiveRunning(
+        reps: <Rep>[],
+        personVisible: false,
+        framesSeen: 3,
+      );
       expect(s, isA<LiveRunning>());
       expect(s, isNot(isA<LiveFailed>()));
     });
@@ -269,12 +327,12 @@ void main() {
   });
 
   group('canlı giriş: ölü buton yok', () {
-    testWidgets('kimlik ön koşulu DERIVED olan hareket canlı yola uygun',
-        (WidgetTester tester) async {
+    testWidgets('kimlik ön koşulu DERIVED olan hareket canlı yola uygun', (
+      WidgetTester tester,
+    ) async {
       // FAB'ın çizilme koşulu bu; koşul kayarsa buton ölü butona dönerdi.
       expect(load().preconditionDerived, isTrue);
     });
-
   });
 
   /// ⭐ G-205 — SEANS BAŞLIĞI İÇERİKTEN GELİR, SABİTTEN DEĞİL.
@@ -304,39 +362,63 @@ void main() {
     /// ⚠️ VAKUM KORUMASI: iki hareket AYNI ada sahip olsaydı aşağıdaki iki
     /// beklenti bir sabitle de karşılanabilirdi ve süit sessizce ayırt
     /// ediciliğini kaybederdi. Payda önce kanıtlanır.
-    test('iki hareketin adı GERÇEKTEN farklı — yoksa ikiz ayırt edici değil',
-        () {
-      expect(loadNamed('bodyweight_squat').name,
+    test(
+      'iki hareketin adı GERÇEKTEN farklı — yoksa ikiz ayırt edici değil',
+      () {
+        expect(
+          loadNamed('bodyweight_squat').name,
           isNot(equals(loadNamed('push_up').name)),
-          reason: 'Adlar eşitse sabit bir başlık her iki testi de geçer.');
-    });
+          reason: 'Adlar eşitse sabit bir başlık her iki testi de geçer.',
+        );
+      },
+    );
 
     for (final String id in <String>['bodyweight_squat', 'push_up']) {
-      testWidgets('$id seansının başlığı o hareketin ADI',
-          (WidgetTester tester) async {
+      testWidgets('$id seansının başlığı o hareketin ADI', (
+        WidgetTester tester,
+      ) async {
         final MovementConfig config = loadNamed(id);
-        await tester.pumpWidget(MaterialApp(
-            home: LiveSessionScreen(config: config, controller: _NoCamera())));
+        await tester.pumpWidget(
+          MaterialApp(
+            home: LiveSessionScreen(
+              config: config,
+              controller: MotionCameraController(),
+            ),
+          ),
+        );
 
-        expect(find.text(config.name), findsOneWidget,
-            reason: 'Başlık config.name olmalı; sabit bir başlık burada düşer.');
+        expect(
+          find.text(config.name),
+          findsOneWidget,
+          reason: 'Başlık config.name olmalı; sabit bir başlık burada düşer.',
+        );
       });
     }
 
     /// Ürünün GERÇEK girişinin bugün hangi hareketi açtığını sabitler.
     /// `library.json` sırası değişirse bu satır kırmızı yanar ve başlık
     /// iddiası YENİDEN gözden geçirilir — sessizce kaymaz.
-    testWidgets('bugünkü tek giriş SQUAT açıyor — başlık iddiasının dayanağı',
-        (WidgetTester tester) async {
+    testWidgets('bugünkü tek giriş SQUAT açıyor — başlık iddiasının dayanağı', (
+      WidgetTester tester,
+    ) async {
       late ContentRepository repo;
-      await tester
-          .runAsync(() async => repo = await ContentRepository.load(rootBundle));
+      await tester.runAsync(
+        () async => repo = await ContentRepository.load(rootBundle),
+      );
       final MovementConfig? giris = repo.liveConfig;
 
-      expect(giris, isNotNull, reason: 'Canlı giriş yoksa başlık sorusu boştur.');
-      expect(giris!.id, 'bodyweight_squat',
-          reason: 'Giriş kaydıysa (sıra değişimi) başlık ölçümü yeniden '
-              'gerekçelendirilmeli.');
+      expect(
+        giris,
+        isNotNull,
+        reason: 'Canlı giriş yoksa başlık sorusu boştur.',
+      );
+      expect(
+        giris!.id,
+        'bodyweight_squat',
+        reason:
+            'Giriş kaydıysa (sıra değişimi) başlık ölçümü yeniden '
+            'gerekçelendirilmeli.',
+      );
     });
   });
 
@@ -362,26 +444,38 @@ void main() {
 
       expect(squat, isNotNull);
       expect(sinav, isNotNull);
-      expect(squat, isNot(equals(sinav)),
-          reason: 'Eşitlerse en az biri yanlış hareketin kapısını anlatıyor.');
+      expect(
+        squat,
+        isNot(equals(sinav)),
+        reason: 'Eşitlerse en az biri yanlış hareketin kapısını anlatıyor.',
+      );
     });
 
     /// Her cümle KENDİ `engine.precondition`ını anlatmalı — "farklı olsunlar"
     /// yetmez, DOĞRU olanı anlatmaları gerekir. Cümleler yer değiştirseydi
     /// üstteki test yine yeşil kalırdı; bu test kalmaz.
     test('her cümle KENDİ kapısını anlatıyor — yer değiştirmeye karşı', () {
-      final String squat =
-          loadNamed('bodyweight_squat').contract.gateNote!.toLowerCase();
-      final String sinav = loadNamed('push_up').contract.gateNote!.toLowerCase();
+      final String squat = loadNamed(
+        'bodyweight_squat',
+      ).contract.gateNote!.toLowerCase();
+      final String sinav = loadNamed(
+        'push_up',
+      ).contract.gateNote!.toLowerCase();
 
       expect(squat, contains('hip'));
       expect(squat, contains('knee'));
-      expect(squat, isNot(contains('horizontal')),
-          reason: 'Squat kapısı gövde yataylığı DEĞİL — o şınavınki.');
+      expect(
+        squat,
+        isNot(contains('horizontal')),
+        reason: 'Squat kapısı gövde yataylığı DEĞİL — o şınavınki.',
+      );
 
       expect(sinav, contains('horizontal'));
-      expect(sinav, isNot(contains('hip and knee')),
-          reason: 'Şınav kapısı kalça-diz eş-hareketi DEĞİL — o squat\'ınki.');
+      expect(
+        sinav,
+        isNot(contains('hip and knee')),
+        reason: 'Şınav kapısı kalça-diz eş-hareketi DEĞİL — o squat\'ınki.',
+      );
     });
 
     /// ⛔ YEDEK, CANLI BİR HAREKETİ SESSİZCE ÖRTEMEZ.
@@ -389,11 +483,13 @@ void main() {
     /// Yedek cümle yalan söylemez ama bilgi de vermez. Canlı bir hareket
     /// yedeğe düşerse kullanıcı o hareketin kapısını HİÇ öğrenemez ve bu
     /// kimsenin gözüne batmaz — tam olarak `A3`ün "sessiz yüzey" sınıfı.
-    testWidgets('canlı BEYAN EDİLEN her hareketin KENDİ cümlesi var',
-        (WidgetTester tester) async {
+    testWidgets('canlı BEYAN EDİLEN her hareketin KENDİ cümlesi var', (
+      WidgetTester tester,
+    ) async {
       late ContentRepository repo;
-      await tester
-          .runAsync(() async => repo = await ContentRepository.load(rootBundle));
+      await tester.runAsync(
+        () async => repo = await ContentRepository.load(rootBundle),
+      );
 
       final List<String> yedegeDusenler = <String>[];
       final List<String> canlilar = <String>[];
@@ -406,24 +502,41 @@ void main() {
       }
 
       // VAKUM: canlı hareket yoksa aşağıdaki beklenti tanım gereği geçerdi.
-      expect(canlilar, isNotEmpty,
-          reason: 'VAKUM: canlı hareket yok; kapı cümlesi ölçümü anlamsız.');
-      expect(yedegeDusenler, isEmpty,
-          reason: 'Bu hareketler canlı BEYAN EDİLİYOR ama kendi kapı '
-              'cümleleri YOK ⇒ kullanıcı genel yedeği görür ve o hareketin '
-              'neyle korunduğunu HİÇ öğrenmez: $yedegeDusenler');
+      expect(
+        canlilar,
+        isNotEmpty,
+        reason: 'VAKUM: canlı hareket yok; kapı cümlesi ölçümü anlamsız.',
+      );
+      expect(
+        yedegeDusenler,
+        isEmpty,
+        reason:
+            'Bu hareketler canlı BEYAN EDİLİYOR ama kendi kapı '
+            'cümleleri YOK ⇒ kullanıcı genel yedeği görür ve o hareketin '
+            'neyle korunduğunu HİÇ öğrenmez: $yedegeDusenler',
+      );
     });
 
     /// Ekran gerçekten config'in cümlesini çiziyor mu — sözleşme değil YÜZEY.
-    testWidgets('ekran config\'in kapı cümlesini ÇİZİYOR',
-        (WidgetTester tester) async {
+    testWidgets('ekran config\'in kapı cümlesini ÇİZİYOR', (
+      WidgetTester tester,
+    ) async {
       final MovementConfig squat = loadNamed('bodyweight_squat');
-      await tester.pumpWidget(MaterialApp(
-          home: LiveSessionScreen(config: squat, controller: _NoCamera())));
+      await tester.pumpWidget(
+        MaterialApp(
+          home: LiveSessionScreen(
+            config: squat,
+            controller: MotionCameraController(),
+          ),
+        ),
+      );
 
       expect(find.text(squat.contract.gateNote!), findsOneWidget);
-      expect(find.text(LiveStrings.gateNoteFallback), findsNothing,
-          reason: 'Özel cümlesi olan hareket yedeğe DÜŞMEMELİ.');
+      expect(
+        find.text(LiveStrings.gateNoteFallback),
+        findsNothing,
+        reason: 'Özel cümlesi olan hareket yedeğe DÜŞMEMELİ.',
+      );
     });
   });
 
@@ -437,29 +550,45 @@ void main() {
   group('kamera izni KALICI reddedildiğinde ölü döngü YOK', () {
     Future<void> pumpScreen(WidgetTester tester, {required int status}) async {
       mockPermissionChannel(status: status);
-      await tester.pumpWidget(MaterialApp(
-          home: LiveSessionScreen(config: load(), controller: _NoCamera())));
+      await tester.pumpWidget(
+        MaterialApp(
+          home: LiveSessionScreen(
+            config: load(),
+            controller: MotionCameraController(),
+          ),
+        ),
+      );
       await tester.tap(find.byKey(LiveSessionScreen.startButtonKey));
       for (int i = 0; i < 4; i++) {
         await tester.pump(const Duration(milliseconds: 60));
       }
     }
 
-    testWidgets('kalıcı ret: Settings eylemi ÇİZİLİR, Start çizilmez',
-        (WidgetTester tester) async {
+    testWidgets('kalıcı ret: Settings eylemi ÇİZİLİR, Start çizilmez', (
+      WidgetTester tester,
+    ) async {
       await pumpScreen(tester, status: 4); // permanentlyDenied
 
-      expect(find.byKey(LiveSessionScreen.openSettingsKey), findsOneWidget,
-          reason: 'İşe yarayan TEK eylem bu; yoksa metin Settings diyor ama '
-              'oraya götüren hiçbir kontrol olmuyor.');
-      expect(find.byKey(LiveSessionScreen.startButtonKey), findsNothing,
-          reason: 'Basılabilir ama ASLA başarılı olamayacak bir düğme, ölü '
-              'butondan farksızdır.');
+      expect(
+        find.byKey(LiveSessionScreen.openSettingsKey),
+        findsOneWidget,
+        reason:
+            'İşe yarayan TEK eylem bu; yoksa metin Settings diyor ama '
+            'oraya götüren hiçbir kontrol olmuyor.',
+      );
+      expect(
+        find.byKey(LiveSessionScreen.startButtonKey),
+        findsNothing,
+        reason:
+            'Basılabilir ama ASLA başarılı olamayacak bir düğme, ölü '
+            'butondan farksızdır.',
+      );
       expect(find.text(LiveStrings.permissionBlockedTitle), findsOneWidget);
     });
 
-    testWidgets('KISITLI cihaz (MDM/ebeveyn) da aynı yere düşer',
-        (WidgetTester tester) async {
+    testWidgets('KISITLI cihaz (MDM/ebeveyn) da aynı yere düşer', (
+      WidgetTester tester,
+    ) async {
       // `isRestricted` sezgiyle bulunamaz: diyalog HİÇ çıkmaz, yani
       // "ikinci ret = kalıcı" sezgisi bu vakayı İLKECE göremez.
       await pumpScreen(tester, status: 2); // restricted
@@ -468,9 +597,9 @@ void main() {
       expect(find.byKey(LiveSessionScreen.startButtonKey), findsNothing);
     });
 
-    testWidgets(
-        'POZİTİF İKİZ — GEÇİCİ rette Start KALIR, Settings çizilmez',
-        (WidgetTester tester) async {
+    testWidgets('POZİTİF İKİZ — GEÇİCİ rette Start KALIR, Settings çizilmez', (
+      WidgetTester tester,
+    ) async {
       // Bu ikiz olmadan üstteki iki test, Start düğmesini HER arızada gizleyen
       // bir uygulamada da geçerdi. Geçici rette tekrar denemek ANLAMLI:
       // sistem diyaloğu bir daha çıkar.
@@ -481,8 +610,9 @@ void main() {
       expect(find.text(LiveStrings.permissionBlockedTitle), findsNothing);
     });
 
-    testWidgets('ham izin durumu kullanıcıya sızmıyor',
-        (WidgetTester tester) async {
+    testWidgets('ham izin durumu kullanıcıya sızmıyor', (
+      WidgetTester tester,
+    ) async {
       await pumpScreen(tester, status: 4);
       expect(find.textContaining('permanentlyDenied'), findsNothing);
       expect(find.textContaining('permission_handler'), findsNothing);
@@ -491,23 +621,14 @@ void main() {
   });
 }
 
-/// Kamera AÇILMADAN önce izin kapısına takılıyoruz; bu denetleyicinin hiçbir
-/// üyesi çağrılmamalı. Çağrılırsa test ADIYLA düşsün — sessiz bir sahte,
-/// izin kapısının atlandığını gizlerdi.
 /// Tempo ölçümü için tekrar fikstürü — yalnız süre alanları anlamlı.
 Rep _rep(int index, {required int descentUs, required int ascentUs}) => Rep(
-      index: index,
-      startUs: 0,
-      endUs: descentUs + ascentUs,
-      descentUs: descentUs,
-      ascentUs: ascentUs,
-      extremeAngleDeg: 95,
-      startedAtOpenEnd: true,
-      identityGapShare: 0,
-    );
-
-class _NoCamera implements MotionCameraController {
-  @override
-  dynamic noSuchMethod(Invocation invocation) =>
-      throw StateError('İzin kapısı geçilmemeliydi: ${invocation.memberName}');
-}
+  index: index,
+  startUs: 0,
+  endUs: descentUs + ascentUs,
+  descentUs: descentUs,
+  ascentUs: ascentUs,
+  extremeAngleDeg: 95,
+  startedAtOpenEnd: true,
+  identityGapShare: 0,
+);

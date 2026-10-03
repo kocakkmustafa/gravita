@@ -1,5 +1,20 @@
 # Gravita — Evidence Ledger
 
+## 2026-10-02 güncel yayın haftası indeksi
+
+Yeni yerel kaynak adayı `main@d7143f3` üzerine WIP; aşağıdaki eski roadmap build/store sayıları güncel release kabulü değildir.
+
+| İddia | Güncel durum | Kanıt | DEFTER |
+|---|---|---|---|
+| Same UUID/token fakat yeni Session: remote reply ve captured cleanup held | **AÇIK P2 / actual 2 RED**, A file fence/drain/erase ve B/guest byte canary'leri son Auth failure öncesi PASS; replacement Session actual null | staged same_token_successor; receipt c2a83aea…6a59, JSONL0d525014…cbfd; 2.272s/no timeout/PGID gone; yeni Core + host GREEN gerekli | G-406 |
+| Retained hesap silme dialogu: normal token refresh veya host removal sonrası locale rebuild | **AÇIK P2 / actual 2 RED**, timeout yok; yeni shared Core ve host GREEN gerekli | core-adoption-v3/staged-tests/gravita_dialog_lifetime_test.dart; evidence/dialog-lifetime-v2-baseline.receipt.json d40f06cd…c6519; log5983af13…86890; V2 kaynak/seçim aynı | G-405 |
+| Scratch Core v2 host uyarlaması: UUID/epoch IO, normal refresh, owned camera cancel ACK, auth-error guest admission ve Privacy XML | app 491/491, engine 176/176, tam analiz; bağımsız bounded host PASS. Yeni shared auth/Session ABA successor ve native/provider/store açık | core-adoption-v2/HOST-SOURCE-ACCEPTANCE.json SHA26851644…a842f; freeze f208005c…25725; peer6c1bca37…20b1b6; host33/124, Core329 ve roots20 exact | G-404 |
+| Silinen hesabın retained app store nesneleri yazamaz; in-flight IO drain ve no-follow ancestry | Kaynak adayı doğrulandı; canlı provider receipt ayrı | app425/425; account_boundary/account_io_lifetime/program/course tests; storage peer | G-400 |
+| Kamera pending Start/late callback/Stop+cancel/recovery/resume; snapshot sınırı | 14 lifecycle+10 latch kaynak kapsamı doğrulandı; native/fiziksel açık | clean red/green; app-final-tests.log425; tam analiz temiz; final camera peer | G-401 |
+| Delayed medya dispose +onboarding izin exception/reentry | Kaynak adayı doğrulandı; gerçek MP4/VTT/native ses açık | app425; lesson_media/onboarding_permission_failure tests; storage/media/onboarding peer | G-402 |
+| 56 ders source/attribution/current packet | Canlı56/10/392/392/HOLD1 korunur; üç atıf isolated proposal primary-source bounded peer | generate/source projection/integrity +22Python gates; ownlane PRIMARY-SOURCE-PEER; body/dose/prereq/version aynı | G-403 |
+| Baseline CI / Core / native / provider / store | Baseline Actions36862661575 SUCCESS; WIP CI, reviewed yeni Core, native, provider, signed/store açık | main d7143f3 live readback; Core f2ea ve lock sabit; MANUAL-CARDS/NATIVE-BUILD-PREFLIGHT | G-386, G-400…403 |
+
 Bu dosya `holding/plans/SOLO-KICKOFF-PROMPTLARI-2026-08-19.md` §1.1'in hükmüdür: roadmap
 (`holding/plans/yula-ai-production-line-2026-08-18/22-GRAVITA-MASTER-ROADMAP.md`) görev/kanıt
 kimlikleri ile gerçek doğrulama durumu arasındaki köprü. **İNDEKSTİR, tekrar değil** — kanıtın

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -66,13 +67,33 @@ void main() {
               ),
             ),
           );
-          // Real disk-backed existing markSeen must finish outside the fake clock.
-          for (int i = 0; i < 30 && !store.file.existsSync(); i++) {
+          await tester.pump();
+          // Observe a real serialized read behind the UI's markSeen writer.
+          // Its predecessor may finish in the widget zone while disk IO and
+          // this retained read finish in the root zone; both must be drained.
+          final read = Zone.root.run(store.load);
+          var readSettled = false;
+          unawaited(
+            read.then<void>(
+              (_) => readSettled = true,
+              onError: (Object _, StackTrace __) => readSettled = true,
+            ),
+          );
+          for (var turn = 0; turn < 100 && !readSettled; turn++) {
             await tester.runAsync(
               () => Future<void>.delayed(const Duration(milliseconds: 10)),
             );
-            await tester.pump();
+            await tester.idle();
           }
+          expect(
+            readSettled,
+            isTrue,
+            reason: 'bounded actual progress IO drain',
+          );
+          final progress = await tester.runAsync(
+            () => read.timeout(const Duration(seconds: 2)),
+          );
+          await tester.pump();
           await tester.scrollUntilVisible(
             find.byKey(Key('calisthenics-diagrams-$id')),
             300,
@@ -93,7 +114,6 @@ void main() {
             findsOneWidget,
           );
           expect(tester.takeException(), isNull);
-          final progress = await tester.runAsync(store.load);
           final record = progress!.forLesson(lesson, course.version)!;
           expect(record.state, CalisthenicsLessonState.seen);
           expect(record.practiceCount, 0);

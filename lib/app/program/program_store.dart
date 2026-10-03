@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import '../account_data_directory.dart';
+import '../course_progress_io.dart';
+import '../account_store_epoch.dart';
 
 import 'program_model.dart';
 
@@ -17,14 +19,24 @@ import 'program_model.dart';
 /// terfi ettiğinde) kullanıcının GÖRDÜĞÜ programın da doğru güncellenmesini
 /// SAĞLAR — dondurulmuş bir kopya bayatlardı.
 class ProgramStore {
-  const ProgramStore._(this._file);
+  ProgramStore._(File file, {AccountStoreEpoch? epoch})
+    : _file = file,
+      _lease = CourseProgressLease(file, epoch: epoch);
 
   final File _file;
+  final CourseProgressLease _lease;
 
   static Future<ProgramStore> open({String? accountUserId}) async {
+    final epoch = AccountStoreEpochRegistry.capture(accountUserId);
     final Directory dir = accountDataDirectory(
-      await getApplicationSupportDirectory(), accountUserId);
-    return ProgramStore._(File('${dir.path}/program_inputs.json'));
+      await getApplicationSupportDirectory(),
+      accountUserId,
+    );
+    epoch.checkCurrent();
+    return ProgramStore._(
+      File('${dir.path}/program_inputs.json'),
+      epoch: epoch,
+    );
   }
 
   /// Yalnız test/harness için — gerçek dizin yerine verilen dosyayı kullanır.
@@ -35,35 +47,38 @@ class ProgramStore {
   /// sonsuza dek kurulum ekranına KİLİTLEMEZ (`OnboardingStore.isComplete`
   /// ile AYNI fail-open gerekçesi: burada da "kurulum GÖSTER" kullanıcıyı
   /// dışarıda bırakmaz, yalnız bir kez tekrar sorar).
-  Future<ProgramInputs?> read() async {
+  Future<ProgramInputs?> read() => _lease.mutate(() async {
     if (!await _file.exists()) return null;
     try {
       final Map<String, dynamic> j =
           jsonDecode(await _file.readAsString()) as Map<String, dynamic>;
       return ProgramInputs(
-        availableEquipment:
-            (j['availableEquipment'] as List<dynamic>).cast<String>().toSet(),
+        availableEquipment: (j['availableEquipment'] as List<dynamic>)
+            .cast<String>()
+            .toSet(),
         daysPerWeek: j['daysPerWeek'] as int,
         experience: ExperienceLevel.values.byName(j['experience'] as String),
       );
     } on Object {
       return null;
     }
-  }
+  });
 
-  Future<void> write(ProgramInputs inputs) async {
+  Future<void> write(ProgramInputs inputs) => _lease.mutate(() async {
     await _file.parent.create(recursive: true);
-    await _file.writeAsString(jsonEncode(<String, dynamic>{
-      'schemaVersion': 1,
-      'availableEquipment': inputs.availableEquipment.toList(),
-      'daysPerWeek': inputs.daysPerWeek,
-      'experience': inputs.experience.name,
-    }));
-  }
+    await _file.writeAsString(
+      jsonEncode(<String, dynamic>{
+        'schemaVersion': 1,
+        'availableEquipment': inputs.availableEquipment.toList(),
+        'daysPerWeek': inputs.daysPerWeek,
+        'experience': inputs.experience.name,
+      }),
+    );
+  });
 
   /// Programı kaldırır (kullanıcı yeniden kurmak isterse). Dosya yoksa
   /// sessizce başarılı sayılır — "zaten yok" bir hata değildir.
-  Future<void> clear() async {
+  Future<void> clear() => _lease.mutate(() async {
     if (await _file.exists()) await _file.delete();
-  }
+  });
 }

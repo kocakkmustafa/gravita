@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:gravita/app/content_repository.dart';
+import 'package:gravita/app/account_connection.dart';
+import 'package:gravita/app/gravita_account_page.dart';
+
+import 'account_action_ticket_test.dart' show AccountHttpFixture;
 import 'package:gravita/app/gravita_app.dart';
 import 'package:gravita/app/theme.dart';
 
@@ -29,6 +33,9 @@ import 'support/reachability_contract.dart';
 /// bu gecenin defalarca yakaladığı desen.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  late AccountHttpFixture accountFixture;
+  setUp(() => accountFixture = AccountHttpFixture());
+  tearDown(() => accountFixture.dispose());
 
   /// ⚖️ Aday envanteri ORTAK EVDEN (`support/reachability_contract.dart`).
   /// Bu kapı kendi listesini TUTMAZ — iki kaynak tek olgu olmaz.
@@ -189,11 +196,21 @@ void main() {
     // Ad zaten monte-olan enstantaneden geliyor; tanıktan istenen tek şey
     // **kök varışın gerçekten olduğu**.
     final _RouteWitness witness = _RouteWitness();
+    final accountUser = ValueNotifier<String?>(null);
+    addTearDown(accountUser.dispose);
     await tester.pumpWidget(
-      MaterialApp(
-        theme: GravitaTheme.light,
-        navigatorObservers: <NavigatorObserver>[witness],
-        home: GravitaShell(content: content),
+      AccountScope(
+        connection: AccountConnection(
+          userId: accountUser,
+          pageBuilder: (_) =>
+              GravitaAccountPage(client: accountFixture.account),
+        ),
+        currentUserId: null,
+        child: MaterialApp(
+          theme: GravitaTheme.light,
+          navigatorObservers: <NavigatorObserver>[witness],
+          home: GravitaShell(content: content),
+        ),
       ),
     );
     await settle(tester);
@@ -278,8 +295,9 @@ void main() {
           // Geri dön — YALNIZ bu tur GERÇEKTEN bir şey ittiyse. İtmediyse
           // hâlâ AYNI ekrandayız; pop etmek erken dışarı atardı.
           if (witness.pushes > pushesBefore) {
-            final NavigatorState nav =
-                tester.state(find.byType(Navigator).first);
+            final NavigatorState nav = tester.state(
+              find.byType(Navigator).first,
+            );
             if (nav.canPop()) {
               nav.pop();
               await settle(tester);
@@ -309,6 +327,20 @@ void main() {
     // çıplak bir `+1` ekleniyordu; şimdi tanığın `previous == null` olan
     // `didPush`ından geliyor ve `kRootArrivals`e çapalı.
     final int katiCount = witness.rootPushes + routes.length;
+
+    // Walk the actual Core-backed account route from its visible Profile
+    // control; the general InkWell traversal cannot discover OutlinedButton.
+    await tester.tap(find.byType(NavigationDestination).at(3));
+    await settle(tester);
+    final accountButton = find.widgetWithText(OutlinedButton, 'Account');
+    expect(accountButton, findsOneWidget);
+    await tester.tap(accountButton);
+    await settle(tester);
+    expect(find.byType(GravitaAccountPage), findsOneWidget);
+    reached.addAll(mounted(tester, candidates));
+    routeScreens.addAll(mounted(tester, candidates));
+    (tester.state(find.byType(Navigator).first) as NavigatorState).pop();
+    await settle(tester);
 
     debugPrint('── GEZİLEBİLİRLİK ÖLÇÜMÜ ──');
     debugPrint(

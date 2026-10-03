@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'account_data_directory.dart';
 import 'course_progress_io.dart';
+import 'account_store_epoch.dart';
 import 'calisthenics_course.dart';
 
 enum CalisthenicsLessonState { seen, practised, selfReportedComplete }
@@ -91,16 +92,25 @@ final class CalisthenicsProgress {
 /// Local, account-scoped self-report journal. It never imports session counts
 /// or promotes a camera observation into course completion.
 final class CalisthenicsProgressStore {
-  CalisthenicsProgressStore(this.file) : _lease = CourseProgressLease(file);
+  CalisthenicsProgressStore(this.file, {AccountStoreEpoch? epoch})
+    : _lease = CourseProgressLease(file, epoch: epoch);
 
   final File file;
   final CourseProgressLease _lease;
 
-  Future<CalisthenicsProgress> load() async {
+  Future<CalisthenicsProgress> load() => _lease.mutate(_loadUnlocked);
+
+  Future<CalisthenicsProgress> _loadUnlocked() async {
     _lease.checkCurrent();
-    if (!await file.exists()) return const CalisthenicsProgress({});
-    final Map<String, dynamic> root =
-        (jsonDecode(await file.readAsString()) as Map).cast<String, dynamic>();
+    final exists = await file.exists();
+    _lease.checkCurrent();
+    if (!exists) {
+      return const CalisthenicsProgress({});
+    }
+    final contents = await file.readAsString();
+    _lease.checkCurrent();
+    final Map<String, dynamic> root = (jsonDecode(contents) as Map)
+        .cast<String, dynamic>();
     if (root['schemaVersion'] != 1 ||
         root['courseId'] != 'calisthenics-foundations') {
       throw const FormatException('Unsupported calisthenics progress file');
@@ -172,7 +182,7 @@ final class CalisthenicsProgressStore {
         )) {
       throw ArgumentError.value(lesson.id, 'lesson', 'Not in this course');
     }
-    final CalisthenicsProgress current = await load();
+    final CalisthenicsProgress current = await _loadUnlocked();
     final CalisthenicsLessonProgress? old = current.forLesson(
       lesson,
       course.version,
@@ -237,9 +247,11 @@ final class CalisthenicsProgressStore {
 
 CalisthenicsProgressStore calisthenicsProgressStoreFor(
   Directory support,
-  String? accountUserId,
-) => CalisthenicsProgressStore(
+  String? accountUserId, {
+  AccountStoreEpoch? epoch,
+}) => CalisthenicsProgressStore(
   File(
     '${accountDataDirectory(support, accountUserId).path}/calisthenics-course-progress.v1.json',
   ),
+  epoch: epoch,
 );

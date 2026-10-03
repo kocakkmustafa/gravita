@@ -4,7 +4,9 @@ import 'package:path_provider/path_provider.dart';
 
 import 'account_connection.dart';
 import 'account_data_directory.dart';
+import 'account_store_epoch.dart';
 import 'app_locale.dart';
+import 'gravita_account_page.dart';
 
 const _url = String.fromEnvironment('MOTION_SUPABASE_URL');
 const _publishableKey = String.fromEnvironment(
@@ -16,8 +18,13 @@ const _redirect = 'com.yulalab.gravita://auth/callback';
 /// account directory after Core confirms common-account deletion.
 Future<(MotionAccountRuntime, AccountConnection)>
 initializeMotionAccount() async {
+  await AccountStoreEpochRegistry.enableManagedAdmission();
+  final supportRoot = await getApplicationSupportDirectory();
   Future<void> clearLocalAccountData(String userId) async {
-    await deleteAccountData(await getApplicationSupportDirectory(), userId);
+    await AccountStoreEpochRegistry.beginConfirmedAccountErasure(
+      userId,
+      () => deleteAccountData(supportRoot, userId),
+    );
   }
 
   final runtime = await MotionAccountRuntime.initialize(
@@ -26,17 +33,51 @@ initializeMotionAccount() async {
     app: MotionApp.gravita,
     emailRedirectTo: _redirect,
     onDeletedAccount: clearLocalAccountData,
-    localAccountIds: () async =>
-        localAccountIds(await getApplicationSupportDirectory()),
+    localAccountIds: () => localAccountIds(supportRoot),
   );
-  Widget accountPage(BuildContext _) => MotionAccountPage(
-    account: runtime.account,
-    initialPasswordRecovery: runtime.isPasswordRecovery,
-    clearLocalData: clearLocalAccountData,
+  return (runtime, bindGravitaMotionAccount(runtime, clearLocalData: clearLocalAccountData));
+}
+
+/// Retained owner lifetime is distinct from fresh credential admission.
+AccountConnection bindGravitaMotionAccount(MotionAccountRuntime runtime, {
+  required Future<void> Function(String userId) clearLocalData,
+}) {
+  Widget accountPage(BuildContext _) => GravitaAccountPage(
+    client: runtime.account,
+    passwordRecovery: runtime.passwordRecovery,
+    identityAdmissionChanges: Listenable.merge([runtime.phase, runtime.identityVerification]),
+    isIdentityAdmitted: () =>
+        runtime.isCurrentSessionVerified &&
+        !runtime.passwordRecovery.value,
+    clearLocalData: clearLocalData,
     onRetryIdentity: runtime.refreshIdentity,
   );
   final connection = AccountConnection(
     userId: runtime.userId,
+    passwordRecovery: runtime.passwordRecovery,
+    identityAdmissionChanges: runtime.phase,
+    currentIdentityChanges: runtime.identityVerification,
+    isCurrentIdentityVerified: () => runtime.isCurrentSessionVerified ||
+        (!runtime.isDisposed &&
+         runtime.phase.value == MotionIdentityPhase.signedOut &&
+         runtime.account.supabase.auth.currentSession == null),
+    ownerSessionChanges: runtime.account.authChanges
+        .where(
+          (state) => const {
+            'signedIn',
+            'signedOut',
+            'passwordRecovery',
+          }.contains(state.event.name),
+        )
+        .map<void>((_) {}),
+    isIdentityAdmitted: () =>
+        (!runtime.isDisposed &&
+         runtime.phase.value == MotionIdentityPhase.signedOut &&
+         runtime.account.supabase.auth.currentSession == null) ||
+        (!runtime.isDisposed &&
+         runtime.phase.value == MotionIdentityPhase.verified &&
+         runtime.userId.value != null &&
+         runtime.userId.value == runtime.account.supabase.auth.currentSession?.user.id),
     pageBuilder: accountPage,
     requirePaidAccess: (context) => requireMotionPaidAccess(
       context,
@@ -44,7 +85,7 @@ initializeMotionAccount() async {
       accountPageBuilder: accountPage,
     ),
   );
-  return (runtime, connection);
+  return connection;
 }
 
 /// Invalid build settings must not silently allow the guest shell.

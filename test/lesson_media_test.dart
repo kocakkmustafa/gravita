@@ -5,10 +5,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gravita/app/account_connection.dart';
+import 'package:gravita/app/account_action_ticket.dart';
+import 'package:gravita/app/account_store_epoch.dart';
 import 'package:gravita/app/calisthenics_course.dart';
 import 'package:gravita/app/lesson_media.dart';
 import 'package:motion_content/motion_content.dart';
 import 'package:video_player/video_player.dart';
+
+import 'account_action_ticket_test.dart'
+    show AccountHttpFixture, accountHttpResponse, ticketAlice;
 
 final class _Bundle extends CachingAssetBundle {
   _Bundle(this.files);
@@ -37,13 +43,21 @@ final class _FakeController extends VideoPlayerController {
   bool failNativeMute = false;
   int muteCalls = 0;
   int playCalls = 0;
+  int disposeCalls = 0;
+  int initializeCalls = 0;
+  Completer<void>? initializeGate;
   Completer<void>? prePlayMuteGate;
   Completer<void>? pauseGate;
   Completer<void>? playGate;
   VoidCallback? onPlay;
+  VoidCallback? onDispose;
+
+  bool get hasHostListener => hasListeners;
 
   @override
   Future<void> initialize() async {
+    initializeCalls++;
+    await initializeGate?.future;
     value = VideoPlayerValue(
       duration: Duration(milliseconds: 1000),
       size: Size(16, 9),
@@ -79,8 +93,10 @@ final class _FakeController extends VideoPlayerController {
 
   @override
   Future<void> dispose() async {
+    disposeCalls++;
     retired = true;
     await super.dispose();
+    onDispose?.call();
   }
 }
 
@@ -322,35 +338,38 @@ void main() {
     );
   });
 
-  test('missing, old or altered QA pin file cannot authorize video read', () async {
-    final missing = bundle()
-      ..files.remove(
-        'content/courses/calisthenics.media-source-pins.v2k.v1.json',
-      );
-    final old = bundle()
-      ..files['content/courses/calisthenics.media-source-pins.v2k.v1.json'] =
-          File(
-            'content/courses/calisthenics.media-source-pins.v2h.v1.json',
-          ).readAsBytesSync();
-    final altered = bundle()
-      ..files['content/courses/calisthenics.media-source-pins.v2k.v1.json'] =
-          _bytes(<int>[...sourcePinBytes, 10]);
-    for (final assets in <_Bundle>[missing, old, altered]) {
-      final result =
-          await LessonMediaCatalog.syntheticForTesting(<LessonMediaCandidate>[
-            candidate(),
-          ]).inspect(
-            bundle: assets,
-            course: course,
-            lessonId: 'cal-01',
-            sceneId: 'gravita:cal-01:orientation',
-            variantStem: stem,
-            locale: 'tr',
-          );
-      expect(result, isNull);
-      expect(assets.loadedKeys, isNot(contains(videoPath)));
-    }
-  });
+  test(
+    'missing, old or altered QA pin file cannot authorize video read',
+    () async {
+      final missing = bundle()
+        ..files.remove(
+          'content/courses/calisthenics.media-source-pins.v2k.v1.json',
+        );
+      final old = bundle()
+        ..files['content/courses/calisthenics.media-source-pins.v2k.v1.json'] =
+            File(
+              'content/courses/calisthenics.media-source-pins.v2h.v1.json',
+            ).readAsBytesSync();
+      final altered = bundle()
+        ..files['content/courses/calisthenics.media-source-pins.v2k.v1.json'] =
+            _bytes(<int>[...sourcePinBytes, 10]);
+      for (final assets in <_Bundle>[missing, old, altered]) {
+        final result =
+            await LessonMediaCatalog.syntheticForTesting(<LessonMediaCandidate>[
+              candidate(),
+            ]).inspect(
+              bundle: assets,
+              course: course,
+              lessonId: 'cal-01',
+              sceneId: 'gravita:cal-01:orientation',
+              variantStem: stem,
+              locale: 'tr',
+            );
+        expect(result, isNull);
+        expect(assets.loadedKeys, isNot(contains(videoPath)));
+      }
+    },
+  );
 
   test(
     'stale source, wrong media bytes, missing locale and unsafe path fail closed',
@@ -630,7 +649,9 @@ void main() {
   });
 
   testWidgets('synthetic player closes on account change', (tester) async {
-    final identity = ValueNotifier<String?>('one');
+    final identity = ValueNotifier<String?>(
+      'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
+    );
     final fake = _FakeController(videoPath);
     await tester.pumpWidget(
       MaterialApp(
@@ -671,7 +692,7 @@ void main() {
     await tester.pump();
     expect(fake.value.isPlaying, isTrue);
     expect(find.text('Duraklat'), findsOneWidget);
-    identity.value = 'two';
+    identity.value = 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb';
     await tester.pumpAndSettle();
     expect(fake.retired, isTrue);
     expect(find.text('synthetic player surface'), findsNothing);
@@ -829,14 +850,565 @@ void main() {
     expect(second.retired, isTrue);
   });
 
-  testWidgets('synchronous account revocation waits for pending play', (
+  testWidgets('dispose during initialization retires the controller once', (
     tester,
   ) async {
-    final identity = ValueNotifier<String?>('one');
+    final gate = Completer<void>();
+    final first = _FakeController(videoPath)..initializeGate = gate;
+    final second = _FakeController(videoPath);
+    var created = 0;
+    Widget route() => MaterialApp(
+      home: Scaffold(
+        body: LessonMediaSlot.syntheticForTesting(
+          course: course,
+          lessonId: 'cal-01',
+          sceneId: 'gravita:cal-01:orientation',
+          variantStem: stem,
+          locale: 'tr',
+          catalog: LessonMediaCatalog.syntheticForTesting(
+            <LessonMediaCandidate>[candidate()],
+          ),
+          bundle: bundle(),
+          controllerFactory: (_) => created++ == 0 ? first : second,
+          videoBuilder: (_) => const Text('synthetic player surface'),
+        ),
+      ),
+    );
+    addTearDown(() {
+      if (!gate.isCompleted) gate.complete();
+    });
+    await tester.pumpWidget(route());
+    await tester.pumpAndSettle();
+    expect(created, 1);
+    expect(first.initializeCalls, 1);
+    expect(first.value.isInitialized, isFalse);
+    await tester.pumpWidget(const SizedBox.shrink());
+    await tester.pumpWidget(route());
+    await tester.pumpAndSettle();
+    expect(created, 1, reason: 'the previous native initialization is pending');
+    gate.complete();
+    await tester.pumpAndSettle();
+    expect(first.disposeCalls, 1, reason: 'a stale result cannot retire twice');
+    expect(created, 2);
+    expect(find.text('synthetic player surface'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+    await tester.pumpWidget(const SizedBox.shrink());
+    await tester.pumpAndSettle();
+    expect(second.disposeCalls, 1);
+  });
+
+  testWidgets('same UUID recovery retires pending video before route rebuild', (
+    tester,
+  ) async {
+    final identity = ValueNotifier<String?>(
+      '11111111-1111-4111-8111-111111111111',
+    );
+    final recovery = ValueNotifier<bool>(false);
     final first = _FakeController(videoPath);
     final gate = Completer<void>();
     first.playGate = gate;
-    first.onPlay = () => identity.value = 'two';
+    first.onPlay = () => recovery.value = true;
+    addTearDown(() {
+      if (!gate.isCompleted) gate.complete();
+      identity.dispose();
+      recovery.dispose();
+    });
+    await tester.pumpWidget(
+      AccountScope(
+        connection: AccountConnection(
+          userId: identity,
+          passwordRecovery: recovery,
+          pageBuilder: (_) => const SizedBox(),
+        ),
+        currentUserId: identity.value,
+        child: MaterialApp(
+          home: Scaffold(
+            body: LessonMediaSlot.syntheticForTesting(
+              course: course,
+              lessonId: 'cal-01',
+              sceneId: 'gravita:cal-01:orientation',
+              variantStem: stem,
+              locale: 'tr',
+              catalog: LessonMediaCatalog.syntheticForTesting([candidate()]),
+              bundle: bundle(),
+              controllerFactory: (_) => first,
+              videoBuilder: (_) => const Text('synthetic player surface'),
+              accountUserId: identity,
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byKey(const Key('calisthenics.lesson.media.playPause')),
+    );
+    await tester.pump();
+    expect(identity.value, '11111111-1111-4111-8111-111111111111');
+    expect(find.text('synthetic player surface'), findsNothing);
+    expect(first.retired, isFalse, reason: 'admitted native play must settle');
+    gate.complete();
+    await tester.pumpAndSettle();
+    expect(first.retired, isTrue);
+    expect(first.value.isPlaying, isFalse);
+    expect(first.disposeCalls, 1);
+    recovery.value = false;
+    await tester.pumpAndSettle();
+    expect(
+      first.initializeCalls,
+      1,
+      reason: 'retired slot cannot reopen itself',
+    );
+  });
+
+  testWidgets(
+    'standalone video mount after account erasure cannot initialize',
+    (tester) async {
+      const uuid = '11111111-1111-4111-8111-111111111111';
+      await AccountStoreEpochRegistry.resetForTest();
+      await AccountStoreEpochRegistry.enableManagedAdmission();
+      AccountStoreEpochRegistry.activate(uuid);
+      await AccountStoreEpochRegistry.beginConfirmedAccountErasure(
+        uuid,
+        () async {},
+      );
+      final identity = ValueNotifier<String?>(uuid);
+      addTearDown(identity.dispose);
+      final first = _FakeController(videoPath);
+      int created = 0;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: LessonMediaSlot.syntheticForTesting(
+              course: course,
+              lessonId: 'cal-01',
+              sceneId: 'gravita:cal-01:orientation',
+              variantStem: stem,
+              locale: 'tr',
+              catalog: LessonMediaCatalog.syntheticForTesting([candidate()]),
+              bundle: bundle(),
+              controllerFactory: (_) {
+                created++;
+                return first;
+              },
+              videoBuilder: (_) => const Text('synthetic player surface'),
+              accountUserId: identity,
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(created, 0);
+      expect(first.initializeCalls, 0);
+      expect(find.text('synthetic player surface'), findsNothing);
+      await tester.pumpWidget(const SizedBox());
+      await AccountStoreEpochRegistry.resetForTest();
+      await first.dispose();
+    },
+  );
+
+  testWidgets('fresh sign-in retires pending video before route rebuild', (
+    tester,
+  ) async {
+    final identity = ValueNotifier<String?>(
+      '11111111-1111-4111-8111-111111111111',
+    );
+    final owners = StreamController<void>.broadcast(sync: true);
+    final cleanupGate = Completer<void>();
+    Future<void>? cleanup;
+    final first = _FakeController(videoPath);
+    final gate = Completer<void>();
+    first.playGate = gate;
+    first.onPlay = () => owners.add(null);
+    addTearDown(() {
+      if (!gate.isCompleted) gate.complete();
+      identity.dispose();
+      if (!cleanupGate.isCompleted) cleanupGate.complete();
+      unawaited(owners.close());
+    });
+    await tester.pumpWidget(
+      AccountScope(
+        connection: AccountConnection(
+          userId: identity,
+          ownerSessionChanges: owners.stream,
+          pageBuilder: (_) => const SizedBox(),
+        ),
+        currentUserId: identity.value,
+        child: MaterialApp(
+          home: Scaffold(
+            body: LessonMediaSlot.syntheticForTesting(
+              course: course,
+              lessonId: 'cal-01',
+              sceneId: 'gravita:cal-01:orientation',
+              variantStem: stem,
+              locale: 'tr',
+              catalog: LessonMediaCatalog.syntheticForTesting([candidate()]),
+              bundle: bundle(),
+              controllerFactory: (_) => first,
+              videoBuilder: (_) => const Text('synthetic player surface'),
+              accountUserId: identity,
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byKey(const Key('calisthenics.lesson.media.playPause')),
+    );
+    await tester.pump();
+    expect(identity.value, '11111111-1111-4111-8111-111111111111');
+    expect(find.text('synthetic player surface'), findsNothing);
+    expect(first.retired, isFalse, reason: 'admitted native play must settle');
+    gate.complete();
+    await tester.pumpAndSettle();
+    expect(first.retired, isTrue);
+    expect(first.value.isPlaying, isFalse);
+    expect(first.disposeCalls, 1);
+    cleanupGate.complete();
+    await cleanup;
+    await tester.pumpAndSettle();
+    expect(
+      first.initializeCalls,
+      1,
+      reason: 'retired slot cannot reopen itself',
+    );
+    await tester.pumpWidget(const SizedBox());
+    await AccountStoreEpochRegistry.resetForTest();
+  });
+
+  testWidgets('owner stream error retires pending video before route rebuild', (
+    tester,
+  ) async {
+    final identity = ValueNotifier<String?>(
+      '11111111-1111-4111-8111-111111111111',
+    );
+    final owners = StreamController<void>.broadcast(sync: true);
+    final cleanupGate = Completer<void>();
+    Future<void>? cleanup;
+    final first = _FakeController(videoPath);
+    final gate = Completer<void>();
+    first.playGate = gate;
+    first.onPlay = () => owners.addError(
+      StateError('synthetic auth transport'),
+      StackTrace.current,
+    );
+    addTearDown(() {
+      if (!gate.isCompleted) gate.complete();
+      identity.dispose();
+      if (!cleanupGate.isCompleted) cleanupGate.complete();
+      unawaited(owners.close());
+    });
+    await tester.pumpWidget(
+      AccountScope(
+        connection: AccountConnection(
+          userId: identity,
+          ownerSessionChanges: owners.stream,
+          pageBuilder: (_) => const SizedBox(),
+        ),
+        currentUserId: identity.value,
+        child: MaterialApp(
+          home: Scaffold(
+            body: LessonMediaSlot.syntheticForTesting(
+              course: course,
+              lessonId: 'cal-01',
+              sceneId: 'gravita:cal-01:orientation',
+              variantStem: stem,
+              locale: 'tr',
+              catalog: LessonMediaCatalog.syntheticForTesting([candidate()]),
+              bundle: bundle(),
+              controllerFactory: (_) => first,
+              videoBuilder: (_) => const Text('synthetic player surface'),
+              accountUserId: identity,
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byKey(const Key('calisthenics.lesson.media.playPause')),
+    );
+    await tester.pump();
+    expect(identity.value, '11111111-1111-4111-8111-111111111111');
+    expect(find.text('synthetic player surface'), findsNothing);
+    expect(first.retired, isFalse, reason: 'admitted native play must settle');
+    gate.complete();
+    await tester.pumpAndSettle();
+    expect(first.retired, isTrue);
+    expect(first.value.isPlaying, isFalse);
+    expect(first.disposeCalls, 1);
+    cleanupGate.complete();
+    await cleanup;
+    await tester.pumpAndSettle();
+    expect(
+      first.initializeCalls,
+      1,
+      reason: 'retired slot cannot reopen itself',
+    );
+    await tester.pumpWidget(const SizedBox());
+    await AccountStoreEpochRegistry.resetForTest();
+  });
+
+  group('confirmed deletion with refreshed credentials and live video', () {
+    late AccountHttpFixture account;
+    setUp(() async {
+      await AccountStoreEpochRegistry.resetForTest();
+      await AccountStoreEpochRegistry.enableManagedAdmission();
+      AccountStoreEpochRegistry.activate(ticketAlice);
+      account = AccountHttpFixture();
+      await account.session(ticketAlice);
+    });
+    tearDown(() async {
+      await account.dispose();
+      await AccountStoreEpochRegistry.resetForTest();
+    });
+
+    testWidgets('normal refresh retains video until the verified UUID fence', (
+      tester,
+    ) async {
+      final identity = ValueNotifier<String?>(ticketAlice);
+      final first = _FakeController(videoPath);
+      final playGate = Completer<void>();
+      final cleanupGate = Zone.root.run(() => Completer<void>());
+      final cleanupStarted = Zone.root.run(() => Completer<void>());
+      final videoDisposed = Zone.root.run(() => Completer<void>());
+      first.onDispose = videoDisposed.complete;
+      final reply = account.delayDeletion();
+      first.playGate = playGate;
+      final ticket = AccountActionTicket.capture(account.account)!;
+      final pinned = EpochBoundMotionAccountClient(
+        original: account.account,
+        ticket: ticket,
+      );
+      final connection = AccountConnection(
+        userId: identity,
+        // Same public auth-event selector as the production bootstrap.
+        ownerSessionChanges: account.account.authChanges
+            .where(
+              (state) => const {
+                'signedIn',
+                'signedOut',
+                'passwordRecovery',
+              }.contains(state.event.name),
+            )
+            .map<void>((_) {}),
+        pageBuilder: (_) => const SizedBox(),
+      );
+      Future<void>? deletion;
+      final confirmedIds = <String>[];
+      try {
+        await tester.pumpWidget(
+          AccountScope(
+            connection: connection,
+            currentUserId: identity.value,
+            child: MaterialApp(
+              home: Scaffold(
+                body: LessonMediaSlot.syntheticForTesting(
+                  course: course,
+                  lessonId: 'cal-01',
+                  sceneId: 'gravita:cal-01:orientation',
+                  variantStem: stem,
+                  locale: 'tr',
+                  catalog: LessonMediaCatalog.syntheticForTesting([
+                    candidate(),
+                  ]),
+                  bundle: bundle(),
+                  controllerFactory: (_) => first,
+                  videoBuilder: (_) => const Text('synthetic player surface'),
+                  accountUserId: identity,
+                ),
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        expect(first.hasHostListener, isTrue);
+        deletion = Zone.root.run(
+          () => pinned.deleteCommonAccount(
+            afterRemoteDelete: (id) {
+              confirmedIds.add(id);
+              final cleanup =
+                  AccountStoreEpochRegistry.beginConfirmedAccountErasure(
+                    id,
+                    () => cleanupGate.future,
+                  );
+              cleanupStarted.complete();
+              return cleanup;
+            },
+          ),
+        );
+        // Observe the root-zone error immediately, retaining the original
+        // Future for the assertion/await in the widget test's own zone.
+        unawaited(
+          deletion!.then<void>((_) {}, onError: (Object _, StackTrace __) {}),
+        );
+        await tester.runAsync(() async {
+          for (var turn = 0; turn < 40 && account.deletions.isEmpty; turn++) {
+            await Future<void>.delayed(const Duration(milliseconds: 1));
+          }
+        });
+        expect(account.deletions, hasLength(1));
+        await tester.runAsync(() => account.client.auth.refreshSession());
+        expect(
+          identical(
+            AccountStoreEpochRegistry.capture(ticketAlice),
+            ticket.epoch,
+          ),
+          isTrue,
+        );
+        expect(ticket.epoch.isActive, isTrue);
+        expect(first.retired, isFalse);
+        expect(first.initializeCalls, 1);
+        expect(first.hasHostListener, isTrue);
+        await tester.tap(
+          find.byKey(const Key('calisthenics.lesson.media.playPause')),
+        );
+        await tester.pump();
+        expect(first.playCalls, 1);
+        expect(find.text('synthetic player surface'), findsOneWidget);
+        reply.complete(
+          accountHttpResponse({'deleted': true, 'userId': ticketAlice}),
+        );
+        await tester.runAsync(
+          () => cleanupStarted.future.timeout(const Duration(seconds: 2)),
+        );
+        expect(confirmedIds, [ticketAlice]);
+        // Receipt closes admission and detaches the active player before pump.
+        expect(ticket.epoch.checkCurrent, throwsStateError);
+        expect(first.hasHostListener, isFalse);
+        expect(
+          first.retired,
+          isFalse,
+          reason: 'the admitted play command must settle',
+        );
+        await tester.pump();
+        expect(find.text('synthetic player surface'), findsNothing);
+        playGate.complete();
+        await tester.runAsync(
+          () => videoDisposed.future.timeout(const Duration(seconds: 2)),
+        );
+        await tester.pumpAndSettle();
+        expect(first.retired, isTrue);
+        expect(first.value.isPlaying, isFalse);
+        expect(first.disposeCalls, 1);
+        cleanupGate.complete();
+        await tester.runAsync(
+          () => deletion!.timeout(const Duration(seconds: 2)),
+        );
+        expect(account.client.auth.currentUser?.id, ticketAlice);
+        expect(
+          account.client.auth.currentSession?.accessToken,
+          account.refreshToken,
+        );
+        expect(account.logoutCalls, 0);
+        expect(first.initializeCalls, 1);
+      } finally {
+        if (!playGate.isCompleted) playGate.complete();
+        if (!cleanupGate.isCompleted) cleanupGate.complete();
+        account.releasePending();
+        await tester.pumpWidget(const SizedBox());
+        await tester.pumpAndSettle();
+        if (deletion != null) {
+          await tester.runAsync(
+            () => deletion!.timeout(const Duration(seconds: 2)),
+          );
+        }
+        identity.dispose();
+        expect(tester.takeException(), isNull);
+      }
+    });
+  });
+
+  testWidgets('account erasure retires pending video before route rebuild', (
+    tester,
+  ) async {
+    final identity = ValueNotifier<String?>(
+      '11111111-1111-4111-8111-111111111111',
+    );
+    final owners = StreamController<void>.broadcast(sync: true);
+    final cleanupGate = Completer<void>();
+    Future<void>? cleanup;
+    final first = _FakeController(videoPath);
+    final gate = Completer<void>();
+    first.playGate = gate;
+    await AccountStoreEpochRegistry.resetForTest();
+    await AccountStoreEpochRegistry.enableManagedAdmission();
+    AccountStoreEpochRegistry.activate(identity.value);
+    first.onPlay = () {
+      cleanup = AccountStoreEpochRegistry.beginConfirmedAccountErasure(
+        identity.value!,
+        () => cleanupGate.future,
+      );
+    };
+    addTearDown(() {
+      if (!gate.isCompleted) gate.complete();
+      identity.dispose();
+      if (!cleanupGate.isCompleted) cleanupGate.complete();
+      unawaited(owners.close());
+    });
+    await tester.pumpWidget(
+      AccountScope(
+        connection: AccountConnection(
+          userId: identity,
+          ownerSessionChanges: owners.stream,
+          pageBuilder: (_) => const SizedBox(),
+        ),
+        currentUserId: identity.value,
+        child: MaterialApp(
+          home: Scaffold(
+            body: LessonMediaSlot.syntheticForTesting(
+              course: course,
+              lessonId: 'cal-01',
+              sceneId: 'gravita:cal-01:orientation',
+              variantStem: stem,
+              locale: 'tr',
+              catalog: LessonMediaCatalog.syntheticForTesting([candidate()]),
+              bundle: bundle(),
+              controllerFactory: (_) => first,
+              videoBuilder: (_) => const Text('synthetic player surface'),
+              accountUserId: identity,
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byKey(const Key('calisthenics.lesson.media.playPause')),
+    );
+    await tester.pump();
+    expect(identity.value, '11111111-1111-4111-8111-111111111111');
+    expect(find.text('synthetic player surface'), findsNothing);
+    expect(first.retired, isFalse, reason: 'admitted native play must settle');
+    gate.complete();
+    await tester.pumpAndSettle();
+    expect(first.retired, isTrue);
+    expect(first.value.isPlaying, isFalse);
+    expect(first.disposeCalls, 1);
+    cleanupGate.complete();
+    await cleanup;
+    await tester.pumpAndSettle();
+    expect(
+      first.initializeCalls,
+      1,
+      reason: 'retired slot cannot reopen itself',
+    );
+    await tester.pumpWidget(const SizedBox());
+    await AccountStoreEpochRegistry.resetForTest();
+  });
+
+  testWidgets('synchronous account revocation waits for pending play', (
+    tester,
+  ) async {
+    final identity = ValueNotifier<String?>(
+      'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
+    );
+    final first = _FakeController(videoPath);
+    final gate = Completer<void>();
+    first.playGate = gate;
+    first.onPlay = () =>
+        identity.value = 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb';
     addTearDown(() {
       if (!gate.isCompleted) gate.complete();
       identity.dispose();

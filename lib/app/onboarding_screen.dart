@@ -38,17 +38,27 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
   bool _requesting = false;
 
   Future<void> _requestCamera() async {
+    if (_requesting || !mounted) return;
     setState(() => _requesting = true);
-    final PermissionStatus status = await Permission.camera.request();
-    if (!mounted) return;
-    if (status.isGranted) {
-      await widget.onComplete();
-      return;
+    try {
+      final PermissionStatus status;
+      try {
+        status = await Permission.camera.request();
+      } on Object {
+        // A failed platform request grants nothing. Keep optional onboarding
+        // usable through its existing explicit continue-without action.
+        if (mounted) setState(() => _cameraDenied = true);
+        return;
+      }
+      if (!mounted) return;
+      if (status.isGranted) {
+        await widget.onComplete();
+      } else {
+        setState(() => _cameraDenied = true);
+      }
+    } finally {
+      if (mounted) setState(() => _requesting = false);
     }
-    setState(() {
-      _requesting = false;
-      _cameraDenied = true;
-    });
   }
 
   @override
