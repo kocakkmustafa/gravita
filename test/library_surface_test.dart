@@ -102,6 +102,7 @@ void main() {
       // gibi sunardı; yalnız açığı göstermek kapsamı saklardı.
       final int live = c.catalogue.liveCount;
       final int waiting = c.catalogue.movements.length - live;
+      await tester.scrollUntilVisible(find.textContaining('$catalogued movements'), 200, scrollable: find.byType(Scrollable).first, maxScrolls: 100);
       expect(find.textContaining('$catalogued movements'), findsOneWidget);
       expect(
         find.textContaining('$live configured measurements'),
@@ -152,6 +153,7 @@ void main() {
       await tester.pumpWidget(host(LibraryScreen(content: c)));
       await tester.pump();
 
+      await tester.scrollUntilVisible(find.byKey(LibraryScreen.searchFieldKey), 200, scrollable: find.byType(Scrollable).first, maxScrolls: 100);
       await tester.enterText(
         find.byKey(LibraryScreen.searchFieldKey),
         'leg press',
@@ -185,6 +187,7 @@ void main() {
       await tester.pumpWidget(host(LibraryScreen(content: c)));
       await tester.pump();
 
+      await tester.scrollUntilVisible(find.byKey(LibraryScreen.searchFieldKey), 200, scrollable: find.byType(Scrollable).first, maxScrolls: 100);
       await tester.enterText(
         find.byKey(LibraryScreen.searchFieldKey),
         'zzzqqq',
@@ -219,6 +222,7 @@ void main() {
       await tester.pumpWidget(host(LibraryScreen(content: c)));
       await tester.pump();
 
+      await tester.scrollUntilVisible(find.byKey(LibraryScreen.searchFieldKey), 200, scrollable: find.byType(Scrollable).first, maxScrolls: 100);
       await tester.enterText(find.byKey(LibraryScreen.searchFieldKey), 'plank');
       await tester.pump();
 
@@ -237,6 +241,7 @@ void main() {
       await tester.pumpWidget(host(LibraryScreen(content: c)));
       await tester.pump();
 
+      await tester.scrollUntilVisible(find.byKey(LibraryScreen.searchFieldKey), 200, scrollable: find.byType(Scrollable).first, maxScrolls: 100);
       await tester.enterText(
         find.byKey(LibraryScreen.searchFieldKey),
         'air squat',
@@ -616,7 +621,8 @@ void main() {
           (ExclusionSection a, ExclusionSection b) =>
               a.userReason.length >= b.userReason.length ? a : b,
         );
-        await tester.enterText(
+        await tester.scrollUntilVisible(find.byKey(LibraryScreen.searchFieldKey), 200, scrollable: find.byType(Scrollable).first, maxScrolls: 100);
+      await tester.enterText(
           find.byKey(LibraryScreen.searchFieldKey),
           longest.examples.isEmpty ? longest.title : longest.examples.first,
         );

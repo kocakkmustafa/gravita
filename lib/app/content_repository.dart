@@ -50,6 +50,9 @@ final class ContentRepository {
   ContentRepository._({
     required this.library,
     required this.calisthenicsCourse,
+    required this.dbkbCourse,
+    required this.dbkbHandlingCourse,
+    required this.dbkbTransitionsCourse,
     required this.catalogue,
     required this.lessonSurfaces,
     required Map<String, MovementConfig> eagerCatalog,
@@ -103,6 +106,9 @@ final class ContentRepository {
 
     return ContentRepository._(
       calisthenicsCourse: await _loadVerifiedCalisthenicsCourse(bundle),
+      dbkbCourse: await _loadVerifiedDbkbCourse(bundle),
+      dbkbHandlingCourse: await _loadVerifiedDbkbHandlingCourse(bundle),
+      dbkbTransitionsCourse: await _loadVerifiedDbkbTransitionsCourse(bundle),
       library: lib,
       bundle: bundle,
       eagerCatalog: eager,
@@ -143,6 +149,63 @@ final class ContentRepository {
     return CalisthenicsCourse.parse(utf8.decode(bytes));
   }
 
+  static Future<CalisthenicsCourse> _loadVerifiedDbkbCourse(AssetBundle bundle) async {
+    final result = await ContentBundleLoader(
+      reader: FlutterBundleContentAssetReader(bundle: bundle),
+      expectedAppId: 'com.yulalab.gravita',
+      currentCoreContract: currentMotionContentContract,
+      manifestPath: 'content/motion_content/dbkb-written.manifest.json',
+    ).load();
+    if (result is ContentBlocked) throw ContentException(result.error);
+    if (result is! ContentReady) {
+      throw const ContentException(ContentError(code: ContentErrorCode.capability));
+    }
+    final bytes = await result.assets.read('content/courses/dbkb-written.v1.json');
+    final course = CalisthenicsCourse.parse(utf8.decode(bytes));
+    if (course.id != 'dbkb-written-foundations') {
+      throw const FormatException('Wrong DB/KB course asset');
+    }
+    return course;
+  }
+
+  static Future<CalisthenicsCourse> _loadVerifiedDbkbHandlingCourse(AssetBundle bundle) async {
+    final result = await ContentBundleLoader(
+      reader: FlutterBundleContentAssetReader(bundle: bundle),
+      expectedAppId: 'com.yulalab.gravita',
+      currentCoreContract: currentMotionContentContract,
+      manifestPath: 'content/motion_content/dbkb-handling.manifest.json',
+    ).load();
+    if (result is ContentBlocked) throw ContentException(result.error);
+    if (result is! ContentReady) {
+      throw const ContentException(ContentError(code: ContentErrorCode.capability));
+    }
+    final course = CalisthenicsCourse.parse(utf8.decode(
+      await result.assets.read('content/courses/dbkb-handling.v1.json')));
+    if (course.id != 'dbkb-controlled-handling') {
+      throw const FormatException('Wrong DB/KB handling course asset');
+    }
+    return course;
+  }
+
+  static Future<CalisthenicsCourse> _loadVerifiedDbkbTransitionsCourse(AssetBundle bundle) async {
+    final result = await ContentBundleLoader(
+      reader: FlutterBundleContentAssetReader(bundle: bundle),
+      expectedAppId: 'com.yulalab.gravita',
+      currentCoreContract: currentMotionContentContract,
+      manifestPath: 'content/motion_content/dbkb-transitions.manifest.json',
+    ).load();
+    if (result is ContentBlocked) throw ContentException(result.error);
+    if (result is! ContentReady) {
+      throw const ContentException(ContentError(code: ContentErrorCode.capability));
+    }
+    final course = CalisthenicsCourse.parse(utf8.decode(
+      await result.assets.read('content/courses/dbkb-transitions.v1.json')));
+    if (course.id != 'dbkb-supported-transitions') {
+      throw const FormatException('Wrong DB/KB transitions course asset');
+    }
+    return course;
+  }
+
   static Future<MovementConfig> _loadCatalog(
     AssetBundle bundle,
     Map<String, dynamic> movement,
@@ -164,6 +227,9 @@ final class ContentRepository {
 
   final Map<String, dynamic> library;
   final CalisthenicsCourse calisthenicsCourse;
+  final CalisthenicsCourse dbkbCourse;
+  final CalisthenicsCourse dbkbHandlingCourse;
+  final CalisthenicsCourse dbkbTransitionsCourse;
 
   FoundationCoverage get foundationCoverage => FoundationCoverage(
     catalogueIds: catalogue.movements.map((movement) => movement.id),
@@ -181,11 +247,14 @@ final class ContentRepository {
   static Future<CalisthenicsProgressStore> openCalisthenicsProgressStore({
     String? accountUserId,
     Directory? supportDirectory,
+    String courseId = 'calisthenics-foundations',
   }) async {
     final epoch = AccountStoreEpochRegistry.capture(accountUserId);
     final support = supportDirectory ?? await getApplicationSupportDirectory();
     epoch.checkCurrent();
-    return calisthenicsProgressStoreFor(support, accountUserId, epoch: epoch);
+    return calisthenicsProgressStoreFor(
+      support, accountUserId, epoch: epoch, courseId: courseId,
+    );
   }
 
   /// Kütüphane yüzeyinin okuduğu tipli hâl (31 hareket + "Neden yok?").

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -101,6 +103,7 @@ mixin _CourseIdentity<T extends StatefulWidget> on State<T> {
   CalisthenicsProgress progress = const CalisthenicsProgress({});
   int epoch = 0;
   AccountConnection? connection;
+  StreamSubscription<void>? ownerSubscription;
   bool initialized = false;
   CalisthenicsStoreLoader get loader;
   Future<CalisthenicsProgress> readStore(CalisthenicsProgressStore value);
@@ -113,7 +116,14 @@ mixin _CourseIdentity<T extends StatefulWidget> on State<T> {
     final next = scope?.connection;
     if (next != connection) {
       connection?.userId.removeListener(_changed);
+      ownerSubscription?.cancel();
       connection = next;
+      ownerSubscription = next?.ownerSessionChanges?.listen((_) {
+        if (mounted && identical(connection, next)) {
+          userId = connection?.userId.value;
+          reload(reset: true);
+        }
+      });
       connection?.userId.addListener(_changed);
     }
     final id = connection != null
@@ -142,6 +152,7 @@ mixin _CourseIdentity<T extends StatefulWidget> on State<T> {
     if (mounted) setState(() {});
     try {
       final opened = await loader(userId);
+      if (!mounted || turn != epoch) return;
       final result = await readStore(opened);
       if (!mounted || turn != epoch) return;
       setState(() {
@@ -161,6 +172,7 @@ mixin _CourseIdentity<T extends StatefulWidget> on State<T> {
   void dispose() {
     epoch++;
     connection?.userId.removeListener(_changed);
+    ownerSubscription?.cancel();
     super.dispose();
   }
 
@@ -193,10 +205,12 @@ mixin _CourseIdentity<T extends StatefulWidget> on State<T> {
 class CalisthenicsCourseScreen extends StatefulWidget {
   const CalisthenicsCourseScreen({
     required this.course,
+    this.preparationCourse,
     this.storeLoader,
     super.key,
   });
   final CalisthenicsCourse course;
+  final CalisthenicsCourse? preparationCourse;
   final CalisthenicsStoreLoader? storeLoader;
   @override
   State<CalisthenicsCourseScreen> createState() =>
@@ -206,7 +220,12 @@ class CalisthenicsCourseScreen extends StatefulWidget {
 class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
     with _CourseIdentity<CalisthenicsCourseScreen> {
   @override
-  CalisthenicsStoreLoader get loader => widget.storeLoader ?? _defaultLoader;
+  CalisthenicsStoreLoader get loader => widget.storeLoader ??
+      (widget.course.id == 'calisthenics-foundations'
+          ? _defaultLoader
+          : (String? userId) => ContentRepository.openCalisthenicsProgressStore(
+              accountUserId: userId, courseId: widget.course.id,
+            ));
   @override
   Future<CalisthenicsProgress> readStore(CalisthenicsProgressStore value) =>
       value.load();
@@ -216,6 +235,7 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
         builder: (_) => CalisthenicsLessonScreen(
           course: widget.course,
           lesson: lesson,
+          preparationCourse: widget.preparationCourse,
           storeLoader: widget.storeLoader,
         ),
       ),
@@ -362,12 +382,14 @@ class CalisthenicsLessonScreen extends StatefulWidget {
   const CalisthenicsLessonScreen({
     required this.course,
     required this.lesson,
+    this.preparationCourse,
     this.storeLoader,
     this.now,
     super.key,
   });
   final CalisthenicsCourse course;
   final CalisthenicsLesson lesson;
+  final CalisthenicsCourse? preparationCourse;
   final CalisthenicsStoreLoader? storeLoader;
   final DateTime Function()? now;
   @override
@@ -382,6 +404,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
   bool reportedThisVisit = false;
   DateTime? preparedOn;
   bool saving = false;
+  bool answerVisible = false;
   bool get requiresPreparation =>
       !widget.lesson.learningOnly && widget.lesson.id != 'cal-04';
   DateTime get today => widget.now?.call() ?? DateTime.now();
@@ -403,10 +426,11 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state != AppLifecycleState.resumed && prepared) {
+    if (state != AppLifecycleState.resumed) {
       setState(() {
         prepared = false;
         preparedOn = null;
+        answerVisible = false;
       });
     }
   }
@@ -418,7 +442,12 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
   }
 
   @override
-  CalisthenicsStoreLoader get loader => widget.storeLoader ?? _defaultLoader;
+  CalisthenicsStoreLoader get loader => widget.storeLoader ??
+      (widget.course.id == 'calisthenics-foundations'
+          ? _defaultLoader
+          : (String? userId) => ContentRepository.openCalisthenicsProgressStore(
+              accountUserId: userId, courseId: widget.course.id,
+            ));
   @override
   Future<CalisthenicsProgress> readStore(CalisthenicsProgressStore value) =>
       value.markSeen(widget.course, widget.lesson);
@@ -429,6 +458,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
     reportedThisVisit = false;
     preparedOn = null;
     saving = false;
+    answerVisible = false;
   }
 
   Future<void> save(bool complete) async {
@@ -497,6 +527,11 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
       (item) => item.lessons.contains(widget.lesson),
     );
     return switch (module.id) {
+      'dbkb-patterns' || 'dbkb-variants' || 'dbkb-independent' => localized(
+        context,
+        'Keep hands empty. Prepare comfortably and rehearse only the small unloaded option; keep breathing naturally without holding or forcing it to match the movement.',
+        'Eller boş kalsın. Rahatça hazırlan ve yalnız küçük yüksüz seçeneği prova et; nefesi tutmadan veya hareketle zorla eşleştirmeden doğal nefesi sürdür.',
+      ),
       'lower' => localized(
         context,
         'Rehearse an easy sit-to-stand, shallow squat or supported hinge before this lower-body task.',
@@ -589,6 +624,22 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                 'Okuma açık kalır. Gerektiğinde kolay seçeneği yinele.',
               ),
             ]),
+          if (lesson.id == 'dbkb-03' && widget.preparationCourse != null)
+            TextButton(
+              key: const Key('dbkb.lesson.preparation.cal-04'),
+              onPressed: () {
+                final preparation = widget.preparationCourse!;
+                Navigator.of(context).push<void>(MaterialPageRoute<void>(
+                  builder: (_) => CalisthenicsLessonScreen(
+                    course: preparation,
+                    lesson: preparation.lessons.singleWhere((l) => l.id == 'cal-04'),
+                  ),
+                ));
+              },
+              child: Text(localized(context,
+                'Open the existing preparation lesson',
+                'Mevcut hazırlık dersini aç')),
+            ),
           if (lesson.learningOnly)
             section('Learning task', 'Öğrenme görevi', <String>[
               localized(
@@ -665,13 +716,19 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
             for (var i = 0; i < lesson.steps.length; i++)
               '${i + 1}. ${_text(context, lesson.steps[i])}',
           ]),
-          LessonMediaSlot.empty(
+          if (widget.course.id == 'calisthenics-foundations') LessonMediaSlot.empty(
             key: const Key('calisthenics.lesson.media'),
             course: widget.course,
             lessonId: lesson.id,
             locale: Localizations.localeOf(context).languageCode,
             accountUserId: AccountScope.maybeOf(context)?.connection?.userId,
           ),
+          if (widget.course.id == 'dbkb-written-foundations' ||
+              widget.course.id == 'dbkb-controlled-handling' ||
+              widget.course.id == 'dbkb-supported-transitions')
+            section('Demonstration boundary', 'Gösterim sınırı', <String>[
+              _text(context, lesson.mediaBrief),
+            ], sealed: true),
           if (CalisthenicsKnowledgeDiagrams.supports(lesson.id))
             CalisthenicsKnowledgeDiagrams(lessonId: lesson.id),
           KeyedSubtree(
@@ -691,6 +748,34 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
             'Öz denetim',
             lesson.selfCheck.map((c) => _text(context, c)).toList(),
           ),
+          if (lesson.recall != null) ...<Widget>[
+            section('Recall before revealing the answer', 'Yanıtı açmadan hatırla', <String>[
+              _text(context, lesson.recall!),
+            ]),
+            section('One correction and retest', 'Tek düzeltme ve yeniden deneme', <String>[
+              requiresPreparation && !preparedThisSession
+                  ? localized(context,
+                      'Read and answer in words now. Physical correction/retest opens only after session preparation; keep every attempt unloaded.',
+                      'Şimdi oku ve sözle yanıtla. Fiziksel düzeltme/yeniden deneme yalnız oturum hazırlığından sonra açılır; her deneme yüksüz kalsın.')
+                  : _text(context, lesson.correction!),
+            ]),
+            TextButton(
+              key: const Key('dbkb.answer.toggle'),
+              onPressed: requiresPreparation && !preparedThisSession
+                  ? null
+                  : () => setState(() => answerVisible = !answerVisible),
+              child: Text(localized(context,
+                answerVisible ? 'Hide answer' : 'I answered — compare reasoning',
+                answerVisible ? 'Yanıtı gizle' : 'Yanıtladım — gerekçeyi karşılaştır')),
+            ),
+            if (answerVisible && (!requiresPreparation || preparedThisSession))
+              KeyedSubtree(
+                key: const Key('dbkb.answer.content'),
+                child: section('Compare after your answer', 'Yanıtından sonra karşılaştır', <String>[
+                _text(context, lesson.answer!),
+              ]),
+              ),
+          ],
           section('An easier path', 'Daha kolay yol', <String>[
             _text(context, lesson.adaptation),
           ]),

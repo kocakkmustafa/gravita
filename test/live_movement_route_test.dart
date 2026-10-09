@@ -34,6 +34,7 @@ void main() {
       );
       await tester.pump();
       final Finder pushUpCard = find.text('Şınav');
+      await tester.scrollUntilVisible(pushUpCard, 200, scrollable: find.byType(Scrollable).first, maxScrolls: 100);
       await tester.ensureVisible(pushUpCard);
       await tester.pump();
       expect(pushUpCard.hitTestable(), findsOneWidget);
@@ -89,7 +90,8 @@ void main() {
     );
     await tester.pump();
     final Finder pushUpCard = find.text('Şınav');
-    await tester.ensureVisible(pushUpCard);
+    await tester.scrollUntilVisible(pushUpCard, 200, scrollable: find.byType(Scrollable).first, maxScrolls: 100);
+      await tester.ensureVisible(pushUpCard);
     await tester.pump();
     expect(pushUpCard.hitTestable(), findsOneWidget);
     await tester.tap(pushUpCard);

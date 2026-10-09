@@ -8,6 +8,9 @@ import 'package:gravita/app/gravita_account_page.dart';
 import 'account_action_ticket_test.dart' show AccountHttpFixture;
 import 'package:gravita/app/gravita_app.dart';
 import 'package:gravita/app/theme.dart';
+import 'package:gravita/app/surface_widgets.dart';
+import 'package:gravita/app/movement_page.dart';
+import 'package:gravita/app/calisthenics_course_screen.dart';
 
 import 'support/reachability_contract.dart';
 
@@ -311,6 +314,94 @@ void main() {
         }
       }
     }
+
+    // Course entry cards can displace later Home controls beyond the generic
+    // first-eight sweep. Prove those routes with actual scroll/tap navigation,
+    // without changing the inventory or its intentionally unreachable set.
+    await tester.tap(find.byType(NavigationDestination).at(0));
+    await settle(tester);
+    for (final homeKey in ['home.programSetupLink', 'home.program', 'home.skillTrees']) {
+      final target = homeKey == 'home.programSetupLink'
+          ? find.byKey(Key(homeKey))
+          : find.descendant(of: find.byKey(Key(homeKey)), matching: find.byType(InkWell)).first;
+      await tester.scrollUntilVisible(target, 200,
+          scrollable: find.byType(Scrollable).first, maxScrolls: 100);
+      await tester.ensureVisible(target);
+      await settle(tester);
+      await tester.tap(target);
+      await settle(tester);
+      reached.addAll(mounted(tester, candidates));
+      if (pushed(tester)) routeScreens.addAll(mounted(tester, candidates));
+      if (homeKey == 'home.skillTrees') {
+        final tree = find.byType(InkWell).hitTestable().first;
+        await tester.tap(tree);
+        await settle(tester);
+        reached.addAll(mounted(tester, candidates));
+        if (pushed(tester)) routeScreens.addAll(mounted(tester, candidates));
+      }
+      final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+      while (nav.canPop()) { nav.pop(); await settle(tester); }
+    }
+
+    // The handling entry displaces Library movement cards beyond the bounded
+    // generic sweep. Exercise their real visible route without changing coverage.
+    await tester.tap(find.byType(NavigationDestination).at(1));
+    await settle(tester);
+    // New transition entry reuses existing screen classes; preserve inventory.
+    final transitionEntry = find.byKey(const Key('dbkb.transitions.entry'));
+    await tester.scrollUntilVisible(transitionEntry, 200,
+        scrollable: find.byType(Scrollable).first, maxScrolls: 150);
+    await tester.ensureVisible(transitionEntry);
+    await tester.tap(transitionEntry); await settle(tester);
+    expect(find.byType(CalisthenicsCourseScreen), findsOneWidget);
+    reached.addAll(mounted(tester, candidates));
+    if (pushed(tester)) routeScreens.addAll(mounted(tester, candidates));
+    for (final lesson in content.dbkbTransitionsCourse.lessons) {
+      final tile = find.byKey(Key('calisthenics.lesson.${lesson.id}'));
+      await tester.scrollUntilVisible(tile, 200,
+          scrollable: find.byType(Scrollable).first, maxScrolls: 150);
+      await tester.ensureVisible(tile); await tester.tap(tile); await settle(tester);
+      expect(find.byType(CalisthenicsLessonScreen), findsOneWidget);
+      reached.addAll(mounted(tester, candidates));
+      if (pushed(tester)) routeScreens.addAll(mounted(tester, candidates));
+      tester.state<NavigatorState>(find.byType(Navigator).first).pop();
+      for (var flush = 0; flush < 8; flush++) {
+        await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 5)));
+        await settle(tester);
+      }
+    }
+    tester.state<NavigatorState>(find.byType(Navigator).first).pop();
+    for (var flush = 0; flush < 8; flush++) {
+      await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 5)));
+      await settle(tester);
+    }
+    final movementCard = find.byType(MovementCard).first;
+    await tester.scrollUntilVisible(movementCard, 200,
+        scrollable: find.byType(Scrollable).first, maxScrolls: 100);
+    // Flush the actual lazy catalogue read in the real IO zone before route entry.
+    final selectedMovement = tester.widget<MovementCard>(movementCard).movement;
+    await tester.runAsync(() => content.catalogFor(selectedMovement.id));
+    final movementTap = find.descendant(of: movementCard,
+        matching: find.byType(InkWell)).first;
+    await tester.ensureVisible(movementTap);
+    await settle(tester);
+    await tester.tap(movementTap);
+    await settle(tester);
+    expect(find.byType(MovementPage), findsOneWidget);
+    reached.addAll(mounted(tester, candidates));
+    if (pushed(tester)) routeScreens.addAll(mounted(tester, candidates));
+    final movementNavigator = tester.state<NavigatorState>(find.byType(Navigator).first);
+    for (var exits = 0; movementNavigator.canPop() && exits < 5; exits++) {
+      movementNavigator.pop();
+      // Existing pages may have real filesystem futures; fake-time settling
+      // alone can leave their progress indicators animating indefinitely.
+      for (var flush = 0; flush < 8; flush++) {
+        await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 5)));
+        await settle(tester);
+      }
+    }
+    expect(movementNavigator.canPop(), isFalse);
+    expect(find.byType(MovementPage), findsNothing);
 
     // ⚠️ Soğuk açılış payı BURADA "ulaşılamayan" DEĞİLDİR — ona kapı-2
     // yürüyerek varıyor. Düşülmezse bölme, kendi ürettiği bir yüzeyi

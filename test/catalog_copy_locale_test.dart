@@ -294,6 +294,7 @@ void main() {
     await tester.pumpWidget(
       host(const Locale('tr'), LibraryScreen(content: content)),
     );
+    await tester.scrollUntilVisible(find.byKey(LibraryScreen.searchFieldKey), 200, scrollable: find.byType(Scrollable).first, maxScrolls: 100);
     await tester.enterText(
       find.byKey(LibraryScreen.searchFieldKey),
       'leg press',
@@ -301,7 +302,13 @@ void main() {
     await tester.pump();
     expect(find.text('Spor salonu makineleri'), findsOneWidget);
     expect(find.textContaining('Tahminde bulunmak yerine'), findsOneWidget);
-    await tester.tap(find.byKey(const Key('library.exclusion.machines')));
+    tester.testTextInput.hide();
+    await tester.pump();
+    final exclusion = find.byKey(const Key('library.exclusion.machines'));
+    await tester.scrollUntilVisible(exclusion, 150, scrollable: find.byType(Scrollable).first, maxScrolls: 100);
+    await tester.ensureVisible(exclusion);
+    await tester.pumpAndSettle();
+    await tester.tap(exclusion);
     await tester.pumpAndSettle();
     expect(find.byType(WhyNotHereScreen), findsOneWidget);
     expect(find.text('Gravita’da neler yok — ve neden'), findsOneWidget);
