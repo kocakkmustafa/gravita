@@ -10,7 +10,7 @@ import 'package:yaml/yaml.dart';
 /// Bu testler widget çizmez; kabuğun **neyi paketlediğini** ve **bağımlılığını
 /// nasıl pinlediğini** tutar. İkisi de sessizce bozulabilen ve ancak cihazda
 /// ya da haftalar sonra fark edilen sınıflardır.
-const currentMotionSha = 'edeec10a161c76bfa086b1d165d53e46ec88c3d7';
+const currentMotionSha = 'ef60e346934d7e5d45c87deb81583b263575b208';
 
 bool hasLocalMotionOverrides([String? source]) {
   final file = File('pubspec_overrides.yaml');
@@ -447,7 +447,7 @@ void main() {
       // Bu test bir pin bump'ta KIRILIR ve kırılması DOĞRUDUR: bump bilinçli
       // bir karardır, sessiz bir kayma değil. Kıran kişi buradaki sabitleri
       // de günceller ve böylece bump kayda geçer.
-      const String sealedRef = 'edeec10a161c76bfa086b1d165d53e46ec88c3d7';
+      const String sealedRef = 'ef60e346934d7e5d45c87deb81583b263575b208';
       const String sealedCoreVersion = '0.12.0';
       const String sealedCameraVersion = '0.2.0';
       const String sealedContentVersion = '0.1.0';
