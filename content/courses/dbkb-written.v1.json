@@ -1,0 +1,1036 @@
+{
+  "schemaVersion": 1,
+  "id": "dbkb-written-foundations",
+  "version": "1.0.0",
+  "title": {
+    "en": "DB/KB beginner written foundations",
+    "tr": "DB/KB başlangıç yazılı temelleri"
+  },
+  "description": {
+    "en": "Learn equipment, movement directions and independent choices. Physical options are unloaded. Loaded handling and mastery need separate demonstration and coaching.",
+    "tr": "Ekipmanı, hareket yönlerini ve bağımsız seçimleri öğren. Fiziksel seçenekler yüksüzdür. Yüklü kullanım ve ustalık ayrı gösterim ve koçluk gerektirir."
+  },
+  "healthNotice": {
+    "en": "Stop for pain, dizziness, unusual breathlessness, grip/balance loss or unstable equipment. Do not retest symptoms. No loaded practice is assigned in this written course.",
+    "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı veya oynayan ekipmanda dur. Belirtileri yeniden deneme. Bu yazılı kursta yüklü uygulama görevi yoktur."
+  },
+  "evidenceMode": "self_report",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Mayo Clinic: Weight training technique",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/weight-training/art-20045842",
+      "supports": {
+        "en": "General controlled technique, breathing, preparation and asking for help.",
+        "tr": "Genel kontrollü teknik, nefes, hazırlık ve yardım isteme."
+      },
+      "doesNotSupport": {
+        "en": "This original course, individualized medical suitability, injury prevention, loaded mastery or complete physical acceptance. No source programme or media copied.",
+        "tr": "Bu özgün kurs, kişiye özel tıbbi uygunluk, yaralanma önleme, yüklü ustalık veya tam fiziksel kabul. Kaynak program veya medya kopyalanmadı."
+      }
+    },
+    {
+      "id": "S2",
+      "title": "ACE: Hip hinge",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/33/hip-hinge/",
+      "supports": {
+        "en": "Hip-back hinge direction and controlled return; our physical task stays unloaded.",
+        "tr": "Kalçanın geriye menteşe yönü ve kontrollü dönüş; fiziksel görevimiz yüksüz kalır."
+      },
+      "doesNotSupport": {
+        "en": "This original course, individualized medical suitability, injury prevention, loaded mastery or complete physical acceptance. No source programme or media copied.",
+        "tr": "Bu özgün kurs, kişiye özel tıbbi uygunluk, yaralanma önleme, yüklü ustalık veya tam fiziksel kabul. Kaynak program veya medya kopyalanmadı."
+      }
+    },
+    {
+      "id": "S3",
+      "title": "ACE: Getting started with kettlebells",
+      "url": "https://www.acefitness.org/resources/pros/expert-articles/5269/how-to-get-started-with-kettlebells/",
+      "supports": {
+        "en": "KB deadlift and goblet directions for reading; no ballistic work or chest transfer assigned.",
+        "tr": "Okuma için KB deadlift ve goblet yönleri; patlayıcı hareket veya göğse geçiş görevi yoktur."
+      },
+      "doesNotSupport": {
+        "en": "This original course, individualized medical suitability, injury prevention, loaded mastery or complete physical acceptance. No source programme or media copied.",
+        "tr": "Bu özgün kurs, kişiye özel tıbbi uygunluk, yaralanma önleme, yüklü ustalık veya tam fiziksel kabul. Kaynak program veya medya kopyalanmadı."
+      }
+    },
+    {
+      "id": "S4",
+      "title": "ACE: Goblet squat",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/362/goblet-squat/",
+      "supports": {
+        "en": "DB goblet position and squat direction; source intermediate/deep version is not assigned.",
+        "tr": "DB goblet konumu ve squat yönü; kaynak orta-seviye/derin varyantı görev değildir."
+      },
+      "doesNotSupport": {
+        "en": "This original course, individualized medical suitability, injury prevention, loaded mastery or complete physical acceptance. No source programme or media copied.",
+        "tr": "Bu özgün kurs, kişiye özel tıbbi uygunluk, yaralanma önleme, yüklü ustalık veya tam fiziksel kabul. Kaynak program veya medya kopyalanmadı."
+      }
+    },
+    {
+      "id": "S5",
+      "title": "NHS: Strength exercises",
+      "url": "https://www.nhs.uk/live-well/exercise/strength-exercises/",
+      "supports": {
+        "en": "Stable nonwheeled support principle; not approval of a loaded platform.",
+        "tr": "Sabit tekerleksiz destek ilkesi; yüklü platform onayı değildir."
+      },
+      "doesNotSupport": {
+        "en": "This original course, individualized medical suitability, injury prevention, loaded mastery or complete physical acceptance. No source programme or media copied.",
+        "tr": "Bu özgün kurs, kişiye özel tıbbi uygunluk, yaralanma önleme, yüklü ustalık veya tam fiziksel kabul. Kaynak program veya medya kopyalanmadı."
+      }
+    },
+    {
+      "id": "S6",
+      "title": "Mayo Clinic: DB biceps curl transcript",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/biceps-curl/vid-20084675",
+      "supports": {
+        "en": "Curl elbow direction and steady wrist; original empty-hand alternative adds no load.",
+        "tr": "Curl dirsek yönü ve sabit bilek; özgün boş-el alternatifi yük eklemez."
+      },
+      "doesNotSupport": {
+        "en": "This original course, individualized medical suitability, injury prevention, loaded mastery or complete physical acceptance. No source programme or media copied.",
+        "tr": "Bu özgün kurs, kişiye özel tıbbi uygunluk, yaralanma önleme, yüklü ustalık veya tam fiziksel kabul. Kaynak program veya medya kopyalanmadı."
+      }
+    },
+    {
+      "id": "S7",
+      "title": "Mayo Clinic: DB row transcript",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/bent-over-row/vid-20084680",
+      "supports": {
+        "en": "Row pulling direction for reading only; no loaded or supported setup assigned.",
+        "tr": "Yalnız okuma için row çekiş yönü; yüklü veya destekli kurulum görevi yoktur."
+      },
+      "doesNotSupport": {
+        "en": "This original course, individualized medical suitability, injury prevention, loaded mastery or complete physical acceptance. No source programme or media copied.",
+        "tr": "Bu özgün kurs, kişiye özel tıbbi uygunluk, yaralanma önleme, yüklü ustalık veya tam fiziksel kabul. Kaynak program veya medya kopyalanmadı."
+      }
+    },
+    {
+      "id": "S8",
+      "title": "Mayo Clinic: DB chest press transcript",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/chest-press/vid-20084677",
+      "supports": {
+        "en": "Chest press direction and floor/bench distinction for reading only; no loaded entry/exit taught.",
+        "tr": "Yalnız okuma için chest press yönü ve zemin/bench ayrımı; yüklü giriş/çıkış öğretilmez."
+      },
+      "doesNotSupport": {
+        "en": "This original course, individualized medical suitability, injury prevention, loaded mastery or complete physical acceptance. No source programme or media copied.",
+        "tr": "Bu özgün kurs, kişiye özel tıbbi uygunluk, yaralanma önleme, yüklü ustalık veya tam fiziksel kabul. Kaynak program veya medya kopyalanmadı."
+      }
+    }
+  ],
+  "modules": [
+    {
+      "id": "dbkb-entry",
+      "title": {
+        "en": "Equipment and preparation",
+        "tr": "Ekipman ve hazırlık"
+      },
+      "lessons": [
+        {
+          "id": "dbkb-01",
+          "title": {
+            "en": "Your endpoint and equipment",
+            "tr": "Hedefin ve ekipmanın"
+          },
+          "objective": {
+            "en": "Name what this course teaches and what remains unobserved.",
+            "tr": "Bu kursun öğrettiğini ve henüz gözlenmeyeni adlandır."
+          },
+          "steps": [
+            {
+              "en": "This is a beginner written course in DB/KB equipment and movement literacy, with optional unloaded rehearsals. It does not certify loaded skill or complete the whole free-weight domain.",
+              "tr": "Bu, isteğe bağlı yüksüz provalı başlangıç DB/KB ekipman ve hareket bilgisi kursudur. Yüklü beceriyi sertifikalandırmaz veya serbest ağırlık alanının tamamını kapatmaz."
+            },
+            {
+              "en": "DB means dumbbell: a fixed dumbbell has a central handle and one weight at each end. KB means kettlebell: it has a bell-shaped body and a handle above it. These shape descriptions do not establish a secure grip or handling skill.",
+              "tr": "DB dambıl demektir: sabit dambılın ortasında tutacak, iki ucunda birer ağırlık bulunur. KB kettlebell demektir: çan biçimli gövdesi ve gövdenin üstünde tutacağı vardır. Bu biçim açıklamaları sağlam tutuş veya kullanım becerisini doğrulamaz."
+            },
+            {
+              "en": "Keep every physical option empty-handed. A light-looking weight is not a readiness test. Equipment handling must be demonstrated before a later loaded attempt.",
+              "tr": "Her fiziksel seçeneği boş elle yap. Hafif görünen ağırlık hazır oluş testi değildir. Daha sonraki yüklü denemeden önce ekipman kullanımı gösterilmelidir."
+            }
+          ],
+          "practice": {
+            "en": "Write two equipment differences and one limit of the course. No implement is needed.",
+            "tr": "İki ekipman farkı ve kursun bir sınırını yaz. Ekipman gerekmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I distinguish DB from KB?",
+              "tr": "DB ile KB’yi ayırt edebiliyor muyum?"
+            },
+            {
+              "en": "Did I separate written understanding from loaded performance?",
+              "tr": "Yazılı anlayışı yüklü uygulamadan ayırdım mı?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read only; ask someone to read the text aloud if useful.",
+            "tr": "Yalnız oku; yararlıysa birinden metni sesli okumasını iste."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, grip/balance loss or unstable equipment. Do not retest symptoms. No loaded practice is assigned in this written course.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı veya oynayan ekipmanda dur. Belirtileri yeniden deneme. Bu yazılı kursta yüklü uygulama görevi yoktur."
+          },
+          "recall": {
+            "en": "Close the steps: does completing these lessons establish loaded mastery? Why?",
+            "tr": "Adımları kapat: bu dersleri bitirmek yüklü ustalığı gösterir mi? Neden?"
+          },
+          "correction": {
+            "en": "If you wrote that it does, replace that claim with the observed result, then answer again without the steps.",
+            "tr": "Gösterdiğini yazdıysan iddiayı gözlenen sonuçla değiştir; sonra adımlara bakmadan yeniden yanıtla."
+          },
+          "answer": {
+            "en": "It establishes only your reported written learning and any unloaded rehearsal; loaded technique has not been observed.",
+            "tr": "Yalnız bildirilen yazılı öğrenmeyi ve varsa yüksüz provayı kaydeder; yüklü teknik gözlenmemiştir."
+          },
+          "sourceIds": [
+            "S1"
+          ],
+          "prerequisites": [],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Written source only. No accepted demonstration or measured form. Any later loaded teaching needs equipment-specific setup, return and physical coaching.",
+            "tr": "Yalnız yazılı kaynak. Kabul edilmiş gösterim veya ölçülmüş form yoktur. Sonraki yüklü öğretim, ekipmana özgü kurulum, geri bırakma ve fiziksel koçluk gerektirir."
+          }
+        },
+        {
+          "id": "dbkb-02",
+          "title": {
+            "en": "Space, supports and stop choices",
+            "tr": "Alan, destek ve durma seçimi"
+          },
+          "objective": {
+            "en": "Reject an unsuitable setup before movement.",
+            "tr": "Hareketten önce uygunsuz kurulumu reddet."
+          },
+          "steps": [
+            {
+              "en": "Choose clear, level, nonslip floor and secure footwear. Keep people and objects out of a future weight placement path.",
+              "tr": "Boş, düz, kaymayan zemin ve sağlam ayakkabı seç. İleride ağırlık bırakılacak yoldan insan ve nesneleri uzak tut."
+            },
+            {
+              "en": "A support must not rock, roll or slide. A chair suitable for sitting is not a verified platform for loaded lifting. Do not stack books or use a soft sofa.",
+              "tr": "Destek sallanmamalı, yuvarlanmamalı veya kaymamalıdır. Oturmaya uygun sandalye, yüklü kaldırış için doğrulanmış platform değildir. Kitapları üst üste koyma veya yumuşak kanepe kullanma."
+            },
+            {
+              "en": "An unstable support or unclear exit means pause and choose the written task. Pain or dizziness means stop, not a technique retest.",
+              "tr": "Oynayan destek veya belirsiz çıkışta bekle ve yazılı görevi seç. Ağrı veya baş dönmesinde dur; teknik yeniden denemesi yapma."
+            }
+          ],
+          "practice": {
+            "en": "On paper, place a clear practice spot and a separate equipment resting spot. Mark one obstruction to remove.",
+            "tr": "Kâğıtta boş pratik noktası ve ayrı ekipman bırakma noktası belirle. Kaldırılacak bir engeli işaretle."
+          },
+          "selfCheck": [
+            {
+              "en": "Is the route clear?",
+              "tr": "Yol boş mu?"
+            },
+            {
+              "en": "Can I explain why a chair is not a load-rated platform?",
+              "tr": "Sandalyenin neden yük kapasiteli platform olmadığını açıklayabilir miyim?"
+            }
+          ],
+          "adaptation": {
+            "en": "Use a written room description; no setup needs physical testing.",
+            "tr": "Yazılı oda açıklaması kullan; kurulumu fiziksel olarak sınamak gerekmez."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, grip/balance loss or unstable equipment. Do not retest symptoms. No loaded practice is assigned in this written course.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı veya oynayan ekipmanda dur. Belirtileri yeniden deneme. Bu yazılı kursta yüklü uygulama görevi yoktur."
+          },
+          "recall": {
+            "en": "What do you choose if the only support has wheels?",
+            "tr": "Tek desteğin tekerlekliyse ne seçersin?"
+          },
+          "correction": {
+            "en": "If you accepted it, cross it out and write the unloaded/written alternative; repeat with a rocking support.",
+            "tr": "Kabul ettiysen üzerini çiz ve yüksüz/yazılı alternatifi yaz; sallanan destek için yeniden yanıtla."
+          },
+          "answer": {
+            "en": "Reject it. Remain with the written or unsupported unloaded option; do not improvise a loaded support.",
+            "tr": "Reddet. Yazılı veya desteksiz yüksüz seçenekte kal; yüklü destek uydurma."
+          },
+          "sourceIds": [
+            "S1",
+            "S5"
+          ],
+          "prerequisites": [
+            "dbkb-01"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Written source only. No accepted demonstration or measured form. Any later loaded teaching needs equipment-specific setup, return and physical coaching.",
+            "tr": "Yalnız yazılı kaynak. Kabul edilmiş gösterim veya ölçülmüş form yoktur. Sonraki yüklü öğretim, ekipmana özgü kurulum, geri bırakma ve fiziksel koçluk gerektirir."
+          }
+        },
+        {
+          "id": "dbkb-03",
+          "title": {
+            "en": "Breathing, preparation and pacing",
+            "tr": "Nefes, hazırlık ve tempo"
+          },
+          "objective": {
+            "en": "Plan a comfortable rehearsal without chasing fatigue.",
+            "tr": "Yorgunluk peşinde koşmadan rahat prova planla."
+          },
+          "steps": [
+            {
+              "en": "Written planning only: use cal-03 to review breathing and select the linked cal-04 preparation lesson for any actual preparation. If you choose standing preparation there, distinguish walking across the space from stepping in place while standing. If you choose seated preparation there, it means stepping in place while seated on a stable chair, not walking. This lesson assigns no movement.",
+              "tr": "Yalnız yazılı planlama: nefesi gözden geçirmek için cal-03’ü, gerçek hazırlık için bağlı cal-04 hazırlık dersini seç. Orada ayakta hazırlık seçersen alanda yürümeyi ayakta yerinde adımlamadan ayır. Orada oturarak hazırlık seçersen bu, sabit sandalyede otururken yerinde adımlamadır; yürüme değildir. Bu ders hareket görevi vermez."
+            },
+            {
+              "en": "Plan to keep breathing naturally during any later gated unloaded rehearsal. Do not plan breath holding or force breathing to match a movement phase.",
+              "tr": "Daha sonraki hazırlık kapısına bağlı yüksüz provada doğal nefesi sürdürmeyi planla. Nefes tutmayı veya nefesi hareket evresiyle zorla eşleştirmeyi planlama."
+            },
+            {
+              "en": "Write a pause and stop choice for your later session. Learn hinge in lesson 04 and squat in lesson 05 before selecting either as a rehearsal. Actual movement belongs in those prepared lesson routes, not this planning lesson. No fixed duration guarantees readiness.",
+              "tr": "Sonraki seansın için duraklama ve durma seçimi yaz. Menteşeyi 04’te, squat’ı 05’te öğrenmeden ikisini de prova olarak seçme. Gerçek hareket bu planlama dersinde değil, hazırlığı bildirilmiş ilgili ders yollarındadır. Sabit süre hazır oluş garantisi değildir."
+            }
+          ],
+          "practice": {
+            "en": "Write a preparation selection and pause plan: choose the cal-04 route and name standing walking, standing stepping in place or seated stepping in place as different options to discuss there. Do not perform them here.",
+            "tr": "Hazırlık seçimi ve duraklama planı yaz: cal-04 yolunu seç; orada ele alınacak farklı seçenekler olarak ayakta yürüme, ayakta yerinde adımlama veya oturarak yerinde adımlamayı adlandır. Bunları burada uygulama."
+          },
+          "selfCheck": [
+            {
+              "en": "Did I leave room to rest?",
+              "tr": "Dinlenmeye yer ayırdım mı?"
+            },
+            {
+              "en": "Did I avoid a breath-holding target?",
+              "tr": "Nefes tutma hedefinden kaçındım mı?"
+            }
+          ],
+          "adaptation": {
+            "en": "Remain with written or spoken planning; no standing or stepping is required in this lesson.",
+            "tr": "Yazılı veya sözlü planlamada kal; bu derste ayakta durma veya adımlama gerekmez."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, grip/balance loss or unstable equipment. Do not retest symptoms. No loaded practice is assigned in this written course.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı veya oynayan ekipmanda dur. Belirtileri yeniden deneme. Bu yazılı kursta yüklü uygulama görevi yoktur."
+          },
+          "recall": {
+            "en": "Which route would you open for actual preparation, and how is seated stepping different from walking?",
+            "tr": "Gerçek hazırlık için hangi yolu açarsın; oturarak adımlama yürümekten nasıl farklıdır?"
+          },
+          "correction": {
+            "en": "If you wrote that this lesson assigns movement, revise the plan to open cal-04 for preparation. If walking and seated stepping were conflated, separate them and explain the revised choice without looking. Retest your explanation only.",
+            "tr": "Bu dersin hareket görevi verdiğini yazdıysan planı hazırlık için cal-04’ü açacak biçimde düzelt. Yürüme ve oturarak adımlama karıştıysa ayır ve bakmadan düzeltilmiş seçimi açıkla. Yalnız açıklamanı yeniden sına."
+          },
+          "answer": {
+            "en": "Open cal-04 for actual preparation. Walking moves through space while standing; standing stepping stays in place on your feet; seated stepping stays in place while supported by a stable chair. Lesson 03 is written planning only. Hinge and squat rehearsal requires first learning the corresponding 04/05 task and using its preparation gate.",
+            "tr": "Gerçek hazırlık için cal-04’ü aç. Yürüme ayaktayken alanda ilerler; ayakta adımlama ayakların üzerinde yerinde kalır; oturarak adımlama sabit sandalye desteğiyle yerinde kalır. 03 yalnız yazılı planlamadır. Menteşe ve squat provası, önce ilgili 04/05 görevini öğrenmeyi ve onun hazırlık kapısını kullanmayı gerektirir."
+          },
+          "sourceIds": [
+            "S1"
+          ],
+          "prerequisites": [
+            "dbkb-02"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Written source only. No accepted demonstration or measured form. Any later loaded teaching needs equipment-specific setup, return and physical coaching.",
+            "tr": "Yalnız yazılı kaynak. Kabul edilmiş gösterim veya ölçülmüş form yoktur. Sonraki yüklü öğretim, ekipmana özgü kurulum, geri bırakma ve fiziksel koçluk gerektirir."
+          }
+        }
+      ]
+    },
+    {
+      "id": "dbkb-patterns",
+      "title": {
+        "en": "Patterns and handling prerequisites",
+        "tr": "Hareketler ve kullanım önkoşulları"
+      },
+      "lessons": [
+        {
+          "id": "dbkb-04",
+          "title": {
+            "en": "Unloaded hinge rehearsal",
+            "tr": "Yüksüz menteşe provası"
+          },
+          "objective": {
+            "en": "Distinguish hips moving backward from a squat.",
+            "tr": "Kalçanın geriye gitmesini squat’tan ayır."
+          },
+          "steps": [
+            {
+              "en": "Review linked cal-09 first. Stand comfortably with knees softly bent and hands empty.",
+              "tr": "Önce bağlı cal-09’u gözden geçir. Dizler hafif bükülü, eller boşken rahat dur."
+            },
+            {
+              "en": "Move hips backward through a small comfortable range as the trunk inclines; do not reach for the floor. Keep feet grounded and the back shape steady.",
+              "tr": "Gövde eğilirken kalçayı küçük, rahat aralıkta geriye götür; zemine uzanma. Ayakları yerde ve sırtın biçimini sabit tut."
+            },
+            {
+              "en": "Return to tall standing without leaning backward. This is a rehearsal, not a deadlift performance check.",
+              "tr": "Geriye yaslanmadan dik duruşa dön. Bu bir provadır; deadlift uygulama değerlendirmesi değildir."
+            }
+          ],
+          "practice": {
+            "en": "After preparation, optionally compare two small empty-hand hinges with a pause. Write one observation; no weights or depth target.",
+            "tr": "Hazırlık sonrası istersen arada duraklayarak iki küçük boş-el menteşesini karşılaştır. Bir gözlem yaz; ağırlık veya derinlik hedefi yoktur."
+          },
+          "selfCheck": [
+            {
+              "en": "Did hips move backward?",
+              "tr": "Kalça geriye gitti mi?"
+            },
+            {
+              "en": "Could I return without rushing?",
+              "tr": "Acele etmeden dönebildim mi?"
+            }
+          ],
+          "adaptation": {
+            "en": "Use cal-09’s easier option or describe the direction on paper.",
+            "tr": "Cal-09’un kolay seçeneğini kullan veya yönü kâğıtta anlat."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, grip/balance loss or unstable equipment. Do not retest symptoms. No loaded practice is assigned in this written course.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı veya oynayan ekipmanda dur. Belirtileri yeniden deneme. Bu yazılı kursta yüklü uygulama görevi yoktur."
+          },
+          "recall": {
+            "en": "Why is reaching the floor unnecessary here?",
+            "tr": "Burada zemine ulaşmak neden gereksiz?"
+          },
+          "correction": {
+            "en": "If range changes balance or posture, shorten the unloaded range and compare one further comfortable attempt. Persistent uncertainty needs coaching; symptoms mean stop.",
+            "tr": "Aralık dengeyi veya duruşu değiştiriyorsa yüksüz aralığı kısalt ve bir rahat denemeyi daha karşılaştır. Süren belirsizlik koçluk gerektirir; belirtide dur."
+          },
+          "answer": {
+            "en": "The target is recognising hip-back direction and controlled return, not floor reach or load.",
+            "tr": "Hedef, zemine ulaşmak veya yük değil; kalçanın geriye yönünü ve kontrollü dönüşü tanımaktır."
+          },
+          "sourceIds": [
+            "S2"
+          ],
+          "prerequisites": [
+            "dbkb-03"
+          ],
+          "minutes": 6,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Written source only. No accepted demonstration or measured form. Any later loaded teaching needs equipment-specific setup, return and physical coaching.",
+            "tr": "Yalnız yazılı kaynak. Kabul edilmiş gösterim veya ölçülmüş form yoktur. Sonraki yüklü öğretim, ekipmana özgü kurulum, geri bırakma ve fiziksel koçluk gerektirir."
+          }
+        },
+        {
+          "id": "dbkb-05",
+          "title": {
+            "en": "Unloaded squat rehearsal",
+            "tr": "Yüksüz squat provası"
+          },
+          "objective": {
+            "en": "Compare coordinated hip/knee bending with the hinge.",
+            "tr": "Birlikte kalça/diz bükmeyi menteşeyle karşılaştır."
+          },
+          "steps": [
+            {
+              "en": "Review linked cal-08 first. With empty hands, choose a comfortable stance around shoulder width.",
+              "tr": "Önce bağlı cal-08’i gözden geçir. Boş ellerle yaklaşık omuz genişliğinde rahat duruş seç."
+            },
+            {
+              "en": "Bend hips and knees into a shallow comfortable squat; keep both feet in contact with the floor. Depth is optional, not a success threshold.",
+              "tr": "Kalça ve dizleri bükerek sığ, rahat squat yap; iki ayağın zemin temasını koru. Derinlik isteğe bağlıdır; başarı eşiği değildir."
+            },
+            {
+              "en": "Press through both feet to stand. Compare this downward movement with the hinge’s hip-back emphasis.",
+              "tr": "İki ayakla zemine basarak doğrul. Bu aşağı hareketi, menteşenin kalçayı geriye götürme vurgusuyla karşılaştır."
+            }
+          ],
+          "practice": {
+            "en": "After preparation, optionally compare two shallow unloaded squats, pausing between them. Write the difference from lesson 04.",
+            "tr": "Hazırlık sonrası istersen arada durarak iki sığ yüksüz squat’ı karşılaştır. 04 dersiyle farkını yaz."
+          },
+          "selfCheck": [
+            {
+              "en": "Did both feet remain grounded?",
+              "tr": "İki ayak yerde kaldı mı?"
+            },
+            {
+              "en": "Did I choose depth rather than force it?",
+              "tr": "Derinliği zorlamak yerine seçtim mi?"
+            }
+          ],
+          "adaptation": {
+            "en": "Return to cal-07 sit-to-stand if suitable, or complete the direction comparison in writing.",
+            "tr": "Uygunsa cal-07 otur-kalk seçeneğine dön veya yön karşılaştırmasını yazıyla tamamla."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, grip/balance loss or unstable equipment. Do not retest symptoms. No loaded practice is assigned in this written course.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı veya oynayan ekipmanda dur. Belirtileri yeniden deneme. Bu yazılı kursta yüklü uygulama görevi yoktur."
+          },
+          "recall": {
+            "en": "Which changes more in a squat: knee bend or a hinge’s small knee bend?",
+            "tr": "Squat’ta diz bükülmesi, menteşenin küçük diz bükülmesine göre nasıl değişir?"
+          },
+          "correction": {
+            "en": "If foot contact changes, make the squat shallower without adding load; compare a further comfortable rehearsal. If uncertain, choose writing and coaching.",
+            "tr": "Ayak teması değişiyorsa yük eklemeden squat’ı sığlaştır; bir rahat provayı daha karşılaştır. Belirsizlikte yazılı görev ve koçluk seç."
+          },
+          "answer": {
+            "en": "A squat coordinates more hip/knee bending; the hinge emphasises hips moving back with less knee movement. Neither requires a fixed depth today.",
+            "tr": "Squat daha fazla birlikte kalça/diz bükmeyi içerir; menteşe daha az diz hareketiyle kalçanın geriye gitmesini vurgular. Bugün ikisi de sabit derinlik gerektirmez."
+          },
+          "sourceIds": [
+            "S2",
+            "S4"
+          ],
+          "prerequisites": [
+            "dbkb-04"
+          ],
+          "minutes": 6,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Written source only. No accepted demonstration or measured form. Any later loaded teaching needs equipment-specific setup, return and physical coaching.",
+            "tr": "Yalnız yazılı kaynak. Kabul edilmiş gösterim veya ölçülmüş form yoktur. Sonraki yüklü öğretim, ekipmana özgü kurulum, geri bırakma ve fiziksel koçluk gerektirir."
+          }
+        },
+        {
+          "id": "dbkb-06",
+          "title": {
+            "en": "Handling prerequisite and KB deadlift literacy",
+            "tr": "Kullanım önkoşulu ve KB deadlift bilgisi"
+          },
+          "objective": {
+            "en": "Identify what must be taught before any loaded attempt.",
+            "tr": "Her yüklü denemeden önce ne öğretilmesi gerektiğini belirle."
+          },
+          "steps": [
+            {
+              "en": "Read only: the sourced two-hand KB deadlift combines hip bend with enough knee bend to reach the handle, then standing and a controlled return. No loaded attempt is assigned.",
+              "tr": "Yalnız oku: kaynaklı iki elle KB deadlift, tutacağa ulaşacak kadar diz bükmeyle kalça bükmeyi, sonra doğrulmayı ve kontrollü geri bırakmayı birleştirir. Yüklü deneme görevi yoktur."
+            },
+            {
+              "en": "Before later loaded teaching, a coach must demonstrate implement inspection, secure grip, start position, full pickup and replacement, and what to do if control is lost. Lesson completion does not satisfy that prerequisite.",
+              "tr": "Sonraki yüklü öğretimden önce koç; ekipman kontrolünü, sağlam tutuşu, başlangıcı, tam kaldırıp geri koymayı ve kontrol kaybında ne yapılacağını göstermelidir. Ders tamamlamak bu önkoşulu karşılamaz."
+            },
+            {
+              "en": "If floor reach changes posture, remain unloaded. A raised start needs a purpose-built checked platform and coaching. Do not substitute swings, cleans, snatches or heavy/maximal lifts.",
+              "tr": "Zemine uzanmak duruşu değiştiriyorsa yüksüz kal. Yüksek başlangıç, bu işe uygun kontrol edilmiş platform ve koçluk gerektirir. Swing, clean, snatch veya ağır/maksimal kaldırışla değiştirme."
+            }
+          ],
+          "practice": {
+            "en": "Write the handling prerequisite checklist. Optionally describe the unloaded hinge you already practised; do not pick up equipment.",
+            "tr": "Kullanım önkoşulu listesini yaz. İstersen çalıştığın yüksüz menteşeyi anlat; ekipmanı kaldırma."
+          },
+          "selfCheck": [
+            {
+              "en": "Did I include return and control-loss discussion?",
+              "tr": "Geri bırakma ve kontrol kaybı konuşmasını ekledim mi?"
+            },
+            {
+              "en": "Did I keep the loaded example reading-only?",
+              "tr": "Yüklü örneği yalnız okuma olarak tuttum mu?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read the movement directions without any equipment present.",
+            "tr": "Ekipman olmadan hareket yönlerini oku."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, grip/balance loss or unstable equipment. Do not retest symptoms. No loaded practice is assigned in this written course.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı veya oynayan ekipmanda dur. Belirtileri yeniden deneme. Bu yazılı kursta yüklü uygulama görevi yoktur."
+          },
+          "recall": {
+            "en": "Does a completed hinge lesson permit a loaded deadlift?",
+            "tr": "Tamamlanmış menteşe dersi yüklü deadlift’e izin verir mi?"
+          },
+          "correction": {
+            "en": "If you omitted replacement, add it to the prerequisite list, close the list and recall it again. Do not retest by lifting.",
+            "tr": "Geri koymayı atladıysan önkoşul listesine ekle; listeyi kapatıp yeniden hatırla. Kaldırarak yeniden deneme yapma."
+          },
+          "answer": {
+            "en": "No. Grip, setup, pickup, return and control-loss handling need actual demonstration/coaching; this source does not establish them physically.",
+            "tr": "Hayır. Tutuş, kurulum, kaldırış, geri bırakma ve kontrol kaybında kullanım gerçek gösterim/koçluk gerektirir; bu kaynak bunları fiziksel olarak doğrulamaz."
+          },
+          "sourceIds": [
+            "S1",
+            "S3"
+          ],
+          "prerequisites": [
+            "dbkb-05"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Written source only. No accepted demonstration or measured form. Any later loaded teaching needs equipment-specific setup, return and physical coaching.",
+            "tr": "Yalnız yazılı kaynak. Kabul edilmiş gösterim veya ölçülmüş form yoktur. Sonraki yüklü öğretim, ekipmana özgü kurulum, geri bırakma ve fiziksel koçluk gerektirir."
+          }
+        }
+      ]
+    },
+    {
+      "id": "dbkb-variants",
+      "title": {
+        "en": "Variant literacy",
+        "tr": "Varyant bilgisi"
+      },
+      "lessons": [
+        {
+          "id": "dbkb-07",
+          "title": {
+            "en": "DB and KB goblet differences",
+            "tr": "DB ve KB goblet farkları"
+          },
+          "objective": {
+            "en": "Identify a front-load variant without teaching an unsupported transfer.",
+            "tr": "Desteklenmeyen geçişi öğretmeden ön-yük varyantını tanı."
+          },
+          "steps": [
+            {
+              "en": "Read only: DB goblet holds a fixed DB vertically near the chest; KB goblet uses both hands on the horns. Horns are the two handle sides joining the bell body.",
+              "tr": "Yalnız oku: DB goblet sabit DB’yi göğse yakın dik tutar; KB goblet’te iki el boynuzlardadır. Boynuzlar, tutacağın KB gövdesine bağlanan iki yan bölümüdür."
+            },
+            {
+              "en": "Getting either implement to/from chest height is not taught here. Do not improvise it, clean it or swing it into place. Loaded practice remains outside this course.",
+              "tr": "İki ekipmanı da göğse alma/oradan bırakma burada öğretilmez. Yöntem uydurma; clean veya swing ile konumlandırma. Yüklü uygulama bu kursun dışında kalır."
+            },
+            {
+              "en": "ACE labels DB goblet intermediate and describes deeper squatting. Today compare the names and grips on paper; the physical alternative stays the shallow unloaded squat.",
+              "tr": "ACE, DB goblet’i orta seviye etiketler ve daha derin squat anlatır. Bugün adları ve tutuşları kâğıtta karşılaştır; fiziksel alternatif sığ yüksüz squat olarak kalır."
+            }
+          ],
+          "practice": {
+            "en": "Make two columns: DB vertical hold and KB horns. Under each, write “transfer demonstration missing; no loaded attempt”.",
+            "tr": "İki sütun oluştur: DB dik tutuş ve KB boynuzlar. İkisinin altına “geçiş gösterimi eksik; yüklü deneme yok” yaz."
+          },
+          "selfCheck": [
+            {
+              "en": "Did I define horns?",
+              "tr": "Boynuzları tanımladım mı?"
+            },
+            {
+              "en": "Did I separate deadlift grip from goblet grip?",
+              "tr": "Deadlift tutuşunu goblet tutuşundan ayırdım mı?"
+            }
+          ],
+          "adaptation": {
+            "en": "Use only equipment names and descriptions; no chest-level hold.",
+            "tr": "Yalnız ekipman adlarını ve açıklamalarını kullan; göğüs hizasında tutuş yapma."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, grip/balance loss or unstable equipment. Do not retest symptoms. No loaded practice is assigned in this written course.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı veya oynayan ekipmanda dur. Belirtileri yeniden deneme. Bu yazılı kursta yüklü uygulama görevi yoktur."
+          },
+          "recall": {
+            "en": "Can you use the KB deadlift grip as proof that chest transfer is understood?",
+            "tr": "KB deadlift tutuşu, göğse geçişin anlaşıldığına kanıt olur mu?"
+          },
+          "correction": {
+            "en": "If the two grips were conflated, relabel both and retell the missing-transfer boundary without looking.",
+            "tr": "İki tutuş karıştıysa yeniden adlandır ve bakmadan eksik-geçiş sınırını anlat."
+          },
+          "answer": {
+            "en": "No. The positions and handling demands differ; actual chest transfer is not covered by this manuscript.",
+            "tr": "Hayır. Konumlar ve kullanım talepleri farklıdır; gerçek göğse geçiş bu metinde kapsanmaz."
+          },
+          "sourceIds": [
+            "S3",
+            "S4"
+          ],
+          "prerequisites": [
+            "dbkb-06"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Written source only. No accepted demonstration or measured form. Any later loaded teaching needs equipment-specific setup, return and physical coaching.",
+            "tr": "Yalnız yazılı kaynak. Kabul edilmiş gösterim veya ölçülmüş form yoktur. Sonraki yüklü öğretim, ekipmana özgü kurulum, geri bırakma ve fiziksel koçluk gerektirir."
+          }
+        },
+        {
+          "id": "dbkb-08",
+          "title": {
+            "en": "Empty-hand elbow pattern and curl literacy",
+            "tr": "Boş elle dirsek hareketi ve curl bilgisi"
+          },
+          "objective": {
+            "en": "Recognise elbow bending without swinging the whole arm.",
+            "tr": "Bütün kolu sallamadan dirsek bükmeyi tanı."
+          },
+          "steps": [
+            {
+              "en": "Use empty hands, seated on a stable chair or standing comfortably. Keep the upper arm beside the body and palm upward.",
+              "tr": "Boş ellerle sabit sandalyede otur veya rahat dur. Üst kol bedene yakın, avuç yukarı olsun."
+            },
+            {
+              "en": "Gently bend and straighten the elbow through a comfortable range; keep wrist shape steady and avoid swinging the shoulder. Do not force the elbow straight.",
+              "tr": "Dirseği rahat aralıkta yumuşakça bük ve aç; bileğin biçimini sabit tut, omuzu sallama. Dirseği zorla düzleştirme."
+            },
+            {
+              "en": "The sourced DB curl adds external load to this direction. That loaded variant requires handling demonstration and is not assigned here; empty hands do not reproduce its effort.",
+              "tr": "Kaynaklı DB curl bu yöne dış yük ekler. Yüklü varyant kullanım gösterimi gerektirir ve burada görev değildir; boş eller onun eforunu taklit etmez."
+            }
+          ],
+          "practice": {
+            "en": "After preparation, optionally rehearse two empty-hand elbow bends, pausing between them. Write whether the upper arm moved with the forearm.",
+            "tr": "Hazırlık sonrası istersen arada durarak iki boş-el dirsek bükme prova et. Üst kolun önkolla birlikte hareket edip etmediğini yaz."
+          },
+          "selfCheck": [
+            {
+              "en": "Were hands empty?",
+              "tr": "Eller boş muydu?"
+            },
+            {
+              "en": "Did I avoid wrist bending and whole-arm swinging?",
+              "tr": "Bileği bükmekten ve bütün kolu sallamaktan kaçındım mı?"
+            }
+          ],
+          "adaptation": {
+            "en": "Stay seated or describe elbow and wrist separately on paper.",
+            "tr": "Oturarak kal veya dirsek ile bileği kâğıtta ayrı anlat."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, grip/balance loss or unstable equipment. Do not retest symptoms. No loaded practice is assigned in this written course.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı veya oynayan ekipmanda dur. Belirtileri yeniden deneme. Bu yazılı kursta yüklü uygulama görevi yoktur."
+          },
+          "recall": {
+            "en": "Is wrist bending the same as the curl’s elbow action?",
+            "tr": "Bilek bükme, curl’deki dirsek hareketiyle aynı mı?"
+          },
+          "correction": {
+            "en": "If the upper arm swings, shorten the empty-hand range and compare one calm rehearsal; if uncomfortable, stop and use writing.",
+            "tr": "Üst kol sallanıyorsa boş-el aralığını kısalt ve bir sakin provayı karşılaştır; rahatsızsa dur ve yazılı görevi kullan."
+          },
+          "answer": {
+            "en": "No. Elbow bending changes the forearm position; the wrist is kept steady. This observation is not a loaded-form assessment.",
+            "tr": "Hayır. Dirsek bükme önkolun konumunu değiştirir; bilek sabit tutulur. Bu gözlem yüklü form değerlendirmesi değildir."
+          },
+          "sourceIds": [
+            "S6"
+          ],
+          "prerequisites": [
+            "dbkb-07"
+          ],
+          "minutes": 6,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Written source only. No accepted demonstration or measured form. Any later loaded teaching needs equipment-specific setup, return and physical coaching.",
+            "tr": "Yalnız yazılı kaynak. Kabul edilmiş gösterim veya ölçülmüş form yoktur. Sonraki yüklü öğretim, ekipmana özgü kurulum, geri bırakma ve fiziksel koçluk gerektirir."
+          }
+        },
+        {
+          "id": "dbkb-09",
+          "title": {
+            "en": "Pull, push and support literacy",
+            "tr": "Çekiş, itiş ve destek bilgisi"
+          },
+          "objective": {
+            "en": "Distinguish a row from a press without assigning unsupported loaded setup.",
+            "tr": "Desteklenmeyen yüklü kurulum görevi vermeden row ile press’i ayır."
+          },
+          "steps": [
+            {
+              "en": "Read only: a DB row draws the load toward the trunk from below a hinged torso. The sourced standing variant keeps the trunk steady; a supported bench variant needs its own verified setup.",
+              "tr": "Yalnız oku: DB row, eğilmiş gövdenin altından yükü gövdeye çeker. Kaynaklı ayakta varyant gövdeyi sabit tutar; destekli bench varyantı kendi doğrulanmış kurulumunu gerektirir."
+            },
+            {
+              "en": "A DB chest press moves load away from the chest while lying on a bench or floor. The support changes available range; the floor does not solve getting down/up with weights.",
+              "tr": "DB chest press, bench veya yerde yatarken yükü göğüsten uzağa iter. Destek kullanılabilir aralığı değiştirir; zemin, ağırlıklarla yatıp kalkma sorununu çözmez."
+            },
+            {
+              "en": "No row, floor press, bench press or overhead press with load is assigned. Pickup, supported positioning, loaded transfers and exit remain coaching tasks.",
+              "tr": "Yüklü row, floor press, bench press veya overhead press görevi yoktur. Kaldırma, destekli konumlandırma, yüklü geçiş ve çıkış koçluk görevleridir."
+            }
+          ],
+          "practice": {
+            "en": "Draw arrows labelled “toward trunk” and “away from chest”. List one missing setup/exit step for each; do not enact loaded positions.",
+            "tr": "“Gövdeye doğru” ve “göğüsten uzağa” oklarını çiz. Her biri için bir eksik kurulum/çıkış adımı yaz; yüklü konumları uygulama."
+          },
+          "selfCheck": [
+            {
+              "en": "Did I distinguish pull from push?",
+              "tr": "Çekişle itişi ayırdım mı?"
+            },
+            {
+              "en": "Did I avoid treating a floor as a complete setup solution?",
+              "tr": "Zemini tam kurulum çözümü saymaktan kaçındım mı?"
+            }
+          ],
+          "adaptation": {
+            "en": "Use arrows and words; lying down or hinging is not required.",
+            "tr": "Ok ve sözcük kullan; yatmak veya menteşe yapmak gerekmez."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, grip/balance loss or unstable equipment. Do not retest symptoms. No loaded practice is assigned in this written course.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı veya oynayan ekipmanda dur. Belirtileri yeniden deneme. Bu yazılı kursta yüklü uygulama görevi yoktur."
+          },
+          "recall": {
+            "en": "Why is a floor press not automatically ready for independent loaded practice?",
+            "tr": "Floor press neden kendiliğinden bağımsız yüklü pratiğe hazır değildir?"
+          },
+          "correction": {
+            "en": "If you omitted entry/exit, add both to the missing-demonstration list and retell it. Retest the explanation only.",
+            "tr": "Giriş/çıkışı atladıysan ikisini eksik-gösterim listesine ekle ve yeniden anlat. Yalnız açıklamayı yeniden sına."
+          },
+          "answer": {
+            "en": "Loaded entry, grip, positioning and exit still need demonstration. A support changes range, not the evidence of readiness.",
+            "tr": "Yüklü giriş, tutuş, konum ve çıkış hâlâ gösterim gerektirir. Destek aralığı değiştirir; hazır oluş kanıtını değil."
+          },
+          "sourceIds": [
+            "S7",
+            "S8"
+          ],
+          "prerequisites": [
+            "dbkb-08"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Written source only. No accepted demonstration or measured form. Any later loaded teaching needs equipment-specific setup, return and physical coaching.",
+            "tr": "Yalnız yazılı kaynak. Kabul edilmiş gösterim veya ölçülmüş form yoktur. Sonraki yüklü öğretim, ekipmana özgü kurulum, geri bırakma ve fiziksel koçluk gerektirir."
+          }
+        }
+      ]
+    },
+    {
+      "id": "dbkb-independent",
+      "title": {
+        "en": "Independent reasoning and review",
+        "tr": "Bağımsız gerekçe ve değerlendirme"
+      },
+      "lessons": [
+        {
+          "id": "dbkb-10",
+          "title": {
+            "en": "Correct one observation",
+            "tr": "Tek gözlemi düzelt"
+          },
+          "objective": {
+            "en": "Choose a specific revision and retest without escalating load.",
+            "tr": "Yük artırmadan belirli düzeltme ve yeniden deneme seç."
+          },
+          "steps": [
+            {
+              "en": "Separate observation from judgment: “my heel lifted” describes a squat rehearsal; “I am weak” does not identify a correction.",
+              "tr": "Gözlemi yargıdan ayır: “topuğum kalktı” squat provası gözlemidir; “güçsüzüm” düzeltme belirlemez."
+            },
+            {
+              "en": "For a nonsymptom rehearsal issue, choose one change: shallower squat, shorter hinge, or smaller empty-hand elbow range. Change only one thing.",
+              "tr": "Belirtisiz prova sorunu için tek değişiklik seç: daha sığ squat, daha kısa menteşe veya daha küçük boş-el dirsek aralığı. Yalnız tek şeyi değiştir."
+            },
+            {
+              "en": "Compare a later comfortable unloaded attempt, or retest the explanation if you decline movement. Persistent uncertainty goes to coaching; symptoms stop practice.",
+              "tr": "Sonraki rahat yüksüz denemeyi karşılaştır veya hareketi istemiyorsan açıklamayı yeniden sına. Süren belirsizlik koçluğa gider; belirtide pratik durur."
+            }
+          ],
+          "practice": {
+            "en": "Write observation → one correction → next observation. Example problem: heel contact changes during a shallow squat; choose the response before revealing the answer.",
+            "tr": "Gözlem → tek düzeltme → sonraki gözlemi yaz. Örnek sorun: sığ squat’ta topuk teması değişiyor; yanıtı açmadan tepki seç."
+          },
+          "selfCheck": [
+            {
+              "en": "Is my correction specific?",
+              "tr": "Düzeltmem belirli mi?"
+            },
+            {
+              "en": "Is the retest unloaded and symptom-free?",
+              "tr": "Yeniden deneme yüksüz ve belirtisiz mi?"
+            }
+          ],
+          "adaptation": {
+            "en": "Retest the reasoning only; a physical attempt is optional.",
+            "tr": "Yalnız gerekçeyi yeniden sına; fiziksel deneme isteğe bağlıdır."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, grip/balance loss or unstable equipment. Do not retest symptoms. No loaded practice is assigned in this written course.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı veya oynayan ekipmanda dur. Belirtileri yeniden deneme. Bu yazılı kursta yüklü uygulama görevi yoktur."
+          },
+          "recall": {
+            "en": "What would you change first if heel contact changes without symptoms?",
+            "tr": "Belirti olmadan topuk teması değişiyorsa önce neyi değiştirirsin?"
+          },
+          "correction": {
+            "en": "If you wrote “add weight”, replace it with a smaller unloaded range; recall the next observation again.",
+            "tr": "“Ağırlık ekle” yazdıysan daha küçük yüksüz aralıkla değiştir; sonraki gözlemi yeniden hatırla."
+          },
+          "answer": {
+            "en": "Try a shallower unloaded squat and observe foot contact; if unclear, stop the physical task and request coaching.",
+            "tr": "Daha sığ yüksüz squat seç ve ayak temasını gözle; belirsizse fiziksel görevi durdur ve koçluk iste."
+          },
+          "sourceIds": [
+            "S1",
+            "S4"
+          ],
+          "prerequisites": [
+            "dbkb-09"
+          ],
+          "minutes": 6,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Written source only. No accepted demonstration or measured form. Any later loaded teaching needs equipment-specific setup, return and physical coaching.",
+            "tr": "Yalnız yazılı kaynak. Kabul edilmiş gösterim veya ölçülmüş form yoktur. Sonraki yüklü öğretim, ekipmana özgü kurulum, geri bırakma ve fiziksel koçluk gerektirir."
+          }
+        },
+        {
+          "id": "dbkb-11",
+          "title": {
+            "en": "Build a small independent session",
+            "tr": "Küçük bağımsız seans kur"
+          },
+          "objective": {
+            "en": "Plan preparation, choices, pauses and review without a loading prescription.",
+            "tr": "Yükleme reçetesi olmadan hazırlık, seçim, duraklama ve değerlendirme planla."
+          },
+          "steps": [
+            {
+              "en": "Choose one lower-body unloaded option from lessons 04/05 and the empty-hand elbow option from 08, or choose their written alternatives.",
+              "tr": "04/05’ten bir yüksüz alt beden seçeneği ile 08’den boş-el dirsek seçeneği seç veya yazılı alternatiflerini kullan."
+            },
+            {
+              "en": "Before beginning, write the space check, your cal-04 preparation selection planned in lesson 03, a few rehearsals of already learned 04/05/08 tasks with pauses, and a stop rule. Use this lesson’s preparation gate before any optional rehearsal. No load, fatigue target or weekly training dose is prescribed.",
+              "tr": "Başlamadan önce alan kontrolünü, 03’te planladığın cal-04 hazırlık seçimini, önceden öğrenilmiş 04/05/08 görevlerinin aralıklı birkaç provasını ve durma kuralını yaz. İsteğe bağlı provadan önce bu dersin hazırlık kapısını kullan. Yük, yorgunluk hedefi veya haftalık antrenman dozu verilmez."
+            },
+            {
+              "en": "Record the selected variation, one observation and whether to repeat, simplify or ask for coaching. An unloaded session is not a balanced strength programme.",
+              "tr": "Seçilen varyantı, bir gözlemi ve tekrar/sadeleştirme/koçluk seçimini kaydet. Yüksüz seans dengeli kuvvet programı değildir."
+            }
+          ],
+          "practice": {
+            "en": "With previous lessons closed, write and explain your plan. Optionally carry out only the comfortable unloaded parts; review the plan afterwards.",
+            "tr": "Önceki dersleri kapatıp planını yaz ve açıkla. İstersen yalnız rahat yüksüz bölümleri uygula; sonra planı gözden geçir."
+          },
+          "selfCheck": [
+            {
+              "en": "Did preparation precede rehearsal?",
+              "tr": "Hazırlık provadan önce mi?"
+            },
+            {
+              "en": "Did I include a pause and stop rule?",
+              "tr": "Duraklama ve durma kuralı ekledim mi?"
+            }
+          ],
+          "adaptation": {
+            "en": "Plan a reading-only session with the same decision steps.",
+            "tr": "Aynı karar adımlarıyla yalnız okuma seansı planla."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, grip/balance loss or unstable equipment. Do not retest symptoms. No loaded practice is assigned in this written course.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı veya oynayan ekipmanda dur. Belirtileri yeniden deneme. Bu yazılı kursta yüklü uygulama görevi yoktur."
+          },
+          "recall": {
+            "en": "What belongs before the first repetition and after the final one?",
+            "tr": "İlk tekrardan önce ve son tekrardan sonra ne olmalı?"
+          },
+          "correction": {
+            "en": "If preparation or review is missing, add just that step and explain the revised order without looking.",
+            "tr": "Hazırlık veya değerlendirme eksikse yalnız o adımı ekle; bakmadan düzeltilmiş sırayı açıkla."
+          },
+          "answer": {
+            "en": "Before: space, stop choice and comfortable preparation. After: pause, observation and the choice to repeat/simplify/request help.",
+            "tr": "Önce: alan, durma seçimi ve rahat hazırlık. Sonra: duraklama, gözlem ve tekrar/sadeleştirme/yardım isteme kararı."
+          },
+          "sourceIds": [
+            "S1"
+          ],
+          "prerequisites": [
+            "dbkb-10"
+          ],
+          "minutes": 6,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Written source only. No accepted demonstration or measured form. Any later loaded teaching needs equipment-specific setup, return and physical coaching.",
+            "tr": "Yalnız yazılı kaynak. Kabul edilmiş gösterim veya ölçülmüş form yoktur. Sonraki yüklü öğretim, ekipmana özgü kurulum, geri bırakma ve fiziksel koçluk gerektirir."
+          }
+        },
+        {
+          "id": "dbkb-12",
+          "title": {
+            "en": "Independent recall and next boundary",
+            "tr": "Bağımsız hatırlama ve sonraki sınır"
+          },
+          "objective": {
+            "en": "Explain the beginner written endpoint and identify remaining physical prerequisites.",
+            "tr": "Başlangıç yazılı hedefini açıkla ve kalan fiziksel önkoşulları belirle."
+          },
+          "steps": [
+            {
+              "en": "Close the earlier lessons. Answer using your own words: hinge versus squat; DB versus KB goblet grip; row versus press direction; one handling prerequisite.",
+              "tr": "Önceki dersleri kapat. Kendi sözlerinle yanıtla: menteşe/squat farkı; DB/KB goblet tutuş farkı; row/press yönü; bir kullanım önkoşulu."
+            },
+            {
+              "en": "Case A: only a heavy KB exists. Case B: the support rocks. Case C: practice causes pain. Choose and justify a response before showing the answer.",
+              "tr": "A durumu: yalnız ağır KB var. B: destek sallanıyor. C: pratik ağrı yapıyor. Yanıtı göstermeden tepki seç ve gerekçelendir."
+            },
+            {
+              "en": "Your endpoint is explaining equipment, directions, unloaded choices, stop criteria and one correction/retest independently. Loaded handling, transfers and technique remain unobserved and outside acceptance.",
+              "tr": "Hedefin; ekipmanı, yönleri, yüksüz seçimleri, durma ölçütlerini ve bir düzeltme/yeniden denemeyi bağımsız açıklamaktır. Yüklü kullanım, geçişler ve teknik gözlenmemiştir; kabul dışındadır."
+            }
+          ],
+          "practice": {
+            "en": "Write the explanations and cases, compare with the hidden answer, then revise one weak explanation. Ask a reviewer or coach to discuss unresolved points.",
+            "tr": "Açıklamaları ve durumları yaz, gizli yanıtla karşılaştır, sonra zayıf bir açıklamayı düzelt. Çözülmeyen noktaları inceleyen kişi veya koçla konuş."
+          },
+          "selfCheck": [
+            {
+              "en": "Did I answer before revealing the answer?",
+              "tr": "Yanıtı açmadan cevapladım mı?"
+            },
+            {
+              "en": "Did I leave loaded mastery unclaimed?",
+              "tr": "Yüklü ustalık iddiasından kaçındım mı?"
+            }
+          ],
+          "adaptation": {
+            "en": "Answer orally to a reader or on paper; physical performance is not required.",
+            "tr": "Bir okuyucuya sözlü veya kâğıtta yanıtla; fiziksel uygulama gerekmez."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, grip/balance loss or unstable equipment. Do not retest symptoms. No loaded practice is assigned in this written course.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı veya oynayan ekipmanda dur. Belirtileri yeniden deneme. Bu yazılı kursta yüklü uygulama görevi yoktur."
+          },
+          "recall": {
+            "en": "What is your next step if the written explanation is clear but equipment handling has not been demonstrated?",
+            "tr": "Yazılı açıklama açık ama ekipman kullanımı gösterilmemişse sonraki adım nedir?"
+          },
+          "correction": {
+            "en": "Pick one missing idea, return to its lesson, close it and answer that item again in new words. No extra repetitions or added load count as correction.",
+            "tr": "Eksik tek fikri seç, ilgili derse dön, kapat ve o maddeyi yeni sözlerle yanıtla. Ek tekrar veya yük eklemek düzeltme sayılmaz."
+          },
+          "answer": {
+            "en": "Hinge: hips back with limited knee bend; squat: hip/knee bend downward. DB goblet: vertical DB; KB goblet: handle sides/horns. Row draws toward trunk; press moves away. A stay unloaded; B reject support; C stop/no symptom retest. Next: obtain equipment-specific demonstration and coaching, not a self-issued loaded clearance.",
+            "tr": "Menteşe: az diz bükmeyle kalça geriye; squat: kalça/diz bükülerek aşağı. DB goblet: dik DB; KB goblet: tutacak yanları/boynuzlar. Row gövdeye çeker; press uzağa iter. A yüksüz kal; B desteği reddet; C dur/belirtiyi yeniden deneme. Sonraki adım: ekipmana özgü gösterim ve koçluk; kendi kendine yüklü uygulama izni değil."
+          },
+          "sourceIds": [
+            "S1",
+            "S2",
+            "S3",
+            "S4",
+            "S7",
+            "S8"
+          ],
+          "prerequisites": [
+            "dbkb-11"
+          ],
+          "minutes": 6,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Written source only. No accepted demonstration or measured form. Any later loaded teaching needs equipment-specific setup, return and physical coaching.",
+            "tr": "Yalnız yazılı kaynak. Kabul edilmiş gösterim veya ölçülmüş form yoktur. Sonraki yüklü öğretim, ekipmana özgü kurulum, geri bırakma ve fiziksel koçluk gerektirir."
+          }
+        }
+      ]
+    }
+  ],
+  "catalogueGuides": []
+}

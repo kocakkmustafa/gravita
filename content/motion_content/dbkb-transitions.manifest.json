@@ -1,0 +1,22 @@
+{
+  "appId": "com.yulalab.gravita",
+  "assets": [
+    {
+      "byteLength": 49106,
+      "id": "dbkb-transitions-course-json",
+      "path": "content/courses/dbkb-transitions.v1.json",
+      "sha256": "27aff671d91c56ccf6f342ce873f2cc6d4f43b0e6ca1189683a74868dbdf1d61"
+    }
+  ],
+  "contentVersion": "1.0.0",
+  "courses": [],
+  "lessons": [],
+  "locales": [
+    "tr",
+    "en"
+  ],
+  "minimumCoreContract": "1.0.0",
+  "models": [],
+  "schemaVersion": 1,
+  "catalogDigest": "7cc696dfcd2d4f38f82614ff18fa00026f4ba5a824fe89ce7d9e46c177a2fcc0"
+}

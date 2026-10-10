@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "id": "dbkb-supported-transitions",
+  "version": "1.0.0",
+  "title": {
+    "en": "KB supported goblet and single-bell floor press: written learning",
+    "tr": "KB destekli goblet ve tek ağırlıkla yerde press: yazılı öğrenme"
+  },
+  "description": {
+    "en": "Two specifically bounded variants. Equipment-specific demonstration and coaching are required for initial loaded practice. Floor-to-chest goblet, two-dumbbell transfer and independent unsupervised practice remain open.",
+    "tr": "İki sınırları belirli varyasyon. İlk yüklü uygulama ekipmana özgü gösterim ve koçluk ister. Yerden göğse goblet, iki dambılla geçiş ve bağımsız gözetimsiz uygulama açık kalır."
+  },
+  "healthNotice": {
+    "en": "Stop for pain, dizziness, unusual breathlessness, numbness, slipping grip, shifting support, uncontrolled motion or an obstructed path. Do not repeat with a load to diagnose symptoms. If still in control, use the taught return; otherwise use the prearranged instructor-assisted recovery. Never catch a falling weight or place fingers under its base. A simple instruction error without symptoms may be corrected first with empty hands, then retested only after the instructor confirms the correction. Breathe continuously; no deliberate breath holding. No swing, clean, snatch, bridge press, overhead press, heavy/maximal lift or loaded floor-to-standing get-up is assigned.",
+    "tr": "Ağrı, baş dönmesi, alışılmadık nefes darlığı, uyuşma, kayan tutuş, yer değiştiren destek, kontrolsüz hareket veya kapanan yol varsa durun. Belirtiyi anlamak için yükle tekrar yapmayın. Kontrol sürüyorsa öğretilen dönüşü kullanın; sürmüyorsa önceden kararlaştırılmış eğitmen yardımlı toparlamayı uygulayın. Düşen ağırlığı yakalamayın; parmakları tabanın altına koymayın. Belirtisiz basit yönerge hatası önce boş elle düzeltilir; yeniden yük denemesi ancak eğitmen düzeltmeyi doğruladıktan sonra yapılır. Nefesi akıtın; bilinçli nefes tutma yoktur. Swing, clean, snatch, köprüde press, baş üstü press, ağır/maksimum kaldırış veya yerde yükle ayağa kalkış verilmez."
+  },
+  "evidenceMode": "self_report",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Mayo: weight-training technique",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/weight-training/art-20045842",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S2",
+      "title": "ACE: hip hinge",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/33/hip-hinge/",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S3",
+      "title": "ACE: starting kettlebells",
+      "url": "https://www.acefitness.org/resources/pros/expert-articles/5269/how-to-get-started-with-kettlebells/",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S4",
+      "title": "Mayo: DB curl transcript",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/biceps-curl/vid-20084675",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S5",
+      "title": "Mayo: DB row transcript",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/bent-over-row/vid-20084680",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S6",
+      "title": "Mayo: DB chest-press transcript",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/chest-press/vid-20084677",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S7",
+      "title": "ACE: DB goblet squat",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/362/goblet-squat/",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S8",
+      "title": "NHS: strength exercises",
+      "url": "https://www.nhs.uk/live-well/exercise/strength-exercises/",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S9",
+      "title": "ACE: chest press",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/19/chest-press/",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S10",
+      "title": "Rusin: goblet raised start",
+      "url": "https://drjohnrusin.com/goblet-squat-variations/",
+      "supports": {
+        "en": "Raised dumbbell start; kettlebell support adaptation is original.",
+        "tr": "Yükseltilmiş dambıl başlangıcı; kettlebell destek uyarlaması özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No validation of this assembled transfer, equipment or individual physical suitability.",
+        "tr": "Birleşik geçiş, ekipman veya kişisel fiziksel uygunluk doğrulanmaz."
+      }
+    },
+    {
+      "id": "S11",
+      "title": "StrongFirst: kettlebell horn grip",
+      "url": "https://www.strongfirst.com/kettlebell-simple-sinister-tips-for-heavy-goblet-squats/",
+      "supports": {
+        "en": "Horn anatomy/grip only; heavy pickup and program excluded.",
+        "tr": "Yalnız boynuz yapısı/tutuş; ağır alma ve program dışlanır."
+      },
+      "doesNotSupport": {
+        "en": "No validation of this assembled transfer, equipment or individual physical suitability.",
+        "tr": "Birleşik geçiş, ekipman veya kişisel fiziksel uygunluk doğrulanmaz."
+      }
+    },
+    {
+      "id": "S12",
+      "title": "StrongFirst: single-bell floor press",
+      "url": "https://www.strongfirst.com/using-the-floor-to-strengthen-your-press/",
+      "supports": {
+        "en": "Side-roll entry and press alignment; complete reverse return is original.",
+        "tr": "Yana dönüş girişi ve press hizası; tam ters dönüş özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No validation of this assembled transfer, equipment or individual physical suitability.",
+        "tr": "Birleşik geçiş, ekipman veya kişisel fiziksel uygunluk doğrulanmaz."
+      }
+    },
+    {
+      "id": "S13",
+      "title": "NHS: unloaded floor rise directions",
+      "url": "https://www.nhs.uk/conditions/falls/",
+      "supports": {
+        "en": "Unloaded movement directions adapted from post-fall context; no medical clearance.",
+        "tr": "Düşme sonrası bağlamından yüksüz hareket yönleri uyarlanır; tıbbi uygunluk yoktur."
+      },
+      "doesNotSupport": {
+        "en": "No validation of this assembled transfer, equipment or individual physical suitability.",
+        "tr": "Birleşik geçiş, ekipman veya kişisel fiziksel uygunluk doğrulanmaz."
+      }
+    }
+  ],
+  "modules": [
+    {
+      "id": "dbkbt-variants",
+      "title": {
+        "en": "Specified supported transitions",
+        "tr": "Belirtilen destekli geçişler"
+      },
+      "lessons": [
+        {
+          "id": "dbkbt-supported-goblet",
+          "title": {
+            "en": "Supported-start kettlebell goblet",
+            "tr": "Destekten başlayan kettlebell goblet"
+          },
+          "objective": {
+            "en": "Chosen variant: one light, flat-base kettlebell, held by both horns with its base downward, starting and ending on a fixed raised support. This is a supported-start goblet preparation, NOT a floor-to-chest transfer or a kettlebell clean. It is an alternative for a supervised setting with appropriate equipment; it is not a claim that ordinary home furniture is suitable. A bench press does not satisfy this lesson.",
+            "tr": "Seçilen varyasyon: tabanı aşağıda, iki boynuzundan tutulan tek hafif, düz tabanlı kettlebell; başlangıç ve bitiş sabit yükseltilmiş destektedir. Bu, destekten başlayan goblet hazırlığıdır; yerden göğse geçiş veya kettlebell clean değildir. Uygun ekipmanlı gözetimli ortam için alternatiftir; sıradan ev mobilyasının uygun olduğu iddia edilmez. Bench press bu dersi karşılamaz."
+          },
+          "steps": [
+            {
+              "en": "Chosen variant: one light, flat-base kettlebell, held by both horns with its base downward, starting and ending on a fixed raised support. This is a supported-start goblet preparation, NOT a floor-to-chest transfer or a kettlebell clean. It is an alternative for a supervised setting with appropriate equipment; it is not a claim that ordinary home furniture is suitable. A bench press does not satisfy this lesson.\n\na purpose-built stable support rated by its maker for the implement, with a flat surface that fully supports the base, no wheels or loose pad, and sufficient clearance to grip both horns without fingers under the base. The instructor sets its height so the bell is below the upper chest and can be brought close with a controlled lift just sufficient to clear the support, without shrugging, leaning, a sudden jerk or a swing. Reject the arrangement if manufacturer suitability or clearance cannot be established. Clear the approach, small backward step, squat space and return path; no other weights below or beside the feet. First demonstrate an empty-hand shallow squat, a stationary two-hand hold and the whole return. The learner must be able to stand steadily and describe the return before pickup.",
+              "tr": "Seçilen varyasyon: tabanı aşağıda, iki boynuzundan tutulan tek hafif, düz tabanlı kettlebell; başlangıç ve bitiş sabit yükseltilmiş destektedir. Bu, destekten başlayan goblet hazırlığıdır; yerden göğse geçiş veya kettlebell clean değildir. Uygun ekipmanlı gözetimli ortam için alternatiftir; sıradan ev mobilyasının uygun olduğu iddia edilmez. Bench press bu dersi karşılamaz.\n\nüreticisinin bu ağırlık için uygun gördüğü, tabanı bütünüyle destekleyen düz yüzeyli, tekerleksiz ve gevşek mindersiz özel sabit destek; iki boynu kavrarken parmaklar tabanın altında kalmamalıdır. Eğitmen yüksekliği, kettlebell üst göğsün altında kalacak ve destekten ayrılmaya yetecek kontrollü kaldırışla; omuz silkmeden, eğilmeden, ani çekiş veya savurma olmadan yakına alınabilecek şekilde belirler. Üretici uygunluğu veya el boşluğu doğrulanamıyorsa bu düzen kullanılmaz. Yaklaşma, küçük geri adım, çömelme ve dönüş yolu boş olmalıdır; ayakların altında veya yanında başka ağırlık yoktur. Önce boş elle sığ çömelme, sabit iki el tutuşu ve bütün dönüş gösterilir. Öğrenci almadan önce dengeli durabilmeli ve dönüşü açıklayabilmelidir."
+            },
+            {
+              "en": "1. Face the support close enough to reach without leaning. Feet approximately shoulder-width, knees soft. While the base remains fully supported, wrap each hand around a horn near its junction with the bell body; thumbs close the grips. Do not grip only the top corners, cup beneath the base or change grips after lifting.\n2. Lift only enough to clear the support, keeping the bell close; bring it to the front of the chest, elbows downward near the ribs and wrists in a comfortable aligned position. Pause before moving the feet. If this requires a heave, toe rise or shrug, return immediately: this setup/load is unsuitable.\n3. With the demonstrated clear route, take one small controlled backward step and settle both feet. Do not squat while stepping. Bend hips and knees together to a shallow comfortable depth; knees follow the feet, heels stay down and the bell remains close. Stop the descent before balance, posture or load control changes. Stand by extending hips and knees without leaning backward. No prescribed deep squat or forced stretch.\n4. Finish standing. Approach the same support with the demonstrated small step, keeping both grips. Place the base flat in its original space; verify it is fully supported and motionless. Only then release both hands and step away empty-handed. Use this same return after an early stop while control remains.\n\nobserve heel contact, still feet before descent, elbows close and support contact before release; this is self-report, not verified form. Without reading, explain why a floor pickup, top-corner grip and floating release are different from this variant, and describe an early return. If the feet move during descent, rehearse step → settle → shallow squat empty-handed. If hands reach under the base, reset the supported grip with an empty prop; recheck clearance. Retest the specific error, not a larger set. If support rocks or pickup needs momentum, reject the equipment/load rather than practicing around it.",
+              "tr": "1. Eğilmeden uzanabileceğiniz yakınlıkta desteğe dönün. Ayaklar yaklaşık omuz genişliğinde, dizler hafif bükülü olsun. Taban tamamen destekliyken her el, bir boynu gövdeye birleştiği bölgenin yakınından kavrasın; başparmaklar tutuşu kapatsın. Yalnızca üst köşeleri tutmayın, tabanın altını avuçlamayın; kaldırdıktan sonra tutuş değiştirmeyin.\n2. Yalnızca destekten ayrılacak kadar kaldırın; kettlebell yakında kalsın. Göğsün önüne alın; dirsekler kaburgalara yakın aşağı yönelsin, bilekler rahat ve hizalı olsun. Ayakları oynatmadan duraklayın. Savurma, parmak ucuna yükselme veya omuz silkme gerekiyorsa hemen geri bırakın: düzen/yük uygun değildir.\n3. Gösterilen boş yolda küçük, kontrollü bir geri adım atıp iki ayağı yerleştirin. Adım sırasında çömelmeyin. Kalça ve dizleri birlikte bükerek rahat, sığ derinliğe inin; dizler ayakların yönünü izlesin, topuklar yerde ve kettlebell yakında kalsın. Denge, duruş veya yük kontrolü değişmeden inişi bitirin. Kalça ve dizleri açarak doğrulun; geriye yaslanmayın. Derin çömelme veya zorlanmış esneme hedefi yoktur.\n4. Ayakta bitirin. İki tutuşu koruyarak gösterilen küçük adımla aynı desteğe yaklaşın. Tabanı başlangıçtaki yere düz koyun; tamamen desteklendiğini ve hareketsiz olduğunu doğrulayın. Ancak sonra iki eli bırakıp boş elle uzaklaşın. Kontrol sürüyorsa erken duruşta da aynı dönüş kullanılır.\n\ntopuk temasını, iniş öncesi sabit ayakları, yakın dirsekleri ve el bırakmadan önce destek temasını gözleyin; bu öz bildirimdir, doğrulanmış form değildir. Metne bakmadan yerden alma, üst köşe tutuşu ve havada bırakmanın bu varyasyondan neden farklı olduğunu; erken dönüşü açıklayın. İnişte ayaklar oynuyorsa boş elle adım → yerleşme → sığ çömelme provası yapın. Eller tabanın altına gidiyorsa boş nesneyle destekli tutuşu yeniden kurup boşluğu kontrol edin. Büyük bir set değil, belirli hata yeniden denenir. Destek sallanıyorsa veya alma ivme istiyorsa ekipman/yük reddedilir."
+            },
+            {
+              "en": "Endpoint: explain and rehearse the complete unloaded entry, movement and return of the specified variant; then, only with an in-person instructor who checks equipment and demonstrates the exact transfer, attempt a few easy, controlled light-load repetitions and return the implement to full support. No weight target, fatigue target, strength score, camera measurement, mastery, medical clearance or muscle-gain promise. This is a learning proposal, not a personalized prescription. First physical demonstrations are necessary: words do not establish handle fit, support stability, load suitability or control during a side roll. A helper must be able to take the implement if needed; agree the handoff beforehand. Do not improvise a handoff while losing control.\n\nStop for pain, dizziness, unusual breathlessness, numbness, slipping grip, shifting support, uncontrolled motion or an obstructed path. Do not repeat with a load to diagnose symptoms. If still in control, use the taught return; otherwise use the prearranged instructor-assisted recovery. Never catch a falling weight or place fingers under its base. A simple instruction error without symptoms may be corrected first with empty hands, then retested only after the instructor confirms the correction. Breathe continuously; no deliberate breath holding. No swing, clean, snatch, bridge press, overhead press, heavy/maximal lift or loaded floor-to-standing get-up is assigned.\n\nThese are actionable original teaching drafts, not source-certified transfer protocols. Review the supported goblet setup and the single-bell reverse roll physically before adoption. If either geometry fails, reject that variant; do not substitute a bench and label floor transfer complete. Remaining scope: floor-to-chest goblet pickup, two-dumbbell floor entry/exit, independent unsupervised loaded practice, other movement families and the complete five-domain curriculum remain open. Written review can assess sequencing and limitations only.",
+              "tr": "Son nokta: belirtilen varyasyonun yüksüz girişini, hareketini ve dönüşünü açıklayıp prova etmek; ardından yalnızca ekipmanı kontrol eden ve aynı geçişi gösteren yüz yüze eğitmenle birkaç kolay, kontrollü hafif yük tekrarı denemek ve ağırlığı tamamen desteğe bırakmak. Kilo veya yorulma hedefi, kuvvet puanı, kamera ölçümü, ustalık, tıbbi uygunluk ya da kas kazanımı vaadi yoktur. Bu bir öğrenme önerisidir; kişiye özel reçete değildir. İlk fiziksel gösterimler gereklidir: yazı, sap uyumunu, destek kararlılığını, yük uygunluğunu veya yana dönüşte kontrolü kanıtlamaz. Gerektiğinde yardımcı ağırlığı alabilmelidir; devri önceden kararlaştırın. Kontrol kaybolurken doğaçlama devir yapmayın.\n\nAğrı, baş dönmesi, alışılmadık nefes darlığı, uyuşma, kayan tutuş, yer değiştiren destek, kontrolsüz hareket veya kapanan yol varsa durun. Belirtiyi anlamak için yükle tekrar yapmayın. Kontrol sürüyorsa öğretilen dönüşü kullanın; sürmüyorsa önceden kararlaştırılmış eğitmen yardımlı toparlamayı uygulayın. Düşen ağırlığı yakalamayın; parmakları tabanın altına koymayın. Belirtisiz basit yönerge hatası önce boş elle düzeltilir; yeniden yük denemesi ancak eğitmen düzeltmeyi doğruladıktan sonra yapılır. Nefesi akıtın; bilinçli nefes tutma yoktur. Swing, clean, snatch, köprüde press, baş üstü press, ağır/maksimum kaldırış veya yerde yükle ayağa kalkış verilmez.\n\nBunlar uygulanabilir özgün öğretim taslaklarıdır; kaynakların onayladığı geçiş protokolleri değildir. Benimsemeden önce destekli goblet düzeni ve tek kettlebelle ters dönüş fiziksel olarak incelenmelidir. Geometri uygun değilse varyasyon reddedilir; bench konup yerde geçiş tamamlandı denmez. Yerden göğse goblet alma, iki dambılla yere giriş/çıkış, bağımsız gözetimsiz yüklü çalışma, diğer hareket aileleri ve bütün beş alanlı müfredat açık kalır. Yazılı inceleme yalnızca sıralama ve sınırları değerlendirebilir."
+            }
+          ],
+          "practice": {
+            "en": "Answer the independent task in these steps without notes. Rehearse empty-handed only when symptom-free; loaded observation belongs to a competent coach.",
+            "tr": "Bu adımlardaki bağımsız görevi notsuz yanıtla. Yalnız belirtisizken boş elle prova yap; yüklü gözlem yetkin antrenöre aittir."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain start, early finish and return?",
+              "tr": "Başlangıç, erken bitiş ve dönüşü açıklayabiliyor muyum?"
+            },
+            {
+              "en": "Can I name the first reason to reject this load or setup?",
+              "tr": "Bu yükü veya kurulumu reddetmenin ilk nedenini adlandırabiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read and explain only; keep physical rehearsal unloaded without coaching.",
+            "tr": "Yalnız oku ve açıkla; koçluk yoksa fiziksel prova yüksüz kalsın."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, numbness, slipping grip, shifting support, uncontrolled motion or an obstructed path. Do not repeat with a load to diagnose symptoms. If still in control, use the taught return; otherwise use the prearranged instructor-assisted recovery. Never catch a falling weight or place fingers under its base. A simple instruction error without symptoms may be corrected first with empty hands, then retested only after the instructor confirms the correction. Breathe continuously; no deliberate breath holding. No swing, clean, snatch, bridge press, overhead press, heavy/maximal lift or loaded floor-to-standing get-up is assigned.",
+            "tr": "Ağrı, baş dönmesi, alışılmadık nefes darlığı, uyuşma, kayan tutuş, yer değiştiren destek, kontrolsüz hareket veya kapanan yol varsa durun. Belirtiyi anlamak için yükle tekrar yapmayın. Kontrol sürüyorsa öğretilen dönüşü kullanın; sürmüyorsa önceden kararlaştırılmış eğitmen yardımlı toparlamayı uygulayın. Düşen ağırlığı yakalamayın; parmakları tabanın altına koymayın. Belirtisiz basit yönerge hatası önce boş elle düzeltilir; yeniden yük denemesi ancak eğitmen düzeltmeyi doğruladıktan sonra yapılır. Nefesi akıtın; bilinçli nefes tutma yoktur. Swing, clean, snatch, köprüde press, baş üstü press, ağır/maksimum kaldırış veya yerde yükle ayağa kalkış verilmez."
+          },
+          "recall": {
+            "en": "observe heel contact, still feet before descent, elbows close and support contact before release; this is self-report, not verified form. Without reading, explain why a floor pickup, top-corner grip and floating release are different from this variant, and describe an early return. If the feet move during descent, rehearse step → settle → shallow squat empty-handed. If hands reach under the base, reset the supported grip with an empty prop; recheck clearance. Retest the specific error, not a larger set. If support rocks or pickup needs momentum, reject the equipment/load rather than practicing around it.",
+            "tr": "topuk temasını, iniş öncesi sabit ayakları, yakın dirsekleri ve el bırakmadan önce destek temasını gözleyin; bu öz bildirimdir, doğrulanmış form değildir. Metne bakmadan yerden alma, üst köşe tutuşu ve havada bırakmanın bu varyasyondan neden farklı olduğunu; erken dönüşü açıklayın. İnişte ayaklar oynuyorsa boş elle adım → yerleşme → sığ çömelme provası yapın. Eller tabanın altına gidiyorsa boş nesneyle destekli tutuşu yeniden kurup boşluğu kontrol edin. Büyük bir set değil, belirli hata yeniden denenir. Destek sallanıyorsa veya alma ivme istiyorsa ekipman/yük reddedilir."
+          },
+          "correction": {
+            "en": "observe heel contact, still feet before descent, elbows close and support contact before release; this is self-report, not verified form. Without reading, explain why a floor pickup, top-corner grip and floating release are different from this variant, and describe an early return. If the feet move during descent, rehearse step → settle → shallow squat empty-handed. If hands reach under the base, reset the supported grip with an empty prop; recheck clearance. Retest the specific error, not a larger set. If support rocks or pickup needs momentum, reject the equipment/load rather than practicing around it.",
+            "tr": "topuk temasını, iniş öncesi sabit ayakları, yakın dirsekleri ve el bırakmadan önce destek temasını gözleyin; bu öz bildirimdir, doğrulanmış form değildir. Metne bakmadan yerden alma, üst köşe tutuşu ve havada bırakmanın bu varyasyondan neden farklı olduğunu; erken dönüşü açıklayın. İnişte ayaklar oynuyorsa boş elle adım → yerleşme → sığ çömelme provası yapın. Eller tabanın altına gidiyorsa boş nesneyle destekli tutuşu yeniden kurup boşluğu kontrol edin. Büyük bir set değil, belirli hata yeniden denenir. Destek sallanıyorsa veya alma ivme istiyorsa ekipman/yük reddedilir."
+          },
+          "answer": {
+            "en": "Support before release; first equipment-specific demonstration; no floor-to-chest goblet, two-dumbbell transfer or unsupervised practice acceptance.",
+            "tr": "Bırakmadan önce destek; ilk ekipmana özgü gösterim; yerden göğse goblet, iki dambılla geçiş veya gözetimsiz uygulama kabulü yoktur."
+          },
+          "sourceIds": [
+            "S1",
+            "S7",
+            "S10",
+            "S11"
+          ],
+          "prerequisites": [],
+          "minutes": 10,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "No accepted demonstration is packaged. First loaded practice requires original reviewed equipment-specific demonstration and coaching; text does not validate form.",
+            "tr": "Kabul edilmiş gösterim pakette yoktur. İlk yüklü uygulama özgün, incelenmiş ekipmana özgü gösterim ve koçluk gerektirir; metin formu doğrulamaz."
+          }
+        },
+        {
+          "id": "dbkbt-single-kb-floor-press",
+          "title": {
+            "en": "Single-kettlebell floor press and return",
+            "tr": "Tek kettlebell yerde press ve dönüş"
+          },
+          "objective": {
+            "en": "Chosen variant: one light kettlebell; two hands for the side-roll transfer, one hand for the press, bent knees and feet resting on the floor. No bench, two-dumbbell layback, bridge, overhead motion or loaded rise. Limited endpoint: a controlled floor press plus supported return and an entirely unloaded rise. This does not teach the two-dumbbell floor transfer, certify a Turkish get-up or complete home floor-press capability.",
+            "tr": "Seçilen varyasyon: tek hafif kettlebell; yana dönüş geçişinde iki el, press sırasında tek el; dizler bükülü, ayaklar yerde. Bench, iki dambılla geriye yatış, köprü, baş üstü hareket veya yükle ayağa kalkış yoktur. Sınırlı son nokta: kontrollü yerde press, destekli geri bırakma ve tamamen yüksüz ayağa kalkma. İki dambılın yere geçişini öğretmez; Turkish get-up yeterliği veya evde yerde press tamamlanması sayılmaz."
+          },
+          "steps": [
+            {
+              "en": "Chosen variant: one light kettlebell; two hands for the side-roll transfer, one hand for the press, bent knees and feet resting on the floor. No bench, two-dumbbell layback, bridge, overhead motion or loaded rise. Limited endpoint: a controlled floor press plus supported return and an entirely unloaded rise. This does not teach the two-dumbbell floor transfer, certify a Turkish get-up or complete home floor-press capability.\n\nunobstructed level floor, thin non-sliding mat if needed, one flat-base bell whose handle allows a deep closed grip without pinching, and a checked fixed support outside the bell path for an unloaded rise if required. The instructor first demonstrates the exact entry AND return with this bell shape. Rehearse side → back → side and the unloaded rise comfortably with empty hands; inability to do either means no loaded attempt. The instructor must verify that the bell can return flat without a wrist twist, being trapped under the body or crossing the face. This geometry cannot be accepted from prose alone. Practice one selected side; reversing sides requires a new mirrored setup and demonstration.",
+              "tr": "Seçilen varyasyon: tek hafif kettlebell; yana dönüş geçişinde iki el, press sırasında tek el; dizler bükülü, ayaklar yerde. Bench, iki dambılla geriye yatış, köprü, baş üstü hareket veya yükle ayağa kalkış yoktur. Sınırlı son nokta: kontrollü yerde press, destekli geri bırakma ve tamamen yüksüz ayağa kalkma. İki dambılın yere geçişini öğretmez; Turkish get-up yeterliği veya evde yerde press tamamlanması sayılmaz.\n\nengelsiz düz zemin; gerekirse kaymayan ince mat; sıkıştırmadan derin, kapalı tutuş sağlayan saplı tek düz tabanlı kettlebell; gerekirse yüksüz kalkış için kettlebell yolunun dışında kontrol edilmiş sabit destek. Eğitmen önce aynı kettlebell biçimiyle hem girişi HEM dönüşü gösterir. Boş elle yan → sırt → yan dönüşü ve yüksüz kalkışı rahatça prova edin; biri yapılamıyorsa yük denenmez. Eğitmen, tabanın bileği bükmeden, gövdenin altında sıkışmadan ve yüzü geçmeden yere düz dönebildiğini doğrulamalıdır. Bu geometri yalnızca yazıdan kabul edilemez. Tek seçilmiş taraf çalışılır; taraf değişimi için aynalanmış düzen ve yeni gösterim gerekir."
+            },
+            {
+              "en": "1. Leave the bell standing on its base beside the intended right-elbow area, away from the head. Enter the floor EMPTY-HANDED: use the checked support if needed, lower one knee then the other, support yourself with hands on the floor and settle onto your right side facing the bell. Do not descend carrying it.\n2. Knees bent, put the right hand deeply through the handle and close the thumb. Place the left hand over the right gripping hand, clear of pinch points. Keep both elbows near the body. Roll together onto your back, keeping the bell close and away from the face. This is a slow side roll, not a curl or a toss.\n3. Set the right upper arm on the floor with forearm approximately vertical and the bell aligned over the elbow. Keep head, shoulders and pelvis resting on the floor; bend both knees with feet resting flat. Once the position is steady, remove the left assisting hand and place it on the floor beside you. If the working wrist bends, the bell rotates or the torso rolls, replace the assisting hand and return; do not press to rescue the position.\n4. Press toward the ceiling until the elbow is nearly straight, without snapping it straight, lifting the hips or pushing through the feet. Lower slowly along the same path until the upper arm rests on the floor. Keep the load away from the face. A few easy repetitions only; finish before fatigue changes control.\n5. With the upper arm supported on the floor, put the left hand back over the right gripping hand. Keep the bell close and elbows near the body; slowly roll toward the RIGHT, following the exact demonstrated reverse route. Guide its base onto the original clear floor space. Confirm full, motionless base contact before releasing either hand. Do not drop it, open a grip in the air, roll away while still carrying it or stand with it. Use this same route for an early finish while control remains.\n6. After both hands are free, roll away from the bell onto your side. Use your arms to reach hands and knees; move to the checked support through the empty route if needed. Bring one foot flat beneath you and rise slowly using the support. This is an unloaded exit, not part of a loaded get-up.\n\nreport whether upper arm reaches floor before return-hand placement, bell stays away from face, pelvis stays down and base is fully supported before release. Independently describe all three different events: lowering a repetition, rolling the implement back, and rising empty-handed. Identify why two dumbbells cannot use this unchanged route. For a sequencing error, use an empty handle-shaped prop and rehearse lower → assist → roll → base contact → release → unloaded rise, then explain it without prompts. Torso roll or wrist loss requires stopping and instructor reassessment of grip/load/variant; do not add repetitions. Symptoms have no loaded correction/retest.",
+              "tr": "1. Kettlebell başlangıçta sağ dirseğin bulunacağı bölgenin yanında, baştan uzakta, tabanı üzerinde dursun. Yere BOŞ ELLE geçin: gerekirse kontrol edilmiş desteği kullanarak önce bir dizi, sonra diğerini indirin; ellerle zeminden destek alıp kettlebelle dönük sağ yanınıza yerleşin. Ağırlığı taşıyarak inmeyin.\n2. Dizler bükülüyken sağ eli sapın içine derin yerleştirip başparmağı kapatın. Sol eli sıkışma noktalarından uzak biçimde sağ tutuş elinin üzerine koyun. İki dirsek gövdeye yakın olsun. Kettlebelli yakında ve yüzden uzakta tutarak birlikte sırtüstüne dönün. Bu yavaş yana dönüştür; curl veya savurma değildir.\n3. Sağ üst kolu yere yerleştirin; ön kol yaklaşık dik, kettlebell dirseğin üzerinde hizalı olsun. Baş, omuzlar ve leğen kemiği yerde kalsın; iki diz bükülü, ayaklar düz olarak yerde dursun. Konum sabitlenince sol yardım elini ayırıp yanınıza yere koyun. Çalışan bilek bükülür, kettlebell döner veya gövde yana devrilirse yardım elini yeniden koyup geri dönün; konumu kurtarmak için press yapmayın.\n4. Dirsek neredeyse düzleşene kadar tavana doğru itin; dirseği sertçe kilitlemeyin, kalçayı kaldırmayın, ayaklarla itmeyin. Aynı yoldan yavaşça indirip üst kolu yere dinlendirin. Ağırlık yüzden uzakta kalsın. Yalnızca birkaç kolay tekrar; yorulma kontrolü değiştirmeden bitirin.\n5. Üst kol yerde destekliyken sol eli yeniden sağ tutuş elinin üzerine koyun. Kettlebell yakında, dirsekler gövdeye yakın kalsın; gösterilen ters yolu izleyerek yavaşça SAĞA dönün. Tabanı başlangıçtaki boş zemin yerine yönlendirin. İki elden birini bırakmadan önce tam ve hareketsiz taban temasını doğrulayın. Düşürmeyin, havada tutuş açmayın, taşırken ters yana dönmeyin veya ağırlıkla ayağa kalkmayın. Kontrol sürüyorsa erken bitişte de aynı yolu kullanın.\n6. İki el serbest kaldıktan sonra kettlebellin ters yönüne yan dönün. Kollarla destek alıp eller-dizler konumuna geçin; gerekirse boş yoldan kontrol edilmiş desteğe ulaşın. Bir ayağı altınıza düz koyup destekle yavaşça kalkın. Bu yüksüz çıkıştır; yükle get-up parçası değildir.\n\nyardım eli geri konmadan önce üst kolun yere ulaşıp ulaşmadığını, ağırlığın yüzden uzaklığını, kalçanın yerde kalmasını ve bırakmadan önce tabanın tamamen desteklenmesini bildirin. Üç ayrı olayı bağımsız açıklayın: tekrarın indirilmesi, ağırlığın dönerek geri bırakılması, boş elle kalkış. İki dambılın bu değişmemiş yolu neden kullanamayacağını belirtin. Sıralama hatasında boş sap biçimli nesneyle indir → yardım → dön → taban teması → bırak → yüksüz kalk sırasını prova edip ipucu olmadan açıklayın. Gövde devrilmesi veya bilek kontrolünün kaybında durulur; eğitmen tutuş/yük/varyasyonu yeniden değerlendirir, tekrar eklenmez. Belirti varsa yükle düzeltme/yeniden deneme yoktur."
+            },
+            {
+              "en": "Endpoint: explain and rehearse the complete unloaded entry, movement and return of the specified variant; then, only with an in-person instructor who checks equipment and demonstrates the exact transfer, attempt a few easy, controlled light-load repetitions and return the implement to full support. No weight target, fatigue target, strength score, camera measurement, mastery, medical clearance or muscle-gain promise. This is a learning proposal, not a personalized prescription. First physical demonstrations are necessary: words do not establish handle fit, support stability, load suitability or control during a side roll. A helper must be able to take the implement if needed; agree the handoff beforehand. Do not improvise a handoff while losing control.\n\nStop for pain, dizziness, unusual breathlessness, numbness, slipping grip, shifting support, uncontrolled motion or an obstructed path. Do not repeat with a load to diagnose symptoms. If still in control, use the taught return; otherwise use the prearranged instructor-assisted recovery. Never catch a falling weight or place fingers under its base. A simple instruction error without symptoms may be corrected first with empty hands, then retested only after the instructor confirms the correction. Breathe continuously; no deliberate breath holding. No swing, clean, snatch, bridge press, overhead press, heavy/maximal lift or loaded floor-to-standing get-up is assigned.\n\nThese are actionable original teaching drafts, not source-certified transfer protocols. Review the supported goblet setup and the single-bell reverse roll physically before adoption. If either geometry fails, reject that variant; do not substitute a bench and label floor transfer complete. Remaining scope: floor-to-chest goblet pickup, two-dumbbell floor entry/exit, independent unsupervised loaded practice, other movement families and the complete five-domain curriculum remain open. Written review can assess sequencing and limitations only.",
+              "tr": "Son nokta: belirtilen varyasyonun yüksüz girişini, hareketini ve dönüşünü açıklayıp prova etmek; ardından yalnızca ekipmanı kontrol eden ve aynı geçişi gösteren yüz yüze eğitmenle birkaç kolay, kontrollü hafif yük tekrarı denemek ve ağırlığı tamamen desteğe bırakmak. Kilo veya yorulma hedefi, kuvvet puanı, kamera ölçümü, ustalık, tıbbi uygunluk ya da kas kazanımı vaadi yoktur. Bu bir öğrenme önerisidir; kişiye özel reçete değildir. İlk fiziksel gösterimler gereklidir: yazı, sap uyumunu, destek kararlılığını, yük uygunluğunu veya yana dönüşte kontrolü kanıtlamaz. Gerektiğinde yardımcı ağırlığı alabilmelidir; devri önceden kararlaştırın. Kontrol kaybolurken doğaçlama devir yapmayın.\n\nAğrı, baş dönmesi, alışılmadık nefes darlığı, uyuşma, kayan tutuş, yer değiştiren destek, kontrolsüz hareket veya kapanan yol varsa durun. Belirtiyi anlamak için yükle tekrar yapmayın. Kontrol sürüyorsa öğretilen dönüşü kullanın; sürmüyorsa önceden kararlaştırılmış eğitmen yardımlı toparlamayı uygulayın. Düşen ağırlığı yakalamayın; parmakları tabanın altına koymayın. Belirtisiz basit yönerge hatası önce boş elle düzeltilir; yeniden yük denemesi ancak eğitmen düzeltmeyi doğruladıktan sonra yapılır. Nefesi akıtın; bilinçli nefes tutma yoktur. Swing, clean, snatch, köprüde press, baş üstü press, ağır/maksimum kaldırış veya yerde yükle ayağa kalkış verilmez.\n\nBunlar uygulanabilir özgün öğretim taslaklarıdır; kaynakların onayladığı geçiş protokolleri değildir. Benimsemeden önce destekli goblet düzeni ve tek kettlebelle ters dönüş fiziksel olarak incelenmelidir. Geometri uygun değilse varyasyon reddedilir; bench konup yerde geçiş tamamlandı denmez. Yerden göğse goblet alma, iki dambılla yere giriş/çıkış, bağımsız gözetimsiz yüklü çalışma, diğer hareket aileleri ve bütün beş alanlı müfredat açık kalır. Yazılı inceleme yalnızca sıralama ve sınırları değerlendirebilir."
+            }
+          ],
+          "practice": {
+            "en": "Answer the independent task in these steps without notes. Rehearse empty-handed only when symptom-free; loaded observation belongs to a competent coach.",
+            "tr": "Bu adımlardaki bağımsız görevi notsuz yanıtla. Yalnız belirtisizken boş elle prova yap; yüklü gözlem yetkin antrenöre aittir."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain start, early finish and return?",
+              "tr": "Başlangıç, erken bitiş ve dönüşü açıklayabiliyor muyum?"
+            },
+            {
+              "en": "Can I name the first reason to reject this load or setup?",
+              "tr": "Bu yükü veya kurulumu reddetmenin ilk nedenini adlandırabiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read and explain only; keep physical rehearsal unloaded without coaching.",
+            "tr": "Yalnız oku ve açıkla; koçluk yoksa fiziksel prova yüksüz kalsın."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, numbness, slipping grip, shifting support, uncontrolled motion or an obstructed path. Do not repeat with a load to diagnose symptoms. If still in control, use the taught return; otherwise use the prearranged instructor-assisted recovery. Never catch a falling weight or place fingers under its base. A simple instruction error without symptoms may be corrected first with empty hands, then retested only after the instructor confirms the correction. Breathe continuously; no deliberate breath holding. No swing, clean, snatch, bridge press, overhead press, heavy/maximal lift or loaded floor-to-standing get-up is assigned.",
+            "tr": "Ağrı, baş dönmesi, alışılmadık nefes darlığı, uyuşma, kayan tutuş, yer değiştiren destek, kontrolsüz hareket veya kapanan yol varsa durun. Belirtiyi anlamak için yükle tekrar yapmayın. Kontrol sürüyorsa öğretilen dönüşü kullanın; sürmüyorsa önceden kararlaştırılmış eğitmen yardımlı toparlamayı uygulayın. Düşen ağırlığı yakalamayın; parmakları tabanın altına koymayın. Belirtisiz basit yönerge hatası önce boş elle düzeltilir; yeniden yük denemesi ancak eğitmen düzeltmeyi doğruladıktan sonra yapılır. Nefesi akıtın; bilinçli nefes tutma yoktur. Swing, clean, snatch, köprüde press, baş üstü press, ağır/maksimum kaldırış veya yerde yükle ayağa kalkış verilmez."
+          },
+          "recall": {
+            "en": "report whether upper arm reaches floor before return-hand placement, bell stays away from face, pelvis stays down and base is fully supported before release. Independently describe all three different events: lowering a repetition, rolling the implement back, and rising empty-handed. Identify why two dumbbells cannot use this unchanged route. For a sequencing error, use an empty handle-shaped prop and rehearse lower → assist → roll → base contact → release → unloaded rise, then explain it without prompts. Torso roll or wrist loss requires stopping and instructor reassessment of grip/load/variant; do not add repetitions. Symptoms have no loaded correction/retest.",
+            "tr": "yardım eli geri konmadan önce üst kolun yere ulaşıp ulaşmadığını, ağırlığın yüzden uzaklığını, kalçanın yerde kalmasını ve bırakmadan önce tabanın tamamen desteklenmesini bildirin. Üç ayrı olayı bağımsız açıklayın: tekrarın indirilmesi, ağırlığın dönerek geri bırakılması, boş elle kalkış. İki dambılın bu değişmemiş yolu neden kullanamayacağını belirtin. Sıralama hatasında boş sap biçimli nesneyle indir → yardım → dön → taban teması → bırak → yüksüz kalk sırasını prova edip ipucu olmadan açıklayın. Gövde devrilmesi veya bilek kontrolünün kaybında durulur; eğitmen tutuş/yük/varyasyonu yeniden değerlendirir, tekrar eklenmez. Belirti varsa yükle düzeltme/yeniden deneme yoktur."
+          },
+          "correction": {
+            "en": "report whether upper arm reaches floor before return-hand placement, bell stays away from face, pelvis stays down and base is fully supported before release. Independently describe all three different events: lowering a repetition, rolling the implement back, and rising empty-handed. Identify why two dumbbells cannot use this unchanged route. For a sequencing error, use an empty handle-shaped prop and rehearse lower → assist → roll → base contact → release → unloaded rise, then explain it without prompts. Torso roll or wrist loss requires stopping and instructor reassessment of grip/load/variant; do not add repetitions. Symptoms have no loaded correction/retest.",
+            "tr": "yardım eli geri konmadan önce üst kolun yere ulaşıp ulaşmadığını, ağırlığın yüzden uzaklığını, kalçanın yerde kalmasını ve bırakmadan önce tabanın tamamen desteklenmesini bildirin. Üç ayrı olayı bağımsız açıklayın: tekrarın indirilmesi, ağırlığın dönerek geri bırakılması, boş elle kalkış. İki dambılın bu değişmemiş yolu neden kullanamayacağını belirtin. Sıralama hatasında boş sap biçimli nesneyle indir → yardım → dön → taban teması → bırak → yüksüz kalk sırasını prova edip ipucu olmadan açıklayın. Gövde devrilmesi veya bilek kontrolünün kaybında durulur; eğitmen tutuş/yük/varyasyonu yeniden değerlendirir, tekrar eklenmez. Belirti varsa yükle düzeltme/yeniden deneme yoktur."
+          },
+          "answer": {
+            "en": "Support before release; first equipment-specific demonstration; no floor-to-chest goblet, two-dumbbell transfer or unsupervised practice acceptance.",
+            "tr": "Bırakmadan önce destek; ilk ekipmana özgü gösterim; yerden göğse goblet, iki dambılla geçiş veya gözetimsiz uygulama kabulü yoktur."
+          },
+          "sourceIds": [
+            "S1",
+            "S6",
+            "S8",
+            "S12",
+            "S13"
+          ],
+          "prerequisites": [
+            "dbkbt-supported-goblet"
+          ],
+          "minutes": 10,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "No accepted demonstration is packaged. First loaded practice requires original reviewed equipment-specific demonstration and coaching; text does not validate form.",
+            "tr": "Kabul edilmiş gösterim pakette yoktur. İlk yüklü uygulama özgün, incelenmiş ekipmana özgü gösterim ve koçluk gerektirir; metin formu doğrulamaz."
+          }
+        }
+      ]
+    }
+  ],
+  "catalogueGuides": []
+}

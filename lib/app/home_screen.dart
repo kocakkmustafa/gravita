@@ -5,6 +5,7 @@ import 'camera_release_policy.dart';
 import 'app_locale.dart';
 import 'content_repository.dart';
 import 'calisthenics_course_screen.dart';
+import 'dbkb_course_entry.dart';
 import 'library_model.dart';
 import 'library_strings.dart';
 import 'movement_page.dart';
@@ -63,6 +64,8 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(18, 4, 18, 96),
         children: <Widget>[
           CalisthenicsEntryCard(content: content),
+          const SizedBox(height: 10),
+          DbkbEntryCard(content: content),
           const SizedBox(height: 20),
           NoteCard(
             key: noPlanKey,

@@ -1,0 +1,945 @@
+{
+  "schemaVersion": 1,
+  "id": "dbkb-controlled-handling",
+  "version": "1.0.0",
+  "title": {
+    "en": "DB/KB controlled handling: hinge, curl and row",
+    "tr": "DB/KB kontrollü kullanım: menteşe, curl ve row"
+  },
+  "description": {
+    "en": "A bounded beginner segment. Written progress is separate from observed loaded practice. Goblet and floor-press transfers remain untaught; the DB/KB domain is incomplete.",
+    "tr": "Sınırlı başlangıç dalı. Yazılı ilerleme gözlenen yüklü uygulamadan ayrıdır. Goblet ve zemin press geçişleri öğretilmez; DB/KB alanı tamamlanmamıştır."
+  },
+  "healthNotice": {
+    "en": "Every lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+    "tr": "Her ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+  },
+  "evidenceMode": "self_report",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Mayo: weight-training technique",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/weight-training/art-20045842",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S2",
+      "title": "ACE: hip hinge",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/33/hip-hinge/",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S3",
+      "title": "ACE: starting kettlebells",
+      "url": "https://www.acefitness.org/resources/pros/expert-articles/5269/how-to-get-started-with-kettlebells/",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S4",
+      "title": "Mayo: DB curl transcript",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/biceps-curl/vid-20084675",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S5",
+      "title": "Mayo: DB row transcript",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/bent-over-row/vid-20084680",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S6",
+      "title": "Mayo: DB chest-press transcript",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/chest-press/vid-20084677",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S7",
+      "title": "ACE: DB goblet squat",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/362/goblet-squat/",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S8",
+      "title": "NHS: strength exercises",
+      "url": "https://www.nhs.uk/live-well/exercise/strength-exercises/",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    },
+    {
+      "id": "S9",
+      "title": "ACE: chest press",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/19/chest-press/",
+      "supports": {
+        "en": "See lesson-specific source limits; handling sequence is original.",
+        "tr": "Derse özgü kaynak sınırlarına bak; kullanım sırası özgündür."
+      },
+      "doesNotSupport": {
+        "en": "No institution validates this complete composite protocol or individual medical suitability.",
+        "tr": "Hiçbir kurum bu birleşik tam protokolü veya kişisel tıbbi uygunluğu doğrulamaz."
+      }
+    }
+  ],
+  "modules": [
+    {
+      "id": "dbkbh-handling",
+      "title": {
+        "en": "DB/KB controlled handling: hinge, curl and row",
+        "tr": "DB/KB kontrollü kullanım: menteşe, curl ve row"
+      },
+      "lessons": [
+        {
+          "id": "dbkbh-scope",
+          "title": {
+            "en": "## Actual endpoint and exclusions",
+            "tr": "Gerçek son nokta ve dışlamalar"
+          },
+          "objective": {
+            "en": "Reconstruct this exact variant and its limits.",
+            "tr": "Bu kesin varyantı ve sınırlarını yeniden kur."
+          },
+          "steps": [
+            {
+              "en": "This revised beginner strand teaches a two-hand KB floor pickup/return and nonballistic deadlift, one fixed DB taken from and returned to a purpose-made waist-height rack/cradle, standing one-DB curl and standing hinged one-DB row. It adds a short two-task learning plan, early finish and next-session recall. It does not claim the full DB/KB beginner domain is taught. Goblet chest transfers and two-DB floor-press entry/exit remain missing content, not merely unobserved competence; both loaded lessons are removed from this selected endpoint. No DB floor pickup, seated DB transfer, bench/overhead press, KB row, carry, swing, clean, snatch, maximal or heavy lift is assigned. Five adopted Gravita domains remain five separate domains, not this strand's exercise count.\n\nWritten outcome: independently explain and reconstruct these exact steps, identify wrong variants, select a lighter/unloaded alternative and know which transfers are not taught. Physical learning outcome, separately: a human observes the described setup–movement–early finish–return for the exact light implement and records limitations. Neither lesson completion nor a preparation checkbox is physical permission. V4 app550/engine176/analyses0 are preserved software evidence, not acceptance of this new content.",
+              "tr": "Gözden geçirilmiş başlangıç dalı iki elle KB'yi zeminden alıp geri bırakma ve balistik olmayan deadlift; tek sabit DB'yi amaca uygun bel yüksekliğindeki ağırlık rafı/yuvasından alıp geri bırakma; ayakta tek DB curl ve ayakta menteşeli tek DB row öğretir. Kısa iki görevli öğrenme planı, erken bitirme ve sonraki seans hatırlamasını ekler. DB/KB başlangıç alanının tamamının öğretildiğini iddia etmez. Goblet göğüs geçişleri ve iki DB zemin press giriş/çıkışı yalnız gözlenmemiş yeterlik değil, eksik içeriktir; iki yüklü ders de seçilen son noktadan çıkarılmıştır. DB'yi zeminden alma, oturarak DB geçişi, bench/overhead press, KB row, taşıma, swing, clean, snatch, maksimum veya ağır kaldırış atanmaz. Gravita'nın beş alanı ayrı beş alandır; bu dalın egzersiz sayısı değildir.\n\nYazılı sonuç: bu kesin adımları bağımsız anlatıp sıralamak, yanlış seçenekleri belirlemek, hafif/yüksüz alternatif seçmek ve öğretilmeyen geçişleri bilmek. Ayrı fiziksel öğrenme sonucu: insan aynı hafif ekipmanda tarif edilen kurulum–hareket–erken bitiş–dönüşü gözler, sınırları kaydeder. Ders tamamlama veya hazırlık kutusu fiziksel izin değildir. V4 app550/engine176/analyses0 korunmuş yazılım kanıtıdır; yeni içeriğin kabulü değildir."
+            },
+            {
+              "en": "Use accepted v4 equipment/space/hinge/elbow/stop lessons and existing cal-03 breathing, cal-04 actual preparation and cal-09 hinge. Learn steps with empty hands first; new loaded practice initially requires competent coaching and an original reviewed demonstration of the steps below. Demonstration must illustrate the written protocol, not replace absent instructions. No instructor/demonstration means written learning and unloaded rehearsal only; that does not complete the loaded branch. Natural breathing continues without breath holding. A coached comfortable preparation is separate from written planning; standing walking, standing stepping and seated stepping are different options. Preparation alone does not establish readiness.\n\nUse an intact, flat-based light KB and a fixed-head, nonrolling light DB with an unobstructed handle. The DB starts on a purpose-made weight rack/cradle at comfortable waist height, with its heads fully supported and handle accessible without reaching over other weights. It must accept the specific DB size/mass under its manufacturer's rules and not move during use. No table, chair, book stack, rolling adjustable DB or improvised riser substitutes. If the rack/grip geometry does not match these conditions, no DB loaded task is assigned. Clear nonslip floor, footwear with traction and room for the full return are required. Do not assume floor pickup of the DB from the KB lesson.\n\nAn instructor initially chooses an easy implement whose pickup, a few controlled sample movements and return are manageable; no fixed kg/sex/age table or maximal/fatigue test. These few samples are an editorial teaching limit, not a prescribed workout dose. If motion requires momentum, breath holding, changing grip under load or a difficult return, set it down by the taught route while control remains, and choose lighter or unloaded after review. Do not test a heavier implement just because a few repetitions were completed. An unavailable smaller increment means no increase.\n\nEvery lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+              "tr": "Kabul edilmiş v4 ekipman/alan/menteşe/dirsek/durma derslerini ve mevcut cal-03 nefes, cal-04 gerçek hazırlık, cal-09 menteşe derslerini kullan. Önce adımları boş elle öğren; ilk yüklü uygulama yetkin koçluk ve aşağıdaki adımları gösteren özgün, incelenmiş gösterim gerektirir. Gösterim yazılı protokolü açıklar; eksik öğretimin yerine geçmez. Eğitmen/gösterim yoksa yalnız yazılı öğrenme ve yüksüz prova yapılır; bu yüklü dalı tamamlamaz. Nefes tutulmadan doğal nefes sürer. Koçlukla rahat hazırlık yazılı plandan ayrıdır; ayakta yürüyüş, ayakta adımlama, oturarak adımlama farklı seçeneklerdir. Hazırlık tek başına hazır oluş oluşturmaz.\n\nSağlam, düz tabanlı hafif KB ve tutacağı açık, sabit başlıklı, yuvarlanmayan hafif DB kullan. DB rahat bel yüksekliğinde, amaca uygun ağırlık rafı/yuvasından başlar; başlıklar tamamen desteklenir, tutacağa başka ağırlıkların üzerinden uzanmadan erişilir. Raf üreticisinin kurallarına göre DB'nin boyut/ağırlığını kabul etmeli, kullanımda oynamamalıdır. Masa, sandalye, kitap yığını, yuvarlanan ayarlanabilir DB veya doğaçlama yükselti alternatif değildir. Raf/tutuş geometrisi bu koşullara uymuyorsa yüklü DB görevi atanmaz. Açık kaymayan zemin, tutunan ayakkabı ve tüm dönüşe yeterli alan gerekir. KB dersinden DB'yi zeminden alma izni çıkarma.\n\nEğitmen ilk yükü alma, birkaç kontrollü örnek hareket ve dönüş yönetilebilir olacak kadar kolay seçer; sabit kg/cinsiyet/yaş tablosu veya maksimum/tükenme testi yoktur. Az sayıdaki örnek editoryal öğretim sınırıdır, antrenman dozu değildir. Hareket ivme, nefes tutma, yük altındayken tutuş değiştirme veya zor dönüş gerektiriyorsa kontrol sürerken öğretilen yoldan bırak; değerlendirmeden sonra hafif/yüksüz seç. Birkaç tekrar tamamlandı diye ağır ekipmanı sınama. Küçük artış yoksa yük artmaz.\n\nHer ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+            },
+            {
+              "en": "Progress here records written learning only; it does not authorize loaded practice.",
+              "tr": "Buradaki ilerleme yalnız yazılı öğrenmeyi kaydeder; yüklü uygulama izni vermez."
+            }
+          ],
+          "practice": {
+            "en": "Answer the independent task in these steps without notes. Rehearse empty-handed only when symptom-free; loaded observation belongs to a competent coach.",
+            "tr": "Bu adımlardaki bağımsız görevi notsuz yanıtla. Yalnız belirtisizken boş elle prova yap; yüklü gözlem yetkin antrenöre aittir."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain start, early finish and return?",
+              "tr": "Başlangıç, erken bitiş ve dönüşü açıklayabiliyor muyum?"
+            },
+            {
+              "en": "Can I name the first reason to reject this load or setup?",
+              "tr": "Bu yükü veya kurulumu reddetmenin ilk nedenini adlandırabiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read and explain only; keep physical rehearsal unloaded without coaching.",
+            "tr": "Yalnız oku ve açıkla; koçluk yoksa fiziksel prova yüksüz kalsın."
+          },
+          "stop": {
+            "en": "Every lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+            "tr": "Her ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+          },
+          "recall": {
+            "en": "Without notes, solve the independent task and identify one stop condition.",
+            "tr": "Notsuz bağımsız görevi çöz ve bir durma koşulu belirt."
+          },
+          "correction": {
+            "en": "Use the targeted correction/retest in the learning steps. Symptom retesting is excluded; answer again before comparing.",
+            "tr": "Öğrenme adımlarındaki hedefli düzeltme/yeniden denemeyi kullan. Belirtiyi yeniden sınama; karşılaştırmadan önce yeniden yanıtla."
+          },
+          "answer": {
+            "en": "Written understanding is not observed loaded practice",
+            "tr": "Yazılı anlayış gözlenen yüklü uygulama değildir"
+          },
+          "sourceIds": [
+            "S1"
+          ],
+          "prerequisites": [],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "No accepted demonstration is packaged. First loaded practice requires original reviewed equipment-specific demonstration and coaching; text does not validate form.",
+            "tr": "Kabul edilmiş gösterim pakette yoktur. İlk yüklü uygulama özgün, incelenmiş ekipmana özgü gösterim ve koçluk gerektirir; metin formu doğrulamaz."
+          }
+        },
+        {
+          "id": "dbkbh-a",
+          "title": {
+            "en": "Exact choice and load decision",
+            "tr": "Kesin seçim ve yük kararı"
+          },
+          "objective": {
+            "en": "Reconstruct this exact variant and its limits.",
+            "tr": "Bu kesin varyantı ve sınırlarını yeniden kur."
+          },
+          "steps": [
+            {
+              "en": "Prerequisite: written v4 equipment/stop understanding. State “KB floor deadlift” or “one-DB rack-start curl/row,” actual mass and return location. Before touching a load, explain the return in B. Reject “I can lift it, so I can use it” if return/control is uncertain. Independent task: a learner curls a DB but cannot replace it in the cradle—choose no loaded task and explain what failed. Correction/retest: reconstruct pickup and return without notes; if symptoms exist, retest only the explanation. Coaching observes a light physical trial only after the explanation and unloaded sequence are coherent. S1; teaching samples and scope restrictions are original.",
+              "tr": "Önkoşul: yazılı v4 ekipman/durma anlayışı. “KB zemin deadlift” veya “tek DB raf başlangıçlı curl/row”, gerçek ağırlık ve dönüş yerini belirt. Yüke dokunmadan B'deki dönüşü açıkla. Dönüş/kontrol belirsizse “kaldırabiliyorum, kullanabilirim” çıkarımını reddet. Bağımsız görev: curl yapabilen ama DB'yi yuvaya geri koyamayan kişi için yüklü görev seçme, hangi adımın bozulduğunu anlat. Düzelt/yeniden değerlendir: alma ve dönüşü notsuz kur; belirti varsa yalnız açıklamayı yeniden değerlendir. Açıklama/yüksüz sıra tutarlı olduktan sonra koçluk hafif fiziksel denemeyi gözler. S1; öğretim örnekleri ve kapsam sınırlamaları özgündür."
+            },
+            {
+              "en": "Use accepted v4 equipment/space/hinge/elbow/stop lessons and existing cal-03 breathing, cal-04 actual preparation and cal-09 hinge. Learn steps with empty hands first; new loaded practice initially requires competent coaching and an original reviewed demonstration of the steps below. Demonstration must illustrate the written protocol, not replace absent instructions. No instructor/demonstration means written learning and unloaded rehearsal only; that does not complete the loaded branch. Natural breathing continues without breath holding. A coached comfortable preparation is separate from written planning; standing walking, standing stepping and seated stepping are different options. Preparation alone does not establish readiness.\n\nUse an intact, flat-based light KB and a fixed-head, nonrolling light DB with an unobstructed handle. The DB starts on a purpose-made weight rack/cradle at comfortable waist height, with its heads fully supported and handle accessible without reaching over other weights. It must accept the specific DB size/mass under its manufacturer's rules and not move during use. No table, chair, book stack, rolling adjustable DB or improvised riser substitutes. If the rack/grip geometry does not match these conditions, no DB loaded task is assigned. Clear nonslip floor, footwear with traction and room for the full return are required. Do not assume floor pickup of the DB from the KB lesson.\n\nAn instructor initially chooses an easy implement whose pickup, a few controlled sample movements and return are manageable; no fixed kg/sex/age table or maximal/fatigue test. These few samples are an editorial teaching limit, not a prescribed workout dose. If motion requires momentum, breath holding, changing grip under load or a difficult return, set it down by the taught route while control remains, and choose lighter or unloaded after review. Do not test a heavier implement just because a few repetitions were completed. An unavailable smaller increment means no increase.\n\nEvery lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+              "tr": "Kabul edilmiş v4 ekipman/alan/menteşe/dirsek/durma derslerini ve mevcut cal-03 nefes, cal-04 gerçek hazırlık, cal-09 menteşe derslerini kullan. Önce adımları boş elle öğren; ilk yüklü uygulama yetkin koçluk ve aşağıdaki adımları gösteren özgün, incelenmiş gösterim gerektirir. Gösterim yazılı protokolü açıklar; eksik öğretimin yerine geçmez. Eğitmen/gösterim yoksa yalnız yazılı öğrenme ve yüksüz prova yapılır; bu yüklü dalı tamamlamaz. Nefes tutulmadan doğal nefes sürer. Koçlukla rahat hazırlık yazılı plandan ayrıdır; ayakta yürüyüş, ayakta adımlama, oturarak adımlama farklı seçeneklerdir. Hazırlık tek başına hazır oluş oluşturmaz.\n\nSağlam, düz tabanlı hafif KB ve tutacağı açık, sabit başlıklı, yuvarlanmayan hafif DB kullan. DB rahat bel yüksekliğinde, amaca uygun ağırlık rafı/yuvasından başlar; başlıklar tamamen desteklenir, tutacağa başka ağırlıkların üzerinden uzanmadan erişilir. Raf üreticisinin kurallarına göre DB'nin boyut/ağırlığını kabul etmeli, kullanımda oynamamalıdır. Masa, sandalye, kitap yığını, yuvarlanan ayarlanabilir DB veya doğaçlama yükselti alternatif değildir. Raf/tutuş geometrisi bu koşullara uymuyorsa yüklü DB görevi atanmaz. Açık kaymayan zemin, tutunan ayakkabı ve tüm dönüşe yeterli alan gerekir. KB dersinden DB'yi zeminden alma izni çıkarma.\n\nEğitmen ilk yükü alma, birkaç kontrollü örnek hareket ve dönüş yönetilebilir olacak kadar kolay seçer; sabit kg/cinsiyet/yaş tablosu veya maksimum/tükenme testi yoktur. Az sayıdaki örnek editoryal öğretim sınırıdır, antrenman dozu değildir. Hareket ivme, nefes tutma, yük altındayken tutuş değiştirme veya zor dönüş gerektiriyorsa kontrol sürerken öğretilen yoldan bırak; değerlendirmeden sonra hafif/yüksüz seç. Birkaç tekrar tamamlandı diye ağır ekipmanı sınama. Küçük artış yoksa yük artmaz.\n\nHer ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+            },
+            {
+              "en": "Progress here records written learning only; it does not authorize loaded practice.",
+              "tr": "Buradaki ilerleme yalnız yazılı öğrenmeyi kaydeder; yüklü uygulama izni vermez."
+            }
+          ],
+          "practice": {
+            "en": "Answer the independent task in these steps without notes. Rehearse empty-handed only when symptom-free; loaded observation belongs to a competent coach.",
+            "tr": "Bu adımlardaki bağımsız görevi notsuz yanıtla. Yalnız belirtisizken boş elle prova yap; yüklü gözlem yetkin antrenöre aittir."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain start, early finish and return?",
+              "tr": "Başlangıç, erken bitiş ve dönüşü açıklayabiliyor muyum?"
+            },
+            {
+              "en": "Can I name the first reason to reject this load or setup?",
+              "tr": "Bu yükü veya kurulumu reddetmenin ilk nedenini adlandırabiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read and explain only; keep physical rehearsal unloaded without coaching.",
+            "tr": "Yalnız oku ve açıkla; koçluk yoksa fiziksel prova yüksüz kalsın."
+          },
+          "stop": {
+            "en": "Every lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+            "tr": "Her ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+          },
+          "recall": {
+            "en": "Without notes, solve the independent task and identify one stop condition.",
+            "tr": "Notsuz bağımsız görevi çöz ve bir durma koşulu belirt."
+          },
+          "correction": {
+            "en": "Use the targeted correction/retest in the learning steps. Symptom retesting is excluded; answer again before comparing.",
+            "tr": "Öğrenme adımlarındaki hedefli düzeltme/yeniden denemeyi kullan. Belirtiyi yeniden sınama; karşılaştırmadan önce yeniden yanıtla."
+          },
+          "answer": {
+            "en": "A: return/control is part of selecting load",
+            "tr": "dönüş/kontrol yük seçiminin parçasıdır."
+          },
+          "sourceIds": [
+            "S1"
+          ],
+          "prerequisites": [
+            "dbkbh-scope"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "No accepted demonstration is packaged. First loaded practice requires original reviewed equipment-specific demonstration and coaching; text does not validate form.",
+            "tr": "Kabul edilmiş gösterim pakette yoktur. İlk yüklü uygulama özgün, incelenmiş ekipmana özgü gösterim ve koçluk gerektirir; metin formu doğrulamaz."
+          }
+        },
+        {
+          "id": "dbkbh-bkb",
+          "title": {
+            "en": "two hands, flat floor",
+            "tr": "iki el, düz zemin"
+          },
+          "objective": {
+            "en": "Reconstruct this exact variant and its limits.",
+            "tr": "Bu kesin varyantı ve sınırlarını yeniden kur."
+          },
+          "steps": [
+            {
+              "en": "1. Place the flat KB base on a clear nonslip floor in front of you, centered relative to your stance. Stand with feet comfortably about shoulder width, toes slightly outward if comfortable, and the handle close enough to reach without stretching forward. Feet stay out of the base's landing area.\n2. Move hips back and bend knees enough to reach the handle while keeping the learned neutral trunk shape; head follows the trunk rather than craning upward. If you cannot reach without rounding, twisting or losing balance, do not lift; choose unloaded hinge. Do not raise the bell on books.\n3. Put both hands beside each other around the top handle, fingers curling underneath and thumbs wrapping to close the grips; hands must fit without forcing fingers against one another or pinching against the bell body. Keep wrists aligned with forearms. If this handle cannot accommodate both closed hands, this variant is unavailable—do not use fingertips, the bell body or one hand instead.\n4. Keep arms long and the bell close to the body as you extend hips and knees together to stand. Do not curl, yank or swing the KB; stop upright rather than leaning back. Hold still briefly with natural breathing.\n5. To finish while control remains, keep both grips closed and reverse: hips back, knees bend, arms stay long; lower the flat base to the original clear landing area without stepping or twisting. Both hands remain on the handle until the base is fully resting and stable, then uncurl fingers and lift hands clear. Hands never go beneath the base. Stand up empty-handed using the same hinge/knee return.\n\n\nstable start, continuous closed grip, no swing, stable base before release\n\nidentify why “release the handle before the base lands” is wrong\n\nrehearse the final contact-and-release sequence empty-handed, then explain it; light recheck only without symptoms and with observation",
+              "tr": "1. KB'nin düz tabanını önündeki açık kaymayan zemine, duruşuna göre ortalanmış koy. Ayaklar rahatça yaklaşık omuz genişliğinde, rahatsa parmaklar hafif dışa dönük; tutacağa öne uzanmak zorunda kalmadan erişilecek kadar yakın dur. Ayaklar tabanın ineceği yerin dışında kalır.\n2. Kalçayı geri götür, öğrenilen nötr gövde biçimini koruyarak tutacağa erişecek kadar diz bük; baş yukarı uzanmak yerine gövdeyi izler. Yuvarlanma, dönme veya denge kaybı olmadan erişemiyorsan kaldırma; yüksüz menteşe seç. KB'yi kitaplarla yükseltme.\n3. İki eli üst tutacakta yan yana yerleştir; parmaklar altını sarar, başparmaklar tutuşu kapatır. Eller birbirine zorlanmadan veya KB gövdesine sıkışmadan sığmalıdır. Bilekler önkollarla hizalıdır. İki kapalı el bu tutacağa sığmıyorsa seçenek kullanılamaz; parmak ucu, KB gövdesi veya tek el kullanma.\n4. Kalça/dizleri birlikte açarak doğrulurken kollar uzun, KB bedene yakın kalsın. Curl, ani çekme veya sallama yapma; geriye yaslanmadan dik duruşta bitir. Doğal nefesle kısa süre sabit kal.\n5. Kontrol sürerken bitirmek için iki tutuş kapalıyken sırayı tersine çevir: kalça geri, dizler bükülür, kollar uzun; adımlamadan veya dönmeden düz tabanı ilk açık iniş yerine indir. Taban tamamen zemine oturup sabitlenene dek iki el tutacakta kalır; sonra parmakları aç, elleri uzaklaştır. Eller tabanın altına girmez. Aynı kalça/diz dönüşüyle boş elle doğrul.\n\n\nsabit başlangıç, kesintisiz kapalı tutuş, sallama yok, tutuş açılmadan sabit taban.\n\n“taban inmeden tutuşu bırak” neden yanlıştır?\n\nson temas–bırakma sırasını boş elle prova et, açıkla; hafif tekrar yalnız belirtisiz ve gözlenen koşulda."
+            },
+            {
+              "en": "Use accepted v4 equipment/space/hinge/elbow/stop lessons and existing cal-03 breathing, cal-04 actual preparation and cal-09 hinge. Learn steps with empty hands first; new loaded practice initially requires competent coaching and an original reviewed demonstration of the steps below. Demonstration must illustrate the written protocol, not replace absent instructions. No instructor/demonstration means written learning and unloaded rehearsal only; that does not complete the loaded branch. Natural breathing continues without breath holding. A coached comfortable preparation is separate from written planning; standing walking, standing stepping and seated stepping are different options. Preparation alone does not establish readiness.\n\nUse an intact, flat-based light KB and a fixed-head, nonrolling light DB with an unobstructed handle. The DB starts on a purpose-made weight rack/cradle at comfortable waist height, with its heads fully supported and handle accessible without reaching over other weights. It must accept the specific DB size/mass under its manufacturer's rules and not move during use. No table, chair, book stack, rolling adjustable DB or improvised riser substitutes. If the rack/grip geometry does not match these conditions, no DB loaded task is assigned. Clear nonslip floor, footwear with traction and room for the full return are required. Do not assume floor pickup of the DB from the KB lesson.\n\nAn instructor initially chooses an easy implement whose pickup, a few controlled sample movements and return are manageable; no fixed kg/sex/age table or maximal/fatigue test. These few samples are an editorial teaching limit, not a prescribed workout dose. If motion requires momentum, breath holding, changing grip under load or a difficult return, set it down by the taught route while control remains, and choose lighter or unloaded after review. Do not test a heavier implement just because a few repetitions were completed. An unavailable smaller increment means no increase.\n\nEvery lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+              "tr": "Kabul edilmiş v4 ekipman/alan/menteşe/dirsek/durma derslerini ve mevcut cal-03 nefes, cal-04 gerçek hazırlık, cal-09 menteşe derslerini kullan. Önce adımları boş elle öğren; ilk yüklü uygulama yetkin koçluk ve aşağıdaki adımları gösteren özgün, incelenmiş gösterim gerektirir. Gösterim yazılı protokolü açıklar; eksik öğretimin yerine geçmez. Eğitmen/gösterim yoksa yalnız yazılı öğrenme ve yüksüz prova yapılır; bu yüklü dalı tamamlamaz. Nefes tutulmadan doğal nefes sürer. Koçlukla rahat hazırlık yazılı plandan ayrıdır; ayakta yürüyüş, ayakta adımlama, oturarak adımlama farklı seçeneklerdir. Hazırlık tek başına hazır oluş oluşturmaz.\n\nSağlam, düz tabanlı hafif KB ve tutacağı açık, sabit başlıklı, yuvarlanmayan hafif DB kullan. DB rahat bel yüksekliğinde, amaca uygun ağırlık rafı/yuvasından başlar; başlıklar tamamen desteklenir, tutacağa başka ağırlıkların üzerinden uzanmadan erişilir. Raf üreticisinin kurallarına göre DB'nin boyut/ağırlığını kabul etmeli, kullanımda oynamamalıdır. Masa, sandalye, kitap yığını, yuvarlanan ayarlanabilir DB veya doğaçlama yükselti alternatif değildir. Raf/tutuş geometrisi bu koşullara uymuyorsa yüklü DB görevi atanmaz. Açık kaymayan zemin, tutunan ayakkabı ve tüm dönüşe yeterli alan gerekir. KB dersinden DB'yi zeminden alma izni çıkarma.\n\nEğitmen ilk yükü alma, birkaç kontrollü örnek hareket ve dönüş yönetilebilir olacak kadar kolay seçer; sabit kg/cinsiyet/yaş tablosu veya maksimum/tükenme testi yoktur. Az sayıdaki örnek editoryal öğretim sınırıdır, antrenman dozu değildir. Hareket ivme, nefes tutma, yük altındayken tutuş değiştirme veya zor dönüş gerektiriyorsa kontrol sürerken öğretilen yoldan bırak; değerlendirmeden sonra hafif/yüksüz seç. Birkaç tekrar tamamlandı diye ağır ekipmanı sınama. Küçük artış yoksa yük artmaz.\n\nHer ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+            },
+            {
+              "en": "Progress here records written learning only; it does not authorize loaded practice.",
+              "tr": "Buradaki ilerleme yalnız yazılı öğrenmeyi kaydeder; yüklü uygulama izni vermez."
+            }
+          ],
+          "practice": {
+            "en": "Answer the independent task in these steps without notes. Rehearse empty-handed only when symptom-free; loaded observation belongs to a competent coach.",
+            "tr": "Bu adımlardaki bağımsız görevi notsuz yanıtla. Yalnız belirtisizken boş elle prova yap; yüklü gözlem yetkin antrenöre aittir."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain start, early finish and return?",
+              "tr": "Başlangıç, erken bitiş ve dönüşü açıklayabiliyor muyum?"
+            },
+            {
+              "en": "Can I name the first reason to reject this load or setup?",
+              "tr": "Bu yükü veya kurulumu reddetmenin ilk nedenini adlandırabiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read and explain only; keep physical rehearsal unloaded without coaching.",
+            "tr": "Yalnız oku ve açıkla; koçluk yoksa fiziksel prova yüksüz kalsın."
+          },
+          "stop": {
+            "en": "Every lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+            "tr": "Her ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+          },
+          "recall": {
+            "en": "Without notes, solve the independent task and identify one stop condition.",
+            "tr": "Notsuz bağımsız görevi çöz ve bir durma koşulu belirt."
+          },
+          "correction": {
+            "en": "Use the targeted correction/retest in the learning steps. Symptom retesting is excluded; answer again before comparing.",
+            "tr": "Öğrenme adımlarındaki hedefli düzeltme/yeniden denemeyi kullan. Belirtiyi yeniden sınama; karşılaştırmadan önce yeniden yanıtla."
+          },
+          "answer": {
+            "en": "B: support must be stable before releasing; sides switch through complete placement/regrip",
+            "tr": "tutuş bırakılmadan destek sabitlenir; taraf değiştirme tam bırakma/yeniden kavramayla olur."
+          },
+          "sourceIds": [
+            "S2",
+            "S3",
+            "S1"
+          ],
+          "prerequisites": [
+            "dbkbh-a"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "No accepted demonstration is packaged. First loaded practice requires original reviewed equipment-specific demonstration and coaching; text does not validate form.",
+            "tr": "Kabul edilmiş gösterim pakette yoktur. İlk yüklü uygulama özgün, incelenmiş ekipmana özgü gösterim ve koçluk gerektirir; metin formu doğrulamaz."
+          }
+        },
+        {
+          "id": "dbkbh-bdb",
+          "title": {
+            "en": "one fixed DB, waist-height dedicated cradle",
+            "tr": "tek sabit DB, bel yüksekliğinde özel yuva"
+          },
+          "objective": {
+            "en": "Reconstruct this exact variant and its limits.",
+            "tr": "Bu kesin varyantı ve sınırlarını yeniden kur."
+          },
+          "steps": [
+            {
+              "en": "1. The DB rests horizontally with both nonrolling heads supported in its purpose-made cradle, handle free, its axis running left–right with the two heads at its left and right ends. The initial working palm faces down over the center handle. Face the rack, feet comfortably apart on clear floor; stand close enough to reach without trunk twisting, tiptoeing or reaching over other weights. Your return space stays empty. This lesson does not load a DB from the floor.\n2. With the working hand, grasp the center handle using a closed grip: fingers around the handle and thumb around the opposite side, wrist in line with the forearm. Do not grip a head or put fingers beneath a head. If the handle cannot be reached or fully enclosed, do not lift.\n3. Lift only enough to clear the cradle, keep the DB close, and bring the working arm down until the DB hangs beside that thigh, with the palm facing the thigh and the heads aligned front–back. Remain facing the rack with knees softly unlocked. Do not twist, switch hands in midair, lift toward the chest or raise over the head. The other hand stays away from the DB's head/landing zone.\n4. For a controlled early finish from curl/row, first return to the straight hanging-arm position described in D/E, then stand upright if hinged. Keep the grip closed and wrist aligned with the forearm. After a curl, turn the forearm until the palm faces the thigh again. Bend the elbow enough to bring the handle back to the original waist-height cradle without trunk swing; rotate the forearm with the closed grip and neutral wrist until the palm faces down and the heads regain their original left–right rack alignment before lowering onto both supports. If the cradle requires changing the grip, wrist bending or straining to restore this orientation, do not select this loaded variant at the initial equipment check. Move the DB horizontally into its supported position; fingers remain on the central handle, clear of cradle/head contacts.\n5. Lower until both heads are fully supported and the DB is stable; only then release the closed grip and move the hand clear. To work the other side, put the DB down completely first, then repeat steps 1–3 with the other hand. Do not pass it across the body under load.\n\n\nheads clear the cradle without collision; wrist/grip remain stable; both heads rest before release\n\nwhy is switching sides by placing and regripping different from an airborne handoff?\n\nrepeat the rack-fit and hand-clearance explanation; if return requires swinging, use a lighter DB or stay unloaded, never add a floor drop",
+              "tr": "1. DB amaca uygun yuvasında yatay durur; yuvarlanmayan iki başlık desteklenir, tutacak açıktır ve ekseni soldan sağa uzanır; iki başlık sol ve sağ uçtadır. Başlangıçta çalışan avuç orta tutacağın üzerinde aşağı bakar. Rafa dönük, açık zeminde rahat ayrılmış ayaklarla dur; gövdeyi döndürmeden, parmak ucuna çıkmadan veya başka ağırlıklar üzerinden uzanmadan erişecek kadar yakın ol. Dönüş alanı boş kalır. Bu derste DB zeminden alınmaz.\n2. Çalışan elle ortadaki tutacağı kapalı kavra: parmaklar tutacağı sarar, başparmak karşı tarafı kapatır; bilek önkolla hizalıdır. Başlığı kavrama, parmakları başlık altına koyma. Tutacağa erişemiyor veya tam saramıyorsan kaldırma.\n3. Yalnız yuvadan çıkacak kadar kaldır, DB'yi yakın tut, çalışan kolu DB o uyluğun yanında asılana dek indir; avuç uyluğa, başlıklar öne ve arkaya yönelir. Rafa dönük kal, dizleri yumuşak tut. Dönme, havada el değiştirme, göğse alma veya baş üstüne kaldırma yapma. Diğer el başlık/iniş alanından uzakta kalır.\n4. Curl/row'da kontrollü erken bitiş için önce D/E'deki düz asılı kol konumuna dön, menteşedeysen sonra doğrul. Tutuş kapalı, bilek önkolla hizalı kalsın. Curl sonrası önkolu avuç yeniden uyluğa bakana dek çevir. Gövdeyi sallamadan tutacağı ilk bel yüksekliğindeki yuvaya getirecek kadar dirsek bük; kapalı tutuş ve nötr bilekle önkolu çevirerek avucu aşağı, başlıkları ilk sol–sağ raf hizasına getir; ancak sonra iki desteğin üzerine indir. Yuva bu yönelime dönmek için tutuş değiştirme, bileği bükme veya zorlanma gerektiriyorsa başlangıç ekipman kontrolünde bu yüklü varyantı seçme. DB'yi yatay olarak desteklenen konuma götür; parmaklar orta tutacakta, yuva/başlık temaslarından uzakta kalır.\n5. İki başlık tamamen desteklenip DB sabitlenene dek indir; ancak sonra kapalı tutuşu bırak, eli uzaklaştır. Diğer taraf için önce DB'yi tamamen bırak, 1–3'ü diğer elle yinele. Yüklüyken beden önünden elden ele geçirme.\n\n\nbaşlıklar çarpmadan yuvadan çıkar; bilek/tutuş sabit; bırakmadan iki başlık desteklenir.\n\nneden bırakıp yeniden kavramak havada el değiştirmekten farklıdır?\n\nraf uyumu ve el açıklığını yeniden anlat; dönüş sallama gerektiriyorsa hafif DB/yüksüz seçenek kullan, zemine düşürme ekleme."
+            },
+            {
+              "en": "Use accepted v4 equipment/space/hinge/elbow/stop lessons and existing cal-03 breathing, cal-04 actual preparation and cal-09 hinge. Learn steps with empty hands first; new loaded practice initially requires competent coaching and an original reviewed demonstration of the steps below. Demonstration must illustrate the written protocol, not replace absent instructions. No instructor/demonstration means written learning and unloaded rehearsal only; that does not complete the loaded branch. Natural breathing continues without breath holding. A coached comfortable preparation is separate from written planning; standing walking, standing stepping and seated stepping are different options. Preparation alone does not establish readiness.\n\nUse an intact, flat-based light KB and a fixed-head, nonrolling light DB with an unobstructed handle. The DB starts on a purpose-made weight rack/cradle at comfortable waist height, with its heads fully supported and handle accessible without reaching over other weights. It must accept the specific DB size/mass under its manufacturer's rules and not move during use. No table, chair, book stack, rolling adjustable DB or improvised riser substitutes. If the rack/grip geometry does not match these conditions, no DB loaded task is assigned. Clear nonslip floor, footwear with traction and room for the full return are required. Do not assume floor pickup of the DB from the KB lesson.\n\nAn instructor initially chooses an easy implement whose pickup, a few controlled sample movements and return are manageable; no fixed kg/sex/age table or maximal/fatigue test. These few samples are an editorial teaching limit, not a prescribed workout dose. If motion requires momentum, breath holding, changing grip under load or a difficult return, set it down by the taught route while control remains, and choose lighter or unloaded after review. Do not test a heavier implement just because a few repetitions were completed. An unavailable smaller increment means no increase.\n\nEvery lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+              "tr": "Kabul edilmiş v4 ekipman/alan/menteşe/dirsek/durma derslerini ve mevcut cal-03 nefes, cal-04 gerçek hazırlık, cal-09 menteşe derslerini kullan. Önce adımları boş elle öğren; ilk yüklü uygulama yetkin koçluk ve aşağıdaki adımları gösteren özgün, incelenmiş gösterim gerektirir. Gösterim yazılı protokolü açıklar; eksik öğretimin yerine geçmez. Eğitmen/gösterim yoksa yalnız yazılı öğrenme ve yüksüz prova yapılır; bu yüklü dalı tamamlamaz. Nefes tutulmadan doğal nefes sürer. Koçlukla rahat hazırlık yazılı plandan ayrıdır; ayakta yürüyüş, ayakta adımlama, oturarak adımlama farklı seçeneklerdir. Hazırlık tek başına hazır oluş oluşturmaz.\n\nSağlam, düz tabanlı hafif KB ve tutacağı açık, sabit başlıklı, yuvarlanmayan hafif DB kullan. DB rahat bel yüksekliğinde, amaca uygun ağırlık rafı/yuvasından başlar; başlıklar tamamen desteklenir, tutacağa başka ağırlıkların üzerinden uzanmadan erişilir. Raf üreticisinin kurallarına göre DB'nin boyut/ağırlığını kabul etmeli, kullanımda oynamamalıdır. Masa, sandalye, kitap yığını, yuvarlanan ayarlanabilir DB veya doğaçlama yükselti alternatif değildir. Raf/tutuş geometrisi bu koşullara uymuyorsa yüklü DB görevi atanmaz. Açık kaymayan zemin, tutunan ayakkabı ve tüm dönüşe yeterli alan gerekir. KB dersinden DB'yi zeminden alma izni çıkarma.\n\nEğitmen ilk yükü alma, birkaç kontrollü örnek hareket ve dönüş yönetilebilir olacak kadar kolay seçer; sabit kg/cinsiyet/yaş tablosu veya maksimum/tükenme testi yoktur. Az sayıdaki örnek editoryal öğretim sınırıdır, antrenman dozu değildir. Hareket ivme, nefes tutma, yük altındayken tutuş değiştirme veya zor dönüş gerektiriyorsa kontrol sürerken öğretilen yoldan bırak; değerlendirmeden sonra hafif/yüksüz seç. Birkaç tekrar tamamlandı diye ağır ekipmanı sınama. Küçük artış yoksa yük artmaz.\n\nHer ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+            },
+            {
+              "en": "Progress here records written learning only; it does not authorize loaded practice.",
+              "tr": "Buradaki ilerleme yalnız yazılı öğrenmeyi kaydeder; yüklü uygulama izni vermez."
+            }
+          ],
+          "practice": {
+            "en": "Answer the independent task in these steps without notes. Rehearse empty-handed only when symptom-free; loaded observation belongs to a competent coach.",
+            "tr": "Bu adımlardaki bağımsız görevi notsuz yanıtla. Yalnız belirtisizken boş elle prova yap; yüklü gözlem yetkin antrenöre aittir."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain start, early finish and return?",
+              "tr": "Başlangıç, erken bitiş ve dönüşü açıklayabiliyor muyum?"
+            },
+            {
+              "en": "Can I name the first reason to reject this load or setup?",
+              "tr": "Bu yükü veya kurulumu reddetmenin ilk nedenini adlandırabiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read and explain only; keep physical rehearsal unloaded without coaching.",
+            "tr": "Yalnız oku ve açıkla; koçluk yoksa fiziksel prova yüksüz kalsın."
+          },
+          "stop": {
+            "en": "Every lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+            "tr": "Her ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+          },
+          "recall": {
+            "en": "Without notes, solve the independent task and identify one stop condition.",
+            "tr": "Notsuz bağımsız görevi çöz ve bir durma koşulu belirt."
+          },
+          "correction": {
+            "en": "Use the targeted correction/retest in the learning steps. Symptom retesting is excluded; answer again before comparing.",
+            "tr": "Öğrenme adımlarındaki hedefli düzeltme/yeniden denemeyi kullan. Belirtiyi yeniden sınama; karşılaştırmadan önce yeniden yanıtla."
+          },
+          "answer": {
+            "en": "B: support must be stable before releasing; sides switch through complete placement/regrip",
+            "tr": "tutuş bırakılmadan destek sabitlenir; taraf değiştirme tam bırakma/yeniden kavramayla olur."
+          },
+          "sourceIds": [
+            "S1",
+            "S9"
+          ],
+          "prerequisites": [
+            "dbkbh-bkb"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "No accepted demonstration is packaged. First loaded practice requires original reviewed equipment-specific demonstration and coaching; text does not validate form.",
+            "tr": "Kabul edilmiş gösterim pakette yoktur. İlk yüklü uygulama özgün, incelenmiş ekipmana özgü gösterim ve koçluk gerektirir; metin formu doğrulamaz."
+          }
+        },
+        {
+          "id": "dbkbh-c",
+          "title": {
+            "en": "KB deadlift from that exact floor start",
+            "tr": "Aynı zemin başlangıcından KB deadlift"
+          },
+          "objective": {
+            "en": "Reconstruct this exact variant and its limits.",
+            "tr": "Bu kesin varyantı ve sınırlarını yeniden kur."
+          },
+          "steps": [
+            {
+              "en": "Prerequisite B-KB and unloaded hinge. Perform B-KB steps 1–4. For each learning sample, use only the lowering part of B-KB step 5 to lower the base fully to the floor while retaining the handle; pause with the base fully supported without releasing either hand, then stand again using step 4. Do not bounce off the floor or move through a fast arc. For the final or early finish, complete all of step 5 including release and empty-handed standing. If control of reach/trunk changes, choose unloaded hinge rather than a deeper reach or improvised raised bell. Observe base contact, straight arms and no backward lean. Independent task: explain the difference between a floor-supported pause and a swing through the legs. Correction/retest: remove load, rehearse the first deviation only; an observed symptom-free light recheck follows. S2/S3; explicit pause/finish sequencing is original.",
+              "tr": "Önkoşul B-KB ve yüksüz menteşe. B-KB 1–4'ü yap. Her öğrenme örneğinde tutacak tutulurken B-KB 5’in yalnız indirme bölümünü kullanarak tabanı tamamen zemine indir; iki eli de bırakmadan taban tamamen destekliyken durakla, sonra 4 ile yeniden doğrul. Zeminden sekme veya hızlı yay yapma. Son/erken bitişte bırakma ve boş elle doğrulma dahil 5'i tamamla. Erişim/gövde kontrolü değişirse derin uzanma veya doğaçlama yükseltilmiş KB yerine yüksüz menteşe seç. Taban temasını, düz kolları, geriye yaslanmamayı gözle. Bağımsız görev: zeminde destekli duraklama ile bacak arasından swing farkını anlat. Düzelt/yeniden değerlendir: yükü çıkar, yalnız ilk sapmayı prova et; gözlenen belirtisiz hafif tekrar izler. S2/S3; açık duraklama/bitiş sırası özgündür."
+            },
+            {
+              "en": "Use accepted v4 equipment/space/hinge/elbow/stop lessons and existing cal-03 breathing, cal-04 actual preparation and cal-09 hinge. Learn steps with empty hands first; new loaded practice initially requires competent coaching and an original reviewed demonstration of the steps below. Demonstration must illustrate the written protocol, not replace absent instructions. No instructor/demonstration means written learning and unloaded rehearsal only; that does not complete the loaded branch. Natural breathing continues without breath holding. A coached comfortable preparation is separate from written planning; standing walking, standing stepping and seated stepping are different options. Preparation alone does not establish readiness.\n\nUse an intact, flat-based light KB and a fixed-head, nonrolling light DB with an unobstructed handle. The DB starts on a purpose-made weight rack/cradle at comfortable waist height, with its heads fully supported and handle accessible without reaching over other weights. It must accept the specific DB size/mass under its manufacturer's rules and not move during use. No table, chair, book stack, rolling adjustable DB or improvised riser substitutes. If the rack/grip geometry does not match these conditions, no DB loaded task is assigned. Clear nonslip floor, footwear with traction and room for the full return are required. Do not assume floor pickup of the DB from the KB lesson.\n\nAn instructor initially chooses an easy implement whose pickup, a few controlled sample movements and return are manageable; no fixed kg/sex/age table or maximal/fatigue test. These few samples are an editorial teaching limit, not a prescribed workout dose. If motion requires momentum, breath holding, changing grip under load or a difficult return, set it down by the taught route while control remains, and choose lighter or unloaded after review. Do not test a heavier implement just because a few repetitions were completed. An unavailable smaller increment means no increase.\n\nEvery lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+              "tr": "Kabul edilmiş v4 ekipman/alan/menteşe/dirsek/durma derslerini ve mevcut cal-03 nefes, cal-04 gerçek hazırlık, cal-09 menteşe derslerini kullan. Önce adımları boş elle öğren; ilk yüklü uygulama yetkin koçluk ve aşağıdaki adımları gösteren özgün, incelenmiş gösterim gerektirir. Gösterim yazılı protokolü açıklar; eksik öğretimin yerine geçmez. Eğitmen/gösterim yoksa yalnız yazılı öğrenme ve yüksüz prova yapılır; bu yüklü dalı tamamlamaz. Nefes tutulmadan doğal nefes sürer. Koçlukla rahat hazırlık yazılı plandan ayrıdır; ayakta yürüyüş, ayakta adımlama, oturarak adımlama farklı seçeneklerdir. Hazırlık tek başına hazır oluş oluşturmaz.\n\nSağlam, düz tabanlı hafif KB ve tutacağı açık, sabit başlıklı, yuvarlanmayan hafif DB kullan. DB rahat bel yüksekliğinde, amaca uygun ağırlık rafı/yuvasından başlar; başlıklar tamamen desteklenir, tutacağa başka ağırlıkların üzerinden uzanmadan erişilir. Raf üreticisinin kurallarına göre DB'nin boyut/ağırlığını kabul etmeli, kullanımda oynamamalıdır. Masa, sandalye, kitap yığını, yuvarlanan ayarlanabilir DB veya doğaçlama yükselti alternatif değildir. Raf/tutuş geometrisi bu koşullara uymuyorsa yüklü DB görevi atanmaz. Açık kaymayan zemin, tutunan ayakkabı ve tüm dönüşe yeterli alan gerekir. KB dersinden DB'yi zeminden alma izni çıkarma.\n\nEğitmen ilk yükü alma, birkaç kontrollü örnek hareket ve dönüş yönetilebilir olacak kadar kolay seçer; sabit kg/cinsiyet/yaş tablosu veya maksimum/tükenme testi yoktur. Az sayıdaki örnek editoryal öğretim sınırıdır, antrenman dozu değildir. Hareket ivme, nefes tutma, yük altındayken tutuş değiştirme veya zor dönüş gerektiriyorsa kontrol sürerken öğretilen yoldan bırak; değerlendirmeden sonra hafif/yüksüz seç. Birkaç tekrar tamamlandı diye ağır ekipmanı sınama. Küçük artış yoksa yük artmaz.\n\nHer ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+            },
+            {
+              "en": "Progress here records written learning only; it does not authorize loaded practice.",
+              "tr": "Buradaki ilerleme yalnız yazılı öğrenmeyi kaydeder; yüklü uygulama izni vermez."
+            }
+          ],
+          "practice": {
+            "en": "Answer the independent task in these steps without notes. Rehearse empty-handed only when symptom-free; loaded observation belongs to a competent coach.",
+            "tr": "Bu adımlardaki bağımsız görevi notsuz yanıtla. Yalnız belirtisizken boş elle prova yap; yüklü gözlem yetkin antrenöre aittir."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain start, early finish and return?",
+              "tr": "Başlangıç, erken bitiş ve dönüşü açıklayabiliyor muyum?"
+            },
+            {
+              "en": "Can I name the first reason to reject this load or setup?",
+              "tr": "Bu yükü veya kurulumu reddetmenin ilk nedenini adlandırabiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read and explain only; keep physical rehearsal unloaded without coaching.",
+            "tr": "Yalnız oku ve açıkla; koçluk yoksa fiziksel prova yüksüz kalsın."
+          },
+          "stop": {
+            "en": "Every lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+            "tr": "Her ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+          },
+          "recall": {
+            "en": "Without notes, solve the independent task and identify one stop condition.",
+            "tr": "Notsuz bağımsız görevi çöz ve bir durma koşulu belirt."
+          },
+          "correction": {
+            "en": "Use the targeted correction/retest in the learning steps. Symptom retesting is excluded; answer again before comparing.",
+            "tr": "Öğrenme adımlarındaki hedefli düzeltme/yeniden denemeyi kullan. Belirtiyi yeniden sınama; karşılaştırmadan önce yeniden yanıtla."
+          },
+          "answer": {
+            "en": "C: supported floor pause is not a ballistic arc",
+            "tr": "destekli zemin duraklaması balistik yay değildir."
+          },
+          "sourceIds": [
+            "S2",
+            "S3"
+          ],
+          "prerequisites": [
+            "dbkbh-bdb"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "No accepted demonstration is packaged. First loaded practice requires original reviewed equipment-specific demonstration and coaching; text does not validate form.",
+            "tr": "Kabul edilmiş gösterim pakette yoktur. İlk yüklü uygulama özgün, incelenmiş ekipmana özgü gösterim ve koçluk gerektirir; metin formu doğrulamaz."
+          }
+        },
+        {
+          "id": "dbkbh-d",
+          "title": {
+            "en": "Standing one-DB curl",
+            "tr": "Ayakta tek DB curl"
+          },
+          "objective": {
+            "en": "Reconstruct this exact variant and its limits.",
+            "tr": "Bu kesin varyantı ve sınırlarını yeniden kur."
+          },
+          "steps": [
+            {
+              "en": "Prerequisite B-DB, v4 unloaded elbow pattern. Pick up via B-DB 1–3; stand with trunk still, arm alongside the body. Turn the palm forward/up while holding the handle so the curl begins with the elbow near the ribs, wrist aligned. Bend the elbow to raise the DB without moving the upper arm forward or swinging the trunk; stop the ascent before wrist folding or shoulder lifting. Smoothly straighten the elbow to return beside the thigh, without snapping it into a hard lock. To finish early, lower the DB this way, then use B-DB 4–5; no chest lift or loaded sitting transition. Observe wrist, upper arm and return. Modification: lighter DB or empty hand; smaller comfortable elbow range only when symptom-free. Independent task: same DB height reached by trunk swing is not the selected curl—explain why. Correction/retest: one empty-hand wrist/upper-arm cue, then observed light check. S4; standing-only setup and finish are original narrowing.",
+              "tr": "Önkoşul B-DB, v4 yüksüz dirsek örüntüsü. B-DB 1–3 ile al; gövde sabit, kol beden yanında dur. Tutacak kavranırken avuç öne/yukarı bakacak şekilde çevir; dirsek kaburgaya yakın, bilek hizalı başlar. Üst kolu öne taşımadan veya gövdeyi sallamadan dirseği bükerek DB'yi yükselt; bilek katlanması/omuz yükselmesi başlamadan çıkışı bitir. Dirseği sert kilide vurmadan akıcı açıp uyluk yanına dön. Erken bitişte böyle indir, B-DB 4–5'i kullan; göğse alma veya yüklü oturma geçişi yok. Bileği, üst kolu ve dönüşü gözle. Kolaylaştırma: hafif DB/boş el; küçük rahat dirsek aralığı yalnız belirtisiz durumda. Bağımsız görev: gövde sallamayla aynı DB yüksekliği seçilen curl değildir—neden? Düzelt/yeniden değerlendir: boş elle tek bilek/üst kol ipucu, ardından gözlenen hafif kontrol. S4; yalnız ayakta başlangıç ve bitiş özgün daraltmadır."
+            },
+            {
+              "en": "Use accepted v4 equipment/space/hinge/elbow/stop lessons and existing cal-03 breathing, cal-04 actual preparation and cal-09 hinge. Learn steps with empty hands first; new loaded practice initially requires competent coaching and an original reviewed demonstration of the steps below. Demonstration must illustrate the written protocol, not replace absent instructions. No instructor/demonstration means written learning and unloaded rehearsal only; that does not complete the loaded branch. Natural breathing continues without breath holding. A coached comfortable preparation is separate from written planning; standing walking, standing stepping and seated stepping are different options. Preparation alone does not establish readiness.\n\nUse an intact, flat-based light KB and a fixed-head, nonrolling light DB with an unobstructed handle. The DB starts on a purpose-made weight rack/cradle at comfortable waist height, with its heads fully supported and handle accessible without reaching over other weights. It must accept the specific DB size/mass under its manufacturer's rules and not move during use. No table, chair, book stack, rolling adjustable DB or improvised riser substitutes. If the rack/grip geometry does not match these conditions, no DB loaded task is assigned. Clear nonslip floor, footwear with traction and room for the full return are required. Do not assume floor pickup of the DB from the KB lesson.\n\nAn instructor initially chooses an easy implement whose pickup, a few controlled sample movements and return are manageable; no fixed kg/sex/age table or maximal/fatigue test. These few samples are an editorial teaching limit, not a prescribed workout dose. If motion requires momentum, breath holding, changing grip under load or a difficult return, set it down by the taught route while control remains, and choose lighter or unloaded after review. Do not test a heavier implement just because a few repetitions were completed. An unavailable smaller increment means no increase.\n\nEvery lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+              "tr": "Kabul edilmiş v4 ekipman/alan/menteşe/dirsek/durma derslerini ve mevcut cal-03 nefes, cal-04 gerçek hazırlık, cal-09 menteşe derslerini kullan. Önce adımları boş elle öğren; ilk yüklü uygulama yetkin koçluk ve aşağıdaki adımları gösteren özgün, incelenmiş gösterim gerektirir. Gösterim yazılı protokolü açıklar; eksik öğretimin yerine geçmez. Eğitmen/gösterim yoksa yalnız yazılı öğrenme ve yüksüz prova yapılır; bu yüklü dalı tamamlamaz. Nefes tutulmadan doğal nefes sürer. Koçlukla rahat hazırlık yazılı plandan ayrıdır; ayakta yürüyüş, ayakta adımlama, oturarak adımlama farklı seçeneklerdir. Hazırlık tek başına hazır oluş oluşturmaz.\n\nSağlam, düz tabanlı hafif KB ve tutacağı açık, sabit başlıklı, yuvarlanmayan hafif DB kullan. DB rahat bel yüksekliğinde, amaca uygun ağırlık rafı/yuvasından başlar; başlıklar tamamen desteklenir, tutacağa başka ağırlıkların üzerinden uzanmadan erişilir. Raf üreticisinin kurallarına göre DB'nin boyut/ağırlığını kabul etmeli, kullanımda oynamamalıdır. Masa, sandalye, kitap yığını, yuvarlanan ayarlanabilir DB veya doğaçlama yükselti alternatif değildir. Raf/tutuş geometrisi bu koşullara uymuyorsa yüklü DB görevi atanmaz. Açık kaymayan zemin, tutunan ayakkabı ve tüm dönüşe yeterli alan gerekir. KB dersinden DB'yi zeminden alma izni çıkarma.\n\nEğitmen ilk yükü alma, birkaç kontrollü örnek hareket ve dönüş yönetilebilir olacak kadar kolay seçer; sabit kg/cinsiyet/yaş tablosu veya maksimum/tükenme testi yoktur. Az sayıdaki örnek editoryal öğretim sınırıdır, antrenman dozu değildir. Hareket ivme, nefes tutma, yük altındayken tutuş değiştirme veya zor dönüş gerektiriyorsa kontrol sürerken öğretilen yoldan bırak; değerlendirmeden sonra hafif/yüksüz seç. Birkaç tekrar tamamlandı diye ağır ekipmanı sınama. Küçük artış yoksa yük artmaz.\n\nHer ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+            },
+            {
+              "en": "Progress here records written learning only; it does not authorize loaded practice.",
+              "tr": "Buradaki ilerleme yalnız yazılı öğrenmeyi kaydeder; yüklü uygulama izni vermez."
+            }
+          ],
+          "practice": {
+            "en": "Answer the independent task in these steps without notes. Rehearse empty-handed only when symptom-free; loaded observation belongs to a competent coach.",
+            "tr": "Bu adımlardaki bağımsız görevi notsuz yanıtla. Yalnız belirtisizken boş elle prova yap; yüklü gözlem yetkin antrenöre aittir."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain start, early finish and return?",
+              "tr": "Başlangıç, erken bitiş ve dönüşü açıklayabiliyor muyum?"
+            },
+            {
+              "en": "Can I name the first reason to reject this load or setup?",
+              "tr": "Bu yükü veya kurulumu reddetmenin ilk nedenini adlandırabiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read and explain only; keep physical rehearsal unloaded without coaching.",
+            "tr": "Yalnız oku ve açıkla; koçluk yoksa fiziksel prova yüksüz kalsın."
+          },
+          "stop": {
+            "en": "Every lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+            "tr": "Her ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+          },
+          "recall": {
+            "en": "Without notes, solve the independent task and identify one stop condition.",
+            "tr": "Notsuz bağımsız görevi çöz ve bir durma koşulu belirt."
+          },
+          "correction": {
+            "en": "Use the targeted correction/retest in the learning steps. Symptom retesting is excluded; answer again before comparing.",
+            "tr": "Öğrenme adımlarındaki hedefli düzeltme/yeniden denemeyi kullan. Belirtiyi yeniden sınama; karşılaştırmadan önce yeniden yanıtla."
+          },
+          "answer": {
+            "en": "D: elbow flexion without body swing defines this curl",
+            "tr": "gövde sallanmadan dirsek bükme bu curl'ü tanımlar."
+          },
+          "sourceIds": [
+            "S4"
+          ],
+          "prerequisites": [
+            "dbkbh-c"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "No accepted demonstration is packaged. First loaded practice requires original reviewed equipment-specific demonstration and coaching; text does not validate form.",
+            "tr": "Kabul edilmiş gösterim pakette yoktur. İlk yüklü uygulama özgün, incelenmiş ekipmana özgü gösterim ve koçluk gerektirir; metin formu doğrulamaz."
+          }
+        },
+        {
+          "id": "dbkbh-e",
+          "title": {
+            "en": "Standing unilateral hinged DB row, neutral grip",
+            "tr": "Ayakta tek taraflı menteşeli DB row, nötr tutuş"
+          },
+          "objective": {
+            "en": "Reconstruct this exact variant and its limits.",
+            "tr": "Bu kesin varyantı ve sınırlarını yeniden kur."
+          },
+          "steps": [
+            {
+              "en": "Prerequisite B-DB and a maintained unloaded hinge. Before pickup, rehearse the entire hinge, row, upright return and rack replacement with empty hands; check clearance for the head, trunk and full DB path from the rack and every other weight. If adequate clearance is absent at the start, do not assign the row. Do not improvise a backward step while loaded to create space. Pick up via B-DB 1–3, with palm toward the thigh (neutral grip). Feet remain comfortably apart, knees slightly bent. Move hips back to lean the trunk forward without rounding; head/neck follow the trunk, shoulders remain level. Let the working arm hang below its shoulder, elbow extended without a forced lock, wrist aligned; the free hand remains empty, with no furniture support. Pull by bending the working elbow up/back beside the trunk. At the top, the elbow is just below shoulder level and the upper arm approximately along the trunk's line; do not keep pulling behind that line, roll the shoulder forward, raise the trunk or twist to gain height. Lower the DB until the arm hangs below the shoulder again, keeping the hinge. For early finish, complete that lowering, stand by extending hips/knees with the arm hanging, and return by B-DB 4–5. If the hinge cannot be maintained, select unloaded explanation; no chair-supported or KB replacement is taught. Observe start alignment, elbow endpoint and unchanged trunk. Independent task: identify the first wrong action in “twist—lift chest—pull higher.” Correction/retest: rehearse elbow path unloaded with trunk still; a lighter, symptom-free observed check is separate from answering. S5; precise neutral-grip unilateral selection and early-finish route are editorial clarification, not a new certified variation.",
+              "tr": "Önkoşul B-DB ve korunabilen yüksüz menteşe. Almadan önce tüm menteşe, row, doğrulma ve rafa bırakma yolunu boş elle prova et; başın, gövdenin ve DB’nin tüm hareket yolunun raf ve diğer ağırlıklardan açıklığını kontrol et. Başlangıçta yeterli açıklık yoksa row atama. Alan açmak için yüklüyken doğaçlama geri adım atma. B-DB 1–3 ile avuç uyluğa bakacak şekilde (nötr tutuş) al. Ayaklar rahat ayrık, dizler hafif bükülü kalır. Kalçayı geri götürerek gövdeyi yuvarlamadan öne eğ; baş/boyun gövdeyi izler, omuzlar aynı seviyede kalır. Çalışan kol omzunun altında asılır; dirsek zorlanmış kilit olmadan açık, bilek hizalıdır. Boş el mobilyaya dayanmaz. Çalışan dirseği gövde yanında yukarı/geriye bükerek çek. Üstte dirsek omuz seviyesinin biraz altındadır, üst kol yaklaşık gövde çizgisini izler; çizginin gerisine çekme, omzu öne düşürme, gövdeyi yükseltme veya daha yükseğe ulaşmak için dönme. Menteşeyi koruyarak DB'yi kol tekrar omuz altında asılana dek indir. Erken bitişte bu inişi tamamla; kol asılıyken kalça/dizleri açarak doğrul, B-DB 4–5 ile geri bırak. Menteşe korunamıyorsa yüksüz açıklama seç; sandalye desteği veya KB değişimi öğretilmez. Başlangıç hizasını, dirsek bitişini, değişmeyen gövdeyi gözle. Bağımsız görev: “dön—göğsü yükselt—daha yukarı çek” sırasındaki ilk yanlış eylemi bul. Düzelt/yeniden değerlendir: gövde sabitken dirsek yolunu yüksüz prova et; hafif, belirtisiz gözlenen kontrol yanıtlamadan ayrıdır. S5; kesin nötr tutuş/tek taraf seçimi ve erken dönüş editoryal açıklamadır, sertifikalı yeni seçenek değildir."
+            },
+            {
+              "en": "Use accepted v4 equipment/space/hinge/elbow/stop lessons and existing cal-03 breathing, cal-04 actual preparation and cal-09 hinge. Learn steps with empty hands first; new loaded practice initially requires competent coaching and an original reviewed demonstration of the steps below. Demonstration must illustrate the written protocol, not replace absent instructions. No instructor/demonstration means written learning and unloaded rehearsal only; that does not complete the loaded branch. Natural breathing continues without breath holding. A coached comfortable preparation is separate from written planning; standing walking, standing stepping and seated stepping are different options. Preparation alone does not establish readiness.\n\nUse an intact, flat-based light KB and a fixed-head, nonrolling light DB with an unobstructed handle. The DB starts on a purpose-made weight rack/cradle at comfortable waist height, with its heads fully supported and handle accessible without reaching over other weights. It must accept the specific DB size/mass under its manufacturer's rules and not move during use. No table, chair, book stack, rolling adjustable DB or improvised riser substitutes. If the rack/grip geometry does not match these conditions, no DB loaded task is assigned. Clear nonslip floor, footwear with traction and room for the full return are required. Do not assume floor pickup of the DB from the KB lesson.\n\nAn instructor initially chooses an easy implement whose pickup, a few controlled sample movements and return are manageable; no fixed kg/sex/age table or maximal/fatigue test. These few samples are an editorial teaching limit, not a prescribed workout dose. If motion requires momentum, breath holding, changing grip under load or a difficult return, set it down by the taught route while control remains, and choose lighter or unloaded after review. Do not test a heavier implement just because a few repetitions were completed. An unavailable smaller increment means no increase.\n\nEvery lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+              "tr": "Kabul edilmiş v4 ekipman/alan/menteşe/dirsek/durma derslerini ve mevcut cal-03 nefes, cal-04 gerçek hazırlık, cal-09 menteşe derslerini kullan. Önce adımları boş elle öğren; ilk yüklü uygulama yetkin koçluk ve aşağıdaki adımları gösteren özgün, incelenmiş gösterim gerektirir. Gösterim yazılı protokolü açıklar; eksik öğretimin yerine geçmez. Eğitmen/gösterim yoksa yalnız yazılı öğrenme ve yüksüz prova yapılır; bu yüklü dalı tamamlamaz. Nefes tutulmadan doğal nefes sürer. Koçlukla rahat hazırlık yazılı plandan ayrıdır; ayakta yürüyüş, ayakta adımlama, oturarak adımlama farklı seçeneklerdir. Hazırlık tek başına hazır oluş oluşturmaz.\n\nSağlam, düz tabanlı hafif KB ve tutacağı açık, sabit başlıklı, yuvarlanmayan hafif DB kullan. DB rahat bel yüksekliğinde, amaca uygun ağırlık rafı/yuvasından başlar; başlıklar tamamen desteklenir, tutacağa başka ağırlıkların üzerinden uzanmadan erişilir. Raf üreticisinin kurallarına göre DB'nin boyut/ağırlığını kabul etmeli, kullanımda oynamamalıdır. Masa, sandalye, kitap yığını, yuvarlanan ayarlanabilir DB veya doğaçlama yükselti alternatif değildir. Raf/tutuş geometrisi bu koşullara uymuyorsa yüklü DB görevi atanmaz. Açık kaymayan zemin, tutunan ayakkabı ve tüm dönüşe yeterli alan gerekir. KB dersinden DB'yi zeminden alma izni çıkarma.\n\nEğitmen ilk yükü alma, birkaç kontrollü örnek hareket ve dönüş yönetilebilir olacak kadar kolay seçer; sabit kg/cinsiyet/yaş tablosu veya maksimum/tükenme testi yoktur. Az sayıdaki örnek editoryal öğretim sınırıdır, antrenman dozu değildir. Hareket ivme, nefes tutma, yük altındayken tutuş değiştirme veya zor dönüş gerektiriyorsa kontrol sürerken öğretilen yoldan bırak; değerlendirmeden sonra hafif/yüksüz seç. Birkaç tekrar tamamlandı diye ağır ekipmanı sınama. Küçük artış yoksa yük artmaz.\n\nHer ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+            },
+            {
+              "en": "Progress here records written learning only; it does not authorize loaded practice.",
+              "tr": "Buradaki ilerleme yalnız yazılı öğrenmeyi kaydeder; yüklü uygulama izni vermez."
+            }
+          ],
+          "practice": {
+            "en": "Answer the independent task in these steps without notes. Rehearse empty-handed only when symptom-free; loaded observation belongs to a competent coach.",
+            "tr": "Bu adımlardaki bağımsız görevi notsuz yanıtla. Yalnız belirtisizken boş elle prova yap; yüklü gözlem yetkin antrenöre aittir."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain start, early finish and return?",
+              "tr": "Başlangıç, erken bitiş ve dönüşü açıklayabiliyor muyum?"
+            },
+            {
+              "en": "Can I name the first reason to reject this load or setup?",
+              "tr": "Bu yükü veya kurulumu reddetmenin ilk nedenini adlandırabiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read and explain only; keep physical rehearsal unloaded without coaching.",
+            "tr": "Yalnız oku ve açıkla; koçluk yoksa fiziksel prova yüksüz kalsın."
+          },
+          "stop": {
+            "en": "Every lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+            "tr": "Her ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+          },
+          "recall": {
+            "en": "Without notes, solve the independent task and identify one stop condition.",
+            "tr": "Notsuz bağımsız görevi çöz ve bir durma koşulu belirt."
+          },
+          "correction": {
+            "en": "Use the targeted correction/retest in the learning steps. Symptom retesting is excluded; answer again before comparing.",
+            "tr": "Öğrenme adımlarındaki hedefli düzeltme/yeniden denemeyi kullan. Belirtiyi yeniden sınama; karşılaştırmadan önce yeniden yanıtla."
+          },
+          "answer": {
+            "en": "E: trunk stays still; arm begins below shoulder and stops near trunk line",
+            "tr": "gövde sabit; kol omuz altında başlar, gövde çizgisi yakınında biter."
+          },
+          "sourceIds": [
+            "S5"
+          ],
+          "prerequisites": [
+            "dbkbh-d"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "No accepted demonstration is packaged. First loaded practice requires original reviewed equipment-specific demonstration and coaching; text does not validate form.",
+            "tr": "Kabul edilmiş gösterim pakette yoktur. İlk yüklü uygulama özgün, incelenmiş ekipmana özgü gösterim ve koçluk gerektirir; metin formu doğrulamaz."
+          }
+        },
+        {
+          "id": "dbkbh-f",
+          "title": {
+            "en": "Goblet transfers are untaught",
+            "tr": "Goblet geçişleri öğretilmemiştir"
+          },
+          "objective": {
+            "en": "Reconstruct this exact variant and its limits.",
+            "tr": "Bu kesin varyantı ve sınırlarını yeniden kur."
+          },
+          "steps": [
+            {
+              "en": "This is a written boundary unit, not a physical lesson. The checked DB and KB sources describe a chest hold and squat but do not establish complete equipment-specific chest pickup/lowering. V2 therefore assigns no loaded goblet, even after C. It teaches no clean, fingertip/under-head improvisation or generic “use the demonstrated position.” Existing unloaded squat remains in the bodyweight/v4 pathway. Independent task: point to the missing DB and KB transitions and explain why a floor deadlift is not their instruction. Correction/retest: replace an assumed goblet permission with “not taught in this strand,” then solve a new equipment-transfer case. Demonstrations alone cannot close absent written steps. S3/S7 limitations.",
+              "tr": "Bu yazılı sınır birimidir, fiziksel ders değildir. İncelenen DB/KB kaynakları göğüs tutuşu ve squat'ı tarif eder; ekipmana özgü tam göğse alma/indirme sırasını kurmaz. V2 bu yüzden C sonrası da yüklü goblet atamaz. Clean, parmak ucu/başlık altı doğaçlaması veya genel “gösterilen konumu kullan” tarifi yoktur. Mevcut yüksüz squat vücut ağırlığı/v4 yolunda kalır. Bağımsız görev: eksik DB/KB geçişlerini belirt; zemin deadlift'in neden bu geçişlerin öğretimi olmadığını anlat. Düzelt/yeniden değerlendir: varsayılan goblet iznini “bu dalda öğretilmedi” ile değiştir, yeni ekipman geçişi vakasını çöz. Gösterim tek başına eksik yazılı adımları kapatamaz. S3/S7 sınırları."
+            },
+            {
+              "en": "Use accepted v4 equipment/space/hinge/elbow/stop lessons and existing cal-03 breathing, cal-04 actual preparation and cal-09 hinge. Learn steps with empty hands first; new loaded practice initially requires competent coaching and an original reviewed demonstration of the steps below. Demonstration must illustrate the written protocol, not replace absent instructions. No instructor/demonstration means written learning and unloaded rehearsal only; that does not complete the loaded branch. Natural breathing continues without breath holding. A coached comfortable preparation is separate from written planning; standing walking, standing stepping and seated stepping are different options. Preparation alone does not establish readiness.\n\nUse an intact, flat-based light KB and a fixed-head, nonrolling light DB with an unobstructed handle. The DB starts on a purpose-made weight rack/cradle at comfortable waist height, with its heads fully supported and handle accessible without reaching over other weights. It must accept the specific DB size/mass under its manufacturer's rules and not move during use. No table, chair, book stack, rolling adjustable DB or improvised riser substitutes. If the rack/grip geometry does not match these conditions, no DB loaded task is assigned. Clear nonslip floor, footwear with traction and room for the full return are required. Do not assume floor pickup of the DB from the KB lesson.\n\nAn instructor initially chooses an easy implement whose pickup, a few controlled sample movements and return are manageable; no fixed kg/sex/age table or maximal/fatigue test. These few samples are an editorial teaching limit, not a prescribed workout dose. If motion requires momentum, breath holding, changing grip under load or a difficult return, set it down by the taught route while control remains, and choose lighter or unloaded after review. Do not test a heavier implement just because a few repetitions were completed. An unavailable smaller increment means no increase.\n\nEvery lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+              "tr": "Kabul edilmiş v4 ekipman/alan/menteşe/dirsek/durma derslerini ve mevcut cal-03 nefes, cal-04 gerçek hazırlık, cal-09 menteşe derslerini kullan. Önce adımları boş elle öğren; ilk yüklü uygulama yetkin koçluk ve aşağıdaki adımları gösteren özgün, incelenmiş gösterim gerektirir. Gösterim yazılı protokolü açıklar; eksik öğretimin yerine geçmez. Eğitmen/gösterim yoksa yalnız yazılı öğrenme ve yüksüz prova yapılır; bu yüklü dalı tamamlamaz. Nefes tutulmadan doğal nefes sürer. Koçlukla rahat hazırlık yazılı plandan ayrıdır; ayakta yürüyüş, ayakta adımlama, oturarak adımlama farklı seçeneklerdir. Hazırlık tek başına hazır oluş oluşturmaz.\n\nSağlam, düz tabanlı hafif KB ve tutacağı açık, sabit başlıklı, yuvarlanmayan hafif DB kullan. DB rahat bel yüksekliğinde, amaca uygun ağırlık rafı/yuvasından başlar; başlıklar tamamen desteklenir, tutacağa başka ağırlıkların üzerinden uzanmadan erişilir. Raf üreticisinin kurallarına göre DB'nin boyut/ağırlığını kabul etmeli, kullanımda oynamamalıdır. Masa, sandalye, kitap yığını, yuvarlanan ayarlanabilir DB veya doğaçlama yükselti alternatif değildir. Raf/tutuş geometrisi bu koşullara uymuyorsa yüklü DB görevi atanmaz. Açık kaymayan zemin, tutunan ayakkabı ve tüm dönüşe yeterli alan gerekir. KB dersinden DB'yi zeminden alma izni çıkarma.\n\nEğitmen ilk yükü alma, birkaç kontrollü örnek hareket ve dönüş yönetilebilir olacak kadar kolay seçer; sabit kg/cinsiyet/yaş tablosu veya maksimum/tükenme testi yoktur. Az sayıdaki örnek editoryal öğretim sınırıdır, antrenman dozu değildir. Hareket ivme, nefes tutma, yük altındayken tutuş değiştirme veya zor dönüş gerektiriyorsa kontrol sürerken öğretilen yoldan bırak; değerlendirmeden sonra hafif/yüksüz seç. Birkaç tekrar tamamlandı diye ağır ekipmanı sınama. Küçük artış yoksa yük artmaz.\n\nHer ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+            },
+            {
+              "en": "Progress here records written learning only; it does not authorize loaded practice.",
+              "tr": "Buradaki ilerleme yalnız yazılı öğrenmeyi kaydeder; yüklü uygulama izni vermez."
+            }
+          ],
+          "practice": {
+            "en": "Answer the independent task in these steps without notes. Rehearse empty-handed only when symptom-free; loaded observation belongs to a competent coach.",
+            "tr": "Bu adımlardaki bağımsız görevi notsuz yanıtla. Yalnız belirtisizken boş elle prova yap; yüklü gözlem yetkin antrenöre aittir."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain start, early finish and return?",
+              "tr": "Başlangıç, erken bitiş ve dönüşü açıklayabiliyor muyum?"
+            },
+            {
+              "en": "Can I name the first reason to reject this load or setup?",
+              "tr": "Bu yükü veya kurulumu reddetmenin ilk nedenini adlandırabiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read and explain only; keep physical rehearsal unloaded without coaching.",
+            "tr": "Yalnız oku ve açıkla; koçluk yoksa fiziksel prova yüksüz kalsın."
+          },
+          "stop": {
+            "en": "Every lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+            "tr": "Her ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+          },
+          "recall": {
+            "en": "Without notes, solve the independent task and identify one stop condition.",
+            "tr": "Notsuz bağımsız görevi çöz ve bir durma koşulu belirt."
+          },
+          "correction": {
+            "en": "Use the targeted correction/retest in the learning steps. Symptom retesting is excluded; answer again before comparing.",
+            "tr": "Öğrenme adımlarındaki hedefli düzeltme/yeniden denemeyi kullan. Belirtiyi yeniden sınama; karşılaştırmadan önce yeniden yanıtla."
+          },
+          "answer": {
+            "en": "F/G: actual missing transfer content is excluded, not inferred from coaching or lesson completion",
+            "tr": "gerçekten eksik geçiş içeriği çıkarılmıştır; koçluk veya ders tamamlamadan çıkarılmaz."
+          },
+          "sourceIds": [
+            "S3",
+            "S7"
+          ],
+          "prerequisites": [
+            "dbkbh-e"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "No accepted demonstration is packaged. First loaded practice requires original reviewed equipment-specific demonstration and coaching; text does not validate form.",
+            "tr": "Kabul edilmiş gösterim pakette yoktur. İlk yüklü uygulama özgün, incelenmiş ekipmana özgü gösterim ve koçluk gerektirir; metin formu doğrulamaz."
+          }
+        },
+        {
+          "id": "dbkbh-g",
+          "title": {
+            "en": "Two-DB floor press is untaught",
+            "tr": "İki DB zemin press öğretilmemiştir"
+          },
+          "objective": {
+            "en": "Reconstruct this exact variant and its limits.",
+            "tr": "Bu kesin varyantı ve sınırlarını yeniden kur."
+          },
+          "steps": [
+            {
+              "en": "Written only. Mayo names floor press but does not fully teach pair placement, empty-handed floor access, taking each DB without passing it over the head, early exit, setting both down with hand clearance, or standing afterward. ACE's additional assistance instructions are explicitly for a bench and cannot be transplanted to the floor. V2 assigns no loaded floor press, partner handoff, rocking back with DBs, loaded sit-up or shoulder/chest transfer. The full DB/KB domain retains horizontal-push teaching as an unresolved content gap. Independent task: list these missing entry/exit actions rather than saying “a coach will show it.” Correction/retest: reject “floor support makes transfer instruction unnecessary”; explain the scope without attempting the movement. S6/S9 limitations.",
+              "tr": "Yalnız yazılıdır. Mayo zemin press'i adlandırır; çiftin yerleşimini, boş elle zemine girişi, her DB'yi baş üzerinden geçirmeden almayı, erken çıkışı, el açıklığıyla ikisini yere koymayı veya sonra ayağa kalkmayı tam öğretmez. ACE'nin ek yardım adımları açıkça bench içindir; zemine taşınamaz. V2 yüklü zemin press, yardımcıdan ağırlık alma, DB'lerle geriye yuvarlanma, yüklü oturuşa kalkma veya omuz/göğüs geçişi atamaz. Tam DB/KB alanında yatay itiş öğretimi çözümlenmemiş içerik açığıdır. Bağımsız görev: “koç gösterir” demek yerine eksik giriş/çıkış eylemlerini listele. Düzelt/yeniden değerlendir: “zemin desteği geçiş öğretimini gereksiz yapar” çıkarımını reddet; hareketi denemeden kapsamı anlat. S6/S9 sınırları."
+            },
+            {
+              "en": "Use accepted v4 equipment/space/hinge/elbow/stop lessons and existing cal-03 breathing, cal-04 actual preparation and cal-09 hinge. Learn steps with empty hands first; new loaded practice initially requires competent coaching and an original reviewed demonstration of the steps below. Demonstration must illustrate the written protocol, not replace absent instructions. No instructor/demonstration means written learning and unloaded rehearsal only; that does not complete the loaded branch. Natural breathing continues without breath holding. A coached comfortable preparation is separate from written planning; standing walking, standing stepping and seated stepping are different options. Preparation alone does not establish readiness.\n\nUse an intact, flat-based light KB and a fixed-head, nonrolling light DB with an unobstructed handle. The DB starts on a purpose-made weight rack/cradle at comfortable waist height, with its heads fully supported and handle accessible without reaching over other weights. It must accept the specific DB size/mass under its manufacturer's rules and not move during use. No table, chair, book stack, rolling adjustable DB or improvised riser substitutes. If the rack/grip geometry does not match these conditions, no DB loaded task is assigned. Clear nonslip floor, footwear with traction and room for the full return are required. Do not assume floor pickup of the DB from the KB lesson.\n\nAn instructor initially chooses an easy implement whose pickup, a few controlled sample movements and return are manageable; no fixed kg/sex/age table or maximal/fatigue test. These few samples are an editorial teaching limit, not a prescribed workout dose. If motion requires momentum, breath holding, changing grip under load or a difficult return, set it down by the taught route while control remains, and choose lighter or unloaded after review. Do not test a heavier implement just because a few repetitions were completed. An unavailable smaller increment means no increase.\n\nEvery lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+              "tr": "Kabul edilmiş v4 ekipman/alan/menteşe/dirsek/durma derslerini ve mevcut cal-03 nefes, cal-04 gerçek hazırlık, cal-09 menteşe derslerini kullan. Önce adımları boş elle öğren; ilk yüklü uygulama yetkin koçluk ve aşağıdaki adımları gösteren özgün, incelenmiş gösterim gerektirir. Gösterim yazılı protokolü açıklar; eksik öğretimin yerine geçmez. Eğitmen/gösterim yoksa yalnız yazılı öğrenme ve yüksüz prova yapılır; bu yüklü dalı tamamlamaz. Nefes tutulmadan doğal nefes sürer. Koçlukla rahat hazırlık yazılı plandan ayrıdır; ayakta yürüyüş, ayakta adımlama, oturarak adımlama farklı seçeneklerdir. Hazırlık tek başına hazır oluş oluşturmaz.\n\nSağlam, düz tabanlı hafif KB ve tutacağı açık, sabit başlıklı, yuvarlanmayan hafif DB kullan. DB rahat bel yüksekliğinde, amaca uygun ağırlık rafı/yuvasından başlar; başlıklar tamamen desteklenir, tutacağa başka ağırlıkların üzerinden uzanmadan erişilir. Raf üreticisinin kurallarına göre DB'nin boyut/ağırlığını kabul etmeli, kullanımda oynamamalıdır. Masa, sandalye, kitap yığını, yuvarlanan ayarlanabilir DB veya doğaçlama yükselti alternatif değildir. Raf/tutuş geometrisi bu koşullara uymuyorsa yüklü DB görevi atanmaz. Açık kaymayan zemin, tutunan ayakkabı ve tüm dönüşe yeterli alan gerekir. KB dersinden DB'yi zeminden alma izni çıkarma.\n\nEğitmen ilk yükü alma, birkaç kontrollü örnek hareket ve dönüş yönetilebilir olacak kadar kolay seçer; sabit kg/cinsiyet/yaş tablosu veya maksimum/tükenme testi yoktur. Az sayıdaki örnek editoryal öğretim sınırıdır, antrenman dozu değildir. Hareket ivme, nefes tutma, yük altındayken tutuş değiştirme veya zor dönüş gerektiriyorsa kontrol sürerken öğretilen yoldan bırak; değerlendirmeden sonra hafif/yüksüz seç. Birkaç tekrar tamamlandı diye ağır ekipmanı sınama. Küçük artış yoksa yük artmaz.\n\nHer ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+            },
+            {
+              "en": "Progress here records written learning only; it does not authorize loaded practice.",
+              "tr": "Buradaki ilerleme yalnız yazılı öğrenmeyi kaydeder; yüklü uygulama izni vermez."
+            }
+          ],
+          "practice": {
+            "en": "Answer the independent task in these steps without notes. Rehearse empty-handed only when symptom-free; loaded observation belongs to a competent coach.",
+            "tr": "Bu adımlardaki bağımsız görevi notsuz yanıtla. Yalnız belirtisizken boş elle prova yap; yüklü gözlem yetkin antrenöre aittir."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain start, early finish and return?",
+              "tr": "Başlangıç, erken bitiş ve dönüşü açıklayabiliyor muyum?"
+            },
+            {
+              "en": "Can I name the first reason to reject this load or setup?",
+              "tr": "Bu yükü veya kurulumu reddetmenin ilk nedenini adlandırabiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read and explain only; keep physical rehearsal unloaded without coaching.",
+            "tr": "Yalnız oku ve açıkla; koçluk yoksa fiziksel prova yüksüz kalsın."
+          },
+          "stop": {
+            "en": "Every lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+            "tr": "Her ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+          },
+          "recall": {
+            "en": "Without notes, solve the independent task and identify one stop condition.",
+            "tr": "Notsuz bağımsız görevi çöz ve bir durma koşulu belirt."
+          },
+          "correction": {
+            "en": "Use the targeted correction/retest in the learning steps. Symptom retesting is excluded; answer again before comparing.",
+            "tr": "Öğrenme adımlarındaki hedefli düzeltme/yeniden denemeyi kullan. Belirtiyi yeniden sınama; karşılaştırmadan önce yeniden yanıtla."
+          },
+          "answer": {
+            "en": "F/G: actual missing transfer content is excluded, not inferred from coaching or lesson completion",
+            "tr": "gerçekten eksik geçiş içeriği çıkarılmıştır; koçluk veya ders tamamlamadan çıkarılmaz."
+          },
+          "sourceIds": [
+            "S6",
+            "S9"
+          ],
+          "prerequisites": [
+            "dbkbh-f"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "No accepted demonstration is packaged. First loaded practice requires original reviewed equipment-specific demonstration and coaching; text does not validate form.",
+            "tr": "Kabul edilmiş gösterim pakette yoktur. İlk yüklü uygulama özgün, incelenmiş ekipmana özgü gösterim ve koçluk gerektirir; metin formu doğrulamaz."
+          }
+        },
+        {
+          "id": "dbkbh-h",
+          "title": {
+            "en": "Two-task learning plan, early exit and next-session recall",
+            "tr": "İki görevli öğrenme planı, erken çıkış ve sonraki seans hatırlaması"
+          },
+          "objective": {
+            "en": "Reconstruct this exact variant and its limits.",
+            "tr": "Bu kesin varyantı ve sınırlarını yeniden kur."
+          },
+          "steps": [
+            {
+              "en": "Choose only taught and separately observed C/D/E variants. Write actual mass, preparation, pickup, a few easy review samples, a rest/feedback pause, and return for at most two tasks. Example options: C plus D, or D plus E; do not add untaught goblet/press to “balance” the session. Finish a task by its written early-return route while control remains; symptoms end physical work. Rest until breathing/attention settle; if they do not, end the session. On the next visit, before notes, reconstruct pickup, first motion, early finish and return and explain what would cancel the load. Keep the same manageable load first; an available increase is not mandatory. Change one variable only after review; no forced jumps when lighter choices are absent. Independent case: a new KB is twice as heavy—keep the current load or stay unloaded, do not test it to satisfy progression. Correction/retest: replace automatic increase with a control/return decision; plan again without notes. This is an original teaching exercise, not a timed circuit or training dose.",
+              "tr": "Yalnız öğretilmiş ve ayrıca gözlenmiş C/D/E seçeneklerini seç. En çok iki görev için gerçek ağırlık, hazırlık, alma, az sayıda kolay değerlendirme örneği, dinlenme/geri bildirim arası ve dönüşü yaz. Örnek C+D veya D+E; seansı “dengelemek” için öğretilmemiş goblet/press ekleme. Kontrol sürerken görevi yazılı erken dönüşle bitir; belirti fiziksel çalışmayı bitirir. Nefes/dikkat sakinleşene dek dinlen; sakinleşmiyorsa seansı bitir. Sonraki ziyarette notlardan önce alma, ilk hareket, erken bitiş, dönüşü kur; yükü iptal edecek nedeni anlat. Önce aynı yönetilebilir yükte kal; mevcut artış zorunlu değildir. Değerlendirmeden sonra tek değişkeni değiştir; hafif seçenek yokken artış zorlama. Bağımsız vaka: yeni KB iki kat ağır—mevcut yükte/yüksüz kal; ilerleme koşulu için sınama. Düzelt/yeniden değerlendir: otomatik artışı kontrol/dönüş kararıyla değiştir, notsuz yeniden planla. Bu özgün öğretim görevidir, zamanlı devre veya antrenman dozu değildir."
+            },
+            {
+              "en": "Use accepted v4 equipment/space/hinge/elbow/stop lessons and existing cal-03 breathing, cal-04 actual preparation and cal-09 hinge. Learn steps with empty hands first; new loaded practice initially requires competent coaching and an original reviewed demonstration of the steps below. Demonstration must illustrate the written protocol, not replace absent instructions. No instructor/demonstration means written learning and unloaded rehearsal only; that does not complete the loaded branch. Natural breathing continues without breath holding. A coached comfortable preparation is separate from written planning; standing walking, standing stepping and seated stepping are different options. Preparation alone does not establish readiness.\n\nUse an intact, flat-based light KB and a fixed-head, nonrolling light DB with an unobstructed handle. The DB starts on a purpose-made weight rack/cradle at comfortable waist height, with its heads fully supported and handle accessible without reaching over other weights. It must accept the specific DB size/mass under its manufacturer's rules and not move during use. No table, chair, book stack, rolling adjustable DB or improvised riser substitutes. If the rack/grip geometry does not match these conditions, no DB loaded task is assigned. Clear nonslip floor, footwear with traction and room for the full return are required. Do not assume floor pickup of the DB from the KB lesson.\n\nAn instructor initially chooses an easy implement whose pickup, a few controlled sample movements and return are manageable; no fixed kg/sex/age table or maximal/fatigue test. These few samples are an editorial teaching limit, not a prescribed workout dose. If motion requires momentum, breath holding, changing grip under load or a difficult return, set it down by the taught route while control remains, and choose lighter or unloaded after review. Do not test a heavier implement just because a few repetitions were completed. An unavailable smaller increment means no increase.\n\nEvery lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+              "tr": "Kabul edilmiş v4 ekipman/alan/menteşe/dirsek/durma derslerini ve mevcut cal-03 nefes, cal-04 gerçek hazırlık, cal-09 menteşe derslerini kullan. Önce adımları boş elle öğren; ilk yüklü uygulama yetkin koçluk ve aşağıdaki adımları gösteren özgün, incelenmiş gösterim gerektirir. Gösterim yazılı protokolü açıklar; eksik öğretimin yerine geçmez. Eğitmen/gösterim yoksa yalnız yazılı öğrenme ve yüksüz prova yapılır; bu yüklü dalı tamamlamaz. Nefes tutulmadan doğal nefes sürer. Koçlukla rahat hazırlık yazılı plandan ayrıdır; ayakta yürüyüş, ayakta adımlama, oturarak adımlama farklı seçeneklerdir. Hazırlık tek başına hazır oluş oluşturmaz.\n\nSağlam, düz tabanlı hafif KB ve tutacağı açık, sabit başlıklı, yuvarlanmayan hafif DB kullan. DB rahat bel yüksekliğinde, amaca uygun ağırlık rafı/yuvasından başlar; başlıklar tamamen desteklenir, tutacağa başka ağırlıkların üzerinden uzanmadan erişilir. Raf üreticisinin kurallarına göre DB'nin boyut/ağırlığını kabul etmeli, kullanımda oynamamalıdır. Masa, sandalye, kitap yığını, yuvarlanan ayarlanabilir DB veya doğaçlama yükselti alternatif değildir. Raf/tutuş geometrisi bu koşullara uymuyorsa yüklü DB görevi atanmaz. Açık kaymayan zemin, tutunan ayakkabı ve tüm dönüşe yeterli alan gerekir. KB dersinden DB'yi zeminden alma izni çıkarma.\n\nEğitmen ilk yükü alma, birkaç kontrollü örnek hareket ve dönüş yönetilebilir olacak kadar kolay seçer; sabit kg/cinsiyet/yaş tablosu veya maksimum/tükenme testi yoktur. Az sayıdaki örnek editoryal öğretim sınırıdır, antrenman dozu değildir. Hareket ivme, nefes tutma, yük altındayken tutuş değiştirme veya zor dönüş gerektiriyorsa kontrol sürerken öğretilen yoldan bırak; değerlendirmeden sonra hafif/yüksüz seç. Birkaç tekrar tamamlandı diye ağır ekipmanı sınama. Küçük artış yoksa yük artmaz.\n\nHer ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+            },
+            {
+              "en": "Progress here records written learning only; it does not authorize loaded practice.",
+              "tr": "Buradaki ilerleme yalnız yazılı öğrenmeyi kaydeder; yüklü uygulama izni vermez."
+            }
+          ],
+          "practice": {
+            "en": "Answer the independent task in these steps without notes. Rehearse empty-handed only when symptom-free; loaded observation belongs to a competent coach.",
+            "tr": "Bu adımlardaki bağımsız görevi notsuz yanıtla. Yalnız belirtisizken boş elle prova yap; yüklü gözlem yetkin antrenöre aittir."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain start, early finish and return?",
+              "tr": "Başlangıç, erken bitiş ve dönüşü açıklayabiliyor muyum?"
+            },
+            {
+              "en": "Can I name the first reason to reject this load or setup?",
+              "tr": "Bu yükü veya kurulumu reddetmenin ilk nedenini adlandırabiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read and explain only; keep physical rehearsal unloaded without coaching.",
+            "tr": "Yalnız oku ve açıkla; koçluk yoksa fiziksel prova yüksüz kalsın."
+          },
+          "stop": {
+            "en": "Every lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+            "tr": "Her ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+          },
+          "recall": {
+            "en": "Without notes, solve the independent task and identify one stop condition.",
+            "tr": "Notsuz bağımsız görevi çöz ve bir durma koşulu belirt."
+          },
+          "correction": {
+            "en": "Use the targeted correction/retest in the learning steps. Symptom retesting is excluded; answer again before comparing.",
+            "tr": "Öğrenme adımlarındaki hedefli düzeltme/yeniden denemeyi kullan. Belirtiyi yeniden sınama; karşılaştırmadan önce yeniden yanıtla."
+          },
+          "answer": {
+            "en": "H/I: no forced increase; next-session recall and observed episode remain different evidence",
+            "tr": "zorunlu artış yok; sonraki seans hatırlaması ve gözlenen bölüm ayrı kanıttır."
+          },
+          "sourceIds": [
+            "S1"
+          ],
+          "prerequisites": [
+            "dbkbh-g"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "No accepted demonstration is packaged. First loaded practice requires original reviewed equipment-specific demonstration and coaching; text does not validate form.",
+            "tr": "Kabul edilmiş gösterim pakette yoktur. İlk yüklü uygulama özgün, incelenmiş ekipmana özgü gösterim ve koçluk gerektirir; metin formu doğrulamaz."
+          }
+        },
+        {
+          "id": "dbkbh-i",
+          "title": {
+            "en": "Separate written and observed review",
+            "tr": "Ayrı yazılı ve gözlenen değerlendirme"
+          },
+          "objective": {
+            "en": "Reconstruct this exact variant and its limits.",
+            "tr": "Bu kesin varyantı ve sınırlarını yeniden kur."
+          },
+          "steps": [
+            {
+              "en": "Written, without notes: reject loose equipment, an incompatible rack, a handle too small for both KB hands, new goblet/floor transfers, symptoms or a load that cannot be returned. For a symptom-free technique deviation choose unloading and one targeted correction, not a heavier trial. Compare answers only afterward. Physical review is separately observed and records exact implement, mass, start support, variant, steps actually completed, early exit and one correction/recheck; unresolved branches stay named. A changed rack, grip, load, support or variant requires a new decision, not transfer of a previous “pass.” No camera measurement, strength score, injury guarantee, treatment or personalized health claim. This strand is narrower than the full DB/KB domain and cannot close squat/push content gaps by recording attendance.",
+              "tr": "Yazılı, notsuz: gevşek ekipman, uyumsuz raf, iki KB eline küçük tutacak, yeni goblet/zemin geçişi, belirti veya geri bırakılamayan yükü reddet. Belirtisiz teknik sapmada ağır deneme yerine yük çıkarma ve tek hedefli düzeltme seç. Yanıtları sonra karşılaştır. Fiziksel değerlendirme ayrı gözlenir; gerçek ekipman, ağırlık, başlangıç desteği, seçenek, gerçekten tamamlanan adımlar, erken çıkış ve tek düzeltme/yeniden kontrol kaydedilir; çözülmeyen dallar adlandırılır. Değişen raf, tutuş, yük, destek veya seçenek yeni karar ister; eski “geçiş” aktarılmaz. Kamera ölçümü, kuvvet puanı, yaralanma garantisi, tedavi veya kişisel sağlık iddiası yoktur. Bu dal tam DB/KB alanından dardır; katılım kaydıyla squat/itiş içerik açıklarını kapatamaz."
+            },
+            {
+              "en": "Use accepted v4 equipment/space/hinge/elbow/stop lessons and existing cal-03 breathing, cal-04 actual preparation and cal-09 hinge. Learn steps with empty hands first; new loaded practice initially requires competent coaching and an original reviewed demonstration of the steps below. Demonstration must illustrate the written protocol, not replace absent instructions. No instructor/demonstration means written learning and unloaded rehearsal only; that does not complete the loaded branch. Natural breathing continues without breath holding. A coached comfortable preparation is separate from written planning; standing walking, standing stepping and seated stepping are different options. Preparation alone does not establish readiness.\n\nUse an intact, flat-based light KB and a fixed-head, nonrolling light DB with an unobstructed handle. The DB starts on a purpose-made weight rack/cradle at comfortable waist height, with its heads fully supported and handle accessible without reaching over other weights. It must accept the specific DB size/mass under its manufacturer's rules and not move during use. No table, chair, book stack, rolling adjustable DB or improvised riser substitutes. If the rack/grip geometry does not match these conditions, no DB loaded task is assigned. Clear nonslip floor, footwear with traction and room for the full return are required. Do not assume floor pickup of the DB from the KB lesson.\n\nAn instructor initially chooses an easy implement whose pickup, a few controlled sample movements and return are manageable; no fixed kg/sex/age table or maximal/fatigue test. These few samples are an editorial teaching limit, not a prescribed workout dose. If motion requires momentum, breath holding, changing grip under load or a difficult return, set it down by the taught route while control remains, and choose lighter or unloaded after review. Do not test a heavier implement just because a few repetitions were completed. An unavailable smaller increment means no increase.\n\nEvery lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+              "tr": "Kabul edilmiş v4 ekipman/alan/menteşe/dirsek/durma derslerini ve mevcut cal-03 nefes, cal-04 gerçek hazırlık, cal-09 menteşe derslerini kullan. Önce adımları boş elle öğren; ilk yüklü uygulama yetkin koçluk ve aşağıdaki adımları gösteren özgün, incelenmiş gösterim gerektirir. Gösterim yazılı protokolü açıklar; eksik öğretimin yerine geçmez. Eğitmen/gösterim yoksa yalnız yazılı öğrenme ve yüksüz prova yapılır; bu yüklü dalı tamamlamaz. Nefes tutulmadan doğal nefes sürer. Koçlukla rahat hazırlık yazılı plandan ayrıdır; ayakta yürüyüş, ayakta adımlama, oturarak adımlama farklı seçeneklerdir. Hazırlık tek başına hazır oluş oluşturmaz.\n\nSağlam, düz tabanlı hafif KB ve tutacağı açık, sabit başlıklı, yuvarlanmayan hafif DB kullan. DB rahat bel yüksekliğinde, amaca uygun ağırlık rafı/yuvasından başlar; başlıklar tamamen desteklenir, tutacağa başka ağırlıkların üzerinden uzanmadan erişilir. Raf üreticisinin kurallarına göre DB'nin boyut/ağırlığını kabul etmeli, kullanımda oynamamalıdır. Masa, sandalye, kitap yığını, yuvarlanan ayarlanabilir DB veya doğaçlama yükselti alternatif değildir. Raf/tutuş geometrisi bu koşullara uymuyorsa yüklü DB görevi atanmaz. Açık kaymayan zemin, tutunan ayakkabı ve tüm dönüşe yeterli alan gerekir. KB dersinden DB'yi zeminden alma izni çıkarma.\n\nEğitmen ilk yükü alma, birkaç kontrollü örnek hareket ve dönüş yönetilebilir olacak kadar kolay seçer; sabit kg/cinsiyet/yaş tablosu veya maksimum/tükenme testi yoktur. Az sayıdaki örnek editoryal öğretim sınırıdır, antrenman dozu değildir. Hareket ivme, nefes tutma, yük altındayken tutuş değiştirme veya zor dönüş gerektiriyorsa kontrol sürerken öğretilen yoldan bırak; değerlendirmeden sonra hafif/yüksüz seç. Birkaç tekrar tamamlandı diye ağır ekipmanı sınama. Küçük artış yoksa yük artmaz.\n\nHer ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+            },
+            {
+              "en": "Progress here records written learning only; it does not authorize loaded practice.",
+              "tr": "Buradaki ilerleme yalnız yazılı öğrenmeyi kaydeder; yüklü uygulama izni vermez."
+            }
+          ],
+          "practice": {
+            "en": "Answer the independent task in these steps without notes. Rehearse empty-handed only when symptom-free; loaded observation belongs to a competent coach.",
+            "tr": "Bu adımlardaki bağımsız görevi notsuz yanıtla. Yalnız belirtisizken boş elle prova yap; yüklü gözlem yetkin antrenöre aittir."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain start, early finish and return?",
+              "tr": "Başlangıç, erken bitiş ve dönüşü açıklayabiliyor muyum?"
+            },
+            {
+              "en": "Can I name the first reason to reject this load or setup?",
+              "tr": "Bu yükü veya kurulumu reddetmenin ilk nedenini adlandırabiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read and explain only; keep physical rehearsal unloaded without coaching.",
+            "tr": "Yalnız oku ve açıkla; koçluk yoksa fiziksel prova yüksüz kalsın."
+          },
+          "stop": {
+            "en": "Every lesson ends for pain, dizziness, unusual breathlessness, grip/balance loss, shifting rack/support or unexpected uncontrolled motion. Do not retest symptoms with a lighter load. Seek appropriate assessment for persistent/concerning symptoms and local emergency help for emergencies. The early-return protocols below require retained control; they are not a recovery maneuver for a dropped weight. Do not catch a falling weight, move under it or throw it toward someone. With loss of control, discontinue the task and keep people out of the load's path; no practiced uncontrolled-drop drill is assigned. These limits do not promise injury prevention or individual medical safety.",
+            "tr": "Her ders ağrı, baş dönmesi, olağandışı nefes darlığı, tutuş/denge kaybı, oynayan raf/destek veya beklenmedik kontrolsüz harekette biter. Belirtiyi hafif yükle yeniden sınama. Süren/kaygı veren belirtilerde uygun değerlendirme, acil durumda yerel acil yardım gerekir. Aşağıdaki erken dönüşler kontrol korunmasını gerektirir; düşen ağırlık için kurtarma manevrası değildir. Düşen ağırlığı yakalama, altına girme veya başkasına doğru fırlatma. Kontrol kaybında görevi bırak, insanları yük yolundan uzak tut; kontrolsüz düşürme provası atanmaz. Bu sınırlar yaralanma önleme veya kişiye özel tıbbi güvenlik vaat etmez."
+          },
+          "recall": {
+            "en": "Without notes, solve the independent task and identify one stop condition.",
+            "tr": "Notsuz bağımsız görevi çöz ve bir durma koşulu belirt."
+          },
+          "correction": {
+            "en": "Use the targeted correction/retest in the learning steps. Symptom retesting is excluded; answer again before comparing.",
+            "tr": "Öğrenme adımlarındaki hedefli düzeltme/yeniden denemeyi kullan. Belirtiyi yeniden sınama; karşılaştırmadan önce yeniden yanıtla."
+          },
+          "answer": {
+            "en": "H/I: no forced increase; next-session recall and observed episode remain different evidence",
+            "tr": "zorunlu artış yok; sonraki seans hatırlaması ve gözlenen bölüm ayrı kanıttır."
+          },
+          "sourceIds": [
+            "S1"
+          ],
+          "prerequisites": [
+            "dbkbh-h"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "No accepted demonstration is packaged. First loaded practice requires original reviewed equipment-specific demonstration and coaching; text does not validate form.",
+            "tr": "Kabul edilmiş gösterim pakette yoktur. İlk yüklü uygulama özgün, incelenmiş ekipmana özgü gösterim ve koçluk gerektirir; metin formu doğrulamaz."
+          }
+        }
+      ]
+    }
+  ],
+  "catalogueGuides": []
+}

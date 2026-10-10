@@ -92,10 +92,14 @@ final class CalisthenicsProgress {
 /// Local, account-scoped self-report journal. It never imports session counts
 /// or promotes a camera observation into course completion.
 final class CalisthenicsProgressStore {
-  CalisthenicsProgressStore(this.file, {AccountStoreEpoch? epoch})
+  CalisthenicsProgressStore(this.file, {
+    AccountStoreEpoch? epoch,
+    this.courseId = 'calisthenics-foundations',
+  })
     : _lease = CourseProgressLease(file, epoch: epoch);
 
   final File file;
+  final String courseId;
   final CourseProgressLease _lease;
 
   Future<CalisthenicsProgress> load() => _lease.mutate(_loadUnlocked);
@@ -112,7 +116,7 @@ final class CalisthenicsProgressStore {
     final Map<String, dynamic> root = (jsonDecode(contents) as Map)
         .cast<String, dynamic>();
     if (root['schemaVersion'] != 1 ||
-        root['courseId'] != 'calisthenics-foundations') {
+        root['courseId'] != courseId) {
       throw const FormatException('Unsupported calisthenics progress file');
     }
     final Map<String, dynamic> values = (root['lessons'] as Map)
@@ -176,7 +180,7 @@ final class CalisthenicsProgressStore {
     CalisthenicsLesson lesson,
     CalisthenicsLessonState requested,
   ) async {
-    if (course.id != 'calisthenics-foundations' ||
+    if (course.id != courseId ||
         !course.lessons.any(
           (CalisthenicsLesson item) => item.id == lesson.id,
         )) {
@@ -249,9 +253,21 @@ CalisthenicsProgressStore calisthenicsProgressStoreFor(
   Directory support,
   String? accountUserId, {
   AccountStoreEpoch? epoch,
-}) => CalisthenicsProgressStore(
-  File(
-    '${accountDataDirectory(support, accountUserId).path}/calisthenics-course-progress.v1.json',
-  ),
-  epoch: epoch,
-);
+  String courseId = 'calisthenics-foundations',
+}) {
+  if (!<String>['calisthenics-foundations', 'dbkb-written-foundations', 'dbkb-controlled-handling', 'dbkb-supported-transitions'].contains(courseId)) {
+    throw ArgumentError.value(courseId, 'courseId');
+  }
+  final name = courseId == 'calisthenics-foundations'
+      ? 'calisthenics-course-progress.v1.json'
+      : courseId == 'dbkb-written-foundations'
+          ? 'dbkb-written-course-progress.v1.json'
+          : courseId == 'dbkb-controlled-handling'
+              ? 'dbkb-handling-course-progress.v1.json'
+              : 'dbkb-transitions-course-progress.v1.json';
+  return CalisthenicsProgressStore(
+    File('${accountDataDirectory(support, accountUserId).path}/$name'),
+    epoch: epoch,
+    courseId: courseId,
+  );
+}
