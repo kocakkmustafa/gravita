@@ -85,8 +85,9 @@ List<File> productionSources(
                       'build',
                       '.dart_tool',
                     }.contains(name);
-              }))
+              })) {
             return false;
+          }
           return extensions.any(file.path.endsWith);
         })
         .toList();
@@ -114,8 +115,9 @@ List<File> productionSources(
         final implementation = entry.value;
         if (implementation is! Map ||
             (implementation['pluginClass'] == null &&
-                implementation['ffiPlugin'] != true))
+                implementation['ffiPlugin'] != true)) {
           continue;
+        }
         nativePlatforms++;
         final platform = entry.key as String;
         final dir = implementation['sharedDarwinSource'] == true
@@ -605,10 +607,11 @@ void main() {
     () {
       for (final keepDart in [false, true]) {
         withGraphFixture((file, graph, config) {
-          if (!keepDart)
+          if (!keepDart) {
             Directory.fromUri(
               file.uri.resolve('transitive/src/'),
             ).deleteSync(recursive: true);
+          }
           File.fromUri(
             file.uri.resolve('transitive/pubspec.yaml'),
           ).writeAsStringSync(
