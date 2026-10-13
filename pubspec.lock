@@ -218,7 +218,7 @@ packages:
     source: hosted
     version: "3.1.7"
   drift:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: drift
       sha256: "3a3f1f6f905037d7426e4c445854139fd6a3d592135f7c96d7931682b73d16f4"
@@ -909,14 +909,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.5.1"
-  sqlite3_flutter_libs:
-    dependency: "direct main"
-    description:
-      name: sqlite3_flutter_libs
-      sha256: eeb9e3a45207649076b808f8a5a74d68770d0b7f26ccef6d5f43106eee5375ad
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.42"
   sqlparser:
     dependency: transitive
     description:

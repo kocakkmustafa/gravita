@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'study_review.dart';
 import 'account_connection.dart';
 import 'camera_release_policy.dart';
 
@@ -89,6 +90,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(18, 4, 18, 96),
         children: <Widget>[
+          const StudyReviewEntry(),
           CalisthenicsEntryCard(content: widget.content),
           const SizedBox(height: 10),
           DbkbEntryCard(content: widget.content),

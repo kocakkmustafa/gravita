@@ -135,7 +135,7 @@ NO_NETWORK = frozenset({
     "drift", "drift_dev", "file", "fixnum",
     "glob", "graphs", "io", "json_annotation",
     "mime", "native_toolchain_c", "pool", "pubspec_parse",
-    "recase", "source_gen", "sqlite3", "sqlite3_flutter_libs",
+    "recase", "source_gen", "sqlite3",
     "sqlparser", "stream_transform", "watcher",
 })
 

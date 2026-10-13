@@ -3,11 +3,10 @@ import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
-import '../account_data_directory.dart';
+import 'package:gravita/app/account_data_directory.dart';
 
-// `sqlite3_flutter_libs` içe aktarılmıyor — yalnız `pubspec.yaml`de bir
-// bağımlılık olarak durması yeterli, native kütüphaneyi Flutter'ın plugin
-// kayıt mekanizması OTOMATİK bağlıyor (drift'in KENDİ belgelenmiş deseni).
+// Test-only projection prototype. Production history stays in the JSONL
+// journals; package:sqlite3 supplies the native library for these tests.
 
 part 'gravita_database.g.dart';
 
@@ -50,7 +49,7 @@ class GravitaDatabase extends _$GravitaDatabase {
   ///
   /// ⚠️ Drift'in "aynı sınıf birden çok kez kuruldu" uyarısı BİLEREK
   /// susturuluyor — HER çağrı `NativeDatabase.memory()` ile TAMAMEN AYRI,
-  /// izole bir örnek açıyor (production `open()`ın AKSİNE, orada AYNI
+  /// izole bir örnek açıyor (kalıcı prototip `open()`ının AKSİNE, orada AYNI
   /// dosyayı paylaşan iki örnek GERÇEK bir yarış riski taşırdı ve uyarı
   /// AÇIK kalmalı). Testte bu her zaman GÜVENLİ, ölçüldü (`storage_
   /// migration_test.dart` — çoklu test AYNI dosyada çakışmaz, her biri
@@ -73,7 +72,7 @@ class GravitaDatabase extends _$GravitaDatabase {
     },
   );
 
-  /// Gerçek uygulama-destek dizininde kalıcı bir veritabanı açar —
+  /// Prototip/harness için uygulama-destek dizininde veritabanı açar —
   /// `JsonlSessionStore`nun KENDİ deseni (`ProgramStore`/`ProgramScheduleStore`
   /// ile AYNI: `path_provider` çağrısı KABLOLAMA katmanında, kurucu değil).
   static Future<GravitaDatabase> open({String? accountUserId}) async {
