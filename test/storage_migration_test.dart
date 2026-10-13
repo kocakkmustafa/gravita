@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gravita/app/storage/gravita_database.dart';
-import 'package:gravita/app/storage/session_projector.dart';
+import 'support/storage/gravita_database.dart';
+import 'support/storage/session_projector.dart';
 import 'package:motion_core/motion_core.dart'
     show JsonlSessionStore, SessionRecord;
 

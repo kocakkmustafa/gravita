@@ -24,6 +24,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version: 3.47.5
 
       - name: Poz modeli (pinli SHA-256 doğrulamalı)
         run: tool/fetch_pose_model.sh
@@ -45,13 +46,16 @@ jobs:
         run: |
           git config --global url."https://x-access-token:${MOTION_CORE_RO_TOKEN}@github.com/kocakkmustafa/motion-core.git".insteadOf "https://github.com/kocakkmustafa/motion-core.git"
 
-      - run: flutter pub get
+      - run: flutter pub get --enforce-lockfile
 
       - name: gravita_engine test bağımlılıkları
         run: (cd packages/gravita_engine && dart pub get)
 
       - name: flutter analyze
         run: flutter analyze
+
+      - name: Release packaging gate regression fixtures
+        run: python3 -m unittest discover -s tools -p test_shipping_sqlite_boundary.py -v
 
       - name: build/ hedefini kur (CI runner'ı iCloud'da DEĞİL — düz dizin yeterli)
         # tools/setup_build_dir.sh yereldeki iCloud-kaçış symlink'ini kurar
@@ -73,6 +77,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version: 3.47.5
 
       - name: Poz modeli (pinli SHA-256 doğrulamalı)
         run: tool/fetch_pose_model.sh
@@ -85,7 +90,7 @@ jobs:
         run: |
           git config --global url."https://x-access-token:${MOTION_CORE_RO_TOKEN}@github.com/kocakkmustafa/motion-core.git".insteadOf "https://github.com/kocakkmustafa/motion-core.git"
 
-      - run: flutter pub get
+      - run: flutter pub get --enforce-lockfile
 
       - name: Android release build — imzasız, KOD YOLU kanıtı
         # Gerçek keystore kurucuda (~/.secrets/yula/), CI'da YOK.
@@ -96,6 +101,15 @@ jobs:
         # kanıtlar; Play'e yüklenebilir bir artefakt ÜRETMEZ.
         run: flutter build appbundle --release -PallowDebugSigning=true
 
+      - name: Shipping SQLite boundary
+        run: python3 tools/validate_shipping_sqlite_boundary.py --platform android --artifact build/app/outputs/bundle/release/app-release.aab --receipt shipping-boundary-android.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shipping-boundary-android
+          path: shipping-boundary-android.json
+          retention-days: 7
+
   ios-release-build:
     name: iOS release build, no-codesign (GRA-P0-003)
     runs-on: macos-latest
@@ -105,6 +119,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version: 3.47.5
 
       - name: Poz modeli (pinli SHA-256 doğrulamalı)
         run: tool/fetch_pose_model.sh
@@ -116,10 +131,19 @@ jobs:
         run: |
           git config --global url."https://x-access-token:${MOTION_CORE_RO_TOKEN}@github.com/kocakkmustafa/motion-core.git".insteadOf "https://github.com/kocakkmustafa/motion-core.git"
 
-      - run: flutter pub get
+      - run: flutter pub get --enforce-lockfile
 
       - name: iOS release build, imzasız
         # `--no-codesign`: CI runner'ında imzalama sertifikası yok ve
         # olmamalı (sertifika hesap-sahibi kalemidir). Bu adım release
         # derleme yolunun GERÇEKTEN derlendiğini kanıtlar.
         run: flutter build ios --release --no-codesign
+
+      - name: Shipping SQLite boundary and DiskSpace imports
+        run: python3 tools/validate_shipping_sqlite_boundary.py --platform ios --artifact build/ios/iphoneos/Runner.app --receipt shipping-boundary-ios.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shipping-boundary-ios
+          path: shipping-boundary-ios.json
+          retention-days: 7
