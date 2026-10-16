@@ -1,0 +1,420 @@
+00:00 +0: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart
+00:00 +0: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish list opens the selected draft with its boundary at 320px/2x
+00:01 +1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: English draft summary never invites practice from unvalidated gates
+00:01 +2: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish empty list explains the absence
+00:01 +3: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish synthetic reviewed status retains the missing-view boundary
+00:01 +4: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish library explains the real draft count and review boundary
+══╡ EXCEPTION CAUGHT BY RENDERING LIBRARY ╞═════════════════════════════════════════════════════════
+The following assertion was thrown during layout:
+A RenderFlex overflowed by 59 pixels on the right.
+
+The overflowing RenderFlex has an orientation of Axis.horizontal.
+The edge of the RenderFlex that is overflowing has been marked in the rendering with a yellow and
+black striped pattern. This is usually caused by the contents being too big for the RenderFlex.
+Consider applying a flex factor (e.g. using an Expanded widget) to force the children of the
+RenderFlex to fit within the available space instead of being sized to their natural size.
+This is considered an error condition because it indicates that there is content that cannot be
+seen. If the content is legitimately bigger than the available space, consider clipping it with a
+ClipRect widget before putting it in the flex, or using a scrollable container rather than a Flex,
+like a ListView.
+The specific RenderFlex in question is: RenderFlex#fe8df DISPOSED OVERFLOWING:
+  creator: MultiChildRenderObjectElement#7cf77(DEFUNCT) ←
+    SingleChildRenderObjectElement#8c1a7(DEFUNCT) ← SingleChildRenderObjectElement#fd450(DEFUNCT) ←
+    StatelessElement#c6584(DEFUNCT) ← SingleChildRenderObjectElement#19ded(DEFUNCT) ←
+    SingleChildRenderObjectElement#53d8b(DEFUNCT) ← SingleChildRenderObjectElement#2f42a(DEFUNCT) ←
+    StatelessElement#7fb47(DEFUNCT) ← SingleChildRenderObjectElement#b3ea2(DEFUNCT) ←
+    StatefulElement#eaa3b(DEFUNCT) ← StatelessElement#1223c(DEFUNCT) ←
+    SingleChildRenderObjectElement#4d8b8(DEFUNCT) ← ⋯
+  parentData: offset=Offset(17.0, 15.0) (can use size)
+  constraints: BoxConstraints(0.0<=w<=250.0, 0.0<=h<=Infinity)
+  size: Size(250.0, 1190.0)
+  direction: horizontal
+  mainAxisAlignment: start
+  mainAxisSize: max
+  crossAxisAlignment: start
+  textDirection: ltr
+  verticalDirection: down
+  spacing: 0.0
+◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY RENDERING LIBRARY ╞═════════════════════════════════════════════════════════
+The following assertion was thrown during layout:
+A RenderFlex overflowed by 59 pixels on the right.
+
+The relevant error-causing widget was:
+  Row
+  Row:file:///Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/lib/app/surface_widgets.dart:91:16
+
+The overflowing RenderFlex has an orientation of Axis.horizontal.
+The edge of the RenderFlex that is overflowing has been marked in the rendering with a yellow and
+black striped pattern. This is usually caused by the contents being too big for the RenderFlex.
+Consider applying a flex factor (e.g. using an Expanded widget) to force the children of the
+RenderFlex to fit within the available space instead of being sized to their natural size.
+This is considered an error condition because it indicates that there is content that cannot be
+seen. If the content is legitimately bigger than the available space, consider clipping it with a
+ClipRect widget before putting it in the flex, or using a scrollable container rather than a Flex,
+like a ListView.
+The specific RenderFlex in question is: RenderFlex#beda6 relayoutBoundary=up15 OVERFLOWING:
+  creator: Row ← Padding ← DecoratedBox ← Container ← BackdropFilter ← ClipRRect ← DecoratedBox ←
+    GravitaCard ← Listener ← RawGestureDetector ← GestureDetector ← Semantics ← ⋯
+  parentData: offset=Offset(17.0, 15.0) (can use size)
+  constraints: BoxConstraints(0.0<=w<=250.0, 0.0<=h<=Infinity)
+  size: Size(250.0, 1822.0)
+  direction: horizontal
+  mainAxisAlignment: start
+  mainAxisSize: max
+  crossAxisAlignment: start
+  textDirection: ltr
+  verticalDirection: down
+  spacing: 0.0
+◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY WIDGET INSPECTOR ╞══════════════════════════════════════════════════════════
+The following assertion was thrown:
+Looking up a deactivated widget's ancestor is unsafe.
+At this point the state of the widget's element tree is no longer stable.
+To safely refer to a widget's ancestor in its dispose() method, save a reference to the ancestor by
+calling dependOnInheritedWidgetOfExactType() in the widget's didChangeDependencies() method.
+
+When the exception was thrown, this was the stack:
+#0      Element._debugCheckStateIsActiveForAncestorLookup.<anonymous closure> (package:flutter/src/widgets/framework.dart:5062:9)
+#1      Element._debugCheckStateIsActiveForAncestorLookup (package:flutter/src/widgets/framework.dart:5076:6)
+#2      Element.visitAncestorElements (package:flutter/src/widgets/framework.dart:5187:12)
+#3      _describeRelevantUserCode (package:flutter/src/widgets/widget_inspector.dart:4342:13)
+#4      _parseDiagnosticsNode (package:flutter/src/widgets/widget_inspector.dart:4261:12)
+#5      debugTransformDebugCreator (package:flutter/src/widgets/widget_inspector.dart:4240:21)
+#6      _FlutterErrorDetailsNode.builder (package:flutter/src/foundation/assertions.dart:1300:31)
+#7      DiagnosticableNode.getProperties (package:flutter/src/foundation/diagnostics.dart:2943:68)
+#8      TextTreeRenderer._debugRender (package:flutter/src/foundation/diagnostics.dart:1270:63)
+#9      TextTreeRenderer.render (package:flutter/src/foundation/diagnostics.dart:1137:14)
+#10     FlutterError.dumpErrorToConsole (package:flutter/src/foundation/assertions.dart:1030:13)
+#11     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1780:24)
+#12     FlutterError.reportError (package:flutter/src/foundation/assertions.dart:1193:14)
+#13     DebugOverflowIndicatorMixin._reportOverflow (package:flutter/src/rendering/debug_overflow_indicator.dart:259:18)
+#14     DebugOverflowIndicatorMixin.paintOverflowIndicator (package:flutter/src/rendering/debug_overflow_indicator.dart:329:7)
+#15     RenderFlex.paint.<anonymous closure> (package:flutter/src/rendering/flex.dart:1449:7)
+#16     RenderFlex.paint (package:flutter/src/rendering/flex.dart:1457:6)
+#17     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#18     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#19     RenderShiftedBox.paint (package:flutter/src/rendering/shifted_box.dart:98:15)
+#20     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#21     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#22     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#23     RenderDecoratedBox.paint (package:flutter/src/rendering/proxy_box.dart:2512:11)
+#24     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#25     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#26     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#27     PaintingContext.pushLayer (package:flutter/src/rendering/object.dart:522:12)
+#28     RenderBackdropFilter.paint (package:flutter/src/rendering/proxy_box.dart:1345:15)
+#29     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#30     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#31     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#32     PaintingContext.pushLayer (package:flutter/src/rendering/object.dart:522:12)
+#33     PaintingContext.pushClipRRect (package:flutter/src/rendering/object.dart:636:7)
+#34     RenderClipRRect.paint (package:flutter/src/rendering/proxy_box.dart:1749:25)
+#35     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#36     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#37     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#38     RenderDecoratedBox.paint (package:flutter/src/rendering/proxy_box.dart:2512:11)
+#39     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#40     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#41     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#42     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#43     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#44     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#45     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#46     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#47     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#48     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#49     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#50     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#51     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#52     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#53     RenderBoxContainerDefaultsMixin.defaultPaint (package:flutter/src/rendering/box.dart:3390:15)
+#54     RenderFlex.paint (package:flutter/src/rendering/flex.dart:1402:7)
+#55     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#56     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#57     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#58     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#59     PaintingContext._repaintCompositedChild (package:flutter/src/rendering/object.dart:180:11)
+#60     PaintingContext.repaintCompositedChild (package:flutter/src/rendering/object.dart:125:5)
+#61     PaintingContext._compositeChild (package:flutter/src/rendering/object.dart:276:7)
+#62     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:257:7)
+#63     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#64     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#65     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#66     RenderSliverMultiBoxAdaptor.paint (package:flutter/src/rendering/sliver_multi_box_adaptor.dart:742:17)
+#67     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#68     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#69     RenderSliverEdgeInsetsPadding.paint (package:flutter/src/rendering/sliver_padding.dart:270:15)
+#70     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#71     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#72     RenderViewportBase._paintContents (package:flutter/src/rendering/viewport.dart:999:17)
+#73     PaintingContext.pushLayer (package:flutter/src/rendering/object.dart:522:12)
+#74     PaintingContext.pushClipRect (package:flutter/src/rendering/object.dart:589:7)
+#75     RenderViewportBase.paint (package:flutter/src/rendering/viewport.dart:974:38)
+#76     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#77     PaintingContext._repaintCompositedChild (package:flutter/src/rendering/object.dart:180:11)
+#78     PaintingContext.repaintCompositedChild (package:flutter/src/rendering/object.dart:125:5)
+#79     PipelineOwner.flushPaint (package:flutter/src/rendering/object.dart:1325:31)
+#80     PipelineOwner.flushPaint (package:flutter/src/rendering/object.dart:1335:15)
+#81     AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:2438:31)
+#82     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:558:5)
+#83     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+#84     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+#85     AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:2261:9)
+#88     TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#89     AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:2250:27)
+#90     WidgetTester.pump.<anonymous closure> (package:flutter_test/src/widget_tester.dart:652:53)
+#93     TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#94     WidgetTester.pump (package:flutter_test/src/widget_tester.dart:652:27)
+#95     WidgetController.dragUntilVisible.<anonymous closure> (package:flutter_test/src/controller.dart:2485:15)
+<asynchronous suspension>
+#96     TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#97     WidgetController.scrollUntilVisible.<anonymous closure> (package:flutter_test/src/controller.dart:2439:7)
+<asynchronous suspension>
+#98     TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#99     main.<anonymous closure> (file:///Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart:115:7)
+<asynchronous suspension>
+#100    testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#101    TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 5 frames from dart:async and package:stack_trace)
+
+This exception was caught while trying to describe the user-relevant code of another error.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY WIDGET INSPECTOR ╞══════════════════════════════════════════════════════════
+The following assertion was thrown:
+Looking up a deactivated widget's ancestor is unsafe.
+At this point the state of the widget's element tree is no longer stable.
+To safely refer to a widget's ancestor in its dispose() method, save a reference to the ancestor by
+calling dependOnInheritedWidgetOfExactType() in the widget's didChangeDependencies() method.
+
+When the exception was thrown, this was the stack:
+#0      Element._debugCheckStateIsActiveForAncestorLookup.<anonymous closure> (package:flutter/src/widgets/framework.dart:5062:9)
+#1      Element._debugCheckStateIsActiveForAncestorLookup (package:flutter/src/widgets/framework.dart:5076:6)
+#2      Element.visitAncestorElements (package:flutter/src/widgets/framework.dart:5187:12)
+#3      _describeRelevantUserCode (package:flutter/src/widgets/widget_inspector.dart:4342:13)
+#4      _parseDiagnosticsNode (package:flutter/src/widgets/widget_inspector.dart:4261:12)
+#5      debugTransformDebugCreator (package:flutter/src/widgets/widget_inspector.dart:4240:21)
+#6      _FlutterErrorDetailsNode.builder (package:flutter/src/foundation/assertions.dart:1300:31)
+#7      DiagnosticableNode.emptyBodyDescription (package:flutter/src/foundation/diagnostics.dart:2939:45)
+#8      TextTreeRenderer._debugRender (package:flutter/src/foundation/diagnostics.dart:1307:14)
+#9      TextTreeRenderer.render (package:flutter/src/foundation/diagnostics.dart:1137:14)
+#10     FlutterError.dumpErrorToConsole (package:flutter/src/foundation/assertions.dart:1030:13)
+#11     TestWidgetsFlutterBinding._runTest.<anonymous closure> (package:flutter_test/src/binding.dart:1780:24)
+#12     FlutterError.reportError (package:flutter/src/foundation/assertions.dart:1193:14)
+#13     DebugOverflowIndicatorMixin._reportOverflow (package:flutter/src/rendering/debug_overflow_indicator.dart:259:18)
+#14     DebugOverflowIndicatorMixin.paintOverflowIndicator (package:flutter/src/rendering/debug_overflow_indicator.dart:329:7)
+#15     RenderFlex.paint.<anonymous closure> (package:flutter/src/rendering/flex.dart:1449:7)
+#16     RenderFlex.paint (package:flutter/src/rendering/flex.dart:1457:6)
+#17     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#18     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#19     RenderShiftedBox.paint (package:flutter/src/rendering/shifted_box.dart:98:15)
+#20     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#21     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#22     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#23     RenderDecoratedBox.paint (package:flutter/src/rendering/proxy_box.dart:2512:11)
+#24     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#25     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#26     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#27     PaintingContext.pushLayer (package:flutter/src/rendering/object.dart:522:12)
+#28     RenderBackdropFilter.paint (package:flutter/src/rendering/proxy_box.dart:1345:15)
+#29     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#30     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#31     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#32     PaintingContext.pushLayer (package:flutter/src/rendering/object.dart:522:12)
+#33     PaintingContext.pushClipRRect (package:flutter/src/rendering/object.dart:636:7)
+#34     RenderClipRRect.paint (package:flutter/src/rendering/proxy_box.dart:1749:25)
+#35     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#36     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#37     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#38     RenderDecoratedBox.paint (package:flutter/src/rendering/proxy_box.dart:2512:11)
+#39     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#40     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#41     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#42     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#43     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#44     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#45     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#46     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#47     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#48     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#49     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#50     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#51     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#52     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#53     RenderBoxContainerDefaultsMixin.defaultPaint (package:flutter/src/rendering/box.dart:3390:15)
+#54     RenderFlex.paint (package:flutter/src/rendering/flex.dart:1402:7)
+#55     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#56     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#57     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#58     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#59     PaintingContext._repaintCompositedChild (package:flutter/src/rendering/object.dart:180:11)
+#60     PaintingContext.repaintCompositedChild (package:flutter/src/rendering/object.dart:125:5)
+#61     PaintingContext._compositeChild (package:flutter/src/rendering/object.dart:276:7)
+#62     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:257:7)
+#63     RenderProxyBoxMixin.paint (package:flutter/src/rendering/proxy_box.dart:143:13)
+#64     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#65     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#66     RenderSliverMultiBoxAdaptor.paint (package:flutter/src/rendering/sliver_multi_box_adaptor.dart:742:17)
+#67     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#68     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#69     RenderSliverEdgeInsetsPadding.paint (package:flutter/src/rendering/sliver_padding.dart:270:15)
+#70     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#71     PaintingContext.paintChild (package:flutter/src/rendering/object.dart:265:13)
+#72     RenderViewportBase._paintContents (package:flutter/src/rendering/viewport.dart:999:17)
+#73     PaintingContext.pushLayer (package:flutter/src/rendering/object.dart:522:12)
+#74     PaintingContext.pushClipRect (package:flutter/src/rendering/object.dart:589:7)
+#75     RenderViewportBase.paint (package:flutter/src/rendering/viewport.dart:974:38)
+#76     RenderObject._paintWithContext (package:flutter/src/rendering/object.dart:3580:7)
+#77     PaintingContext._repaintCompositedChild (package:flutter/src/rendering/object.dart:180:11)
+#78     PaintingContext.repaintCompositedChild (package:flutter/src/rendering/object.dart:125:5)
+#79     PipelineOwner.flushPaint (package:flutter/src/rendering/object.dart:1325:31)
+#80     PipelineOwner.flushPaint (package:flutter/src/rendering/object.dart:1335:15)
+#81     AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:2438:31)
+#82     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:558:5)
+#83     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+#84     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+#85     AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:2261:9)
+#88     TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#89     AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:2250:27)
+#90     WidgetTester.pump.<anonymous closure> (package:flutter_test/src/widget_tester.dart:652:53)
+#93     TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#94     WidgetTester.pump (package:flutter_test/src/widget_tester.dart:652:27)
+#95     WidgetController.dragUntilVisible.<anonymous closure> (package:flutter_test/src/controller.dart:2485:15)
+<asynchronous suspension>
+#96     TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#97     WidgetController.scrollUntilVisible.<anonymous closure> (package:flutter_test/src/controller.dart:2439:7)
+<asynchronous suspension>
+#98     TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#99     main.<anonymous closure> (file:///Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart:115:7)
+<asynchronous suspension>
+#100    testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#101    TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 5 frames from dart:async and package:stack_trace)
+
+This exception was caught while trying to describe the user-relevant code of another error.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.single (dart:core/iterable.dart:694:25)
+#1      WidgetController.element (package:flutter_test/src/controller.dart:888:30)
+#2      WidgetController.dragUntilVisible.<anonymous closure> (package:flutter_test/src/controller.dart:2489:38)
+<asynchronous suspension>
+#3      TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#4      WidgetController.scrollUntilVisible.<anonymous closure> (package:flutter_test/src/controller.dart:2439:7)
+<asynchronous suspension>
+#5      TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#6      main.<anonymous closure> (file:///Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart:115:7)
+<asynchronous suspension>
+#7      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#8      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  Turkish library explains the real draft count and review boundary
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (5) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:04 +4 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish library explains the real draft count and review boundary [E]
+  Test failed. See exception logs above.
+  The test description was: Turkish library explains the real draft count and review boundary
+  
+00:04 +4 -1: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart
+00:05 +4 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: sınıflandırma METİNDEN değil TİPTEN typed content errors keep integrity and retryable reads apart
+00:05 +5 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: sınıflandırma METİNDEN değil TİPTEN ContentIntegrityException → integrity, ihlaller detayda
+00:05 +6 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: sınıflandırma METİNDEN değil TİPTEN StateError/ArgumentError → integrity (dosya OKUNDU, içeriği tutmuyor)
+00:05 +7 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: sınıflandırma METİNDEN değil TİPTEN bilinmeyen tip → unreadable (yanlış tarafa düşmek gerekiyorsa BU taraf)
+00:05 +8 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri unreadable: "Try again" VAR
+00:06 +9 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri integrity: "Try again" YOK — aynı asset aynı sonucu verir
+00:06 +10 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri onRetry verilmezse retry sunulmaz — ekran retry UYDURMAZ
+00:06 +11 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri "Yine de devam et" HİÇ YOK — kaçış kapısı doğrulamayı süs yapar
+00:07 +12 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri MAKİNE metni BİRİNCİL olamaz — başlık insan cümlesi
+00:07 +13 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri gövde suçu KULLANICIYA atmıyor (integrity "bizde")
+00:07 +14 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam geçmiş okunamadıysa "Not started" DEMİYOR — beyan ediyor
+00:07 +15 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam POZİTİF İKİZ: geçmiş SAĞLAMSA beyan GÖRÜNMEZ, "Not started" var
+00:07 +16 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam KISMİ: sayı GÖSTERİLİYOR ama taban eksik DİYE beyan ediliyor
+00:07 +17 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam POZİTİF İKİZ: kayıp YOKKEN kısmi beyanı GÖRÜNMÜYOR
+00:07 +18 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam kısmi beyan KAYIP SAYISINI söylüyor — "bir şeyler eksik" demiyor
+00:07 +19 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam beyan SAYI göstermiyor — bilmediğimizi sıfır yazmıyoruz
+00:07 +20 -1: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_screen_test.dart
+00:08 +20 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_screen_test.dart: taslak ağaç (bugünkü GERÇEK durum — iki paket de draft) başlıkta ağaç adı, gövdede adım sayısı VE taslak gerekçesi
+00:10 +21 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_screen_test.dart: taslak ağaç (bugünkü GERÇEK durum — iki paket de draft) doğrulanmış-durumu cümlesi ÇİZİLMİYOR — sayfa kendiyle çelişmiyor
+00:10 +22 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_screen_test.dart: POZİTİF İKİZ — doğrulanmış dal GERÇEKTEN çiziliyor mu validated ağaç → doğrulanmış-durum cümlesi, taslak DEĞİL
+00:11 +23 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_screen_test.dart: taşma YOK — dar telefon genişliğinde, en uzun gövde metniyle
+00:11 +24 -1: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_trees_list_screen_test.dart
+00:13 +24 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_trees_list_screen_test.dart: her ağaç bir satır — ad + adım sayısı
+00:14 +25 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_trees_list_screen_test.dart: bir satıra dokununca DOĞRU ağacın ekranı açılıyor
+00:14 +26 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_trees_list_screen_test.dart: boş liste — sessiz ekran DEĞİL, adıyla bir cümle
+00:14 +27 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_trees_list_screen_test.dart: taşma YOK — dar telefon genişliğinde
+00:15 +28 -1: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart
+00:16 +28 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: kütüphane — kapsam GÖRÜNÜR 31 hareket, 9 aile; sayaç iki sayıyı da söylüyor
+00:19 +29 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: kütüphane — kapsam GÖRÜNÜR her aile bölümü ÇİZİLİYOR — hiçbiri sessizce düşmüyor
+00:20 +30 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: ⭐ KRİTİK KISIT — kapsam-dışı arama BOŞ DÖNMEZ (W0 §4) "leg press" → boş sonuç DEĞİL, gerekçeli bölüm
+00:20 +31 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: ⭐ KRİTİK KISIT — kapsam-dışı arama BOŞ DÖNMEZ (W0 §4) POZİTİF İKİZ: anlamsız sorgu GERÇEKTEN boş — kapsam-dışı bir her-şeyi-yakalayan değil
+00:22 +32 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: ⭐ KRİTİK KISIT — kapsam-dışı arama BOŞ DÖNMEZ (W0 §4) kapsam-İÇİ arama hareketi buluyor
+00:22 +33 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: ⭐ KRİTİK KISIT — kapsam-dışı arama BOŞ DÖNMEZ (W0 §4) takma addan arama — "air squat" bodyweight squat'ı buluyor
+00:23 +34 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu KUYRUKTAKİ hareket: "ölçülen" BOŞ ama onurlu bir cümle var
+00:24 +35 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu kutunun HER maddesi çiziliyor — kırpılmış beyan, beyan değil
+00:25 +36 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu "referans yok" cümlesi KOŞULLU — sayfa kendiyle çelişmiyor
+00:30 +37 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu referans YOK hâli: sahte iskelet-avatar ÇİZİLMİYOR
+00:30 +38 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu POZİTİF İKİZ: figür bulucusu GERÇEKTEN çalışıyor
+00:30 +39 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu POZİTİF İKİZ: bölüme ait çizim bulucusu çalışıyor
+00:30 +40 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu güvenlik uyarısı KIRPILMIYOR — katalog metni birebir ekranda
+00:30 +41 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu dersi OLMAYAN harekette "hiç seansın yok" DENMİYOR — kanıtlanamaz
+00:30 +42 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu taşma YOK — 375pt'te, HER hareketin TÜM sayfasında
+00:32 +43 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu taşma YOK — 375pt'te, BEŞ yüzeyin HEPSİNDE
+00:32 +44 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu taşma süpürmesi SESSİZCE küçülemez
+00:32 +45 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu ⭐ SESSİZLİK NÖBETİ: her kullanıcı metni GERÇEKTEN çiziliyor
+00:33 +46 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu EN UZUN dürüstlük kutusu da 375pt'te taşmıyor
+00:33 +47 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: "Neden yok?" sayfası yedi bölümün hepsi ve gerekçeleri çiziliyor
+00:33 +48 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: "Neden yok?" sayfası İÇ alanlar uygulamaya HİÇ girmiyor
+00:33 +49 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: kabuk dört sekme ve nöbetli seans düğmesi
+00:34 +50 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: her ekran ÜRETİM kodundan inşa ediliyor — test-only yüzey YOK
+00:34 +51 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) kullanıcıya giden hiçbir metinde VAAT ifadesi YOK — "yet" DAHİL
+00:34 +52 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) ⭐ O-040 AKTARIMI: `measured` iddiasının kabukta CANLI YOLU var mı
+00:34 +53 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) ⭐ J-113: `measured` iddiası TESPİT/PUANLAMA ayrımını taşıyor
+00:34 +54 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) canlı seans AYRI KOVAYA yazılıyor — ders trendine karışmıyor
+00:34 +55 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) KUYRUK ile KALICI sınır AYRI başlıklarda çiziliyor
+00:34 +56 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) her bloklu hareket KUYRUĞUNU beyan ediyor — ve kuyruk TÜRETİMLİ
+00:34 +57 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) KOD kuyruğu ÖLÇÜM kuyruğu gibi sunulmuyor
+00:34 +58 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) J-124: Progress SERBEST seansı görüyor — "Not started" DEMİYOR
+00:34 +59 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) POZİTİF İKİZ: serbest seans YOKKEN bölüm ÇİZİLMEZ
+00:34 +60 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) rozet ETİKETİ gerekçeli — "Coming soon" sınıfı etiket YOK
+00:34 +61 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) HAM katalog anahtarı yüzeye sızmıyor (alt çizgi yok)
+00:35 +62 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) HİÇBİR kullanıcı metninde DEFTER KODU yok — curated DAHİL
+00:35 +63 -1: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart
+00:36 +63 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: öksüz-anahtar kapısı fazla genişlerse İÇ KAYIT ön eki (`_` / `$`) muafiyeti YAŞAMALI
+00:36 +64 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: dil nöbeti fazla genişlerse DÜRÜST bekleme dili YAŞAMALI — "waiting"/"missing"/"closed"
+00:36 +65 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: literal-renk yasağı fazla genişlerse `theme.dart` renk TANIMLAYABİLMELİ
+00:36 +66 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: `measured` kayıt defteri fazla daralırsa KAYITLI bir iddia kabul EDİLMELİ — kapı ilerlemeyi engellemez
+00:36 +67 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: YAPISAL VAAT — vaat her zaman bir SÖZCÜKTE değil kullanıcı metninde SIRA/BORU HATTI metaforu yok
+00:36 +68 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: YAPISAL VAAT — vaat her zaman bir SÖZCÜKTE değil `wave` iç jetonu YÜZEYE çıkmıyor
+00:36 +69 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: YAPISAL VAAT — vaat her zaman bir SÖZCÜKTE değil TERS İKİZ: DURUM sözcükleri yasaklanmadı
+00:36 +70 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: KAÇIŞ KAZASI — interpolasyon LİTERAL olarak sevk edilemez kullanıcı metninde çözülmemiş `$` yok
+00:36 +71 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: kontrast kapısı fazla genişlerse NON-TEXT tokeni metin eşiğine ZORLANMAMALI
+00:36 +72 -1: Some tests failed.
+
+Failing tests:
+  /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish library explains the real draft count and review boundary

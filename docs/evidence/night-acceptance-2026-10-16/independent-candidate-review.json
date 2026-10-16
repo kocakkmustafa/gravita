@@ -1,0 +1,20 @@
+{
+  "source_commit": "ef1085c29838082c196b891bbeee3451d526c458",
+  "baseline": "e8ccaef4c6d4bc875dd037638c96fa45714cf622",
+  "reviewer": "independent gravita_review agent; GPT-6.1 Sol, xhigh",
+  "scope": "Read-only patch review; tests not run by reviewer",
+  "verdict": "NO_NEW_BLOCKER_FOUND",
+  "tracked_diff_sha256": "9d15546a71120b6c2a720dbfbb46ac068f87096eeda806dc1d4dbec443d43735",
+  "new_test_sha256": "ffc487cff6ab6b630322ef2a5c573bebeaff913e94d85ef7469e0b84d4619fc0",
+  "confirmed": [
+    "TR skill list/count/boundary localization preserves actual capability limits",
+    "History read failure no longer recommends uninstall/reinstall or guarantees recovery",
+    "MovementCard has finite width in actual callers; local constraint preserves soft wrap and InkWell hit target",
+    "No curriculum, shared Core, pin, lock, manifest or store asset change"
+  ],
+  "remaining": [
+    "Broader ProgressTab/ProgressView Turkish translation is incomplete",
+    "Synthetic thresholdsValidated=true still uses the baseline drafted eyebrow; actual two trees are false",
+    "No native/device/privacy or physical teaching approval from this source review"
+  ]
+}

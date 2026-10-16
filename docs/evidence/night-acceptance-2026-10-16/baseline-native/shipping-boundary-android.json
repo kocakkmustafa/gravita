@@ -1,0 +1,60 @@
+{
+  "native_asset_manifests": {
+    "base/assets/flutter_assets/NativeAssetsManifest.json": {
+      "format-version": [
+        1,
+        0,
+        0
+      ],
+      "native-assets": {}
+    }
+  },
+  "binary_sha256": {
+    "BUNDLE-METADATA/com.android.tools.build.debugsymbols/arm64-v8a/libapp.so.sym": "d5ecf47e06e8290fa958c6d48ac560a830cc343a664b160441566c82a39d595a",
+    "BUNDLE-METADATA/com.android.tools.build.debugsymbols/arm64-v8a/libdartjni.so.sym": "0624cf4f7766428ef7c5c2f78455ef428eb83196da63b29ee7bd08f06938aa99",
+    "BUNDLE-METADATA/com.android.tools.build.debugsymbols/arm64-v8a/libflutter.so.sym": "b915248d504b2c56c23918541204c6a7f62907a385c1922efd5849f35d527c3d",
+    "BUNDLE-METADATA/com.android.tools.build.debugsymbols/arm64-v8a/libmediapipe_tasks_vision_jni.so.sym": "6e81226752fbfd0da0cae41c3e8743bee25be979bb8f03003c4fe1ca70a54bb5",
+    "BUNDLE-METADATA/com.android.tools.build.debugsymbols/armeabi-v7a/libapp.so.sym": "c373b2ea6c094b504f8e07768c702a6d2ea02b1b0497417c9624897a0debe1a7",
+    "BUNDLE-METADATA/com.android.tools.build.debugsymbols/armeabi-v7a/libdartjni.so.sym": "eddc2338a7cf71ebbf9c2abce8ac4feb63d9768d4790c7eddbf364c894fca014",
+    "BUNDLE-METADATA/com.android.tools.build.debugsymbols/armeabi-v7a/libflutter.so.sym": "5d0a3db4c5761f39291b5302d6727ea72ec9ef7fb042f7605405b0ca84df0c05",
+    "BUNDLE-METADATA/com.android.tools.build.debugsymbols/armeabi-v7a/libmediapipe_tasks_vision_jni.so.sym": "61bb9b217947a4292e25ba493d16c5ae4637628271fdb47b2525813d47a054a0",
+    "BUNDLE-METADATA/com.android.tools.build.debugsymbols/x86_64/libapp.so.sym": "fcaceb482ad3f0b950808d86a3a176437b8e67b5be77da32cbbc228f194aed94",
+    "BUNDLE-METADATA/com.android.tools.build.debugsymbols/x86_64/libdartjni.so.sym": "8db58e963f700cf091cb7868b724f9d5046a76de3d8fb2fa09e056d56a3568d7",
+    "BUNDLE-METADATA/com.android.tools.build.debugsymbols/x86_64/libflutter.so.sym": "d71cee6efbd57a5eee83d9cda16d8ffc40fe29ff89f18d97a629c76856dd8c2f",
+    "BUNDLE-METADATA/com.android.tools.build.debugsymbols/x86_64/libmediapipe_tasks_vision_jni.so.sym": "618fba56eb6358f319cd0cb315a54cbeef39cddbb7d3bc8b28380a49c59bef0b",
+    "base/lib/arm64-v8a/libapp.so": "d541a8033bcfc6a5a5d34f282d57cea79f47ccbcc12f10985d45b643a0b04aa1",
+    "base/lib/arm64-v8a/libdartjni.so": "9ea474aa7d33df8316b2ef40da3359f05c4a99e15acf19985455e63ec9799658",
+    "base/lib/arm64-v8a/libdatastore_shared_counter.so": "d3e48717c9aa147e0ab21063ba0e8e0211cabf8bf40b222640829519edbf58e1",
+    "base/lib/arm64-v8a/libflutter.so": "1617e3b3bf10f4569c30db20b37fccfcc0b9a179b827543c01e5f18e91966b6c",
+    "base/lib/arm64-v8a/libimage_processing_util_jni.so": "f0e4611db0d6b68942d8ba6977519f3dd1cdbffa87b7fc16d8006696ba954af4",
+    "base/lib/arm64-v8a/libmediapipe_tasks_vision_jni.so": "6e81226752fbfd0da0cae41c3e8743bee25be979bb8f03003c4fe1ca70a54bb5",
+    "base/lib/arm64-v8a/libsurface_util_jni.so": "6cb2eac3c68e6a82ce2a5ea5aba86749eb8c609914392e125f6cdfbc208992f8",
+    "base/lib/armeabi-v7a/libapp.so": "a723b074179f2431c6c1dd674dddde07ad90935c50f08f19e035abc0633dba13",
+    "base/lib/armeabi-v7a/libdartjni.so": "8bdc52d46e83f145f6c6db11c70364d125d2651015f14dc84e92a5d647fb987d",
+    "base/lib/armeabi-v7a/libdatastore_shared_counter.so": "716c5d8d2cac8ca0edf65da8f139c7886b726ac79d542a14edeb94994ba6d3dc",
+    "base/lib/armeabi-v7a/libflutter.so": "5ef72b4565efac255eb08ffdbd6cb9b7ed027215ffa47ca6b7745f0e2074eee1",
+    "base/lib/armeabi-v7a/libimage_processing_util_jni.so": "7467e79ba28f412ce46f24dfae5a0479e0bd20b94d834963d1ac4fdb19e406c1",
+    "base/lib/armeabi-v7a/libmediapipe_tasks_vision_jni.so": "61bb9b217947a4292e25ba493d16c5ae4637628271fdb47b2525813d47a054a0",
+    "base/lib/armeabi-v7a/libsurface_util_jni.so": "ee762c748052666a20c3cffbffb8acef9a405b873d13fb1479cef63fff7aaea0",
+    "base/lib/x86_64/libapp.so": "6f1b7924f44beb6187ac7ba41db22d0d91005b6f18c470053b9138ef7afc533f",
+    "base/lib/x86_64/libdartjni.so": "ffeff243013098f850c520ff1d23fa19b6e5bf9a5281fd184e0705a694621158",
+    "base/lib/x86_64/libdatastore_shared_counter.so": "fb6c9208988c49ae94943bc3236fa763ba584722e044fa4ea9a12d2941027105",
+    "base/lib/x86_64/libflutter.so": "b1ec05dba7ee856f093c189ee46fb5893ba1096fcd4ac955f3662a9d4c5e1ea2",
+    "base/lib/x86_64/libimage_processing_util_jni.so": "f5d02c9c50c33a45c2125f63f4d6c954aec0e9b1a6ade25074f146ed92264efe",
+    "base/lib/x86_64/libmediapipe_tasks_vision_jni.so": "618fba56eb6358f319cd0cb315a54cbeef39cddbb7d3bc8b28380a49c59bef0b",
+    "base/lib/x86_64/libsurface_util_jni.so": "84d8ca201f2160b2ca3a5bd2886994f7287ee7cd09fe73b081f5b236dda8496d",
+    "base/root/DebugProbesKt.bin": "86fecd0235d45839845081c1f91c9a58b40b0ae787f242bdba8f9150da45d0eb"
+  },
+  "artifact_sha256": "5596435c38a1953f9788d482c8bfc662fc562ed60cfc58a66ce40463e9d15dc6",
+  "source_commit": "e8ccaef4c6d4bc875dd037638c96fa45714cf622",
+  "pubspec_lock_sha256": "ad009b9e4681cc73361785a02336b6c050539b776a2433e007a0aec0012f2a06",
+  "flutter": {
+    "frameworkVersion": "3.47.5",
+    "frameworkRevision": "6a19cca56475dbfba1478ee68d7bd0c2ef891da1",
+    "engineRevision": "af7e796e161ae0bb1ff0758c71a7105418bd9ded",
+    "dartSdkVersion": "3.13.4"
+  },
+  "status": "PASS",
+  "platform": "android",
+  "scope": "SQLite release absence; iOS statfs/fstatfs imports"
+}

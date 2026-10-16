@@ -1,0 +1,42 @@
+{
+  "native_asset_manifests": {
+    "Frameworks/App.framework/flutter_assets/NativeAssetsManifest.json": {
+      "format-version": [
+        1,
+        0,
+        0
+      ],
+      "native-assets": {
+        "ios_arm64": {
+          "package:objective_c/objective_c.dylib": [
+            "absolute",
+            "objective_c.framework/objective_c"
+          ]
+        }
+      }
+    }
+  },
+  "binary_sha256": {
+    "Frameworks/App.framework/App": "6716f2f92eff16fe25359cf8148e46f84b3a0e56db3138b661a64745d2d73acc",
+    "Frameworks/Flutter.framework/Flutter": "32295ac2ccb20c718d68f4e0f54f41492e78418beb42a42f6f18ecef42f9b7e8",
+    "Frameworks/objective_c.framework/objective_c": "b8d7cbab32e0cb50bd08250b7bb07cdf80c84a31797a41e89d76faf3193242cd",
+    "Runner": "e0fb0ed6cd43b5ba29d78cff9b36a7d9bc4fba121c7d6741075855df26eb90b9"
+  },
+  "disk_space_imports": {
+    "Frameworks/App.framework/App": [],
+    "Frameworks/Flutter.framework/Flutter": [],
+    "Frameworks/objective_c.framework/objective_c": [],
+    "Runner": []
+  },
+  "source_commit": "e8ccaef4c6d4bc875dd037638c96fa45714cf622",
+  "pubspec_lock_sha256": "ad009b9e4681cc73361785a02336b6c050539b776a2433e007a0aec0012f2a06",
+  "flutter": {
+    "frameworkVersion": "3.47.5",
+    "frameworkRevision": "6a19cca56475dbfba1478ee68d7bd0c2ef891da1",
+    "engineRevision": "af7e796e161ae0bb1ff0758c71a7105418bd9ded",
+    "dartSdkVersion": "3.13.4"
+  },
+  "status": "PASS",
+  "platform": "ios",
+  "scope": "SQLite release absence; iOS statfs/fstatfs imports"
+}

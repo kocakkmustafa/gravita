@@ -1,0 +1,18 @@
+{
+  "acceptance.json": "dd648cf443906e2170c96f1512470252fe888c71bbf4522291ffc295da7bf803",
+  "baseline-analyze.txt": "8e40dec7eb5e369d3e40fd9e286b7aae6465f24307661a342c52e20c9c0a9746",
+  "baseline-ci.json": "7954d3280314aec3256546d24b48c69bfd7a4f9b80894489d33a1319557eea47",
+  "baseline-gates.txt": "c5ae3a4ab0c7da833980d7fe32ce955d63435f7666eca169f23bc6948ca0e072",
+  "baseline-native/shipping-boundary-android.json": "059785869467ee017bbd42ff3fad63a17bb6c365326ae0290f3c2f987b05644f",
+  "baseline-native/shipping-boundary-ios.json": "9e6deba94c7de9f7ba95cae487118349762e2d5b9da106108f52b0ef86cc6f5b",
+  "candidate-analyze.txt": "ada24e576e8024b2ffd7acf91e35b724757edd2a72ed27ccf9294b6f272d4869",
+  "content-inventory.json": "dc4c752b7199a13aff1168cfd90f61e6343893951e76f1ee41d23eb5453a2f8e",
+  "flutter-version.json": "aad549286e3ed9226f37355e2bcfb0ba2bca5e300527fea17ccc42d09e7c5a01",
+  "independent-candidate-review.json": "3b2792af9b3bd2cdda3132ad4b46137b0fab8a4aca1811e369fee89501abcedd",
+  "independent-source-review.json": "54f585849e22f63d6ef841a8f52838c6811f1a41966bc9f5494e3a79e86796f5",
+  "large-text-red.txt": "408288cc171ca481d2f4ae5b44f32801a8bfe5b17ce46657139f757cd5abbd7e",
+  "regression-red.txt": "8b8c8b8ef07bb9310456e18a95c98acbe33d0f76b61bce87d6fb55d2e283d04e",
+  "shipping-boundary-fixtures.txt": "fc18e09243e55b9fb715f888dadbdc67550bff1f541f945017d79eedd71005d6",
+  "source-projection-fixtures.txt": "cc180eeb3b431e71cc643a1da021159afb9ca266827459b43f9e6b58c25cf3af",
+  "targeted-green.txt": "858866caf674660a64594ea112bd040dec48584eab4a295d922d345b460586eb"
+}
