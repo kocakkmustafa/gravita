@@ -202,8 +202,9 @@ abstract final class LibraryStrings {
       '${drafted == 1 ? 'One progression tree is' : '$drafted progression '
                 'trees are'} drafted ($names), but their unlock criteria have not '
       'been through a movement-science review. We are not drawing a tree '
-      'whose gates would be numbers we picked ourselves. The movements inside '
-      'those progressions are in the library like everything else.';
+      'whose gates would be numbers we picked ourselves. Some related movement '
+      'pages are in the library. Learning guides and camera availability are '
+      'shown separately; this summary does not approve physical practice.';
 
   // ── Hareket sayfası ────────────────────────────────────────────────────
   static const String honestyTitle = motionPaidCameraLaunchEnabled
@@ -399,8 +400,9 @@ abstract final class LibraryStrings {
       'We are not showing you the individual steps of $treeName: their '
       'unlock criteria have not been through a movement-science review, and '
       'we do not want to draw a gate whose number we picked ourselves. The '
-      'movements that make up this progression are in the library like '
-      'everything else — you can practise them today.';
+      'related movement pages in the library show their learning guides and '
+      'camera availability separately; this summary does not approve physical '
+      'practice.';
 
   /// Eşikler doğrulandığında (bugün hiçbir pakette yok) bile bu ekran adım
   /// listesi ÇİZMEZ — `content/skill-graph/` paketleri hâlâ bundle dışında

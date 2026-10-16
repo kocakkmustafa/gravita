@@ -311,10 +311,17 @@ class _LibraryScreenState extends State<LibraryScreen> {
       NoteCard(
         sealed: true,
         icon: Icons.account_tree_outlined,
-        text: LibraryStrings.skillTreesBody(
-          _catalogue.skillTrees.drafted.length,
-          _catalogue.skillTrees.draftedNames,
-        ),
+        text: localized(context,
+          LibraryStrings.skillTreesBody(
+            _catalogue.skillTrees.drafted.length,
+            _catalogue.skillTrees.draftedNames,
+          ),
+          '${_catalogue.skillTrees.drafted.length} taslak ilerleme ağacı '
+          'bulunuyor (${_catalogue.skillTrees.draftedNames}). İlerleme koşulları '
+          'hareket bilimi incelemesinden geçmediği için ağaçları adım adım '
+          'göstermiyoruz. İlgili bazı hareket sayfaları kütüphanede bulunur. '
+          'Öğrenme rehberleri ve kamera erişimi ayrıca belirtilir; '
+          'bu özet fiziksel uygulamayı onaylamaz.'),
       ),
     ],
   );

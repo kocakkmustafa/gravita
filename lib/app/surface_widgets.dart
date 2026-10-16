@@ -15,7 +15,6 @@ import 'library_model.dart';
 import 'library_strings.dart';
 import 'theme.dart';
 
-
 /// Bölüm başlığı + isteğe bağlı alt satır — design'ın mono "eyebrow" deseni.
 class SurfaceSection extends StatelessWidget {
   const SurfaceSection({
@@ -33,39 +32,43 @@ class SurfaceSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                child: Text(
-                  title,
-                  style: GravitaType.mono(
-                      size: 11,
-                      color: GravitaColors.textSecondary,
-                      weight: FontWeight.w600,
-                      letterSpacingEm: 0.12),
-                ),
+          Expanded(
+            child: Text(
+              title,
+              style: GravitaType.mono(
+                size: 11,
+                color: GravitaColors.textSecondary,
+                weight: FontWeight.w600,
+                letterSpacingEm: 0.12,
               ),
-              if (trailing != null) trailing!,
-            ],
+            ),
           ),
-          if (subtitle != null) ...<Widget>[
-            const SizedBox(height: 6),
-            Text(subtitle!,
-                style: GravitaType.body(
-                    size: 12.5,
-                    color: GravitaColors.textSecondary,
-                    height: 1.5)),
-          ],
-          const SizedBox(height: 14),
-          for (int i = 0; i < children.length; i++) ...<Widget>[
-            children[i],
-            if (i < children.length - 1) const SizedBox(height: 10),
-          ],
+          if (trailing != null) trailing!,
         ],
-      );
+      ),
+      if (subtitle != null) ...<Widget>[
+        const SizedBox(height: 6),
+        Text(
+          subtitle!,
+          style: GravitaType.body(
+            size: 12.5,
+            color: GravitaColors.textSecondary,
+            height: 1.5,
+          ),
+        ),
+      ],
+      const SizedBox(height: 14),
+      for (int i = 0; i < children.length; i++) ...<Widget>[
+        children[i],
+        if (i < children.length - 1) const SizedBox(height: 10),
+      ],
+    ],
+  );
 }
 
 /// Bir hareketin liste satırı.
@@ -88,46 +91,76 @@ class MovementCard extends StatelessWidget {
       child: GravitaCard(
         radius: 18,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(catalogName(context, movement.id, movement.displayName),
-                      style: GravitaType.display(
-                          size: 16, weight: FontWeight.w500)),
-                  const SizedBox(height: 5),
-                  Text(
-                    movementMetaLine(context, movement),
-                    style: GravitaType.body(
-                        size: 12.5, color: GravitaColors.textSecondary),
-                  ),
-                  if (!live && movement.blockedBy.isNotEmpty) ...<Widget>[
-                    const SizedBox(height: 7),
+        child: LayoutBuilder(
+          builder: (context, constraints) => Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
                     Text(
-                      localized(context,
-                        LibraryStrings.blockerCount(movement.blockedBy.length),
-                        '${movement.blockedBy.length} ölçüm engeli'),
-                      style: GravitaType.mono(
-                          size: 10.5, color: GravitaColors.honestySeal),
+                      catalogName(context, movement.id, movement.displayName),
+                      style: GravitaType.display(
+                        size: 16,
+                        weight: FontWeight.w500,
+                      ),
                     ),
+                    const SizedBox(height: 5),
+                    Text(
+                      movementMetaLine(context, movement),
+                      style: GravitaType.body(
+                        size: 12.5,
+                        color: GravitaColors.textSecondary,
+                      ),
+                    ),
+                    if (!live && movement.blockedBy.isNotEmpty) ...<Widget>[
+                      const SizedBox(height: 7),
+                      Text(
+                        localized(
+                          context,
+                          LibraryStrings.blockerCount(
+                            movement.blockedBy.length,
+                          ),
+                          '${movement.blockedBy.length} ölçüm engeli',
+                        ),
+                        style: GravitaType.mono(
+                          size: 10.5,
+                          color: GravitaColors.honestySeal,
+                        ),
+                      ),
+                    ],
                   ],
-                ],
+                ),
               ),
-            ),
-            const SizedBox(width: 12),
-            GravitaPill(
-              label: live
-                  ? localized(context, LibraryStrings.openBadge,
-                      motionPaidCameraLaunchEnabled ? 'AÇIK' : 'KAMERA KAPALI')
-                  : localized(context, LibraryStrings.queuedBadge, 'KAPALI'),
-              // Pill ETİKETİ metindir (mono 10) → non-text token kullanılamaz.
-              tone: live ? GravitaColors.accent : GravitaColors.textSecondary,
-              filled: live,
-            ),
-          ],
+              const SizedBox(width: 12),
+              ConstrainedBox(
+                // Keep the full status readable at large text scales without
+                // letting its intrinsic width push the movement off the card.
+                constraints: BoxConstraints(maxWidth: constraints.maxWidth / 2),
+                child: GravitaPill(
+                  label: live
+                      ? localized(
+                          context,
+                          LibraryStrings.openBadge,
+                          motionPaidCameraLaunchEnabled
+                              ? 'AÇIK'
+                              : 'KAMERA KAPALI',
+                        )
+                      : localized(
+                          context,
+                          LibraryStrings.queuedBadge,
+                          'KAPALI',
+                        ),
+                  // Pill ETİKETİ metindir (mono 10) → non-text token kullanılamaz.
+                  tone: live
+                      ? GravitaColors.accent
+                      : GravitaColors.textSecondary,
+                  filled: live,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -153,19 +186,22 @@ class NoteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color ink =
-        sealed ? GravitaColors.honestyText : GravitaColors.textSecondary;
+    final Color ink = sealed
+        ? GravitaColors.honestyText
+        : GravitaColors.textSecondary;
     return GravitaCard(
       sealed: sealed,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           if (icon != null) ...<Widget>[
-            Icon(icon,
-                size: 18,
-                color: sealed
-                    ? GravitaColors.honestySeal
-                    : GravitaColors.textTertiary),
+            Icon(
+              icon,
+              size: 18,
+              color: sealed
+                  ? GravitaColors.honestySeal
+                  : GravitaColors.textTertiary,
+            ),
             const SizedBox(width: 10),
           ],
           Expanded(
@@ -173,16 +209,20 @@ class NoteCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 if (title != null) ...<Widget>[
-                  Text(title!,
-                      style: GravitaType.display(
-                          size: 15,
-                          weight: FontWeight.w500,
-                          color: sealed ? GravitaColors.honestyText : null)),
+                  Text(
+                    title!,
+                    style: GravitaType.display(
+                      size: 15,
+                      weight: FontWeight.w500,
+                      color: sealed ? GravitaColors.honestyText : null,
+                    ),
+                  ),
                   const SizedBox(height: 8),
                 ],
-                Text(text,
-                    style:
-                        GravitaType.body(size: 13.5, color: ink, height: 1.55)),
+                Text(
+                  text,
+                  style: GravitaType.body(size: 13.5, color: ink, height: 1.55),
+                ),
               ],
             ),
           ),
@@ -212,33 +252,36 @@ class ReasonList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          for (int i = 0; i < items.length; i++) ...<Widget>[
-            if (i > 0) const SizedBox(height: 10),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  // Madde işareti ilk satırın x-yüksekliğine hizalanır;
-                  // `CrossAxisAlignment.start` tek başına onu satırın TEPESİNE
-                  // yapıştırır ve çok satırlı maddede kayık görünür.
-                  padding: const EdgeInsets.only(top: 7, right: 10),
-                  child: Container(
-                    width: 4,
-                    height: 4,
-                    decoration: BoxDecoration(
-                        color: bulletColor, shape: BoxShape.circle),
-                  ),
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      for (int i = 0; i < items.length; i++) ...<Widget>[
+        if (i > 0) const SizedBox(height: 10),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              // Madde işareti ilk satırın x-yüksekliğine hizalanır;
+              // `CrossAxisAlignment.start` tek başına onu satırın TEPESİNE
+              // yapıştırır ve çok satırlı maddede kayık görünür.
+              padding: const EdgeInsets.only(top: 7, right: 10),
+              child: Container(
+                width: 4,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: bulletColor,
+                  shape: BoxShape.circle,
                 ),
-                Expanded(
-                  child: Text(items[i],
-                      style: GravitaType.body(
-                          size: 13.5, color: color, height: 1.55)),
-                ),
-              ],
+              ),
+            ),
+            Expanded(
+              child: Text(
+                items[i],
+                style: GravitaType.body(size: 13.5, color: color, height: 1.55),
+              ),
             ),
           ],
-        ],
-      );
+        ),
+      ],
+    ],
+  );
 }
