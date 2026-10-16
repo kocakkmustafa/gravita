@@ -81,6 +81,13 @@ void main() {
     expect(completed, isTrue, reason: 'Journal IO must settle while the widget zone is pumped');
     return pending;
   }
+  Future<void> awaitUi(WidgetTester tester, bool Function() ready,
+      String reason) async {
+    for (var i = 0; i < 100 && !ready(); i++) {
+      await settleIo(tester);
+    }
+    expect(ready(), isTrue, reason: reason);
+  }
   void drainAfter(WidgetTester tester) {
     addTearDown(() async {
       await tester.pumpWidget(const SizedBox.shrink());
@@ -169,16 +176,41 @@ void main() {
       expect(tester.widget<FilledButton>(find.byKey(const Key('calisthenics.complete'))).onPressed, isNull);
       expect(find.byKey(const Key('dbkb.answer.content')), findsNothing);
       await to(tester, const Key('calisthenics.practised'), delta: -200);
-      await tester.tap(find.byKey(const Key('calisthenics.practised')));
+      // Real initial markSeen IO can outlast a fixed40ms on a hosted runner.
+      // A tap before this state is ready is ignored, so a later load barrier
+      // alone cannot establish that a practice save was admitted.
+      await awaitUi(tester, () => tester.widget<OutlinedButton>(
+        find.byKey(const Key('calisthenics.practised'))).onPressed != null,
+        'Initial course IO must enable the learning-task action before tapping');
+      final practiceButton = find.byKey(const Key('calisthenics.practised'));
+      await tester.ensureVisible(practiceButton);
+      await tester.pumpAndSettle();
+      expect(practiceButton.hitTestable(), findsOneWidget);
+      await tester.tap(practiceButton);
       await settleIo(tester);
       // A queued journal read is a real-IO barrier after the admitted save;
       // flush its completion through the widget zone before testing enabled state.
-      await awaitIo(tester, journal.load());
+      final practised = await awaitIo(tester, journal.load());
+      expect(practised.forLesson(lesson, course.version)!.practiceCount, 1);
+      expect(practised.forLesson(lesson, course.version)!.state,
+        CalisthenicsLessonState.practised);
+      expect(practised.completedCount(course), 0);
       await settleIo(tester);
       await to(tester, const Key('calisthenics.complete'));
       expect(tester.widget<FilledButton>(find.byKey(const Key('calisthenics.complete'))).onPressed, isNull);
       await to(tester, const Key('calisthenics.confirm'), delta: -200);
-      await tester.tap(find.byKey(const Key('calisthenics.confirm'))); await tester.pump();
+      await awaitUi(tester, () => tester.widget<CheckboxListTile>(
+        find.byKey(const Key('calisthenics.confirm'))).onChanged != null,
+        'The admitted practice save must settle before confirmation');
+      final checkbox = find.descendant(
+        of: find.byKey(const Key('calisthenics.confirm')),
+        matching: find.byType(Checkbox));
+      await tester.ensureVisible(checkbox);
+      await tester.pumpAndSettle();
+      expect(checkbox.hitTestable(), findsOneWidget);
+      await tester.tap(checkbox); await tester.pump();
+      expect(tester.widget<CheckboxListTile>(
+        find.byKey(const Key('calisthenics.confirm'))).value, isTrue);
       await to(tester, const Key('calisthenics.complete'));
       expect(tester.widget<FilledButton>(find.byKey(const Key('calisthenics.complete'))).onPressed, isNotNull);
       await tester.tap(find.byKey(const Key('calisthenics.complete')));
