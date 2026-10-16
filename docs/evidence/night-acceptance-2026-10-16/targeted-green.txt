@@ -1,0 +1,90 @@
+00:00 +0: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart
+00:00 +0: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish list opens the selected draft with its boundary at 320px/2x
+00:00 +1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: English draft summary never invites practice from unvalidated gates
+00:01 +2: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish empty list explains the absence
+00:01 +3: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish synthetic reviewed status retains the missing-view boundary
+00:01 +4: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish library explains the real draft count and review boundary
+00:01 +5: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: en movement status remains readable and tappable at 320px/2x
+00:02 +6: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: tr movement status remains readable and tappable at 320px/2x
+00:02 +7: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart
+00:03 +7: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: sınıflandırma METİNDEN değil TİPTEN typed content errors keep integrity and retryable reads apart
+00:03 +8: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: sınıflandırma METİNDEN değil TİPTEN ContentIntegrityException → integrity, ihlaller detayda
+00:03 +9: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: sınıflandırma METİNDEN değil TİPTEN StateError/ArgumentError → integrity (dosya OKUNDU, içeriği tutmuyor)
+00:03 +10: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: sınıflandırma METİNDEN değil TİPTEN bilinmeyen tip → unreadable (yanlış tarafa düşmek gerekiyorsa BU taraf)
+00:03 +11: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri unreadable: "Try again" VAR
+00:03 +12: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri integrity: "Try again" YOK — aynı asset aynı sonucu verir
+00:04 +13: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri onRetry verilmezse retry sunulmaz — ekran retry UYDURMAZ
+00:04 +14: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri "Yine de devam et" HİÇ YOK — kaçış kapısı doğrulamayı süs yapar
+00:04 +15: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri MAKİNE metni BİRİNCİL olamaz — başlık insan cümlesi
+00:04 +16: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri gövde suçu KULLANICIYA atmıyor (integrity "bizde")
+00:04 +17: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam geçmiş okunamadıysa "Not started" DEMİYOR — beyan ediyor
+00:04 +18: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam POZİTİF İKİZ: geçmiş SAĞLAMSA beyan GÖRÜNMEZ, "Not started" var
+00:04 +19: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam KISMİ: sayı GÖSTERİLİYOR ama taban eksik DİYE beyan ediliyor
+00:04 +20: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam POZİTİF İKİZ: kayıp YOKKEN kısmi beyanı GÖRÜNMÜYOR
+00:04 +21: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam kısmi beyan KAYIP SAYISINI söylüyor — "bir şeyler eksik" demiyor
+00:04 +22: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam beyan SAYI göstermiyor — bilmediğimizi sıfır yazmıyoruz
+00:04 +23: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_screen_test.dart
+00:05 +23: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_screen_test.dart: taslak ağaç (bugünkü GERÇEK durum — iki paket de draft) başlıkta ağaç adı, gövdede adım sayısı VE taslak gerekçesi
+00:06 +24: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_screen_test.dart: taslak ağaç (bugünkü GERÇEK durum — iki paket de draft) doğrulanmış-durumu cümlesi ÇİZİLMİYOR — sayfa kendiyle çelişmiyor
+00:06 +25: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_screen_test.dart: POZİTİF İKİZ — doğrulanmış dal GERÇEKTEN çiziliyor mu validated ağaç → doğrulanmış-durum cümlesi, taslak DEĞİL
+00:06 +26: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_screen_test.dart: taşma YOK — dar telefon genişliğinde, en uzun gövde metniyle
+00:06 +27: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_trees_list_screen_test.dart
+00:07 +27: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_trees_list_screen_test.dart: her ağaç bir satır — ad + adım sayısı
+00:07 +28: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_trees_list_screen_test.dart: bir satıra dokununca DOĞRU ağacın ekranı açılıyor
+00:08 +29: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_trees_list_screen_test.dart: boş liste — sessiz ekran DEĞİL, adıyla bir cümle
+00:08 +30: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_trees_list_screen_test.dart: taşma YOK — dar telefon genişliğinde
+00:08 +31: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart
+00:08 +31: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: kütüphane — kapsam GÖRÜNÜR 31 hareket, 9 aile; sayaç iki sayıyı da söylüyor
+00:10 +32: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: kütüphane — kapsam GÖRÜNÜR her aile bölümü ÇİZİLİYOR — hiçbiri sessizce düşmüyor
+00:10 +33: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: ⭐ KRİTİK KISIT — kapsam-dışı arama BOŞ DÖNMEZ (W0 §4) "leg press" → boş sonuç DEĞİL, gerekçeli bölüm
+00:11 +34: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: ⭐ KRİTİK KISIT — kapsam-dışı arama BOŞ DÖNMEZ (W0 §4) POZİTİF İKİZ: anlamsız sorgu GERÇEKTEN boş — kapsam-dışı bir her-şeyi-yakalayan değil
+00:11 +35: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: ⭐ KRİTİK KISIT — kapsam-dışı arama BOŞ DÖNMEZ (W0 §4) kapsam-İÇİ arama hareketi buluyor
+00:11 +36: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: ⭐ KRİTİK KISIT — kapsam-dışı arama BOŞ DÖNMEZ (W0 §4) takma addan arama — "air squat" bodyweight squat'ı buluyor
+00:11 +37: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu KUYRUKTAKİ hareket: "ölçülen" BOŞ ama onurlu bir cümle var
+00:12 +38: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu kutunun HER maddesi çiziliyor — kırpılmış beyan, beyan değil
+00:12 +39: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu "referans yok" cümlesi KOŞULLU — sayfa kendiyle çelişmiyor
+00:13 +40: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu referans YOK hâli: sahte iskelet-avatar ÇİZİLMİYOR
+00:13 +41: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu POZİTİF İKİZ: figür bulucusu GERÇEKTEN çalışıyor
+00:13 +42: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu POZİTİF İKİZ: bölüme ait çizim bulucusu çalışıyor
+00:13 +43: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu güvenlik uyarısı KIRPILMIYOR — katalog metni birebir ekranda
+00:13 +44: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu dersi OLMAYAN harekette "hiç seansın yok" DENMİYOR — kanıtlanamaz
+00:13 +45: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu taşma YOK — 375pt'te, HER hareketin TÜM sayfasında
+00:14 +46: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu taşma YOK — 375pt'te, BEŞ yüzeyin HEPSİNDE
+00:14 +47: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu taşma süpürmesi SESSİZCE küçülemez
+00:14 +48: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu ⭐ SESSİZLİK NÖBETİ: her kullanıcı metni GERÇEKTEN çiziliyor
+00:14 +49: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: hareket sayfası — dürüstlük kutusu EN UZUN dürüstlük kutusu da 375pt'te taşmıyor
+00:14 +50: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: "Neden yok?" sayfası yedi bölümün hepsi ve gerekçeleri çiziliyor
+00:14 +51: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: "Neden yok?" sayfası İÇ alanlar uygulamaya HİÇ girmiyor
+00:14 +52: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: kabuk dört sekme ve nöbetli seans düğmesi
+00:14 +53: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: her ekran ÜRETİM kodundan inşa ediliyor — test-only yüzey YOK
+00:14 +54: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) kullanıcıya giden hiçbir metinde VAAT ifadesi YOK — "yet" DAHİL
+00:14 +55: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) ⭐ O-040 AKTARIMI: `measured` iddiasının kabukta CANLI YOLU var mı
+00:15 +56: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) ⭐ J-113: `measured` iddiası TESPİT/PUANLAMA ayrımını taşıyor
+00:15 +57: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) canlı seans AYRI KOVAYA yazılıyor — ders trendine karışmıyor
+00:15 +58: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) KUYRUK ile KALICI sınır AYRI başlıklarda çiziliyor
+00:15 +59: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) her bloklu hareket KUYRUĞUNU beyan ediyor — ve kuyruk TÜRETİMLİ
+00:15 +60: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) KOD kuyruğu ÖLÇÜM kuyruğu gibi sunulmuyor
+00:15 +61: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) J-124: Progress SERBEST seansı görüyor — "Not started" DEMİYOR
+00:15 +62: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) POZİTİF İKİZ: serbest seans YOKKEN bölüm ÇİZİLMEZ
+00:15 +63: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) rozet ETİKETİ gerekçeli — "Coming soon" sınıfı etiket YOK
+00:15 +64: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) HAM katalog anahtarı yüzeye sızmıyor (alt çizgi yok)
+00:15 +65: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/library_surface_test.dart: dil nöbeti — VAAT dili yasak (M-F-186) HİÇBİR kullanıcı metninde DEFTER KODU yok — curated DAHİL
+00:15 +66: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart
+00:15 +66: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: öksüz-anahtar kapısı fazla genişlerse İÇ KAYIT ön eki (`_` / `$`) muafiyeti YAŞAMALI
+00:15 +67: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: dil nöbeti fazla genişlerse DÜRÜST bekleme dili YAŞAMALI — "waiting"/"missing"/"closed"
+00:15 +68: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: literal-renk yasağı fazla genişlerse `theme.dart` renk TANIMLAYABİLMELİ
+00:15 +69: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: `measured` kayıt defteri fazla daralırsa KAYITLI bir iddia kabul EDİLMELİ — kapı ilerlemeyi engellemez
+00:15 +70: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: YAPISAL VAAT — vaat her zaman bir SÖZCÜKTE değil kullanıcı metninde SIRA/BORU HATTI metaforu yok
+00:15 +71: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: YAPISAL VAAT — vaat her zaman bir SÖZCÜKTE değil `wave` iç jetonu YÜZEYE çıkmıyor
+00:15 +72: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: YAPISAL VAAT — vaat her zaman bir SÖZCÜKTE değil TERS İKİZ: DURUM sözcükleri yasaklanmadı
+00:15 +73: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: KAÇIŞ KAZASI — interpolasyon LİTERAL olarak sevk edilemez kullanıcı metninde çözülmemiş `$` yok
+00:15 +74: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/reverse_twin_test.dart: kontrast kapısı fazla genişlerse NON-TEXT tokeni metin eşiğine ZORLANMAMALI
+00:15 +75: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/fab_clearance_test.dart
+00:16 +75: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/fab_clearance_test.dart: kabuk sekmelerinin HEPSİ seans düğmesi kadar pay ayırıyor
+00:17 +76: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/locale_smoke_test.dart
+00:18 +76: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/locale_smoke_test.dart: (setUpAll)
+00:18 +76: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/locale_smoke_test.dart: Turkish onboarding keeps the safety consent gate
+00:18 +77: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/locale_smoke_test.dart: every movement and course has a Turkish display label
+00:18 +78: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/locale_smoke_test.dart: Turkish movement card shows catalog name and camera closure
+00:18 +79: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/locale_smoke_test.dart: (tearDownAll)
+00:18 +79: All tests passed!

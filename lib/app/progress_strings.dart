@@ -108,7 +108,8 @@ abstract final class ProgressStrings {
   static const String historyUnavailable =
       "We could not read your training history on this device. Your lessons "
       "still work, but we won't guess what you have done — nothing below is a "
-      "count of your work. If this keeps happening, reinstalling should fix it.";
+      'count of your work. You can try reopening the app. Keep it installed '
+      'to preserve local history.';
 
   /// Yüzeyde karşılığı olmayan kayıtlar. Sayı SÖYLENİR — sessizlik yalandır.
   static String orphanRecords(int n) =>

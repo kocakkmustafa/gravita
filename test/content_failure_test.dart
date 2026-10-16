@@ -199,6 +199,12 @@ void main() {
       expect(find.byKey(ProgressView.historyFailureKey), findsOneWidget);
       expect(find.text(ProgressStrings.notStarted), findsNothing);
       expect(find.text(ProgressStrings.emptyHistory), findsNothing);
+      final notice = tester.widget<Text>(find.descendant(
+        of: find.byKey(ProgressView.historyFailureKey),
+        matching: find.byType(Text),
+      )).data!;
+      expect(notice, contains('Keep it installed to preserve local history'));
+      expect(notice, isNot(contains('reinstalling')));
     });
 
     testWidgets('POZİTİF İKİZ: geçmiş SAĞLAMSA beyan GÖRÜNMEZ, "Not started" var',

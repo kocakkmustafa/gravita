@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../app_locale.dart';
 import '../library_model.dart';
 import '../library_strings.dart';
 import '../surface_widgets.dart';
@@ -33,34 +34,50 @@ class SkillTreeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: Text(tree.displayName)),
-        body: ListView(
-          padding: const EdgeInsets.fromLTRB(18, 4, 18, 48),
-          children: <Widget>[
-            Text(
-              LibraryStrings.skillTreeScreenStepCount(tree.nodeCount)
-                  .toUpperCase(),
-              style: GravitaType.mono(
-                  size: 11,
-                  color: GravitaColors.textSecondary,
-                  weight: FontWeight.w600,
-                  letterSpacingEm: 0.12),
-            ),
-            const SizedBox(height: 14),
-            NoteCard(
-              key: SkillTreeScreen.statusKey,
-              sealed: true,
-              icon: Icons.account_tree_outlined,
-              // ⚠️ İKİ dal da VAR ama bugün yalnız BİRİ gerçekten ulaşılabilir
-              // (`thresholdsValidated` her iki gerçek pakette de `false`) —
-              // `test/skill_tree_screen_test.dart`ın POZİTİF İKİZ grubu
-              // ikisini de sentetik veriyle sınıyor, ölü kod bırakmaz.
-              text: tree.thresholdsValidated
-                  ? LibraryStrings.skillTreeScreenValidatedBody
-                  : LibraryStrings.skillTreeScreenNotDrawnBody(
-                      tree.displayName),
-            ),
-          ],
+    appBar: AppBar(title: Text(tree.displayName)),
+    body: ListView(
+      padding: const EdgeInsets.fromLTRB(18, 4, 18, 48),
+      children: <Widget>[
+        Text(
+          localized(
+            context,
+            LibraryStrings.skillTreeScreenStepCount(tree.nodeCount),
+            '${tree.nodeCount} adım, taslak',
+          ).toUpperCase(),
+          style: GravitaType.mono(
+            size: 11,
+            color: GravitaColors.textSecondary,
+            weight: FontWeight.w600,
+            letterSpacingEm: 0.12,
+          ),
         ),
-      );
+        const SizedBox(height: 14),
+        NoteCard(
+          key: SkillTreeScreen.statusKey,
+          sealed: true,
+          icon: Icons.account_tree_outlined,
+          // ⚠️ İKİ dal da VAR ama bugün yalnız BİRİ gerçekten ulaşılabilir
+          // (`thresholdsValidated` her iki gerçek pakette de `false`) —
+          // `test/skill_tree_screen_test.dart`ın POZİTİF İKİZ grubu
+          // ikisini de sentetik veriyle sınıyor, ölü kod bırakmaz.
+          text: tree.thresholdsValidated
+              ? localized(
+                  context,
+                  LibraryStrings.skillTreeScreenValidatedBody,
+                  'Bu ilerleme yolunun açılma koşulları hareket bilimi '
+                  'incelemesinden geçmiştir. Adım adım görünüm oluşturulmamıştır.',
+                )
+              : localized(
+                  context,
+                  LibraryStrings.skillTreeScreenNotDrawnBody(tree.displayName),
+                  '${tree.displayName} adımlarını tek tek göstermiyoruz: '
+                  'ilerleme koşulları hareket bilimi incelemesinden geçmedi. '
+                  'İlgili bazı hareket sayfaları kütüphanede bulunur. '
+                  'Öğrenme rehberleri ve kamera erişimi ayrıca belirtilir; '
+                  'bu özet fiziksel uygulamayı onaylamaz.',
+                ),
+        ),
+      ],
+    ),
+  );
 }

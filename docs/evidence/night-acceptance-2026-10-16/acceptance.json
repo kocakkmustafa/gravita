@@ -1,0 +1,188 @@
+{
+  "date_utc": "2026-10-16",
+  "repo": "ventures/gravita/app",
+  "baseline_source_sha": "e8ccaef4c6d4bc875dd037638c96fa45714cf622",
+  "accepted_local_source_sha": "ef1085c29838082c196b891bbeee3451d526c458",
+  "baseline_branch_preserved": "codex/written-recall-20261012",
+  "candidate_branch": "codex/gravita-night-acceptance-20261016",
+  "scope": "Bounded source and local functional acceptance. No store upload, physical movement, full curriculum, live Auth or IAP acceptance.",
+  "closed_items": [
+    {
+      "id": "TR-skill-flow",
+      "result": "PASS_LOCAL_WIDGET",
+      "change": "Turkish list, counts, empty-state and status boundaries; correct selected Planche navigation at 320px/2x",
+      "evidence": "targeted-green.txt"
+    },
+    {
+      "id": "draft-capability-copy",
+      "result": "PASS_LOCAL_WIDGET_AND_PEER",
+      "change": "Removed claim that every draft progression movement can be practised today; library and detail explain separate guide/camera limits",
+      "evidence": [
+        "targeted-green.txt",
+        "independent-candidate-review.json"
+      ]
+    },
+    {
+      "id": "history-recovery-advice",
+      "result": "PASS_LOCAL_WIDGET_AND_PEER",
+      "change": "Read failure suggests trying reopening while keeping the app installed to preserve local history",
+      "evidence": [
+        "regression-red.txt",
+        "targeted-green.txt"
+      ]
+    },
+    {
+      "id": "movement-card-large-text",
+      "result": "PASS_LOCAL_WIDGET_AND_PEER",
+      "change": "Fixed 59px badge overflow with width-constrained wrapping; real configured and queued cards remain tappable in EN/TR at 320px/2x",
+      "evidence": [
+        "large-text-red.txt",
+        "targeted-green.txt"
+      ]
+    }
+  ],
+  "verification": [
+    {
+      "source": "baseline",
+      "command": "flutter analyze --no-pub",
+      "exit_code": 0,
+      "result": "No issues found",
+      "evidence": "baseline-analyze.txt"
+    },
+    {
+      "source": "baseline",
+      "command": "bash tools/run_all_gates.sh",
+      "exit_code": 0,
+      "app_tests": 638,
+      "engine_tests": 176,
+      "python_gates": 25,
+      "evidence": "baseline-gates.txt",
+      "bounds": "Synthetic camera/lifecycle and real temporary-file tests; no hardware or live service success"
+    },
+    {
+      "source": "baseline + new regression tests",
+      "command": "flutter test --no-pub --concurrency=1 --reporter expanded test/skill_tree_locale_test.dart test/content_failure_test.dart",
+      "exit_code": 1,
+      "pass": 15,
+      "fail": 6,
+      "evidence": "regression-red.txt",
+      "bounds": "The six product regressions; an earlier test-authoring getter error was corrected before this run"
+    },
+    {
+      "source": "initial UI correction before large-text layout fix",
+      "exit_code": 1,
+      "pass": 72,
+      "fail": 1,
+      "evidence": "large-text-red.txt",
+      "bounds": "Discovered existing MovementCard overflow during real Library traversal"
+    },
+    {
+      "source": "ef1085c29838082c196b891bbeee3451d526c458",
+      "command": "flutter test --no-pub --concurrency=1 --reporter expanded test/skill_tree_locale_test.dart test/content_failure_test.dart test/skill_tree_screen_test.dart test/skill_trees_list_screen_test.dart test/library_surface_test.dart test/reverse_twin_test.dart test/fab_clearance_test.dart test/locale_smoke_test.dart",
+      "exit_code": 0,
+      "pass": 79,
+      "evidence": "targeted-green.txt",
+      "bounds": "Tested working bytes match the committed source; full candidate suite is deferred to PR CI"
+    },
+    {
+      "source": "ef1085c29838082c196b891bbeee3451d526c458",
+      "command": "flutter analyze --no-pub",
+      "exit_code": 0,
+      "result": "No issues found",
+      "evidence": "candidate-analyze.txt"
+    },
+    {
+      "source": "unchanged shipping checker",
+      "command": "python3 -m unittest discover -s tools -p test_shipping_sqlite_boundary.py -v",
+      "exit_code": 0,
+      "pass": 5,
+      "evidence": "shipping-boundary-fixtures.txt"
+    },
+    {
+      "source": "unchanged source projection checker",
+      "command": "python3 tool/test_check_v2l_source_projection.py",
+      "exit_code": 0,
+      "pass": 8,
+      "evidence": "source-projection-fixtures.txt"
+    }
+  ],
+  "storage_and_privacy": {
+    "result": "PASS_BOUNDED_SOURCE_AND_BASELINE_RELEASE_BOUNDARY",
+    "shipping_storage": "Account-scoped JSONL session journals; separate local JSON course/program progress",
+    "sqlite": "Prototype under test/support/storage; persisted-v1 reopen, replay/idempotence, unsupported-future-schema preservation included in baseline test run. Not a shipping SQLite migration guarantee.",
+    "production_dependency_graph_contains_sqlite": false,
+    "source_privacy_test": "Passed in the local baseline 638-test suite. The old 2026-10-12 failure/draft note is historical; PR6 merge 2f13e3e and the current baseline are newer.",
+    "baseline_ci": "https://github.com/kocakkmustafa/gravita/actions/runs/38771756038",
+    "baseline_builds": "Unsigned Android release AAB code path + iOS no-codesign release; both passed with SQLite boundary checks",
+    "baseline_receipts": [
+      "baseline-ci.json",
+      "baseline-native/shipping-boundary-ios.json",
+      "baseline-native/shipping-boundary-android.json"
+    ],
+    "baseline_ios_statfs_fstatfs_imports": "Empty for every packaged Mach-O in receipt",
+    "bounds": "No fresh local native build; candidate native build and receipts require PR CI. Historical protected IPA, SDK/manifest provenance in signed distribution, provider retention and store forms remain separate."
+  },
+  "content_acceptance": {
+    "result": "INVENTORIED_NOT_FULL_PRODUCT_ACCEPTED",
+    "inventory": "content-inventory.json",
+    "gravita_domain_count": 5,
+    "course_lessons": {
+      "bodyweight": 56,
+      "dbkb_written": 12,
+      "dbkb_handling": 11,
+      "dbkb_transitions": 2,
+      "dedicated_barbell": 0,
+      "dedicated_rings": 0,
+      "dedicated_hands": 0
+    },
+    "hands_graph_nodes": {
+      "handstand": 15,
+      "planche": 6
+    },
+    "written_recall": "2 transient reading/recall units per domain; 10 total, separate from persistent course completion",
+    "demonstrations": "0 shipped playable media assets; 392 source projection rows are production briefs/identities, not video or accepted teaching",
+    "equipment_hold": "gravita:cal-01:full_sequence-03 HOLD_VERIFIED_EQUIPMENT remains",
+    "camera": "2 configured contracts, 29 without configured live camera contracts; release camera/paid features remain disabled",
+    "bounds": "Course structure, bilingual fields, links and self-report file behavior tested. Physical suitability, equipment, demonstrations, expertise, feedback accuracy and five complete curricula remain open; no new physical teaching introduced. S2 inversion rule unchanged."
+  },
+  "pending": [
+    {
+      "action": "Run integration_test/production_main_boot_test.dart and integration_test/calisthenics_course_smoke_test.dart on an exclusively allocated simulator",
+      "target": "Gravita com.yulalab.gravita",
+      "status": "PENDING_RESOURCE_COORDINATION_NOT_ATTEMPTED",
+      "reason": "LifeOS has shared Mac simulator priority; no simulator owned, booted, installed to or closed in this pass",
+      "scope": "Guest production boot and native path_provider/file/UI readback; synthetic identity smoke is not live Auth"
+    },
+    {
+      "action": "Candidate PR full suite and unsigned native builds/readback",
+      "status": "PENDING_PR_CI",
+      "reason": "Only standard public runners may be used; source unchanged from local acceptance except evidence records"
+    },
+    {
+      "action": "Complete broader ProgressTab/ProgressView Turkish translation",
+      "status": "OPEN_SOURCE_TASK",
+      "reason": "Existing English-only chrome is outside the bounded skill-flow correction; complete Turkish product acceptance not granted"
+    },
+    {
+      "action": "Physical teaching, exact equipment/media/expert evidence and remaining barbell/rings/hands curricula",
+      "status": "OPEN_PRODUCT_GATE",
+      "reason": "Source/widget/simulator tests cannot establish physical success; new production spend needs separate user approval"
+    }
+  ],
+  "publication_preflight": {
+    "github_repo_readback": {
+      "isPrivate": false,
+      "defaultBranch": "main",
+      "url": "https://github.com/kocakkmustafa/gravita"
+    },
+    "runner_labels": [
+      "ubuntu-latest",
+      "macos-latest"
+    ],
+    "billing_reference": "https://docs.github.com/en/billing/concepts/product-billing/github-actions",
+    "billing_scope": "Official guidance confirms standard public-runner minutes are free. No budget, runner class, paid service, key or access change requested. Existing workflow retains only small proof receipts.",
+    "store_upload": "PROHIBITED_UNTIL_FIRST_THREE_GROUPS_COMPLETE; none performed",
+    "icon_and_store_art": "Untouched; separate user thread owns these"
+  },
+  "denied_or_uncertain_actions": []
+}

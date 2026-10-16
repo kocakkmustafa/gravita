@@ -1,0 +1,32 @@
+{
+  "source_sha": "e8ccaef4c6d4bc875dd037638c96fa45714cf622",
+  "reviewer": "independent gravita_review agent; GPT-6.1 Sol, xhigh",
+  "scope": "Read-only source review; no file edits, tests, native build or simulator use",
+  "findings": [
+    {
+      "id": "skill-tree-locale",
+      "trigger": "Turkish Home -> skill tree list -> Handstand/Planche, or Library skill section",
+      "observation": "List title, step count and capability boundary use English LibraryStrings directly",
+      "sources": ["lib/app/skills/skill_trees_list_screen.dart", "lib/app/skills/skill_tree_screen.dart", "lib/app/library_screen.dart"]
+    },
+    {
+      "id": "draft-practice-invitation",
+      "observation": "Draft summary says all progression movements are in the library and can be practised today. The 15/6 graph nodes have only three catalogue skillGraphNode links; for example headstand has no catalogue entry",
+      "sources": ["lib/app/library_strings.dart", "content/skill-trees.index.json", "content/library.json"],
+      "proposed_boundary": "Some related movement pages are in the library; this summary does not approve physical practice"
+    },
+    {
+      "id": "history-reinstall-advice",
+      "trigger": "Local history read failure",
+      "observation": "ProgressStrings recommends reinstalling while Profile says uninstalling deletes local history",
+      "sources": ["lib/app/progress_strings.dart", "lib/app/profile_screen.dart", "lib/app/content_repository.dart"],
+      "proposed_boundary": "Try reopening; keep the app installed to preserve local history"
+    }
+  ],
+  "remaining_scope": [
+    "ProgressTab and ProgressView still contain broader English-only chrome in a Turkish session; complete Turkish product acceptance is not granted",
+    "The 2026-10-12 QA document's unmerged-draft statement is historical; PR6 merge 2f13e3e is now in HEAD",
+    "No additional demonstrable bodyweight/DBKB navigation, account-switch, course-persistence or transient-review-note defect found by this static pass",
+    "Shipping history is JSONL; SQLite projection is test-only. Native/privacy provenance and physical teaching require their own evidence"
+  ]
+}

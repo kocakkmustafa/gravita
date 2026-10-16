@@ -1,0 +1,1360 @@
+{
+  "source_sha": "e8ccaef4c6d4bc875dd037638c96fa45714cf622",
+  "scope": "Source inventory only; no physical teaching, full curriculum, model or native/package approval.",
+  "domain_count": 5,
+  "domains": [
+    {
+      "id": "bodyweight",
+      "course_ids": [
+        "calisthenics-foundations"
+      ],
+      "full_product_acceptance": false
+    },
+    {
+      "id": "dbkb",
+      "course_ids": [
+        "dbkb-written-foundations",
+        "dbkb-controlled-handling",
+        "dbkb-supported-transitions"
+      ],
+      "full_product_acceptance": false
+    },
+    {
+      "id": "barbell",
+      "course_ids": [],
+      "full_product_acceptance": false
+    },
+    {
+      "id": "rings",
+      "course_ids": [],
+      "full_product_acceptance": false
+    },
+    {
+      "id": "hands",
+      "course_ids": [],
+      "related_graphs": [
+        "content/skill-graph/handstand.v1.json",
+        "content/skill-graph/planche.v1.json"
+      ],
+      "full_product_acceptance": false
+    }
+  ],
+  "courses": [
+    {
+      "path": "content/courses/calisthenics.v1.json",
+      "sha256": "15930d335f377c9f48e1c7285f1c44e25973b9cccb3167fa99cc9b8599889502",
+      "course_id": "calisthenics-foundations",
+      "version": "1.0.0",
+      "modules": 10,
+      "lessons": 56,
+      "practice_types": {
+        "learning_only": 12,
+        "physical": 44
+      },
+      "sources": 32,
+      "bilingual_and_source_reference_failures": [],
+      "lesson_inventory": [
+        {
+          "id": "cal-01",
+          "title_tr": "Çalışma alanın",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "who",
+            "nhs_strength",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": []
+        },
+        {
+          "id": "cal-02",
+          "title_tr": "Sağlık ve uyarlama hakkı",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "who",
+            "nhs_strength",
+            "acog",
+            "nhs_pregnancy",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-01"
+          ]
+        },
+        {
+          "id": "cal-03",
+          "title_tr": "Nefes ve efor",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "who",
+            "nhs_strength",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-02"
+          ]
+        },
+        {
+          "id": "cal-04",
+          "title_tr": "Destekleri ısıt",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "who",
+            "nhs_strength",
+            "nsca_progression",
+            "nsca_progression_pdf",
+            "nhs_warmup",
+            "ace_wrist_shoulder_options",
+            "nhs_seated_leg_march"
+          ],
+          "prerequisites": [
+            "cal-03"
+          ]
+        },
+        {
+          "id": "cal-05",
+          "title_tr": "Set, dinlenme ve toparlanma",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "who",
+            "nhs_strength",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-04"
+          ]
+        },
+        {
+          "id": "cal-06",
+          "title_tr": "İşe yarayan pratik kaydı",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "who",
+            "nhs_strength",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-05"
+          ]
+        },
+        {
+          "id": "cal-07",
+          "title_tr": "Otur-kalk",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nhs_strength",
+            "acsm2026",
+            "ace",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-06"
+          ]
+        },
+        {
+          "id": "cal-08",
+          "title_tr": "Squat: duruş ve derinlik",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nhs_strength",
+            "acsm2026",
+            "ace",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-07"
+          ]
+        },
+        {
+          "id": "cal-09",
+          "title_tr": "Duvara kalça menteşesi",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nhs_strength",
+            "acsm2026",
+            "ace",
+            "nsca_progression",
+            "nsca_progression_pdf",
+            "strongfirst_wall_hinge"
+          ],
+          "prerequisites": [
+            "cal-08"
+          ]
+        },
+        {
+          "id": "cal-10",
+          "title_tr": "Kalça köprüsü",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nhs_strength",
+            "acsm2026",
+            "ace",
+            "nhs_pregnancy",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-09"
+          ]
+        },
+        {
+          "id": "cal-11",
+          "title_tr": "Destekli split squat",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nhs_strength",
+            "acsm2026",
+            "ace",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-10"
+          ]
+        },
+        {
+          "id": "cal-12",
+          "title_tr": "Geri lunge",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nhs_strength",
+            "acsm2026",
+            "ace",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-11"
+          ]
+        },
+        {
+          "id": "cal-13",
+          "title_tr": "Alçak basamağa çıkış",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nhs_strength",
+            "acsm2026",
+            "ace",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-12"
+          ]
+        },
+        {
+          "id": "cal-14",
+          "title_tr": "Baldır kaldırma",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nhs_strength",
+            "acsm2026",
+            "ace",
+            "nsca_progression",
+            "nsca_progression_pdf",
+            "psv_level_ground_calf_raise"
+          ],
+          "prerequisites": [
+            "cal-13"
+          ]
+        },
+        {
+          "id": "cal-15",
+          "title_tr": "Duvar şınavı",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nasm_push",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf",
+            "harvard_wall_kneeling_pushups"
+          ],
+          "prerequisites": [
+            "cal-14"
+          ]
+        },
+        {
+          "id": "cal-16",
+          "title_tr": "Yükseltide şınav",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nasm_push",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-15"
+          ]
+        },
+        {
+          "id": "cal-17",
+          "title_tr": "Diz destekli yerde şınav",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nasm_push",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf",
+            "harvard_wall_kneeling_pushups"
+          ],
+          "prerequisites": [
+            "cal-16"
+          ]
+        },
+        {
+          "id": "cal-18",
+          "title_tr": "Kontrollü alçalma",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nasm_push",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-17"
+          ]
+        },
+        {
+          "id": "cal-19",
+          "title_tr": "Yerde şınav seçeneği",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nasm_push",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-18"
+          ]
+        },
+        {
+          "id": "cal-20",
+          "title_tr": "Kürek kemiği destek kontrolü",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nasm_push",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-19"
+          ]
+        },
+        {
+          "id": "cal-21",
+          "title_tr": "Ayak destekli dip hazırlığı",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nasm_push",
+            "acsm2026",
+            "ace",
+            "nsca_progression",
+            "nsca_progression_pdf",
+            "mckenzie_standing_bar_dip_proposal"
+          ],
+          "prerequisites": [
+            "cal-20"
+          ]
+        },
+        {
+          "id": "cal-22",
+          "title_tr": "Çekiş ekipmanı ve çıkışlar",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "nasm_pull",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-21"
+          ]
+        },
+        {
+          "id": "cal-23",
+          "title_tr": "Diz bükülü beden row",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nasm_pull",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-22"
+          ]
+        },
+        {
+          "id": "cal-24",
+          "title_tr": "Row kolunu uzatmak",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nasm_pull",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf",
+            "ace_trx_angle",
+            "trx_low_row",
+            "tjc_fixed_bar_row",
+            "barbend_fixed_bar_row",
+            "trx_anchor_low_row"
+          ],
+          "prerequisites": [
+            "cal-23"
+          ]
+        },
+        {
+          "id": "cal-25",
+          "title_tr": "Ayak destekli asılma",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nasm_pull",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf",
+            "hybrid_assisted_bar_hang"
+          ],
+          "prerequisites": [
+            "cal-24"
+          ]
+        },
+        {
+          "id": "cal-26",
+          "title_tr": "Destekli kürek çekişi",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nasm_pull",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf",
+            "henderson_supported_scapular_pull"
+          ],
+          "prerequisites": [
+            "cal-25"
+          ]
+        },
+        {
+          "id": "cal-27",
+          "title_tr": "Yardımlı dikey çekiş",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nasm_pull",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-26"
+          ]
+        },
+        {
+          "id": "cal-28",
+          "title_tr": "Negatif barfiks: isteğe bağlı",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "nasm_pull",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-27"
+          ]
+        },
+        {
+          "id": "cal-29",
+          "title_tr": "Bird-dog, önce tek uzuv",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "nasm_plank",
+            "ace_bird",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-28"
+          ]
+        },
+        {
+          "id": "cal-30",
+          "title_tr": "Dead bug, kısa kol",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "nasm_plank",
+            "nasm_dead",
+            "nhs_pregnancy",
+            "nsca_progression",
+            "nsca_progression_pdf",
+            "torbay_nhs_heel_slide"
+          ],
+          "prerequisites": [
+            "cal-29"
+          ]
+        },
+        {
+          "id": "cal-31",
+          "title_tr": "Yükseltide plank",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "nasm_plank",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-30"
+          ]
+        },
+        {
+          "id": "cal-32",
+          "title_tr": "Yerde plank seçeneği",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "nasm_plank",
+            "nsca_progression",
+            "nsca_progression_pdf",
+            "harvard_forearm_plank_options"
+          ],
+          "prerequisites": [
+            "cal-31"
+          ]
+        },
+        {
+          "id": "cal-33",
+          "title_tr": "Kısa kollu yan destek",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "nasm_plank",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-32"
+          ]
+        },
+        {
+          "id": "cal-34",
+          "title_tr": "Uzun yan plank seçeneği",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "nasm_plank",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-33"
+          ]
+        },
+        {
+          "id": "cal-35",
+          "title_tr": "Tuck hollow hazırlığı",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "nasm_plank",
+            "nasm_dead",
+            "nhs_pregnancy",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-34"
+          ]
+        },
+        {
+          "id": "cal-36",
+          "title_tr": "Asılı diz kaldırma seçeneği",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "nasm_plank",
+            "nasm_pull",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-35"
+          ]
+        },
+        {
+          "id": "cal-37",
+          "title_tr": "Adımlama ve adımlı jack",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "who",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-36"
+          ]
+        },
+        {
+          "id": "cal-38",
+          "title_tr": "Yavaş yükseltide mountain climber",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "who",
+            "acsm2026",
+            "nasm_push",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-37"
+          ]
+        },
+        {
+          "id": "cal-39",
+          "title_tr": "Geri adımlı burpee, sıçrama yok",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "who",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf",
+            "cleveland_step_supported_burpee"
+          ],
+          "prerequisites": [
+            "cal-38"
+          ]
+        },
+        {
+          "id": "cal-40",
+          "title_tr": "Kolay devre",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "who",
+            "acsm2026",
+            "nsca_progression",
+            "nsca_progression_pdf",
+            "harvard_wall_kneeling_pushups"
+          ],
+          "prerequisites": [
+            "cal-39"
+          ]
+        },
+        {
+          "id": "cal-41",
+          "title_tr": "Bileğe hafif yük",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "nasm_push",
+            "nsca_progression",
+            "nsca_progression_pdf",
+            "worcs_nhs_wall_four_point_wrist"
+          ],
+          "prerequisites": [
+            "cal-40"
+          ]
+        },
+        {
+          "id": "cal-42",
+          "title_tr": "Omuz desteği ve uzanma",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "nasm_push",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-41"
+          ]
+        },
+        {
+          "id": "cal-43",
+          "title_tr": "Zeminde pike hazırlığı",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "nasm_push",
+            "nasm_pike",
+            "acog",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-42"
+          ]
+        },
+        {
+          "id": "cal-44",
+          "title_tr": "Oturarak kompresyon",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "nasm_push",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-43"
+          ]
+        },
+        {
+          "id": "cal-45",
+          "title_tr": "Ayak yardımlı L-sit hazırlığı",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "nasm_push",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-44"
+          ]
+        },
+        {
+          "id": "cal-46",
+          "title_tr": "Duvar amudu: yolu anla",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "ace",
+            "acog",
+            "nhs_pregnancy",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-45"
+          ]
+        },
+        {
+          "id": "cal-47",
+          "title_tr": "Planche: kol uzunluğu ve sabır",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "ace",
+            "acog",
+            "nhs_pregnancy",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-46"
+          ]
+        },
+        {
+          "id": "cal-48",
+          "title_tr": "Front lever: çekiş becerisi yolu",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "ace",
+            "acog",
+            "nhs_pregnancy",
+            "nasm_pull",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-47"
+          ]
+        },
+        {
+          "id": "cal-49",
+          "title_tr": "Muscle-up: geçiş bilgisi",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "ace",
+            "acog",
+            "nhs_pregnancy",
+            "nasm_pull",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-48"
+          ]
+        },
+        {
+          "id": "cal-50",
+          "title_tr": "Kolay yolu dürüstçe seç",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "who",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-49"
+          ]
+        },
+        {
+          "id": "cal-51",
+          "title_tr": "Dengeli hafta",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "who",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-50"
+          ]
+        },
+        {
+          "id": "cal-52",
+          "title_tr": "İlerle, yinele veya toparlan",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "who",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-51"
+          ]
+        },
+        {
+          "id": "cal-53",
+          "title_tr": "Alt beden ve itiş değerlendirmesi",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "who",
+            "nhs_strength",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-52"
+          ]
+        },
+        {
+          "id": "cal-54",
+          "title_tr": "Çekiş ve gövde değerlendirmesi",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "who",
+            "nhs_strength",
+            "nasm_pull",
+            "ace_bird",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-53"
+          ]
+        },
+        {
+          "id": "cal-55",
+          "title_tr": "Kendi kısa seansını tasarla",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "who",
+            "nhs_strength",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-54"
+          ]
+        },
+        {
+          "id": "cal-56",
+          "title_tr": "Tekrarlanabilir bağımsız pratik",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "acsm2026",
+            "who",
+            "nhs_strength",
+            "nsca_progression",
+            "nsca_progression_pdf"
+          ],
+          "prerequisites": [
+            "cal-55"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "content/courses/dbkb-written.v1.json",
+      "sha256": "3b270b3bb340f313ebe8229bc2399253b83bf54e2a0229a63b8c2f0735ce3582",
+      "course_id": "dbkb-written-foundations",
+      "version": "1.0.0",
+      "modules": 4,
+      "lessons": 12,
+      "practice_types": {
+        "learning_only": 7,
+        "physical": 5
+      },
+      "sources": 8,
+      "bilingual_and_source_reference_failures": [],
+      "lesson_inventory": [
+        {
+          "id": "dbkb-01",
+          "title_tr": "Hedefin ve ekipmanın",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S1"
+          ],
+          "prerequisites": []
+        },
+        {
+          "id": "dbkb-02",
+          "title_tr": "Alan, destek ve durma seçimi",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S1",
+            "S5"
+          ],
+          "prerequisites": [
+            "dbkb-01"
+          ]
+        },
+        {
+          "id": "dbkb-03",
+          "title_tr": "Nefes, hazırlık ve tempo",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S1"
+          ],
+          "prerequisites": [
+            "dbkb-02"
+          ]
+        },
+        {
+          "id": "dbkb-04",
+          "title_tr": "Yüksüz menteşe provası",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "S2"
+          ],
+          "prerequisites": [
+            "dbkb-03"
+          ]
+        },
+        {
+          "id": "dbkb-05",
+          "title_tr": "Yüksüz squat provası",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "S2",
+            "S4"
+          ],
+          "prerequisites": [
+            "dbkb-04"
+          ]
+        },
+        {
+          "id": "dbkb-06",
+          "title_tr": "Kullanım önkoşulu ve KB deadlift bilgisi",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S1",
+            "S3"
+          ],
+          "prerequisites": [
+            "dbkb-05"
+          ]
+        },
+        {
+          "id": "dbkb-07",
+          "title_tr": "DB ve KB goblet farkları",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S3",
+            "S4"
+          ],
+          "prerequisites": [
+            "dbkb-06"
+          ]
+        },
+        {
+          "id": "dbkb-08",
+          "title_tr": "Boş elle dirsek hareketi ve curl bilgisi",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "S6"
+          ],
+          "prerequisites": [
+            "dbkb-07"
+          ]
+        },
+        {
+          "id": "dbkb-09",
+          "title_tr": "Çekiş, itiş ve destek bilgisi",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S7",
+            "S8"
+          ],
+          "prerequisites": [
+            "dbkb-08"
+          ]
+        },
+        {
+          "id": "dbkb-10",
+          "title_tr": "Tek gözlemi düzelt",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "S1",
+            "S4"
+          ],
+          "prerequisites": [
+            "dbkb-09"
+          ]
+        },
+        {
+          "id": "dbkb-11",
+          "title_tr": "Küçük bağımsız seans kur",
+          "practice_type": "physical",
+          "steps": 3,
+          "source_ids": [
+            "S1"
+          ],
+          "prerequisites": [
+            "dbkb-10"
+          ]
+        },
+        {
+          "id": "dbkb-12",
+          "title_tr": "Bağımsız hatırlama ve sonraki sınır",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S1",
+            "S2",
+            "S3",
+            "S4",
+            "S7",
+            "S8"
+          ],
+          "prerequisites": [
+            "dbkb-11"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "content/courses/dbkb-handling.v1.json",
+      "sha256": "ebc137e9c0f41d789435f2300aa9ab5821318eeaf4e46ed9a4fe2d014c92c8cf",
+      "course_id": "dbkb-controlled-handling",
+      "version": "1.0.0",
+      "modules": 1,
+      "lessons": 11,
+      "practice_types": {
+        "learning_only": 11
+      },
+      "sources": 9,
+      "bilingual_and_source_reference_failures": [],
+      "lesson_inventory": [
+        {
+          "id": "dbkbh-scope",
+          "title_tr": "Gerçek son nokta ve dışlamalar",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S1"
+          ],
+          "prerequisites": []
+        },
+        {
+          "id": "dbkbh-a",
+          "title_tr": "Kesin seçim ve yük kararı",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S1"
+          ],
+          "prerequisites": [
+            "dbkbh-scope"
+          ]
+        },
+        {
+          "id": "dbkbh-bkb",
+          "title_tr": "iki el, düz zemin",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S2",
+            "S3",
+            "S1"
+          ],
+          "prerequisites": [
+            "dbkbh-a"
+          ]
+        },
+        {
+          "id": "dbkbh-bdb",
+          "title_tr": "tek sabit DB, bel yüksekliğinde özel yuva",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S1",
+            "S9"
+          ],
+          "prerequisites": [
+            "dbkbh-bkb"
+          ]
+        },
+        {
+          "id": "dbkbh-c",
+          "title_tr": "Aynı zemin başlangıcından KB deadlift",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S2",
+            "S3"
+          ],
+          "prerequisites": [
+            "dbkbh-bdb"
+          ]
+        },
+        {
+          "id": "dbkbh-d",
+          "title_tr": "Ayakta tek DB curl",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S4"
+          ],
+          "prerequisites": [
+            "dbkbh-c"
+          ]
+        },
+        {
+          "id": "dbkbh-e",
+          "title_tr": "Ayakta tek taraflı menteşeli DB row, nötr tutuş",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S5"
+          ],
+          "prerequisites": [
+            "dbkbh-d"
+          ]
+        },
+        {
+          "id": "dbkbh-f",
+          "title_tr": "Goblet geçişleri öğretilmemiştir",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S3",
+            "S7"
+          ],
+          "prerequisites": [
+            "dbkbh-e"
+          ]
+        },
+        {
+          "id": "dbkbh-g",
+          "title_tr": "İki DB zemin press öğretilmemiştir",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S6",
+            "S9"
+          ],
+          "prerequisites": [
+            "dbkbh-f"
+          ]
+        },
+        {
+          "id": "dbkbh-h",
+          "title_tr": "İki görevli öğrenme planı, erken çıkış ve sonraki seans hatırlaması",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S1"
+          ],
+          "prerequisites": [
+            "dbkbh-g"
+          ]
+        },
+        {
+          "id": "dbkbh-i",
+          "title_tr": "Ayrı yazılı ve gözlenen değerlendirme",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S1"
+          ],
+          "prerequisites": [
+            "dbkbh-h"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "content/courses/dbkb-transitions.v1.json",
+      "sha256": "27aff671d91c56ccf6f342ce873f2cc6d4f43b0e6ca1189683a74868dbdf1d61",
+      "course_id": "dbkb-supported-transitions",
+      "version": "1.0.0",
+      "modules": 1,
+      "lessons": 2,
+      "practice_types": {
+        "learning_only": 2
+      },
+      "sources": 13,
+      "bilingual_and_source_reference_failures": [],
+      "lesson_inventory": [
+        {
+          "id": "dbkbt-supported-goblet",
+          "title_tr": "Destekten başlayan kettlebell goblet",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S1",
+            "S7",
+            "S10",
+            "S11"
+          ],
+          "prerequisites": []
+        },
+        {
+          "id": "dbkbt-single-kb-floor-press",
+          "title_tr": "Tek kettlebell yerde press ve dönüş",
+          "practice_type": "learning_only",
+          "steps": 3,
+          "source_ids": [
+            "S1",
+            "S6",
+            "S8",
+            "S12",
+            "S13"
+          ],
+          "prerequisites": [
+            "dbkbt-supported-goblet"
+          ]
+        }
+      ]
+    }
+  ],
+  "skill_graphs": [
+    {
+      "path": "content/skill-graph/handstand.v1.json",
+      "sha256": "6a5d58df93f6914c7761792b5325826dcfb36f8919f61a448a975fe57d2eff56",
+      "nodes": 15,
+      "status": "DRAFT — thresholds inherited from product plan; NOT yet validated by a movement-science pass or a calisthenics expert (see docs/G4-BECERI-GRAFI-TASARIMI.md §7 debt D-1).",
+      "full_lesson_course": false
+    },
+    {
+      "path": "content/skill-graph/planche.v1.json",
+      "sha256": "886a63a505c53ad476c8e5e56b9eeb920d086a17cf1498c34bf8a31eec723f59",
+      "nodes": 6,
+      "status": "DRAFT — eşikler provizyonel; M-F-38 yeterlilik kapısı (≥3 eğitmen × ≥3 temiz pencere) geçilmeden kaynak-varyans türetimi YAPILMAZ.",
+      "full_lesson_course": false
+    }
+  ],
+  "catalogue_count": 31,
+  "catalogue_status_counts": {
+    "live": 2,
+    "coming_soon": 29
+  },
+  "source_projection_rows": 392,
+  "equipment_holds": [
+    {
+      "app": "gravita",
+      "lessonId": "cal-01",
+      "sceneId": "gravita:cal-01:full_sequence-03",
+      "status": "HOLD_VERIFIED_EQUIPMENT"
+    }
+  ],
+  "packaged_playable_media_assets": 0,
+  "sqlite_in_production_graph": [],
+  "production_package_count": 106,
+  "pub_lock_sha256": "ad009b9e4681cc73361785a02336b6c050539b776a2433e007a0aec0012f2a06",
+  "privacy_manifest_sha256": "af4dc0fad1ad9eec69b5304d7c97a722e88b4a3cce2b78e7400f1de4efd2d983"
+}
