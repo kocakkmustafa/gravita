@@ -1,0 +1,33 @@
+{
+  "first_pr_ci": 38840313679,
+  "first_head_sha": "2a9c994715edd95272c9fc2db51b095a4b6774f9",
+  "terminal_conclusion": "FAILURE",
+  "jobs": {
+    "ios": "success",
+    "android": "success",
+    "gates": "failure"
+  },
+  "failure": "Existing dbkb_transitions_lifecycle_test EN learning-only completion action remained null;726app passed1failed,176engine and25Python passed",
+  "diagnosis": "Evidence-supported readiness/hit-target race in test; original fixed40ms did not establish that the initial action was enabled or that a practice save was admitted. CI limited log cannot uniquely distinguish initial-tap vs checkbox timing.",
+  "fix_source_sha": "312433a4cac0dad3448b532877a56e0cf1e4f16e",
+  "changed_file": "test/dbkb_transitions_lifecycle_test.dart",
+  "changed_sha256": "c03c5a19ef343930a7c1f795249b0487dd9247d7c4b91ee74201353229900a9f",
+  "fix": "Bounded actual UI readiness; visible/hit-testable single action tap; persisted practiceCount1/statepractised/completed0; ready visible descendant checkbox and true value; original completion enablement and persistent completion invariants retained",
+  "local_targeted": {
+    "passed": 19,
+    "total": 19,
+    "log": "ci-fix-targeted-final.txt",
+    "analyze": "PASS"
+  },
+  "app_source_unchanged": true,
+  "native_rerun": "Not needed; only test source changed. Existing native source-specific receipts remain bounded and valid.",
+  "raw_failure_excerpt": [
+    "2026-10-16T02:32:07.2740757Z   ❌ flutter test (serial real-I/O fixtures)   /home/runner/work/gravita/gravita/test/dbkb_transitions_",
+    "2026-10-16T02:32:07.2794745Z Expected: not null",
+    "2026-10-16T02:32:07.2794985Z   Actual: <null>",
+    "2026-10-16T02:32:07.2795762Z 03:27 +533 -1: /home/runner/work/gravita/gravita/test/dbkb_transitions_lifecycle_test.dart: learning-only save needs review and confirmation, hides no form acceptance en [E]",
+    "2026-10-16T02:32:07.2799174Z 05:25 +726 -1: Some tests failed.",
+    "2026-10-16T02:32:13.8043155Z   ✅ dart test                          00:01 +176: All tests passed!",
+    "2026-10-16T02:32:17.9475019Z    app 726 · engine 176 · python 25/25"
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "code_sha": "63a3ce6b221cbe5888ddcfedd3b10425b84f04fc",
+  "code_sha": "312433a4cac0dad3448b532877a56e0cf1e4f16e",
   "files": [
     {
       "path": "lib/app/catalogue_translations_tr.dart",
@@ -24,7 +24,11 @@
     {
       "path": "integration_test/catalogue_resume_smoke_test.dart",
       "sha256": "fc5f72c72c067843e172fc52c9338cf24018cf9f61a52ef9c07ece27f8b1709d"
+    },
+    {
+      "path": "test/dbkb_transitions_lifecycle_test.dart",
+      "sha256": "c03c5a19ef343930a7c1f795249b0487dd9247d7c4b91ee74201353229900a9f"
     }
   ],
-  "compact_json_array_sha256": "bd2048207c2c75553c096a7be115b94924e6be5133a8fc128a7e22a975c0f807"
+  "compact_json_array_sha256": "b1ecdc1c5f23ac8e30dee31eb5b95bbfa8ebad474a23a3a8da4d317fa692d0e6"
 }
