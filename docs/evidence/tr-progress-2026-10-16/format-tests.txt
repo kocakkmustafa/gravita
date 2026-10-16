@@ -1,0 +1,3 @@
+Formatted test/study_reading_links_test.dart
+Formatted test/progress_locale_test.dart
+Formatted 2 files (2 changed) in 0.01 seconds.

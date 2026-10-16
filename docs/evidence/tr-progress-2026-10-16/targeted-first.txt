@@ -1,0 +1,47 @@
+00:00 +0: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart
+00:00 +0: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: real four-lesson TR progress keeps named measurement locks
+00:00 +1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: TR partial history shows measured units and unmeasured work separately
+00:00 +2: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: unknown unit, reason and changed lesson source remain visible
+00:00 +3: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: TR unavailable history suppresses invented counts and preserves installation
+00:01 +4: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: en free sessions never add seconds to repetitions
+00:01 +5: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: tr free sessions never add seconds to repetitions
+00:01 +6: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: TR read failure retries and exposes raw diagnostic without reinstall advice
+00:01 +7: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: TR integrity failure stays blocked without retry
+00:01 +8: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_view_test.dart
+00:02 +8: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_view_test.dart: ilk açılış: ölçüm bölümü BOŞ DEĞİL — başlanmamış ders görünüyor
+00:02 +9: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_view_test.dart: kilitli dersin GEREKÇESİ kilit bölümünde, ölçüm bölümünde DEĞİL
+00:02 +10: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_view_test.dart: SAYI asla birimsiz çıkmıyor; plank SANİYE, şınav TEKRAR diyor
+00:02 +11: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_view_test.dart: ölçülemeyen iş görünüyor ve "ilerleme düşmez" diyor
+00:02 +12: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_view_test.dart: retroaktif kredi reddi NOTLAR bölümünde ve sayıyı söylüyor
+00:02 +13: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_view_test.dart: kilit altındaki geçmiş GİZLENMİYOR — uyarı + sayılar görünüyor
+00:02 +14: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_view_test.dart: yetim kayıt NOTLAR bölümünde sayısıyla söyleniyor
+00:02 +15: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_view_test.dart: yüzeyde SAYISAL HÜKÜM yok (skor/yüzde/derece değeri)
+00:02 +16: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_view_test.dart: kullanıcıya DERS KİMLİĞİ gösterilmiyor — ad gösteriliyor
+00:02 +17: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_view_test.dart: söylenecek not yoksa BOŞ "Notes" başlığı çizilmiyor
+00:03 +18: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_view_test.dart: GERÇEK içerik: görünen ders etiketleri PARÇALI TEKİL
+00:03 +19: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart
+00:03 +19: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: sınıflandırma METİNDEN değil TİPTEN typed content errors keep integrity and retryable reads apart
+00:03 +20: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: sınıflandırma METİNDEN değil TİPTEN ContentIntegrityException → integrity, ihlaller detayda
+00:03 +21: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: sınıflandırma METİNDEN değil TİPTEN StateError/ArgumentError → integrity (dosya OKUNDU, içeriği tutmuyor)
+00:03 +22: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: sınıflandırma METİNDEN değil TİPTEN bilinmeyen tip → unreadable (yanlış tarafa düşmek gerekiyorsa BU taraf)
+00:03 +23: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri unreadable: "Try again" VAR
+00:03 +24: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri integrity: "Try again" YOK — aynı asset aynı sonucu verir
+00:03 +25: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri onRetry verilmezse retry sunulmaz — ekran retry UYDURMAZ
+00:03 +26: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri "Yine de devam et" HİÇ YOK — kaçış kapısı doğrulamayı süs yapar
+00:04 +27: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri MAKİNE metni BİRİNCİL olamaz — başlık insan cümlesi
+00:04 +28: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ekran değişmezleri gövde suçu KULLANICIYA atmıyor (integrity "bizde")
+00:04 +29: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam geçmiş okunamadıysa "Not started" DEMİYOR — beyan ediyor
+00:04 +30: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam POZİTİF İKİZ: geçmiş SAĞLAMSA beyan GÖRÜNMEZ, "Not started" var
+00:04 +31: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam KISMİ: sayı GÖSTERİLİYOR ama taban eksik DİYE beyan ediliyor
+00:04 +32: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam POZİTİF İKİZ: kayıp YOKKEN kısmi beyanı GÖRÜNMÜYOR
+00:04 +33: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam kısmi beyan KAYIP SAYISINI söylüyor — "bir şeyler eksik" demiyor
+00:04 +34: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/content_failure_test.dart: ⭐ GRAVITA DELTASI — geçmiş okunamadı, içerik sağlam beyan SAYI göstermiyor — bilmediğimizi sıfır yazmıyoruz
+00:04 +35: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart
+00:04 +35: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish list opens the selected draft with its boundary at 320px/2x
+00:05 +36: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: English draft summary never invites practice from unvalidated gates
+00:05 +37: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish empty list explains the absence
+00:05 +38: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish synthetic reviewed status retains the missing-view boundary
+00:05 +39: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish library explains the real draft count and review boundary
+00:05 +40: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: en movement status remains readable and tappable at 320px/2x
+00:05 +41: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: tr movement status remains readable and tappable at 320px/2x
+00:05 +42: All tests passed!

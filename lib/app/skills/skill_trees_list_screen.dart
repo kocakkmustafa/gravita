@@ -83,7 +83,7 @@ class _TreeRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  tree.displayName,
+                  skillTreeName(context, tree),
                   style: GravitaType.display(size: 16, weight: FontWeight.w500),
                 ),
                 const SizedBox(height: 5),

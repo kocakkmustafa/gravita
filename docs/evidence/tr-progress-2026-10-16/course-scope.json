@@ -1,0 +1,656 @@
+{
+  "baseline_sha": "589fefef8c34ccc45fe1cba7e5e85e9dd118f127",
+  "course_source": "content/courses/calisthenics.v1.json",
+  "course_sha256": "15930d335f377c9f48e1c7285f1c44e25973b9cccb3167fa99cc9b8599889502",
+  "scope": "Existing related lesson steps only. This source inventory does not establish expert approval or physical readiness. Course bytes unchanged. Dedicated barbell/rings/hands curricula still absent.",
+  "selected_lessons": [
+    {
+      "module": "lower",
+      "id": "cal-09",
+      "title": {
+        "en": "Hip hinge to a wall",
+        "tr": "Duvara kalça menteşesi"
+      },
+      "practice_type": "physical",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "Stand a short distance in front of a wall with soft knees and hands on your hip creases.",
+          "tr": "Duvardan kısa mesafe önde, dizler yumuşak ve eller kalça kıvrımında dur."
+        },
+        {
+          "en": "Send the hips backwards to touch the wall; keep your head following your trunk instead of craning up.",
+          "tr": "Kalçayı duvara değmek için geriye gönder; baş gövdeyi izlesin, yukarı uzatma."
+        },
+        {
+          "en": "Return by standing tall through the feet without leaning backwards at the finish.",
+          "tr": "Ayaklardan destekle dikleş; bitişte geriye yaslanma."
+        }
+      ],
+      "prerequisites": [
+        "cal-08"
+      ],
+      "source_ids": [
+        "nhs_strength",
+        "acsm2026",
+        "ace",
+        "nsca_progression",
+        "nsca_progression_pdf",
+        "strongfirst_wall_hinge"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "push",
+      "id": "cal-21",
+      "title": {
+        "en": "Dip preparation, feet supported",
+        "tr": "Ayak destekli dip hazırlığı"
+      },
+      "practice_type": "physical",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "Use fixed rated parallel handles low enough to keep both feet down; do not use two loose chairs.",
+          "tr": "İki ayağı yerde tutacak kadar alçak sabit uygun paralel tutacak kullan; iki gevşek sandalye kullanma."
+        },
+        {
+          "en": "Hold lightly through the hands with shoulders comfortable, feet carrying most of the weight.",
+          "tr": "Omuzlar rahat, yükün çoğu ayakta olacak şekilde ellerden hafif destek al."
+        },
+        {
+          "en": "Explore only a tiny elbow bend and return; deep shoulder extension is not part of this preparation.",
+          "tr": "Yalnız çok küçük dirsek bükme ve dönüş dene; derin omuz geriye açılması bu hazırlığa ait değil."
+        }
+      ],
+      "prerequisites": [
+        "cal-20"
+      ],
+      "source_ids": [
+        "nasm_push",
+        "acsm2026",
+        "ace",
+        "nsca_progression",
+        "nsca_progression_pdf",
+        "mckenzie_standing_bar_dip_proposal"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "pull",
+      "id": "cal-22",
+      "title": {
+        "en": "Pulling equipment and exits",
+        "tr": "Çekiş ekipmanı ve çıkışlar"
+      },
+      "practice_type": "learning_only",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "Read the manufacturer installation and load instructions for the bar or suspension system; ask qualified help if uncertain.",
+          "tr": "Bar veya askı sisteminin üretici montaj ve yük talimatını oku; belirsizse yetkin yardım al."
+        },
+        {
+          "en": "Inspect mounts, straps and handles; clear the floor and avoid swinging, jumping onto the bar or makeshift door trim.",
+          "tr": "Bağlantı, kayış ve tutacakları incele; zemini boşalt, sallanma, bara sıçrama veya doğaçlama pervazdan kaçın."
+        },
+        {
+          "en": "Use a stable access step and foot support that let you return immediately; rated equipment is a prerequisite, not a camera check.",
+          "tr": "Hemen dönebileceğin sabit erişim basamağı ve ayak desteği kullan; uygun ekipman kamera kontrolü değil önkoşuldur."
+        }
+      ],
+      "prerequisites": [
+        "cal-21"
+      ],
+      "source_ids": [
+        "nasm_pull",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "pull",
+      "id": "cal-23",
+      "title": {
+        "en": "Bent-knee body row",
+        "tr": "Diz bükülü beden row"
+      },
+      "practice_type": "physical",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "Low bar: sit underneath, grip it, face upward and keep bent knees with feet planted before lightly raising hips. Suspension: face the rated anchor, grip handles, step feet forward slightly and lean back with both feet planted.",
+          "tr": "Alçak bar: altına otur, tut, yüz yukarı ve diz bükülü ayaklar basılıyken kalçayı hafif kaldır. Askı: uygun bağlantıya dön, tutacakları tut, ayakları biraz öne al ve iki ayak basılı geriye eğil."
+        },
+        {
+          "en": "For either setup, pull the chest toward the bar or handles with hips following shoulders; use a comfortable grip and keep foot assistance.",
+          "tr": "İki düzende de kalça omzu izlerken göğsü bar veya tutacağa çek; rahat tutuş ve ayak yardımını koru."
+        },
+        {
+          "en": "Lower slowly: at a low bar put hips back on the mat before releasing; with suspension step feet back to stand upright before releasing. Keep enough foot pressure to exit immediately.",
+          "tr": "Yavaş alçal: alçak barda bırakmadan kalçayı mata koy; askıda bırakmadan ayakları geriye alıp dikleş. Hemen çıkmak için yeterli ayak basıncı bırak."
+        }
+      ],
+      "prerequisites": [
+        "cal-22"
+      ],
+      "source_ids": [
+        "nasm_pull",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "pull",
+      "id": "cal-24",
+      "title": {
+        "en": "A longer row lever",
+        "tr": "Row kolunu uzatmak"
+      },
+      "practice_type": "physical",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "First repeat the bent-knee row with stable breathing and an immediate foot exit.",
+          "tr": "Önce dengeli nefes ve hemen ayak çıkışıyla diz bükülü rowu yinele."
+        },
+        {
+          "en": "Use only the checked setup you practised: at a low bar, keep both feet planted and make the knees slightly straighter than in the bent-knee version; in suspension, face the checked anchor and step both planted feet slightly toward it for a modestly less upright lean, only while an immediate standing exit remains possible. Change one variable at a time.",
+          "tr": "Yalnız çalıştığın kontrol edilmiş düzeneği kullan: alçak barda iki ayak basılıyken dizleri bükülü biçime göre biraz daha düzleştir; askıda kontrol edilmiş bağlantıya dönüp iki ayağını yere basarak ona doğru küçük bir adım at ve yalnız ayakla hemen dikleşip çıkabiliyorsan gövdeyi azıcık daha yatır. Tek seferde bir değişken değiştir."
+        },
+        {
+          "en": "Keep the same chest-to-handle path and controlled return; a hard lever is optional.",
+          "tr": "Aynı göğüs-tutacak yolunu ve kontrollü dönüşü koru; zor kol isteğe bağlı."
+        }
+      ],
+      "prerequisites": [
+        "cal-23"
+      ],
+      "source_ids": [
+        "nasm_pull",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf",
+        "ace_trx_angle",
+        "trx_low_row",
+        "tjc_fixed_bar_row",
+        "barbend_fixed_bar_row",
+        "trx_anchor_low_row"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "pull",
+      "id": "cal-25",
+      "title": {
+        "en": "Foot-supported hang",
+        "tr": "Ayak destekli asılma"
+      },
+      "practice_type": "physical",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "Use the inspected bar and a stable step that keeps both feet supported.",
+          "tr": "Kontrol edilen bar ve iki ayağı destekleyen sabit basamak kullan."
+        },
+        {
+          "en": "Grip comfortably and transfer only a small part of the weight to the arms; avoid forcing the shoulders into an end-range.",
+          "tr": "Rahat tut ve yükün yalnız küçük bölümünü kola aktar; omuzu son aralığa zorlama."
+        },
+        {
+          "en": "Return weight to the feet before releasing the hands.",
+          "tr": "Elleri bırakmadan yükü ayaklara geri ver."
+        }
+      ],
+      "prerequisites": [
+        "cal-24"
+      ],
+      "source_ids": [
+        "nasm_pull",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf",
+        "hybrid_assisted_bar_hang"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "pull",
+      "id": "cal-26",
+      "title": {
+        "en": "Supported scapular pull",
+        "tr": "Destekli kürek çekişi"
+      },
+      "practice_type": "physical",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "Keep feet supported in the previous hang setup and elbows nearly straight.",
+          "tr": "Önceki asılma düzeninde ayakları destekli, dirsekleri neredeyse düz tut."
+        },
+        {
+          "en": "Gently lift the chest a small amount by moving the shoulder girdle; do not turn it into a full pull-up.",
+          "tr": "Omuz kuşağıyla göğsü az yükselt; tam barfikse dönüştürme."
+        },
+        {
+          "en": "Release the small motion slowly while feet still share the load.",
+          "tr": "Ayaklar yükü paylaşırken küçük hareketi yavaş bırak."
+        }
+      ],
+      "prerequisites": [
+        "cal-25"
+      ],
+      "source_ids": [
+        "nasm_pull",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf",
+        "henderson_supported_scapular_pull"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "pull",
+      "id": "cal-27",
+      "title": {
+        "en": "Assisted vertical pull",
+        "tr": "Yardımlı dikey çekiş"
+      },
+      "practice_type": "physical",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "Prefer a correctly adjusted assisted machine or coached foot assistance on rated equipment; bands need inspected anchors and rebound awareness.",
+          "tr": "Doğru ayarlı yardım makinesi veya uygun ekipmanda eğitmenli ayak yardımını tercih et; bantta kontrol edilmiş bağlantı ve geri sıçrama farkındalığı gerekir."
+        },
+        {
+          "en": "Pull the chest upward without kicking or craning the chin; use a comfortable range.",
+          "tr": "Tekme veya çeneyi uzatmadan göğsü yukarı çek; rahat aralık kullan."
+        },
+        {
+          "en": "Return slowly with the assistance present throughout; do not drop into a free hang.",
+          "tr": "Yardım boyunca mevcutken yavaş dön; serbest asılmaya düşme."
+        }
+      ],
+      "prerequisites": [
+        "cal-26"
+      ],
+      "source_ids": [
+        "nasm_pull",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "pull",
+      "id": "cal-28",
+      "title": {
+        "en": "Negative pull-up: optional",
+        "tr": "Negatif barfiks: isteğe bağlı"
+      },
+      "practice_type": "physical",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "Only consider this after comfortable assisted pulls and reliable grip; use rated bar, a stable access step and qualified guidance if uncertain.",
+          "tr": "Yalnız rahat yardımlı çekiş ve güvenilir tutuş sonrası düşün; uygun bar, sabit erişim basamağı ve belirsizse yetkin rehber kullan."
+        },
+        {
+          "en": "Step into an assisted top position without jumping; keep the step reachable while lowering a short controlled distance.",
+          "tr": "Sıçramadan yardımlı üst konuma adımla; kısa kontrollü inerken basamak erişilebilir kalsın."
+        },
+        {
+          "en": "Put weight back on the feet before grip fades; a full unsupported descent is not required.",
+          "tr": "Tutuş azalmadan yükü ayağa geri ver; tam desteksiz iniş gerekli değil."
+        }
+      ],
+      "prerequisites": [
+        "cal-27"
+      ],
+      "source_ids": [
+        "nasm_pull",
+        "acsm2026",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "support",
+      "id": "cal-41",
+      "title": {
+        "en": "Light wrist loading",
+        "tr": "Bileğe hafif yük"
+      },
+      "practice_type": "physical",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "Begin with palms on a wall; place fingers comfortably and spread contact across the hand.",
+          "tr": "Avuç duvarda başla; parmakları rahat yerleştir ve teması ele dağıt."
+        },
+        {
+          "en": "Lean a small amount toward the hands, then return; only use hands-and-knees if this is comfortable.",
+          "tr": "Ellere biraz eğil ve dön; yalnız rahatsa eller-dizlere geç."
+        },
+        {
+          "en": "Keep the movement small and unload before discomfort; more range is not inherently better.",
+          "tr": "Hareketi küçük tut, rahatsızlıktan önce yükü al; fazla aralık kendiliğinden daha iyi değil."
+        }
+      ],
+      "prerequisites": [
+        "cal-40"
+      ],
+      "source_ids": [
+        "acsm2026",
+        "nasm_push",
+        "nsca_progression",
+        "nsca_progression_pdf",
+        "worcs_nhs_wall_four_point_wrist"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "support",
+      "id": "cal-42",
+      "title": {
+        "en": "Shoulder support and reach",
+        "tr": "Omuz desteği ve uzanma"
+      },
+      "practice_type": "physical",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "Use a high fixed incline and establish the earlier scapular support.",
+          "tr": "Yüksek sabit yükselti kullan ve önceki kürek desteğini kur."
+        },
+        {
+          "en": "Shift a small amount of weight between hands while both remain in contact.",
+          "tr": "İki el temaslıyken küçük miktar yükü eller arasında aktar."
+        },
+        {
+          "en": "Only if steady, lighten one hand briefly without fully lifting it; maintain an easy foot exit.",
+          "tr": "Yalnız dengeliyse bir eli tam kaldırmadan kısa hafiflet; kolay ayak çıkışı kalsın."
+        }
+      ],
+      "prerequisites": [
+        "cal-41"
+      ],
+      "source_ids": [
+        "acsm2026",
+        "nasm_push",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "support",
+      "id": "cal-43",
+      "title": {
+        "en": "Ground pike preparation",
+        "tr": "Zeminde pike hazırlığı"
+      },
+      "practice_type": "physical",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "After comfortable pressing and wrist/shoulder support, begin on padded hands and knees, hands near shoulders and knees near hips; curl toes onto non-slip ground.",
+          "tr": "Rahat itiş ve bilek/omuz desteği sonrası yastıklı eller-dizlerde başla; eller omuz, dizler kalça yakını; parmakları kaymayan zemine kıvır."
+        },
+        {
+          "en": "Press lightly through palms and toes to lift knees and hips only a little, knees remaining bent; keep both hands and feet grounded and the head unloaded.",
+          "tr": "Avuç ve parmaklardan hafif iterek diz ve kalçayı yalnız az kaldır, diz bükülü kalsın; iki el ve ayak yerde, baş yüksüz."
+        },
+        {
+          "en": "Pause briefly, then lower both knees to the mat before releasing hands. Do not press the head toward the floor; pike push-ups and elevated feet are later coached options.",
+          "tr": "Kısa dur, elleri bırakmadan iki dizi mata indir. Başı zemine itme; pike şınavı ve yükseltilmiş ayak sonra eğitmenli seçenek."
+        }
+      ],
+      "prerequisites": [
+        "cal-42"
+      ],
+      "source_ids": [
+        "acsm2026",
+        "nasm_push",
+        "nasm_pike",
+        "acog",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "support",
+      "id": "cal-44",
+      "title": {
+        "en": "Seated compression",
+        "tr": "Oturarak kompresyon"
+      },
+      "practice_type": "physical",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "Sit on a mat or stable seat with a comfortable tall trunk; bend knees enough to avoid pulling the back.",
+          "tr": "Mat veya sabit oturakta rahat uzun gövdeyle otur; beli çekmeyecek kadar diz bük."
+        },
+        {
+          "en": "Keep hands supporting you beside the hips and lift one foot a small amount.",
+          "tr": "Elleri kalçanın yanında destekli tut ve bir ayağı az kaldır."
+        },
+        {
+          "en": "Lower quietly and alternate; straight legs and deep forward folding are optional later.",
+          "tr": "Yumuşak indir ve değiştir; düz bacak ve derin öne katlanma sonra isteğe bağlı."
+        }
+      ],
+      "prerequisites": [
+        "cal-43"
+      ],
+      "source_ids": [
+        "acsm2026",
+        "nasm_push",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "support",
+      "id": "cal-45",
+      "title": {
+        "en": "Foot-assisted L-sit preparation",
+        "tr": "Ayak yardımlı L-sit hazırlığı"
+      },
+      "practice_type": "physical",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "Use fixed rated low parallel handles, or study the setup if none are available.",
+          "tr": "Sabit uygun alçak paralel tutacak kullan; yoksa kurulumu incele."
+        },
+        {
+          "en": "Keep feet planted and hands beside the hips; push lightly to make the seat feel a little lighter.",
+          "tr": "Ayak yerde, el kalça yanında; oturuşu biraz hafifletmek için hafif it."
+        },
+        {
+          "en": "If comfortable, lift one heel briefly while the other foot remains loaded; do not chase straight suspended legs.",
+          "tr": "Rahatsa diğer ayak yüklüyken bir topuğu kısa kaldır; havada düz bacak kovalamama."
+        }
+      ],
+      "prerequisites": [
+        "cal-44"
+      ],
+      "source_ids": [
+        "acsm2026",
+        "nasm_push",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "literacy",
+      "id": "cal-46",
+      "title": {
+        "en": "Wall handstand: understand the pathway",
+        "tr": "Duvar amudu: yolu anla"
+      },
+      "practice_type": "learning_only",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "Inversion changes balance and head position; a wall does not remove fall or wrist/shoulder risks.",
+          "tr": "Ters duruş denge ve baş konumunu değiştirir; duvar düşme veya bilek/omuz riskini kaldırmaz."
+        },
+        {
+          "en": "Comfortable wrist loading, shoulder support, trunk control and a coached exit are prerequisites to assess with a qualified coach.",
+          "tr": "Rahat bilek yükü, omuz desteği, gövde kontrolü ve eğitmenli çıkış yetkin eğitmenle değerlendirilecek önkoşullardır."
+        },
+        {
+          "en": "Learn where the wall, clear floor and spotter would be; do not kick up alone from this lesson.",
+          "tr": "Duvar, boş zemin ve destekçinin yerini öğren; bu dersle tek başına yukarı tekmeleme."
+        }
+      ],
+      "prerequisites": [
+        "cal-45"
+      ],
+      "source_ids": [
+        "acsm2026",
+        "ace",
+        "acog",
+        "nhs_pregnancy",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "literacy",
+      "id": "cal-47",
+      "title": {
+        "en": "Planche: leverage and patience",
+        "tr": "Planche: kol uzunluğu ve sabır"
+      },
+      "practice_type": "learning_only",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "A planche places large demands on wrists and straight-arm shoulder support; it is not the next mandatory push-up.",
+          "tr": "Planche bilek ve düz kol omuz desteğine yüksek yük verir; sonraki zorunlu şınav değildir."
+        },
+        {
+          "en": "Use earlier supported pressing and small pressure shifts as foundations, not proof of planche readiness.",
+          "tr": "Önceki destekli itiş ve küçük basınç aktarımlarını temel kullan; planche hazır oluş kanıtı sayma."
+        },
+        {
+          "en": "A qualified coach should select progressions and assess equipment and exits; fixed readiness angles are not supplied.",
+          "tr": "Yetkin eğitmen ilerlemeyi seçip ekipman ve çıkışı değerlendirmeli; sabit hazır oluş açıları verilmez."
+        }
+      ],
+      "prerequisites": [
+        "cal-46"
+      ],
+      "source_ids": [
+        "acsm2026",
+        "ace",
+        "acog",
+        "nhs_pregnancy",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "literacy",
+      "id": "cal-48",
+      "title": {
+        "en": "Front lever: pulling skill pathway",
+        "tr": "Front lever: çekiş becerisi yolu"
+      },
+      "practice_type": "learning_only",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "The front lever uses a long horizontal body lever and a reliable overhead anchor.",
+          "tr": "Front lever uzun yatay beden kolu ve güvenilir baş üstü bağlantı kullanır."
+        },
+        {
+          "en": "Rows, supported hanging and controlled pulling are foundations; none is a validated automatic readiness test.",
+          "tr": "Row, destekli asılma ve kontrollü çekiş temeldir; hiçbiri doğrulanmış otomatik hazır oluş testi değildir."
+        },
+        {
+          "en": "Further tucked-lever work needs a qualified coach and appropriate equipment; do not learn by dropping from a bar.",
+          "tr": "İleri tuck-lever çalışma yetkin eğitmen ve uygun ekipman ister; bardan düşerek öğrenme."
+        }
+      ],
+      "prerequisites": [
+        "cal-47"
+      ],
+      "source_ids": [
+        "acsm2026",
+        "ace",
+        "acog",
+        "nhs_pregnancy",
+        "nasm_pull",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ],
+      "evidence_mode": "self_report"
+    },
+    {
+      "module": "literacy",
+      "id": "cal-49",
+      "title": {
+        "en": "Muscle-up: transition literacy",
+        "tr": "Muscle-up: geçiş bilgisi"
+      },
+      "practice_type": "learning_only",
+      "step_count": 3,
+      "steps": [
+        {
+          "en": "A muscle-up joins a high pull, a transition and upper support; adding speed does not solve missing foundations.",
+          "tr": "Muscle-up yüksek çekiş, geçiş ve üst desteği bağlar; hız eklemek eksik temeli çözmez."
+        },
+        {
+          "en": "Controlled pulling and dip support need individual coaching before a transition plan; no kipping requirement is introduced.",
+          "tr": "Geçiş planından önce kontrollü çekiş ve dip desteği bireysel eğitmen ister; kipping şartı konmaz."
+        },
+        {
+          "en": "Equipment, height and a coached exit must match the skill; this course does not prescribe a bar turnover attempt.",
+          "tr": "Ekipman, yükseklik ve eğitmenli çıkış beceriye uymalı; bu kurs bardan aşma denemesi yazmaz."
+        }
+      ],
+      "prerequisites": [
+        "cal-48"
+      ],
+      "source_ids": [
+        "acsm2026",
+        "ace",
+        "acog",
+        "nhs_pregnancy",
+        "nasm_pull",
+        "nsca_progression",
+        "nsca_progression_pdf"
+      ],
+      "evidence_mode": "self_report"
+    }
+  ],
+  "packaged_demonstrations": 0,
+  "draft_graph_nodes": {
+    "gravita.handstand": 15,
+    "gravita.planche": 6
+  },
+  "graph_status": "DRAFT; full node/drill/threshold packages remain outside bundle",
+  "proposed_morning_work": [
+    "Select exact beginner course and movement/variant boundaries separately for barbell, rings and hands. Do not count DB/KB, wall-hinge, low-bar/suspension or written recall as a substitute.",
+    "Review equipment setup/attachment, placing/transfers, entry/exit, assistance and personal suitability with a qualified subject reviewer before physical curricula are promoted.",
+    "Obtain demonstrations, actual learner observations and the relevant rights/equipment acceptance. Existing media briefs/source rows are not demonstrations. New spending requires separate approval.",
+    "Keep S2 orientation-aware inversion boundary and shared Motion Core ownership."
+  ]
+}

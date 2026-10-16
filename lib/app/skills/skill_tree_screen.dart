@@ -34,7 +34,7 @@ class SkillTreeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text(tree.displayName)),
+    appBar: AppBar(title: Text(skillTreeName(context, tree))),
     body: ListView(
       padding: const EdgeInsets.fromLTRB(18, 4, 18, 48),
       children: <Widget>[
@@ -70,7 +70,7 @@ class SkillTreeScreen extends StatelessWidget {
               : localized(
                   context,
                   LibraryStrings.skillTreeScreenNotDrawnBody(tree.displayName),
-                  '${tree.displayName} adımlarını tek tek göstermiyoruz: '
+                  '${skillTreeName(context, tree)} adımlarını tek tek göstermiyoruz: '
                   'ilerleme koşulları hareket bilimi incelemesinden geçmedi. '
                   'İlgili bazı hareket sayfaları kütüphanede bulunur. '
                   'Öğrenme rehberleri ve kamera erişimi ayrıca belirtilir; '

@@ -42,8 +42,9 @@ void main() {
   });
   tearDown(() => tmp.deleteSync(recursive: true));
 
-  testWidgets('gerçek içerik + gerçek depo + gerçek yüzey birlikte koşuyor',
-      (WidgetTester tester) async {
+  testWidgets('gerçek içerik + gerçek depo + gerçek yüzey birlikte koşuyor', (
+    WidgetTester tester,
+  ) async {
     tester.view.physicalSize = const Size(1200, 4000);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
@@ -65,28 +66,35 @@ void main() {
 
       // 2) GERÇEK depo — append-only JSONL, gerçek dosya.
       final JsonlSessionStore store = JsonlSessionStore(file);
-      await store.append(SessionRecord(
-        lessonId: 'push_foundations.reps_and_tempo',
-        completedAt: DateTime.utc(2026, 7, 30, 9),
-        workedSeconds: 95,
-        unitsCompleted: 6,
-        plannedUnits: 8,
-        unitLabel: 'rep',
-        lessonClass: 'measurementOnly',
-        unmeasuredUnits: 1,
-        unmeasuredReason: 'framing',
-      ));
-      await store.append(SessionRecord(
-        lessonId: 'push_foundations.reps_and_tempo',
-        completedAt: DateTime.utc(2026, 7, 30, 18),
-        workedSeconds: 130,
-        unitsCompleted: 9,
-        plannedUnits: 8,
-        unitLabel: 'rep',
-        lessonClass: 'measurementOnly',
-      ));
-      expect(file.readAsLinesSync().length, 2,
-          reason: 'Dosyaya GERÇEKTEN yazıldı.');
+      await store.append(
+        SessionRecord(
+          lessonId: 'push_foundations.reps_and_tempo',
+          completedAt: DateTime.utc(2026, 7, 30, 9),
+          workedSeconds: 95,
+          unitsCompleted: 6,
+          plannedUnits: 8,
+          unitLabel: 'rep',
+          lessonClass: 'measurementOnly',
+          unmeasuredUnits: 1,
+          unmeasuredReason: 'framing',
+        ),
+      );
+      await store.append(
+        SessionRecord(
+          lessonId: 'push_foundations.reps_and_tempo',
+          completedAt: DateTime.utc(2026, 7, 30, 18),
+          workedSeconds: 130,
+          unitsCompleted: 9,
+          plannedUnits: 8,
+          unitLabel: 'rep',
+          lessonClass: 'measurementOnly',
+        ),
+      );
+      expect(
+        file.readAsLinesSync().length,
+        2,
+        reason: 'Dosyaya GERÇEKTEN yazıldı.',
+      );
 
       // 3) GERÇEK özet.
       summary = ProgressSummary.build(
@@ -96,29 +104,49 @@ void main() {
     });
 
     await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: ProgressView(summary: summary))));
+      MaterialApp(
+        home: Scaffold(body: ProgressView(summary: summary)),
+      ),
+    );
 
     // Ölçümler toplandı: 6 + 9 tekrar, 95 + 130 saniye.
     expect(
-        find.descendant(
-            of: find.byKey(ProgressView.measuredSectionKey),
-            matching: find.text('15 reps')),
-        findsOneWidget);
+      find.descendant(
+        of: find.byKey(ProgressView.measuredSectionKey),
+        matching: find.text('15 reps'),
+      ),
+      findsOneWidget,
+    );
     expect(find.text('3 min 45 s worked'), findsOneWidget);
     expect(find.text('2 sessions'), findsOneWidget);
 
     // Ölçülemeyen 1 tekrar SAKLANMADI ve gerekçesi göründü.
     expect(find.textContaining('framing'), findsOneWidget);
 
-    // Kilitli form dersi düşmedi ve gerekçesi İÇERİKTEN geldi — bu metni ben
-    // yazmadım, `library.json` yazdı.
-    final LessonSurface locked = content.lessonSurfaces
-        .firstWhere((LessonSurface s) => s.isLocked);
+    // The complete source measurement explanation survives. Historical
+    // availability is qualified by this release's closed camera policy.
+    final LessonSurface locked = content.lessonSurfaces.firstWhere(
+      (LessonSurface s) => s.isLocked,
+    );
     expect(
-        find.descendant(
-            of: find.byKey(ProgressView.lockedSectionKey),
-            matching: find.text(locked.lockedReason!)),
-        findsOneWidget);
+      find.descendant(
+        of: find.byKey(ProgressView.lockedSectionKey),
+        matching: find.textContaining(
+          locked.lockedReason!.split('Rep counting').first,
+        ),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.textContaining('Rep counting is unaffected and stays open.'),
+      findsNothing,
+    );
+    expect(
+      find.textContaining(
+        'live camera sessions are unavailable in this release.',
+      ),
+      findsNWidgets(2),
+    );
 
     // Bugün hiçbir ders not vermiyor → retroaktif kredi notu YOK. Bu bir
     // ölçüm: form notu açıldığı gün bu satır düşer ve kural gerçek geçmişle
@@ -132,27 +160,30 @@ void main() {
   // kurmadan, gerçek bozuk satırlardan doğurtuyor. İkisi farklı şeyi
   // kanıtlar: orada yüzeyin davranışı, burada çekirdeğin sayımının
   // gerçekten çalıştığı ve kabuğun onu doğru okuduğu.
-  testWidgets('GERÇEK JSONL: 1 sağlam + 3 bozuk satır → kayıp SAYILIYOR',
-      (WidgetTester tester) async {
+  testWidgets('GERÇEK JSONL: 1 sağlam + 3 bozuk satır → kayıp SAYILIYOR', (
+    WidgetTester tester,
+  ) async {
     late int unreadable;
     late List<SessionRecord> records;
     await tester.runAsync(() async {
       final File f = File('${tmp.path}/mixed.jsonl');
       final JsonlSessionStore store = JsonlSessionStore(f);
-      await store.append(SessionRecord(
-        lessonId: 'push_foundations.reps_and_tempo',
-        completedAt: DateTime.utc(2026, 8, 4),
-        workedSeconds: 60,
-        unitsCompleted: 5,
-        plannedUnits: 5,
-        unitLabel: 'rep',
-        lessonClass: 'measurementOnly',
-      ));
+      await store.append(
+        SessionRecord(
+          lessonId: 'push_foundations.reps_and_tempo',
+          completedAt: DateTime.utc(2026, 8, 4),
+          workedSeconds: 60,
+          unitsCompleted: 5,
+          plannedUnits: 5,
+          unitLabel: 'rep',
+          lessonClass: 'measurementOnly',
+        ),
+      );
       // Üç ayrı bozulma sınıfı — hepsi "çözülemedi" sayılmalı.
       await f.writeAsString(
-        '{bu json değil\n'                       // sözdizimi bozuk
+        '{bu json değil\n' // sözdizimi bozuk
         '{"schemaVersion":999,"lessonId":"x"}\n' // bilinmeyen sürüm
-        '{"schemaVersion":2}\n',                 // alanları eksik
+        '{"schemaVersion":2}\n', // alanları eksik
         mode: FileMode.append,
       );
       records = await store.recent();
@@ -163,50 +194,64 @@ void main() {
     expect(records, hasLength(1));
     expect(records.single.unitsCompleted, 5);
     // Ve kayıp ADIYLA sayıldı.
-    expect(unreadable, 3,
-        reason: 'Bozuk satırlar sessizce atlanırsa yüzey eksik geçmişi TAM '
-            'sayım gibi gösterir.');
+    expect(
+      unreadable,
+      3,
+      reason:
+          'Bozuk satırlar sessizce atlanırsa yüzey eksik geçmişi TAM '
+          'sayım gibi gösterir.',
+    );
   });
 
-  testWidgets('POZİTİF İKİZ: GERÇEK JSONL tamamen sağlamsa kayıp SIFIR',
-      (WidgetTester tester) async {
+  testWidgets('POZİTİF İKİZ: GERÇEK JSONL tamamen sağlamsa kayıp SIFIR', (
+    WidgetTester tester,
+  ) async {
     // Bu ikiz olmadan üstteki test, sayaç HER ZAMAN 3 dönse de geçerdi.
     late int unreadable;
     await tester.runAsync(() async {
       final File f = File('${tmp.path}/clean.jsonl');
       final JsonlSessionStore store = JsonlSessionStore(f);
-      await store.append(SessionRecord(
-        lessonId: 'push_foundations.reps_and_tempo',
-        completedAt: DateTime.utc(2026, 8, 4),
-        workedSeconds: 60,
-        unitsCompleted: 5,
-        plannedUnits: 5,
-        unitLabel: 'rep',
-        lessonClass: 'measurementOnly',
-      ));
+      await store.append(
+        SessionRecord(
+          lessonId: 'push_foundations.reps_and_tempo',
+          completedAt: DateTime.utc(2026, 8, 4),
+          workedSeconds: 60,
+          unitsCompleted: 5,
+          plannedUnits: 5,
+          unitLabel: 'rep',
+          lessonClass: 'measurementOnly',
+        ),
+      );
       unreadable = await store.unreadableRecords();
     });
     expect(unreadable, 0);
   });
 
-  testWidgets('dosya HİÇ yoksa kayıp 0 — ilk açılış "kayıp geçmiş" DEĞİL',
-      (WidgetTester tester) async {
+  testWidgets('dosya HİÇ yoksa kayıp 0 — ilk açılış "kayıp geçmiş" DEĞİL', (
+    WidgetTester tester,
+  ) async {
     late int unreadable;
     late List<SessionRecord> records;
     await tester.runAsync(() async {
-      final JsonlSessionStore store =
-          JsonlSessionStore(File('${tmp.path}/hicyok.jsonl'));
+      final JsonlSessionStore store = JsonlSessionStore(
+        File('${tmp.path}/hicyok.jsonl'),
+      );
       records = await store.recent();
       unreadable = await store.unreadableRecords();
     });
     expect(records, isEmpty);
-    expect(unreadable, 0,
-        reason: 'İlk açılışta kayıp>0 dönseydi yüzey yeni kullanıcıya '
-            '"geçmişinin bir kısmı okunamadı" derdi.');
+    expect(
+      unreadable,
+      0,
+      reason:
+          'İlk açılışta kayıp>0 dönseydi yüzey yeni kullanıcıya '
+          '"geçmişinin bir kısmı okunamadı" derdi.',
+    );
   });
 
-  testWidgets('GERÇEK içerik kapısı: bozuk bundle → tipli HATA ekranı',
-      (WidgetTester tester) async {
+  testWidgets('GERÇEK içerik kapısı: bozuk bundle → tipli HATA ekranı', (
+    WidgetTester tester,
+  ) async {
     // ⚠️ Bu testin ilk hâli `_ProbeScreen` adında, yükleme yolunun KOPYASI olan
     // küçük bir widget kullanıyordu — yani ürünün kablolamasını değil kendi
     // taklidini sınıyordu. Aynı "iki ev tutarsızlaşır" riski (G-079). Artık
@@ -218,22 +263,28 @@ void main() {
     // içinden `GravitaRoot`a taşındı. Test de ürünün YENİ kapısını pump ediyor
     // — eski adı korumak için kabuk-dışı bir yol bırakmak, tam olarak yukarıda
     // sökülen "test-özel ikinci ev"i geri getirirdi.
-    await tester.pumpWidget(MaterialApp(
-      home: DefaultAssetBundle(
-        bundle: _BrokenBundle(),
-        child: const GravitaRoot(),
+    await tester.pumpWidget(
+      MaterialApp(
+        home: DefaultAssetBundle(
+          bundle: _BrokenBundle(),
+          child: const GravitaRoot(),
+        ),
       ),
-    ));
+    );
     await tester.pumpAndSettle();
     expect(find.byType(ContentFailureScreen), findsOneWidget);
-    expect(find.text(ProgressStrings.emptyHistory), findsNothing,
-        reason: '"Hiç seans yok" ekranı, yükleme hatasının en kötü görünümü.');
+    expect(
+      find.text(ProgressStrings.emptyHistory),
+      findsNothing,
+      reason: '"Hiç seans yok" ekranı, yükleme hatasının en kötü görünümü.',
+    );
     // Asset okunamadı → unreadable sınıfı → retry SUNULUR.
     expect(find.byKey(ContentFailureScreen.retryKey), findsOneWidget);
   });
 
-  testWidgets('POZİTİF İKİZ: GERÇEK bundle ile hata ekranı HİÇ açılmıyor',
-      (WidgetTester tester) async {
+  testWidgets('POZİTİF İKİZ: GERÇEK bundle ile hata ekranı HİÇ açılmıyor', (
+    WidgetTester tester,
+  ) async {
     // M-F-194. Üstteki iddia, `ContentFailureScreen` her koşulda çizilseydi de
     // geçerdi; bu ikiz onu kapatıyor. Ayrıca burada geçmiş GERÇEKTEN
     // okunamıyor (testte path_provider yok) ve yüzey bunu BEYAN ediyor —
@@ -255,24 +306,33 @@ void main() {
     // idi ve test **asıldı** (süit 25 sn yerine 10 dk sürüp tek kırmızı
     // verdi). Bu dosyanın kendi `tearDown`unun neden `deleteSync` olduğunun
     // da cevabı bu. FakeAsync tuzağının DÖRDÜNCÜ görünüşü.
-    final Directory tmp =
-        Directory.systemTemp.createTempSync('shell_e2e_onboarding');
+    final Directory tmp = Directory.systemTemp.createTempSync(
+      'shell_e2e_onboarding',
+    );
     addTearDown(() => tmp.deleteSync(recursive: true));
     final PathProviderPlatform defaultProvider = PathProviderPlatform.instance;
     addTearDown(() => PathProviderPlatform.instance = defaultProvider);
     await realIo(
-        tester,
-        () => OnboardingStore.forFile(File('${tmp.path}/onboarding.json'))
-            .markComplete());
+      tester,
+      () => OnboardingStore.forFile(
+        File('${tmp.path}/onboarding.json'),
+      ).markComplete(),
+    );
 
     // Kurulumun geri kalanı (FakeAsync/yazı-tipi tuzakları dâhil) ortak
     // harness'ta; burada KOPYALANMIYOR — G-079: iki ev tutarsızlaşır.
-    await bootGravitaRoot(tester,
-        supportPath: tmp.path, restoreTo: defaultProvider);
+    await bootGravitaRoot(
+      tester,
+      supportPath: tmp.path,
+      restoreTo: defaultProvider,
+    );
 
     expect(find.byType(ContentFailureScreen), findsNothing);
-    expect(find.byType(GravitaShell), findsOneWidget,
-        reason: 'Onboarding tamamlanmış bir cihazda açılış kabuğa VARIR.');
+    expect(
+      find.byType(GravitaShell),
+      findsOneWidget,
+      reason: 'Onboarding tamamlanmış bir cihazda açılış kabuğa VARIR.',
+    );
 
     // İlerleme sekmesine GEÇ. `IndexedStack` dört sekmeyi de inşa ettiği için
     // "widget ağacında var mı" sorusu bu kabukta ZAYIF bir sorudur — sekmeye
@@ -292,29 +352,43 @@ void main() {
     PathProviderPlatform.instance = FakeSupportDir(tmp.path);
     await tester.tap(find.text('Progress'));
     await tester.pump();
-    for (int round = 0;
-        round < 20 && find.byType(AppBar).evaluate().isEmpty;
-        round++) {
+    for (
+      int round = 0;
+      round < 20 && find.byType(AppBar).evaluate().isEmpty;
+      round++
+    ) {
       await tester.runAsync(
-          () => Future<void>.delayed(const Duration(milliseconds: 200)));
+        () => Future<void>.delayed(const Duration(milliseconds: 200)),
+      );
       await tester.pump(const Duration(milliseconds: 80));
     }
     PathProviderPlatform.instance = defaultProvider;
 
     expect(find.byKey(ProgressView.measuredSectionKey), findsOneWidget);
-    expect(find.byKey(ProgressView.historyFailureKey), findsNothing,
-        reason: 'Depo GERÇEKTEN çalışıyor (harness düzeltildi) — arıza '
-            'BEYANI artık YANLIŞ olurdu.');
-    expect(find.byKey(ProgressView.historyPartialKey), findsNothing,
-        reason: 'Hiçbir satır bozuk değil — kısmi BEYANI da yanlış olurdu.');
+    expect(
+      find.byKey(ProgressView.historyFailureKey),
+      findsNothing,
+      reason:
+          'Depo GERÇEKTEN çalışıyor (harness düzeltildi) — arıza '
+          'BEYANI artık YANLIŞ olurdu.',
+    );
+    expect(
+      find.byKey(ProgressView.historyPartialKey),
+      findsNothing,
+      reason: 'Hiçbir satır bozuk değil — kısmi BEYANI da yanlış olurdu.',
+    );
     // Ölçüldü, varsayılmadı: `open` boş DEĞİL (canlı hareketlerin dersleri
     // var), o yüzden `ProgressStrings.emptyHistory` DEĞİL — her canlı ders
     // kendi satırında `notStarted` gösteriyor (`_measuredRow`, per-ders hâl).
     // İlk denemem `emptyHistory` bekliyordu ve YANLIŞTI; okuyup düzelttim.
-    expect(find.text(ProgressStrings.notStarted), findsWidgets,
-        reason: 'Depo SAĞLAM ama BOŞ: canlı derslerin HER BİRİ "başlanmadı" '
-            'demeli — "geçmiş okunamadı" (historyFailureKey) ile "henüz '
-            'başlanmadı" FARKLI cümlelerdir, karıştırılmamalı.');
+    expect(
+      find.text(ProgressStrings.notStarted),
+      findsWidgets,
+      reason:
+          'Depo SAĞLAM ama BOŞ: canlı derslerin HER BİRİ "başlanmadı" '
+          'demeli — "geçmiş okunamadı" (historyFailureKey) ile "henüz '
+          'başlanmadı" FARKLI cümlelerdir, karıştırılmamalı.',
+    );
   });
 
   /// ⭐ A7③ (F2, 2026-08-16) — G-211'in KENDİSİ, kabuktan render edilerek.
@@ -335,90 +409,115 @@ void main() {
   /// doğru okuyup `historyPartialKey`i doğru sayıyla çizdiğini kanıtlayan
   /// TEK yer burası.
   testWidgets(
-      'GERÇEK kabuk + GERÇEK serbest-kova bozulması → historyPartialKey '
-      'DOĞRU sayıyla çiziliyor (G-211, render edilerek)',
-      (WidgetTester tester) async {
-    final Directory tmp =
-        Directory.systemTemp.createTempSync('shell_e2e_partial');
-    addTearDown(() => tmp.deleteSync(recursive: true));
-    final PathProviderPlatform defaultProvider = PathProviderPlatform.instance;
-    addTearDown(() => PathProviderPlatform.instance = defaultProvider);
-
-    await realIo(tester, () async {
-      await OnboardingStore.forFile(File('${tmp.path}/onboarding.json'))
-          .markComplete();
-      // DERS kovası SAĞLAM — G-211'in ayırt ettiği vaka tam bu: yalnız
-      // ders kovasına bakan bir denetim burada asla ötmezdi.
-      final JsonlSessionStore lessons =
-          JsonlSessionStore(File('${tmp.path}/sessions.jsonl'));
-      await lessons.append(SessionRecord(
-        lessonId: 'push_foundations.reps_and_tempo',
-        completedAt: DateTime.utc(2026, 8, 10),
-        workedSeconds: 60,
-        unitsCompleted: 5,
-        plannedUnits: 5,
-        unitLabel: 'rep',
-        lessonClass: 'measurementOnly',
-      ));
-      // SERBEST kova BOZUK — iki ayrı bozulma sınıfı, ders kovasına hiç
-      // dokunulmadı.
-      await File('${tmp.path}/free_sessions.jsonl').writeAsString(
-        '{bu json değil\n'
-        '{"schemaVersion":999,"lessonId":"x"}\n',
+    'GERÇEK kabuk + GERÇEK serbest-kova bozulması → historyPartialKey '
+    'DOĞRU sayıyla çiziliyor (G-211, render edilerek)',
+    (WidgetTester tester) async {
+      final Directory tmp = Directory.systemTemp.createTempSync(
+        'shell_e2e_partial',
       );
-    });
+      addTearDown(() => tmp.deleteSync(recursive: true));
+      final PathProviderPlatform defaultProvider =
+          PathProviderPlatform.instance;
+      addTearDown(() => PathProviderPlatform.instance = defaultProvider);
 
-    await bootGravitaRoot(tester,
-        supportPath: tmp.path, restoreTo: defaultProvider);
-    expect(find.byType(GravitaShell), findsOneWidget);
+      await realIo(tester, () async {
+        await OnboardingStore.forFile(
+          File('${tmp.path}/onboarding.json'),
+        ).markComplete();
+        // DERS kovası SAĞLAM — G-211'in ayırt ettiği vaka tam bu: yalnız
+        // ders kovasına bakan bir denetim burada asla ötmezdi.
+        final JsonlSessionStore lessons = JsonlSessionStore(
+          File('${tmp.path}/sessions.jsonl'),
+        );
+        await lessons.append(
+          SessionRecord(
+            lessonId: 'push_foundations.reps_and_tempo',
+            completedAt: DateTime.utc(2026, 8, 10),
+            workedSeconds: 60,
+            unitsCompleted: 5,
+            plannedUnits: 5,
+            unitLabel: 'rep',
+            lessonClass: 'measurementOnly',
+          ),
+        );
+        // SERBEST kova BOZUK — iki ayrı bozulma sınıfı, ders kovasına hiç
+        // dokunulmadı.
+        await File('${tmp.path}/free_sessions.jsonl').writeAsString(
+          '{bu json değil\n'
+          '{"schemaVersion":999,"lessonId":"x"}\n',
+        );
+      });
 
-    // ⭐ Kendi bulgum (A1'de bulunan sınıfın ÜÇÜNCÜ örneği, G-229): kabuk
-    // sekmesine geçmek `_ProgressTabState._load()`ı tetikler, o da
-    // `ContentRepository.open{Session,FreeSession}Store()` üzerinden
-    // path_provider'ı YENİDEN sorar — `bootGravitaRoot` sağlayıcıyı yalnız
-    // KENDİ `pumpWidget` penceresinde açık tutuyor. Yeniden açılmazsa bu
-    // çağrı gerçek platforma düşer, fırlatır, `readHistoryStatus`ın kendi
-    // `on Object catch` yakalayıcısı bunu `HistoryUnavailable`e çevirir —
-    // görünüşte "hata ekranı" ama ölçülen şey ürünün DEĞİL testin
-    // penceresi. `OnboardingStore.open()`ın iki-çağrı deseni burada da
-    // tekrarlandı: bir yardımcının "sağlayıcıyı açık tut" penceresi,
-    // ürünün onu KAÇ KEZ sorduğu kadar geniş olmalı.
-    // Sabit KÜÇÜK tur sayısı YETMİYOR — ve bu ölçüldü, tahmin edilmedi.
-    // `_load()`in zinciri TEK bir gerçek G/Ç değil, SIRALI birden fazlası
-    // (destek dizini → ders dosyası → serbest dosya → `readHistoryStatus`ın
-    // KENDİ ikinci okuması, sayım için). Tek bir uzun `runAsync` gecikmesi
-    // (3 sn TEK blokta denendi) zinciri İLERLETMEDİ — ama `pump()` ARAYA
-    // giren, HER biri kısa, ÇOK sayıda `runAsync` turu ilerletti (20×200ms
-    // denendi, çalıştı). Fark: her `runAsync` çağrısı test çerçevesine
-    // gerçek olay döngüsüyle KISA bir kesişim penceresi açıyor; SIRALI
-    // await'ler bu yüzden SIRAYLA, tek turda değil, ilerliyor.
-    // > Gerçek G/Ç'yi beklemek "yeterince uzun BEKLEMEK" değil, "yeterince
-    // > SIK kesişmek"tir.
-    PathProviderPlatform.instance = FakeSupportDir(tmp.path);
-    await tester.tap(find.text('Progress'));
-    await tester.pump();
-    for (int round = 0;
+      await bootGravitaRoot(
+        tester,
+        supportPath: tmp.path,
+        restoreTo: defaultProvider,
+      );
+      expect(find.byType(GravitaShell), findsOneWidget);
+
+      // ⭐ Kendi bulgum (A1'de bulunan sınıfın ÜÇÜNCÜ örneği, G-229): kabuk
+      // sekmesine geçmek `_ProgressTabState._load()`ı tetikler, o da
+      // `ContentRepository.open{Session,FreeSession}Store()` üzerinden
+      // path_provider'ı YENİDEN sorar — `bootGravitaRoot` sağlayıcıyı yalnız
+      // KENDİ `pumpWidget` penceresinde açık tutuyor. Yeniden açılmazsa bu
+      // çağrı gerçek platforma düşer, fırlatır, `readHistoryStatus`ın kendi
+      // `on Object catch` yakalayıcısı bunu `HistoryUnavailable`e çevirir —
+      // görünüşte "hata ekranı" ama ölçülen şey ürünün DEĞİL testin
+      // penceresi. `OnboardingStore.open()`ın iki-çağrı deseni burada da
+      // tekrarlandı: bir yardımcının "sağlayıcıyı açık tut" penceresi,
+      // ürünün onu KAÇ KEZ sorduğu kadar geniş olmalı.
+      // Sabit KÜÇÜK tur sayısı YETMİYOR — ve bu ölçüldü, tahmin edilmedi.
+      // `_load()`in zinciri TEK bir gerçek G/Ç değil, SIRALI birden fazlası
+      // (destek dizini → ders dosyası → serbest dosya → `readHistoryStatus`ın
+      // KENDİ ikinci okuması, sayım için). Tek bir uzun `runAsync` gecikmesi
+      // (3 sn TEK blokta denendi) zinciri İLERLETMEDİ — ama `pump()` ARAYA
+      // giren, HER biri kısa, ÇOK sayıda `runAsync` turu ilerletti (20×200ms
+      // denendi, çalıştı). Fark: her `runAsync` çağrısı test çerçevesine
+      // gerçek olay döngüsüyle KISA bir kesişim penceresi açıyor; SIRALI
+      // await'ler bu yüzden SIRAYLA, tek turda değil, ilerliyor.
+      // > Gerçek G/Ç'yi beklemek "yeterince uzun BEKLEMEK" değil, "yeterince
+      // > SIK kesişmek"tir.
+      PathProviderPlatform.instance = FakeSupportDir(tmp.path);
+      await tester.tap(find.text('Progress'));
+      await tester.pump();
+      for (
+        int round = 0;
         round < 20 && find.byType(AppBar).evaluate().isEmpty;
-        round++) {
-      await tester.runAsync(
-          () => Future<void>.delayed(const Duration(milliseconds: 200)));
-      await tester.pump(const Duration(milliseconds: 80));
-    }
-    PathProviderPlatform.instance = defaultProvider;
+        round++
+      ) {
+        await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 200)),
+        );
+        await tester.pump(const Duration(milliseconds: 80));
+      }
+      PathProviderPlatform.instance = defaultProvider;
 
-    expect(find.byKey(ProgressView.historyFailureKey), findsNothing,
-        reason: 'Depo ARIZALI değil, İKİ satırı OKUNAMADI — farklı hâl, '
-            'karıştırılırsa kullanıcı yanlış mesaj görür.');
-    expect(find.byKey(ProgressView.historyPartialKey), findsOneWidget,
-        reason: 'Kabuk G-211 hükmünü GERÇEKTEN çağırmıyor olabilirdi — bu '
+      expect(
+        find.byKey(ProgressView.historyFailureKey),
+        findsNothing,
+        reason:
+            'Depo ARIZALI değil, İKİ satırı OKUNAMADI — farklı hâl, '
+            'karıştırılırsa kullanıcı yanlış mesaj görür.',
+      );
+      expect(
+        find.byKey(ProgressView.historyPartialKey),
+        findsOneWidget,
+        reason:
+            'Kabuk G-211 hükmünü GERÇEKTEN çağırmıyor olabilirdi — bu '
             'satır olmadan pure-Dart testleri hep yeşil kalır, kablolama '
-            'kopuk olsa bile.');
-    expect(find.textContaining('2'), findsWidgets,
-        reason: 'Kayıp sayısı (2) ekranda GÖRÜNMELİ, yalnız durumun adı '
-            'değil.');
-    // Sağlam kayıt OKUNDU: kayıp, okunabileni götürmüyor.
-    expect(find.byKey(ProgressView.measuredSectionKey), findsOneWidget);
-  });
+            'kopuk olsa bile.',
+      );
+      expect(
+        find.textContaining('2'),
+        findsWidgets,
+        reason:
+            'Kayıp sayısı (2) ekranda GÖRÜNMELİ, yalnız durumun adı '
+            'değil.',
+      );
+      // Sağlam kayıt OKUNDU: kayıp, okunabileni götürmüyor.
+      expect(find.byKey(ProgressView.measuredSectionKey), findsOneWidget);
+    },
+  );
 }
 
 class _BrokenBundle extends CachingAssetBundle {

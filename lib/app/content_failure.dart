@@ -24,8 +24,8 @@ enum ContentFailureKind {
   integrity,
 
   /// İçerik OKUNAMADI: asset yok, zaman aşımı veya I/O hatası. Kurulum
-  /// bozulmuş olabilir; yeniden kurmak GERÇEKTEN çözebilir. Paketlenmiş
-  /// manifestin bozuk şeması ise bütünlük hatasıdır.
+  /// bozulmuş olabilir; bu sınıf tek başına sebebi teşhis etmez. Yerel
+  /// geçmişi koruyan retry/açılış önerilir. Bozuk manifest şeması bütünlüktür.
   unreadable,
 }
 
@@ -48,9 +48,8 @@ final class ContentFailure {
   /// Herhangi bir yakalanmış hatayı sınıflandırır.
   ///
   /// Bilinmeyen tip [ContentFailureKind.unreadable] sayılır: yanlış tarafa
-  /// düşmek gerekiyorsa, "yeniden kurmayı dene" demek "bu bizim içerik
-  /// hatamız" demekten daha az yanlıştır — ikincisi kullanıcıya bizim adımıza
-  /// teşhis koyar.
+  /// düşmek gerekiyorsa, içerik hakkında bir teşhis koymadan yeniden okuma
+  /// olanağı sunulur. Uygulamanın kaldırılması veri koruma önerisi değildir.
   factory ContentFailure.from(Object error) {
     if (error is ContentException) {
       final ContentFailureKind kind = switch (error.error.code) {
@@ -72,10 +71,14 @@ final class ContentFailure {
     // içeriği tutmuyor → bütünlük.
     if (error is StateError || error is ArgumentError) {
       return ContentFailure(
-          kind: ContentFailureKind.integrity, detail: error.toString());
+        kind: ContentFailureKind.integrity,
+        detail: error.toString(),
+      );
     }
     return ContentFailure(
-        kind: ContentFailureKind.unreadable, detail: error.toString());
+      kind: ContentFailureKind.unreadable,
+      detail: error.toString(),
+    );
   }
 
   final ContentFailureKind kind;
@@ -130,8 +133,10 @@ final class HistoryOk extends HistoryStatus {
 /// Sayılar gösterilir çünkü doğrudur; **alt sınır** oldukları söylenir.
 final class HistoryPartial extends HistoryStatus {
   const HistoryPartial(this.unreadableRecords)
-      : assert(unreadableRecords > 0,
-            'kayıp yoksa hâl HistoryOk — sıfırlı "kısmi" beyan yalan olur');
+    : assert(
+        unreadableRecords > 0,
+        'kayıp yoksa hâl HistoryOk — sıfırlı "kısmi" beyan yalan olur',
+      );
 
   final int unreadableRecords;
 }

@@ -41,6 +41,8 @@ void main() {
         host(SkillTreesListScreen(trees: content.catalogue.skillTrees.trees)),
       );
       expect(find.text('Beceri ağaçları'), findsOneWidget);
+      expect(find.text('Amut'), findsOneWidget);
+      expect(find.text('Handstand'), findsNothing);
       expect(find.text('15 adım'), findsOneWidget);
       expect(find.text('6 adım'), findsOneWidget);
       await tester.tap(find.text('Planche'));
@@ -120,6 +122,7 @@ void main() {
         maxScrolls: 100,
       );
       expect(find.textContaining('2 taslak ilerleme ağacı'), findsOneWidget);
+      expect(find.textContaining('(Amut ve Planche)'), findsOneWidget);
       expect(
         find.textContaining('fiziksel uygulamayı onaylamaz'),
         findsOneWidget,

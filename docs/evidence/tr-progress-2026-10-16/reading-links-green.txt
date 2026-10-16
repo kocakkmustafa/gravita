@@ -1,0 +1,4 @@
+00:00 +0: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_reading_links_test.dart
+00:00 +0: en library recall reaches five existing reading-only lessons
+00:08 +1: tr library recall reaches five existing reading-only lessons
+00:17 +2: All tests passed!

@@ -1,0 +1,50 @@
+00:00 +0: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart
+00:00 +0: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: real four-lesson TR progress keeps named measurement locks
+00:00 +1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: TR partial history shows measured units and unmeasured work separately
+00:00 +2: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: unknown unit, reason and changed lesson source remain visible
+00:00 +3: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: TR unavailable history suppresses invented counts and preserves installation
+00:00 +4: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: en unavailable read hides locked, free and orphan totals too
+00:00 +5: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: en free sessions never add seconds to repetitions
+00:00 +6: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: tr unavailable read hides locked, free and orphan totals too
+00:00 +7: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: tr free sessions never add seconds to repetitions
+00:00 +8: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: TR read failure retries and exposes raw diagnostic without reinstall advice
+00:00 +9: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/progress_locale_test.dart: TR integrity failure stays blocked without retry
+00:00 +10: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalog_evidence_locale_test.dart
+00:01 +10: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalog_evidence_locale_test.dart: en all real waiting paragraphs use exact-source guards
+00:01 +11: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalog_evidence_locale_test.dart: tr all real waiting paragraphs use exact-source guards
+00:01 +12: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalog_evidence_locale_test.dart: real queued movement renders Turkish measurement limits at phone width
+00:02 +13: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_reading_links_test.dart
+test/study_reading_links_test.dart:94:58: Error: The method 'read' isn't defined for the type 'CalisthenicsProgressStore'.
+ - 'CalisthenicsProgressStore' is from 'package:gravita/app/calisthenics_progress.dart' ('lib/app/calisthenics_progress.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'read'.
+          () => calisthenicsProgressStoreFor(temp, null).read(),
+                                                         ^^^^
+00:02 +13 -1: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_reading_links_test.dart [E]
+  Failed to load "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_reading_links_test.dart":
+  Compilation failed for testPath=/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_reading_links_test.dart: test/study_reading_links_test.dart:94:58: Error: The method 'read' isn't defined for the type 'CalisthenicsProgressStore'.
+   - 'CalisthenicsProgressStore' is from 'package:gravita/app/calisthenics_progress.dart' ('lib/app/calisthenics_progress.dart').
+  Try correcting the name to the name of an existing method, or defining a method named 'read'.
+            () => calisthenicsProgressStoreFor(temp, null).read(),
+                                                           ^^^^
+  .
+00:02 +13 -1: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_review_test.dart
+00:03 +13 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_review_test.dart: approved domains have bilingual recall and source references
+00:03 +14 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_review_test.dart: en entry reaches every area and reference at 320px/2x
+00:04 +15 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_review_test.dart: tr entry reaches every area and reference at 320px/2x
+00:04 +16 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_review_test.dart: notAttempted gives a distinct next step without promotion
+00:04 +17 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_review_test.dart: uncertain gives a distinct next step without promotion
+00:04 +18 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_review_test.dart: difference gives a distinct next step without promotion
+00:04 +19 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_review_test.dart: stopped gives a distinct next step without promotion
+00:04 +20 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_review_test.dart: notes, revealed reference and observation are discarded on leaving
+00:04 +21 -1: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart
+00:05 +21 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish list opens the selected draft with its boundary at 320px/2x
+00:05 +22 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: English draft summary never invites practice from unvalidated gates
+00:05 +23 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish empty list explains the absence
+00:05 +24 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish synthetic reviewed status retains the missing-view boundary
+00:05 +25 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: Turkish library explains the real draft count and review boundary
+00:06 +26 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: en movement status remains readable and tappable at 320px/2x
+00:06 +27 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/skill_tree_locale_test.dart: tr movement status remains readable and tappable at 320px/2x
+00:06 +28 -1: Some tests failed.
+
+Failing tests:
+  /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_reading_links_test.dart: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_reading_links_test.dart

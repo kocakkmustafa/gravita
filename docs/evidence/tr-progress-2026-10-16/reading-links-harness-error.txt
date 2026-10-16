@@ -1,0 +1,98 @@
+00:00 +0: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_reading_links_test.dart
+00:00 +0: en library recall reaches five existing reading-only lessons
+
+Warning: A call to tap() with finder "Found 1 widget with key [<'study-related-cal-22'>]: [
+  ListTile-[<'study-related-cal-22'>](contentPadding: EdgeInsets.zero, onTap: Closure: () => void, dependencies: [Directionality, InheritedCupertinoTheme, _InheritedTheme, _LocalizationsScope-[GlobalKey#b3749], _ScrollableScope]),
+]" derived an Offset (Offset(160.0, 3036.0)) that would not hit test on the specified widget.
+Maybe the widget is actually off-screen, or another widget is obscuring it, or the widget cannot receive pointer events.
+Indeed, Offset(160.0, 3036.0) is outside the bounds of the root of the render tree, Size(320.0, 900.0).
+The finder corresponds to this RenderBox: RenderSemanticsAnnotations#604ee relayoutBoundary=up7
+The hit test result at that offset is: HitTestResult(HitTestEntry<HitTestTarget>#9aee8(_ReusableRenderView#77945), HitTestEntry<HitTestTarget>#f8a21(<AutomatedTestWidgetsFlutterBinding>))
+#0      WidgetController._getElementPoint (package:flutter_test/src/controller.dart:2165:25)
+#1      WidgetController.getCenter (package:flutter_test/src/controller.dart:1947:12)
+#2      WidgetController.tap (package:flutter_test/src/controller.dart:1080:7)
+#3      main.<anonymous closure> (file:///Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_reading_links_test.dart:65:24)
+<asynchronous suspension>
+#4      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#5      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+#6      StackZoneSpecification._registerCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:114:42)
+<asynchronous suspension>
+To silence this warning, pass "warnIfMissed: false" to "tap()".
+To make this warning fatal, set WidgetController.hitTestWarningShouldBeFatal to true.
+
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.single (dart:core/iterable.dart:694:25)
+#1      WidgetController.widget (package:flutter_test/src/controller.dart:828:30)
+#2      main.<anonymous closure> (file:///Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_reading_links_test.dart:67:31)
+<asynchronous suspension>
+#3      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#4      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  en library recall reaches five existing reading-only lessons
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -1: en library recall reaches five existing reading-only lessons [E]
+  Test failed. See exception logs above.
+  The test description was: en library recall reaches five existing reading-only lessons
+  
+00:00 +0 -1: tr library recall reaches five existing reading-only lessons
+
+Warning: A call to tap() with finder "Found 1 widget with key [<'study-related-cal-22'>]: [
+  ListTile-[<'study-related-cal-22'>](contentPadding: EdgeInsets.zero, onTap: Closure: () => void, dependencies: [Directionality, InheritedCupertinoTheme, _InheritedTheme, _LocalizationsScope-[GlobalKey#584e3], _ScrollableScope]),
+]" derived an Offset (Offset(160.0, 2932.0)) that would not hit test on the specified widget.
+Maybe the widget is actually off-screen, or another widget is obscuring it, or the widget cannot receive pointer events.
+Indeed, Offset(160.0, 2932.0) is outside the bounds of the root of the render tree, Size(320.0, 900.0).
+The finder corresponds to this RenderBox: RenderSemanticsAnnotations#0f2b5 relayoutBoundary=up7
+The hit test result at that offset is: HitTestResult(HitTestEntry<HitTestTarget>#6f135(_ReusableRenderView#77945), HitTestEntry<HitTestTarget>#45719(<AutomatedTestWidgetsFlutterBinding>))
+#0      WidgetController._getElementPoint (package:flutter_test/src/controller.dart:2165:25)
+#1      WidgetController.getCenter (package:flutter_test/src/controller.dart:1947:12)
+#2      WidgetController.tap (package:flutter_test/src/controller.dart:1080:7)
+#3      main.<anonymous closure> (file:///Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_reading_links_test.dart:65:24)
+<asynchronous suspension>
+#4      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#5      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+#6      StackZoneSpecification._registerCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:114:42)
+<asynchronous suspension>
+To silence this warning, pass "warnIfMissed: false" to "tap()".
+To make this warning fatal, set WidgetController.hitTestWarningShouldBeFatal to true.
+
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.single (dart:core/iterable.dart:694:25)
+#1      WidgetController.widget (package:flutter_test/src/controller.dart:828:30)
+#2      main.<anonymous closure> (file:///Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_reading_links_test.dart:67:31)
+<asynchronous suspension>
+#3      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#4      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  tr library recall reaches five existing reading-only lessons
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -2: tr library recall reaches five existing reading-only lessons [E]
+  Test failed. See exception logs above.
+  The test description was: tr library recall reaches five existing reading-only lessons
+  
+00:01 +0 -2: Some tests failed.
+
+Failing tests:
+  /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_reading_links_test.dart: en library recall reaches five existing reading-only lessons
+  /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/study_reading_links_test.dart: tr library recall reaches five existing reading-only lessons

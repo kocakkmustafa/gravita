@@ -1,0 +1,1 @@
+Running build hooks...Running build hooks...Verified content/motion_content/manifest.json against content/courses/calisthenics.v1.json

@@ -367,7 +367,9 @@ class _MovementPageState extends State<MovementPage> {
         );
       }
     }
-    return liveHonestyCopy(context, m.id, source);
+    return m.isLive
+        ? liveHonestyCopy(context, m.id, source)
+        : catalogEvidenceCopy(context, source);
   }
 
   Widget _honestyBox(MovementEntry m) => SurfaceSection(
@@ -465,7 +467,9 @@ class _MovementPageState extends State<MovementPage> {
               ),
               const SizedBox(height: 10),
               ReasonList(
-                items: m.honesty.waitingOnMeasurement,
+                items: m.honesty.waitingOnMeasurement
+                    .map((source) => waitingMeasurementCopy(context, m, source))
+                    .toList(growable: false),
                 color: GravitaColors.honestyText,
                 bulletColor: GravitaColors.honestySeal,
               ),
@@ -758,7 +762,7 @@ class _MovementPageState extends State<MovementPage> {
         final SkillTree t => localized(
           context,
           LibraryStrings.skillTreeIn(t.displayName),
-          'Bu hareket, taslak ${t.displayName} gelişim yolunun bir adımı. '
+          'Bu hareket, taslak ${skillTreeName(context, t)} gelişim yolunun bir adımı. '
           'Açılma ölçütleri hareket bilimi incelemesinden geçmediği '
           'için bu yolu çizim olarak göstermiyoruz.',
         ),

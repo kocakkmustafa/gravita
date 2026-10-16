@@ -73,6 +73,101 @@ String liveHonestyCopy(BuildContext context, String movementId, String source) {
   return _liveHonestyCopy[movementId]?[source] ?? source;
 }
 
+/// Measurement limits only. These exact-source translations do not add a
+/// technique cue, a measurement or permission to practise a closed movement.
+String catalogEvidenceCopy(BuildContext context, String source) {
+  if (!_isTurkish(context)) return source;
+  final common = _catalogEvidenceCopy[source];
+  if (common != null) return common;
+  for (var n = 1; n <= 4; n++) {
+    final expected =
+        'Its $n error ${n == 1 ? 'rule' : 'rules'} have never been '
+        'run against real footage. There is no replay fixture for this '
+        'movement, so we have no evidence they fire when they should — or '
+        'stay quiet when they should.';
+    if (source == expected) {
+      return 'Bu hareketin $n hata kuralı gerçek görüntüler üzerinde hiç '
+          'çalıştırılmadı. Gerçek görüntüyle tekrar oynatma testi bulunmuyor; '
+          'kuralların gerektiğinde uyarı verdiğini veya gerekmediğinde sessiz '
+          'kaldığını gösteren kanıtımız yok.';
+    }
+  }
+  return source;
+}
+
+String waitingMeasurementCopy(
+  BuildContext context,
+  MovementEntry m,
+  String source,
+) {
+  if (!_isTurkish(context)) return source;
+  final common = catalogEvidenceCopy(context, source);
+  if (common != source) return common;
+  final name = m.displayName.toLowerCase();
+  final translatedName = catalogName(context, m.id, m.displayName);
+  final n = m.blockedBy.length;
+  for (final written in [true, false]) {
+    final rules = written
+        ? 'The rules for the $name are written, but '
+        : 'No rules have been written for the $name at all, and ';
+    final expected =
+        'Nothing is measured here. $rules$n '
+        '${n == 1 ? 'thing is' : 'things are'} still missing before we would '
+        'run them — and each one alone is enough for us to keep this closed.';
+    if (source == expected) {
+      return 'Burada hiçbir şey ölçülmüyor. $translatedName için '
+          '${written ? 'kurallar yazılmış olsa da' : 'henüz kural yazılmadı ve'} '
+          'kuralları çalıştırabilmemiz için $n eksik var. Her biri tek başına '
+          'bu ölçümü kapalı tutmamız için yeterli.';
+    }
+  }
+  if (source ==
+      'There is no identity check for this movement. For push-ups '
+          'we verify your torso is actually horizontal before a rep counts; the '
+          'equivalent test for the $name has not been derived from measurement, '
+          'so nothing would stop us counting a movement that only looks like one.') {
+    return 'Bu hareketin doğru hareket olduğunu kontrol eden bir ölçüm yok. '
+        'Şınav ölçüm sözleşmesinde tekrar sayılmadan önce gövdenin gerçekten '
+        'yatay olduğu kontrol edilir. $translatedName için karşılık gelen '
+        'kontrol ölçümden türetilmedi; yalnız benzer görünen başka bir '
+        'hareketin sayılmasını engelleyemezdik.';
+  }
+  if (source ==
+      'We cannot tell when this movement starts. The $name has a '
+          'defined start position, but the measurement that recognises it is not '
+          'something we produce — so the app would wait forever without ever '
+          'saying why. Counting stays closed until that measurement exists.') {
+    return 'Bu hareketin ne zaman başladığını belirleyemiyoruz. $translatedName '
+        'için başlangıç konumu tanımlı, ancak onu tanıyan ölçümü üretmiyoruz; '
+        'uygulama nedenini söylemeden beklerdi. Bu ölçüm sağlanana kadar sayım kapalı kalır.';
+  }
+  return source;
+}
+
+const Map<String, String> _catalogEvidenceCopy = {
+  'No instructor reference has been harvested for this movement, so every '
+          'tolerance in its rules sits at our default floor rather than coming '
+          'from measured disagreement between real instructors. A number from a '
+          'default is not a measurement.':
+      'Bu hareket için eğitmen referansı toplanmadı. Kurallardaki her tolerans, '
+      'gerçek eğitmenler arasındaki ölçülmüş farktan türetilmek yerine varsayılan '
+      'alt sınırımızda kalıyor. Varsayılan bir sayı ölçüm değildir.',
+  'No error rules have been written for this movement at all. Anything we '
+          'said about its form would be a guess, because there is nothing defined to look for.':
+      'Bu hareket için henüz hiçbir hata kuralı yazılmadı. Neye bakılacağı '
+      'tanımlanmadığından, formu hakkında söyleyeceğimiz her şey tahmin olurdu.',
+  'Force or load': 'Kuvvet veya yük',
+  'Force': 'Kuvvet',
+  'How hard it feels': 'Ne kadar zor hissettirdiği',
+  'Breathing': 'Nefes',
+  'The dumbbells are not detected — load is not measured':
+      'Dambıllar algılanmaz; yük ölçülmez',
+  'Actual pressure between your back and the floor':
+      'Sırtın ile zemin arasındaki gerçek basınç',
+  'Knee tracking side-to-side — that needs a front-facing setup':
+      'Dizin yana hareketi; bunu görmek için önden çekim gerekir',
+};
+
 const String _scoringSource =
     'None of this is a score. We count and time what is listed above — no '
     'number grades your form, on this movement or any other in Gravita. Form '

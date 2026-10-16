@@ -1,4 +1,4 @@
-/// İlerleme yüzeyinin kullanıcıya görünen metinleri (V1 yalnız `en`, PRD §7).
+/// English baseline for progress copy; locale-aware display is in ProgressCopy.
 ///
 /// **Neden ayrı dosya ve neden KABUKTA:** `ProgressSummary` motorda yaşıyor ve
 /// motor kullanıcı metni ÜRETMEZ — bir ölçüm katmanının içine yerleşen kopya,
@@ -46,8 +46,9 @@ abstract final class ProgressStrings {
   /// tabanın tam olmadığı söylenir. `unavailable` metninden AYRI durur: uç
   /// değer kısmi dalı susturamaz, ikisi farklı olguyu anlatır.
   static String historyPartial(int unreadable) {
-    final String what =
-        unreadable == 1 ? '1 saved session' : '$unreadable saved sessions';
+    final String what = unreadable == 1
+        ? '1 saved session'
+        : '$unreadable saved sessions';
     return 'Numbers below are a floor, not a full count: $what could not be '
         'read back, so your real totals are at least this high.';
   }
