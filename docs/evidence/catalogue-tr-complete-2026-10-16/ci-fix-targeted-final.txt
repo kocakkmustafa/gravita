@@ -1,0 +1,21 @@
+00:00 +0: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/dbkb_transitions_lifecycle_test.dart
+00:00 +0: old owner and ABA epochs cannot finish awaited DB/KB IO
+00:00 +1: failed temp write retains prior journal; partial temp is ignored
+00:00 +2: reopen isolates course and content version without accepting old completion
+00:00 +3: learning-only save needs review and confirmation, hides no form acceptance en
+00:04 +4: learning-only reveal pause resume hides answer in en
+00:05 +5: owner callback and delayed ABA open leave fresh state in en
+00:07 +6: save failure keeps reading available in en
+00:12 +7: back and reopen starts with hidden answer in en
+00:13 +8: original bodyweight and preparation still require physical preparation in en
+00:15 +9: dbkbt-supported-goblet large text/answer semantics en
+00:16 +10: dbkbt-single-kb-floor-press large text/answer semantics en
+00:17 +11: learning-only save needs review and confirmation, hides no form acceptance tr
+00:20 +12: learning-only reveal pause resume hides answer in tr
+00:21 +13: owner callback and delayed ABA open leave fresh state in tr
+00:24 +14: save failure keeps reading available in tr
+00:28 +15: back and reopen starts with hidden answer in tr
+00:29 +16: original bodyweight and preparation still require physical preparation in tr
+00:31 +17: dbkbt-supported-goblet large text/answer semantics tr
+00:32 +18: dbkbt-single-kb-floor-press large text/answer semantics tr
+00:33 +19: All tests passed!

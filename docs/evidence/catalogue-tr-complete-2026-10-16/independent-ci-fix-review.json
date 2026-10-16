@@ -1,0 +1,106 @@
+{
+  "review_type": "independent source-only review of minimal CI harness fix",
+  "reviewed_at_utc": "2026-10-16T02:38:24.193005+00:00",
+  "reviewer": "/root/gravita_review",
+  "outcome": "PASS_SOURCE_REVIEW",
+  "blocking_findings": [],
+  "source": {
+    "base_commit": "312433a4cac0dad3448b532877a56e0cf1e4f16e",
+    "reviewed_working_tree_file": "test/dbkb_transitions_lifecycle_test.dart",
+    "file_sha256": "c03c5a19ef343930a7c1f795249b0487dd9247d7c4b91ee74201353229900a9f",
+    "base_file_sha256": "c03c5a19ef343930a7c1f795249b0487dd9247d7c4b91ee74201353229900a9f",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "changed_tracked_files": [
+      "docs/evidence/catalogue-tr-complete-2026-10-16/acceptance.json",
+      "docs/evidence/catalogue-tr-complete-2026-10-16/source-manifest.json"
+    ],
+    "lib_changed": false,
+    "diff_scope": "35 insertions and 3 deletions in one test file; no app, course content, core, packaging or native change."
+  },
+  "failed_ci": {
+    "run_id": "38840313679",
+    "head_sha": "2a9c994715edd95272c9fc2db51b095a4b6774f9",
+    "result": "failure",
+    "failure": "learning-only save needs review and confirmation, hides no form acceptance en: expected non-null Complete.onPressed, actual null.",
+    "evidence": "pr-gates-first.txt:429–435; pr-ci-first.json",
+    "bounded_observations": "App 726 passed/1 failed; engine 176 passed. Retained job receipt records successful iOS no-codesign and Android unsigned code-path build jobs. Those successes do not turn the failed overall run into acceptance."
+  },
+  "diagnosis": {
+    "conclusion": "The proposed readiness-race diagnosis is supported by source, but the retained terminal failure alone does not identify the exact missed or premature interaction.",
+    "old_test_gap": "The old test used one settleIo call (8 real 5ms waits with widget pumps) before scrolling/tapping Practised, without asserting that its onPressed was enabled or that the action saved. Its later journal.load() waited for admitted IO but did not prove that a practice save had been admitted. It also tapped the whole confirmation tile without checking that confirmation was enabled or became true.",
+    "product_evidence": [
+      "lib/app/calisthenics_course_screen.dart:144–161: reload keeps store null until loader and readStore/markSeen IO complete.",
+      "lib/app/calisthenics_course_screen.dart:452–453: initial readStore performs markSeen.",
+      "lib/app/calisthenics_course_screen.dart:814–820: Practised.onPressed is null when store is null or saving.",
+      "lib/app/calisthenics_course_screen.dart:835–840: confirmation onChanged is null while store is null or saving.",
+      "lib/app/calisthenics_course_screen.dart:852–860: Complete remains disabled without both confirmation and practice, and while storage is unavailable/saving."
+    ],
+    "causal_limit": "A null Complete callback after the old checkbox step could also result from a missed/disabled confirmation or unfinished saving. The patch verifies all relevant boundaries instead of claiming one uninstrumented interleaving was proven."
+  },
+  "patch_review": [
+    {
+      "check": "Bounded UI readiness",
+      "result": "PASS",
+      "evidence": "test/dbkb_transitions_lifecycle_test.dart:84–90,182–189",
+      "assessment": "awaitUi checks the actual enabled UI state, pumps real-IO continuations for at most100 settleIo rounds and fails explicitly if readiness never arrives. It does not invoke callbacks directly, retry the save click or skip the test."
+    },
+    {
+      "check": "Visible single practice action",
+      "result": "PASS",
+      "evidence": "test/dbkb_transitions_lifecycle_test.dart:185–189",
+      "assessment": "The real Practised button is ensured visible, settled, hit-tested, then tapped once."
+    },
+    {
+      "check": "Persisted prerequisite before confirmation",
+      "result": "PASS",
+      "evidence": "test/dbkb_transitions_lifecycle_test.dart:193–200",
+      "assessment": "A real journal read must show practiceCount1, state practised and completedCount0. Complete is still asserted disabled before confirmation. No direct store mutation is added by the test."
+    },
+    {
+      "check": "Actual confirmation input",
+      "result": "PASS",
+      "evidence": "test/dbkb_transitions_lifecycle_test.dart:201–213",
+      "assessment": "The test waits for CheckboxListTile.onChanged, selects the actual descendant Checkbox, ensures visibility, settles, hit-tests, taps once and verifies the tile value is true."
+    },
+    {
+      "check": "Original completion contract preserved",
+      "result": "PASS",
+      "evidence": "test/dbkb_transitions_lifecycle_test.dart:175–177,199–200,214–227",
+      "assessment": "Disabled-before expectations and enabled-after expectation are retained. After the real Complete tap, the saved practiceCount1, selfReportedComplete state, completedCount1, next lesson, absence of physical preparation/answer acceptance and empty unrelated handling course are still checked. Both EN and TR execute the same flow."
+    },
+    {
+      "check": "Product safety and storage scope",
+      "result": "PASS",
+      "evidence": "git diff --name-only contains only test/dbkb_transitions_lifecycle_test.dart",
+      "assessment": "No product completion gate, preparation rule, physical-course two-report rule, account boundary, storage implementation, camera release closure, curriculum or pin changes."
+    }
+  ],
+  "validation_at_review": {
+    "reviewer_executed_tests": false,
+    "reviewer_executed_build_or_native": false,
+    "reviewer_triggered_ci": false,
+    "first_targeted_log": "ci-fix-targeted.txt ends +19 All tests passed; this predates the last visibility/state assertions according to the parent.",
+    "final_targeted_log_at_first_read": "ci-fix-targeted-final.txt was still in progress at +17; no final-green claim inferred from that partial log.",
+    "required_next_gate": "Parent must retain final targeted/analyzer outcome for this exact file hash, then obtain a new terminal PR CI result and final-main CI as required. The original failed CI run remains evidence and is not replaced by a local source review."
+  },
+  "remaining_risks": [
+    "Hosted-runner readiness is bounded to100 settleIo rounds (about4seconds real-delay budget plus work). An environment that exceeds the bound still fails diagnostically; this review does not prove flakiness is impossible.",
+    "No deterministic slow-markSeen failure fixture was added, so the precise first-run timing interleaving is not reproduced. The added state/readback assertions directly close the unverified test assumptions.",
+    "Other existing tests retain their own fixed-time fixture waits; they are outside this one failing test-only patch."
+  ],
+  "allowed_write": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/workspace/catalogue-tr-complete-2026-10-16-final/independent-ci-fix-review.json",
+  "supporting_artifacts": [
+    {
+      "path": "pr-gates-first.txt",
+      "sha256": "87c0b36f880ac647b016d9f9b696915b024d11f27273779b0f77f4990537b98a"
+    },
+    {
+      "path": "pr-ci-first.json",
+      "sha256": "e9441ae00eb72e44c63cca9861e664ffb088aaf1790c6034e7c6fcfaa3f41772"
+    },
+    {
+      "path": "ci-fix-targeted.txt",
+      "sha256": "ff8d33178e3f791cdf16174aed61d1508c76f41ec04fa37a83e18d3e02ccef9f"
+    }
+  ]
+}

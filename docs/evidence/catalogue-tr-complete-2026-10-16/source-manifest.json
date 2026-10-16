@@ -1,0 +1,34 @@
+{
+  "code_sha": "312433a4cac0dad3448b532877a56e0cf1e4f16e",
+  "files": [
+    {
+      "path": "lib/app/catalogue_translations_tr.dart",
+      "sha256": "b9411a7734a4349d752f48f88bffb8b4f10c7760ee8b2ae7a6f9e051e6f6ea48"
+    },
+    {
+      "path": "lib/app/movement_page.dart",
+      "sha256": "0cb43ff132c82aaabd3ab45e55dc9a57f5dd2ff5fc12cfe813f211b02c7030e6"
+    },
+    {
+      "path": "test/catalogue_completion_ui_test.dart",
+      "sha256": "3d12064b35628af474d3d84e05cf202cacd02d22ed8b12fa0745decef742fb2d"
+    },
+    {
+      "path": "test/catalogue_translation_contract_test.dart",
+      "sha256": "3a4737587780178b3222e72410ea070e33593fb0958a4d63897e4f625fd2e54e"
+    },
+    {
+      "path": "test/fixtures/catalogue-tr-completion.json",
+      "sha256": "6f32cca3a976af4634c50c24e187a2a95bdc5d0887ceb4fbf42c59d71f42885a"
+    },
+    {
+      "path": "integration_test/catalogue_resume_smoke_test.dart",
+      "sha256": "fc5f72c72c067843e172fc52c9338cf24018cf9f61a52ef9c07ece27f8b1709d"
+    },
+    {
+      "path": "test/dbkb_transitions_lifecycle_test.dart",
+      "sha256": "c03c5a19ef343930a7c1f795249b0487dd9247d7c4b91ee74201353229900a9f"
+    }
+  ],
+  "compact_json_array_sha256": "b1ecdc1c5f23ac8e30dee31eb5b95bbfa8ebad474a23a3a8da4d317fa692d0e6"
+}

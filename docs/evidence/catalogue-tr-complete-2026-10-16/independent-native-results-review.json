@@ -1,0 +1,201 @@
+{
+  "review_type": "independent bounded native-results evidence review",
+  "reviewed_at_utc": "2026-10-16T02:25:12.908288+00:00",
+  "reviewer": "/root/gravita_review",
+  "outcome": "PASS_WITH_BOUNDED_SCOPE",
+  "blocking_findings": [],
+  "execution": {
+    "read_only_evidence_and_source_review": true,
+    "tests_run": false,
+    "native_or_build_started": false,
+    "simulator_or_runtime_changed": false,
+    "ci_triggered": false,
+    "app_or_test_files_modified": false,
+    "only_written_file": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/workspace/catalogue-tr-complete-2026-10-16/independent-native-results-review.json"
+  },
+  "source_identity": {
+    "final_code_sha": "63a3ce6b221cbe5888ddcfedd3b10425b84f04fc",
+    "production_boot_source_sha": "f91e59f568e5e57a58722f9de7c12b5919d22135",
+    "equivalence": "git diff f91e59f568e5e57a58722f9de7c12b5919d22135 63a3ce6b221cbe5888ddcfedd3b10425b84f04fc -- lib is empty. The complete commit-range diff is five inserted harness assertions/setup lines in integration_test/catalogue_resume_smoke_test.dart.",
+    "source_files": [
+      {
+        "path": "lib/app/catalogue_translations_tr.dart",
+        "sha256": "b9411a7734a4349d752f48f88bffb8b4f10c7760ee8b2ae7a6f9e051e6f6ea48"
+      },
+      {
+        "path": "lib/app/movement_page.dart",
+        "sha256": "0cb43ff132c82aaabd3ab45e55dc9a57f5dd2ff5fc12cfe813f211b02c7030e6"
+      },
+      {
+        "path": "integration_test/production_main_boot_test.dart",
+        "sha256": "2b2754efa41d6fdb6dd96bb347148a13cf11cdc65c766fba614c4edb90d72d9e"
+      },
+      {
+        "path": "integration_test/calisthenics_course_smoke_test.dart",
+        "sha256": "14e13be3e64f5807d711daf15cb5ff76de3c64994a2eb6e8115074635d8ddc74"
+      },
+      {
+        "path": "integration_test/catalogue_resume_smoke_test.dart",
+        "sha256": "fc5f72c72c067843e172fc52c9338cf24018cf9f61a52ef9c07ece27f8b1709d"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "id": "NR-1",
+      "result": "PASS",
+      "claim": "Configured production main boot reached the existing onboarding or shell readiness boundary.",
+      "evidence": [
+        "native-production-result.json: source f91e59f568e5e57a58722f9de7c12b5919d22135; device 394A4C6B-F6E8-4BA5-B0CA-2479F3ED18D3; 02:17:12.501444–02:17:51.300975 UTC; exit_code 0.",
+        "native-production-configured.txt: MOTION_MAIN_BOOT_READY_gravita; +1 All tests passed!",
+        "integration_test/production_main_boot_test.dart:11–24 invokes production.main(), requires GravitaApp and OnboardingFlow or GravitaShell, no loading indicator and no captured exception."
+      ],
+      "boundary": "This proves a guest boot smoke to onboarding or shell; no provider login, onboarding completion, camera, IAP, physical instruction or release-signed build acceptance."
+    },
+    {
+      "id": "NR-2",
+      "result": "PASS",
+      "claim": "The native course harness loaded 56 bundled lessons, saved one synthetic account-scoped lesson self-report, read it through a new store, reopened its UI and cleaned up its owned test directory.",
+      "evidence": [
+        "native-course-result.json: source 63a3ce6b221cbe5888ddcfedd3b10425b84f04fc; 02:18:37.180332–02:18:59.620738 UTC; exit_code 0; readback_marker and cleanup_marker true.",
+        "native-course.txt: GRAVITA_COURSE_SMOKE_READBACK version=1.0.0 completed=1/56 accountScoped=true pathProvider=native; cleanup exists=false; +1 All tests passed!",
+        "integration_test/calisthenics_course_smoke_test.dart:24–46 uses native path_provider and a unique owned subdirectory; 93–148 operates real lesson widgets with a synthetic identity; 149–168 opens a new store, checks completedCount 1/practiceCount 1 and UI 1 / 56 after remount; 30–37 removes only its owned test data."
+      ],
+      "boundary": "The persistence target is calisthenics-course-progress.v1.json, a JSON document. This does not test the separate JSONL session journal, SQLite, a real authenticated account, cross-process/cold-start persistence, all 56 lesson flows, or actual physical performance."
+    },
+    {
+      "id": "NR-3",
+      "result": "PASS",
+      "claim": "After READY, the host launched actual iOS Settings then returned the existing Gravita process; the harness observed pause/resume and retained catalogue Element, route, scroll and visible Turkish cue.",
+      "evidence": [
+        "native-os-resume-result.json: source 63a3ce6b221cbe5888ddcfedd3b10425b84f04fc; before_pid=after_pid=88099; Settings PID 71678; background_at 02:20:01.669501 UTC; returned_at 02:20:04.244938 UTC; finished 02:20:05.447538 UTC; exit_code 0.",
+        "native-os-resume.txt: READY precedes GRAVITA_OS_RESUME_PASS states=inactive,hidden,paused,hidden,inactive,resumed sameElement=true sameRoute=true sameScroll=true width=320 textScale=2; +1 All tests passed!",
+        "run_native_resume.py: waits for READY in the active child log, captures existing Gravita PID, launches com.apple.Preferences, captures Settings, launches com.yulalab.gravita again, compares PIDs, then requires terminal PASS marker.",
+        "integration_test/catalogue_resume_smoke_test.dart:85–88 settles and hit-tests the cue before capture; 97 clears lifecycle history immediately before READY; 100–107 requires paused then resumed; 108–123 checks same Element/route/scroll, hit-testable translated cue, absent startSession and no captured exception."
+      ],
+      "boundary": "This is one existing non-live bird_dog MovementPage in a synthetic Turkish 320 logical-pixel/TextScaler 2 host. It is actual OS background/return acceptance for that host; it does not prove production-main navigation, all catalogue pages, cold-start restoration, authentication, camera permission/session or physical technique."
+    },
+    {
+      "id": "NR-4",
+      "result": "PASS",
+      "claim": "All three retained screenshots match their documented SHA-256 and support the qualified visual descriptions.",
+      "evidence": [
+        "native-tr320-before.png: the Turkish cue/card is visible inside the narrow debug host.",
+        "native-settings-background.png: actual Turkish iOS Settings and its Gravita return affordance are visible; the Apple account row prompts sign-in.",
+        "native-tr320-return.png: an OS foreground/app-switcher transition frame shows the retained Bird dog cue/cards. It is not a settled foreground screenshot.",
+        "native-screen-evidence.json now explicitly states the transition-frame limitation and assigns actual resumed/same-PID/route/scroll/cue proof to the passing harness and receipt."
+      ],
+      "boundary": "No settled-return screenshot is claimed. The screenshot alone is not evidence of a resumed process or exact scroll identity."
+    },
+    {
+      "id": "NR-5",
+      "result": "PASS_AS_RECORDED",
+      "claim": "The receipts record the permitted single-device native window and its release.",
+      "evidence": [
+        "native-slot.json records the parent-authorized slot acquired at 02:16:54.515843 UTC after recorded Lissom release at 02:06:26 UTC, device 394A4C6B-F6E8-4BA5-B0CA-2479F3ED18D3.",
+        "All three result intervals fall within that slot; release is recorded at 02:20:31.061755 UTC, status RELEASED, preexisting shared simulator left booted, Runtime-67054 HOLD unchanged."
+      ],
+      "boundary": "Reviewer did not query the current simulator, processes, lock or runtime; these resource-management facts are assessed from the recorded receipts."
+    }
+  ],
+  "advisories": [
+    {
+      "id": "NR-A1",
+      "severity": "wording",
+      "status": "reporting_boundary",
+      "text": "Use JSON course progress file readback 1/56 for this native smoke. Calling it JSONL readback would overstate coverage of the separate shipping session journal.",
+      "source": [
+        "integration_test/calisthenics_course_smoke_test.dart:149–170",
+        "lib/app/calisthenics_progress.dart:114–117,229–244,261–262"
+      ],
+      "required_before_broader_claim": "Keep final acceptance/PR wording at the tested JSON course-progress boundary. Current native-course-result.json already says file readback and is accurate."
+    },
+    {
+      "id": "NR-A2",
+      "severity": "provenance",
+      "status": "qualification",
+      "text": "Build-source association is supplied by retained command receipts and the clean code identity/equivalence checks; raw Flutter logs do not embed a source commit or binary digest. No independent binary attestation is inferred."
+    },
+    {
+      "id": "NR-A3",
+      "severity": "future_compatibility",
+      "status": "preexisting_warning",
+      "text": "All three native logs emit the motion_camera Swift Package Manager adoption warning. These runs pass; the warning is not evidence that camera sessions were enabled or tested."
+    }
+  ],
+  "config_boundary": {
+    "checked": "Public-config provenance metadata and existing workspace receipt; no config values printed, no network/auth call made by reviewer.",
+    "provenance_file": "native-config-provenance.json",
+    "historical_preflight_note": "The provenance receipt retains its pre-execution native_execution NOT_STARTED field. Final execution truth is the later three terminal result receipts; do not cite the older field as current native status.",
+    "temporary_config_cleanup": "Workspace config receipt records deletion after tests; reviewer did not read or reuse the config."
+  },
+  "remaining_gates": [
+    "Public standard runner PR and final-main CI are not established by these native logs and remain separate required gates.",
+    "Runtime-67054 HOLD is unchanged; no runtime-trust clearance inferred.",
+    "No hardware camera, provider authentication, purchase/store, signed archive/privacy, expert physical curriculum or full barbell/rings/hands course acceptance."
+  ],
+  "artifact_integrity": {
+    "terminal_artifacts": [
+      {
+        "path": "docs/evidence/catalogue-tr-complete-2026-10-16/native-production-configured.txt",
+        "sha256": "2d0afcf994efadba2bd93da6c62c95ddbc48ec160ce92dcfc66554e4d8d7b270",
+        "workspace_copy_identical": true
+      },
+      {
+        "path": "docs/evidence/catalogue-tr-complete-2026-10-16/native-course.txt",
+        "sha256": "b37f6233adde1ca9f7fdc3c6e0ef6aa10fca473254903a7d9263ab96d644f67a",
+        "workspace_copy_identical": true
+      },
+      {
+        "path": "docs/evidence/catalogue-tr-complete-2026-10-16/native-os-resume.txt",
+        "sha256": "f6497579bb2a3b38f4cae1aa7fa9984fa9e349bbb4d6c8ba4ae269440abf777b",
+        "workspace_copy_identical": true
+      },
+      {
+        "path": "docs/evidence/catalogue-tr-complete-2026-10-16/native-production-result.json",
+        "sha256": "a13d99d46948cec324f2a4d4ac48a90b061626802c0017458e891ed3013c6648",
+        "workspace_copy_identical": true
+      },
+      {
+        "path": "docs/evidence/catalogue-tr-complete-2026-10-16/native-course-result.json",
+        "sha256": "47c8c4f14f332bf07d7eaadbb1e2b80b3953791b7b02b6fda27d7a3c56b180ec",
+        "workspace_copy_identical": true
+      },
+      {
+        "path": "docs/evidence/catalogue-tr-complete-2026-10-16/native-os-resume-result.json",
+        "sha256": "084ad43c7748091cd40d4aa29ce98d716fa5143c6153a8f2066a4df35a929a65",
+        "workspace_copy_identical": true
+      }
+    ],
+    "supporting_artifacts": [
+      {
+        "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/docs/evidence/catalogue-tr-complete-2026-10-16/native-screen-evidence.json",
+        "sha256": "d2548a7691ae5d2316b7bb49cb1b8b01506fbec306a6cb61ecc612140aadee17"
+      },
+      {
+        "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/docs/evidence/catalogue-tr-complete-2026-10-16/native-slot.json",
+        "sha256": "072d081c3773868fe6b9603dea8b2d5628d5fc5ccd86683533090ff8ccbc6497"
+      },
+      {
+        "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/docs/evidence/catalogue-tr-complete-2026-10-16/native-config-provenance.json",
+        "sha256": "1dc9aac1efa3abc414b8764c6c6e07b997cb7cc27a89cff9b5e217475a97a3f0"
+      },
+      {
+        "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/workspace/catalogue-tr-complete-2026-10-16/run_native_resume.py",
+        "sha256": "44e70eee9863a636b4cbe794a90885b82c1e0fdcb5977e1b1a224264cb77d2f6"
+      },
+      {
+        "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/workspace/catalogue-tr-complete-2026-10-16/native-tr320-before.png",
+        "sha256": "08d007e257d1000ee9cbb58060a84c26d96617bdd7d0152693d61a5dfb9fd8b6"
+      },
+      {
+        "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/workspace/catalogue-tr-complete-2026-10-16/native-settings-background.png",
+        "sha256": "4bcfc51a03ef79d315b9a0b9d6763d6a384723b4cda32e49720ebfbe6bbf8d2d"
+      },
+      {
+        "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/workspace/catalogue-tr-complete-2026-10-16/native-tr320-return.png",
+        "sha256": "fb01c784f398a445f7ea60ff215309a6ea767fcffa3688e0f709866dbbcf1f46"
+      }
+    ]
+  }
+}

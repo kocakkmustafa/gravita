@@ -1,0 +1,43 @@
+────────────────────────────────────────────
+SÜİT 1 — app kabuğu (82 dosya)
+────────────────────────────────────────────
+  ✅ flutter test (serial real-I/O fixtures) 04:21 +727: All tests passed!
+────────────────────────────────────────────
+SÜİT 2 — gravita_engine (18 dosya)
+────────────────────────────────────────────
+  ✅ dart test                          00:00 +176: All tests passed!
+────────────────────────────────────────────
+SÜİT 3 — içerik kapıları (Python + Dart manifest)
+────────────────────────────────────────────
+  ✅ calisthenics_course --check        56 lessons / 10 modules; original bilingual content and br
+  ✅ v2l_source_projection --check      PASS_SOURCE_IDENTITY_ONLY_RELEASE_CLOSED gravita lessons=5
+  ✅ v2l_source_projection adversarial  (stdout sessiz) OK
+  ✅ calisthenics_integrity --check     Verified content/motion_content/manifest.json against cont
+  ✅ reference_model                    ✅ referans model kaydı TEMİZ — 2 artefakt (2 KAYITSIZ, ger
+  ✅ reference_model --self-test           ✅ TERS İKİZ: sahte muafiyet: yakalandı
+  ✅ validate_library                   ✅ kütüphane denetimi TEMİZ — 31 hareket (2 canlı: ['bodywe
+  ✅ validate_library --self-test       ✅ 25/25 kapı ateşlendi
+  ✅ validate_catalog                   ✅ TEMİZ — 0 hata, 29 uyarı
+  ✅ validate_catalog --self-test          ⚠️ ATEŞLENMEYEN 7 değişmez: V3, V6, V10, V12, V13, V16,
+  ✅ promote_library --check            ✅ terfi kapısı TEMİZ — 31 katalog hareketinin 31'i kütüpha
+  ✅ exclusions_page --check            ✅ 'Neden yok?' sayfası kaynağıyla AYNI — 7 bölüm
+  ✅ skill_tree_index --check           ✅ beceri ağacı indeksi güncel — 2 paket, 0'i eşik-doğrulan
+  ✅ name_preconditions --check         ✅ bekleyen hareketlerin rationale'ları güncel ve İSİMLİ
+  ✅ network_claim_audit                   ℹ️ font teslimi: bundled — yüzler asset olarak paketli,
+  ✅ network_claim_audit --self-test    ✅ 6/6 kapı ateşlendi
+  ✅ metric_support --self-test         ✅ metric_support öz-testi: AYRIŞTIRMA fikstürde 9 kontrol 
+  ✅ dead_end_census                    ✅ çıkmaz 29/31 · sınıf A'29·E1 · beyan-açık 2
+  ✅ dead_end_census --check            ✅ A4 artefaktı GÜNCEL — 31 = başlatılabilir(beyan) 2 ⊎ çık
+  ✅ dead_end_census --self-test        ✅ dead_end_census öz-testi: sınıflandırma 4 · sayım 4 · A-
+  ✅ defter_freshness                      ⚖️ ÖLÇÜLMÜŞ BORÇ (büyümesi yasak, adıyla): bağı kopuk g
+  ✅ defter_freshness --self-test       ✅ 9/9 kapı ateşlendi — İKİ YÖN ayrı desenle sınandı (çapal
+  ✅ validate_store_listing             ✅ EN/TR draft claims + SHA match source 56 lessons/10 modu
+  ✅ validate_store_listing --self-test ✅ 1 positive + 13 negative controls passed; public claim, 
+  ✅ validate_release_signing           ✅ release imzası: sessiz düşüş YOK (seçim mantığı + gürült
+  ✅ validate_release_signing --self-test   öz-test: 6/6 ✅
+────────────────────────────────────────────
+✅ ÜÇ SÜİTİN ÜÇÜ DE YEŞİL
+   app 727/727 · engine 176/176 · python 25/25
+   ⚠️ Kapsam dışı (bilerek): 10 hasat aracı · cihaz davranışı ·
+      biçim/konum karışıklığı · validate_catalog'un 7 kanıtsız değişmezi
+────────────────────────────────────────────

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gravita_engine/gravita_engine.dart';
 import 'app_locale.dart';
 import 'catalog_copy_tr.dart';
+import 'catalogue_translations_tr.dart';
 import 'camera_release_policy.dart';
 
 import 'content_repository.dart';
@@ -486,7 +487,17 @@ class _MovementPageState extends State<MovementPage> {
               const SizedBox(height: 10),
               ReasonList(
                 items: m.honesty.notMeasured
-                    .map((source) => _honestyCopy(m, source))
+                    .map((source) {
+                      final translated = catalogueText(
+                        context,
+                        m.id,
+                        CatalogueTextKind.notMeasured,
+                        source,
+                      );
+                      return translated == source
+                          ? _honestyCopy(m, source)
+                          : translated;
+                    })
                     .toList(growable: false),
                 color: GravitaColors.honestyText,
                 bulletColor: GravitaColors.honestySeal,
@@ -533,7 +544,38 @@ class _MovementPageState extends State<MovementPage> {
     ),
     children: <Widget>[
       GravitaCard(
-        child: ReasonList(items: m.comingSoon, color: GravitaColors.inkMuted),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            if (!motionPaidCameraLaunchEnabled) ...<Widget>[
+              Text(
+                localized(
+                  context,
+                  'These descriptions belong to the measurement catalogue. Live camera sessions and camera feedback are unavailable in this release.',
+                  'Bu açıklamalar ölçüm kataloğuna aittir. Canlı kamera oturumları ve kamera geri bildirimi bu sürümde kullanılamıyor.',
+                ),
+                style: GravitaType.body(
+                  size: 13,
+                  color: GravitaColors.textSecondary,
+                ),
+              ),
+              const SizedBox(height: 12),
+            ],
+            ReasonList(
+              items: m.comingSoon
+                  .map(
+                    (source) => catalogueText(
+                      context,
+                      m.id,
+                      CatalogueTextKind.comingSoon,
+                      source,
+                    ),
+                  )
+                  .toList(growable: false),
+              color: GravitaColors.inkMuted,
+            ),
+          ],
+        ),
       ),
     ],
   );
@@ -584,7 +626,12 @@ class _MovementPageState extends State<MovementPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      e.label,
+                      catalogueText(
+                        context,
+                        m.id,
+                        CatalogueTextKind.ruleLabel,
+                        e.label,
+                      ),
                       style: GravitaType.display(
                         size: 14.5,
                         weight: FontWeight.w500,
@@ -595,7 +642,12 @@ class _MovementPageState extends State<MovementPage> {
                     // adı ve `sustainedMs` GÖSTERİLMEZ — onlar ölçüm
                     // tarafının dili (ham detay yüzeye sızmaz).
                     Text(
-                      e.cue,
+                      catalogueText(
+                        context,
+                        m.id,
+                        CatalogueTextKind.ruleCue,
+                        e.cue,
+                      ),
                       style: GravitaType.body(
                         size: 13,
                         color: GravitaColors.textSecondary,

@@ -1,0 +1,11 @@
+00:00 +0: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/integration_test/calisthenics_course_smoke_test.dart
+The following plugins do not support Swift Package Manager for ios:
+  - motion_camera
+This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
+Running Xcode build...                                          
+Xcode build done.                                           11,4s
+00:00 +0: native calisthenics asset, account task save and file readback
+GRAVITA_COURSE_SMOKE_READBACK: version=1.0.0 completed=1/56 accountScoped=true pathProvider=native file=/Users/mustafakaankocak/Library/Developer/CoreSimulator/Devices/394A4C6B-F6E8-4BA5-B0CA-2479F3ED18D3/data/Containers/Data/Application/FA82FFEA-067D-4B55-A145-B09326591533/Library/Application Support/gravita-course-native-smoke-1792117136401052/accounts/77777777-7777-4777-8777-777777777777/calisthenics-course-progress.v1.json
+GRAVITA_COURSE_SMOKE_CLEANUP: /Users/mustafakaankocak/Library/Developer/CoreSimulator/Devices/394A4C6B-F6E8-4BA5-B0CA-2479F3ED18D3/data/Containers/Data/Application/FA82FFEA-067D-4B55-A145-B09326591533/Library/Application Support/gravita-course-native-smoke-1792117136401052 exists=false
+00:02 +1: (tearDownAll)
+00:03 +1: All tests passed!

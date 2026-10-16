@@ -1,0 +1,3308 @@
+{
+  "schema_version": 1,
+  "review_type": "independent_full_source_translation_semantic_review",
+  "baseline_sha": "9c389b83569c8d718753c3021a1926114a3d7024",
+  "input": {
+    "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/workspace/catalogue-tr-complete-2026-10-16/reviewed-translations.json",
+    "sha256": "64ef10cba5392526f5c8a90f921b640dc8c6f202256a40ab56ca5f000636690f"
+  },
+  "scope": {
+    "reviewed_unique_en_tr_pairs": 221,
+    "source_uses": 233,
+    "entries_by_kind": {
+      "comingSoon": 41,
+      "notMeasured": 50,
+      "formError.label": 59,
+      "formError.cue": 71
+    },
+    "manual_dimensions": [
+      "meaning",
+      "measurement_terms",
+      "numeric_quantities",
+      "direction",
+      "negation",
+      "conditions",
+      "stop_and_pause_language",
+      "closed_camera_release_meaning",
+      "natural_Turkish"
+    ],
+    "all_pairs_read": true,
+    "code_integration_reviewed": false,
+    "tests_run": false,
+    "builds_run": false,
+    "native_or_simulator_run": false,
+    "app_or_curriculum_files_modified": false
+  },
+  "disposition": "SEMANTIC_REVIEW_PASS_WITH_NONBLOCKING_WORDING_SUGGESTIONS; CODE_INTEGRATION_NOT_REVIEWED",
+  "blocking_translation_findings": [],
+  "required_translation_changes": [],
+  "optional_wording_suggestions": [
+    {
+      "entry_index_1_based": 126,
+      "kind": "formError.label",
+      "movement_ids": [
+        "glute_bridge"
+      ],
+      "english": "Not reaching full hip extension",
+      "current_turkish": "Kalçayı tam açmamak",
+      "suggested_turkish": "Kalçayı tam doğrultmamak",
+      "reason": "Açmak gündelik Türkçede yana açılma çağrışımı yapabilir. Doğrultmak, kaynakta geçen extension anlamını #204 çevirisindeki kullanım ile de tutarlı biçimde daha açık verir. Yeni açı, mesafe, yük veya uygulama ayrıntısı eklemez.",
+      "severity": "low",
+      "blocking": false
+    },
+    {
+      "entry_index_1_based": 128,
+      "kind": "formError.label",
+      "movement_ids": [
+        "glute_bridge"
+      ],
+      "english": "Arching your back instead of extending your hips",
+      "current_turkish": "Kalçayı açmak yerine sırtı çukurlaştırmak",
+      "suggested_turkish": "Kalçayı doğrultmak yerine sırtı çukurlaştırmak",
+      "reason": "Aynı extension teriminin #126 ile birlikte daha açık karşılığı; sırt, kalça ve karşıtlık ilişkisi korunur. Yeni fiziksel ayrıntı eklemez.",
+      "severity": "low",
+      "blocking": false
+    }
+  ],
+  "source_ambiguities_reviewed": {
+    "count": 6,
+    "disposition": "preserved_without_inventing_reference_plane_joint_list_angle_distance_or_readiness_threshold",
+    "items": [
+      {
+        "kind": "comingSoon",
+        "english": "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, front-knee depth, torso angle and back-knee travel, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference.",
+        "movement_ids": [
+          "lunge"
+        ],
+        "term": "front-knee depth",
+        "issue": "Kaynak, ön diz derinliğinin diz açısı mı yoksa konum/mesafe mi olduğunu belirtmiyor. Taslak ön diz derinliği ifadesini korur; açı veya düşey mesafe eklenmedi."
+      },
+      {
+        "kind": "comingSoon",
+        "english": "Rep counting and tempo — this movement's rules are written to measure rep count, tempo, elbow range of motion, torso angle stability (no rotating up) and working-side chain, and none of it runs today. What would open it: deriving an identity check from measurement, running its rules against real recorded footage and harvesting a real instructor reference.",
+        "movement_ids": [
+          "db_row"
+        ],
+        "term": "working-side chain",
+        "issue": "Kaynak, çalışan taraftaki zincirin hangi parçalarını veya hangi ölçümünü kastettiğini belirtmiyor. Taslak çalışan taraftaki zincir ifadesini korur; eklem listesi, yön veya yeni bir ölçüm iddiası eklenmedi."
+      },
+      {
+        "kind": "formError.cue",
+        "english": "Bring your thighs up to at least parallel.",
+        "turkish": "Uyluklarını en az paralel konuma kadar kaldır.",
+        "movement_ids": [
+          "hanging_leg_raise"
+        ],
+        "sources": [
+          "content/catalog/w1/hanging_leg_raise.json#/formErrors/0/cue"
+        ],
+        "reason": "Kaynakta “parallel” için referans düzlemi bu cümlede belirtilmiyor. Çeviride de yere veya başka bir düzleme ilişkin ek varsayım yapılmadı; “en az” alt sınırı korundu."
+      },
+      {
+        "kind": "formError.cue",
+        "english": "Sit lower — aim for thighs parallel.",
+        "turkish": "Daha aşağı otur — uyluklarının paralel olmasını hedefle.",
+        "movement_ids": [
+          "goblet_squat"
+        ],
+        "sources": [
+          "content/catalog/w2/goblet_squat.json#/formErrors/0/cue"
+        ],
+        "reason": "Kaynakta “thighs parallel” ifadesinin referans düzlemi bu cümlede belirtilmiyor. Çeviride “yere” eklenmedi; doğal fakat aynı ölçüde genel karşılık korundu."
+      },
+      {
+        "kind": "formError.label",
+        "english": "Not closing the hips enough",
+        "turkish": "Kalça açısını yeterince kapatmamak",
+        "movement_ids": [
+          "toes_to_bar"
+        ],
+        "sources": [
+          "content/catalog/w1/toes_to_bar.json#/formErrors/0/label"
+        ],
+        "reason": "“Closing the hips” kısa bir teknik ifade; kaynak etiketinde hangi açı veya eşik kastedildiği belirtilmiyor. “Kalça açısını kapatmak” karşılığı kullanıldı; yeni yön veya sayısal eşik eklenmedi."
+      },
+      {
+        "kind": "formError.cue",
+        "english": "Bring your feet higher — close the hips fully.",
+        "turkish": "Ayaklarını daha yükseğe getir — kalça açını tamamen kapat.",
+        "movement_ids": [
+          "toes_to_bar"
+        ],
+        "sources": [
+          "content/catalog/w1/toes_to_bar.json#/formErrors/0/cue"
+        ],
+        "reason": "“Close the hips fully” için kaynakta sayısal açı veya kapanma eşiği verilmiyor. “Kalça açını tamamen kapat” karşılığı kullanıldı; “fully” korundu ve ek hareket tarifi eklenmedi."
+      }
+    ]
+  },
+  "source_and_integration_observations": [
+    {
+      "classification": "integration_requirement_not_translation_error",
+      "entry_indices_1_based": [
+        1,
+        4,
+        7,
+        10
+      ],
+      "source_phrases": [
+        "The summary at the end of a session now shows you the median down and up",
+        "so we show the cue and never a score",
+        "The end-of-set summary shows the median down and up"
+      ],
+      "observation": "Kaynak eski/katalog ölçüm davranışını şimdiki zamanla anlatıyor; TR bunu sadık koruyor. Kamera kapalı sürümde bu paragraflar güncel canlı kamera, seans özeti veya uyarı hizmeti vaadi gibi sunulmamalı.",
+      "follow_up": "Kod entegrasyonunda görünür katalog/tarihsel sözleşme ayrımı ile bu release kamera kapalı açıklamasını ayrı doğrula. Çeviri dosyasını kullanarak capability veya physical-readiness durumu değiştirme."
+    },
+    {
+      "classification": "inherited_source_terminology_not_translation_error",
+      "entry_indices_1_based": [
+        39,
+        44
+      ],
+      "source_phrases": [
+        "Form verdict — the camera looks down the movement path, so depth and bar path can't be judged honestly",
+        "The dumbbells are not detected — load and bar path are not measured"
+      ],
+      "observation": "DB floor press/RDL bağlamında kaynak bar path diyor. Çeviride barın izlediği yol karşılığı sadık korunmuş; bunu yeni barbell varyantı veya dumbbell yolu öğretimine dönüştürmedim.",
+      "follow_up": "Kaynak terminolojisi ileride ayrıca ele alınabilir; bu çeviri incelemesi kaynak metni veya hareket kapsamını düzeltmiş sayılmaz."
+    }
+  ],
+  "static_inventory_checks": {
+    "all_entries_have_exact_existing_source_references": true,
+    "source_reference_uses": 233,
+    "numeric_literal_mismatch_entry_indices": [],
+    "unique_english_strings": 221,
+    "technical_identifiers_preserved": [
+      "ATTESTED",
+      "derivedJoints"
+    ],
+    "note": "Bunlar dosya okuma/envanter karşılaştırmalarıdır; uygulama veya test çalıştırması yapılmadı."
+  },
+  "per_entry_review": [
+    {
+      "entry_index_1_based": 1,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "bodyweight_squat"
+      ],
+      "english_sha256": "4b43aa8840cc8011d7440d4d9bc7a8b25926d8d42e5c9cdff86faa712ca839de",
+      "turkish_sha256": "c5483072a3853b6aea6492d93e0acd4c1708151d343ed5d8bfdc8daff0c0204c",
+      "source_references": [
+        "content/library.json#/movements/0/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 2,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "bodyweight_squat"
+      ],
+      "english_sha256": "7befd7cf5b85fcf9ac2ea09d295eeabda5302aa1b7b58a000a5af355209ee60a",
+      "turkish_sha256": "884f266f8b389c2f0f499eb3416738ef1037bf35e88f5af6995b26ca6ac9aec2",
+      "source_references": [
+        "content/library.json#/movements/0/comingSoonInThisMovement/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 3,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "bodyweight_squat"
+      ],
+      "english_sha256": "1ffeaa56b11cdf55e73d53d14a687eb1d0afc194e2b73425b6e4f65022fea5a5",
+      "turkish_sha256": "6868ffbd04305403c8ab48775af6a3bce0416460bf13299a4a6cd16ba68a2f35",
+      "source_references": [
+        "content/library.json#/movements/0/comingSoonInThisMovement/2"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 4,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "bodyweight_squat"
+      ],
+      "english_sha256": "5d9d12fcbb5343c0b7ff6ee2fd8618aa5b9047354c76a3a11722e6bd1c5fbf2a",
+      "turkish_sha256": "de21bc39aab6d7f865a0042aa08d4e308defab85d6d6f606730753b00297af69",
+      "source_references": [
+        "content/library.json#/movements/0/comingSoonInThisMovement/3"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 5,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "bodyweight_squat"
+      ],
+      "english_sha256": "5939a1f94644cc90b8baf28d64f4bc949035ce127d17aaa3c3c613bfa49662b7",
+      "turkish_sha256": "5714e827226b412127eecda1b454a8b977054bcd7b2428f14c5add4623f458d6",
+      "source_references": [
+        "content/library.json#/movements/0/comingSoonInThisMovement/4"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 6,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "bodyweight_squat"
+      ],
+      "english_sha256": "532e308587b4bca981c23726e9647b63c204f9c0b39c0e02aeed65b0b8c77782",
+      "turkish_sha256": "fe35d8699257e8292c7f9438efc2226eae37994332460e464a5d9dde09749b14",
+      "source_references": [
+        "content/library.json#/movements/0/comingSoonInThisMovement/5"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 7,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "push_up"
+      ],
+      "english_sha256": "b22dcde16a9caf1457d4197e289fdec53873295f5ca2702bdcf1f345807ff1a1",
+      "turkish_sha256": "6c314643cd098ba891cf3377023c1b3ca77f3ff02157bd06e81f71f8afcd6011",
+      "source_references": [
+        "content/library.json#/movements/1/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 8,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "push_up"
+      ],
+      "english_sha256": "ecc3d4328150003426ce00e895a6c296c4ebbc2f2f6f775426c718530fa0e3a3",
+      "turkish_sha256": "90875682f2d27f371efb614d6e44d98e5ae9da45f9b875b2d77891a7d62442cb",
+      "source_references": [
+        "content/library.json#/movements/1/comingSoonInThisMovement/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 9,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "push_up"
+      ],
+      "english_sha256": "42b15af73a0667417bc444c668f9cdb1943fcce8455cf0e5a2c9a1237dafe186",
+      "turkish_sha256": "1276e970e5ea6ef3fbb3dcec4ea4102ed22644fc52c362b7e126f6f4a63ceb57",
+      "source_references": [
+        "content/library.json#/movements/1/comingSoonInThisMovement/2"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 10,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "push_up"
+      ],
+      "english_sha256": "f6ed32b768d03bc4b1281a5ca99b4d66f4b51dd18998ba77e99ec567aea3de4d",
+      "turkish_sha256": "4b5fc8edcfc78a7c4f61a78a92d140ce33ad1099c45c07f74d39b693745efa2e",
+      "source_references": [
+        "content/library.json#/movements/1/comingSoonInThisMovement/3"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 11,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "push_up"
+      ],
+      "english_sha256": "4c9c18e9ccd6d0d63769974c5debd092c06c995a8bb92fb8c348a46b1eea1b0c",
+      "turkish_sha256": "db2d1d2eeb7aff2f768ab68336a857ef1ba03f076fffa62f493a632a3a197059",
+      "source_references": [
+        "content/library.json#/movements/1/comingSoonInThisMovement/4"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 12,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "push_up"
+      ],
+      "english_sha256": "5293f7c88ab4ea101bbfeaff65c72f7106bb6867a3cfa13d35d4af6c831c80fa",
+      "turkish_sha256": "b82b11de834dedb25497c5edd1d8f5fdc0b6e8e499631a95249ad94f991b46a7",
+      "source_references": [
+        "content/library.json#/movements/1/comingSoonInThisMovement/5"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 13,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "farmer_carry"
+      ],
+      "english_sha256": "8e60e8000d024f1cdf9bb2d5f0cb885cfcd6a6811c462684b4d0da74987ecb28",
+      "turkish_sha256": "d990f44e3c831832743e3423d16006dac8399cb218095fbefd2ac806fc1ee9a3",
+      "source_references": [
+        "content/library.json#/movements/2/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 14,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "farmer_carry"
+      ],
+      "english_sha256": "49f189c1f48f66d2b19e4dabad76038c927e1ab84352880c221671b3effd52f4",
+      "turkish_sha256": "e68c3a6b6c32a8201b47ee6aae197744f71f01b8318ece9eec64f1818bf873e4",
+      "source_references": [
+        "content/library.json#/movements/2/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 15,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "farmer_carry"
+      ],
+      "english_sha256": "8f5658cb63cef1dfcf6ad0531be3e945eaf42bb75e98a00c26612cf0894cb915",
+      "turkish_sha256": "e7353c7b7f7b42bbdc2f991cc72aa5b240cede62dd07e4385c67f770e19f3ecc",
+      "source_references": [
+        "content/library.json#/movements/2/honesty/notMeasured/2"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 16,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "farmer_carry"
+      ],
+      "english_sha256": "202130818e1a903555be374bc97b2b1d775bb554abb69ea456bf6dc8eb1da4be",
+      "turkish_sha256": "8fe278310a8ba85f2e31af760dca5a8bf2a328edd3ad1594e91a951c08b2b220",
+      "source_references": [
+        "content/library.json#/movements/2/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 17,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "bird_dog"
+      ],
+      "english_sha256": "5090d0e8b0431d3417789563507a485095126896d0334213bc4b4300087bc758",
+      "turkish_sha256": "248f510856d3dcf04543d778a6bfede8f2aab3a3f10b86dd7c2e820b70580857",
+      "source_references": [
+        "content/library.json#/movements/3/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 18,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "bird_dog"
+      ],
+      "english_sha256": "a5deed13df1aad1423b56a5dc1ee6cb89da62506e3f64f614912d9789f2d0d9f",
+      "turkish_sha256": "719259a40729b18eae3e26a74bce00444aaebbea2dff9ec143c1fa0ecc9e00c2",
+      "source_references": [
+        "content/library.json#/movements/3/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 19,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "dead_bug"
+      ],
+      "english_sha256": "291bb9b364293e42bcbad59ba23b4a0fee17346945b0091da20698854ee754be",
+      "turkish_sha256": "64edff5ebd5f5b57d8a6018b22c78e414b38d32156fc3459a4a52027f1d99fcc",
+      "source_references": [
+        "content/library.json#/movements/4/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 20,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "hanging_leg_raise"
+      ],
+      "english_sha256": "78e493ebc3f7576837f1c691cad9a069581264166d4415fa85b3b33de23dad10",
+      "turkish_sha256": "163417e41de40f824b64ad606e5f358f196b50fa3c2856bf8505d1fa8582507b",
+      "source_references": [
+        "content/library.json#/movements/5/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 21,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "hanging_leg_raise"
+      ],
+      "english_sha256": "1815109dd3dfc68cb84cc5539f5fc8c53fceff792f74b8890f03f11327527c90",
+      "turkish_sha256": "c8fb7d07ab581a4d96b4d02d24cec43e729ef2bd7d2b264756380098e54e73b3",
+      "source_references": [
+        "content/library.json#/movements/5/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 22,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "hanging_leg_raise"
+      ],
+      "english_sha256": "7724c93c91ccef3f8333576618881cde78bc624e235abab8201d4c16f2ea0294",
+      "turkish_sha256": "94588b19cac974953086228224bef6e2f729cce5905105de9bbf4cfb2fe4a792",
+      "source_references": [
+        "content/library.json#/movements/5/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 23,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "hollow_hold"
+      ],
+      "english_sha256": "3791912078727d1acb22e5cd2ed944666d6e9d3e8ae99c25775010e2a6afdd55",
+      "turkish_sha256": "9ffc7466973cfad71bd261e223272842411b259c59263942ca737d62d99a578c",
+      "source_references": [
+        "content/library.json#/movements/6/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 24,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "mountain_climber"
+      ],
+      "english_sha256": "46e57936162c20a22a555e36f934dbf5ca16879792ba057997563a6dcbdf07c8",
+      "turkish_sha256": "5588eb67c3243a377bc94b98232549b467f1a1a5b9d3a1948f97f33aa4c7d664",
+      "source_references": [
+        "content/library.json#/movements/7/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 25,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "mountain_climber"
+      ],
+      "english_sha256": "d8599cb802f9b0d4ad777c83d37f7ea472febf6536a2d9ebb920d6b189452629",
+      "turkish_sha256": "35dc2e91e0cbcb9031236ff072354f665a1fe8f8ca543bd6abfbe70a4b424e73",
+      "source_references": [
+        "content/library.json#/movements/7/honesty/notMeasured/2"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 26,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "mountain_climber"
+      ],
+      "english_sha256": "1cfd908344ea6355bcc66dde5f655d5b84eb263ce3338f4e703b70f9463088bb",
+      "turkish_sha256": "43583a9e430775865f15fb747d8bfa10675e3f334effdfbe773d619907bcd2e5",
+      "source_references": [
+        "content/library.json#/movements/7/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 27,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "plank"
+      ],
+      "english_sha256": "6428812fec2da151195a152abdf68a730ddcbb099100fd7457aeb66ea35884aa",
+      "turkish_sha256": "c3fd7f92a4c1cb6a6a6e3e79f0b3b34ae9b90f0cc52ae857ed0a73132f8b39e4",
+      "source_references": [
+        "content/library.json#/movements/8/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 28,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "plank"
+      ],
+      "english_sha256": "20a76674dacefa306ec81bb4408201671935f8fd66f0d0bbddf3f4a728b6bf3b",
+      "turkish_sha256": "ca13b273a0e9406c7379b084ccd0515a2b3bb77db15414f93f27e86e568c5763",
+      "source_references": [
+        "content/library.json#/movements/8/honesty/notMeasured/2"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 29,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "plank"
+      ],
+      "english_sha256": "7b2369529e21104b6b9c73a83e7602d302a68cbce93eb24335782163fb899bf1",
+      "turkish_sha256": "fde2574064cae9eda9439b8a597dd160bb9038b4ba010dce3fd8b8e46b032b0c",
+      "source_references": [
+        "content/library.json#/movements/8/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 30,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "side_plank"
+      ],
+      "english_sha256": "c687a68fe6e70c13a2ba1f47136b91fd4a92f780f04568b53d601d0d735ad2aa",
+      "turkish_sha256": "3a15242a2b97e7b1605a52352fde3a55de8b5b3bc3c0c1048864c039bd951247",
+      "source_references": [
+        "content/library.json#/movements/9/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 31,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "side_plank"
+      ],
+      "english_sha256": "0e7c69c841f51616c440d605741c99c1d63fd79d67694e10a70bae9608a9bbaa",
+      "turkish_sha256": "3a698eb727a2dd748679f63bbef292c347cea9cf463dd356aa39436aef4e8b53",
+      "source_references": [
+        "content/library.json#/movements/9/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 32,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "superman_hold"
+      ],
+      "english_sha256": "4549ec4d4ad12cdb02792887a6561ba621e1103de67f1f2aedcc12047779d440",
+      "turkish_sha256": "d04f7137bdb28f2976369a5e52f6fd9a4dbbac89222d00045c3e9039babc75a8",
+      "source_references": [
+        "content/library.json#/movements/10/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 33,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "toes_to_bar"
+      ],
+      "english_sha256": "28491a80d6b9e24a837a4df2492f946169e287c1a4df793c1801e604017b2753",
+      "turkish_sha256": "dfa211c732ea137f2681fe1509b0b4a8bb6a35f598157902fe67fdfc4613e981",
+      "source_references": [
+        "content/library.json#/movements/11/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 34,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "toes_to_bar"
+      ],
+      "english_sha256": "86fd3b7debda31b9c2a332f5c759793638b03ced43c52b3207007c5b1ce22d50",
+      "turkish_sha256": "e9ff5e5e66c61ee1ccc2c7f1be940d21394b9e289cd109344144807fbbc9fb2e",
+      "source_references": [
+        "content/library.json#/movements/11/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 35,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "toes_to_bar"
+      ],
+      "english_sha256": "51bea8c5be05a1634f9e77c690432c0384d836d15a1ccb2743a67b1c09a7cc64",
+      "turkish_sha256": "82ac6b15a07780c332c21012f2aa45894adc3ed4b4409f906b90660bde150679",
+      "source_references": [
+        "content/library.json#/movements/11/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 36,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "floor_press"
+      ],
+      "english_sha256": "0a18547aff9938bae8d985c2c5cae01f60a160a7f4c184f0c084cf198ac5bdfe",
+      "turkish_sha256": "d1fe74c467094489e81d5ea41cace3741cb54245a04ab1d9a7c2c7f4920cec9e",
+      "source_references": [
+        "content/library.json#/movements/12/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 37,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "floor_press"
+      ],
+      "english_sha256": "c559fc58aae075b0afaf1cc611dd41a35cc755eb32bbe83227a4ae0e2d20f66a",
+      "turkish_sha256": "f68b6c659a70c93b8074ef995ccd292b7dda4cdbac6109efc87fdd903acbe16e",
+      "source_references": [
+        "content/library.json#/movements/12/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 38,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "floor_press"
+      ],
+      "english_sha256": "529216f1f7a8a4cece87fa27c06f0c1149baaa044fed3baf576ed4d6f5fa4874",
+      "turkish_sha256": "ce143ae45d056c92efe33367eb6e618fe6ba5ad2ed079c6fac5090778affea06",
+      "source_references": [
+        "content/library.json#/movements/12/honesty/notMeasured/2"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 39,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "floor_press"
+      ],
+      "english_sha256": "cc3ad5d1fc18f0d6f444636c7410eda58a1e984e283d749927927b3a0800c3b2",
+      "turkish_sha256": "a5fb1d95c4383004cc15b53b8494d8cdd322d55554efc744359f7cb0c0ac8ef9",
+      "source_references": [
+        "content/library.json#/movements/12/honesty/notMeasured/4"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 40,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "floor_press"
+      ],
+      "english_sha256": "96f503db3bb00ef2b1f6db59167b55ecc653d2a6fe6d16c3b41fbaaf567f10f9",
+      "turkish_sha256": "e2aa28c24051da7066bf39caca84786b6a57385e9b91f6a04cf1de77eb81b05f",
+      "source_references": [
+        "content/library.json#/movements/12/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 41,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "kb_swing"
+      ],
+      "english_sha256": "229be493dbbc31390221455e6ec421f35697341f3ae1ac7b20d2deb65e03a198",
+      "turkish_sha256": "2643319323a8a3171a5aaebe42ccbbe106fd5b9fea731f7409098ecbf0dfb94a",
+      "source_references": [
+        "content/library.json#/movements/13/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 42,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "kb_swing"
+      ],
+      "english_sha256": "16da4b3bbbe2c248802245a954054c6472acf28c81062e2fc0261150e85f8426",
+      "turkish_sha256": "758ab8933264221d64b589e66c7b5572fd381ca1bf7eef59d93269feeba2c43e",
+      "source_references": [
+        "content/library.json#/movements/13/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 43,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "kb_swing"
+      ],
+      "english_sha256": "f37540b7e506a85b56413a360ad359518405e91147f25919253f6b9c5bccbacd",
+      "turkish_sha256": "dd68c95017c25d7724b3a04a91bb9397ad1a664a7f9289016ae089463ca9c4d5",
+      "source_references": [
+        "content/library.json#/movements/13/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 44,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "romanian_deadlift"
+      ],
+      "english_sha256": "971f125142461fea8d4a75c804c2920e3c6b7ef91f3d3d143d14f3217b5d03cc",
+      "turkish_sha256": "f1cd728636b0d5f57f71b4b3b11ee0bb8c981591fbb2d10255f7afbc350b26d2",
+      "source_references": [
+        "content/library.json#/movements/14/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 45,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "romanian_deadlift"
+      ],
+      "english_sha256": "27e72606cb1324eec5ac741716579c9c3482f05524124937bf2db0b3b4a38a56",
+      "turkish_sha256": "1caa2dc04215646b9a11f2b45772b06e4c50c90689dd1271d3fa76e3421c0a70",
+      "source_references": [
+        "content/library.json#/movements/14/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 46,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "romanian_deadlift"
+      ],
+      "english_sha256": "93ac5a53e5b50fc9c1e98993d376c6ee057eb3086f9ca2de77e0cbd4083ef72a",
+      "turkish_sha256": "9b7f7b7cd2bc219c46b60b94c378f8ebf932368f6993512281399aaf07a5c725",
+      "source_references": [
+        "content/library.json#/movements/14/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 47,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "glute_bridge"
+      ],
+      "english_sha256": "00667eb0fb0561b729189405f318fb174687280e6e59f8fc615cf187a3a20bad",
+      "turkish_sha256": "eed6292f86d60ab3f36dc1431c6109407d79b51e74ea08ba0ccb3b2de452b324",
+      "source_references": [
+        "content/library.json#/movements/15/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 48,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "glute_bridge"
+      ],
+      "english_sha256": "947b5a763da7c079d014c8bc586158297ec12d2629a27567ab5511f5893d1362",
+      "turkish_sha256": "1e9d4bdf42c843d94df46935bdcd10e965ebea3a87ffbaac32089ea7293c1bfc",
+      "source_references": [
+        "content/library.json#/movements/15/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 49,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "goblet_squat"
+      ],
+      "english_sha256": "9ccc243d747b3e88a4cba11bfdd23b2a50080ce204cc5bdfbc9e6d31199f8f0b",
+      "turkish_sha256": "ba21ad2e92b0f4e72b4944cac75d4bb5c919d373b00a5ccb052beeb0f84ea99c",
+      "source_references": [
+        "content/library.json#/movements/16/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 50,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "goblet_squat"
+      ],
+      "english_sha256": "a20bd2ae6574db5053fd3f6233812d15c6a6ab417d54b43fe370ee0dd51a4381",
+      "turkish_sha256": "8315ae57ff8c423149058b15a099cb7b9d81af62e82451ebda838d72bf72dc5b",
+      "source_references": [
+        "content/library.json#/movements/16/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 51,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "lunge"
+      ],
+      "english_sha256": "3fcf239cc8fefc7ce2e730df8acef24e0592b587947d698d5bf46d19110f3ae9",
+      "turkish_sha256": "c5931c330defd036f9b3ee0424badbebf5db6f3803ef0e1876c9da95bbac5b53",
+      "source_references": [
+        "content/library.json#/movements/17/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 52,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "lunge"
+      ],
+      "english_sha256": "3f0920f50b26019c64962866f9903d86c2f907433dde531c4db827cd6058db21",
+      "turkish_sha256": "faf118e2c7bf1f168897ff7666d536b134a819f65bbe54dba32cfa147bb03c8c",
+      "source_references": [
+        "content/library.json#/movements/17/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 53,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "calf_raise"
+      ],
+      "english_sha256": "6bfbe68d98c3fc14e4581194fc7719e6e36921922ecd19b720f05038d8f90345",
+      "turkish_sha256": "ab9116d2074891d62106f158b857e5e038b795c52e9a7b0324aab00f6dee5baa",
+      "source_references": [
+        "content/library.json#/movements/18/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 54,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "calf_raise"
+      ],
+      "english_sha256": "184cb677599990604aaa2325e22925efbb67955020812ff3b7ef4fa7ac0f5841",
+      "turkish_sha256": "a251a9c1378145969524c3820bf8a4efb99733db5c22b98bc4871dcfd7485351",
+      "source_references": [
+        "content/library.json#/movements/18/honesty/notMeasured/2"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 55,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "calf_raise"
+      ],
+      "english_sha256": "865f37d5c8a3b47a78f962f547d57a626a5098dfef86f37eae87a7624b58d587",
+      "turkish_sha256": "f04f092fcd81b7a63e7bd99878e15a7798f21a528511bf1e3b456f4bef7d0baa",
+      "source_references": [
+        "content/library.json#/movements/18/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 56,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "step_up"
+      ],
+      "english_sha256": "7827e54429e0125b68ea1d307dd230e0fc67b939855b9a0bba43d656da105c3d",
+      "turkish_sha256": "f63acbe56123ddc8435eff6bf3c45bd104bce1bfccbb6d7a6e5009aab59b1c64",
+      "source_references": [
+        "content/library.json#/movements/19/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 57,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "step_up"
+      ],
+      "english_sha256": "bd770695b04dd93cc223435a05ca45432e31c1870c51ecf9b0e2ef372c226741",
+      "turkish_sha256": "bf33f9abf0c3e77bc3ab9ad8cbc24cfd7b9b2290e6135508ae875d3c2639a222",
+      "source_references": [
+        "content/library.json#/movements/19/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 58,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "step_up"
+      ],
+      "english_sha256": "331f26bc3713542c3e7171b6cba7c18b964a0f34103a29c68f8783522a1b3629",
+      "turkish_sha256": "42448dbc2ba9b87803c2a58f30199f95928b3e81269e15a6dc20d5a5b8196479",
+      "source_references": [
+        "content/library.json#/movements/19/honesty/notMeasured/3"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 59,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "step_up"
+      ],
+      "english_sha256": "c44f13047e94b2021f85f661d9a8014a3c5c00efa3b9cc65d31d17a85ed76b86",
+      "turkish_sha256": "75e1c8056a04b827f90730f935d47b446188fa68165fe0beb9c9a75f1911eb0b",
+      "source_references": [
+        "content/library.json#/movements/19/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 60,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "wall_sit"
+      ],
+      "english_sha256": "e63c7396bf43e27b5e9d6941d5dfbae8703faecf16feec1ead3a0b58f3bb54e1",
+      "turkish_sha256": "2da872cc93e7c0c865816803f0e8a92c0b7ed30c0740ad2bf1cbad8445ddefd5",
+      "source_references": [
+        "content/library.json#/movements/20/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 61,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "wall_sit"
+      ],
+      "english_sha256": "1685dfc09e4c38177afe9e3bb1ed5bc31f5d68414b3783d61a6b4dbf6da5ad23",
+      "turkish_sha256": "577e495a5c2b8621ee74ed82dd5315d270fba53de75e5c7e3224a214e6139d42",
+      "source_references": [
+        "content/library.json#/movements/20/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 62,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "burpee"
+      ],
+      "english_sha256": "628a6247c07b1a3a2e1de592a7c504cb57e3587a5b7b5ce8bc99fc0890ff8f03",
+      "turkish_sha256": "31933151d106b34bf5518f5f51c01796d90e035050655efba491134fa6580812",
+      "source_references": [
+        "content/library.json#/movements/21/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 63,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "burpee"
+      ],
+      "english_sha256": "f144bc3948774e1dd1fddb6de9d1025b2360e2c9467350ceb61151551b0c4f93",
+      "turkish_sha256": "b4f26e4e3bc58ab43a4305d1c7459b6696f896b2e204d746a6c89778a04db691",
+      "source_references": [
+        "content/library.json#/movements/21/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 64,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "burpee"
+      ],
+      "english_sha256": "3c47562d07d7902ccd3db32ebadd712db2dca21e71a9271d70acbe8bd46fb5d6",
+      "turkish_sha256": "da98358287d52b3a8eb44a3df39074901aa59e105cb35de241ab8508f0e2cec9",
+      "source_references": [
+        "content/library.json#/movements/21/honesty/notMeasured/2"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 65,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "burpee"
+      ],
+      "english_sha256": "c991cb455d4dccced2ae4b264e5d1fa94fcaf405a73e2a77e6239ec6b00330ee",
+      "turkish_sha256": "82ba9dfc32156505c0eab5d09e9c7786dec88e1dea01acfab7fb200dd79d12c5",
+      "source_references": [
+        "content/library.json#/movements/21/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 66,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "db_curl"
+      ],
+      "english_sha256": "e9a9459d56dbc1114efbd9b0d75b6dcc4334659627865b72e2bacbbb459378af",
+      "turkish_sha256": "bd127cf03fe344f3443409506588dfd7d6218bff1bb42926e2bc5845fcde363f",
+      "source_references": [
+        "content/library.json#/movements/22/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 67,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "db_curl"
+      ],
+      "english_sha256": "7f122e17b73f5e32b427671a8f77657c6446b1ced92ea09f352352b341a99533",
+      "turkish_sha256": "47c07235d71cfced3ff75b097037e0b5a0a6978ad328a076e5e5628e62fc88c7",
+      "source_references": [
+        "content/library.json#/movements/22/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 68,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "db_row"
+      ],
+      "english_sha256": "b4feb7a98e8fe4e9519768299a8a954b2c557d185962cf01439d67248f556fbc",
+      "turkish_sha256": "f345b1f638056bf802f1fe700d3360af92b8581d97ff637a5f280ae7a24438f9",
+      "source_references": [
+        "content/library.json#/movements/23/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 69,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "db_row"
+      ],
+      "english_sha256": "4d25b23f659f52f6a9ea3680bf65d7a6b96d36be93215a9c986496732b4f054d",
+      "turkish_sha256": "0661411fc92209d3bb58a60f561af61b1519698fc5f7c07c6d1a840bd3efd60c",
+      "source_references": [
+        "content/library.json#/movements/23/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 70,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "db_row"
+      ],
+      "english_sha256": "f77e073ff3fda1c8100d94d73efe44efb428a39e4f8273e359c7538220b4f335",
+      "turkish_sha256": "d2a5b6d719025b40654b2566e6bc7182102d9a27f9520338dfc3814458bcedd5",
+      "source_references": [
+        "content/library.json#/movements/23/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 71,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "inverted_row"
+      ],
+      "english_sha256": "5d1c8803d7273965c675951e2f9def03804ec6fee17db664e45e6f3813e2d5ba",
+      "turkish_sha256": "6735b571fcab1cf098c88e0205810e7c426c415f92b44c9b1638049684c73792",
+      "source_references": [
+        "content/library.json#/movements/24/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 72,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "inverted_row"
+      ],
+      "english_sha256": "0467bab3cf66951d93d0e4516de5ab0f1a28e374c111325043f7d536010fc7d9",
+      "turkish_sha256": "929ed852047bf948c5d39608056fe70966329be9d818149d75affffb342be88c",
+      "source_references": [
+        "content/library.json#/movements/24/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 73,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "inverted_row"
+      ],
+      "english_sha256": "4f29d73ddffee97d5756c9cd13129777a04e0ff7f6213e4b769299b6743c1da4",
+      "turkish_sha256": "502f4cbc2e28ddce2896b82edee6d7f872420e8863212161775f74d4bed0bbb3",
+      "source_references": [
+        "content/library.json#/movements/24/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 74,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "pull_up"
+      ],
+      "english_sha256": "5c478d34712b4d5c07a3b474ce9939fa5fdb0ef509a40b804f5febf1feb1eb5e",
+      "turkish_sha256": "e62a11c6521e61005f65769691630d3eca5d7e20047323a6f910234852eb9cf8",
+      "source_references": [
+        "content/library.json#/movements/25/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 75,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "pull_up"
+      ],
+      "english_sha256": "6f89d4c76c71f3c9a99a7d313dc2f5ea67c91ac4be7cbc850ce176f1301020b7",
+      "turkish_sha256": "527bd9ecc7b021d4c9a6b18bcae2fc537a1cd6a9953e55f22c36b0d96d1f88a3",
+      "source_references": [
+        "content/library.json#/movements/25/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 76,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "pull_up"
+      ],
+      "english_sha256": "b2e8e7ad39e1ef05254b1644b08797bbc8ed9045f4651d00efb14015bc6e3682",
+      "turkish_sha256": "71b75b9a6f51bd3c9a9493624825efd7401d9239c03b1e56d1c92947828ad421",
+      "source_references": [
+        "content/library.json#/movements/25/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 77,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "dip"
+      ],
+      "english_sha256": "18e84bc0a5739fec5b89fd89ba6f1126ab85e9f46b083976874a0cc366d30f8b",
+      "turkish_sha256": "966446a80787864cc78511f8f16bb8faa3ecf738398d419ed77d0363a69e5a8a",
+      "source_references": [
+        "content/library.json#/movements/26/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 78,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "dip"
+      ],
+      "english_sha256": "b2e435ceb0a5fa6931d8d5bf6eb8ad301fc8389ea3dfcb27993459e2efecca50",
+      "turkish_sha256": "f48ffb0954b6430d40e655b94b4cbe8f05e894255a9d9579efb63b04f94b1355",
+      "source_references": [
+        "content/library.json#/movements/26/honesty/notMeasured/2"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 79,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "dip"
+      ],
+      "english_sha256": "95c4f22389d47a86a62e3762ee479302939c58e351d201f4f028b8a3686189a2",
+      "turkish_sha256": "344800d2d9af398b1d9e39aedb08555a77018fd08b1601712ea045bb2debdc0a",
+      "source_references": [
+        "content/library.json#/movements/26/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 80,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "db_shoulder_press"
+      ],
+      "english_sha256": "94d830b74ffbffbe5bb9df8fe6d6b3a560e76c65591bc30ecc0c56a2b7efb1f3",
+      "turkish_sha256": "acb217ebad55a1c62414b289053bbee835a1320a56586dc55e86022fac88fda9",
+      "source_references": [
+        "content/library.json#/movements/27/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 81,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "db_shoulder_press"
+      ],
+      "english_sha256": "e8c2eb286bc73f889b125196808e7ee1876a3c4a9d2bd7c1574fcde242037293",
+      "turkish_sha256": "67f8288e78478d4d2a2b035cba916de34984afa26e2d770b6a0601d173cd0577",
+      "source_references": [
+        "content/library.json#/movements/27/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 82,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "lateral_raise"
+      ],
+      "english_sha256": "40cd4a8223a5dc8b635d495588352a309edd240b62ba0f7a6c842fa4a6be7f03",
+      "turkish_sha256": "c517fda4b7925adfb353bb7df910c43c2d646f9798c0b259252bb42544f81ffb",
+      "source_references": [
+        "content/library.json#/movements/28/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 83,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "lateral_raise"
+      ],
+      "english_sha256": "99a7f24ba27432e3c75bb838de6f52cf02a6b8d208c576f233f2d13d846622de",
+      "turkish_sha256": "628a6ebf13d5aac13bfaedf1301bd6d883648520a04b52bed8e0947badb1619e",
+      "source_references": [
+        "content/library.json#/movements/28/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 84,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "wall_handstand"
+      ],
+      "english_sha256": "b8bd232fa53593112d18b232b2197d5607ffe41f4ffb023c78af6f59b451226e",
+      "turkish_sha256": "b1a141e9004ad6d10f78d9bb1ce76deb3133d309cc121183e91addf9fac7a2df",
+      "source_references": [
+        "content/library.json#/movements/29/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 85,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "wall_handstand"
+      ],
+      "english_sha256": "d6eafe378ae3aacb1753de324f0ef3d414d5c8b11a94676f6ea7f7e1470036cb",
+      "turkish_sha256": "bb3e4cd7161ea8b594dad92472958dfd20fe887e19b82cfc326e66396cfd7db7",
+      "source_references": [
+        "content/library.json#/movements/29/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 86,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "wall_handstand"
+      ],
+      "english_sha256": "16f338b6a5cd497a874b8d74c51d69e8cb534bd3977b036f9304453497a43021",
+      "turkish_sha256": "4b3da27df4df9272327eb44dd6fc874001d9a6b24474d2fb701314e7f974f339",
+      "source_references": [
+        "content/library.json#/movements/29/honesty/notMeasured/2"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 87,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "wall_handstand"
+      ],
+      "english_sha256": "672c4ac721f3b97f46742d1e7dc4131ea15783c3fe26cce9c01fba8ae869aa37",
+      "turkish_sha256": "c2cfac6cd4e98dcdc32781312fe03f8a13ea484002fb426037aa467cda1bb570",
+      "source_references": [
+        "content/library.json#/movements/29/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 88,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "tuck_planche"
+      ],
+      "english_sha256": "aace55ec5bdfd6e4973e3869c79d1f160e0029a1c8ffdf909e4b4ce4ada5c35d",
+      "turkish_sha256": "5c06fb24ef2aa8105461eddf8aa0dc38b7ca22d6a7eeac732317dfe54205409a",
+      "source_references": [
+        "content/library.json#/movements/30/honesty/notMeasured/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 89,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "tuck_planche"
+      ],
+      "english_sha256": "5c4bcf19eb75b8648e40598ccffa79b4ec32412da64c0c148027da2e87ae5dea",
+      "turkish_sha256": "3c7ec3ef9299c45f5cc0a2d65edcd80fe30cb3c3390e59b20eb608cea2a7d06c",
+      "source_references": [
+        "content/library.json#/movements/30/honesty/notMeasured/1"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 90,
+      "kind": "notMeasured",
+      "movement_ids": [
+        "tuck_planche"
+      ],
+      "english_sha256": "b500af7071efefc8a2248a1771dda01331733af3f749cab1fbfdd1db6287288f",
+      "turkish_sha256": "b2f9d26bb82f878acbc5a87deb7e858f7df84824f102a918caca4db4e5668ccf",
+      "source_references": [
+        "content/library.json#/movements/30/honesty/notMeasured/2"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 91,
+      "kind": "comingSoon",
+      "movement_ids": [
+        "tuck_planche"
+      ],
+      "english_sha256": "ee59cbe10005f47c556a63bf551921045ac704d94ca38c7c6d0960e44f1c712b",
+      "turkish_sha256": "6646015a48f4f3534ab69e356f31aacc7b96f02654ee26e3d1e2491c8fb8a00e",
+      "source_references": [
+        "content/library.json#/movements/30/comingSoonInThisMovement/0"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 92,
+      "kind": "formError.label",
+      "movement_ids": [
+        "bird_dog"
+      ],
+      "english_sha256": "c0613477414aaeb868865e2e9560eb81a785610e9f0761521ed2db39afc4ab72",
+      "turkish_sha256": "9c82a8e2265b37746b86586ad4eb9a0d00e4601cd9b55ff64cbb72d744c9223c",
+      "source_references": [
+        "content/catalog/w1/bird_dog.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 93,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "bird_dog"
+      ],
+      "english_sha256": "79acfd579ea978c05d01610125e13f4791abc73e25ae20e0ff8633c839191be6",
+      "turkish_sha256": "20515630c198484d6de1f7f8b73f02bac6d0732c2c6eaef666b679d3c49ffbfc",
+      "source_references": [
+        "content/catalog/w1/bird_dog.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 94,
+      "kind": "formError.label",
+      "movement_ids": [
+        "bird_dog"
+      ],
+      "english_sha256": "d1dec5e53095e6524a54087402f9c1ea3abcd45fa770b662e408b7f39cc9dd61",
+      "turkish_sha256": "354be13563cec04c53a90a047ea4042f5462862bbb5b2fa58eaaa7c9c8f5c59d",
+      "source_references": [
+        "content/catalog/w1/bird_dog.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 95,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "bird_dog"
+      ],
+      "english_sha256": "89eb889e3d6b0603b8708b9e38e22edf9e116c30881381bfca0aa666d4e7d0aa",
+      "turkish_sha256": "bb68ccca1cd6ff5c3339362ec93fc2b9c6e53bd682c56aa1bf849d70c3ce26a0",
+      "source_references": [
+        "content/catalog/w1/bird_dog.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 96,
+      "kind": "formError.label",
+      "movement_ids": [
+        "bodyweight_squat",
+        "goblet_squat"
+      ],
+      "english_sha256": "a603e654d7b4f6dc9a680856278a99fd7d3076b92305c934e78718861a93adca",
+      "turkish_sha256": "c93831a31d800ad411091d82e47186c27f098d13992c384df9e381a8411a1938",
+      "source_references": [
+        "content/catalog/w1/bodyweight_squat.json#/formErrors/0/label",
+        "content/catalog/w2/goblet_squat.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 97,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "bodyweight_squat"
+      ],
+      "english_sha256": "1af0b29dcc14b374f352169ecee70c699e38a00421b0eac56e62d5ae3bb0f5ce",
+      "turkish_sha256": "81923d523b4cc839a29d885a1b29a4f493caaaa652fdd62503e11043b5df8e2a",
+      "source_references": [
+        "content/catalog/w1/bodyweight_squat.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 98,
+      "kind": "formError.label",
+      "movement_ids": [
+        "bodyweight_squat",
+        "lunge"
+      ],
+      "english_sha256": "20c4fc5d92b89aedd3bb6d3ae2fd96170b5063a9f9dcdaed9d42a65a3ae79a89",
+      "turkish_sha256": "61300b8af35ea7b047f9c2bb556c989c9d9b8c1fa971e9194a5281f10b4b2885",
+      "source_references": [
+        "content/catalog/w1/bodyweight_squat.json#/formErrors/1/label",
+        "content/catalog/w1/lunge.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 99,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "bodyweight_squat"
+      ],
+      "english_sha256": "e3f04ffecb67de20baef29f36c25142af6a57674b786394b5d443e4a4274f528",
+      "turkish_sha256": "44d120f31b2b318f5f0ae9db2387ed9e7d6712e13d960d878166a2e4b63c2ce7",
+      "source_references": [
+        "content/catalog/w1/bodyweight_squat.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 100,
+      "kind": "formError.label",
+      "movement_ids": [
+        "bodyweight_squat",
+        "goblet_squat"
+      ],
+      "english_sha256": "68c60f9d6af5f6bfeb32e44b0a3cb814ab79dd7e4c268ea56d0ee32d0f0ae798",
+      "turkish_sha256": "9e8deec0518a36e7be8f30d1d91f93538702f1eb6777193aa8792120d6d75566",
+      "source_references": [
+        "content/catalog/w1/bodyweight_squat.json#/formErrors/2/label",
+        "content/catalog/w2/goblet_squat.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 101,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "bodyweight_squat"
+      ],
+      "english_sha256": "85e144deb8b94deaf3e51a09e4d171916334646cadc78792bece641258824d5d",
+      "turkish_sha256": "59efdda958f5ef57adeed5ee755cbb762a5ea500d494419dcea28a56aed6e63f",
+      "source_references": [
+        "content/catalog/w1/bodyweight_squat.json#/formErrors/2/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 102,
+      "kind": "formError.label",
+      "movement_ids": [
+        "bodyweight_squat",
+        "kb_swing"
+      ],
+      "english_sha256": "c72f0695ae482d8e7a30ef04e3d046dd469ceb46657914976039f5c5f8ba771e",
+      "turkish_sha256": "30ec87aee3739e2872df9dbdb4bf081cd3442b1cafb6b6ff0278bd1bc3e078de",
+      "source_references": [
+        "content/catalog/w1/bodyweight_squat.json#/formErrors/3/label",
+        "content/catalog/w2/kb_swing.json#/formErrors/2/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 103,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "bodyweight_squat"
+      ],
+      "english_sha256": "82950afe8915c404450cc4af239f17261605a8a77bae4535931e54d56d879de5",
+      "turkish_sha256": "4df1207cf8c831582742d64fc290c033804d1bd3d16953dfc01691a43106a720",
+      "source_references": [
+        "content/catalog/w1/bodyweight_squat.json#/formErrors/3/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 104,
+      "kind": "formError.label",
+      "movement_ids": [
+        "burpee"
+      ],
+      "english_sha256": "5daa635e89951a5d8d49768c18b3c77a0775375015cde7fd1484b5fcd5df78e4",
+      "turkish_sha256": "3e97170290a83752b9947a49c8e8d0984267739c25cb0b57d2f8a7b4f7cc133b",
+      "source_references": [
+        "content/catalog/w1/burpee.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 105,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "burpee"
+      ],
+      "english_sha256": "447f764126c5450e1afd9769a6208c37970a177d4834f460742b7f9bf3783b5a",
+      "turkish_sha256": "8ea477752e61ce667783f7251371cd32611ab16e51727b8aaf2da6f6c6bd9751",
+      "source_references": [
+        "content/catalog/w1/burpee.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 106,
+      "kind": "formError.label",
+      "movement_ids": [
+        "burpee"
+      ],
+      "english_sha256": "68ff8c4c8b1a14ebf2fa297786ae4ef7d1c6187b1e1531b7083b516e4a0b9040",
+      "turkish_sha256": "481748b911c052e630ee14a4823505c19d89a93fe7734ea39d86d9423f63b15c",
+      "source_references": [
+        "content/catalog/w1/burpee.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 107,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "burpee"
+      ],
+      "english_sha256": "20d8c4b77803e23b5cfe30bcda3b9ec764e0815ed94d55ba5b0f334a281ca522",
+      "turkish_sha256": "d132dae0a65abd995ff98bb674f8811dc6ab93f8265d87e37c901c5862f31715",
+      "source_references": [
+        "content/catalog/w1/burpee.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 108,
+      "kind": "formError.label",
+      "movement_ids": [
+        "burpee"
+      ],
+      "english_sha256": "f1184c32779c9cf183641a3f6987ca0af436569983d3bcd6967d40c4b3eabaa6",
+      "turkish_sha256": "1878d528e2a52998b6d798c6df938e4ca8e3932cd1202995c5dd0b2792ee5ac2",
+      "source_references": [
+        "content/catalog/w1/burpee.json#/formErrors/2/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 109,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "burpee"
+      ],
+      "english_sha256": "bb1d33edde8adf548c634aac156f25fb6f06ebdd4cfe8084a6727e9afe2d1d9b",
+      "turkish_sha256": "d802401cf5e1cae6b0cfd8724e921d201b2d932f70eec104ad60b00a6f1a08e1",
+      "source_references": [
+        "content/catalog/w1/burpee.json#/formErrors/2/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 110,
+      "kind": "formError.label",
+      "movement_ids": [
+        "burpee"
+      ],
+      "english_sha256": "7a0934f3f08ad272ed19487fead77e62f0a4e09c26c7fe02f8e3b3f8b90ff367",
+      "turkish_sha256": "68d8be2ce3c9d0b2b3ab869da6069a7dbfd6eecb561bd1473f8e2f4d9f802b67",
+      "source_references": [
+        "content/catalog/w1/burpee.json#/formErrors/3/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 111,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "burpee"
+      ],
+      "english_sha256": "0758449d57efdf0a2a35b9d40667f524eb91ee4114dc87dff164b441eed09a31",
+      "turkish_sha256": "367550dc3a1ca77d0f13a6e84c6b0572bd6a19bba7ff63ef5c32a82268473b68",
+      "source_references": [
+        "content/catalog/w1/burpee.json#/formErrors/3/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 112,
+      "kind": "formError.label",
+      "movement_ids": [
+        "calf_raise"
+      ],
+      "english_sha256": "0c7c9354e7a380978dfdc505a52d22dfdcff44f3878be7ff88a559660e53a35a",
+      "turkish_sha256": "ec71c0383ade1ca968d89cd39cc9a09698497ef0eb73dcca1e6189a721a0248d",
+      "source_references": [
+        "content/catalog/w1/calf_raise.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 113,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "calf_raise"
+      ],
+      "english_sha256": "869b3bfd9723d9949a9b0ffec8f2f15b40a670040262c33a7b5200d35470f918",
+      "turkish_sha256": "70e7e4600e767164416fa4be892b203962dd913716b0cbbfd66d85c41df76349",
+      "source_references": [
+        "content/catalog/w1/calf_raise.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 114,
+      "kind": "formError.label",
+      "movement_ids": [
+        "calf_raise"
+      ],
+      "english_sha256": "b29d9f30992783df209d42e9191de75555949953c9aca08ae245d1a098705914",
+      "turkish_sha256": "4c7de740262b9cfc80fd2dff3ce4dc6c256d14d7bc0dcefddb89c9d21497517d",
+      "source_references": [
+        "content/catalog/w1/calf_raise.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 115,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "calf_raise"
+      ],
+      "english_sha256": "f98aea32bcbb87bb3978235cd12ec475653ac2b9705cd817fac3c150b49fbe5c",
+      "turkish_sha256": "30dd4f05585c8008d84aabde86d468de08257407724bf3ea4b4fd1614dfaa176",
+      "source_references": [
+        "content/catalog/w1/calf_raise.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 116,
+      "kind": "formError.label",
+      "movement_ids": [
+        "dead_bug"
+      ],
+      "english_sha256": "522cd0a10602472943a9640867a2534a2ff0314c8bd930259531898893ea6b3f",
+      "turkish_sha256": "0b2c93dc9af49579bfaf9b770bbedda0b0aac0644a0f7e0f0f572558d07719ab",
+      "source_references": [
+        "content/catalog/w1/dead_bug.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 117,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "dead_bug"
+      ],
+      "english_sha256": "aacc1ca1124fb649d9c0d5ec145faca5f9e4e3b435f981618216b6d6f6a9d576",
+      "turkish_sha256": "769fcfc611d5e47856379f3bc459cd5820a93bf1b19e3f6bc401a02759ef0e72",
+      "source_references": [
+        "content/catalog/w1/dead_bug.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 118,
+      "kind": "formError.label",
+      "movement_ids": [
+        "dead_bug"
+      ],
+      "english_sha256": "db97c059c56da230580b82e422288ee92ce068468f27f0663b80dd681fb1b207",
+      "turkish_sha256": "fa710e2e9fce7329b5b9b38fbb67597c6425ef525a198d840872f3b6e21b7058",
+      "source_references": [
+        "content/catalog/w1/dead_bug.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 119,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "dead_bug"
+      ],
+      "english_sha256": "b9bb2a4af7c3a042ad690a05e5e672764f3a5589d01a1bc297491e480075ef63",
+      "turkish_sha256": "8f3b945f3ced2666819f74c3257b4c67c4f20d249fea054000f84ff5ed5e6dbe",
+      "source_references": [
+        "content/catalog/w1/dead_bug.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 120,
+      "kind": "formError.label",
+      "movement_ids": [
+        "dip",
+        "push_up"
+      ],
+      "english_sha256": "1d36c8dbfdfd714bd53ae856a4f82235778ed96799e2a6cb4c1bd742a5e60c03",
+      "turkish_sha256": "cca42c9b2ebecddea19c312a64eb56d2dcebc79339907abdcdb216c58691d828",
+      "source_references": [
+        "content/catalog/w1/dip.json#/formErrors/0/label",
+        "content/catalog/w1/push_up.json#/formErrors/2/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 121,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "dip"
+      ],
+      "english_sha256": "048705b7e5c1ba8606b4983552ba4b3e6800c2ab8f8783291062eda31f71a881",
+      "turkish_sha256": "ae22e1b1762951f08500466c35cbeb0334a90dcd51cb2a3bce1e04e945c8a671",
+      "source_references": [
+        "content/catalog/w1/dip.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 122,
+      "kind": "formError.label",
+      "movement_ids": [
+        "dip",
+        "step_up"
+      ],
+      "english_sha256": "0adf40c076158a1b2757a246caf18b9bddd0448226429dfe464a56a5755f1a18",
+      "turkish_sha256": "16f7a9ccbf7dd13f773b2b42e02a81ad55b9d89aa26a6fbb520f79760510c65c",
+      "source_references": [
+        "content/catalog/w1/dip.json#/formErrors/1/label",
+        "content/catalog/w1/step_up.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 123,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "dip"
+      ],
+      "english_sha256": "6a52b5f5dd97795239ea715a40303bdea7c4ca44eecf3b5ca29efd77b8afdc1a",
+      "turkish_sha256": "6a605c9d417a99b838e393ef1b27f584ccbbf7cde2e6e4bd4627c0de997cd2f5",
+      "source_references": [
+        "content/catalog/w1/dip.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 124,
+      "kind": "formError.label",
+      "movement_ids": [
+        "dip"
+      ],
+      "english_sha256": "00cd3958d21691392dd5daf377f6cd2b717ac9c894442fd17c1de4ac7dcfe6c7",
+      "turkish_sha256": "224c96309cddb35389eba003d2d83ea152100fc421247fd0df5c2bc72296e833",
+      "source_references": [
+        "content/catalog/w1/dip.json#/formErrors/2/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 125,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "dip"
+      ],
+      "english_sha256": "45dd7b52c0bd4bb4c25d45efd95d04c430783d9766640e55bb408a0a7a3f85b0",
+      "turkish_sha256": "2665a72c117e7156b3818acdde42ce6bc45912a61dce912238951b1719296236",
+      "source_references": [
+        "content/catalog/w1/dip.json#/formErrors/2/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 126,
+      "kind": "formError.label",
+      "movement_ids": [
+        "glute_bridge"
+      ],
+      "english_sha256": "d0fdfce2e77d7d8b81b37e62bd7e19304c5e90cc8880524eea398923423838c6",
+      "turkish_sha256": "bcbf05ff15e7a5d9aeae5b6ceb93c4178c8b6b4cc05e0c66dbb3bc39c8ad0f69",
+      "source_references": [
+        "content/catalog/w1/glute_bridge.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": true
+    },
+    {
+      "entry_index_1_based": 127,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "glute_bridge"
+      ],
+      "english_sha256": "90e60ae5ced22f6d3d055a91d66f8ab4f018bdbd97806bbc3b3fc68134d01a9f",
+      "turkish_sha256": "6097720bb8ffca08e2f082dec791a04eaf6a643a2e5300fd3200d71730cb178f",
+      "source_references": [
+        "content/catalog/w1/glute_bridge.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 128,
+      "kind": "formError.label",
+      "movement_ids": [
+        "glute_bridge"
+      ],
+      "english_sha256": "1f3a89749984ecf4b1087a6f9a7ffcddebbf2272ae989704a87ce708cecffeed",
+      "turkish_sha256": "388c83d5176caa3a0dfb8efe8b9cbaad23a6665e6bcf0d6120b8d76aa1910aad",
+      "source_references": [
+        "content/catalog/w1/glute_bridge.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": true
+    },
+    {
+      "entry_index_1_based": 129,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "glute_bridge"
+      ],
+      "english_sha256": "c80b9ded6e6fb65c6b5e054ccb8147aea48bc0435446a62046de0483ed762f82",
+      "turkish_sha256": "80abfe48db14dda07091eeb67cbbc1cdb1ce915b7702023ae81bfe32e6140104",
+      "source_references": [
+        "content/catalog/w1/glute_bridge.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 130,
+      "kind": "formError.label",
+      "movement_ids": [
+        "hanging_leg_raise",
+        "lateral_raise"
+      ],
+      "english_sha256": "56ff5ce1b3e16949f40beed33310fc94acd1b0c91ff15cc080809bc65d7a7ee6",
+      "turkish_sha256": "0ff7cfd2032910514a6f6258df73a8f536b029a2b6592effa984823745bcfa07",
+      "source_references": [
+        "content/catalog/w1/hanging_leg_raise.json#/formErrors/0/label",
+        "content/catalog/w2/lateral_raise.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 131,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "hanging_leg_raise"
+      ],
+      "english_sha256": "6ba2a19b9a010d08bb525a4bbca6978886e331d51799ba76baf807d3b2de28b0",
+      "turkish_sha256": "45c87b88cb62b01bdc07193a4c378084fb256fdc18de59cb8af99ef2ff534856",
+      "source_references": [
+        "content/catalog/w1/hanging_leg_raise.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 132,
+      "kind": "formError.label",
+      "movement_ids": [
+        "hanging_leg_raise"
+      ],
+      "english_sha256": "d3374f58349cb3f2fa8877b5021994d49f446752559691db8aee36be655ff706",
+      "turkish_sha256": "30ec1a84ba0a68ea44e59b5ae36efb7ad19a34564d60217fdf1693051ddcef0f",
+      "source_references": [
+        "content/catalog/w1/hanging_leg_raise.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 133,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "hanging_leg_raise"
+      ],
+      "english_sha256": "cdac0f83816b9a7350ba72bf00087f731c817be859cc13c0ab6ff05ecbfe56a6",
+      "turkish_sha256": "c9b39241f3e389b33f95b7c2bec7d297c919dbac972881cc8890899c02aff51d",
+      "source_references": [
+        "content/catalog/w1/hanging_leg_raise.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 134,
+      "kind": "formError.label",
+      "movement_ids": [
+        "hanging_leg_raise"
+      ],
+      "english_sha256": "ea80038b60518822b573c2e19b4d456df66032e9ddae23f03d48d44b632b5498",
+      "turkish_sha256": "462ac0fb2a53032bc21a6add6c355695ea474d7571f5672fe443fbc881e0e350",
+      "source_references": [
+        "content/catalog/w1/hanging_leg_raise.json#/formErrors/2/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 135,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "hanging_leg_raise"
+      ],
+      "english_sha256": "d340759db43f8e012abfe60520c1abb95e1087ad96806776d4d66872d0db536d",
+      "turkish_sha256": "8debaf1efa8fb8cc3b177a116809f6adc1f661073229a29db64b33a7efc4df1d",
+      "source_references": [
+        "content/catalog/w1/hanging_leg_raise.json#/formErrors/2/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 136,
+      "kind": "formError.label",
+      "movement_ids": [
+        "hollow_hold"
+      ],
+      "english_sha256": "3f1c4175e48cd372ce0833928cbf4fe551e45acb76421bef774b2fe2a84b075a",
+      "turkish_sha256": "cca51901c099b02975eb5246e2f7189a0a7423612ee462655a66dc400157cf14",
+      "source_references": [
+        "content/catalog/w1/hollow_hold.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 137,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "hollow_hold"
+      ],
+      "english_sha256": "39beddb801cc77efa2adc51d18affcbc805457635143908fcc778d4f19d89bb3",
+      "turkish_sha256": "7790535ad452d5cf75c1fd2694f0b34af0aa90126179e0af0292f6da1f0b86f5",
+      "source_references": [
+        "content/catalog/w1/hollow_hold.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 138,
+      "kind": "formError.label",
+      "movement_ids": [
+        "hollow_hold"
+      ],
+      "english_sha256": "9404477136259655c50eaa32604bb8e249ca50310a31fda79d3967351631f9e9",
+      "turkish_sha256": "b39827c76c3d1ee8f76265ea5a51690b24d574ba21b45ea077e6296cea4cf67d",
+      "source_references": [
+        "content/catalog/w1/hollow_hold.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 139,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "hollow_hold"
+      ],
+      "english_sha256": "972397b60021c26350086131dbcd4eadcb83f826256682194cafbf819b0d00bd",
+      "turkish_sha256": "c790e9ae97366ebca938b414a38a3a45be2bfbc7799921f675691e8d43624aa9",
+      "source_references": [
+        "content/catalog/w1/hollow_hold.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 140,
+      "kind": "formError.label",
+      "movement_ids": [
+        "inverted_row",
+        "plank",
+        "push_up"
+      ],
+      "english_sha256": "b02b10db129323c242648f59a7f63a4bc338e6c4664dae9c8d846c417c6537ca",
+      "turkish_sha256": "0e4ed253cadf54c83a187581cdef500c260d18073dca9d3b72d033748b0bb95b",
+      "source_references": [
+        "content/catalog/w1/inverted_row.json#/formErrors/0/label",
+        "content/catalog/w1/plank.json#/formErrors/0/label",
+        "content/catalog/w1/push_up.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 141,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "inverted_row"
+      ],
+      "english_sha256": "c0e0c6e227515c57abd4c407860f77250cdfb0708ee11931824ba67707abd542",
+      "turkish_sha256": "b603d8e777443cf11b62a594a0b3175a4fc70ad7ba70bd22ea39c30e14b9d82a",
+      "source_references": [
+        "content/catalog/w1/inverted_row.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 142,
+      "kind": "formError.label",
+      "movement_ids": [
+        "inverted_row",
+        "db_row"
+      ],
+      "english_sha256": "5b786ce0253802a1e88c0cbba3e4cf2f7955364068d277e64df8c679412865f0",
+      "turkish_sha256": "83548d9c9f1b133eac93c3fc35681076d6f38406193fec2c3114fdbc2db8c018",
+      "source_references": [
+        "content/catalog/w1/inverted_row.json#/formErrors/1/label",
+        "content/catalog/w2/db_row.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 143,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "inverted_row"
+      ],
+      "english_sha256": "59f0c05c2fdb55a941f64ce240968f8a8b2786d12a073ab5c88e1a6234262ec6",
+      "turkish_sha256": "d9390a9bc09464c3b0c5324d5994b73f7fb867895b8eb458e18b86a89edf0720",
+      "source_references": [
+        "content/catalog/w1/inverted_row.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 144,
+      "kind": "formError.label",
+      "movement_ids": [
+        "lunge"
+      ],
+      "english_sha256": "0c65996b4947406295e5dfa3f54497662cac7b5b239cbbc6ddb789bc847f5968",
+      "turkish_sha256": "1e9c274921241b5512f20b9e9c057a77ce236357d17ea4531cf5ccd8bbc7f6f0",
+      "source_references": [
+        "content/catalog/w1/lunge.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 145,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "lunge"
+      ],
+      "english_sha256": "eef8a79a7e10e9ba650661d7433f0113511b8940657717e42a6d47f8a23e3bf5",
+      "turkish_sha256": "9bcb24915fa2dbc62f9e60e9b8e97a1c918389ee4f31d029d577195de199e9d5",
+      "source_references": [
+        "content/catalog/w1/lunge.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 146,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "lunge"
+      ],
+      "english_sha256": "ec247c56b98df945ced52c6fd66962a2c73602163899364c35acc316a477f6af",
+      "turkish_sha256": "0601cab710e13f891b555e1d3c07c5e2498a5581627b1f79219e8ab7fbca324b",
+      "source_references": [
+        "content/catalog/w1/lunge.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 147,
+      "kind": "formError.label",
+      "movement_ids": [
+        "lunge"
+      ],
+      "english_sha256": "b5611cc41a852da66f921d664e16afc8ef000881cf418b76d751f8d8abb2bb60",
+      "turkish_sha256": "dc37dc3f0f24e0e0efd70662840d3245d1e63459591c05dc3c0db4f7a43ac338",
+      "source_references": [
+        "content/catalog/w1/lunge.json#/formErrors/2/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 148,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "lunge"
+      ],
+      "english_sha256": "c8b92b8a2d93eea7a050e1b7ede575f599c710f13323db17ca5c8f03ea65825e",
+      "turkish_sha256": "14a2330ae30c87939fd1623427e31adab227cb2512e743e778d250800058458f",
+      "source_references": [
+        "content/catalog/w1/lunge.json#/formErrors/2/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 149,
+      "kind": "formError.label",
+      "movement_ids": [
+        "mountain_climber"
+      ],
+      "english_sha256": "f5baa4a1df3f8c58d5c75a251b531fa559d97c36c5f9bdece3fee556b6f1a9a9",
+      "turkish_sha256": "c486464951c177889ae9fa12076773a0b3b13bf4e2362227eb6cc357d2060f05",
+      "source_references": [
+        "content/catalog/w1/mountain_climber.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 150,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "mountain_climber"
+      ],
+      "english_sha256": "4efc3bfa3a984c500e454e29523d2dd0c559d68bc87b6993515787700f0afbab",
+      "turkish_sha256": "2f0957de03b9cc953cf65f0001cd92ec5f7a7d58e62fea8be1c1a7869360e572",
+      "source_references": [
+        "content/catalog/w1/mountain_climber.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 151,
+      "kind": "formError.label",
+      "movement_ids": [
+        "mountain_climber"
+      ],
+      "english_sha256": "6166fb5bbee10e69c13b0403a3f56d90acfff3802f4e172cac311499608226ba",
+      "turkish_sha256": "50aa1dc8aff73a10d3565fc0795312bc7cd0663f3ee56d3ee1e88936a99b7a11",
+      "source_references": [
+        "content/catalog/w1/mountain_climber.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 152,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "mountain_climber"
+      ],
+      "english_sha256": "7c22a49cc9f1179d729f7be95ed592c860357dd4aa117ba9fd4c9409812259eb",
+      "turkish_sha256": "757ab64d60c4755e2eb56dc1f34ba70af1c500dc88615ca9eb2ae62a778fc199",
+      "source_references": [
+        "content/catalog/w1/mountain_climber.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 153,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "plank"
+      ],
+      "english_sha256": "848921f0570c6d78ed430b671502ab2a0c19425239478261e6f1458e0612801a",
+      "turkish_sha256": "33a7ba5d19d51336b7a34ac802d7313293319d9508e49c3117ff629d10c97832",
+      "source_references": [
+        "content/catalog/w1/plank.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 154,
+      "kind": "formError.label",
+      "movement_ids": [
+        "plank",
+        "push_up"
+      ],
+      "english_sha256": "54aa4bca90e216b075be54b8bcc59b064e11dca30c838ccb8b9078b4148a47b4",
+      "turkish_sha256": "ab89b818d17a198dfbc3cdd2d1c60c3a85a8f48b048b0cf2208c6472c21c50af",
+      "source_references": [
+        "content/catalog/w1/plank.json#/formErrors/1/label",
+        "content/catalog/w1/push_up.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 155,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "plank"
+      ],
+      "english_sha256": "b56f76ac458cf13ecc03905c08db851f8b4d7bfeccf49d3aa9094cc8f5223791",
+      "turkish_sha256": "e8f909a8fb949c3c534cd922a2a21c501d98e588646c20784e324fd94af3f43e",
+      "source_references": [
+        "content/catalog/w1/plank.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 156,
+      "kind": "formError.label",
+      "movement_ids": [
+        "plank"
+      ],
+      "english_sha256": "2d7b113ddc3a6ba3aec14ac009c99af5bcbbebdcfcd7f11c0b2dc50b535e0df8",
+      "turkish_sha256": "279822c819404c9e7daa1d4d4b1f31f0ec5fec1e6c3ee6cd932cddfe801fbd0a",
+      "source_references": [
+        "content/catalog/w1/plank.json#/formErrors/2/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 157,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "plank"
+      ],
+      "english_sha256": "be48f73bce266d35034e8048e93b4ba376b9ca3756276b7af3f68bd946e507dc",
+      "turkish_sha256": "748a6b8166cc4fe3b44cf767e9beae6af93b0a9c128c972191e05b2a8947549c",
+      "source_references": [
+        "content/catalog/w1/plank.json#/formErrors/2/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 158,
+      "kind": "formError.label",
+      "movement_ids": [
+        "pull_up"
+      ],
+      "english_sha256": "c7b04332c36ac4fdaf13423ba69fc01bc12a77daf5a2bb01ba0ad8eb0422791f",
+      "turkish_sha256": "cdb1c5f2ea598acd16a02a2c3ec9b21d9097f80c1451a46145094cd59737b516",
+      "source_references": [
+        "content/catalog/w1/pull_up.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 159,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "pull_up"
+      ],
+      "english_sha256": "4c56870d38756493a76a4a07684041c8ee563578c1ac1b78843272f63d2e3eb7",
+      "turkish_sha256": "e55815d011b7036977abea2106c88fea079b1b1bb5898d2f8cfb228274c6f06b",
+      "source_references": [
+        "content/catalog/w1/pull_up.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 160,
+      "kind": "formError.label",
+      "movement_ids": [
+        "pull_up"
+      ],
+      "english_sha256": "401e7a9e6f462c38342b7ab7da710e994a7bab402e46a23ce844f24ae8de20c4",
+      "turkish_sha256": "9a72ade1130296f10725e6f9d122a13ac97ff4acdf09df9c75faeb71e89b82c7",
+      "source_references": [
+        "content/catalog/w1/pull_up.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 161,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "pull_up"
+      ],
+      "english_sha256": "d650dbf88abf3fab930cd640d0d3486085ccd405483bd4e40795d5afaf6a12bc",
+      "turkish_sha256": "1fdd72485b8d724615cc3a279cc13faaff21534dfbf19e1c3e2443e47d9f130b",
+      "source_references": [
+        "content/catalog/w1/pull_up.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 162,
+      "kind": "formError.label",
+      "movement_ids": [
+        "pull_up"
+      ],
+      "english_sha256": "d1916603c8d6fec68259cad8819aa7930b18ea8a7505e5732e9663d5669eabb1",
+      "turkish_sha256": "06bba57a662e187ec87e3cfe28eb773a29b2ec7774a6bc8ef6b09b48b5e6a7ae",
+      "source_references": [
+        "content/catalog/w1/pull_up.json#/formErrors/2/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 163,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "pull_up"
+      ],
+      "english_sha256": "57765aa7dc512a505b96e5ed6c79cbcabda1a6d5bd7ee1089f81ac14a699669d",
+      "turkish_sha256": "620925209e626773609d0365b3d706c136f380df76cbd8700a03824b427c954e",
+      "source_references": [
+        "content/catalog/w1/pull_up.json#/formErrors/2/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 164,
+      "kind": "formError.label",
+      "movement_ids": [
+        "pull_up"
+      ],
+      "english_sha256": "fa95b521946e5c2ac16deedf58df156907128961c449bac85d4ed072df2dbdb6",
+      "turkish_sha256": "995d545314c7f22dd64bcd8e437e7ac0be62185b74e7f8f41483ee250016a19a",
+      "source_references": [
+        "content/catalog/w1/pull_up.json#/formErrors/3/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 165,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "pull_up"
+      ],
+      "english_sha256": "86f913b1ab39dd194d0c72421af477c491926bc2549a6f0dc3b03d22cf511b11",
+      "turkish_sha256": "17b27f2161af8a35ff4ccc54df616361b1161294d7b6d91c0ac0af8b1e81dd17",
+      "source_references": [
+        "content/catalog/w1/pull_up.json#/formErrors/3/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 166,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "push_up"
+      ],
+      "english_sha256": "b4958fc046be02722bb748763abc1aa3ac983db974b7d1ccdba5a571064c5f7c",
+      "turkish_sha256": "3535462f507815f9fa73b96dc8ee13f353d59c9c5b4094e1be67b0bf918010de",
+      "source_references": [
+        "content/catalog/w1/push_up.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 167,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "push_up"
+      ],
+      "english_sha256": "f2a36a4d6b01e0fd85310dde7f067c403ce4791a8440b6d77f4d92ea830b76de",
+      "turkish_sha256": "f78d4789e56d88ff294c065c30580979343bc9f4c081c0a16c762af60a425c76",
+      "source_references": [
+        "content/catalog/w1/push_up.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 168,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "push_up"
+      ],
+      "english_sha256": "a11e51d0fb02db5f5db9815a97aab1e608887b30302e8fd3175d50beec698b7d",
+      "turkish_sha256": "e75ff8c62ebc73ef12fe85476a927571c238a63411a81a4b9233915dd93df875",
+      "source_references": [
+        "content/catalog/w1/push_up.json#/formErrors/2/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 169,
+      "kind": "formError.label",
+      "movement_ids": [
+        "push_up"
+      ],
+      "english_sha256": "6704408ef513d92e8879ed7014ce8061395ef120baf3bc71ba9eaf4538913127",
+      "turkish_sha256": "6e9b56e6545e12f9d1f42681939fba3c6aff3e927255c2d134ffcb97ca52583c",
+      "source_references": [
+        "content/catalog/w1/push_up.json#/formErrors/3/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 170,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "push_up"
+      ],
+      "english_sha256": "ff4de072816fd29f6fc8218c964b0d3dfce7e4722187697379205cff44231512",
+      "turkish_sha256": "adeda97a440c508df23bc1b3b3cce893941b07ff4091d57f7bd759603fdf6bf9",
+      "source_references": [
+        "content/catalog/w1/push_up.json#/formErrors/3/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 171,
+      "kind": "formError.label",
+      "movement_ids": [
+        "push_up"
+      ],
+      "english_sha256": "fe456dcc557341c79232a15411513b7551dbcae6306dbd81e68ba94563d1eff6",
+      "turkish_sha256": "a478ec330bb090e5cd19536cfd299a9f010bca90a9b12106f37f780bc7a0c8e8",
+      "source_references": [
+        "content/catalog/w1/push_up.json#/formErrors/4/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 172,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "push_up"
+      ],
+      "english_sha256": "3b6c49e447885a4c53a159d571f5330b00c6717fb771683962ba0a1e2f9f6dc3",
+      "turkish_sha256": "ddf0baa4140010488f3bd17dc704a8b22eacee46f8e8876a327a2de4465d046a",
+      "source_references": [
+        "content/catalog/w1/push_up.json#/formErrors/4/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 173,
+      "kind": "formError.label",
+      "movement_ids": [
+        "side_plank"
+      ],
+      "english_sha256": "357e6ec05e11164a8b9b457a29fcf9fc4fe6f09c8f02618b35bae160e7d8564b",
+      "turkish_sha256": "f754f9c3b408697c6639a40006733c02790fa79496d433701cfe2b10c25f602d",
+      "source_references": [
+        "content/catalog/w1/side_plank.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 174,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "side_plank"
+      ],
+      "english_sha256": "9b4d3f75edd5664dc1b8fc2b4c7fefb9e1c60b19fd1cc6aeaba9ab6c2beafc87",
+      "turkish_sha256": "e708eb4f1ec078d05f2877c740af5e250dbdbb429ff2bd954f120dbb40a54455",
+      "source_references": [
+        "content/catalog/w1/side_plank.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 175,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "step_up"
+      ],
+      "english_sha256": "17d45ab6bcff5ba4f3a014fe858b4528d9a368042e3ef84c78e1a668b2c4f5fd",
+      "turkish_sha256": "e2f1b97cd4607f431daf062c8c7d70841dc81d8570a472726fa3ac871b4ef288",
+      "source_references": [
+        "content/catalog/w1/step_up.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 176,
+      "kind": "formError.label",
+      "movement_ids": [
+        "step_up"
+      ],
+      "english_sha256": "913e7b5607e3827a5aeb33339c2ec128cd541d69571e3d24a8d7229ef3ed3aad",
+      "turkish_sha256": "987bbd7336fa6de361173aa7846bc758da6fd6f4c062d3f358000419ee387e7b",
+      "source_references": [
+        "content/catalog/w1/step_up.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 177,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "step_up"
+      ],
+      "english_sha256": "b1324ca8924122fdfc3e80bca722e7378beea94a2b955e306c93a091503702fd",
+      "turkish_sha256": "43d164f2832a41b9a5a7763335d9818ae9b4d16b38e38efc63047053213e302c",
+      "source_references": [
+        "content/catalog/w1/step_up.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 178,
+      "kind": "formError.label",
+      "movement_ids": [
+        "superman_hold"
+      ],
+      "english_sha256": "d2e487eb119681fbadf6b845cd97b3c89a1768d2d4249d97e5f3c4262e5b4109",
+      "turkish_sha256": "4d8b6872bc03a7a9c5dcfe088eeece4bf323285762aefe65dc29e8f4f86023ce",
+      "source_references": [
+        "content/catalog/w1/superman_hold.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 179,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "superman_hold"
+      ],
+      "english_sha256": "a690d96d907875135b454f0d166ed38e0613507e2ef2f32f2df6136172a97a8a",
+      "turkish_sha256": "3f2250aa1acbce16bd2481a8e58274f0bed0b26cb71581604491ce19fac2e820",
+      "source_references": [
+        "content/catalog/w1/superman_hold.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 180,
+      "kind": "formError.label",
+      "movement_ids": [
+        "toes_to_bar"
+      ],
+      "english_sha256": "c6bc01dc6b78e1a0de848d1bd9cd0a7d5d9ef5c1897417fe69e13815e63297f4",
+      "turkish_sha256": "75a104d535970c6c61fa6e32f3fe735cc84f8d149e8fd6beb26f4240e6bbcc42",
+      "source_references": [
+        "content/catalog/w1/toes_to_bar.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 181,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "toes_to_bar"
+      ],
+      "english_sha256": "5823a172a37801d85372b1fdf3225dd42f7eda24fb6d3f80a512fdf7c0c99574",
+      "turkish_sha256": "6404aecf2ac3f9e73770fb5d550b4c6318e8f21af32f5ffd2922bdc993454742",
+      "source_references": [
+        "content/catalog/w1/toes_to_bar.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 182,
+      "kind": "formError.label",
+      "movement_ids": [
+        "toes_to_bar"
+      ],
+      "english_sha256": "b9101453686f0d217df41f9b942711cb002a898133fa6116eaa8f21a7fe57342",
+      "turkish_sha256": "f48c0b255ff15f1a2fe493d0afb75d5b86867784e0321ca514f10bd8591e5e93",
+      "source_references": [
+        "content/catalog/w1/toes_to_bar.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 183,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "toes_to_bar"
+      ],
+      "english_sha256": "c3e548a73f64f871e514945cf0dc06c71ca729f6863f5d1edf6c3339d37a75ca",
+      "turkish_sha256": "005a0fbdb0e30ba7dc9dc3ad59b367bb869be3e29e1ed918ddbe90e5ae4fb51f",
+      "source_references": [
+        "content/catalog/w1/toes_to_bar.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 184,
+      "kind": "formError.label",
+      "movement_ids": [
+        "wall_sit"
+      ],
+      "english_sha256": "bdc40c827a030f358ed9dad7e05e070b51f2a2d50c6e8caead82e95b9a5849e5",
+      "turkish_sha256": "dec8d4e16b319226352b4fc97235098ccc1ff510444f2602ad7d47c00b369089",
+      "source_references": [
+        "content/catalog/w1/wall_sit.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 185,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "wall_sit"
+      ],
+      "english_sha256": "f4912f74916c0647253b660d6bc3c3626fcad2142d57f75ba61b4b0e60b98b2c",
+      "turkish_sha256": "8007808a9d9cfa48d828bd78c9bc61845c7c0af5969b2cff26b1153dbe210bbb",
+      "source_references": [
+        "content/catalog/w1/wall_sit.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 186,
+      "kind": "formError.label",
+      "movement_ids": [
+        "db_curl"
+      ],
+      "english_sha256": "f2e5224f568870a5c3c5d818d27e53a2d04f5d4dea6a9f9bf12a1491f436466e",
+      "turkish_sha256": "ae55a8b12222c58ddc2c8329a085c07cd0aa5701f3adadd6d979e97547a8c98e",
+      "source_references": [
+        "content/catalog/w2/db_curl.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 187,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "db_curl"
+      ],
+      "english_sha256": "e5d96df6fff3a707fd74c933c83fcffd04bf8ee88f01637000dcf4fd47da0f38",
+      "turkish_sha256": "e77d5e92aeefcd0fec0e71079e578b4306f1fa620c8a69e0f101c7556a72f076",
+      "source_references": [
+        "content/catalog/w2/db_curl.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 188,
+      "kind": "formError.label",
+      "movement_ids": [
+        "db_curl"
+      ],
+      "english_sha256": "3c898e40057d30a7fbf5289902538093fcadcdf5c3f2debe3ed8885a5daf6515",
+      "turkish_sha256": "bd8e4b133755d314be983b61d2faf8c414b83dec26adebf2b7853d45a2fa1ca1",
+      "source_references": [
+        "content/catalog/w2/db_curl.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 189,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "db_curl"
+      ],
+      "english_sha256": "560535cd4facd2b771ebf5ca523579058860208cf380038269d4139e899ee604",
+      "turkish_sha256": "108de0a1e94e4061ab300f76260851f0c14b2729c2dc75774aa931f8c0497060",
+      "source_references": [
+        "content/catalog/w2/db_curl.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 190,
+      "kind": "formError.label",
+      "movement_ids": [
+        "db_row"
+      ],
+      "english_sha256": "74ef8119b3e48ed4c9d921f4db1717cfe33c1afd9aa6ca779eb0aa23f7aa2bf0",
+      "turkish_sha256": "e4c67134f329c361251aaf9caeb34de7264f6176062a6bc69ba8059ff80df62e",
+      "source_references": [
+        "content/catalog/w2/db_row.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 191,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "db_row"
+      ],
+      "english_sha256": "2a493c9eed88d32714e10628f6328b0dc5374847e42512b4763cde41e6dfa98f",
+      "turkish_sha256": "f46dcb8b6a03ee85765f08a9b39a86bf61459ed774a138a2afa32253ee88f550",
+      "source_references": [
+        "content/catalog/w2/db_row.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 192,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "db_row"
+      ],
+      "english_sha256": "0ed9b2b69cd8562c6d3dc9dd6ffc895dc50931b36dfb1d6210a390a9656520f4",
+      "turkish_sha256": "63ca7f05698f781dd8856c71cf91b81a56fda7a1cc6f790152daa01997e9e3ce",
+      "source_references": [
+        "content/catalog/w2/db_row.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 193,
+      "kind": "formError.label",
+      "movement_ids": [
+        "db_shoulder_press"
+      ],
+      "english_sha256": "e0f152c5bba99fc5a70c0c77c3d24014094125bd9535b52a8de2666275810ce6",
+      "turkish_sha256": "179c6b8966eec230654080c06550de606918ab4f338a429d63b96bb54130cb4d",
+      "source_references": [
+        "content/catalog/w2/db_shoulder_press.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 194,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "db_shoulder_press"
+      ],
+      "english_sha256": "e4d5baebbaea43d9bc4d019150b66e12f2344e3249735bc7ec8cc5ad4700ed7c",
+      "turkish_sha256": "505ba162cc6d2645faac552c93d8d0537072d6c34696b34557caf8e154d8f550",
+      "source_references": [
+        "content/catalog/w2/db_shoulder_press.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 195,
+      "kind": "formError.label",
+      "movement_ids": [
+        "db_shoulder_press"
+      ],
+      "english_sha256": "d73b86287c406c58a2b471798366f5d1c16fb2b1008d7e035fd2159714504a4b",
+      "turkish_sha256": "d2ff3b0c1af6b18c91dff0b43638a58ad9743b991f2377d3694d4ab429cacf65",
+      "source_references": [
+        "content/catalog/w2/db_shoulder_press.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 196,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "db_shoulder_press"
+      ],
+      "english_sha256": "93ffa51bbea0b00a8f4ae33e55c17269aa36994356dde45db0a17c59f63fd3f8",
+      "turkish_sha256": "609b7d4a36988169959710be89f21b74a18a17a20d96813ed08637dfec8058aa",
+      "source_references": [
+        "content/catalog/w2/db_shoulder_press.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 197,
+      "kind": "formError.label",
+      "movement_ids": [
+        "farmer_carry"
+      ],
+      "english_sha256": "829b0bb6f4b1cc29cc9113eeb0390d4b93cbd0b87b8d3aa8b9fe31bc30d374e6",
+      "turkish_sha256": "de1beb6f0f60800295948646cd5522865c26358bc559577244136f4c173e49a0",
+      "source_references": [
+        "content/catalog/w2/farmer_carry.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 198,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "farmer_carry"
+      ],
+      "english_sha256": "071b013326b379d38b1873c71da4bee1554241375fb49b6aceff8c3059c3819b",
+      "turkish_sha256": "06b02c442c605767542f2da99237bb4549ab42abdbcfe7c575e640c3e398299a",
+      "source_references": [
+        "content/catalog/w2/farmer_carry.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 199,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "goblet_squat"
+      ],
+      "english_sha256": "874a5e205b8caf25f0a9db079457792c390540c036663981be9d71474e808c0e",
+      "turkish_sha256": "558b78104120533fb4a0ecbbe2f6e8fbc139318e57b0158f490e6beecf6b7668",
+      "source_references": [
+        "content/catalog/w2/goblet_squat.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 200,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "goblet_squat"
+      ],
+      "english_sha256": "da56368066c993e96019aaebc60d49d33564878e4ac3bd1367c5c027e624a55b",
+      "turkish_sha256": "39b9b09ff0cea358550229af1ca26b49bc6bb3b73186ad8994a1ec69d7ac0a12",
+      "source_references": [
+        "content/catalog/w2/goblet_squat.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 201,
+      "kind": "formError.label",
+      "movement_ids": [
+        "kb_swing"
+      ],
+      "english_sha256": "304d9233527d406a0d5b6ba1f4e1f8e6420591ad9151614747dab34dabbbca3e",
+      "turkish_sha256": "5ab278c7e440bc9639921b91637fcc68402fbb6192020c3034db728702f56aab",
+      "source_references": [
+        "content/catalog/w2/kb_swing.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 202,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "kb_swing"
+      ],
+      "english_sha256": "b84d51d077e53a1db065881724df4d3a79da21a3fa226a1eed3eeceb4a0a8b63",
+      "turkish_sha256": "ff32cce9e764e636a498d60e130c94041a4a7c7ffcac03686645ac816acb3fa3",
+      "source_references": [
+        "content/catalog/w2/kb_swing.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 203,
+      "kind": "formError.label",
+      "movement_ids": [
+        "kb_swing"
+      ],
+      "english_sha256": "398ae7e583948d84473e66273b9bb96daeee19b69667ae9ed9ec64b9913be9ca",
+      "turkish_sha256": "0aeb544b0b71dee47984f4602b7d4bf24dcba239539ae32cb1765b3697d74ccf",
+      "source_references": [
+        "content/catalog/w2/kb_swing.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 204,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "kb_swing"
+      ],
+      "english_sha256": "8dde92f2eae106c548157fa5937a75f9e4006dfeec656287e825430f53554944",
+      "turkish_sha256": "545419ac39c4e6d69432c8dc19da1b3e20229525c3fc26911e87979317248637",
+      "source_references": [
+        "content/catalog/w2/kb_swing.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 205,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "kb_swing"
+      ],
+      "english_sha256": "34242bddd12a9b1a20fb7c64d0c8e900e3cbad6c1af9a593735cb16c3305dab3",
+      "turkish_sha256": "5965e5ac7861fe9a0a4c05b9bc71047710ce8839a97e749a7d60c8321c5052c9",
+      "source_references": [
+        "content/catalog/w2/kb_swing.json#/formErrors/2/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 206,
+      "kind": "formError.label",
+      "movement_ids": [
+        "lateral_raise"
+      ],
+      "english_sha256": "e6dc2b768ec709ff00027e730161e591b27bd4f71351c5a6252ab7d1ef27ce95",
+      "turkish_sha256": "0e083eeb65064a4c7d7142b8206b780c5f753617b5126d303e8775710df2e146",
+      "source_references": [
+        "content/catalog/w2/lateral_raise.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 207,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "lateral_raise"
+      ],
+      "english_sha256": "b49818cb022b84b5933911819b161ba567a2633a66e82234eb534839052811a2",
+      "turkish_sha256": "00568f94d8ffaa1c38878aeb709caad8a0cedcfa8202e09d8f917a3c23164eeb",
+      "source_references": [
+        "content/catalog/w2/lateral_raise.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 208,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "lateral_raise"
+      ],
+      "english_sha256": "4574f726d68974a76dee5e7905cad7affe2fea86317cf32476f2adb89ff14266",
+      "turkish_sha256": "8645b9531b99ea99bbd72ac07a78076db4107ee026fce64d505e2b0aeca957bf",
+      "source_references": [
+        "content/catalog/w2/lateral_raise.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 209,
+      "kind": "formError.label",
+      "movement_ids": [
+        "romanian_deadlift"
+      ],
+      "english_sha256": "ca3949b84603fbe2f64d06b45a7a8bfa34226424486d333cb6482559971db61b",
+      "turkish_sha256": "3e344d6dbc33f9aa446f0d5e177af28353d36358bf921bfcccb7b131494c8593",
+      "source_references": [
+        "content/catalog/w2/romanian_deadlift.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 210,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "romanian_deadlift"
+      ],
+      "english_sha256": "9bb13e3a10e3baeae679e470bf0408a631a411071740aff06674583ae7518ce8",
+      "turkish_sha256": "98cba312f180e07cc1d2485f50436815248a3573701ac2c4ad3f300c1deb9f06",
+      "source_references": [
+        "content/catalog/w2/romanian_deadlift.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 211,
+      "kind": "formError.label",
+      "movement_ids": [
+        "romanian_deadlift"
+      ],
+      "english_sha256": "47a007226fe1c9513929056d94a573a013d7f0f1d7aaa1733082946f7d9f81b6",
+      "turkish_sha256": "c4320e76c30bbd67ee3d83a5095a9cf935835e99991b56f7de80e07de90d940f",
+      "source_references": [
+        "content/catalog/w2/romanian_deadlift.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 212,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "romanian_deadlift"
+      ],
+      "english_sha256": "3aca18c488bff6de60f7130c806df0359de540643f61dfe5f79d0ee023936fc8",
+      "turkish_sha256": "bb47a03df19c85d037c654cc8f23909af58297d37c6733afaeb219392220830c",
+      "source_references": [
+        "content/catalog/w2/romanian_deadlift.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 213,
+      "kind": "formError.label",
+      "movement_ids": [
+        "romanian_deadlift"
+      ],
+      "english_sha256": "95ee5b112d561897cf40e1b054af5254bd7319df46a804e809df89d66298df19",
+      "turkish_sha256": "ef80f73edf6a2a51404babd6062d61fec9f033ad76e1327e637a53d67055aead",
+      "source_references": [
+        "content/catalog/w2/romanian_deadlift.json#/formErrors/2/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 214,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "romanian_deadlift"
+      ],
+      "english_sha256": "f03d35273d760cd9643dac243bc68459064decf9f1056525b651182cad454d1b",
+      "turkish_sha256": "44ba08445f35eb23c84b468376bacf594cc79e3c4ba90be689a8aeea1ea0fcd8",
+      "source_references": [
+        "content/catalog/w2/romanian_deadlift.json#/formErrors/2/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 215,
+      "kind": "formError.label",
+      "movement_ids": [
+        "tuck_planche"
+      ],
+      "english_sha256": "f2ff04f481a0faac02fb2f03bc09c10d72afef5759bce1c3c2daeba2a522d975",
+      "turkish_sha256": "481a7af4bcac33c98c7895524030aeb215640be44480e44122111e8442df9c62",
+      "source_references": [
+        "content/catalog/w2/tuck_planche.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 216,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "tuck_planche"
+      ],
+      "english_sha256": "d5bd7ae28e76586b79e4ad7462b11ec14ca16092bb13364578613530e7d081f1",
+      "turkish_sha256": "9ffb6acec096fa83709b5186e3b9d0ddb7288595e294d2c133e95d935baad6fa",
+      "source_references": [
+        "content/catalog/w2/tuck_planche.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 217,
+      "kind": "formError.label",
+      "movement_ids": [
+        "tuck_planche",
+        "wall_handstand"
+      ],
+      "english_sha256": "68b7bb8c44949a0a8822fa50152cf571c1284d7ca5fd04d300a7cfd50b51417d",
+      "turkish_sha256": "10df6a6e54c6b70de23ae9f46ccb706e4540216a3f36e3650e13dfbdf29714a4",
+      "source_references": [
+        "content/catalog/w2/tuck_planche.json#/formErrors/1/label",
+        "content/catalog/w2/wall_handstand.json#/formErrors/1/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 218,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "tuck_planche"
+      ],
+      "english_sha256": "69041474066572ca05fccdfbaef88cd070a5a78f8e070818956913b41c8672a5",
+      "turkish_sha256": "2801d3111c12b7c69d354b22e57915a0b25ecf78bf32565b39468a0810a4701d",
+      "source_references": [
+        "content/catalog/w2/tuck_planche.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 219,
+      "kind": "formError.label",
+      "movement_ids": [
+        "wall_handstand"
+      ],
+      "english_sha256": "8704bdfbad3726498cf2683f53e4ceb440df55263721f65c102f0a3bdeca5c7a",
+      "turkish_sha256": "49cbef01c195ef44b360299f221ec76d6a61659f8e21ec66fb0622812278e7ff",
+      "source_references": [
+        "content/catalog/w2/wall_handstand.json#/formErrors/0/label"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 220,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "wall_handstand"
+      ],
+      "english_sha256": "4e6fd2b802f9faed3cefc61758005e4fe099230156f15e6cd39def8df2407b96",
+      "turkish_sha256": "6bf5ea41442cc9a52f8d2072670f81db1e10cf6fe10dfa16a8b39ac94c79f338",
+      "source_references": [
+        "content/catalog/w2/wall_handstand.json#/formErrors/0/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    },
+    {
+      "entry_index_1_based": 221,
+      "kind": "formError.cue",
+      "movement_ids": [
+        "wall_handstand"
+      ],
+      "english_sha256": "09c6f56f28e9c2c87c2f96ab5f6624a699b3a3be4825c267fb3e4347fdf851b5",
+      "turkish_sha256": "38e81a5af929a4c45a2733cfd72e244928f931f52310cb86948283f83d6796fd",
+      "source_references": [
+        "content/catalog/w2/wall_handstand.json#/formErrors/1/cue"
+      ],
+      "semantic_disposition": "no_material_translation_error_found",
+      "optional_wording_suggestion": false
+    }
+  ],
+  "acceptance_limits": [
+    "Semantic equivalence of these exact 221 pairs only.",
+    "No expert review, personal suitability, physical teaching, demonstration or movement success is established.",
+    "No S2/inversion, camera/paid availability, measurement threshold, curriculum or stored-data contract was changed.",
+    "Code integration, runtime rendering, source-drift behavior, tests and final source freeze require separate review."
+  ],
+  "remaining_blockers": []
+}

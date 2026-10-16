@@ -1,0 +1,68 @@
+{
+  "updated_utc": "2026-10-16T02:38:22.610281+00:00",
+  "baseline_sha": "9c389b83569c8d718753c3021a1926114a3d7024",
+  "code_sha": "312433a4cac0dad3448b532877a56e0cf1e4f16e",
+  "scope": "Complete remaining Gravita catalogue display translations; no capability/curriculum promotion",
+  "completed": [
+    "233 remaining source uses translated:50notMeasured+41comingSoon+71ruleLabels+71ruleCues,221unique",
+    "All baseline233 source/movement/kind tuples match current reviewed fixture; remaining0",
+    "31movements x EN/TR at320px/2x:62screen cases",
+    "Exact source/movement/kind and EN fallback plus numeric/technical-token guards",
+    "Independent semantic review of221pairs and source integration: no blocker",
+    "Concrete3domain curriculum/media/expert plan prepared separately"
+  ],
+  "local_verification": {
+    "analyze": "PASS",
+    "format": "PASS",
+    "app": {
+      "passed": 727,
+      "total": 727
+    },
+    "engine": {
+      "passed": 176,
+      "total": 176
+    },
+    "python_gates": {
+      "passed": 25,
+      "total": 25
+    },
+    "manifest_gate": "PASS",
+    "source_files": "source-manifest.json",
+    "full_suite_code_sha": "63a3ce6b221cbe5888ddcfedd3b10425b84f04fc",
+    "followup_test_only_fix": {
+      "source_sha": "312433a4cac0dad3448b532877a56e0cf1e4f16e",
+      "targeted_tests": 19,
+      "analyze": "PASS",
+      "record": "ci-readiness-fix.json"
+    }
+  },
+  "native": {
+    "outcome": "PASS_WITH_BOUNDED_SCOPE",
+    "production_main": "native-production-result.json",
+    "course_file_readback": "native-course-result.json",
+    "tr320_actual_os_return": "native-os-resume-result.json",
+    "slot": "native-slot.json",
+    "screen_evidence": "native-screen-evidence.json",
+    "independent_harness_review": "independent-native-harness-review.json",
+    "qualification": "Production boot uses own existing permitted public build inputs. Course and OS-return host use synthetic test state; no provider auth/camera/hardware/IAP/physical teaching acceptance. Runtime-67054 HOLD unchanged.",
+    "storage_boundary": "Native course acceptance reads/writes one account-scoped calisthenics-course-progress.v1.json document. Session history uses separate JSONL journals; SQLite prototype is test-only. Course smoke does not establish native session-journal or SQLite acceptance."
+  },
+  "ci": "First automatic PR run38840313679 failed one existing real-IO lifecycle test;19targeted checks and analyze pass after a test-only readiness fix. Updated PR/main terminal results are required and will be recorded in ../workspace/catalogue-tr-complete-2026-10-16-final/FINAL.json; no pending run is claimed completed.",
+  "remaining": [
+    "Dedicated barbell/rings/hands physical curricula and actual demonstrations/expert evidence absent",
+    "Physical hardware motion and IAP not accepted",
+    "Runtime-67054 trust HOLD unchanged",
+    "Signed release/archive/store privacy-form acceptance not established"
+  ],
+  "store_uploads": 0,
+  "new_worktrees": 0,
+  "icons_or_store_artwork_changed": false,
+  "shared_core_changed": false,
+  "production_fees_or_new_keys": false,
+  "native_app_equivalence": {
+    "production_boot_sha": "f91e59f568e5e57a58722f9de7c12b5919d22135",
+    "final_code_sha": "312433a4cac0dad3448b532877a56e0cf1e4f16e",
+    "diff": "Only test-source changes since native production boot; runtime lib/content/packages/platform/lock sources identical",
+    "app_source_identical": true
+  }
+}

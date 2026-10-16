@@ -1,0 +1,14 @@
+{
+  "source_sha": "63a3ce6b221cbe5888ddcfedd3b10425b84f04fc",
+  "command_id": "gravita-native-account-course-file-readback-v1",
+  "device": "394A4C6B-F6E8-4BA5-B0CA-2479F3ED18D3",
+  "started_at": "2026-10-16T02:18:37.180332+00:00",
+  "finished_at": "2026-10-16T02:18:59.620738+00:00",
+  "duration_seconds": 22.4,
+  "exit_code": 0,
+  "readback_marker": true,
+  "cleanup_marker": true,
+  "log": "native-course.txt",
+  "coverage": "native path_provider;56bundledlessons; synthetic account task/self-report save, new store file readback1/56, real UI reopen, own test directory cleanup",
+  "physical_auth_purchase_acceptance": false
+}

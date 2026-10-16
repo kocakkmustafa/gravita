@@ -1,0 +1,52 @@
+{
+  "baseline_sha": "9c389b83569c8d718753c3021a1926114a3d7024",
+  "scope": "Gravita movement-detail catalogue display only; not all app strings or physical curriculum acceptance",
+  "movements": 31,
+  "source_statuses": {
+    "live": 2,
+    "coming_soon": 29
+  },
+  "catalogue_field_uses": {
+    "notMeasured": 95,
+    "waitingOnMeasurement": 117,
+    "comingSoon": 41,
+    "safetyWarnings": 16,
+    "formError.label": 71,
+    "formError.cue": 71
+  },
+  "closed_remaining_counts": {
+    "comingSoon": 41,
+    "notMeasured": 50,
+    "formError.label": 71,
+    "formError.cue": 71
+  },
+  "closed_uses": 233,
+  "unique_translations": 221,
+  "remaining_target_uses": 0,
+  "baseline_inventory_sha256": "f7c3f5d5b0b5bc0eab165213efb61bcc709957cf88d313693fe0d4228be37b7a",
+  "english_policy": "Original English source remains exact. Unknown/revised source, wrong kind or wrong movement ID falls back to English. Camera release context is an additional EN/TR display note.",
+  "invariants": [
+    "No catalogue rules, thresholds, IDs, units, placeholder/technical identifiers or course data changed",
+    "Six source ambiguities preserved; no plane/threshold/body-joint specificity invented",
+    "No camera, paid access, skill graph or lesson media promotion",
+    "No icons/store artwork/shared core changes",
+    "No store uploads"
+  ],
+  "ui_matrix": {
+    "languages": [
+      "en",
+      "tr"
+    ],
+    "movement_count": 31,
+    "cases": 62,
+    "logical_width": 320,
+    "logical_height": 900,
+    "text_scale": 2.0,
+    "checks": [
+      "All four actual text kinds",
+      "Queue camera-unavailable context",
+      "No start-session entry",
+      "No widget overflow/exception"
+    ]
+  }
+}

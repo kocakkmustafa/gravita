@@ -1,0 +1,11 @@
+00:00 +0: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/integration_test/catalogue_resume_smoke_test.dart
+The following plugins do not support Swift Package Manager for ios:
+  - motion_camera
+This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
+Running Xcode build...                                          
+Xcode build done.                                           11,4s
+00:00 +0: native Turkish320px/2x catalogue survives real OS return
+GRAVITA_OS_BACKGROUND_READY
+GRAVITA_OS_RESUME_PASS states=inactive,hidden,paused,hidden,inactive,resumed sameElement=true sameRoute=true sameScroll=true width=320 textScale=2
+00:06 +1: (tearDownAll)
+00:07 +1: All tests passed!

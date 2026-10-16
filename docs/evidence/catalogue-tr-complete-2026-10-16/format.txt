@@ -1,0 +1,3 @@
+Formatted test/catalogue_completion_ui_test.dart
+Formatted test/catalogue_translation_contract_test.dart
+Formatted 4 files (2 changed) in 0.03 seconds.

@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "review_type": "independent_read_only_catalogue_translation_integration_source_review",
+  "baseline_sha": "9c389b83569c8d718753c3021a1926114a3d7024",
+  "branch": "codex/gravita-complete-catalogue-tr-20261016",
+  "source_manifest": [
+    {
+      "path": "lib/app/catalogue_translations_tr.dart",
+      "sha256": "b9411a7734a4349d752f48f88bffb8b4f10c7760ee8b2ae7a6f9e051e6f6ea48"
+    },
+    {
+      "path": "lib/app/movement_page.dart",
+      "sha256": "0cb43ff132c82aaabd3ab45e55dc9a57f5dd2ff5fc12cfe813f211b02c7030e6"
+    }
+  ],
+  "source_manifest_sha256": "20ff3ee7ff33c84379ab706237d1d75e59044418aa5edb9b5366aab1ef542544",
+  "translation_input": {
+    "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/workspace/catalogue-tr-complete-2026-10-16/reviewed-translations.json",
+    "sha256": "92212eb0d4ebd584039ce1c6a980039d4dc961f45ae6ed7d1707f29d24485c7f"
+  },
+  "prior_semantic_review": {
+    "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/workspace/catalogue-tr-complete-2026-10-16/independent-translation-review.json",
+    "sha256": "e7260833a13ca7cb97afc31ab94a175db2a7a61438ea9bdec44ad8e0f95a3f72",
+    "note": "Current translation input applies the two accepted glute_bridge wording suggestions. Static integration comparison confirms all current reviewed pairs and movement-ID sets match the helper."
+  },
+  "disposition": "SOURCE_REVIEW_PASS_NO_NEW_BLOCKING_FINDING; RUNTIME_AND_FINAL_FREEZE_NOT_ESTABLISHED",
+  "blocking_findings": [],
+  "required_code_changes": [],
+  "source_checks": [
+    {
+      "property": "exact source, kind and movement ID guard",
+      "evidence": [
+        "lib/app/catalogue_translations_tr.dart:5",
+        "lib/app/catalogue_translations_tr.dart:7-17"
+      ],
+      "conclusion": "For Turkish, the enum kind selects a map; the full unchanged English source selects a record; the requested movement ID must be in that record’s approved set. There is no fuzzy matching, substring translation, or unguarded global fallback in this helper."
+    },
+    {
+      "property": "English and unknown/changed source fallback",
+      "evidence": [
+        "lib/app/catalogue_translations_tr.dart:13-17"
+      ],
+      "conclusion": "English returns the provided source immediately. Unknown kind/source combination or unapproved movement ID returns that source. The helper does not mutate metadata or stored content."
+    },
+    {
+      "property": "all reviewed translations preserved in integration",
+      "method": "Static parsing of Dart string-literal map records and comparison against reviewed-translations.json; no Dart, Flutter, app or test execution.",
+      "unique_entries": 221,
+      "source_id_uses": 233,
+      "by_kind": {
+        "notMeasured": 50,
+        "comingSoon": 41,
+        "formError.label": 59,
+        "formError.cue": 71
+      },
+      "missing_entries": [],
+      "extra_entries": [],
+      "translation_or_movement_id_set_mismatches": []
+    },
+    {
+      "property": "notMeasured wiring and release access distinction",
+      "evidence": [
+        "lib/app/movement_page.dart:345-373",
+        "lib/app/movement_page.dart:487-502"
+      ],
+      "conclusion": "notMeasured requests its own kind and actual movement ID. Unmatched strings retain the existing honesty-copy path. New notMeasured map rows belong only to non-live movement IDs, so they do not bypass the closed-release clarification of the two configured live catalogue movements."
+    },
+    {
+      "property": "honesty context remains catalogue/limits",
+      "evidence": [
+        "lib/app/movement_page.dart:376-408",
+        "lib/app/movement_page.dart:345-368"
+      ],
+      "conclusion": "Closed release uses the measurement-catalogue-and-limits title; non-live movements explicitly say nothing is measured. Configured live counting/scoring/comparison copy remains qualified by the existing closed-release wording."
+    },
+    {
+      "property": "queue catalogue context note",
+      "evidence": [
+        "lib/app/movement_page.dart:538-580"
+      ],
+      "conclusion": "When camera launch is disabled, the queue card renders an EN/TR note before the translated paragraphs: these descriptions belong to the measurement catalogue, and live camera sessions/camera feedback are unavailable in this release. The historical session-summary/cue statements therefore have explicit catalogue context in source layout."
+    },
+    {
+      "property": "form-error labels and cues remain inactive catalogue descriptions",
+      "evidence": [
+        "lib/app/movement_page.dart:585-616",
+        "lib/app/movement_page.dart:628-650"
+      ],
+      "conclusion": "Labels and cues use separate enum kinds with the actual movement ID. The existing section is about what rules look for. Configured-live closed-release copy explicitly states camera/feedback/form score are unavailable; non-live copy says the rules are written and do not run. The change translates existing text, and does not evaluate rules, start a camera, or introduce new movement instructions."
+    },
+    {
+      "property": "no capability, curriculum or storage mutation",
+      "evidence": [
+        "lib/app/catalogue_translations_tr.dart:3-4",
+        "lib/app/movement_page.dart:142-145"
+      ],
+      "conclusion": "Source change consists of display lookup/wiring and the queue context note. Camera start remains behind the unchanged release policy. No content JSON, graph thresholds, course progression, account storage, Core pin, manifest, lock or icon change is part of the reviewed integration."
+    }
+  ],
+  "test_source_observations": [
+    {
+      "path": "test/catalogue_completion_ui_test.dart",
+      "observation": "Current UI harness source selects bird_dog at 320px/2x and checks notMeasured, comingSoon, rule labels and cues. It is a non-live example; reading this test does not establish rendered coverage of all 31 movements or the two configured-live historical queue paragraphs."
+    }
+  ],
+  "remaining_risks_and_acceptance_limits": [
+    "No source-level defect was found in this exact integration snapshot. The helper remains dependent on exact source strings and approved ID sets; changed sources intentionally fall back to English.",
+    "Camera-disabled catalogue context is present in source layout. Actual small-screen rendering, scroll visibility and the historical configured-live paragraphs still require the producer’s runtime verification.",
+    "Test harness is under producer revision; this review neither runs it nor declares a fresh suite/analyzer/native result.",
+    "This review does not establish expert approval, personal suitability, demonstrated movement success, or completion of barbell/rings/hands physical courses.",
+    "The source manifest identifies the reviewed working-tree snapshot. Final source freeze and the user’s JabLab→Lissom→Gravita native sequence remain separate requirements."
+  ],
+  "execution": {
+    "files_written": [
+      "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/workspace/catalogue-tr-complete-2026-10-16/independent-integration-review.json"
+    ],
+    "application_files_modified": false,
+    "tests_run": false,
+    "builds_run": false,
+    "native_or_simulator_started": false,
+    "commits_created": false
+  },
+  "remaining_blockers": []
+}
