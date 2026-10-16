@@ -82,7 +82,10 @@ void main() {
     expect(cue, findsNothing);
     const translatedCue = 'Yükseğe değil, uzağa uzan — sırtını düz tut.';
     // The reviewed fixture is the exact expected on-screen cue.
+    await tester.ensureVisible(find.text(translatedCue));
+    await tester.pumpAndSettle();
     expect(find.text(translatedCue), findsOneWidget);
+    expect(find.text(translatedCue).hitTestable(), findsOneWidget);
     final element = tester.element(find.byType(MovementPage));
     final route = ModalRoute.of(element);
     final scroll = tester
@@ -91,6 +94,7 @@ void main() {
         .pixels;
     expect(find.byKey(MovementPage.startSessionKey), findsNothing);
     expect(tester.takeException(), isNull);
+    lifecycle.states.clear();
     debugPrint('GRAVITA_OS_BACKGROUND_READY');
     final deadline = DateTime.now().add(const Duration(seconds: 90));
     while (!(lifecycle.states.contains(AppLifecycleState.paused) &&
@@ -114,6 +118,7 @@ void main() {
       scroll,
     );
     expect(find.text(translatedCue), findsOneWidget);
+    expect(find.text(translatedCue).hitTestable(), findsOneWidget);
     expect(find.byKey(MovementPage.startSessionKey), findsNothing);
     expect(tester.takeException(), isNull);
     debugPrint(
