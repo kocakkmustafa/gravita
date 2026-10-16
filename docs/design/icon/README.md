@@ -1,3 +1,11 @@
+# Güncel native simge — 2026-10-16
+
+Onaylı `v19-refined-a` master ve 20 native PNG kaydı
+[buradadır](approved-2026-10-16/README.md). Aşağıdaki tasarım, render ve cihaz
+kabulü kayıtları önceki simgelere aittir; yeni simgenin native kabulü değildir.
+
+---
+
 # Gravita uygulama ikonu — D8 (F4, 2026-08-16)
 
 ## 2026-09-23 — yeni görsel seçimi

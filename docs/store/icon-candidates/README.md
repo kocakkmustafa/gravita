@@ -1,3 +1,13 @@
+# Güncel native simge — 2026-10-16
+
+Yeni onay: **v19-refined-a**. Güncel master, platform envanteri,
+boyutlar ve hashler [onaylı simge kaydında](../../design/icon/approved-2026-10-16/README.md).
+15 iOS AppIcon ve 5 Android launcher PNG güncellendi. Aşağıdaki adaylar ve
+mağaza dosyaları tarihsel kayıttır; yeni onaylı simgeyle mağaza görsellerinin
+hazır olduğu anlamına gelmez. Native kurulum ve mağaza yüklemesi yapılmadı.
+
+---
+
 # Gravita mağaza simgesi adayı — 2026-09-23
 
 Kurucu, siyah/kırmızı zeminli **tek el straddle handstand** görselinin ilk özenli yeniden çizimini seçti. Seçilen kaynak `one-hand-handstand-black-red-selected-reference-1254.png` dosyasıdır; sonraki daha sade çizim seçilen dosya değildir.
