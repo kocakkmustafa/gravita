@@ -1,0 +1,28 @@
+kapı ateşleme sınaması (kasıtlı ihlaller):
+   ✅ taban temiz (mutasyonsuz kütüphane ihlalsiz)
+   ✅ S7 focus katalogda YOK (G-119): yakalandı
+   ✅ S8 KİLİTLİ derste çürük gradedJoints (G-119): yakalandı
+   ✅ K1 coming_soon'da kurs: yakalandı
+   ✅ K2 boş kurs: yakalandı
+   ✅ K3 olmayan formError: yakalandı
+   ✅ K4 boş notMeasured: yakalandı
+   ✅ K5 gerekçesiz kilit: yakalandı
+   ✅ K6 gerekçesiz comingSoon: yakalandı
+   ✅ K7a dayanaksız form notu: yakalandı
+   ✅ K7b gradedJoints beyansız: yakalandı
+   ✅ K7c güvenilmez eklem notlanıyor: yakalandı
+   ✅ K9a lockClass yok: yakalandı
+   ✅ K9b blockedBy yok: yakalandı
+   ✅ K9c tanınmayan bloker: yakalandı
+   ✅ K11 gerekçesiz kapalılık (BOŞ bloker listesi): yakalandı
+   ✅ K12 cümle katalogla çelişiyor (kural yok ama 'yazılmış' diyor): yakalandı
+   ✅ K9e BAYAT KİLİT (bloker artık bloklamıyor): yakalandı
+   ✅ K9f BAYAT KİLİT — sources dolu (terfi turu anahtarı): yakalandı
+   ✅ K9d yapı-kilidi ölçüm gibi sunuluyor: yakalandı
+   ✅ K14 istisnası DAR (başka hareket muaf değil): yakalandı
+   ✅ K14 istisnası BAYATLIYOR (push_up live değilse): yakalandı
+   ✅ K8 pending ön koşulla live: yakalandı
+   ✅ replayFixture: dosya VAR ama test DÜŞÜYOR → hâlâ blokluyor: yakalandı (replay fixture VAR ama tüketen test YOK/DÜŞÜYOR (bodyweight_squat_replay_test.dart) (blokluyor))
+   ✅ K10 live ama kurssuz (K1'in ikizi): yakalandı
+   ✅ K10 vekil-ölçüm değil (çelişki kapısı SUSUYOR): temiz
+✅ 25/25 kapı ateşlendi

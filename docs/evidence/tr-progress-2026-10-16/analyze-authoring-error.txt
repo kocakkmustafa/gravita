@@ -1,0 +1,5 @@
+Analyzing app...                                                
+
+  error • The method 'read' isn't defined for the type 'CalisthenicsProgressStore'. Try correcting the name to the name of an existing method, or defining a method named 'read' • test/study_reading_links_test.dart:94:58 • undefined_method
+
+1 issue found. (ran in 2.2s)

@@ -1,0 +1,7 @@
+Formatted lib/app/catalog_copy_tr.dart
+Formatted lib/app/progress_view.dart
+Formatted lib/app/study_review.dart
+Formatted test/progress_locale_test.dart
+Formatted test/catalog_evidence_locale_test.dart
+Formatted test/study_reading_links_test.dart
+Formatted 9 files (6 changed) in 0.04 seconds.

@@ -1,0 +1,302 @@
+{
+  "scope": "25 existing Python gates. The two replay-consuming library gates passed when rerun with the same standard Flutter host permission as the baseline; original sandbox failures retained. No source gate relaxed. The checker suppresses inner Dart stderr, so the environment diagnosis is an inference from this permission-dependent result.",
+  "results": [
+    {
+      "gate": "calisthenics_course --check",
+      "command": [
+        "python3",
+        "tool/generate_calisthenics_course.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "56 lessons / 10 modules; original bilingual content and brief manifest verified"
+      ]
+    },
+    {
+      "gate": "v2l_source_projection --check",
+      "command": [
+        "python3",
+        "tool/check_v2l_source_projection.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "PASS_SOURCE_IDENTITY_ONLY_RELEASE_CLOSED gravita lessons=56 scenes=392 variants=392 held=1"
+      ]
+    },
+    {
+      "gate": "v2l_source_projection adversarial",
+      "command": [
+        "python3",
+        "tool/test_check_v2l_source_projection.py"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "OK"
+      ]
+    },
+    {
+      "gate": "reference_model",
+      "command": [
+        "python3",
+        "tools/validate_reference_model.py"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ referans model kaydı TEMİZ — 2 artefakt (2 KAYITSIZ, geriye dönük tahmin edilmedi) · uygulama: pose_landmarker_full/float16/1"
+      ]
+    },
+    {
+      "gate": "reference_model --self-test",
+      "command": [
+        "python3",
+        "tools/validate_reference_model.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "   ✅ TERS İKİZ: sahte muafiyet: yakalandı"
+      ]
+    },
+    {
+      "gate": "validate_library",
+      "command": [
+        "python3",
+        "tools/validate_library.py"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ kütüphane denetimi TEMİZ — 31 hareket (2 canlı: ['bodyweight_squat', 'push_up'] · 29 yakında: ['farmer_carry', 'bird_dog', 'dead_bug', 'hanging_leg_raise', 'hollow_hold', 'mountain_climber', 'plank', 'side_plank', 'superman_hold', 'toes_to_bar', 'floor_press', 'kb_swing', 'romanian_deadlift', 'glute_bridge', 'goblet_squat', 'lunge', 'calf_raise', 'step_up', 'wall_sit', 'burpee', 'db_curl', 'db_row', 'inverted_row', 'pull_up', 'dip', 'db_shoulder_press', 'lateral_raise', 'wall_handstand', 'tuck_planche']) · 4 ders (2 kilitli, hepsi isimli gerekçeli) · 12 değişmez (19 kapı dalı)"
+      ],
+      "supersedes": "Same unmodified command failed in the sandbox and passed with standard host SDK permission. Inner Dart stderr is not retained by this checker; SDK/cache cause inferred, not directly captured.",
+      "evidence": "library-gate-host.txt"
+    },
+    {
+      "gate": "validate_library --self-test",
+      "command": [
+        "python3",
+        "tools/validate_library.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ 25/25 kapı ateşlendi"
+      ],
+      "supersedes": "Same unmodified command failed in the sandbox and passed with standard host SDK permission. Inner Dart stderr is not retained by this checker; SDK/cache cause inferred, not directly captured.",
+      "evidence": "library-gate-selftest-host.txt"
+    },
+    {
+      "gate": "validate_catalog",
+      "command": [
+        "python3",
+        "tools/validate_catalog.py"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ TEMİZ — 0 hata, 29 uyarı"
+      ]
+    },
+    {
+      "gate": "validate_catalog --self-test",
+      "command": [
+        "python3",
+        "tools/validate_catalog.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "   ⚠️ ATEŞLENMEYEN 7 değişmez: V3, V6, V10, V12, V13, V16, V17 — kanıtsız, kapsam kararı"
+      ]
+    },
+    {
+      "gate": "promote_library --check",
+      "command": [
+        "python3",
+        "tools/promote_library.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ terfi kapısı TEMİZ — 31 katalog hareketinin 31'i kütüphanede, üretilmiş alanlarda drift yok"
+      ]
+    },
+    {
+      "gate": "exclusions_page --check",
+      "command": [
+        "python3",
+        "tools/build_exclusions_page.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ 'Neden yok?' sayfası kaynağıyla AYNI — 7 bölüm"
+      ]
+    },
+    {
+      "gate": "skill_tree_index --check",
+      "command": [
+        "python3",
+        "tools/build_skill_tree_index.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ beceri ağacı indeksi güncel — 2 paket, 0'i eşik-doğrulanmış"
+      ]
+    },
+    {
+      "gate": "name_preconditions --check",
+      "command": [
+        "python3",
+        "tools/name_preconditions.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ bekleyen hareketlerin rationale'ları güncel ve İSİMLİ"
+      ]
+    },
+    {
+      "gate": "network_claim_audit",
+      "command": [
+        "python3",
+        "tools/network_claim_audit.py"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "   ℹ️ font teslimi: bundled — yüzler asset olarak paketli, çalışma anında hiçbir şey indirilmiyor (0 dosya hâlâ `GoogleFonts.` çağırıyor, beklenen 0)."
+      ]
+    },
+    {
+      "gate": "network_claim_audit --self-test",
+      "command": [
+        "python3",
+        "tools/network_claim_audit.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ 6/6 kapı ateşlendi"
+      ]
+    },
+    {
+      "gate": "metric_support --self-test",
+      "command": [
+        "python3",
+        "tools/metric_support.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ metric_support öz-testi: AYRIŞTIRMA fikstürde 9 kontrol (3 katman + 2 ikiz + 4 ters/pozitif ikiz) · OKUMA gerçek ağaçta biçim: uygulanmış 16 · boşluk 14 · özel-durum 1"
+      ]
+    },
+    {
+      "gate": "dead_end_census",
+      "command": [
+        "python3",
+        "tools/dead_end_census.py"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ çıkmaz 29/31 · sınıf A'29·E1 · beyan-açık 2"
+      ]
+    },
+    {
+      "gate": "dead_end_census --check",
+      "command": [
+        "python3",
+        "tools/dead_end_census.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ A4 artefaktı GÜNCEL — 31 = başlatılabilir(beyan) 2 ⊎ çıkmaz 29 · sessiz 0"
+      ]
+    },
+    {
+      "gate": "dead_end_census --self-test",
+      "command": [
+        "python3",
+        "tools/dead_end_census.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ dead_end_census öz-testi: sınıflandırma 4 · sayım 4 · A-sınıfı 3 · SESSİZLİK 3 · kapsam 2 (yorum≠kod) · OKUMA gerçek ağaçta biçim: payda 31 · sessiz 0"
+      ]
+    },
+    {
+      "gate": "defter_freshness",
+      "command": [
+        "python3",
+        "tools/defter_freshness.py"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "   ⚖️ ÖLÇÜLMÜŞ BORÇ (büyümesi yasak, adıyla): bağı kopuk görev 7 · türsüz 7"
+      ]
+    },
+    {
+      "gate": "defter_freshness --self-test",
+      "command": [
+        "python3",
+        "tools/defter_freshness.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ 9/9 kapı ateşlendi — İKİ YÖN ayrı desenle sınandı (çapalı 1 ⊆ geniş 2, sentetik korpusta) · sentinel aralığı depoya BAKMADAN kanıtlandı + dış çapa canlı · borç tabanı ALT KÜME olarak sınandı (9 görev + 8 türsüz, hepsi defterde) · payda denklemi tutuyor · tavan zehirlenmesi + prob numaraları ayrı sınandı · ⭐ BORÇ ÖDENDİ (taban daraltılabilir): G-122, G-123, G-179"
+      ]
+    },
+    {
+      "gate": "validate_store_listing",
+      "command": [
+        "python3",
+        "tools/validate_store_listing.py"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ EN/TR draft claims + SHA match source 56 lessons/10 modules; legacy catalogue 31/2/29. Local draft only."
+      ]
+    },
+    {
+      "gate": "validate_store_listing --self-test",
+      "command": [
+        "python3",
+        "tools/validate_store_listing.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ 1 positive + 13 negative controls passed; public claim, source count/hash and legacy catalogue independent"
+      ]
+    },
+    {
+      "gate": "validate_release_signing",
+      "command": [
+        "python3",
+        "tools/validate_release_signing.py"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "✅ release imzası: sessiz düşüş YOK (seçim mantığı + gürültülü durdurucu + görev-daraltmalı allowDebugSigning opt-in ikisi de sağlam)"
+      ]
+    },
+    {
+      "gate": "validate_release_signing --self-test",
+      "command": [
+        "python3",
+        "tools/validate_release_signing.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "öz-test: 6/6 ✅"
+      ]
+    }
+  ],
+  "passed": 25,
+  "total": 25
+}

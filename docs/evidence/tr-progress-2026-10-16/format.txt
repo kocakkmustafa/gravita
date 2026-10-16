@@ -1,0 +1,9 @@
+Formatted lib/app/progress_copy.dart
+Formatted lib/app/progress_view.dart
+Formatted lib/app/progress_strings.dart
+Formatted lib/app/content_failure_screen.dart
+Formatted lib/app/content_failure.dart
+Formatted lib/app/app_locale.dart
+Formatted lib/app/library_screen.dart
+Formatted test/progress_locale_test.dart
+Formatted 12 files (8 changed) in 0.04 seconds.

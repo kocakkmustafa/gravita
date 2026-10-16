@@ -1,0 +1,54 @@
+{
+  "baseline_sha": "589fefef8c34ccc45fe1cba7e5e85e9dd118f127",
+  "inventory_before_edits": {
+    "progress": "ProgressTab title and all ProgressView chrome English; real four camera lessons have English titles, movement names and two source lock paragraphs. Free-session summary combines all unit labels as reps.",
+    "startup_content_failure": "All user copy English; unreadable error suggests reinstall despite local history.",
+    "skill_tree_name": "Handstand English in list, detail, library and movement link.",
+    "waiting_measurement": {
+      "paragraph_uses": 117,
+      "unique_sources": 65,
+      "movements": 29
+    },
+    "nonlive_not_measured": {
+      "paragraph_uses": 86,
+      "unique_sources": 57
+    },
+    "coming_soon": {
+      "paragraph_uses": 41,
+      "unique_sources": 41
+    },
+    "rule_labels": {
+      "uses": 71,
+      "unique_sources": 59
+    },
+    "rule_cues": {
+      "uses": 71,
+      "unique_sources": 71
+    }
+  },
+  "course_gaps": {
+    "barbell": {
+      "dedicated_course": false,
+      "existing": "barbell.1/.2 written recall only; cal-09 wall hinge does not teach barbell lifting.",
+      "missing": "Exact movement/variant selection; equipment/rack/setup, placing, transfers and exit instruction; demonstrations and observed learner/expert review."
+    },
+    "rings": {
+      "dedicated_course": false,
+      "existing": "rings.1/.2 recall; cal-21 support preparation, cal-22 equipment/exit reading, cal-23/24 low-bar/suspension row, cal-25–28 bar support; cal-48/49 advanced literacy only.",
+      "missing": "Ring/attachment-specific verification, exact support/pull/transition teaching, distinction from bar/suspension, demonstrations and observed practice/expert review."
+    },
+    "hands": {
+      "dedicated_course": false,
+      "existing": "hands.1/.2 recall; cal-41–45 preparation; cal-46/47 learning_only; draft handstand15/planche6 nodes outside shipping bundle.",
+      "missing": "Individual/setup readiness, controlled entry/exit and assistance, loading/balance teaching, demonstrations and observed practice/expert review. S2 remains mandatory."
+    }
+  },
+  "constraints": [
+    "No physical curriculum or graph promotion",
+    "No new lesson/expert/health acceptance claim",
+    "No shared Core, icon, media, privacy, dependencies or release-policy changes",
+    "No simulator or local native build",
+    "No store upload"
+  ],
+  "peer": "Read-only gravita_review; baseline exact SHA. Course anchors independently inventoried."
+}

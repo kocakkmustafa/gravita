@@ -1,0 +1,107 @@
+{
+  "updated_utc": "2026-10-16T01:29:11.657400+00:00",
+  "baseline_sha": "589fefef8c34ccc45fe1cba7e5e85e9dd118f127",
+  "code_sha": "7053fdd010db418986df41f99527bb90b7721863",
+  "outcome": "LOCAL_SOURCE_ACCEPTANCE_PASSED; PR_CI_PENDING",
+  "completed": [
+    {
+      "item": "TR ProgressTab/ProgressView chrome, real known lesson/movement names, lock reasons and history failure/partial/notes states",
+      "proof": "targeted-green.txt",
+      "limit": "App display only; unknown/revised source, units and reasons retained. Tall progress structure tests are not phone/simulator acceptance."
+    },
+    {
+      "item": "Mixed free sessions retain unit-specific totals; unavailable history suppresses open/locked/free/history-note counts",
+      "proof": [
+        "regression-red.txt",
+        "unavailable-red.txt",
+        "targeted-green.txt"
+      ],
+      "limit": "Synthetic history branches and real JSONL shell fixture; no recovery guarantee or schema change."
+    },
+    {
+      "item": "TR startup content failure + local-history-preserving recovery advice in EN/TR",
+      "proof": "targeted-green.txt",
+      "limit": "Typed integrity/read failure and retry guards retained; no destructive recovery operation."
+    },
+    {
+      "item": "TR Handstand label as Amut on list/detail/library/movement link",
+      "proof": "targeted-green.txt",
+      "limit": "Display-only known ID/source match; both skill trees remain unvalidated drafts."
+    },
+    {
+      "item": "117/117 waiting-on-measurement paragraphs in29closed movements +7common permanent-limit sources in36places",
+      "proof": [
+        "targeted-green.txt",
+        "source-manifest.json"
+      ],
+      "limit": "Not full TR catalogue acceptance; remaining permanent limits, future-scope descriptions and rule labels/cues remain source English."
+    },
+    {
+      "item": "Library recall opens five existing reading-only lessons in EN/TR at320x900/2x",
+      "proof": "targeted-green.txt",
+      "limit": "Real temporary course file stores Seen only; practiceCount0, completion null. No physical course/mastery promotion."
+    },
+    {
+      "item": "Existing shared support link inventory",
+      "proof": "support-contact-inventory.json",
+      "limit": "No old app support email found; common support URL already correct; no mailbox/site/store-panel mutation or delivery test."
+    }
+  ],
+  "local_verification": {
+    "flutter_analyze": "No issues found",
+    "targeted_app_widgets": {
+      "passed": 173,
+      "total": 173,
+      "suite_files": 18,
+      "evidence": "targeted-green.txt"
+    },
+    "python_gates": {
+      "passed": 25,
+      "total": 25,
+      "evidence": "content-gates.json"
+    },
+    "course_integrity_manifest": "verified; integrity-gate.txt",
+    "independent_review": "NO_BLOCKER_FOUND; independent-review.json",
+    "trial_history": "All failed product regressions, test-authoring/harness errors and sandbox gate failures retained separately by name; final analyze and173test receipt supersede them."
+  },
+  "previous_main_exact_ci": {
+    "sha": "589fefef8c34ccc45fe1cba7e5e85e9dd118f127",
+    "run": 38832677642,
+    "conclusion": "success",
+    "jobs": 3,
+    "native_receipts_source_sha": "589fefef8c34ccc45fe1cba7e5e85e9dd118f127",
+    "evidence_location": "ventures/gravita/workspace/night-acceptance-2026-10-16-final/main-ci.json and main-native JSON receipts"
+  },
+  "remaining": [
+    {
+      "action": "Native simulator boot/course smoke",
+      "status": "PENDING_RESOURCE_COORDINATION; NOT_ATTEMPTED",
+      "reason": "Burun then Ostinato then Choreia hold simulator priority; none was owned/booted/installed/closed for this task."
+    },
+    {
+      "action": "Full TR catalogue acceptance",
+      "status": "OPEN_SOURCE_TASK",
+      "reason": "Remaining permanent-limit paragraphs, future-scope descriptions, rule labels and technique cues need reviewed translation; source English deliberately remains visible."
+    },
+    {
+      "action": "Dedicated physical barbell/rings/hands curricula and five-domain full acceptance",
+      "status": "OPEN_PRODUCT_BOUNDARY",
+      "reason": "Missing actual teaching/equipment/demonstration/observed-practice evidence. Selected existing related steps inventoried in course-scope.json; expert and exact curriculum choices remain morning work."
+    },
+    {
+      "action": "Physical camera/equipment, IAP, liveAuth and signed/store/privacy-form acceptance",
+      "status": "NOT_RUN",
+      "reason": "Source/widget/unsigned build cannot establish these; store upload remains prohibited until first3groups finish."
+    }
+  ],
+  "preservation": {
+    "shared_core_and_workspace_changed": false,
+    "dependency_or_course_or_privacy_bytes_changed": false,
+    "icons_or_store_artwork_changed": false,
+    "new_worktrees": 0,
+    "store_uploads": 0,
+    "other_tasks_processes_tabs_simulators_closed": 0,
+    "new_paid_services_keys_or_budget_changes": 0
+  },
+  "blocked_or_denied_actions": []
+}

@@ -1,0 +1,26 @@
+{
+  "reviewer": "gravita_review",
+  "mode": "Independent read-only source review; no test, native build or simulator run",
+  "baseline_sha": "589fefef8c34ccc45fe1cba7e5e85e9dd118f127",
+  "final_lib_manifest_sha256": "8abae9485434ef382d8faa4f194da84db4cc854a9ced437f11354afdf720117a",
+  "shell_test_sha256": "fdf42777bf2c6e0ce15279c89da97ebe2951fae1a07756dd213cad32efe5c589",
+  "result": "NO_BLOCKER_FOUND",
+  "findings_resolved": [
+    "HistoryUnavailable previously allowed locked/free counts and history notes after a partial load; all three now suppressed, measured rows remain suppressed. EN/TR regression red then green.",
+    "liveHonestyCopy wrong-movement source guard restored; generic evidence translation only used for non-live catalogue path. Existing negative test retained."
+  ],
+  "verified": [
+    "Mixed free-session totals keep rep/second/unknown units separate",
+    "Progress known ID + exact source guard preserves unknown/revised text",
+    "Reviewed lock-body scientific explanation remains and release availability is qualified",
+    "Typed content failure classification/retry unchanged; reinstall advice removed in both languages",
+    "Handstand label uses exact pack ID + original name match",
+    "Catalogue translation adds no physical task, cue or measurement",
+    "Related lesson shortcuts limited to existing cal-22/46/47/48/49 and learningOnly; course progress stays separate"
+  ],
+  "limits": [
+    "320px/2x ProgressView structure tests use 8000px height, not real-phone or simulator UX acceptance",
+    "Phone-height320x900 EN/TR reading links are widget flows with a fake support-dir provider and real temporary files, not native persistence/platform proof",
+    "Full TR catalogue, full physical instruction, dedicated three curricula, device, IAP and store acceptance remain open"
+  ]
+}

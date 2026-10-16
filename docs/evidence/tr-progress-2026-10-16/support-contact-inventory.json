@@ -1,0 +1,31 @@
+{
+  "baseline_sha": "589fefef8c34ccc45fe1cba7e5e85e9dd118f127",
+  "scope": [
+    "lib",
+    "content",
+    "README.md",
+    "docs/store",
+    "first-party web/privacy/support files if present"
+  ],
+  "user_facing_contact_emails": [],
+  "existing_shared_links": [
+    {
+      "file": "docs/store/listing.json",
+      "supportUrl": "https://yulalab.com/support",
+      "privacyPolicyUrl": "https://yulalab.com/privacy/motion"
+    },
+    {
+      "file": "docs/store/listing.tr-TR.json",
+      "supportUrl": "https://yulalab.com/support",
+      "privacyPolicyUrl": "https://yulalab.com/privacy/motion"
+    }
+  ],
+  "result": "NO_SOURCE_CONTACT_CHANGE_NEEDED",
+  "explanation": "This app repo exposes no support/help mailto or old support email. Both store-listing source locales already point to the common company support page. The support@yulalab.com alias remains a company-site/mailbox concern outside this repo owner scope.",
+  "changed": [],
+  "limits": [
+    "No website/mailbox readback or delivery test performed",
+    "No store panel write, email send, DNS, auth identity, billing or legal identity change",
+    "Account deletion not claimed complete from a contact address"
+  ]
+}
