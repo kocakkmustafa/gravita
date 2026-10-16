@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'app_locale.dart';
+import 'calisthenics_course.dart';
+import 'calisthenics_course_screen.dart';
+import 'content_repository.dart';
 
 import 'study_review_content.dart';
 
@@ -9,7 +12,8 @@ String _text(BuildContext context, String en, String tr) =>
 
 /// Written recall only. Responses never enter a course, sensor or account store.
 class StudyReviewEntry extends StatelessWidget {
-  const StudyReviewEntry({super.key});
+  const StudyReviewEntry({this.content, super.key});
+  final ContentRepository? content;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -25,14 +29,31 @@ class StudyReviewEntry extends StatelessWidget {
         ),
       ),
       onPressed: () => Navigator.of(context).push<void>(
-        MaterialPageRoute<void>(builder: (_) => const StudyReviewPage()),
+        MaterialPageRoute<void>(
+          builder: (_) => StudyReviewPage(content: content),
+        ),
       ),
     ),
   );
 }
 
 class StudyReviewPage extends StatelessWidget {
-  const StudyReviewPage({super.key});
+  const StudyReviewPage({this.content, super.key});
+  final ContentRepository? content;
+
+  /// Only existing reading-only lessons. A future physical lesson with a
+  /// reused ID must not silently inherit an advanced-skill shortcut.
+  List<CalisthenicsLesson> _relatedReading(String areaId) {
+    final ids = switch (areaId) {
+      'rings' => const ['cal-22', 'cal-48', 'cal-49'],
+      'hands' => const ['cal-46', 'cal-47'],
+      _ => const <String>[],
+    };
+    return content?.calisthenicsCourse.lessons
+            .where((lesson) => ids.contains(lesson.id) && lesson.learningOnly)
+            .toList(growable: false) ??
+        const [];
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -73,6 +94,35 @@ class StudyReviewPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                if (_relatedReading(area.id).isNotEmpty) ...<Widget>[
+                  const SizedBox(height: 8),
+                  Text(
+                    _text(
+                      context,
+                      'Related existing reading lessons. These do not form a full practical course. Opening a lesson uses that course’s separate progress record.',
+                      'İlgili mevcut okuma dersleri. Bunlar tam uygulamalı kurs oluşturmaz. Dersi açmak, ilgili kursun ayrı ilerleme kaydını kullanır.',
+                    ),
+                  ),
+                  for (final lesson in _relatedReading(area.id))
+                    ListTile(
+                      key: Key('study-related-${lesson.id}'),
+                      contentPadding: EdgeInsets.zero,
+                      leading: const Icon(Icons.menu_book_outlined),
+                      title: Text(
+                        lesson.title.inLanguage(
+                          Localizations.localeOf(context).languageCode,
+                        ),
+                      ),
+                      onTap: () => Navigator.of(context).push<void>(
+                        MaterialPageRoute<void>(
+                          builder: (_) => CalisthenicsLessonScreen(
+                            course: content!.calisthenicsCourse,
+                            lesson: lesson,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
               ],
             ),
           ),

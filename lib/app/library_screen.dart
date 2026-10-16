@@ -90,7 +90,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(18, 4, 18, 96),
         children: <Widget>[
-          const StudyReviewEntry(),
+          StudyReviewEntry(content: widget.content),
           CalisthenicsEntryCard(content: widget.content),
           const SizedBox(height: 10),
           DbkbEntryCard(content: widget.content),
@@ -311,17 +311,19 @@ class _LibraryScreenState extends State<LibraryScreen> {
       NoteCard(
         sealed: true,
         icon: Icons.account_tree_outlined,
-        text: localized(context,
+        text: localized(
+          context,
           LibraryStrings.skillTreesBody(
             _catalogue.skillTrees.drafted.length,
             _catalogue.skillTrees.draftedNames,
           ),
           '${_catalogue.skillTrees.drafted.length} taslak ilerleme ağacı '
-          'bulunuyor (${_catalogue.skillTrees.draftedNames}). İlerleme koşulları '
+          'bulunuyor (${draftedTreeNames(context, _catalogue.skillTrees)}). İlerleme koşulları '
           'hareket bilimi incelemesinden geçmediği için ağaçları adım adım '
           'göstermiyoruz. İlgili bazı hareket sayfaları kütüphanede bulunur. '
           'Öğrenme rehberleri ve kamera erişimi ayrıca belirtilir; '
-          'bu özet fiziksel uygulamayı onaylamaz.'),
+          'bu özet fiziksel uygulamayı onaylamaz.',
+        ),
       ),
     ],
   );

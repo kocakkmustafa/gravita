@@ -18,7 +18,7 @@ import 'live_session_screen.dart';
 import 'onboarding_screen.dart';
 import 'onboarding_store.dart';
 import 'profile_screen.dart';
-import 'progress_strings.dart';
+import 'progress_copy.dart';
 import 'progress_view.dart';
 import 'theme.dart';
 
@@ -585,7 +585,7 @@ class _ProgressTabState extends State<ProgressTab> {
             return Scaffold(
               backgroundColor: Colors.transparent,
               appBar: AppBar(
-                title: const Text(ProgressStrings.measuredSection),
+                title: Text(ProgressCopy(context).measuredSection),
               ),
               body: ProgressView(
                 summary: data.summary,

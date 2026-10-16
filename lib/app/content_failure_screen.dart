@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'app_locale.dart';
 import 'content_failure.dart';
 import 'theme.dart';
 
@@ -31,11 +32,7 @@ import 'theme.dart';
 /// hâliyle AYNEN duruyor; `test/content_failure_test.dart` bu dosyaya tek
 /// satır dokunmadan geçti.
 class ContentFailureScreen extends StatelessWidget {
-  const ContentFailureScreen({
-    super.key,
-    required this.failure,
-    this.onRetry,
-  });
+  const ContentFailureScreen({super.key, required this.failure, this.onRetry});
 
   static const Key headlineKey = Key('failure-headline');
   static const Key bodyKey = Key('failure-body');
@@ -58,23 +55,33 @@ class ContentFailureScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
           children: <Widget>[
-            const Icon(Icons.report_outlined,
-                size: 44, color: GravitaColors.honestySeal),
+            const Icon(
+              Icons.report_outlined,
+              size: 44,
+              color: GravitaColors.honestySeal,
+            ),
             const SizedBox(height: 18),
-            Text(_headline,
-                key: headlineKey,
-                style: GravitaType.display(size: 24, weight: FontWeight.w600)),
+            Text(
+              _headline(context),
+              key: headlineKey,
+              style: GravitaType.display(size: 24, weight: FontWeight.w600),
+            ),
             const SizedBox(height: 12),
-            Text(_body,
-                key: bodyKey,
-                style: GravitaType.body(
-                    size: 14.5, color: GravitaColors.textSecondary, height: 1.6)),
+            Text(
+              _body(context),
+              key: bodyKey,
+              style: GravitaType.body(
+                size: 14.5,
+                color: GravitaColors.textSecondary,
+                height: 1.6,
+              ),
+            ),
             const SizedBox(height: 24),
             if (_retryable && onRetry != null) ...<Widget>[
               FilledButton(
                 key: retryKey,
                 onPressed: () => onRetry!(),
-                child: const Text('Try again'),
+                child: Text(localized(context, 'Try again', 'Yeniden dene')),
               ),
               const SizedBox(height: 24),
             ],
@@ -92,19 +99,35 @@ class ContentFailureScreen extends StatelessWidget {
                   collapsedBackgroundColor: Colors.transparent,
                   tilePadding: const EdgeInsets.symmetric(horizontal: 18),
                   childrenPadding: const EdgeInsets.fromLTRB(18, 0, 18, 18),
-                  title: Text('Technical detail',
-                      style: GravitaType.body(size: 14, weight: FontWeight.w500)),
-                  subtitle: Text('What to send us if you report this',
-                      style: GravitaType.mono(
-                          size: 10.5, color: GravitaColors.textSecondary)),
+                  title: Text(
+                    localized(context, 'Technical detail', 'Teknik ayrıntı'),
+                    style: GravitaType.body(size: 14, weight: FontWeight.w500),
+                  ),
+                  subtitle: Text(
+                    localized(
+                      context,
+                      'What to send us if you report this',
+                      'Sorunu bildirirken paylaşabileceğin ayrıntılar',
+                    ),
+                    style: GravitaType.mono(
+                      size: 10.5,
+                      color: GravitaColors.textSecondary,
+                    ),
+                  ),
                   children: <Widget>[
                     SelectableText(
                       failure.detail.isEmpty
-                          ? '(no detail reported)'
+                          ? localized(
+                              context,
+                              '(no detail reported)',
+                              '(ayrıntı bildirilmedi)',
+                            )
                           : failure.detail,
                       key: detailKey,
                       style: GravitaType.mono(
-                          size: 11.5, color: GravitaColors.textSecondary),
+                        size: 11.5,
+                        color: GravitaColors.textSecondary,
+                      ),
                     ),
                   ],
                 ),
@@ -118,23 +141,41 @@ class ContentFailureScreen extends StatelessWidget {
 
   // "Bir şeyler ters gitti" DEMİYOR: o cümle hiçbir şey söylemez ve kullanıcıya
   // ne yapacağını bırakmaz.
-  String get _headline => switch (failure.kind) {
-        ContentFailureKind.integrity => 'We stopped ourselves',
-        ContentFailureKind.unreadable => 'We could not read our own content',
-      };
+  String _headline(BuildContext context) => switch (failure.kind) {
+    ContentFailureKind.integrity => localized(
+      context,
+      'We stopped ourselves',
+      'İçeriği göstermeyi durdurduk',
+    ),
+    ContentFailureKind.unreadable => localized(
+      context,
+      'We could not read our own content',
+      'Uygulama içeriğini okuyamadık',
+    ),
+  };
 
-  String get _body => switch (failure.kind) {
-        ContentFailureKind.integrity =>
-          'The movement library that shipped with this build does not pass our '
-              'own honesty checks — something in it claims more than the app '
-              'can actually measure. Rather than show you a library we cannot '
-              'vouch for, we show you nothing. This one is on us, not on your '
-              'device, and trying again will not change it: the next build '
-              'will.',
-        ContentFailureKind.unreadable =>
-          'The app could not read the movement content that ships inside it. '
-              'That usually means the installation is damaged rather than the '
-              'content being wrong. Trying again is worth one attempt; if it '
-              'keeps failing, reinstalling should fix it.',
-      };
+  String _body(BuildContext context) => switch (failure.kind) {
+    ContentFailureKind.integrity => localized(
+      context,
+      'The movement library that shipped with this build does not pass our '
+          'own honesty checks — something in it claims more than the app can '
+          'actually measure. Rather than show you a library we cannot vouch for, '
+          'we show you nothing. This one is on us, not on your device. Trying '
+          'again will not change the bundled content; it needs a corrected build.',
+      'Bu sürümle gelen hareket kütüphanesi kendi doğruluk kontrollerimizden '
+          'geçmiyor; içerikte uygulamanın ölçebildiğinden fazlasını iddia eden '
+          'bir şey var. Güvenemediğimiz kütüphaneyi göstermeyi durdurduk. Bu bizim '
+          'sorumluluğumuz; cihazından kaynaklandığını söylemiyoruz. Yeniden denemek '
+          'paketteki içeriği değiştirmez; düzeltilmiş bir sürüm gerekir.',
+    ),
+    ContentFailureKind.unreadable => localized(
+      context,
+      'The app could not read the movement content bundled with it. Try again '
+          'or reopen the app. If it keeps failing, share the technical detail '
+          'below. Keep it installed to preserve local history.',
+      'Uygulamayla gelen hareket içeriğini okuyamadık. Yeniden denemeyi veya '
+          'uygulamayı yeniden açmayı deneyebilirsin. Sorun sürerse aşağıdaki teknik '
+          'ayrıntıyı paylaş. Yerel geçmişi korumak için uygulamayı yüklü tut.',
+    ),
+  };
 }

@@ -62,10 +62,10 @@ String catalogName(BuildContext context, String id, String english) =>
 
 String familyDisplayName(BuildContext context, String family, String english) =>
     Localizations.localeOf(context).languageCode == 'tr'
-        ? family == 'dbkb'
-            ? 'Dambıl ve kettlebell'
-            : _turkishFamilies[family] ?? english
-        : english;
+    ? family == 'dbkb'
+          ? 'Dambıl ve kettlebell'
+          : _turkishFamilies[family] ?? english
+    : english;
 
 const Map<String, String> _turkishFamilies = <String, String>{
   'carry': 'Taşıma',
@@ -164,3 +164,16 @@ String movementTrendSummary(
   };
   return '$sessions oturum · $units $unit';
 }
+
+/// The name and pack ID must both match; unknown/revised sources stay visible.
+String skillTreeName(BuildContext context, SkillTree tree) =>
+    Localizations.localeOf(context).languageCode == 'tr' &&
+        tree.packId == 'gravita.handstand' &&
+        tree.displayName == 'Handstand'
+    ? 'Amut'
+    : tree.displayName;
+
+String draftedTreeNames(BuildContext context, SkillTreeIndex index) =>
+    Localizations.localeOf(context).languageCode == 'tr'
+    ? index.drafted.map((tree) => skillTreeName(context, tree)).join(' ve ')
+    : index.draftedNames;
