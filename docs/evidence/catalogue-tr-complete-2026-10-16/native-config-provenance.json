@@ -1,0 +1,41 @@
+{
+  "baseline_sha": "9c389b83569c8d718753c3021a1926114a3d7024",
+  "verified_utc": "2026-10-16T01:57:06.988522+00:00",
+  "source": "Own Gravita retained2026-10-02 generated build inputs; no other app values used",
+  "sources": [
+    {
+      "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/data/retained-evidence/2026-10-02-autonomous-e2e/source-delta/ios/Flutter/Generated.xcconfig",
+      "sha256": "20035c32091fd4ac50c1d1a57fd25b7255be79168dd0c4bc1995df253400045a"
+    },
+    {
+      "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/data/retained-evidence/2026-10-02-autonomous-e2e/source-delta/ios/Flutter/flutter_export_environment.sh",
+      "sha256": "40d0653c707c640e096dcafd4c996f8fe6d67ececba30e2506e5ec7e2dbab5fd"
+    },
+    {
+      "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/data/retained-evidence/2026-10-02-autonomous-e2e/source-delta/ios/Flutter/ephemeral/flutter_native_integration.env",
+      "sha256": "b2e45c824ec1f5276b3ea594c19a353423c58e584af162026a1db898566206ac"
+    }
+  ],
+  "three_sources_equal": true,
+  "field_names": [
+    "MOTION_SUPABASE_URL",
+    "MOTION_SUPABASE_PUBLISHABLE_KEY"
+  ],
+  "key_kind": "publishable",
+  "values_reported": false,
+  "temporary_config_sha256": "4111bab555f11c80a3e7fbd74d5c8caee2e44248a9d58fc12ba080217b7f3426",
+  "command_identity": "flutter test integration_test/production_main_boot_test.dart --no-pub --dart-define-from-file=<task temporary config from own retained inputs> -d <exclusively allocated simulator> --reporter expanded",
+  "command_options_verified": "flutter test --help on installed3.47.5",
+  "new_credentials_or_external_mutations": false,
+  "runtime_hold": "unchanged; not bypassed",
+  "native_execution": "COMPLETED; see native-production-result.json, native-course-result.json and native-os-resume-result.json",
+  "auth_settings_read": {
+    "method": "GET",
+    "path": "/auth/v1/settings",
+    "http_status": 200,
+    "json_object": true,
+    "new_auth_session_created": false,
+    "values_reported": false
+  },
+  "temporary_task_copy_cleanup": "Verified own0600file SHA, removed after native tests; three original own retained inputs preserved"
+}

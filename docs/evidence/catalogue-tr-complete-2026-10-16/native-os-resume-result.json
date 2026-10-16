@@ -1,0 +1,25 @@
+{
+  "source_sha": "63a3ce6b221cbe5888ddcfedd3b10425b84f04fc",
+  "command_id": "gravita-native-tr320-real-os-return-v1",
+  "device": "394A4C6B-F6E8-4BA5-B0CA-2479F3ED18D3",
+  "started_at": "2026-10-16T02:19:38.500775+00:00",
+  "runtime_hold": "unchanged",
+  "production_main": false,
+  "physical_auth_purchase_acceptance": false,
+  "log": "native-os-resume.txt",
+  "before_pid": 88099,
+  "before_screenshot": "native-tr320-before.png",
+  "settings_launch": "com.apple.Preferences: 71678",
+  "background_at": "2026-10-16T02:20:01.669501+00:00",
+  "settings_screenshot": "native-settings-background.png",
+  "after_pid": 88099,
+  "returned_at": "2026-10-16T02:20:04.244938+00:00",
+  "same_pid": true,
+  "return_screenshot": "native-tr320-return.png",
+  "exit_code": 0,
+  "finished_at": "2026-10-16T02:20:05.447538+00:00",
+  "resume_pass_marker": true,
+  "lifecycle_summary": [
+    "GRAVITA_OS_RESUME_PASS states=inactive,hidden,paused,hidden,inactive,resumed sameElement=true sameRoute=true sameScroll=true width=320 textScale=2"
+  ]
+}

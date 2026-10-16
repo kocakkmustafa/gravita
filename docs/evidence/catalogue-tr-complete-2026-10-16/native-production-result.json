@@ -1,0 +1,15 @@
+{
+  "source_sha": "f91e59f568e5e57a58722f9de7c12b5919d22135",
+  "command_id": "gravita-configured-production-main-test-v1",
+  "test": "integration_test/production_main_boot_test.dart",
+  "device": "394A4C6B-F6E8-4BA5-B0CA-2479F3ED18D3",
+  "started_at": "2026-10-16T02:17:12.501444+00:00",
+  "finished_at": "2026-10-16T02:17:51.300975+00:00",
+  "duration_seconds": 38.8,
+  "exit_code": 0,
+  "production_ready_marker": true,
+  "public_config_provenance": "native-config-receipt.json; existing own3retainedbuildsources; no values reported",
+  "log": "native-production-configured.txt",
+  "runtime_hold": "unchanged",
+  "physical_auth_purchase_acceptance": false
+}

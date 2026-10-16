@@ -1,0 +1,72 @@
+00:00 +0: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart
+00:00 +0 -1: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_translation_contract_test.dart [E]
+  Failed to load "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_translation_contract_test.dart": Cannot open file, path = 'docs/evidence/tr-progress-2026-10-16/remaining-tr-catalogue.json' (OS Error: No such file or directory, errno = 2)
+  dart:io                                              _File.readAsStringSync
+  test/catalogue_translation_contract_test.dart 24:19  main
+  
+00:00 +0 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en bodyweight_squat catalogue renders at320px/2x
+00:00 +1 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr bodyweight_squat catalogue renders at320px/2x
+00:00 +2 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en push_up catalogue renders at320px/2x
+00:00 +3 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr push_up catalogue renders at320px/2x
+00:01 +4 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en farmer_carry catalogue renders at320px/2x
+00:01 +5 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr farmer_carry catalogue renders at320px/2x
+00:01 +6 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en bird_dog catalogue renders at320px/2x
+00:01 +7 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr bird_dog catalogue renders at320px/2x
+00:01 +8 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en dead_bug catalogue renders at320px/2x
+00:01 +9 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr dead_bug catalogue renders at320px/2x
+00:01 +10 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en hanging_leg_raise catalogue renders at320px/2x
+00:01 +11 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr hanging_leg_raise catalogue renders at320px/2x
+00:01 +12 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en hollow_hold catalogue renders at320px/2x
+00:01 +13 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr hollow_hold catalogue renders at320px/2x
+00:01 +14 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en mountain_climber catalogue renders at320px/2x
+00:01 +15 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr mountain_climber catalogue renders at320px/2x
+00:02 +16 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en plank catalogue renders at320px/2x
+00:02 +17 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr plank catalogue renders at320px/2x
+00:02 +18 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en side_plank catalogue renders at320px/2x
+00:02 +19 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr side_plank catalogue renders at320px/2x
+00:02 +20 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en superman_hold catalogue renders at320px/2x
+00:02 +21 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr superman_hold catalogue renders at320px/2x
+00:02 +22 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en toes_to_bar catalogue renders at320px/2x
+00:02 +23 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr toes_to_bar catalogue renders at320px/2x
+00:02 +24 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en floor_press catalogue renders at320px/2x
+00:02 +25 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr floor_press catalogue renders at320px/2x
+00:02 +26 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en kb_swing catalogue renders at320px/2x
+00:02 +27 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr kb_swing catalogue renders at320px/2x
+00:02 +28 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en romanian_deadlift catalogue renders at320px/2x
+00:02 +29 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr romanian_deadlift catalogue renders at320px/2x
+00:02 +30 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en glute_bridge catalogue renders at320px/2x
+00:03 +31 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr glute_bridge catalogue renders at320px/2x
+00:03 +32 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en goblet_squat catalogue renders at320px/2x
+00:03 +33 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr goblet_squat catalogue renders at320px/2x
+00:03 +34 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en lunge catalogue renders at320px/2x
+00:03 +35 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr lunge catalogue renders at320px/2x
+00:03 +36 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en calf_raise catalogue renders at320px/2x
+00:03 +37 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr calf_raise catalogue renders at320px/2x
+00:03 +38 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en step_up catalogue renders at320px/2x
+00:03 +39 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr step_up catalogue renders at320px/2x
+00:03 +40 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en wall_sit catalogue renders at320px/2x
+00:03 +41 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr wall_sit catalogue renders at320px/2x
+00:03 +42 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en burpee catalogue renders at320px/2x
+00:03 +43 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr burpee catalogue renders at320px/2x
+00:03 +44 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en db_curl catalogue renders at320px/2x
+00:03 +45 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr db_curl catalogue renders at320px/2x
+00:03 +46 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en db_row catalogue renders at320px/2x
+00:04 +47 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr db_row catalogue renders at320px/2x
+00:04 +48 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en inverted_row catalogue renders at320px/2x
+00:04 +49 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr inverted_row catalogue renders at320px/2x
+00:04 +50 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en pull_up catalogue renders at320px/2x
+00:04 +51 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr pull_up catalogue renders at320px/2x
+00:04 +52 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en dip catalogue renders at320px/2x
+00:04 +53 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr dip catalogue renders at320px/2x
+00:04 +54 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en db_shoulder_press catalogue renders at320px/2x
+00:04 +55 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr db_shoulder_press catalogue renders at320px/2x
+00:04 +56 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en lateral_raise catalogue renders at320px/2x
+00:04 +57 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr lateral_raise catalogue renders at320px/2x
+00:04 +58 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en wall_handstand catalogue renders at320px/2x
+00:04 +59 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr wall_handstand catalogue renders at320px/2x
+00:04 +60 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: en tuck_planche catalogue renders at320px/2x
+00:04 +61 -1: /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_completion_ui_test.dart: tr tuck_planche catalogue renders at320px/2x
+00:04 +62 -1: Some tests failed.
+
+Failing tests:
+  /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_translation_contract_test.dart: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_translation_contract_test.dart

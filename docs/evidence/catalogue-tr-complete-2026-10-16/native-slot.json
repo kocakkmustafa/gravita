@@ -1,0 +1,19 @@
+{
+  "owner": "gravita-night-acceptance",
+  "source_sha": "f91e59f568e5e57a58722f9de7c12b5919d22135",
+  "device": "394A4C6B-F6E8-4BA5-B0CA-2479F3ED18D3",
+  "acquired_at": "2026-10-16T02:16:54.515843+00:00",
+  "authority": "Parent exclusive window after Lissom release02:06:26UTC",
+  "runtime_trust": "Runtime-67054 HOLD unchanged; no verify/download/bypass",
+  "status": "RELEASED",
+  "coordination_marker": "/tmp/yula-native-build.lock",
+  "device_name": "YULA iOS UI 20261013",
+  "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-27-0",
+  "native_process_preflight": "No active xcodebuild/flutter_tester/GradleDaemon",
+  "simulator_preexisting": true,
+  "final_source_sha": "63a3ce6b221cbe5888ddcfedd3b10425b84f04fc",
+  "released_at": "2026-10-16T02:20:31.061755+00:00",
+  "shared_simulator_left_booted": true,
+  "release_action": "Verified own owner/source/device; removed only own owner.json and empty directory. No other app, process or simulator closed.",
+  "native_process_postflight": "No active xcodebuild/flutter_tester/GradleDaemon"
+}

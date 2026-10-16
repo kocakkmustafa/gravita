@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "review_type": "independent_read_only_native_harness_source_review",
+  "source": {
+    "path": "integration_test/catalogue_resume_smoke_test.dart",
+    "commit": "63a3ce6b221cbe5888ddcfedd3b10425b84f04fc",
+    "sha256": "fc5f72c72c067843e172fc52c9338cf24018cf9f61a52ef9c07ece27f8b1709d",
+    "working_file_matches_committed_source": true
+  },
+  "app_source_reference": {
+    "commit": "f91e59f568e5e57a58722f9de7c12b5919d22135",
+    "lib_changes_between_reference_and_harness_commit": []
+  },
+  "disposition": "FINAL_HARNESS_SOURCE_REVIEW_PASS_PRIOR_FINDINGS_RESOLVED; NATIVE_EXECUTION_AND_OS_RECEIPT_NOT_REVIEWED",
+  "blocking_findings": [],
+  "required_code_changes": [],
+  "prior_findings_and_resolutions": [
+    {
+      "id": "NH-1",
+      "priority": "P2",
+      "category": "potential_false_positive",
+      "status": "resolved_in_source",
+      "original_snapshot_sha256": "7fb46b4e44984957ee2e58aeffcc0b5a2686f3e800a6bb4701fc70a0a6562172",
+      "original_location": "integration_test/catalogue_resume_smoke_test.dart:26-28,94-103",
+      "finding": "Lifecycle tarihçesi READY öncesinde toplanmaya başlıyordu. Daha önceki gerçek paused→resumed geçişi, READY sonrasındaki denetimi yeni bir OS dönüşü olmadan karşılayabilirdi.",
+      "requested_fix": "READY öncesinde logu temizle veya başlangıç indexi kullan; yalnız READY sonrasındaki paused→resumed olaylarını şart koş.",
+      "resolution_evidence": [
+        "integration_test/catalogue_resume_smoke_test.dart:97-107"
+      ],
+      "resolution": "lifecycle.states.clear() READY debugPrint öncesindeki senkron satıra taşınmış. Sonraki döngü temizlenmiş logda paused ve son resumed olayını gerektiriyor. Lifecycle enjeksiyonu eklenmemiş.",
+      "resolution_commit": "63a3ce6b221cbe5888ddcfedd3b10425b84f04fc",
+      "validation_type": "source_only"
+    },
+    {
+      "id": "NH-2",
+      "priority": "P2",
+      "category": "visibility_not_proven",
+      "status": "resolved_in_source",
+      "original_snapshot_sha256": "7fb46b4e44984957ee2e58aeffcc0b5a2686f3e800a6bb4701fc70a0a6562172",
+      "original_location": "integration_test/catalogue_resume_smoke_test.dart:80-91,116",
+      "finding": "find.text ile widget varlığı denetleniyor, Türkçe cue viewport dışında olsa da bulunabiliyordu. Bölüme ensureVisible uygulamak cue görünürlüğünü zorunlu kılmıyordu.",
+      "requested_fix": "Cue için ensureVisible+pumpAndSettle ve görünürlük/hitTestable doğrulaması; scroll değerini bundan sonra kaydet. Dönüşte scroll yapmadan tekrar aynı görünürlüğü doğrula.",
+      "resolution_evidence": [
+        "integration_test/catalogue_resume_smoke_test.dart:83-94",
+        "integration_test/catalogue_resume_smoke_test.dart:113-122"
+      ],
+      "resolution": "Cue önce ensureVisible+pumpAndSettle ile konumlandırılıyor, hitTestable assertionından sonra scroll yakalanıyor. Dönüşte yeni scroll yapılmadan aynı pixels ve cue hitTestable doğrulanıyor.",
+      "resolution_commit": "63a3ce6b221cbe5888ddcfedd3b10425b84f04fc",
+      "validation_type": "source_only"
+    }
+  ],
+  "sound_source_properties": [
+    {
+      "property": "Real lifecycle observation without injection",
+      "evidence": [
+        "integration_test/catalogue_resume_smoke_test.dart:10-14",
+        "integration_test/catalogue_resume_smoke_test.dart:97-107"
+      ],
+      "conclusion": "Observer gerçek binding olaylarını kaydediyor; lifecycle methodu/platform olayı elle çağrılmıyor."
+    },
+    {
+      "property": "Same retained Element, Route and scroll",
+      "evidence": [
+        "integration_test/catalogue_resume_smoke_test.dart:89-94",
+        "integration_test/catalogue_resume_smoke_test.dart:108-119"
+      ],
+      "conclusion": "Geçişten önceki Element/ModalRoute nesneleri ve ScrollPosition.pixels dönüşten sonra aynı referans/değerle karşılaştırılıyor."
+    },
+    {
+      "property": "320 logical pixels / 2x / Turkish synthetic host",
+      "evidence": [
+        "integration_test/catalogue_resume_smoke_test.dart:29-58"
+      ],
+      "conclusion": "Host genişliği 320, metin ölçeği 2 ve locale TR olarak kurulmuş; başlangıç gerçek layout genişliği getSize ile denetleniyor. Bu production main hostu değil."
+    },
+    {
+      "property": "Turkish cue and closed-camera boundary",
+      "evidence": [
+        "integration_test/catalogue_resume_smoke_test.dart:72-88",
+        "integration_test/catalogue_resume_smoke_test.dart:120-123"
+      ],
+      "conclusion": "Kuyrukta kapalı-release katalog açıklaması mevcut diye denetleniyor. Türkçe bird_dog cue başlangıçta ve dönüşte hitTestable; EN eşdeğeri başlangıçta yok. Start-session kontrolü başlangıçta ve dönüşte yok."
+    },
+    {
+      "property": "No auth, camera, purchase or physical action",
+      "evidence": [
+        "integration_test/catalogue_resume_smoke_test.dart:16-18",
+        "integration_test/catalogue_resume_smoke_test.dart:24-25",
+        "integration_test/catalogue_resume_smoke_test.dart:48-51"
+      ],
+      "conclusion": "Harness mevcut asset/kataloğu yükleyip non-live bird_dog MovementPage kuruyor. Auth, izin, kamera veya satın alma eylemi başlatmıyor; fiziksel görev/başarı hükmü vermiyor."
+    }
+  ],
+  "host_receipt_requirements": {
+    "target_provided_by_parent": "394A4C6B-F6E8-4BA5-B0CA-2479F3ED18D3",
+    "destination_observability_limit": "Flutter lifecycle olayları hangi dış uygulamanın açıldığını veya OS process PID kimliğini kanıtlamaz.",
+    "required_independent_host_evidence": [
+      "READY sonrasında gerçek iOS Settings foreground",
+      "Mevcut Gravita uygulamasına dönüş",
+      "Gravita PID kimliğinin korunduğuna ilişkin OS receipt",
+      "Aynı frozen app/harness kaynak kimliğinin kullanılan paketle bağlantısı"
+    ],
+    "reviewer_observed_simulator_or_pid": false,
+    "parent_reported_plan": "Parent Settings foreground ve aynı PID dönüşünü ayrı OS receipt ile kaydedecek; receipt bu incelemede görülmedi."
+  },
+  "acceptance_limits": [
+    "Kaynak incelemesi başarılıdır; test veya native çalıştırma sonucu verilmemiştir.",
+    "Olası başarılı çalıştırma yalnız sentetik bird_dog katalog hostunun Türkçe cue/retention senaryosunu kapsar. Production-main boot ayrı kanıttır.",
+    "Auth, gerçek kamera, entitlement/IAP, fiziksel teknik, uzman incelemesi, mağaza ve tüm ekranların native kabulü kapsam dışındadır.",
+    "Kullanıcının JabLab→Lissom→Gravita native sırası ve final source-freeze koşulları bu raporla yerine getirilmiş sayılmaz."
+  ],
+  "execution": {
+    "test_run": false,
+    "native_or_build_run": false,
+    "simulator_action_performed": false,
+    "source_files_modified": false,
+    "written_files": [
+      "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/workspace/catalogue-tr-complete-2026-10-16/independent-native-harness-review.json"
+    ]
+  },
+  "remaining_blockers": []
+}

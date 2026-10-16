@@ -1,0 +1,23 @@
+{
+  "reviewed_by": "root visual inspection; native screenshots, no editing",
+  "before": "TR cue visible in width320/textscale2 host",
+  "background": "Actual iOS Settings visible; no signed-in Apple account shown",
+  "return": "Immediate OS foreground-transition frame shows the retained TR cue/card/scroll. It is not a settled foreground screenshot; actual resumed state, same PID and retained route/scroll/cue are established separately by the passing native harness and host receipt.",
+  "files": [
+    {
+      "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/workspace/catalogue-tr-complete-2026-10-16/native-tr320-before.png",
+      "sha256": "08d007e257d1000ee9cbb58060a84c26d96617bdd7d0152693d61a5dfb9fd8b6",
+      "bytes": 937327
+    },
+    {
+      "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/workspace/catalogue-tr-complete-2026-10-16/native-settings-background.png",
+      "sha256": "4bcfc51a03ef79d315b9a0b9d6763d6a384723b4cda32e49720ebfbe6bbf8d2d",
+      "bytes": 323822
+    },
+    {
+      "path": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/workspace/catalogue-tr-complete-2026-10-16/native-tr320-return.png",
+      "sha256": "fb01c784f398a445f7ea60ff215309a6ea767fcffa3688e0f709866dbbcf1f46",
+      "bytes": 1769880
+    }
+  ]
+}

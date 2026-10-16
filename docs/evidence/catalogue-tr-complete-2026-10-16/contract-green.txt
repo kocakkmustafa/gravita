@@ -1,0 +1,4 @@
+00:00 +0: loading /Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/test/catalogue_translation_contract_test.dart
+00:00 +0: en closes all233 real remaining uses with guarded sources
+00:00 +1: tr closes all233 real remaining uses with guarded sources
+00:00 +2: All tests passed!

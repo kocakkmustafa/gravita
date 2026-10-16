@@ -1,0 +1,69 @@
+{
+  "baseline_sha": "9c389b83569c8d718753c3021a1926114a3d7024",
+  "status": "PROPOSAL_ONLY; no new physical course, media, fees or expert acceptance",
+  "current_evidence": {
+    "domains": 5,
+    "bodyweight_lessons": 56,
+    "bodyweight_physical_structured": 44,
+    "bodyweight_learning_only": 12,
+    "dbkb_units": 25,
+    "dedicated_barbell_rings_hands_courses": 0,
+    "playable_shipped_demonstrations": 0,
+    "source_projection_rows": 392,
+    "projection_boundary": "Briefs/source identities, not demonstrations or expert proof",
+    "equipment_hold": "gravita:cal-01:full_sequence-03 unchanged",
+    "sqlite": "Shipping history is account-scoped JSONL, SQLite prototype is test-only"
+  },
+  "course_choices": [
+    {
+      "domain": "barbell",
+      "proposed_initial_scope": "Separate beginner equipment/setup and selected first lift course; exact lift/variant/load/setup decided with qualified reviewer.",
+      "existing_boundary": "barbell.1/.2 recall and cal-09 wall hinge are not barbell lifting instruction.",
+      "evidence_needed": "Real equipment/rack and loading/placing/transfers/exit demonstration, source-specific review, observed learner setup and corrections."
+    },
+    {
+      "domain": "rings",
+      "proposed_initial_scope": "Separate ring-specific setup and supported beginner pull/support course; exact attachment and transition boundaries decided with qualified reviewer.",
+      "existing_boundary": "Low-bar/suspension/bar support and advanced literacy do not establish ring competence.",
+      "evidence_needed": "Attachment/equipment verification, ring-specific support/pull/transitions and exit demonstrations, qualified review and observed learner evidence."
+    },
+    {
+      "domain": "hands",
+      "proposed_initial_scope": "Choose preparation literacy or a separately reviewed inversion course, including supported entry/exit and assistance boundaries.",
+      "existing_boundary": "cal-41–45 preparation, cal-46/47 reading and bundle-excluded draft handstand15/planche6 nodes do not establish balance/readiness.",
+      "evidence_needed": "Qualified suitability/setup/entry/exit/assistance and loading/balance review, actual demonstrations/observations. S2 orientation-aware inference remains mandatory for any inversion inference; S1 alone prohibited."
+    }
+  ],
+  "implementation_sequence": [
+    {
+      "step": 1,
+      "deliverable": "Approve first course/variant/equipment/learner boundary per domain and budget if paid production/review is needed. Keep all new content draft until evidence exists."
+    },
+    {
+      "step": 2,
+      "deliverable": "App-local new course JSONs under content/courses/ with unique IDs; EN/TR objective, three steps (or explicit schema extension), practice, selfCheck, adaptation, stop, sourceIds, prerequisites, mediaBrief; evidenceMode remains self_report. Experts author/review exercise and health/safety assertions; software cannot validate them."
+    },
+    {
+      "step": 3,
+      "deliverable": "Extend app-owned CalisthenicsCourse supported-ID/count validation and ContentRepository course registry, app-owned generator and per-course integrity manifest. Add catalogueGuides only for the exact course/movement/kind. Preserve existing IDs, account-scoped progress and reading-only Seen semantics. No shared Motion Core edits."
+    },
+    {
+      "step": 4,
+      "deliverable": "For each media slot, bind exact reviewed script/variant/equipment and source/rights/performer consent to an actual local asset with SHA/size/format. Satisfy existing lesson_media.dart candidate/index/spec validation. Production media catalog stays empty until real approved assets exist; 392 source briefs cannot substitute."
+    },
+    {
+      "step": 5,
+      "deliverable": "Validate course references/prerequisites, EN/TR layouts, source/integrity drift, media missing/corrupt/wrong-ID behavior, reading-only vs physical progress and account isolation. Run existing app/engine/content gates; in the exclusive native window verify configured production boot and synthetic file save/reopen."
+    },
+    {
+      "step": 6,
+      "deliverable": "Attach reviewer identity/date and exact source+media hashes with observed learner setup/correction/exit evidence. Only then review physical teaching acceptance; camera motion, IAP and real hardware need their own evidence. No automatic skill mastery or camera promotion from self-report."
+    }
+  ],
+  "morning_decisions": [
+    "Initial exact scope and variants for each missing domain",
+    "Qualified reviewer and equipment/media production plan",
+    "Separate approval for new production/review costs, access/identities/keys or large structural expansion"
+  ],
+  "not_blocked_by_morning_decision": "233 catalogue translations, ordinary UI/correctness fixes and existing source/test acceptance completed independently."
+}
