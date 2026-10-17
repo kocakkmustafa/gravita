@@ -9,7 +9,7 @@
   "playStore": {
     "shortDescription": "Sıralı calisthenics dersleriyle çalış; kendi hızında ilerlemeni kaydet."
   },
-  "description": "Gravita, 10 modülde 56 özgün Türkçe ve İngilizce calisthenics dersi sunar. Hazırlık, vücut ağırlığıyla çömelme ve kalça menteşesi, kademeli itiş ve çekiş, merkez bölge kontrolü, denge ve çalışma planını öğren. Ekipman gerektiren dersler kurulumu ve seçenekleri açıklar. İleri beceri dersleri riskli denemeyi zorunlu kılmadan önkoşulları ve gözetimi anlatır.\n\nÖzgün metin derslerini oku, uygulama görevlerini takip et, kendi çalışmanı değerlendir ve cihazdaki ders kaydından devam et. Hesabın olmadan kataloğu gezebilir, isteğe bağlı ortak Motion hesabını kullanabilirsin. Hesap; e-posta, hesap kimliği ve eklediysen görünen adını kullanır; uygulamadan hesap silme isteği yapabilirsin. Kurs kayıtları cihazda mevcut konuk veya hesap kapsamında kalır. Ders bitirme ustalık belgesi değildir. Bu içerik hazırlığı sürümünde gösterim videosu bulunmaz.\n\nKurs ilerlemesi kendi çalışma kaydındır. Kamera koçluğu, hareket form puanı ve abonelik satışı açık değildir. Genel uyarlamalar kişisel sağlık uygunluğu kararı vermez.",
+  "description": "Gravita, 10 modülde 56 özgün Türkçe ve İngilizce calisthenics dersi sunar. Hazırlık, vücut ağırlığıyla çömelme ve kalça menteşesi, kademeli itiş ve çekiş, merkez bölge kontrolü, denge ve çalışma planını öğren. Ekipman gerektiren dersler kurulumu ve seçenekleri açıklar. İleri beceri dersleri riskli denemeyi zorunlu kılmadan önkoşulları ve gözetimi anlatır.\n\nÖzgün metin derslerini oku, uygulama görevlerini takip et, kendi çalışmanı değerlendir ve cihazdaki ders kaydından devam et. Hesabın olmadan kataloğu gezebilir, isteğe bağlı ortak Motion hesabını kullanabilirsin. Hesap; e-posta, hesap kimliği ve eklediysen görünen adını kullanır; uygulamadan hesap silme isteği yapabilirsin. Kurs kayıtları cihazda mevcut konuk veya hesap kapsamında kalır. Ders bitirme ustalık belgesi değildir. Bu içerik hazırlığı sürümünde gösterim videosu bulunmaz.\n\nKurs ilerlemesi kendi çalışma kaydındır. Kamera koçluğu, hareket form puanı ve abonelik satışı açık değildir. Genel uyarlamalar kişisel sağlık uygunluğu kararı vermez.\n\nBu yerel aday mevcut DB/KB öğrenme yollarını ve her biri 12 dersli üç ayrı temel taslağı da içerir: barbell, alçak halka ve el desteği. Fiziksel görevler uzman incelemesi, izinli gösterimler ve öğrenci gözlemi bekler. Okuma ilerlemesi fiziksel pratiği açmaz veya hareketi doğrulamaz. Bu yeni görevlerde tekrar, faz ve referans geri bildirimi sonraki model kalibrasyonunu gerektirir. Ters duruş öğretimi veya model doğruluğu kabulü eklenmemiştir.",
   "cameraPermissionRationale": {
     "ios": "Gravita, tam tekrarları saymak ve tempoyu ölçmek için kamerayı kullanır. Video yalnızca bu cihazda işlenir; yüklenmez veya saklanmaz. Hareket, tekrar sayısı ve oturum süresi cihazda saklanır."
   },
@@ -26,5 +26,40 @@
     "physicalDeviceAccepted": false
   },
   "$sourceOfFacts": "Current course: content/courses/calisthenics.v1.json; its app-local UI and account-scoped practice store. Camera paid-access policy is unchanged. Readback of provider metadata is separate.",
-  "$notClaimed": "No independent skill/mastery outcome, physical-phone performance, clinical suitability, camera form grade or approved AI demonstration is asserted. This local content-preparation draft has not been uploaded."
+  "$notClaimed": "No independent skill/mastery outcome, physical-phone performance, clinical suitability, camera form grade or approved AI demonstration is asserted. This local content-preparation draft has not been uploaded.",
+  "$foundationPreparation20261017": {
+    "status": "local_draft_expert_demonstration_and_learner_acceptance_pending",
+    "assets": [
+      {
+        "path": "content/courses/barbell-foundations.v1.json",
+        "id": "barbell-foundations",
+        "lessons": 12,
+        "modules": 3,
+        "sha256": "26bf59026b2dccb9bf0e26ebe29beaeaa3ea2710806bb6f9e1cecf9c3010a19f",
+        "physicalTasks": 8,
+        "physicalPracticeOpen": false
+      },
+      {
+        "path": "content/courses/rings-foundations.v1.json",
+        "id": "rings-foundations",
+        "lessons": 12,
+        "modules": 3,
+        "sha256": "ef0eeabb5337e5712a6b732a876c7f9dc27f634b1d8a55af59d6ec0ce64ca907",
+        "physicalTasks": 8,
+        "physicalPracticeOpen": false
+      },
+      {
+        "path": "content/courses/hands-foundations.v1.json",
+        "id": "hand-support-foundations",
+        "lessons": 12,
+        "modules": 3,
+        "sha256": "52e6155436a26cfd6867af6d8805068ebb47b007ac0c8c50d1df6f7b2f7afbea",
+        "physicalTasks": 8,
+        "physicalPracticeOpen": false
+      }
+    ],
+    "newPhysicalAcceptance": false,
+    "modelTrainingDeferred": true,
+    "storeUploaded": false
+  }
 }

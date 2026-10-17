@@ -41,9 +41,23 @@ final class CalisthenicsSource {
   final CourseText? supports, doesNotSupport;
 }
 
+const foundationCourseIds = <String>{
+  'barbell-foundations',
+  'rings-foundations',
+  'hand-support-foundations',
+};
+
 final class CalisthenicsLesson {
   CalisthenicsLesson(Map<String, dynamic> json)
-    : id = json['id'] as String,
+    : progression = json['progression'] == null
+          ? null
+          : CourseText.parse(json['progression']),
+      regression = json['regression'] == null
+          ? null
+          : CourseText.parse(json['regression']),
+      rest = json['rest'] == null ? null : CourseText.parse(json['rest']),
+      movementTaskId = json['movementTaskId'] as String?,
+      id = json['id'] as String,
       title = CourseText.parse(json['title']),
       objective = CourseText.parse(json['objective']),
       steps = (json['steps'] as List)
@@ -61,8 +75,12 @@ final class CalisthenicsLesson {
       practiceType = json['practiceType'] as String,
       mediaBrief = CourseText.parse(json['mediaBrief']),
       recall = json['recall'] == null ? null : CourseText.parse(json['recall']),
-      correction = json['correction'] == null ? null : CourseText.parse(json['correction']),
-      answer = json['answer'] == null ? null : CourseText.parse(json['answer']) {
+      correction = json['correction'] == null
+          ? null
+          : CourseText.parse(json['correction']),
+      answer = json['answer'] == null
+          ? null
+          : CourseText.parse(json['answer']) {
     if (id.isEmpty ||
         (id.startsWith('dbkbh-') ? steps.length < 3 : steps.length != 3) ||
         selfCheck.length < 2 ||
@@ -75,6 +93,8 @@ final class CalisthenicsLesson {
       throw FormatException('Invalid lesson $id');
     }
   }
+  final CourseText? progression, regression, rest;
+  final String? movementTaskId;
   final String id;
   final CourseText title, objective, practice, adaptation, stop, mediaBrief;
   final CourseText? recall, correction, answer;
@@ -120,7 +140,18 @@ final class MovementLearningGuide {
 
 final class CalisthenicsCourse {
   CalisthenicsCourse._(Map<String, dynamic> json)
-    : id = json['id'] as String,
+    : reviewRequired = foundationCourseIds.contains(json['id']),
+      scope = json['scope'] == null ? null : CourseText.parse(json['scope']),
+      equipment = json['equipment'] == null
+          ? null
+          : CourseText.parse(json['equipment']),
+      entryCriteria = json['entryCriteria'] == null
+          ? null
+          : CourseText.parse(json['entryCriteria']),
+      exitCriteria = json['exitCriteria'] == null
+          ? null
+          : CourseText.parse(json['exitCriteria']),
+      id = json['id'] as String,
       version = json['version'] as String,
       title = CourseText.parse(json['title']),
       description = CourseText.parse(json['description']),
@@ -144,17 +175,50 @@ final class CalisthenicsCourse {
           )
           .toList(growable: false) {
     if (json['schemaVersion'] != 1 ||
-        !<String>['calisthenics-foundations', 'dbkb-written-foundations', 'dbkb-controlled-handling', 'dbkb-supported-transitions'].contains(id) ||
+        !(<String>{
+          'calisthenics-foundations',
+          'dbkb-written-foundations',
+          'dbkb-controlled-handling',
+          'dbkb-supported-transitions',
+          ...foundationCourseIds,
+        }).contains(id) ||
         version != '1.0.0' ||
         json['evidenceMode'] != 'self_report' ||
-        (id == 'calisthenics-foundations'
+        (reviewRequired
+            ? modules.length != 3 || lessons.length != 12
+            : id == 'calisthenics-foundations'
             ? modules.length != 10 || lessons.length != 56
             : id == 'dbkb-written-foundations'
-                ? modules.length != 4 || lessons.length != 12
-                : id == 'dbkb-controlled-handling'
-                    ? modules.length != 1 || lessons.length != 11
-                    : modules.length != 1 || lessons.length != 2)) {
+            ? modules.length != 4 || lessons.length != 12
+            : id == 'dbkb-controlled-handling'
+            ? modules.length != 1 || lessons.length != 11
+            : modules.length != 1 || lessons.length != 2)) {
       throw const FormatException('Unsupported calisthenics course');
+    }
+    if (reviewRequired) {
+      final prefix = switch (id) {
+        'barbell-foundations' => 'barbell',
+        'rings-foundations' => 'rings',
+        _ => 'hands',
+      };
+      if (json['reviewStatus'] != 'expert_review_required' ||
+          scope == null ||
+          equipment == null ||
+          entryCriteria == null ||
+          exitCriteria == null ||
+          catalogueGuides.isNotEmpty ||
+          lessons.asMap().entries.any(
+            (entry) =>
+                entry.value.id !=
+                    '$prefix-${(entry.key + 1).toString().padLeft(2, '0')}' ||
+                entry.value.movementTaskId != 'gravita:${entry.value.id}' ||
+                entry.value.progression == null ||
+                entry.value.regression == null ||
+                entry.value.rest == null ||
+                entry.value.learningOnly != !(entry.key >= 2 && entry.key < 10),
+          )) {
+        throw const FormatException('Invalid draft foundation boundary');
+      }
     }
     final Set<String> sourceKeys = sources.map((s) => s.id).toSet();
     final Set<String> moduleKeys = modules.map((m) => m.id).toSet();
@@ -178,32 +242,53 @@ final class CalisthenicsCourse {
     }
     if (id == 'dbkb-written-foundations' &&
         (catalogueGuides.isNotEmpty ||
-         lessons.any((lesson) => !lesson.id.startsWith('dbkb-') ||
-             lesson.recall == null || lesson.correction == null || lesson.answer == null) ||
-         lessons.where((lesson) => !lesson.learningOnly).map((lesson) => lesson.id).join(',') !=
-             'dbkb-04,dbkb-05,dbkb-08,dbkb-10,dbkb-11')) {
+            lessons.any(
+              (lesson) =>
+                  !lesson.id.startsWith('dbkb-') ||
+                  lesson.recall == null ||
+                  lesson.correction == null ||
+                  lesson.answer == null,
+            ) ||
+            lessons
+                    .where((lesson) => !lesson.learningOnly)
+                    .map((lesson) => lesson.id)
+                    .join(',') !=
+                'dbkb-04,dbkb-05,dbkb-08,dbkb-10,dbkb-11')) {
       throw const FormatException('Invalid DB/KB written course boundary');
     }
     if (id == 'dbkb-controlled-handling' &&
         (catalogueGuides.isNotEmpty ||
-         lessons.map((l) => l.id).join(',') !=
-             'dbkbh-scope,dbkbh-a,dbkbh-bkb,dbkbh-bdb,dbkbh-c,dbkbh-d,dbkbh-e,dbkbh-f,dbkbh-g,dbkbh-h,dbkbh-i' ||
-         lessons.any((l) => !l.learningOnly || l.recall == null ||
-             l.correction == null || l.answer == null))) {
+            lessons.map((l) => l.id).join(',') !=
+                'dbkbh-scope,dbkbh-a,dbkbh-bkb,dbkbh-bdb,dbkbh-c,dbkbh-d,dbkbh-e,dbkbh-f,dbkbh-g,dbkbh-h,dbkbh-i' ||
+            lessons.any(
+              (l) =>
+                  !l.learningOnly ||
+                  l.recall == null ||
+                  l.correction == null ||
+                  l.answer == null,
+            ))) {
       throw const FormatException('Invalid DB/KB handling learning boundary');
     }
     if (id == 'dbkb-supported-transitions' &&
         (catalogueGuides.isNotEmpty ||
-         lessons.map((l) => l.id).join(',') !=
-             'dbkbt-supported-goblet,dbkbt-single-kb-floor-press' ||
-         lessons.any((l) => !l.learningOnly || l.recall == null ||
-             l.correction == null || l.answer == null))) {
-      throw const FormatException('Invalid DB/KB transitions learning boundary');
+            lessons.map((l) => l.id).join(',') !=
+                'dbkbt-supported-goblet,dbkbt-single-kb-floor-press' ||
+            lessons.any(
+              (l) =>
+                  !l.learningOnly ||
+                  l.recall == null ||
+                  l.correction == null ||
+                  l.answer == null,
+            ))) {
+      throw const FormatException(
+        'Invalid DB/KB transitions learning boundary',
+      );
     }
-    if (id == 'calisthenics-foundations' && modules
-        .singleWhere((m) => m.id == 'literacy')
-        .lessons
-        .any((l) => !l.learningOnly)) {
+    if (id == 'calisthenics-foundations' &&
+        modules
+            .singleWhere((m) => m.id == 'literacy')
+            .lessons
+            .any((l) => !l.learningOnly)) {
       throw const FormatException(
         'Advanced skill literacy must not require physical practice',
       );
@@ -223,6 +308,11 @@ final class CalisthenicsCourse {
   }
   factory CalisthenicsCourse.parse(String text) =>
       CalisthenicsCourse._((jsonDecode(text) as Map).cast<String, dynamic>());
+  final bool reviewRequired;
+  final CourseText? scope, equipment, entryCriteria, exitCriteria;
+  bool practiceHeld(CalisthenicsLesson lesson) =>
+      reviewRequired &&
+      !lessons.singleWhere((item) => item.id == lesson.id).learningOnly;
   final String id, version;
   final CourseText title, description, healthNotice;
   final List<CalisthenicsSource> sources;

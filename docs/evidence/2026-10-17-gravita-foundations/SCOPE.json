@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "sourceBase": "4ccaffd8bf68b438f5412bafe5dbf9296f95aca8",
+  "tasks": [
+    {
+      "path": "content/courses/barbell-foundations.v1.json",
+      "id": "barbell-foundations",
+      "lessons": 12,
+      "modules": 3,
+      "sha256": "26bf59026b2dccb9bf0e26ebe29beaeaa3ea2710806bb6f9e1cecf9c3010a19f",
+      "physicalTasks": 8,
+      "physicalPracticeOpen": false
+    },
+    {
+      "path": "content/courses/rings-foundations.v1.json",
+      "id": "rings-foundations",
+      "lessons": 12,
+      "modules": 3,
+      "sha256": "ef0eeabb5337e5712a6b732a876c7f9dc27f634b1d8a55af59d6ec0ce64ca907",
+      "physicalTasks": 8,
+      "physicalPracticeOpen": false
+    },
+    {
+      "path": "content/courses/hands-foundations.v1.json",
+      "id": "hand-support-foundations",
+      "lessons": 12,
+      "modules": 3,
+      "sha256": "52e6155436a26cfd6867af6d8805068ebb47b007ac0c8c50d1df6f7b2f7afbea",
+      "physicalTasks": 8,
+      "physicalPracticeOpen": false
+    }
+  ],
+  "training": "deferred_by_user",
+  "physicalReview": "pending",
+  "firstPartyVideoReceived": false,
+  "fullTeachingAccepted": false,
+  "sharedCoreChanged": false,
+  "runtimeBoundary": "App-owned interface and technical synthetic flow; real calibrated provider and accepted media delivery pending",
+  "scopeSelection": "Approved directly by user: recommended healthy adult beginner equipment scope",
+  "coreCompatibility": "CORE-COMPATIBILITY.tr.txt; a9b9f2c read-only reviewed; no pin upgrade"
+}

@@ -9,6 +9,7 @@ import 'calisthenics_course.dart';
 import 'calisthenics_progress.dart';
 import 'calisthenics_knowledge_diagrams.dart';
 import 'content_repository.dart';
+import 'motion_observation.dart';
 import 'lesson_media.dart';
 import 'theme.dart';
 
@@ -206,11 +207,13 @@ class CalisthenicsCourseScreen extends StatefulWidget {
   const CalisthenicsCourseScreen({
     required this.course,
     this.preparationCourse,
+    this.modelManifest,
     this.storeLoader,
     super.key,
   });
   final CalisthenicsCourse course;
   final CalisthenicsCourse? preparationCourse;
+  final MotionModelManifest? modelManifest;
   final CalisthenicsStoreLoader? storeLoader;
   @override
   State<CalisthenicsCourseScreen> createState() =>
@@ -220,11 +223,13 @@ class CalisthenicsCourseScreen extends StatefulWidget {
 class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
     with _CourseIdentity<CalisthenicsCourseScreen> {
   @override
-  CalisthenicsStoreLoader get loader => widget.storeLoader ??
+  CalisthenicsStoreLoader get loader =>
+      widget.storeLoader ??
       (widget.course.id == 'calisthenics-foundations'
           ? _defaultLoader
           : (String? userId) => ContentRepository.openCalisthenicsProgressStore(
-              accountUserId: userId, courseId: widget.course.id,
+              accountUserId: userId,
+              courseId: widget.course.id,
             ));
   @override
   Future<CalisthenicsProgress> readStore(CalisthenicsProgressStore value) =>
@@ -236,6 +241,7 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
           course: widget.course,
           lesson: lesson,
           preparationCourse: widget.preparationCourse,
+          modelManifest: widget.modelManifest,
           storeLoader: widget.storeLoader,
         ),
       ),
@@ -265,6 +271,13 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
             style: GravitaType.body(size: 15),
           ),
           const SizedBox(height: 18),
+          if (course.scope != null) ...[
+            Text(_text(context, course.scope!)),
+            Text(_text(context, course.equipment!)),
+            Text(_text(context, course.entryCriteria!)),
+            Text(_text(context, course.exitCriteria!)),
+            const SizedBox(height: 18),
+          ],
           GravitaCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -383,6 +396,7 @@ class CalisthenicsLessonScreen extends StatefulWidget {
     required this.course,
     required this.lesson,
     this.preparationCourse,
+    this.modelManifest,
     this.storeLoader,
     this.now,
     super.key,
@@ -390,6 +404,7 @@ class CalisthenicsLessonScreen extends StatefulWidget {
   final CalisthenicsCourse course;
   final CalisthenicsLesson lesson;
   final CalisthenicsCourse? preparationCourse;
+  final MotionModelManifest? modelManifest;
   final CalisthenicsStoreLoader? storeLoader;
   final DateTime Function()? now;
   @override
@@ -442,11 +457,13 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
   }
 
   @override
-  CalisthenicsStoreLoader get loader => widget.storeLoader ??
+  CalisthenicsStoreLoader get loader =>
+      widget.storeLoader ??
       (widget.course.id == 'calisthenics-foundations'
           ? _defaultLoader
           : (String? userId) => ContentRepository.openCalisthenicsProgressStore(
-              accountUserId: userId, courseId: widget.course.id,
+              accountUserId: userId,
+              courseId: widget.course.id,
             ));
   @override
   Future<CalisthenicsProgress> readStore(CalisthenicsProgressStore value) =>
@@ -584,6 +601,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
   Widget build(BuildContext context) {
     final lesson = widget.lesson;
     final record = progress.forLesson(lesson, widget.course.version);
+    final practiceHeld = widget.course.practiceHeld(lesson);
     final practised = (record?.practiceCount ?? 0) > 0;
     final enoughPracticeReports =
         lesson.learningOnly || (record?.practiceCount ?? 0) >= 2;
@@ -629,17 +647,40 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
               key: const Key('dbkb.lesson.preparation.cal-04'),
               onPressed: () {
                 final preparation = widget.preparationCourse!;
-                Navigator.of(context).push<void>(MaterialPageRoute<void>(
-                  builder: (_) => CalisthenicsLessonScreen(
-                    course: preparation,
-                    lesson: preparation.lessons.singleWhere((l) => l.id == 'cal-04'),
+                Navigator.of(context).push<void>(
+                  MaterialPageRoute<void>(
+                    builder: (_) => CalisthenicsLessonScreen(
+                      course: preparation,
+                      lesson: preparation.lessons.singleWhere(
+                        (l) => l.id == 'cal-04',
+                      ),
+                    ),
                   ),
-                ));
+                );
               },
-              child: Text(localized(context,
-                'Open the existing preparation lesson',
-                'Mevcut hazırlık dersini aç')),
+              child: Text(
+                localized(
+                  context,
+                  'Open the existing preparation lesson',
+                  'Mevcut hazırlık dersini aç',
+                ),
+              ),
             ),
+          if (lesson.movementTaskId != null)
+            section('Movement observation', 'Hareket gözlemi', <String>[
+              widget.modelManifest?.readinessFor(lesson.movementTaskId!) ==
+                      ObservationStatus.calibrationRequired
+                  ? localized(
+                      context,
+                      'Calibration required. Repetition, phase and reference feedback are unavailable for this task. Training will be added in a later update; your reading progress stays separate.',
+                      'Kalibrasyon gerekli. Bu görevde tekrar, faz ve referans geri bildirimi kullanılamıyor. Eğitim sonraki güncellemede eklenecek; okuma ilerlemen ayrı kalır.',
+                    )
+                  : localized(
+                      context,
+                      'Movement observation is unsupported for this lesson in this version.',
+                      'Bu sürümde bu ders için hareket gözlemi desteklenmiyor.',
+                    ),
+            ], sealed: true),
           if (lesson.learningOnly)
             section('Learning task', 'Öğrenme görevi', <String>[
               localized(
@@ -648,7 +689,21 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                 'Fiziksel deneme gerekli değil. Yazılı veya şema görevini çalış.',
               ),
             ], sealed: true),
-          if (requiresPreparation)
+          if (practiceHeld)
+            section(
+              'Physical practice awaiting review',
+              'Fiziksel pratik inceleme bekliyor',
+              <String>[
+                _text(context, widget.course.healthNotice),
+                localized(
+                  context,
+                  'Reading is available. No physical task report or completion can be saved yet.',
+                  'Okuma açık. Henüz fiziksel görev bildirimi veya tamamlaması kaydedilemez.',
+                ),
+              ],
+              sealed: true,
+            ),
+          if (requiresPreparation && !practiceHeld)
             GravitaCard(
               sealed: true,
               child: Column(
@@ -716,14 +771,16 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
             for (var i = 0; i < lesson.steps.length; i++)
               '${i + 1}. ${_text(context, lesson.steps[i])}',
           ]),
-          if (widget.course.id == 'calisthenics-foundations') LessonMediaSlot.empty(
-            key: const Key('calisthenics.lesson.media'),
-            course: widget.course,
-            lessonId: lesson.id,
-            locale: Localizations.localeOf(context).languageCode,
-            accountUserId: AccountScope.maybeOf(context)?.connection?.userId,
-          ),
-          if (widget.course.id == 'dbkb-written-foundations' ||
+          if (widget.course.id == 'calisthenics-foundations')
+            LessonMediaSlot.empty(
+              key: const Key('calisthenics.lesson.media'),
+              course: widget.course,
+              lessonId: lesson.id,
+              locale: Localizations.localeOf(context).languageCode,
+              accountUserId: AccountScope.maybeOf(context)?.connection?.userId,
+            ),
+          if (widget.course.reviewRequired ||
+              widget.course.id == 'dbkb-written-foundations' ||
               widget.course.id == 'dbkb-controlled-handling' ||
               widget.course.id == 'dbkb-supported-transitions')
             section('Demonstration boundary', 'Gösterim sınırı', <String>[
@@ -749,36 +806,65 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
             lesson.selfCheck.map((c) => _text(context, c)).toList(),
           ),
           if (lesson.recall != null) ...<Widget>[
-            section('Recall before revealing the answer', 'Yanıtı açmadan hatırla', <String>[
-              _text(context, lesson.recall!),
-            ]),
-            section('One correction and retest', 'Tek düzeltme ve yeniden deneme', <String>[
-              requiresPreparation && !preparedThisSession
-                  ? localized(context,
-                      'Read and answer in words now. Physical correction/retest opens only after session preparation; keep every attempt unloaded.',
-                      'Şimdi oku ve sözle yanıtla. Fiziksel düzeltme/yeniden deneme yalnız oturum hazırlığından sonra açılır; her deneme yüksüz kalsın.')
-                  : _text(context, lesson.correction!),
-            ]),
+            section(
+              'Recall before revealing the answer',
+              'Yanıtı açmadan hatırla',
+              <String>[_text(context, lesson.recall!)],
+            ),
+            section(
+              'One correction and retest',
+              'Tek düzeltme ve yeniden deneme',
+              <String>[
+                requiresPreparation && !preparedThisSession
+                    ? localized(
+                        context,
+                        'Read and answer in words now. Physical correction/retest opens only after session preparation; keep every attempt unloaded.',
+                        'Şimdi oku ve sözle yanıtla. Fiziksel düzeltme/yeniden deneme yalnız oturum hazırlığından sonra açılır; her deneme yüksüz kalsın.',
+                      )
+                    : _text(context, lesson.correction!),
+              ],
+            ),
             TextButton(
               key: const Key('dbkb.answer.toggle'),
               onPressed: requiresPreparation && !preparedThisSession
                   ? null
                   : () => setState(() => answerVisible = !answerVisible),
-              child: Text(localized(context,
-                answerVisible ? 'Hide answer' : 'I answered — compare reasoning',
-                answerVisible ? 'Yanıtı gizle' : 'Yanıtladım — gerekçeyi karşılaştır')),
+              child: Text(
+                localized(
+                  context,
+                  answerVisible
+                      ? 'Hide answer'
+                      : 'I answered — compare reasoning',
+                  answerVisible
+                      ? 'Yanıtı gizle'
+                      : 'Yanıtladım — gerekçeyi karşılaştır',
+                ),
+              ),
             ),
             if (answerVisible && (!requiresPreparation || preparedThisSession))
               KeyedSubtree(
                 key: const Key('dbkb.answer.content'),
-                child: section('Compare after your answer', 'Yanıtından sonra karşılaştır', <String>[
-                _text(context, lesson.answer!),
-              ]),
+                child: section(
+                  'Compare after your answer',
+                  'Yanıtından sonra karşılaştır',
+                  <String>[_text(context, lesson.answer!)],
+                ),
               ),
           ],
           section('An easier path', 'Daha kolay yol', <String>[
             _text(context, lesson.adaptation),
           ]),
+          if (lesson.progression != null) ...[
+            section('Progression', 'İlerleme seçeneği', [
+              _text(context, lesson.progression!),
+            ]),
+            section('Regression', 'Kolaylaştırma', [
+              _text(context, lesson.regression!),
+            ]),
+            section('Rest and recovery', 'Dinlenme ve toparlanma', [
+              _text(context, lesson.rest!),
+            ]),
+          ],
           section('When to stop', 'Ne zaman durmalı', <String>[
             _text(context, lesson.stop),
           ], sealed: true),
@@ -814,6 +900,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                     onPressed:
                         store == null ||
                             saving ||
+                            practiceHeld ||
                             reportedThisVisit ||
                             (requiresPreparation && !preparedThisSession)
                         ? null
@@ -852,6 +939,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                     onPressed:
                         store == null ||
                             saving ||
+                            practiceHeld ||
                             !confirmed ||
                             !practised ||
                             !enoughPracticeReports ||

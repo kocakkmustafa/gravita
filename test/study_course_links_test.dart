@@ -74,6 +74,7 @@ void main() {
         for (final entry in {
           'bodyweight': content.calisthenicsCourse,
           'dbkb': content.dbkbCourse,
+          ...content.foundationCourses,
         }.entries) {
           await tapVisible(t, 'study-course-${entry.key}');
           expect(
@@ -87,10 +88,6 @@ void main() {
           );
           await t.tap(find.byType(BackButton));
           await t.pumpAndSettle();
-        }
-        // No dedicated course is fabricated for the three still missing areas.
-        for (final area in ['barbell', 'rings', 'hands']) {
-          expect(find.byKey(Key('study-course-$area')), findsNothing);
         }
         expect(t.takeException(), isNull);
       },

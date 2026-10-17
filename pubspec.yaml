@@ -133,6 +133,11 @@ flutter:
     # ARTIK var — "beyan var, okuyanı yok" satırı bu turda kapandı.
     - content/programs/foundation.v1.json
     - content/courses/calisthenics.v1.json
+    - content/courses/barbell-foundations.v1.json
+    - content/courses/rings-foundations.v1.json
+    - content/courses/hands-foundations.v1.json
+    - content/motion_content/foundations.manifest.json
+    - content/models/gravita-observation.v1.json
     - content/courses/dbkb-written.v1.json
     - content/courses/dbkb-transitions.v1.json
     - content/motion_content/dbkb-transitions.manifest.json

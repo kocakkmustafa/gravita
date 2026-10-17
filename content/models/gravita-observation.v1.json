@@ -1,0 +1,444 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "appId": "com.yulalab.gravita",
+  "contract": "gravita.observation.v1",
+  "providerId": "gravita.pose-phase.v1",
+  "poseSha256": "5134a3aad27a58b93da0088d431f366da362b44e3ccfbe3462b3827a839011b1",
+  "calibrationStatus": "pending",
+  "calibrationSha256": null,
+  "tasks": [
+    {
+      "id": "gravita:barbell-01",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:barbell-02",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:barbell-03",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:barbell-04",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:barbell-05",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:barbell-06",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:barbell-07",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:barbell-08",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:barbell-09",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:barbell-10",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:barbell-11",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:barbell-12",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:rings-01",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:rings-02",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:rings-03",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:rings-04",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:rings-05",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:rings-06",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:rings-07",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:rings-08",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:rings-09",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:rings-10",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:rings-11",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:rings-12",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:hands-01",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:hands-02",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:hands-03",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:hands-04",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:hands-05",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:hands-06",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:hands-07",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:hands-08",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:hands-09",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:hands-10",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:hands-11",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    },
+    {
+      "id": "gravita:hands-12",
+      "inverted": false,
+      "orientationAware": true,
+      "phases": [
+        "entry",
+        "task",
+        "exit"
+      ],
+      "referenceSha256": null,
+      "minimumConfidence": null
+    }
+  ]
+}

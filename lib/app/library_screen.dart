@@ -8,6 +8,7 @@ import 'catalog_copy_tr.dart';
 import 'content_repository.dart';
 import 'calisthenics_course_screen.dart';
 import 'dbkb_course_entry.dart';
+import 'foundation_course_entry.dart';
 import 'library_model.dart';
 import 'library_strings.dart';
 import 'movement_page.dart';
@@ -94,6 +95,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
           CalisthenicsEntryCard(content: widget.content),
           const SizedBox(height: 10),
           DbkbEntryCard(content: widget.content),
+          const SizedBox(height: 10),
+          FoundationCourseEntry(content: widget.content),
           const SizedBox(height: 10),
           Text(
             localized(

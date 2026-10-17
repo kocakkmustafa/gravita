@@ -64,3 +64,10 @@ deseniyle birebir aynı çerçeve.
 `2F59E2DB-8F02-4D24-BAD6-8313576FAB98`, iPhone 16), `mcp__Claude_Code_iOS_Simulator__control`
 `screenshot` eylemiyle. `attach`/`detach` ÇAĞRILMADI (H-46: panel paylaşımlı, cihaz-kapsamlı
 `screenshot` güvenli).
+
+
+## 17 Ekim 2026 · yeni yerel kaynak adayı
+
+EN/TR JSON taslaklarına mevcut DB/KB yolları ve üç ayrı 12 dersli temel kurs taslağı eklendi: barbell, alçak halka, el desteği. 56 calisthenics dersi değişmedi. Yeni 24 fiziksel görev uzman incelemesi, özgün izinli gösterim ve gözlenmiş öğrenci kabulü bekler; okuma bu kapıları açmaz. Yeni görevlerde kalibrasyon tamamlanmadan tekrar/faz/referans ölçümü yoktur. Eğitim sonraki sürüme bırakılmıştır.
+
+Bu yerel ek ASC'ye yazılmadı. 17 Ekim canlı ASC sürümü 1.0.0 / Prepare for Submission, build yok. Final paket, fiziksel cihaz, gerçek hesap/IAP, gizlilik ve yayın kararı açık. Tarihsel screenshotlar yeni 36 dersi göstermez; yeni ekran kabulü ayrıca yapılır.

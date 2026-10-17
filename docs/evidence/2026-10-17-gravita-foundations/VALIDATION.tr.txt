@@ -1,0 +1,15 @@
+Gravita — yerel teknik doğrulama, 17 Ekim 2026
+
+Kaynak tabanı: 4ccaffd8bf68b438f5412bafe5dbf9296f95aca8. Bu commit yalnız Gravita dosyalarını değiştirir. Core ve engine pinleri, lockfile ve mevcut bodyweight/DB-KB kursları korunur.
+
+Donmuş 21 kod/içerik/test/gate dosyası: task-12/frozen-source.json. Final seri flutter test --no-pub --concurrency=1 --reporter expanded: 752/752 PASS (app-frozen-final.log). flutter analyze --no-pub: No issues found (analyze-frozen.log). İçerik manifest --check, EN/TR mağaza iddia/hash ve ağ sınırı kapıları PASS. run_all_gates.sh sözdizimi ve git diff --check PASS. Engine değişmedi; eski testler veya Core 19+207/15 testleri bu sonuca eklenmedi.
+
+Önceki başarısız derleme/widget denemeleri ve eski compiler cache ile karışan test koşusu task-12 içinde saklıdır. Düzeltme sonrasında kaynak donduruldu ve 752 test kesintisiz tek koşuda geçti. Sonuç yalnız son donmuş kaynağa aittir.
+
+EN/TR üç yeni kurs için 320px / 2x yazı ölçekli host render: 6/6 PASS; task-12/ui/*-HOST-320px-2x.png. Bunlar Flutter host görüntüsüdür, native veya fiziksel cihaz kanıtı değildir. Adapter testindeki provider ve pose akışı izole sentetiktir; hareket doğruluğu veya gerçek model kalibrasyonu değildir.
+
+İlk iOS release derlemesi, ağ kapalı/no-pub/no-codesign ile PASS (native-ios-result.json). Bu ilk derlemede public hesap build tanımları verilmedi; üretim boot kabulü ve signed IPA değildir. Güncel commit için yapılandırılmış, mevcut imzalarla yerel paket denemelerinin sonucu task-12/RESULT.json ve release-manifest.json altında ayrı tutulur; tarihsel IPA/AAB güncel kaynak kabul edilmez.
+
+Güncel oturum salt okunur: ASC 6794714365 / 1.0.0 Prepare for Submission, seçili build yok; npm web yulalab oturumu açık (CLI yetkisi değil); Sentry issue görünür. Metadata, sözleşme, upload, provider çağrısı, ücretli CI veya deploy yapılmadı.
+
+Açık kabul kapıları ACCEPTANCE.tr.txt içinde. Kullanıcı kapsam kararı uzman onayı değildir; yeni fiziksel görevler ve model ölçümü kapalıdır. Gerçek hesap/IAP, fiziksel cihaz/runtime, orijinal medya, eğitim/kalibrasyon, bağımsız holdout ve final yayın kararı açık. Yayına hazır iddiası yoktur.

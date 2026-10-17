@@ -9,7 +9,7 @@
   "playStore": {
     "shortDescription": "Build bodyweight practice with progressive lessons and a local progress path."
   },
-  "description": "Gravita offers 56 original English and Turkish calisthenics lessons across 10 modules. Learn preparation, bodyweight squats and hinges, progressive pushing and pulling, core control, balance and session planning. Equipment-dependent tasks explain setup and alternatives. Advanced skill lessons explain prerequisites and supervision rather than requiring risky attempts.\n\nRead original text lessons, follow practice tasks, review your own practice and continue from your local lesson record. You can browse without signing in and use an optional shared Motion account. The account uses your email address, account ID and optional display name; account deletion is available in the app. Course records stay on the device within the current guest or account scope. No lesson completion certifies mastery. Demonstration video is not included in this content preparation version.\n\nCourse progress is your own practice record. Camera coaching, exercise form grades and subscription sales are not open. General adaptations do not determine personal health suitability.",
+  "description": "Gravita offers 56 original English and Turkish calisthenics lessons across 10 modules. Learn preparation, bodyweight squats and hinges, progressive pushing and pulling, core control, balance and session planning. Equipment-dependent tasks explain setup and alternatives. Advanced skill lessons explain prerequisites and supervision rather than requiring risky attempts.\n\nRead original text lessons, follow practice tasks, review your own practice and continue from your local lesson record. You can browse without signing in and use an optional shared Motion account. The account uses your email address, account ID and optional display name; account deletion is available in the app. Course records stay on the device within the current guest or account scope. No lesson completion certifies mastery. Demonstration video is not included in this content preparation version.\n\nCourse progress is your own practice record. Camera coaching, exercise form grades and subscription sales are not open. General adaptations do not determine personal health suitability.\n\nThis local candidate also includes the existing DB/KB learning paths and three separate foundation drafts: barbell, low rings and hand support, with 12 lessons each. Their physical tasks await expert review, permitted demonstrations and learner observation. Reading progress does not unlock physical practice or validate movement. Repetition, phase and reference feedback for these new tasks require later model calibration. No inversion instruction or model-accuracy acceptance is added.",
   "$claimAuditWhy": "F4/D6 taslagi (2026-08-16, orkestrator sevki: H-46 uyarinca attach/detach cagrilmadan, yalniz cihaz-kapsamli screenshot). Hicbir cumle sifirdan pazarlama dili degil — uygulamanin KENDI zaten G-212/G-213'te bir kez yalan soyleyip DUZELTILMIS metinlerinden turetildi (asagidaki alan-bazli $-notlar). 'Graded'/'scored'/'coach' gibi asiri-vaat kelimeleri KULLANILMADI (G-213'un kapattigi tam o sinif).",
   "$whatItDoesWhy": "lib/app/onboarding_strings.dart OnboardingStrings.valueWhatWeDo (G-213, bir kez yalan soyleyip duzeltilmis, bugun dogrulugu olculu): 'Your phone camera counts your reps, on-device, and only counts one when it can see you are really doing the movement. It does not grade your form, and nothing corrects you while you train.' Birebir aktarildi, degistirilmedi.",
   "$whatItDoesntWhy": "AYNI dosya, OnboardingStrings.valueWhatWeDont: 'Not medical. Not a substitute for a coach. We cannot stop you from falling.' Birebir.",
@@ -48,5 +48,40 @@
     "mediaIncluded": false,
     "physicalDeviceAccepted": false
   },
-  "$sourceOfFacts": "Current course: content/courses/calisthenics.v1.json; its app-local UI and account-scoped practice store. Camera paid-access policy is unchanged. Readback of provider metadata is separate."
+  "$sourceOfFacts": "Current course: content/courses/calisthenics.v1.json; its app-local UI and account-scoped practice store. Camera paid-access policy is unchanged. Readback of provider metadata is separate.",
+  "$foundationPreparation20261017": {
+    "status": "local_draft_expert_demonstration_and_learner_acceptance_pending",
+    "assets": [
+      {
+        "path": "content/courses/barbell-foundations.v1.json",
+        "id": "barbell-foundations",
+        "lessons": 12,
+        "modules": 3,
+        "sha256": "26bf59026b2dccb9bf0e26ebe29beaeaa3ea2710806bb6f9e1cecf9c3010a19f",
+        "physicalTasks": 8,
+        "physicalPracticeOpen": false
+      },
+      {
+        "path": "content/courses/rings-foundations.v1.json",
+        "id": "rings-foundations",
+        "lessons": 12,
+        "modules": 3,
+        "sha256": "ef0eeabb5337e5712a6b732a876c7f9dc27f634b1d8a55af59d6ec0ce64ca907",
+        "physicalTasks": 8,
+        "physicalPracticeOpen": false
+      },
+      {
+        "path": "content/courses/hands-foundations.v1.json",
+        "id": "hand-support-foundations",
+        "lessons": 12,
+        "modules": 3,
+        "sha256": "52e6155436a26cfd6867af6d8805068ebb47b007ac0c8c50d1df6f7b2f7afbea",
+        "physicalTasks": 8,
+        "physicalPracticeOpen": false
+      }
+    ],
+    "newPhysicalAcceptance": false,
+    "modelTrainingDeferred": true,
+    "storeUploaded": false
+  }
 }
