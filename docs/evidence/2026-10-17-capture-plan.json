@@ -1,0 +1,315 @@
+{
+  "date": "2026-10-17",
+  "full_teaching_goal_preserved": true,
+  "baseline": "a4c7639a07b8d7a481ea8caab7f5a488145525c6",
+  "shared_offline_intake": "ventures/motion-core/lib/tools/fixture_pipeline/first_party_capture.py",
+  "delivery_spec": "ventures/motion-core/lib/tools/fixture_pipeline/FIRST_PARTY_VIDEO_DELIVERY.tr.txt",
+  "areas": [
+    {
+      "app": "gravita",
+      "area": "bodyweight",
+      "title": "Yerde vücut ağırlığı kuvveti",
+      "courses": [
+        {
+          "path": "content/courses/calisthenics.v1.json",
+          "id": "calisthenics-foundations",
+          "version": "1.0.0",
+          "units": 56,
+          "sha256": "15930d335f377c9f48e1c7285f1c44e25973b9cccb3167fa99cc9b8599889502",
+          "bytes": 276531,
+          "lesson_ids": [
+            "cal-01",
+            "cal-02",
+            "cal-03",
+            "cal-04",
+            "cal-05",
+            "cal-06",
+            "cal-07",
+            "cal-08",
+            "cal-09",
+            "cal-10",
+            "cal-11",
+            "cal-12",
+            "cal-13",
+            "cal-14",
+            "cal-15",
+            "cal-16",
+            "cal-17",
+            "cal-18",
+            "cal-19",
+            "cal-20",
+            "cal-21",
+            "cal-22",
+            "cal-23",
+            "cal-24",
+            "cal-25",
+            "cal-26",
+            "cal-27",
+            "cal-28",
+            "cal-29",
+            "cal-30",
+            "cal-31",
+            "cal-32",
+            "cal-33",
+            "cal-34",
+            "cal-35",
+            "cal-36",
+            "cal-37",
+            "cal-38",
+            "cal-39",
+            "cal-40",
+            "cal-41",
+            "cal-42",
+            "cal-43",
+            "cal-44",
+            "cal-45",
+            "cal-46",
+            "cal-47",
+            "cal-48",
+            "cal-49",
+            "cal-50",
+            "cal-51",
+            "cal-52",
+            "cal-53",
+            "cal-54",
+            "cal-55",
+            "cal-56"
+          ]
+        }
+      ],
+      "current_baseline": "a4c7639a07b8d7a481ea8caab7f5a488145525c6",
+      "existing_architecture": "Existing pinned pose extractor → app movement JSON / rep, hold, multi-phase FSM and confidence/identity gates. Calibrate metric/phase/reference parameters on first-party clips; an optional identity/rejection classifier remains a separate research proposal, not a new backbone.",
+      "source_references": [
+        {
+          "path": "lib/app/pose_model.dart",
+          "sha256": "6a7ec44c8b9e36d8fdd024c271bb176e5b82c999fa9b22d16926b00343593601"
+        },
+        {
+          "path": "packages/gravita_engine/lib/src/rep_engine.dart",
+          "sha256": "6ff6ba9185b0560cc04bd5674751dd1295befadde5817dd941f0fe0f0f92d8cb"
+        },
+        {
+          "path": "packages/gravita_engine/lib/src/hold_engine.dart",
+          "sha256": "684a7336eb8a11da2344ab5f83fc21b0eeb5f32a4015984311720a9ca57caf70"
+        },
+        {
+          "path": "packages/gravita_engine/lib/src/movement_config.dart",
+          "sha256": "1b49f44a8b3926479f9fdd793347ebc5ca49fe4f30a4005847936eb604d6ef56"
+        }
+      ],
+      "next_operation": "Human teaching demonstration and annotation → exact pinned extraction/DSP replay → reference/rule calibration candidate → heldout evaluation → real-device parity. No runtime promotion in this change.",
+      "acceptance_gap": "Physical teaching/rights/learner and device evidence open; no first-party capture supplied.",
+      "first_party_data_received": false,
+      "trained": false,
+      "physical_or_device_validated": false
+    },
+    {
+      "app": "gravita",
+      "area": "dbkb",
+      "title": "DB/KB temelleri",
+      "courses": [
+        {
+          "path": "content/courses/dbkb-written.v1.json",
+          "id": "dbkb-written-foundations",
+          "version": "1.0.0",
+          "units": 12,
+          "sha256": "3b270b3bb340f313ebe8229bc2399253b83bf54e2a0229a63b8c2f0735ce3582",
+          "bytes": 63527,
+          "lesson_ids": [
+            "dbkb-01",
+            "dbkb-02",
+            "dbkb-03",
+            "dbkb-04",
+            "dbkb-05",
+            "dbkb-06",
+            "dbkb-07",
+            "dbkb-08",
+            "dbkb-09",
+            "dbkb-10",
+            "dbkb-11",
+            "dbkb-12"
+          ]
+        },
+        {
+          "path": "content/courses/dbkb-handling.v1.json",
+          "id": "dbkb-controlled-handling",
+          "version": "1.0.0",
+          "units": 11,
+          "sha256": "ebc137e9c0f41d789435f2300aa9ab5821318eeaf4e46ed9a4fe2d014c92c8cf",
+          "bytes": 145060,
+          "lesson_ids": [
+            "dbkbh-scope",
+            "dbkbh-a",
+            "dbkbh-bkb",
+            "dbkbh-bdb",
+            "dbkbh-c",
+            "dbkbh-d",
+            "dbkbh-e",
+            "dbkbh-f",
+            "dbkbh-g",
+            "dbkbh-h",
+            "dbkbh-i"
+          ]
+        },
+        {
+          "path": "content/courses/dbkb-transitions.v1.json",
+          "id": "dbkb-supported-transitions",
+          "version": "1.0.0",
+          "units": 2,
+          "sha256": "27aff671d91c56ccf6f342ce873f2cc6d4f43b0e6ca1189683a74868dbdf1d61",
+          "bytes": 49106,
+          "lesson_ids": [
+            "dbkbt-supported-goblet",
+            "dbkbt-single-kb-floor-press"
+          ]
+        }
+      ],
+      "current_baseline": "a4c7639a07b8d7a481ea8caab7f5a488145525c6",
+      "existing_architecture": "Existing pinned pose extractor → app movement JSON / rep, hold, multi-phase FSM and confidence/identity gates. Calibrate metric/phase/reference parameters on first-party clips; an optional identity/rejection classifier remains a separate research proposal, not a new backbone.",
+      "source_references": [
+        {
+          "path": "lib/app/pose_model.dart",
+          "sha256": "6a7ec44c8b9e36d8fdd024c271bb176e5b82c999fa9b22d16926b00343593601"
+        },
+        {
+          "path": "packages/gravita_engine/lib/src/rep_engine.dart",
+          "sha256": "6ff6ba9185b0560cc04bd5674751dd1295befadde5817dd941f0fe0f0f92d8cb"
+        },
+        {
+          "path": "packages/gravita_engine/lib/src/hold_engine.dart",
+          "sha256": "684a7336eb8a11da2344ab5f83fc21b0eeb5f32a4015984311720a9ca57caf70"
+        },
+        {
+          "path": "packages/gravita_engine/lib/src/movement_config.dart",
+          "sha256": "1b49f44a8b3926479f9fdd793347ebc5ca49fe4f30a4005847936eb604d6ef56"
+        }
+      ],
+      "next_operation": "Human teaching demonstration and annotation → exact pinned extraction/DSP replay → reference/rule calibration candidate → heldout evaluation → real-device parity. No runtime promotion in this change.",
+      "acceptance_gap": "Physical teaching/rights/learner and device evidence open; no first-party capture supplied.",
+      "first_party_data_received": false,
+      "trained": false,
+      "physical_or_device_validated": false
+    },
+    {
+      "app": "gravita",
+      "area": "barbell",
+      "title": "Barbell kuvvet temelleri",
+      "courses": [],
+      "current_baseline": "a4c7639a07b8d7a481ea8caab7f5a488145525c6",
+      "existing_architecture": "Existing pinned pose extractor → app movement JSON / rep, hold, multi-phase FSM and confidence/identity gates. Calibrate metric/phase/reference parameters on first-party clips; an optional identity/rejection classifier remains a separate research proposal, not a new backbone.",
+      "source_references": [
+        {
+          "path": "lib/app/pose_model.dart",
+          "sha256": "6a7ec44c8b9e36d8fdd024c271bb176e5b82c999fa9b22d16926b00343593601"
+        },
+        {
+          "path": "packages/gravita_engine/lib/src/rep_engine.dart",
+          "sha256": "6ff6ba9185b0560cc04bd5674751dd1295befadde5817dd941f0fe0f0f92d8cb"
+        },
+        {
+          "path": "packages/gravita_engine/lib/src/hold_engine.dart",
+          "sha256": "684a7336eb8a11da2344ab5f83fc21b0eeb5f32a4015984311720a9ca57caf70"
+        },
+        {
+          "path": "packages/gravita_engine/lib/src/movement_config.dart",
+          "sha256": "1b49f44a8b3926479f9fdd793347ebc5ca49fe4f30a4005847936eb604d6ef56"
+        }
+      ],
+      "next_operation": "Human teaching demonstration and annotation → exact pinned extraction/DSP replay → reference/rule calibration candidate → heldout evaluation → real-device parity. No runtime promotion in this change.",
+      "acceptance_gap": "Physical teaching/rights/learner and device evidence open; no first-party capture supplied. Dedicated beginner course/initial variant not selected; retain proposal-only scope. For inversion inference S2 remains mandatory; S1 alone prohibited.",
+      "first_party_data_received": false,
+      "trained": false,
+      "physical_or_device_validated": false
+    },
+    {
+      "app": "gravita",
+      "area": "rings",
+      "title": "Bar/halkada destek ve çekiş",
+      "courses": [],
+      "current_baseline": "a4c7639a07b8d7a481ea8caab7f5a488145525c6",
+      "existing_architecture": "Existing pinned pose extractor → app movement JSON / rep, hold, multi-phase FSM and confidence/identity gates. Calibrate metric/phase/reference parameters on first-party clips; an optional identity/rejection classifier remains a separate research proposal, not a new backbone.",
+      "source_references": [
+        {
+          "path": "lib/app/pose_model.dart",
+          "sha256": "6a7ec44c8b9e36d8fdd024c271bb176e5b82c999fa9b22d16926b00343593601"
+        },
+        {
+          "path": "packages/gravita_engine/lib/src/rep_engine.dart",
+          "sha256": "6ff6ba9185b0560cc04bd5674751dd1295befadde5817dd941f0fe0f0f92d8cb"
+        },
+        {
+          "path": "packages/gravita_engine/lib/src/hold_engine.dart",
+          "sha256": "684a7336eb8a11da2344ab5f83fc21b0eeb5f32a4015984311720a9ca57caf70"
+        },
+        {
+          "path": "packages/gravita_engine/lib/src/movement_config.dart",
+          "sha256": "1b49f44a8b3926479f9fdd793347ebc5ca49fe4f30a4005847936eb604d6ef56"
+        }
+      ],
+      "next_operation": "Human teaching demonstration and annotation → exact pinned extraction/DSP replay → reference/rule calibration candidate → heldout evaluation → real-device parity. No runtime promotion in this change.",
+      "acceptance_gap": "Physical teaching/rights/learner and device evidence open; no first-party capture supplied. Dedicated beginner course/initial variant not selected; retain proposal-only scope. For inversion inference S2 remains mandatory; S1 alone prohibited.",
+      "first_party_data_received": false,
+      "trained": false,
+      "physical_or_device_validated": false
+    },
+    {
+      "app": "gravita",
+      "area": "hands",
+      "title": "El desteği denge ve düz kol hazırlığı",
+      "courses": [],
+      "current_baseline": "a4c7639a07b8d7a481ea8caab7f5a488145525c6",
+      "existing_architecture": "Existing pinned pose extractor → app movement JSON / rep, hold, multi-phase FSM and confidence/identity gates. Calibrate metric/phase/reference parameters on first-party clips; an optional identity/rejection classifier remains a separate research proposal, not a new backbone.",
+      "source_references": [
+        {
+          "path": "lib/app/pose_model.dart",
+          "sha256": "6a7ec44c8b9e36d8fdd024c271bb176e5b82c999fa9b22d16926b00343593601"
+        },
+        {
+          "path": "packages/gravita_engine/lib/src/rep_engine.dart",
+          "sha256": "6ff6ba9185b0560cc04bd5674751dd1295befadde5817dd941f0fe0f0f92d8cb"
+        },
+        {
+          "path": "packages/gravita_engine/lib/src/hold_engine.dart",
+          "sha256": "684a7336eb8a11da2344ab5f83fc21b0eeb5f32a4015984311720a9ca57caf70"
+        },
+        {
+          "path": "packages/gravita_engine/lib/src/movement_config.dart",
+          "sha256": "1b49f44a8b3926479f9fdd793347ebc5ca49fe4f30a4005847936eb604d6ef56"
+        }
+      ],
+      "next_operation": "Human teaching demonstration and annotation → exact pinned extraction/DSP replay → reference/rule calibration candidate → heldout evaluation → real-device parity. No runtime promotion in this change.",
+      "acceptance_gap": "Physical teaching/rights/learner and device evidence open; no first-party capture supplied. Dedicated beginner course/initial variant not selected; retain proposal-only scope. For inversion inference S2 remains mandatory; S1 alone prohibited.",
+      "first_party_data_received": false,
+      "trained": false,
+      "physical_or_device_validated": false
+    }
+  ],
+  "inference_checks": {
+    "gravita": {
+      "exit_code": 0,
+      "cwd": "/Users/mustafakaankocak/Developer/YULAlab-AI/ventures/gravita/app/packages/gravita_engine",
+      "tests": [
+        "rep_engine_test.dart",
+        "hold_engine_test.dart",
+        "d1_axis_swap_regression_test.dart",
+        "bodyweight_squat_replay_test.dart",
+        "structural_false_reject_test.dart"
+      ],
+      "log": "gravita-inference.log",
+      "dependency_resolution": "existing engine package config; direct VM test runner, no pub command/network",
+      "scope": "logic/recorded fixture replay only; not first-party training, native or physical acceptance"
+    }
+  },
+  "first_party_data_received": false,
+  "new_model_training": false,
+  "device_validation_completed": false,
+  "runtime_model_rules_or_pins_changed": false,
+  "large_changes": [
+    "Gravita three dedicated missing course/variant definitions",
+    "Lissom yoga-course pose/transition assessment",
+    "JabLab other-discipline live recognition",
+    "Ostinato finger/key/contact or broader instrument-specific feedback",
+    "Choreia all-style choreography/physical support recognition",
+    "Existing extract_landmarks.py timestamps are frame-index/fps, not original variable-rate PTS: intake blocks VFR timing calibration until a compatible PTS-preserving extractor proposal is accepted. No timestamp rewrite in this change."
+  ]
+}
