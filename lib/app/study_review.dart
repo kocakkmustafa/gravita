@@ -81,6 +81,18 @@ class StudyReviewPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 Text(area.boundary.inContext(context)),
+                if (content != null && (area.id == 'bodyweight' || area.id == 'dbkb'))
+                  TextButton.icon(
+                    key: Key('study-course-${area.id}'),
+                    icon: const Icon(Icons.menu_book_outlined),
+                    label: Text(_text(context, 'Open existing written course', 'Mevcut yazılı kursu aç')),
+                    onPressed: () => Navigator.of(context).push<void>(
+                      MaterialPageRoute<void>(builder: (_) => CalisthenicsCourseScreen(
+                        course: area.id == 'bodyweight' ? content!.calisthenicsCourse : content!.dbkbCourse,
+                        preparationCourse: content!.calisthenicsCourse,
+                      )),
+                    ),
+                  ),
                 for (final RecallLesson lesson in area.lessons)
                   ListTile(
                     key: Key('study-lesson-${lesson.id}'),

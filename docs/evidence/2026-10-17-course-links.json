@@ -1,0 +1,115 @@
+{
+  "date": "2026-10-17",
+  "baseline_sha": "c832da9ece0992520141c5768afcf8f160241b20",
+  "scope": "Only written-recall to existing course/symbolic-aid navigation. No course content, rules, sensors, Core pins, production media catalog, entitlements or native package changed.",
+  "areas": [
+    {
+      "project": "gravita",
+      "area": "Yerde vücut ağırlığı kuvveti",
+      "courses": [
+        {
+          "path": "content/courses/calisthenics.v1.json",
+          "id": "calisthenics-foundations",
+          "version": "1.0.0",
+          "units": 56,
+          "sha256": "15930d335f377c9f48e1c7285f1c44e25973b9cccb3167fa99cc9b8599889502",
+          "bytes": 276531
+        }
+      ],
+      "dedicated_beginner_course_present": true,
+      "source_native_diagrams": [],
+      "remaining_acceptance": "56 birim (44 yapılandırılmış, 12 learning-only) tam fiziksel öğretim kanıtı değildir. Ders/uyarlama bazında gerçek gösterim ve uzman-öğrenci setup/düzeltme/çıkış gözlemi; gerçek sensör ve güven doğrulaması gerekir.",
+      "full_physical_curriculum_acceptance": "NOT_ESTABLISHED",
+      "expert_or_learner_physical_validation_this_run": "UNRUN",
+      "shipping_playable_demonstrations": 0
+    },
+    {
+      "project": "gravita",
+      "area": "DB/KB temelleri",
+      "courses": [
+        {
+          "path": "content/courses/dbkb-written.v1.json",
+          "id": "dbkb-written-foundations",
+          "version": "1.0.0",
+          "units": 12,
+          "sha256": "3b270b3bb340f313ebe8229bc2399253b83bf54e2a0229a63b8c2f0735ce3582",
+          "bytes": 63527
+        },
+        {
+          "path": "content/courses/dbkb-handling.v1.json",
+          "id": "dbkb-controlled-handling",
+          "version": "1.0.0",
+          "units": 11,
+          "sha256": "ebc137e9c0f41d789435f2300aa9ab5821318eeaf4e46ed9a4fe2d014c92c8cf",
+          "bytes": 145060
+        },
+        {
+          "path": "content/courses/dbkb-transitions.v1.json",
+          "id": "dbkb-supported-transitions",
+          "version": "1.0.0",
+          "units": 2,
+          "sha256": "27aff671d91c56ccf6f342ce873f2cc6d4f43b0e6ca1189683a74868dbdf1d61",
+          "bytes": 49106
+        }
+      ],
+      "dedicated_beginner_course_present": true,
+      "source_native_diagrams": [],
+      "remaining_acceptance": "25 yazılı birim; ilk yüklü uygulamada ekipmana/tek KB geçişine özgü gerçek gösterim ve koçluk açık. Goblet yerden-göğse ve iki DB geçişi bu kapsamda öğretilmiş değildir.",
+      "full_physical_curriculum_acceptance": "NOT_ESTABLISHED",
+      "expert_or_learner_physical_validation_this_run": "UNRUN",
+      "shipping_playable_demonstrations": 0
+    },
+    {
+      "project": "gravita",
+      "area": "Barbell kuvvet temelleri",
+      "courses": [],
+      "dedicated_beginner_course_present": false,
+      "source_native_diagrams": [],
+      "remaining_acceptance": "Ayrı başlangıç kursu yok. İlk lift/varyant, rack/yükleme/yerleştirme/çıkış kapsamı yetkin inceleyiciyle seçilmeli; mevcut recall ve yüksüz hinge bunu karşılamaz.",
+      "full_physical_curriculum_acceptance": "NOT_ESTABLISHED",
+      "expert_or_learner_physical_validation_this_run": "UNRUN",
+      "shipping_playable_demonstrations": 0
+    },
+    {
+      "project": "gravita",
+      "area": "Bar/halkada destek ve çekiş",
+      "courses": [],
+      "dedicated_beginner_course_present": false,
+      "source_native_diagrams": [],
+      "remaining_acceptance": "Ayrı ring-specific başlangıç kursu yok. Mevcut bar/suspension ve learning-only okuma; bağlantı/ekipman, halka desteği/çekiş/geçiş/çıkış gösterimi ve uzman-öğrenci kanıtı yerine geçmez.",
+      "full_physical_curriculum_acceptance": "NOT_ESTABLISHED",
+      "expert_or_learner_physical_validation_this_run": "UNRUN",
+      "shipping_playable_demonstrations": 0
+    },
+    {
+      "project": "gravita",
+      "area": "El desteği denge ve düz kol hazırlığı",
+      "courses": [],
+      "dedicated_beginner_course_present": false,
+      "source_native_diagrams": [],
+      "remaining_acceptance": "Ayrı denge/inversion başlangıç kursu yok. Hazırlık ve cal-46/47 okuması ustalık değildir. Uygunluk, destekli giriş/çıkış/yardım gösterimi gerekir. Her inversion çıkarımında S2 zorunlu; S1 tek başına yasak sınırı değişmedi.",
+      "full_physical_curriculum_acceptance": "NOT_ESTABLISHED",
+      "expert_or_learner_physical_validation_this_run": "UNRUN",
+      "shipping_playable_demonstrations": 0
+    }
+  ],
+  "source_media_rights_or_expert_approval_added": false,
+  "verification": {
+    "new_link_tests": 2,
+    "existing_regression_tests": 12,
+    "passed": 14,
+    "accepted_logs": [
+      "gravita-links-tests-final.log",
+      "gravita-existing-regressions.log"
+    ],
+    "analyze": "gravita-analyze.log"
+  },
+  "shipping_playable_demonstrations": 0,
+  "release_acceptance": "OPEN",
+  "native_runtime_real_hardware_iap_store": "UNRUN in this change; prior scoped acceptance stays historical.",
+  "changed_behavior": "Recall opens existing bodyweight and DBKB courses; three missing dedicated areas remain without a course shortcut. Five existing learning-only related lessons are preserved.",
+  "evidence_source_manifest": {
+    "lib/app/study_review.dart": "d93c152a616e889fa7a631bddbd161aedf559a137e8944b94d1d916a77ebab28",
+    "test/study_course_links_test.dart": "71d29028144792d16764421b10feadd1889aea5c642fcef4bec0838eaecb7446"
+  }
+}
