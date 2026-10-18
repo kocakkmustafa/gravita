@@ -61,16 +61,24 @@ akışı ve son paket/SDK gizlilik raporu ayrı kabul kapılarıdır.
 | Kullanıcı kimliği | Evet, Motion Auth/profil/uygulama üyeliği | Oturum ve hesap veri ayrımı | Evet |
 | Satın alma geçmişi | Hayır; ilk sürümde satış ve ücretli oturum kapalı | Bu sürümde kullanılmaz | Hayır |
 | Şifre | Auth isteğinde sunucuya gider; uygulama geçmişine yazılmaz | Kayıt, giriş, şifre değiştirme | Evet |
-| Kamera görüntüsü ve kare ölçümü | Hayır | Cihazdaki canlı çalışma | Yerel, sunucuda yok |
-| Calisthenics kursu ilerlemesi | Hayır | Görüldü, çalışıldı ve kullanıcı beyanıyla tamamlandı durumları | Konuk/hesap kapsamına ayrılmış yerel JSON; Motion hesabına senkronize edilmez |
+| Kamera görüntüsü ve kare ölçümü | Hayır | Bu ilk sürümde kamera oturumu kapalı; ertelenen akış cihaz içindir | Sunucuya kamera verisi aktarımı açılmaz |
+| Calisthenics, DB/KB ve temel kurs taslaklarının ilerlemesi | Hayır | Görüldü, çalışıldı ve kullanıcı beyanıyla tamamlandı durumları | Konuk/hesap kapsamına ayrılmış yerel JSON; Motion hesabına senkronize edilmez |
 | Mikrofon/ses | Kullanılmaz | İlk kurs mikrofon istemez | iOS mikrofon gerekçesi ve Android `RECORD_AUDIO` yoktur |
 | Seans özeti/geçmişi | Hayır | Bu cihazdaki geçmiş | Yerel, hesap dizinine ayrılmış |
 
 İlk sürümün Apple gizlilik manifestinde e-posta, isteğe bağlı ad,
 kullanıcı kimliği ve sağlayıcı tanılama/konum/kimlik doğrulama
 verileri uygulama işlevi için kullanıcıyla bağlantılı, izleme dışı beyan edilir.
-Play taslağında yalnız e-posta, görünen ad ve kullanıcı ID’si sırasıyla
-Personal info / Email address, Name ve User IDs olarak değerlendirilir.
+Play için yalnız üç kişisel veri türünü beyan etmek yeterli değildir.
+E-posta, ad ve kullanıcı ID'sine ek olarak sağlayıcıdaki yaklaşık konum,
+teknik/güvenlik günlükleri ve kimlik doğrulama verisi de değerlendirilir.
+[Altı kaynak türünün eşleme taslağı](privacy-review.json) Apple manifestiyle
+uzlaştırılmıştır. Google tarafında IP'den türetilen konum için Approximate
+location; teknik tanılama için Diagnostics; parola/hash için Other info
+önerilir. Son ikisi ve IP'nin kullanımına göre ek kimlik sınıflandırması
+kesin konsol yanıtı değildir; geliştirici incelemesi bekleyen çıkarımlardır.
+Google Analytics amacı teknik hata tanılamayı da kapsar; davranış analitiği
+SDK'sının bulunmaması bu amaç seçeneğini tek başına dışlamaz.
 Abonelik satışı ve satın alma geçmişi
 aktarımı bu sürümde kapalıdır; ileride etkinleştirilirse Apple/Play
 formları ve bu belge birlikte güncellenir.
@@ -105,3 +113,37 @@ ayrıca açıklanır.
 Kaynak: [Apple privacy manifest](https://developer.apple.com/documentation/BundleResources/describing-data-use-in-privacy-manifests),
 [Google Play Data safety](https://support.google.com/googleplay/android-developer/answer/10787469),
 [Google Play hesap silme](https://support.google.com/googleplay/android-developer/answer/13327111).
+
+## 18 Ekim 2026 · gönderim öncesi uzlaştırma
+
+Bu güncelleme uygulama davranışını veya Apple manifestini değiştirmez.
+Play'in üç veri türüyle sınırlı eski paragrafı düzeltilmiştir.
+[Google tanımları](https://support.google.com/googleplay/android-developer/answer/10787469?hl=en)
+gereği SDK ile cihaz dışına gönderilen veriler de incelenir; yalnız cihazda
+kalan ilerleme collection değildir. Saklanan sağlayıcı günlükleri geçici RAM
+işlemesi sayılamaz. Hizmet sağlayıcı aktarımının sharing istisnasına girmesi,
+işleyenin geliştirici adına çalışması koşuluyla değerlendirilir.
+
+Konuk kullanımında da eski hesap dizinleri için silme makbuzu sorgulanabilir;
+misafir akışını kullanabilmek bütün teknik günlüklerin isteğe bağlı olduğunu
+kanıtlamaz. Bu yüzden günlük/konum için required/optional seçimi ve sağlayıcı
+saklama gün sayıları uydurulmadı; JSON'da gönderimi durduran açık alanlardır.
+Hesaba bağlı UUID özeti anonim kabul edilmez. Analytics/Diagnostics ve
+Other info eşlemesi, teknik amaçlar ve hizmet sağlayıcı rolü final formda
+kurucu tarafından güncel fiilî kullanım üzerinden doğrulanır.
+
+[Canlı Motion sayfası](https://yulalab.com/en/privacy/motion) 18 Ekim'de
+okundu: Gravita adı, üst bölümde hesap/veri silme bağlantısı, uygulama
+olmadan e-postayla talep yolu, aboneliği mağazada ayrıca iptal etme ve
+günlük/yedek saklama istisnası mevcut. Bu, silme talebinin yerine getirildiği
+veya belirli bir saklama süresinin doğrulandığı anlamına gelmez.
+[Google](https://support.google.com/googleplay/android-developer/answer/13327111?hl=en)
+uygulama dışı bir talep yolu ve belirgin bağlantı ister; konsol onayı ayrıdır.
+`https://yulalab.com/support` bu turda içerik okuyucuda açılamadı; HTTP hata
+kodu tespit edilmiş değildir. Kurucu tarafından seçilen URL değiştirilmedi.
+
+Supabase bağlantısının salt okunur proje listesinde bu paketin Motion projesi
+görünmüyor. İlgisiz projede tablo, SQL veya kullanıcı sorgusu yapılmadı.
+Son canlı sağlayıcı kanıtı yukarıdaki 26 Eylül makbuzudur; bu tarihte yeni
+backend/retention kabulü üretilmedi. Güncel gönderim kapıları ve kullanıcı
+adımları [RELEASE-REVIEW.tr.md](RELEASE-REVIEW.tr.md) içindedir.

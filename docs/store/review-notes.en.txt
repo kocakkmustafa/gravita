@@ -1,0 +1,37 @@
+GRAVITA — LOCAL REVIEW NOTES DRAFT — 18 OCTOBER 2026
+App: Gravita: Skills & Strength / com.yulalab.gravita / 1.0.0 (2)
+Runtime source: c05721d73b838859af976f8c06f09b9857d6960d
+Not submitted. Native signature, current screenshots, real account and device
+acceptance are still pending. No review credentials are stored in this file.
+
+The candidate supports English and Turkish. Browse without signing in.
+Home and Library offer the 56-lesson calisthenics course, existing dumbbell /
+kettlebell paths, and three separate 12-lesson foundation drafts for barbell,
+low rings and hand support. Their 24 physical tasks remain held pending expert
+review, permitted demonstrations and observed learner acceptance. Reading a
+lesson does not unlock a held task. Inversions are not opened by these drafts.
+
+Open a foundation pathway, read its prerequisites, equipment, regression,
+progression and rest guidance. Reading progress is stored on this device.
+Guest progress is separate from each signed-in account and is not migrated
+when signing in. This progress is a practice record, not a mastery or form score.
+Demonstration videos are not supplied with these new foundation drafts.
+
+Camera coaching and subscription sales are disabled in this candidate.
+The lessons do not need camera or microphone permission. No payment or
+purchase restoration is required to review the available lesson reading path.
+Model training and calibration are a later acceptance phase. Unsupported or
+uncalibrated movements must not be interpreted as measured physical accuracy.
+
+The optional shared Motion account supports sign-in/profile and account
+deletion. For account-specific review, approved test credentials must be
+provided in the stores' secure review fields after real-device validation.
+Deleting an account affects the shared Motion account across all five apps;
+it does not cancel any store subscription. Do not delete a real user's account
+for a review demonstration. A separately approved disposable account is needed
+for the destructive end-to-end deletion test.
+
+Privacy and external deletion request:
+https://yulalab.com/en/privacy/motion
+Support URL selected by the founder (direct live check still pending):
+https://yulalab.com/support

@@ -1,8 +1,11 @@
-# Güncel mağaza metni girişi · 17 Ekim 2026
+# Güncel mağaza metni girişi · 18 Ekim 2026
 
 Yayıma hazırlanacak TR/EN metinlerin kaynağı [listing.json](listing.json) ve
-[listing.tr-TR.json](listing.tr-TR.json) dosyalarıdır. Güncel dar kurs kapsamı
-**56 ders / 10 modül calisthenics**; kurs varlık kimliği ve hashleri JSON içindeki `$` kaynak notlarındadır.
+[listing.tr-TR.json](listing.tr-TR.json) dosyalarıdır. Güncel adayda
+**56 ders / 10 modül calisthenics**, mevcut DB/KB yolları ve üç ayrı 12 dersli
+barbell, halka, el desteği temel kurs taslağı vardır. Yeni 24 fiziksel görev
+uzman, gösterim ve öğrenci kabulü bekler. Varlık kimlikleri ve hashleri JSON
+içindeki `$` kaynak notlarındadır. Beş alanda tam öğretim hedefi korunur.
 Kamera koçluğu, form puanı ve abonelik satışı açık değildir.
 
 Kurs ilerlemesi kullanıcının kendi çalışma kaydıdır; ustalık veya fiziksel öğretim
@@ -10,6 +13,12 @@ kabulü değildir. Hesap ve destek/gizlilik metinleri güncel JSON'dan alınır.
 Yerel metin, eski ekran görüntüsü veya kaynak testi mağazada kaydedildiği, güncel
 imzalı pakette bulunduğu ya da fiziksel cihazda kabul edildiği anlamına gelmez.
 Bu bakımda mağaza paneline yazılmadı ve yükleme yapılmadı.
+
+Gönderim ve gerçek hesap/cihaz kontrol paketi:
+[RELEASE-REVIEW.tr.md](RELEASE-REVIEW.tr.md). Gizlilik eşlemesi:
+[privacy-review.json](privacy-review.json); inceleme notu:
+[review-notes.en.txt](review-notes.en.txt). 18 Ekim ASC kontrolü yeniden
+giriş istedi; aşağıdaki 17 Ekim durum okuması güncel konsol kanıtı değildir.
 
 ## Tarihsel araştırma · aşağıdaki metni yayın metni olarak kullanmayın
 

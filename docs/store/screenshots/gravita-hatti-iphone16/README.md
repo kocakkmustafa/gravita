@@ -1,4 +1,12 @@
-# Ekran görüntüleri — gravita-hatti (iPhone 16 simülatörü)
+# Tarihsel ekran görüntüleri — 16 Ağustos 2026
+
+**18 Ekim 2026: Bu set güncel mağaza gönderiminde kullanılamaz.** Aşağıdaki
+31/2/29 katalog ve kamera anlatımı kendi tarihine aittir. Güncel 56 ders,
+DB/KB yolları, üç ayrı temel kurs taslağı ve kapalı kamera/satış politikası
+bu görüntülerden doğrulanamaz. PNG'ler değiştirilmeden tarihsel kanıt olarak
+korundu. Güncel çekim/kabul koşulları [yayın kontrol paketindedir](../../RELEASE-REVIEW.tr.md).
+
+## Çekimin kendi tarihindeki notları
 
 2026-08-16, `gravita-hatti` (UDID `2F59E2DB-8F02-4D24-BAD6-8313576FAB98`) simülatöründe,
 `flutter build ios --simulator --debug` ile TAZE derlenmiş build'den alındı. Status bar
@@ -17,5 +25,7 @@ güvenli) — yalnız `launch` + `screenshot` (headless).
 | `04-progress-measured-locked.png` | Progress sekmesi | "Locked... limits in our measurement, not in you" — form-derecelendirmeme kararının kullanıcıya nasıl anlatıldığı |
 
 **Kamera izni simülatörde otomatik REDDEDİLDİ** (varsayılan simülatör davranışı) — bu
-yüzüzden canlı kamera/seans ekranı BU SETTE YOK. Kapsam dışı bırakıldı, uydurulmadı;
-gelecek bir turda `xcrun simctl privacy grant camera` ile açılıp eklenebilir.
+yüzden canlı kamera/seans ekranı BU SETTE YOK. Bu ret başka araç veya izin
+komutuyla aşılmaz. Yeni kamera izni ancak kullanıcı tarafından açıkça
+yetkilendirilmiş ayrı cihaz kabulünde ele alınır; bu ilk sürümün dersleri
+kamera gerektirmez. Eski notta önerilen otomatik izin verme yolu kaldırıldı.

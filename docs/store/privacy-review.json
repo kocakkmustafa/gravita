@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "asOfUtc": "2026-10-18",
+  "appId": "com.yulalab.gravita",
+  "runtimeSourceCommit": "c05721d73b838859af976f8c06f09b9857d6960d",
+  "version": "1.0.0",
+  "build": "2",
+  "status": "LOCAL_REVIEW_DRAFT_NOT_SUBMISSION_PAYLOAD",
+  "submissionAllowed": false,
+  "sources": {
+    "appleManifest": "ios/Runner/PrivacyInfo.xcprivacy",
+    "appleManifestSha256": "af4dc0fad1ad9eec69b5304d7c97a722e88b4a3cce2b78e7400f1de4efd2d983",
+    "providerReceiptDateUtc": "2026-09-26T21:36:00Z",
+    "providerReceiptContext": "account-data-safety-draft.md; shared service receipt, not a new Gravita network session",
+    "googleTypes": "https://support.google.com/googleplay/android-developer/answer/10787469?hl=en",
+    "googleDeletion": "https://support.google.com/googleplay/android-developer/answer/13327111?hl=en",
+    "privacyPolicyObserved": "https://yulalab.com/en/privacy/motion",
+    "accountPolicyPin": "ef60e346934d7e5d45c87deb81583b263575b208"
+  },
+  "firstRelease": {
+    "salesEnabled": false,
+    "cameraSessionsEnabled": false,
+    "purchaseHistoryCollected": false,
+    "realPurchaseRestoreAccepted": false,
+    "purchaseRestoreGate": "not_applicable_while_sales_disabled"
+  },
+  "dataTypes": [
+    {
+      "id": "email",
+      "apple": {
+        "type": "NSPrivacyCollectedDataTypeEmailAddress",
+        "linked": true,
+        "tracking": false,
+        "purposes": [
+          "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+        ],
+        "status": "matches_source_manifest_not_console_readback"
+      },
+      "playProposal": {
+        "category": "Personal info",
+        "dataType": "Email address",
+        "collected": true,
+        "shared": null,
+        "ephemeral": false,
+        "optional": true,
+        "purposes": [
+          "App functionality",
+          "Account management"
+        ],
+        "classificationStatus": "direct_definition",
+        "purposesStatus": "developer_review_required"
+      }
+    },
+    {
+      "id": "display_name",
+      "apple": {
+        "type": "NSPrivacyCollectedDataTypeName",
+        "linked": true,
+        "tracking": false,
+        "purposes": [
+          "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+        ],
+        "status": "matches_source_manifest_not_console_readback"
+      },
+      "playProposal": {
+        "category": "Personal info",
+        "dataType": "Name",
+        "collected": true,
+        "shared": null,
+        "ephemeral": false,
+        "optional": true,
+        "purposes": [
+          "App functionality",
+          "Account management"
+        ],
+        "classificationStatus": "direct_definition",
+        "purposesStatus": "developer_review_required"
+      }
+    },
+    {
+      "id": "account_id",
+      "apple": {
+        "type": "NSPrivacyCollectedDataTypeUserID",
+        "linked": true,
+        "tracking": false,
+        "purposes": [
+          "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+        ],
+        "status": "matches_source_manifest_not_console_readback"
+      },
+      "playProposal": {
+        "category": "Personal info",
+        "dataType": "User IDs",
+        "collected": true,
+        "shared": null,
+        "ephemeral": false,
+        "optional": null,
+        "purposes": [
+          "App functionality",
+          "Account management"
+        ],
+        "classificationStatus": "direct_definition",
+        "purposesStatus": "developer_review_required"
+      }
+    },
+    {
+      "id": "provider_logs",
+      "apple": {
+        "type": "NSPrivacyCollectedDataTypeOtherDiagnosticData",
+        "linked": true,
+        "tracking": false,
+        "purposes": [
+          "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+        ],
+        "status": "matches_source_manifest_not_console_readback"
+      },
+      "playProposal": {
+        "category": "App info and performance",
+        "dataType": "Diagnostics",
+        "collected": true,
+        "shared": null,
+        "ephemeral": false,
+        "optional": null,
+        "purposes": [
+          "App functionality",
+          "Account management",
+          "Fraud prevention, security, and compliance",
+          "Analytics"
+        ],
+        "classificationStatus": "proposed_inference_review_required",
+        "purposesStatus": "developer_review_required"
+      }
+    },
+    {
+      "id": "ip_location",
+      "apple": {
+        "type": "NSPrivacyCollectedDataTypeCoarseLocation",
+        "linked": true,
+        "tracking": false,
+        "purposes": [
+          "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+        ],
+        "status": "matches_source_manifest_not_console_readback"
+      },
+      "playProposal": {
+        "category": "Location",
+        "dataType": "Approximate location",
+        "collected": true,
+        "shared": null,
+        "ephemeral": false,
+        "optional": null,
+        "purposes": [
+          "App functionality",
+          "Account management",
+          "Fraud prevention, security, and compliance"
+        ],
+        "classificationStatus": "direct_definition",
+        "purposesStatus": "developer_review_required"
+      }
+    },
+    {
+      "id": "authentication_and_deletion_receipt",
+      "apple": {
+        "type": "NSPrivacyCollectedDataTypeOtherDataTypes",
+        "linked": true,
+        "tracking": false,
+        "purposes": [
+          "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+        ],
+        "status": "matches_source_manifest_not_console_readback"
+      },
+      "playProposal": {
+        "category": "Personal info",
+        "dataType": "Other info",
+        "collected": true,
+        "shared": null,
+        "ephemeral": false,
+        "optional": null,
+        "purposes": [
+          "App functionality",
+          "Account management",
+          "Fraud prevention, security, and compliance"
+        ],
+        "classificationStatus": "proposed_inference_review_required",
+        "purposesStatus": "developer_review_required"
+      }
+    }
+  ],
+  "localOnlyNotCollected": [
+    "course_progress",
+    "practice_history",
+    "camera_video_or_landmarks"
+  ],
+  "microphoneUsed": false,
+  "tracking": false,
+  "transport": {
+    "proposal": "HTTPS for configured production Auth/profile endpoints",
+    "runtimeSessionAccepted": false
+  },
+  "deletion": {
+    "inAppPath": "Account > Delete account",
+    "externalRequestUrl": "https://yulalab.com/en/privacy/motion",
+    "externalPageContentObserved": true,
+    "externalRequestExecuted": false,
+    "realAccountDeletionAccepted": false,
+    "subscriptionCancelledByAccountDeletion": false,
+    "providerRetentionDays": null,
+    "backupRetentionDays": null,
+    "deletionReceiptRetentionDays": null,
+    "sharedAccountWarningRequired": true
+  },
+  "unresolvedBeforeSubmission": [
+    {
+      "id": "P01",
+      "field": "dataTypes[*].playProposal.shared",
+      "reason": "Verify provider processing role and applicable sharing exception; null is unresolved, not No."
+    },
+    {
+      "id": "P02",
+      "field": "provider logs, IP location, account identifiers and deletion receipts optional",
+      "reason": "Guest startup can check prior account deletion receipts. Actual traffic and all-user choice must be checked; optional sign-in is insufficient proof for these combined records."
+    },
+    {
+      "id": "P03",
+      "field": "Diagnostics/Other info and purposes",
+      "reason": "Proposed mapping only. Review security logs, IP identifier use, technical analytics and account-UUID deletion digest; receipt digest may also fall under User IDs."
+    },
+    {
+      "id": "P04",
+      "field": "deletion.*RetentionDays",
+      "reason": "Confirm provider logs/backups/receipt retention and user disclosure; no invented days."
+    },
+    {
+      "id": "P05",
+      "field": "actual console and final package SDK inventory",
+      "reason": "Current ASC authentication required; Play answers, final SDK privacy and real account/deletion acceptance pending."
+    },
+    {
+      "id": "P06",
+      "field": "supportUrl",
+      "reason": "Current content read was unavailable; no HTTP status or broken-link conclusion. Keep founder-selected URL pending direct user check."
+    }
+  ],
+  "interpretation": [
+    "All six Apple source rows have Play review entries; equivalence of category taxonomies is not assumed.",
+    "Optional account use is not proof that every provider log is optional.",
+    "No behavior analytics SDK does not exclude Google Analytics purpose for technical debugging.",
+    "A one-way account UUID digest is not treated as anonymous.",
+    "Provider management connector authentication does not prove a signed-in app test account."
+  ]
+}
