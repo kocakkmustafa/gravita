@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 import '../content_repository.dart';
 import '../app_locale.dart';
@@ -7,6 +8,9 @@ import '../library_strings.dart';
 import '../theme.dart';
 import '../workout/workout_screen.dart';
 import 'program_model.dart';
+import 'program_builder.dart';
+import 'program_schedule_store.dart';
+import 'program_signature.dart';
 import 'program_store.dart';
 
 /// Programın TEK girdi toplama yüzeyi (GRA-P1-003).
@@ -53,14 +57,10 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
       ...m.equipment,
   };
 
-  /// ⚠️ Yazma denemesi try/catch İÇİNDE — `onboarding_screen.dart`ın
-  /// `_completeOnboarding`iyle AYNI gerekçe: depolama arızası (platform
-  /// kanalı ya da disk) kullanıcıyı burada KİLİTLEMEZ. Hata yutulsa bile
-  /// yine `WorkoutScreen`e geçilir — [ProgramStore.read] dosya yoksa `null`
-  /// döner, o ekran KENDİ boş-durumuna (yeniden kurulum CTA'sı) düşer;
-  /// "arızalı depoda bit yazılmaz, sonraki açılış tekrar sorar" ile AYNI
-  /// dürüst sonuç, sessiz sahte-başarı DEĞİL.
+  /// New schedules are created once. Existing/partial/legacy files cannot be
+  /// replaced here: the app does not have an accepted history migration yet.
   Future<void> _build() async {
+    if (_saving) return;
     setState(() => _saving = true);
     final ProgramInputs inputs = ProgramInputs(
       availableEquipment: Set<String>.of(_equipment),
@@ -68,11 +68,65 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
       experience: _experience,
     );
     try {
-      await (await ProgramStore.open(
+      final inputStore = await ProgramStore.open(
         accountUserId: widget.accountUserId,
-      )).write(inputs);
+      );
+      final scheduleStore = await ProgramScheduleStore.open(
+        accountUserId: widget.accountUserId,
+      );
+      final savedInputs = await inputStore.read();
+      final savedSchedule = await scheduleStore.read();
+      final config = await ContentRepository.loadProgramConfig(rootBundle);
+      final entries = await widget.content.programCatalogEntries();
+      final builder = ProgramBuilder(config: config, catalog: entries);
+      final program = builder.build(inputs);
+      final signature = programSignature(inputs, program);
+      if (savedInputs != null || savedSchedule != null) {
+        if (savedInputs == null ||
+            savedSchedule == null ||
+            savedSchedule.programSignature != signature ||
+            savedSchedule.dates.length != program.days.length ||
+            programSignature(savedInputs, builder.build(savedInputs)) !=
+                signature) {
+          throw StateError(
+            'Keep existing program files; replacement is not supported',
+          );
+        }
+        // Identical existing plan: navigate without writing dates, inputs or RPE.
+      } else {
+        final created = await scheduleStore.createIfMissing(
+          () => ProgramSchedule(
+            dates: scheduleProgram(
+              program: program,
+              startDate: DateTime.now(),
+              daysPerWeek: inputs.daysPerWeek,
+            ),
+            rpeByDayIndex: const <int, int>{},
+            programSignature: signature,
+          ),
+        );
+        if (created.programSignature != signature) {
+          throw StateError('Another saved program must not be replaced');
+        }
+        await inputStore.write(inputs);
+      }
     } on Object {
-      // Aşağıdaki geçiş yine de olur — WorkoutScreen kendi boş-durumuna düşer.
+      if (!mounted) return;
+      setState(() => _saving = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            localized(
+              context,
+              'The program could not be saved. Existing dates and progress were '
+                  'kept; a saved program cannot be replaced here.',
+              'Program kaydedilemedi. Mevcut tarihler ve ilerleme korundu; '
+                  'kayıtlı program bu ekranda değiştirilemez.',
+            ),
+          ),
+        ),
+      );
+      return;
     }
     if (!mounted) return;
     Navigator.of(context).pushReplacement<void, void>(
@@ -104,9 +158,10 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
           Text(
             localized(
               context,
-              LibraryStrings.programSetupIntro,
-              'Birkaç yanıt sekiz haftalık planını belirler. Yanıtlarını '
-              'değiştirip planı istediğin zaman yeniden oluşturabilirsin.',
+              'A few choices create your eight-week plan. Existing saved '
+                  'programs and their progress are kept unchanged.',
+              'Birkaç yanıt sekiz haftalık planını belirler. Kayıtlı '
+                  'programlar ve ilerlemeleri değiştirilmeden korunur.',
             ),
             style: GravitaType.body(
               size: 13.5,

@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gravita/app/content_repository.dart';
+import 'package:gravita/app/program/program_builder.dart';
 import 'package:gravita/app/program/program_model.dart';
+import 'package:gravita/app/program/program_schedule_store.dart';
+import 'package:gravita/app/program/program_signature.dart';
 import 'package:gravita/app/program/program_setup_screen.dart';
 import 'package:gravita/app/program/program_store.dart';
 import 'package:gravita/app/theme.dart';
@@ -40,11 +43,34 @@ void main() {
   /// bu YÜZDEN gerekiyor: `pumpAndSettle` ilk yazımda hiçbir şey beklemeden
   /// döndü, `WorkoutScreen` 0 widget çıktı (sahte saat gerçek G/Ç'yi bilmiyor).
   Future<void> settleReal(WidgetTester tester) => settleUntil(
-        tester,
-        () =>
-            find.byType(WorkoutScreen).evaluate().isNotEmpty &&
-            find.byType(CircularProgressIndicator).evaluate().isEmpty,
-      );
+    tester,
+    () =>
+        find.byType(WorkoutScreen).evaluate().isNotEmpty &&
+        find.byType(CircularProgressIndicator).evaluate().isEmpty,
+    maxRounds: 40,
+  );
+
+  Future<void> expectBoundSchedule(
+    WidgetTester tester,
+    ContentRepository content,
+    ProgramInputs inputs,
+  ) async {
+    await realIo(tester, () async {
+      final config = await ContentRepository.loadProgramConfig(rootBundle);
+      final entries = await content.programCatalogEntries();
+      final program = ProgramBuilder(
+        config: config,
+        catalog: entries,
+      ).build(inputs);
+      final schedule = await (await ProgramScheduleStore.open()).read();
+      expect(schedule, isNotNull);
+      expect(schedule!.programSignature, programSignature(inputs, program));
+      expect(schedule.dates, hasLength(program.days.length));
+      expect(schedule.rpeByDayIndex, isEmpty);
+    });
+    expect(find.byKey(WorkoutScreen.disclaimerKey), findsOneWidget);
+    expect(find.byKey(WorkoutScreen.unavailableKey), findsNothing);
+  }
 
   testWidgets('kurulum → kaydet → WorkoutScreen\'e geçer, program GERÇEKTEN '
       'GÖRÜNÜR', (WidgetTester tester) async {
@@ -52,7 +78,12 @@ void main() {
 
     late ContentRepository content;
     await tester.runAsync(
-        () async => content = await ContentRepository.load(rootBundle));
+      () async => content = await ContentRepository.load(rootBundle),
+    );
+    await realIo(tester, () async {
+      await ContentRepository.loadProgramConfig(rootBundle);
+      await content.programCatalogEntries();
+    });
 
     await tester.pumpWidget(host(ProgramSetupScreen(content: content)));
     await tester.pump();
@@ -65,19 +96,25 @@ void main() {
 
     // WorkoutScreen'e geçildi VE program (boş-durum DEĞİL) çizildi.
     expect(find.byType(WorkoutScreen), findsOneWidget);
-    expect(find.byKey(WorkoutScreen.emptyKey, skipOffstage: false), findsNothing,
-        reason: 'kurulum kaydedildi — boş-durum artık GÖRÜNMEMELİ');
+    expect(
+      find.byKey(WorkoutScreen.emptyKey, skipOffstage: false),
+      findsNothing,
+      reason: 'kurulum kaydedildi — boş-durum artık GÖRÜNMEMELİ',
+    );
 
     // Kaydedilen girdi GERÇEKTEN diskte — bağımsız bir ProgramStore
     // örneğiyle OKUNARAK doğrulanıyor (ekranın kendi belleğine güvenmiyoruz).
     // `realIo` ZORUNLU: doğrudan `await` FakeAsync gövdesinde sonsuza kadar
     // asılı kalır (launch_harness.dart'ın kendi belgelediği ölçüm).
-    final ProgramInputs? saved =
-        await realIo(tester, () async => (await ProgramStore.open()).read());
+    final ProgramInputs? saved = await realIo(
+      tester,
+      () async => (await ProgramStore.open()).read(),
+    );
     expect(saved, isNotNull);
     expect(saved!.experience, ExperienceLevel.beginner);
     expect(saved.daysPerWeek, 3);
     expect(saved.availableEquipment, isEmpty);
+    await expectBoundSchedule(tester, content, saved);
   });
 
   testWidgets('ekipman/seviye/gün seçimi GERÇEKTEN kaydediliyor — sahte '
@@ -86,7 +123,12 @@ void main() {
 
     late ContentRepository content;
     await tester.runAsync(
-        () async => content = await ContentRepository.load(rootBundle));
+      () async => content = await ContentRepository.load(rootBundle),
+    );
+    await realIo(tester, () async {
+      await ContentRepository.loadProgramConfig(rootBundle);
+      await content.programCatalogEntries();
+    });
 
     await tester.pumpWidget(host(ProgramSetupScreen(content: content)));
     await tester.pump();
@@ -102,11 +144,14 @@ void main() {
     await tester.tap(find.byKey(ProgramSetupScreen.buildButtonKey));
     await settleReal(tester);
 
-    final ProgramInputs? saved =
-        await realIo(tester, () async => (await ProgramStore.open()).read());
+    final ProgramInputs? saved = await realIo(
+      tester,
+      () async => (await ProgramStore.open()).read(),
+    );
     expect(saved, isNotNull);
     expect(saved!.experience, ExperienceLevel.intermediate);
     expect(saved.daysPerWeek, 4);
     expect(saved.availableEquipment, isNotEmpty);
+    await expectBoundSchedule(tester, content, saved);
   });
 }

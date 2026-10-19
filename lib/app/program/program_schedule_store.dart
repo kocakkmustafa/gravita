@@ -1,55 +1,31 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import '../account_data_directory.dart';
 import '../course_progress_io.dart';
 import '../account_store_epoch.dart';
+import 'program_schedule_io.dart';
 
-/// Bir programın CANLI takvimi + tamamlanma durumu (GRA-P1-003 Step 3/4).
-///
-/// ## Neden [ProgramStore]dan AYRI
-///
-/// [ProgramStore] yalnız GİRDİYİ (deneyim/ekipman/gün) tutar — [WorkoutProgram]
-/// her açılışta güncel katalogdan YENİDEN üretilir, dondurulmuş bir kopya
-/// TUTULMAZ (`program_store.dart`nın kendi dosya-başı gerekçesi). Ama TAKVİM
-/// (hangi seans hangi tarihte) ve TAMAMLANMA (hangi seans bitti, RPE'si ne)
-/// programın KENDİSİ gibi türetilemez — bunlar KULLANICININ GEÇMİŞİ,
-/// deterministik yeniden-üretimin kapsamı DIŞINDA. Bu yüzden ayrı, kendi
-/// dosyasında kalıcı; iki kaygı iki store'da kalıyor (`OnboardingStore`/
-/// `ProgramStore` ayrımıyla AYNI disiplin).
-final class ProgramSchedule {
-  const ProgramSchedule({required this.dates, required this.rpeByDayIndex});
+export 'program_schedule_io.dart'
+    show ProgramSchedule, ProgramScheduleException, ProgramScheduleFailure;
 
-  /// [WorkoutProgram.days] ile AYNI uzunlukta, AYNI indeksle eşlenen düz
-  /// tarih listesi. Program yeniden üretildiğinde (ör. girdi değişti) uzunluk
-  /// tutmayabilir — çağıran taraf bunu kontrol edip gerekirse YENİDEN kurar.
-  final List<DateTime> dates;
-
-  /// Tamamlanan günlerin RPE'si (1-10) — bir indeksin BURADA var OLMASI
-  /// "bu gün bitti" demektir; yoksa gün henüz açık. RPE KULLANICI
-  /// dokunuşundan gelir (roadmap Step 3: "camera sonucu değildir") — bu
-  /// dosya `gravita_engine`e ya da `live_session.dart`a HİÇ bağımlı değil,
-  /// yalnız `int` taşır.
-  final Map<int, int> rpeByDayIndex;
-
-  ProgramSchedule withRpe(int dayIndex, int rpe) => ProgramSchedule(
-    dates: dates,
-    rpeByDayIndex: <int, int>{...rpeByDayIndex, dayIndex: rpe},
-  );
-
-  ProgramSchedule withDates(List<DateTime> newDates) =>
-      ProgramSchedule(dates: newDates, rpeByDayIndex: rpeByDayIndex);
-}
-
-/// [ProgramStore]nun BİREBİR deseni — `open()`/`forFile()`/fail-open `read()`.
+/// Flutter path/account wiring. All file operations and read-modify-write
+/// transactions delegate to the pure Dart production pipeline, under the same
+/// existing per-file queue and account epoch lease.
 final class ProgramScheduleStore {
   ProgramScheduleStore._(File file, {AccountStoreEpoch? epoch})
     : _file = file,
-      _lease = CourseProgressLease(file, epoch: epoch);
+      _lease = CourseProgressLease(file, epoch: epoch) {
+    _io = ProgramScheduleIo(
+      file,
+      serialize: _lease.mutate,
+      checkCurrent: _lease.checkCurrent,
+    );
+  }
 
   final File _file;
   final CourseProgressLease _lease;
+  late final ProgramScheduleIo _io;
 
   static Future<ProgramScheduleStore> open({String? accountUserId}) async {
     final epoch = AccountStoreEpochRegistry.capture(accountUserId);
@@ -68,46 +44,26 @@ final class ProgramScheduleStore {
   static ProgramScheduleStore forFile(File file) =>
       ProgramScheduleStore._(file);
 
-  /// Kayıtlı takvim — hiç kurulmamışsa ya da dosya okunamıyorsa `null`.
-  /// ⚠️ Bozuk/okunamayan dosya "hiç kurulmamış" SAYILIR — `ProgramStore.read`
-  /// ile AYNI fail-open gerekçesi: kullanıcı kilitlenmez, çağıran taraf
-  /// (`WorkoutScreen._load`) yalnız takvimi SIFIRDAN kurar.
-  Future<ProgramSchedule?> read() => _lease.mutate(() async {
-    if (!await _file.exists()) return null;
-    try {
-      final Map<String, dynamic> j =
-          jsonDecode(await _file.readAsString()) as Map<String, dynamic>;
-      return ProgramSchedule(
-        dates: (j['dates'] as List<dynamic>)
-            .map((dynamic e) => DateTime.parse(e as String))
-            .toList(growable: false),
-        rpeByDayIndex: (j['rpeByDayIndex'] as Map<String, dynamic>).map(
-          (String k, dynamic v) => MapEntry<int, int>(int.parse(k), v as int),
-        ),
-      );
-    } on Object {
-      return null;
-    }
-  });
+  /// Only an absent file is null. Corrupt/unavailable data throws and remains
+  /// unchanged; a legacy null signature is returned without any migration.
+  Future<ProgramSchedule?> read() => _io.read();
 
-  Future<void> write(ProgramSchedule schedule) => _lease.mutate(() async {
-    await _file.parent.create(recursive: true);
-    await _file.writeAsString(
-      jsonEncode(<String, dynamic>{
-        'schemaVersion': 1,
-        'dates': schedule.dates
-            .map((DateTime d) => d.toIso8601String())
-            .toList(),
-        'rpeByDayIndex': schedule.rpeByDayIndex.map(
-          (int k, int v) => MapEntry<String, int>(k.toString(), v),
-        ),
-      }),
-    );
-  });
+  Future<void> write(ProgramSchedule schedule) => _io.write(schedule);
+
+  Future<ProgramSchedule> createIfMissing(ProgramSchedule Function() factory) =>
+      _io.createIfMissing(factory);
+
+  Future<ProgramSchedule> update({
+    required String expectedSignature,
+    required ProgramSchedule Function(ProgramSchedule current) transform,
+  }) => _io.update(expectedSignature: expectedSignature, transform: transform);
 
   /// Takvimi kaldırır (ör. kullanıcı programı yeniden kurarsa). Dosya yoksa
   /// sessizce başarılı sayılır — `ProgramStore.clear` ile AYNI gerekçe.
   Future<void> clear() => _lease.mutate(() async {
-    if (await _file.exists()) await _file.delete();
+    if (await _file.exists()) {
+      _lease.checkCurrent();
+      await _file.delete();
+    }
   });
 }

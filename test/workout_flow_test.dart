@@ -7,6 +7,7 @@ import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/program/program_builder.dart';
 import 'package:gravita/app/program/program_model.dart';
 import 'package:gravita/app/program/program_schedule_store.dart';
+import 'package:gravita/app/program/program_signature.dart';
 import 'package:gravita/app/program/program_store.dart';
 import 'package:gravita/app/theme.dart';
 import 'package:gravita/app/workout/workout_screen.dart';
@@ -59,33 +60,40 @@ void main() {
   Future<int> seed(WidgetTester tester, DateTime scheduleStart) async {
     PathProviderPlatform.instance = FakeSupportDir(tmp.path);
     await tester.runAsync(
-        () async => content = await ContentRepository.load(rootBundle));
+      () async => content = await ContentRepository.load(rootBundle),
+    );
 
-    await realIo(
-        tester, () async => (await ProgramStore.open()).write(inputs));
+    await realIo(tester, () async => (await ProgramStore.open()).write(inputs));
 
     final WorkoutProgram program = await realIo(tester, () async {
-      final ProgramConfig config =
-          await ContentRepository.loadProgramConfig(rootBundle);
-      final List<ProgramCatalogEntry> entries =
-          await content.programCatalogEntries();
+      final ProgramConfig config = await ContentRepository.loadProgramConfig(
+        rootBundle,
+      );
+      final List<ProgramCatalogEntry> entries = await content
+          .programCatalogEntries();
       return ProgramBuilder(config: config, catalog: entries).build(inputs);
     });
 
     final ProgramSchedule schedule = ProgramSchedule(
       dates: scheduleProgram(
-          program: program, startDate: scheduleStart, daysPerWeek: 3),
+        program: program,
+        startDate: scheduleStart,
+        daysPerWeek: 3,
+      ),
       rpeByDayIndex: const <int, int>{},
+      programSignature: programSignature(inputs, program),
     );
-    await realIo(tester,
-        () async => (await ProgramScheduleStore.open()).write(schedule));
+    await realIo(
+      tester,
+      () async => (await ProgramScheduleStore.open()).write(schedule),
+    );
 
     return program.days.length;
   }
 
-  testWidgets(
-      'RPE toplama — GERÇEK dokunuştan geliyor, kalıcı, kamera DEĞİL',
-      (WidgetTester tester) async {
+  testWidgets('RPE toplama — GERÇEK dokunuştan geliyor, kalıcı, kamera DEĞİL', (
+    WidgetTester tester,
+  ) async {
     // Takvim BUGÜN başlıyor — 1. gün henüz kaçırılmamış, "Mark done" akışı.
     await seed(tester, DateTime.now());
 
@@ -96,86 +104,138 @@ void main() {
     // (asset + iki store okuması) 10 turda BİTİREMEDİ — 30 turda güvenle
     // bitti. Bu bir "sonsuz asılı kalma" DEĞİL, ölçülen bir yavaşlık payı.
     await settleUntil(
-        tester,
-        () => find
-            .byKey(const ValueKey<String>('workout.markDone.1.1'))
-            .evaluate()
-            .isNotEmpty,
-        maxRounds: 30);
+      tester,
+      () => find
+          .byKey(const ValueKey<String>('workout.markDone.1.1'))
+          .evaluate()
+          .isNotEmpty,
+      maxRounds: 30,
+    );
 
-    await tester
-        .tap(find.byKey(const ValueKey<String>('workout.markDone.1.1')));
+    await tester.tap(
+      find.byKey(const ValueKey<String>('workout.markDone.1.1')),
+    );
     await tester.pump();
 
     // RPE 7 seç — çip metniyle DEĞİL, `ChoiceChip` soyundan arayarak (başka
     // bir yerde tesadüfen "7" metni olabilir, ör. set/tekrar sayısı).
-    await tester.tap(find.descendant(
-        of: find.byType(ChoiceChip), matching: find.text('7')));
+    await tester.tap(
+      find.descendant(of: find.byType(ChoiceChip), matching: find.text('7')),
+    );
     await tester.pump();
 
-    await tester
-        .tap(find.byKey(const ValueKey<String>('workout.saveRpe.1.1')));
+    await tester.tap(find.byKey(const ValueKey<String>('workout.saveRpe.1.1')));
     await settleUntil(
-        tester, () => find.text('Done · RPE 7').evaluate().isNotEmpty,
-        maxRounds: 30);
+      tester,
+      () => find.text('Done · RPE 7').evaluate().isNotEmpty,
+      maxRounds: 30,
+    );
 
-    expect(find.text('Done · RPE 7'), findsOneWidget,
-        reason: 'UI-GÖZLEMLİ İDDİA: kaydedilen RPE ekranda GÖRÜNÜYOR.');
+    expect(
+      find.text('Done · RPE 7'),
+      findsOneWidget,
+      reason: 'UI-GÖZLEMLİ İDDİA: kaydedilen RPE ekranda GÖRÜNÜYOR.',
+    );
 
     // MOTOR-SONUCU İDDİASI — ayrı: ekranın kendi belleğine güvenmeden,
     // BAĞIMSIZ bir store örneğiyle diskten OKUNARAK doğrulanıyor.
     final ProgramSchedule? saved = await realIo(
-        tester, () async => (await ProgramScheduleStore.open()).read());
+      tester,
+      () async => (await ProgramScheduleStore.open()).read(),
+    );
     expect(saved, isNotNull);
-    expect(saved!.rpeByDayIndex[0], 7,
-        reason: 'GERÇEKTEN kalıcı — RPE kamera/motor sonucu DEĞİL, yalnız '
-            'bu dokunuşun taşıdığı sayı.');
+    expect(
+      saved!.rpeByDayIndex[0],
+      7,
+      reason:
+          'GERÇEKTEN kalıcı — RPE kamera/motor sonucu DEĞİL, yalnız '
+          'bu dokunuşun taşıdığı sayı.',
+    );
+    expect(
+      saved.programSignature,
+      isNotEmpty,
+      reason: 'RPE güncellemesi mevcut reçete bağını korumalı.',
+    );
   });
 
   testWidgets(
-      'kaçırılan gün CEZASIZ yeniden sıralanıyor — kayıp/tekrar YOK, kalıcı',
-      (WidgetTester tester) async {
-    // 1. gün TAM BİR aralık (gapDays) önce planlanmış → bugünden ÖNCE,
-    // yani "kaçırıldı". 2. gün TAM BUGÜN (gapDays sonra) — henüz kaçırılmadı.
-    // Bu seçim BİLEREK: yeniden sıralama sonrası 1. gün TAM bugüne kayar ve
-    // "Missed" etiketi KAYBOLUR — koşul-bağlı bekleme için gözlemlenebilir,
-    // gerçek bir tarih-sınır sabiti UYDURMADAN.
-    final int totalDays = await seed(
-        tester, DateTime.now().subtract(const Duration(days: 2)));
+    'kaçırılan gün CEZASIZ yeniden sıralanıyor — kayıp/tekrar YOK, kalıcı',
+    (WidgetTester tester) async {
+      // 1. gün TAM BİR aralık (gapDays) önce planlanmış → bugünden ÖNCE,
+      // yani "kaçırıldı". 2. gün TAM BUGÜN (gapDays sonra) — henüz kaçırılmadı.
+      // Bu seçim BİLEREK: yeniden sıralama sonrası 1. gün TAM bugüne kayar ve
+      // "Missed" etiketi KAYBOLUR — koşul-bağlı bekleme için gözlemlenebilir,
+      // gerçek bir tarih-sınır sabiti UYDURMADAN.
+      final now = DateTime.now();
+      final int totalDays = await seed(
+        tester,
+        DateTime(now.year, now.month, now.day - 2),
+      );
 
-    await tester.pumpWidget(host(WorkoutScreen(content: content)));
-    // ⚠️ `maxRounds` yükseltildi — üstteki testle AYNI ölçülmüş gerekçe.
-    await settleUntil(
+      await tester.pumpWidget(host(WorkoutScreen(content: content)));
+      // ⚠️ `maxRounds` yükseltildi — üstteki testle AYNI ölçülmüş gerekçe.
+      await settleUntil(
         tester,
         () => find
             .byKey(const ValueKey<String>('workout.reschedule.1.1'))
             .evaluate()
             .isNotEmpty,
-        maxRounds: 30);
+        maxRounds: 30,
+      );
 
-    expect(find.text('Missed'), findsOneWidget,
-        reason: '1. gün geçmişte planlanmıştı — kaçırıldı sayılmalı.');
+      expect(
+        find.text('Missed'),
+        findsOneWidget,
+        reason: '1. gün geçmişte planlanmıştı — kaçırıldı sayılmalı.',
+      );
 
-    await tester
-        .tap(find.byKey(const ValueKey<String>('workout.reschedule.1.1')));
-    await settleUntil(tester, () => find.text('Missed').evaluate().isEmpty,
-        maxRounds: 30);
+      await tester.tap(
+        find.byKey(const ValueKey<String>('workout.reschedule.1.1')),
+      );
+      await settleUntil(
+        tester,
+        () => find.text('Missed').evaluate().isEmpty,
+        maxRounds: 30,
+      );
 
-    expect(find.text('Missed'), findsNothing,
-        reason: 'UI-GÖZLEMLİ İDDİA: yeniden sıralama sonrası 1. gün artık '
-            'kaçırılmış GÖRÜNMÜYOR.');
+      expect(
+        find.text('Missed'),
+        findsNothing,
+        reason:
+            'UI-GÖZLEMLİ İDDİA: yeniden sıralama sonrası 1. gün artık '
+            'kaçırılmış GÖRÜNMÜYOR.',
+      );
 
-    // MOTOR-SONUCU İDDİASI — ayrı, diskten okunarak.
-    final ProgramSchedule? saved = await realIo(
-        tester, () async => (await ProgramScheduleStore.open()).read());
-    expect(saved, isNotNull);
-    expect(saved!.dates.length, totalDays,
-        reason: 'CEZASIZ: hiçbir seans SİLİNMEDİ ya da EKLENMEDİ, yalnız '
-            'tarihler kaydı.');
-    expect(dateOnly(saved.dates[0]).isBefore(dateOnly(DateTime.now())), isFalse,
-        reason: '1. günün YENİ tarihi artık geçmişte DEĞİL.');
-    expect(saved.rpeByDayIndex, isEmpty,
-        reason: 'Yeniden sıralama TAMAMLANMA durumunu DEĞİŞTİRMEZ — yalnız '
-            'tarih kayar, hiçbir gün sahte "done" olmaz.');
-  });
+      // MOTOR-SONUCU İDDİASI — ayrı, diskten okunarak.
+      final ProgramSchedule? saved = await realIo(
+        tester,
+        () async => (await ProgramScheduleStore.open()).read(),
+      );
+      expect(saved, isNotNull);
+      expect(
+        saved!.dates.length,
+        totalDays,
+        reason:
+            'CEZASIZ: hiçbir seans SİLİNMEDİ ya da EKLENMEDİ, yalnız '
+            'tarihler kaydı.',
+      );
+      expect(
+        dateOnly(saved.dates[0]).isBefore(dateOnly(DateTime.now())),
+        isFalse,
+        reason: '1. günün YENİ tarihi artık geçmişte DEĞİL.',
+      );
+      expect(
+        saved.rpeByDayIndex,
+        isEmpty,
+        reason:
+            'Yeniden sıralama TAMAMLANMA durumunu DEĞİŞTİRMEZ — yalnız '
+            'tarih kayar, hiçbir gün sahte "done" olmaz.',
+      );
+      expect(
+        saved.programSignature,
+        isNotEmpty,
+        reason: 'Yeniden planlama mevcut reçete bağını korumalı.',
+      );
+    },
+  );
 }

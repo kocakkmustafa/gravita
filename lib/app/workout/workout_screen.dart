@@ -7,6 +7,7 @@ import '../library_strings.dart';
 import '../program/program_builder.dart';
 import '../program/program_model.dart';
 import '../program/program_schedule_store.dart';
+import '../program/program_signature.dart';
 import '../program/program_setup_screen.dart';
 import '../program/program_store.dart';
 import '../surface_widgets.dart';
@@ -29,6 +30,7 @@ class WorkoutScreen extends StatefulWidget {
 
   static const Key emptyKey = Key('workout.empty');
   static const Key disclaimerKey = Key('workout.disclaimer');
+  static const Key unavailableKey = Key('workout.unavailable');
 
   final ContentRepository content;
   final String? accountUserId;
@@ -42,6 +44,7 @@ typedef _Loaded = ({
   WorkoutProgram? program,
   ProgramSchedule? schedule,
   DateTime today,
+  bool blocked,
 });
 
 class _WorkoutScreenState extends State<WorkoutScreen> {
@@ -56,8 +59,21 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       final ProgramInputs? inputs = await (await ProgramStore.open(
         accountUserId: widget.accountUserId,
       )).read();
-      if (inputs == null) {
-        return (inputs: null, program: null, schedule: null, today: now);
+      final scheduleStore = await ProgramScheduleStore.open(
+        accountUserId: widget.accountUserId,
+      );
+      final schedule = await scheduleStore.read();
+      if (inputs == null && schedule == null) {
+        return (
+          inputs: null,
+          program: null,
+          schedule: null,
+          today: now,
+          blocked: false,
+        );
+      }
+      if (inputs == null || schedule == null) {
+        throw StateError('Saved program is incomplete; preserve its files');
       }
       final ProgramConfig config = await ContentRepository.loadProgramConfig(
         rootBundle,
@@ -69,28 +85,28 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
         catalog: entries,
       ).build(inputs);
 
-      final ProgramScheduleStore scheduleStore =
-          await ProgramScheduleStore.open(accountUserId: widget.accountUserId);
-      ProgramSchedule? schedule = await scheduleStore.read();
-      // Takvim yok YA DA program yeniden üretilince gün sayısı artık
-      // uyuşmuyor (ör. kullanıcı `daysPerWeek`i değiştirdi) — İKİ durumda da
-      // eski indeksler artık FARKLI günlere karşılık gelir, bu yüzden takvim
-      // + tamamlanma durumu BİLEREK sıfırdan kurulur (sessiz yanlış-eşleme
-      // yerine dürüst bir sıfırlama).
-      if (schedule == null || schedule.dates.length != program.days.length) {
-        schedule = ProgramSchedule(
-          dates: scheduleProgram(
-            program: program,
-            startDate: now,
-            daysPerWeek: inputs.daysPerWeek,
-          ),
-          rpeByDayIndex: const <int, int>{},
-        );
-        await scheduleStore.write(schedule);
+      // Loading is read-only. A legacy/unmatched schedule cannot establish
+      // which prescription its old indices and RPE belong to. Never invent
+      // that binding, reset its history, or apply the new calendar to it.
+      if (schedule.programSignature != programSignature(inputs, program) ||
+          schedule.dates.length != program.days.length) {
+        throw StateError('Saved history has no matching prescription binding');
       }
-      return (inputs: inputs, program: program, schedule: schedule, today: now);
+      return (
+        inputs: inputs,
+        program: program,
+        schedule: schedule,
+        today: now,
+        blocked: false,
+      );
     } on Object {
-      return (inputs: null, program: null, schedule: null, today: now);
+      return (
+        inputs: null,
+        program: null,
+        schedule: null,
+        today: now,
+        blocked: true,
+      );
     }
   }
 
@@ -111,6 +127,24 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
         final _Loaded? data = snap.data;
         if (data == null) {
           return const Center(child: CircularProgressIndicator());
+        }
+        if (data.blocked) {
+          return Padding(
+            padding: const EdgeInsets.all(18),
+            child: NoteCard(
+              key: WorkoutScreen.unavailableKey,
+              icon: Icons.info_outline,
+              text: localized(
+                context,
+                'Your saved program could not be safely loaded. Its dates and '
+                    'progress have been kept. It has not been replaced with a '
+                    'new plan. Reopen the app or contact support before changing it.',
+                'Kayıtlı programın güvenle açılamadı. Tarihlerin ve ilerlemen '
+                    'korundu; yerine yeni bir plan yazılmadı. Değişiklik '
+                    'yapmadan önce uygulamayı yeniden aç veya desteğe ulaş.',
+              ),
+            ),
+          );
         }
         if (data.program == null || data.schedule == null) {
           return Padding(
@@ -180,6 +214,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
           today: data.today,
           daysPerWeek: data.inputs!.daysPerWeek,
           accountUserId: widget.accountUserId,
+          signature: data.schedule!.programSignature!,
         );
       },
     ),
@@ -198,6 +233,7 @@ class _ProgramOverview extends StatefulWidget {
     required this.today,
     required this.daysPerWeek,
     this.accountUserId,
+    required this.signature,
   });
 
   final ContentRepository content;
@@ -206,6 +242,7 @@ class _ProgramOverview extends StatefulWidget {
   final DateTime today;
   final int daysPerWeek;
   final String? accountUserId;
+  final String signature;
 
   @override
   State<_ProgramOverview> createState() => _ProgramOverviewState();
@@ -214,28 +251,61 @@ class _ProgramOverview extends StatefulWidget {
 class _ProgramOverviewState extends State<_ProgramOverview> {
   late ProgramSchedule _schedule = widget.initialSchedule;
 
-  Future<void> _markDone(int dayIndex, int rpe) async {
-    final ProgramSchedule updated = _schedule.withRpe(dayIndex, rpe);
-    await (await ProgramScheduleStore.open(
-      accountUserId: widget.accountUserId,
-    )).write(updated);
+  void _saveFailed() {
     if (!mounted) return;
-    setState(() => _schedule = updated);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          localized(
+            context,
+            'The save could not be confirmed. Reopen the app and check your progress.',
+            'Kayıt doğrulanamadı. Uygulamayı yeniden açıp ilerlemeni kontrol et.',
+          ),
+        ),
+      ),
+    );
   }
 
-  Future<void> _reschedule(int dayIndex) async {
-    final int gapDays = scheduleGapDays(widget.daysPerWeek);
-    final List<DateTime> updatedDates = rescheduleAfterMiss(
-      schedule: _schedule.dates,
-      missedIndex: dayIndex,
-      slotSpacing: Duration(days: gapDays),
-    );
-    final ProgramSchedule updated = _schedule.withDates(updatedDates);
-    await (await ProgramScheduleStore.open(
-      accountUserId: widget.accountUserId,
-    )).write(updated);
-    if (!mounted) return;
-    setState(() => _schedule = updated);
+  Future<bool> _markDone(int dayIndex, int rpe) async {
+    try {
+      final updated =
+          await (await ProgramScheduleStore.open(
+            accountUserId: widget.accountUserId,
+          )).update(
+            expectedSignature: widget.signature,
+            transform: (current) => current.withRpe(dayIndex, rpe),
+          );
+      if (mounted) setState(() => _schedule = updated);
+      return true;
+    } on Object {
+      _saveFailed();
+      return false;
+    }
+  }
+
+  Future<bool> _reschedule(int dayIndex) async {
+    try {
+      final updated =
+          await (await ProgramScheduleStore.open(
+            accountUserId: widget.accountUserId,
+          )).update(
+            expectedSignature: widget.signature,
+            transform: (current) => current.withDates(
+              rescheduleAfterMiss(
+                schedule: current.dates,
+                missedIndex: dayIndex,
+                slotSpacing: Duration(
+                  days: scheduleGapDays(widget.daysPerWeek),
+                ),
+              ),
+            ),
+          );
+      if (mounted) setState(() => _schedule = updated);
+      return true;
+    } on Object {
+      _saveFailed();
+      return false;
+    }
   }
 
   @override
@@ -312,8 +382,8 @@ class _DayCard extends StatefulWidget {
   /// `null` = gün henüz tamamlanmadı; dolu = RPE'siyle birlikte bitti.
   final int? rpe;
   final DateTime today;
-  final ValueChanged<int> onMarkDone;
-  final VoidCallback onReschedule;
+  final Future<bool> Function(int) onMarkDone;
+  final Future<bool> Function() onReschedule;
 
   @override
   State<_DayCard> createState() => _DayCardState();
@@ -322,6 +392,7 @@ class _DayCard extends StatefulWidget {
 class _DayCardState extends State<_DayCard> {
   bool _pickingRpe = false;
   int _selectedRpe = 5;
+  bool _saving = false;
 
   static DateTime _dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
 
@@ -442,7 +513,16 @@ class _DayCardState extends State<_DayCard> {
             key: ValueKey<String>(
               'workout.reschedule.${widget.day.weekNumber}.${widget.day.dayNumber}',
             ),
-            onTap: widget.onReschedule,
+            onTap: _saving
+                ? null
+                : () async {
+                    setState(() => _saving = true);
+                    try {
+                      await widget.onReschedule();
+                    } finally {
+                      if (mounted) setState(() => _saving = false);
+                    }
+                  },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
               child: Text(
@@ -520,10 +600,17 @@ class _DayCardState extends State<_DayCard> {
             key: ValueKey<String>(
               'workout.saveRpe.${widget.day.weekNumber}.${widget.day.dayNumber}',
             ),
-            onPressed: () {
-              widget.onMarkDone(_selectedRpe);
-              setState(() => _pickingRpe = false);
-            },
+            onPressed: _saving
+                ? null
+                : () async {
+                    setState(() => _saving = true);
+                    try {
+                      final saved = await widget.onMarkDone(_selectedRpe);
+                      if (saved && mounted) setState(() => _pickingRpe = false);
+                    } finally {
+                      if (mounted) setState(() => _saving = false);
+                    }
+                  },
             child: Text(
               localized(context, LibraryStrings.programRpeSaveButton, 'Kaydet'),
             ),
