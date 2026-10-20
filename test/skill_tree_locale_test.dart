@@ -10,7 +10,11 @@ import 'package:gravita/app/skills/skill_trees_list_screen.dart';
 import 'package:gravita/app/surface_widgets.dart';
 import 'package:gravita/app/theme.dart';
 
+import 'support/locale_asset_harness.dart'
+    show warmActualLocaleAssets, pumpActualLocaleReady;
+
 void main() {
+  setUpAll(warmActualLocaleAssets);
   TestWidgetsFlutterBinding.ensureInitialized();
   late ContentRepository content;
   setUp(() async => content = await ContentRepository.load(rootBundle));
@@ -40,6 +44,7 @@ void main() {
       await tester.pumpWidget(
         host(SkillTreesListScreen(trees: content.catalogue.skillTrees.trees)),
       );
+      await pumpActualLocaleReady(tester);
       expect(find.text('Beceri ağaçları'), findsOneWidget);
       expect(find.text('Amut'), findsOneWidget);
       expect(find.text('Handstand'), findsNothing);
@@ -67,6 +72,7 @@ void main() {
           language: 'en',
         ),
       );
+      await pumpActualLocaleReady(tester);
       expect(
         find.textContaining('does not approve physical practice'),
         findsOneWidget,
@@ -79,6 +85,7 @@ void main() {
   testWidgets('Turkish empty list explains the absence', (tester) async {
     narrow(tester);
     await tester.pumpWidget(host(const SkillTreesListScreen(trees: [])));
+    await pumpActualLocaleReady(tester);
     expect(
       find.text('Şu anda taslak ilerleme ağacı bulunmuyor.'),
       findsOneWidget,
@@ -98,6 +105,7 @@ void main() {
         nodeIds: ['synthetic'],
       );
       await tester.pumpWidget(host(const SkillTreeScreen(tree: tree)));
+      await pumpActualLocaleReady(tester);
       expect(
         find.textContaining('Adım adım görünüm oluşturulmamıştır.'),
         findsOneWidget,
@@ -115,6 +123,7 @@ void main() {
     (tester) async {
       narrow(tester);
       await tester.pumpWidget(host(LibraryScreen(content: content)));
+      await pumpActualLocaleReady(tester);
       await tester.scrollUntilVisible(
         find.byKey(LibraryScreen.skillTreesKey),
         350,
@@ -159,6 +168,7 @@ void main() {
             language: language,
           ),
         );
+        await pumpActualLocaleReady(tester);
         expect(tester.takeException(), isNull);
         for (final movement in selected) {
           final target = find.byKey(Key('narrow.${movement.id}'));

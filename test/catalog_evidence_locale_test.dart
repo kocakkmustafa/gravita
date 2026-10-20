@@ -7,7 +7,11 @@ import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/movement_page.dart';
 import 'package:gravita/app/theme.dart';
 
+import 'support/locale_asset_harness.dart'
+    show warmActualLocaleAssets, pumpActualLocaleReady;
+
 void main() {
+  setUpAll(warmActualLocaleAssets);
   late ContentRepository content;
   setUp(() async => content = await ContentRepository.load(rootBundle));
   Widget host(Widget child, String language) => MaterialApp(
@@ -38,6 +42,7 @@ void main() {
             language,
           ),
         );
+        await pumpActualLocaleReady(tester);
         var uses = 0;
         for (final movement in content.catalogue.movements.where(
           (m) => !m.isLive,
@@ -80,6 +85,7 @@ void main() {
           'tr',
         ),
       );
+      await pumpActualLocaleReady(tester);
       for (final phrase in [
         'Burada hiçbir şey ölçülmüyor.',
         'Bu hareket için henüz hiçbir hata kuralı yazılmadı.',

@@ -22,6 +22,7 @@ import 'package:gravita/app/theme.dart';
 import 'package:gravita/app/workout/workout_screen.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 
+import 'support/locale_asset_harness.dart' show warmActualLocaleAssets;
 import 'support/launch_harness.dart' show FakeSupportDir, realIo, settleUntil;
 
 // Authored for the coordinator's SDK lane; authoring is not a test result.
@@ -48,6 +49,7 @@ void main() {
   ];
 
   setUpAll(() async {
+    await warmActualLocaleAssets();
     content = await ContentRepository.load(rootBundle);
     builder = ProgramBuilder(
       config: await ContentRepository.loadProgramConfig(rootBundle),
@@ -67,12 +69,6 @@ void main() {
     LocaleCatalogRegistry.clearForTesting();
     if (await support.exists()) await support.delete(recursive: true);
   });
-
-  Locale locale(String tag) => switch (tag) {
-    'es-419' => const Locale('es', '419'),
-    'pt-BR' => const Locale('pt', 'BR'),
-    _ => Locale(tag),
-  };
 
   File inputFile() => File('${support.path}/program_inputs.json');
   File scheduleFile() => File('${support.path}/program_schedule.json');
@@ -100,9 +96,10 @@ void main() {
     Widget page,
   ) => MaterialApp(
     theme: GravitaTheme.light,
-    locale: locale(tag),
+    locale: localeForAppTag(tag),
     supportedLocales: appSupportedLocales,
     localizationsDelegates: appLocalizationsDelegates,
+    localeListResolutionCallback: resolveAppLocales,
     builder: (context, child) => MediaQuery(
       data: MediaQuery.of(
         context,

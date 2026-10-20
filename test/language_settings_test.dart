@@ -14,10 +14,16 @@ import 'package:gravita/app/profile_screen.dart';
 import 'package:gravita/app/theme.dart';
 import 'package:gravita/app/theme_preferences.dart';
 
+import 'support/locale_asset_harness.dart';
+
 // Controller and widget contracts are source-only until the authorized Flutter
 // runner executes this file. The codec/IO harness is a separate pure Dart file.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(() async {
+    await warmActualLocaleAssets();
+    await ContentRepository.load(rootBundle);
+  });
 
   Widget host(
     LanguagePreferencesController controller, {
@@ -367,6 +373,7 @@ void main() {
           tester.widget<MaterialApp>(find.byType(MaterialApp)).locale,
           localeForAppTag('tr'),
         );
+        await pumpActualLocaleReady(tester);
         final materialKey = tester
             .widget<MaterialApp>(find.byType(MaterialApp))
             .key;

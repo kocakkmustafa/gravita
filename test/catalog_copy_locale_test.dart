@@ -11,11 +11,15 @@ import 'package:gravita/app/library_screen.dart';
 import 'package:gravita/app/movement_page.dart';
 import 'package:gravita/app/why_not_here_screen.dart';
 
+import 'support/locale_asset_harness.dart'
+    show warmActualLocaleAssets, pumpActualLocaleReady;
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late ContentRepository content;
   late Map<String, dynamic> rawLibrary;
   setUpAll(() async {
+    await warmActualLocaleAssets();
     content = await ContentRepository.load(rootBundle);
     rawLibrary =
         jsonDecode(await rootBundle.loadString('content/library.json'))
@@ -81,6 +85,7 @@ void main() {
         ),
       ),
     );
+    await pumpActualLocaleReady(tester);
     expect(untranslatedBlurbs, isEmpty);
     expect(untranslatedWarnings, isEmpty);
     expect(translatedTitles, content.catalogue.exclusions.sections.length);
@@ -125,6 +130,7 @@ void main() {
           ),
         ),
       );
+      await pumpActualLocaleReady(tester);
       await tester.pumpWidget(
         host(
           const Locale('tr'),
@@ -137,6 +143,7 @@ void main() {
           ),
         ),
       );
+      await pumpActualLocaleReady(tester);
       expect(english, original.blurb);
       expect(changedTurkish, changed.blurb);
       expect(
@@ -185,6 +192,7 @@ void main() {
         ),
       ),
     );
+    await pumpActualLocaleReady(tester);
     for (final displayed in [squatTurkish, pushUpTurkish]) {
       expect(
         displayed,
@@ -238,6 +246,7 @@ void main() {
         ),
       ),
     );
+    await pumpActualLocaleReady(tester);
     expect(pairs, hasLength(13));
     for (final (source, translated) in pairs) {
       expect(translated, isNot(source), reason: source);
@@ -257,6 +266,7 @@ void main() {
         ),
       ),
     );
+    await pumpActualLocaleReady(tester);
     expect(english, 'Force or load');
   });
 
@@ -272,6 +282,7 @@ void main() {
           ),
         ),
       );
+      await pumpActualLocaleReady(tester);
       expect(
         find.textContaining('tekrarlarını saymaz veya zamanlamaz'),
         findsOneWidget,
@@ -294,7 +305,13 @@ void main() {
     await tester.pumpWidget(
       host(const Locale('tr'), LibraryScreen(content: content)),
     );
-    await tester.scrollUntilVisible(find.byKey(LibraryScreen.searchFieldKey), 200, scrollable: find.byType(Scrollable).first, maxScrolls: 100);
+    await pumpActualLocaleReady(tester);
+    await tester.scrollUntilVisible(
+      find.byKey(LibraryScreen.searchFieldKey),
+      200,
+      scrollable: find.byType(Scrollable).first,
+      maxScrolls: 100,
+    );
     await tester.enterText(
       find.byKey(LibraryScreen.searchFieldKey),
       'leg press',
@@ -305,7 +322,12 @@ void main() {
     tester.testTextInput.hide();
     await tester.pump();
     final exclusion = find.byKey(const Key('library.exclusion.machines'));
-    await tester.scrollUntilVisible(exclusion, 150, scrollable: find.byType(Scrollable).first, maxScrolls: 100);
+    await tester.scrollUntilVisible(
+      exclusion,
+      150,
+      scrollable: find.byType(Scrollable).first,
+      maxScrolls: 100,
+    );
     await tester.ensureVisible(exclusion);
     await tester.pumpAndSettle();
     await tester.tap(exclusion);
@@ -330,6 +352,7 @@ void main() {
         MovementPage(movement: closed, content: content),
       ),
     );
+    await pumpActualLocaleReady(tester);
     expect(
       find.textContaining('3 ölçüm eksik; adları ve gerekçeleri aşağıda.'),
       findsOneWidget,
@@ -342,6 +365,7 @@ void main() {
         MovementPage(movement: handstand, content: content),
       ),
     );
+    await pumpActualLocaleReady(tester);
     await tester.scrollUntilVisible(
       find.byKey(MovementPage.safetyKey),
       400,

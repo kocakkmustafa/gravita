@@ -13,8 +13,14 @@ import 'package:gravita/app/theme.dart';
 import 'package:gravita/app/theme_preferences.dart';
 import 'package:gravita/app/theme_settings_screen.dart';
 
+import 'support/locale_asset_harness.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(() async {
+    await warmActualLocaleAssets();
+    await ContentRepository.load(rootBundle);
+  });
 
   Widget host(
     ThemePreferencesController controller, {
@@ -50,6 +56,7 @@ void main() {
       tester.widget<MaterialApp>(find.byType(MaterialApp)).themeMode,
       ThemeMode.dark,
     );
+    await pumpActualLocaleReady(tester);
     expect(
       Theme.of(tester.element(find.byType(Navigator))).brightness,
       Brightness.dark,
@@ -65,6 +72,7 @@ void main() {
       final controller = ThemePreferencesController.ephemeral();
       addTearDown(controller.dispose);
       await tester.pumpWidget(host(controller));
+      await pumpActualLocaleReady(tester);
       tester.platformDispatcher.platformBrightnessTestValue = Brightness.dark;
       await tester.pumpAndSettle();
       expect(
@@ -91,6 +99,7 @@ void main() {
       );
       addTearDown(controller.dispose);
       await tester.pumpWidget(host(controller));
+      await pumpActualLocaleReady(tester);
       await tester.tap(find.byKey(ThemeSettingsScreen.darkKey));
       await tester.pump();
       expect(find.byKey(ThemeSettingsScreen.savingKey), findsOneWidget);
@@ -127,6 +136,7 @@ void main() {
       );
       addTearDown(controller.dispose);
       await tester.pumpWidget(host(controller));
+      await pumpActualLocaleReady(tester);
       expect(find.byKey(ThemeSettingsScreen.loadIssueKey), findsOneWidget);
       expect(
         find.textContaining('original file has been kept'),
@@ -148,6 +158,7 @@ void main() {
       await tester.pumpWidget(
         host(controller, home: ProfileScreen(content: content)),
       );
+      await pumpActualLocaleReady(tester);
       expect(find.byKey(ProfileScreen.appearanceKey), findsOneWidget);
       expect(find.text('Nothing to configure'), findsNothing);
       expect(
@@ -181,6 +192,7 @@ void main() {
         ),
       ),
     );
+    await pumpActualLocaleReady(tester);
     await tester.pumpAndSettle();
     expect(find.text('Görünüm'), findsOneWidget);
     expect(find.text('Cihaz temasını kullan'), findsOneWidget);
@@ -208,6 +220,7 @@ void main() {
         await tester.pumpWidget(
           GravitaApp(accountConnection: account, themePreferences: controller),
         );
+        await pumpActualLocaleReady(tester);
         final materialKey = tester
             .widget<MaterialApp>(find.byType(MaterialApp))
             .key;
@@ -265,6 +278,7 @@ void main() {
             .themeAnimationDuration,
         Duration.zero,
       );
+      await pumpActualLocaleReady(tester);
       final overlays = tester.widgetList<AnnotatedRegion<SystemUiOverlayStyle>>(
         find.byType(AnnotatedRegion<SystemUiOverlayStyle>),
       );

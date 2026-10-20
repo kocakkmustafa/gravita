@@ -8,10 +8,14 @@ import 'package:gravita/app/onboarding_screen.dart';
 import 'package:gravita/app/library_model.dart';
 import 'package:gravita/app/surface_widgets.dart';
 
+import 'support/locale_asset_harness.dart'
+    show warmActualLocaleAssets, pumpActualLocaleReady;
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late Map<String, dynamic> library;
   setUpAll(() async {
+    await warmActualLocaleAssets();
     library =
         jsonDecode(await rootBundle.loadString('content/library.json'))
             as Map<String, dynamic>;
@@ -28,6 +32,7 @@ void main() {
         home: OnboardingFlow(onComplete: () async {}),
       ),
     );
+    await pumpActualLocaleReady(tester);
     expect(find.text('Gravita nedir, ne değildir?'), findsOneWidget);
     await tester.tap(find.byKey(OnboardingFlow.valueContinueKey));
     await tester.pump();
@@ -67,6 +72,7 @@ void main() {
         ),
       ),
     );
+    await pumpActualLocaleReady(tester);
     expect(missing, isEmpty);
   });
 
@@ -86,6 +92,7 @@ void main() {
         ),
       ),
     );
+    await pumpActualLocaleReady(tester);
     expect(find.text('Vücut ağırlığıyla squat'), findsOneWidget);
     expect(find.text('Bacak · Başlangıç · Ekipmansız'), findsOneWidget);
     expect(movement.isLive, isTrue);

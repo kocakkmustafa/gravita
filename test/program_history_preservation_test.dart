@@ -20,11 +20,14 @@ import 'package:gravita/app/theme.dart';
 import 'package:gravita/app/workout/workout_screen.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 
+import 'support/locale_asset_harness.dart'
+    show warmActualLocaleAssets, pumpActualLocaleReady;
 import 'support/launch_harness.dart' show FakeSupportDir, realIo, settleUntil;
 
 // A02/A03/A08 regresyonları: gerçek widget/store, yalnız yeni sentetik dizin.
 // OS process death, fiziksel disk, hesap veya provider kabulü değildir.
 void main() {
+  setUpAll(warmActualLocaleAssets);
   TestWidgetsFlutterBinding.ensureInitialized();
   late PathProviderPlatform originalProvider;
   late Directory temp;
@@ -142,6 +145,7 @@ void main() {
             : WorkoutScreen.withClock(content: content, now: now),
       ),
     );
+    await pumpActualLocaleReady(tester);
     await settleUntil(
       tester,
       () =>
@@ -191,6 +195,7 @@ void main() {
 
   Future<void> rejectDefaultSetup(WidgetTester tester) async {
     await tester.pumpWidget(host(ProgramSetupScreen(content: content)));
+    await pumpActualLocaleReady(tester);
     await tester.pump();
     await submitSetup(tester);
     await expectSetupRejected(tester);
@@ -460,6 +465,7 @@ void main() {
     });
     final before = await bytes(tester);
     await tester.pumpWidget(host(ProgramSetupScreen(content: content)));
+    await pumpActualLocaleReady(tester);
     await tester.pump();
     await submitSetup(tester);
     await settleUntil(
@@ -518,6 +524,7 @@ void main() {
           );
         }
         await tester.pumpWidget(host(ProgramSetupScreen(content: content)));
+        await pumpActualLocaleReady(tester);
         await tester.pump();
         if (change.key == 'experience') {
           await tester.tap(find.text('Intermediate'));

@@ -7,7 +7,11 @@ import 'package:gravita/app/app_locale.dart';
 import 'package:gravita/app/camera_release_policy.dart';
 import 'package:gravita/app/onboarding_screen.dart';
 
+import 'support/locale_asset_harness.dart'
+    show warmActualLocaleAssets, pumpActualLocaleReady;
+
 void main() {
+  setUpAll(warmActualLocaleAssets);
   const channel = MethodChannel('flutter.baseflow.com/permissions/methods');
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -32,6 +36,7 @@ void main() {
             : OnboardingFlow(onComplete: complete),
       ),
     );
+    await pumpActualLocaleReady(tester);
     await tester.tap(find.byKey(OnboardingFlow.valueContinueKey));
     await tester.pump();
     await tester.tap(find.byKey(OnboardingFlow.safetyConsentKey));

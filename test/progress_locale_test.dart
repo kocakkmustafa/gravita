@@ -9,7 +9,11 @@ import 'package:gravita/app/progress_view.dart';
 import 'package:gravita/app/theme.dart';
 import 'package:gravita_engine/gravita_engine.dart';
 
+import 'support/locale_asset_harness.dart'
+    show warmActualLocaleAssets, pumpActualLocaleReady;
+
 void main() {
+  setUpAll(warmActualLocaleAssets);
   TestWidgetsFlutterBinding.ensureInitialized();
   late ContentRepository content;
   setUp(() async => content = await ContentRepository.load(rootBundle));
@@ -69,6 +73,7 @@ void main() {
         home: Scaffold(body: child),
       ),
     );
+    await pumpActualLocaleReady(tester);
     await tester.pumpAndSettle();
   }
 

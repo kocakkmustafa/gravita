@@ -8,6 +8,7 @@ import 'package:gravita/app/library_model.dart';
 import 'package:gravita/app/library_strings.dart';
 import 'package:gravita/app/localization/locale_delegate.dart';
 
+import 'support/locale_asset_harness.dart' show warmActualLocaleAssets;
 import 'support/launch_harness.dart' show settleUntil;
 
 // Source-only authoring task: these definitions are not a runtime result.
@@ -21,6 +22,7 @@ void main() {
   late Map<String, String> sourceIds;
 
   setUpAll(() async {
+    await warmActualLocaleAssets();
     content = await ContentRepository.load(rootBundle);
     catalogs = <String, LocaleCatalog>{};
     for (final tag in supportedLocaleTags) {
@@ -42,12 +44,6 @@ void main() {
   setUp(LocaleCatalogRegistry.clearForTesting);
   tearDown(LocaleCatalogRegistry.clearForTesting);
 
-  Locale locale(String tag) => switch (tag) {
-    'es-419' => const Locale('es', '419'),
-    'pt-BR' => const Locale('pt', 'BR'),
-    _ => Locale(tag),
-  };
-
   Future<BuildContext> loadContext(WidgetTester tester, String tag) async {
     BuildContext? loaded;
     addTearDown(() async {
@@ -56,9 +52,10 @@ void main() {
     });
     await tester.pumpWidget(
       MaterialApp(
-        locale: locale(tag),
+        locale: localeForAppTag(tag),
         supportedLocales: appSupportedLocales,
         localizationsDelegates: appLocalizationsDelegates,
+        localeListResolutionCallback: resolveAppLocales,
         home: Builder(
           builder: (context) {
             loaded = context;

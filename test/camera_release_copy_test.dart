@@ -24,9 +24,12 @@ import 'package:motion_account/motion_account.dart'
     show motionPaidFeaturesAvailable;
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 
+import 'support/locale_asset_harness.dart'
+    show warmActualLocaleAssets, pumpActualLocaleReady;
 import 'support/launch_harness.dart' show FakeSupportDir, realIo, settleUntil;
 
 void main() {
+  setUpAll(warmActualLocaleAssets);
   TestWidgetsFlutterBinding.ensureInitialized();
 
   Future<ContentRepository> loadReal(WidgetTester tester) async {
@@ -64,6 +67,7 @@ void main() {
         expect(content.startableConfigFor('push_up'), isNotNull);
         expect(content.calisthenicsCourse.lessons, hasLength(56));
         await tester.pumpWidget(host(GravitaShell(content: content), language));
+        await pumpActualLocaleReady(tester);
         await tester.pump();
         final section = find.byKey(HomeScreen.openNowKey);
         expect(
@@ -104,6 +108,7 @@ void main() {
       useNarrowTall(tester);
       final content = await loadReal(tester);
       await tester.pumpWidget(host(LibraryScreen(content: content), language));
+      await pumpActualLocaleReady(tester);
       await tester.pump();
       expect(
         find.textContaining(
@@ -187,6 +192,7 @@ void main() {
         );
       });
       await tester.pumpWidget(host(WorkoutScreen(content: content), language));
+      await pumpActualLocaleReady(tester);
       await settleUntil(
         tester,
         () => find.byKey(WorkoutScreen.disclaimerKey).evaluate().isNotEmpty,
@@ -232,6 +238,7 @@ void main() {
             language,
           ),
         );
+        await pumpActualLocaleReady(tester);
         await tester.pump();
         final button = find.byKey(MovementPage.startSessionKey);
         expect(tester.widget<FilledButton>(button).onPressed, isNull);
@@ -299,6 +306,7 @@ void main() {
       await tester.pumpWidget(
         host(WhyNotHereScreen(page: content.catalogue.exclusions), language),
       );
+      await pumpActualLocaleReady(tester);
       await tester.pump();
       expect(
         find.textContaining(

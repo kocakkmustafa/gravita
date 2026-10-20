@@ -30,11 +30,16 @@ import 'package:gravita_engine/gravita_engine.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 
 import 'support/launch_harness.dart' show FakeSupportDir, settleUntil;
+import 'support/locale_asset_harness.dart'
+    show pumpActualLocaleReady, warmActualLocaleAssets;
 
 // Authored for the coordinator's SDK lane. These are selected real Flutter
 // surfaces; they do not establish native camera, glyph or visual acceptance.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  // Real asset decoding must finish outside testWidgets' FakeAsync zone.
+  // A later runAsync cannot rescue a cached Future created in that zone.
+  setUpAll(warmActualLocaleAssets);
 
   Widget host(
     ThemeMode mode,
@@ -77,6 +82,7 @@ void main() {
     required Finder ready,
   }) async {
     await tester.pumpWidget(host(mode, child, locale: locale, scale: scale));
+    await pumpActualLocaleReady(tester);
     await settleUntil(tester, () => ready.evaluate().isNotEmpty, maxRounds: 40);
     expect(ready, findsWidgets);
     await tester.pump();
@@ -479,6 +485,7 @@ void main() {
             ),
           ),
         );
+        await pumpActualLocaleReady(tester);
         await settleUntil(
           tester,
           () => find.byKey(WorkoutScreen.emptyKey).evaluate().isNotEmpty,
@@ -555,6 +562,7 @@ void main() {
           languagePreferences: language,
         ),
       );
+      await pumpActualLocaleReady(tester);
       await settleUntil(
         tester,
         () => find.text(expected).evaluate().isNotEmpty,
@@ -628,6 +636,7 @@ void main() {
           ),
         ),
       );
+      await pumpActualLocaleReady(tester);
       final options = find.widgetWithText(
         TextButton,
         resolveLocalized('ar', 'Account options', turkish: 'Hesap seçenekleri'),
