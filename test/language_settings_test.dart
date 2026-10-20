@@ -345,16 +345,23 @@ void main() {
         );
         await pumpActualLocaleReady(tester);
         await tester.pumpAndSettle();
-        final lastLanguage = find.byKey(
-          LanguageSettingsScreen.languageKey('zh-Hans'),
-        );
-        await tester.ensureVisible(lastLanguage);
-        await tester.pump();
-        expect(lastLanguage.hitTestable(), findsOneWidget);
         final choices = find.descendant(
           of: find.byType(ListView),
           matching: find.byType(Scrollable),
         );
+        final lastLanguage = find.byKey(
+          LanguageSettingsScreen.languageKey('zh-Hans'),
+        );
+        // Large text can leave the choices card outside the lazy-list cache.
+        // Discover it through bounded real drags before the final reveal/tap.
+        await tester.scrollUntilVisible(
+          lastLanguage,
+          240,
+          scrollable: choices,
+          maxScrolls: 20,
+        );
+        await tester.pump();
+        expect(lastLanguage.hitTestable(), findsOneWidget);
         expect(
           tester.state<ScrollableState>(choices).position.pixels,
           greaterThan(0),
