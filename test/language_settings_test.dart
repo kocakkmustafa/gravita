@@ -171,6 +171,7 @@ void main() {
     final controller = LanguagePreferencesController.ephemeral();
     addTearDown(controller.dispose);
     await tester.pumpWidget(host(controller));
+    await pumpActualLocaleReady(tester);
     await tester.pumpAndSettle();
     expect(languageAutonyms.keys.toSet(), supportedLocaleTags.toSet());
     expect(languageAutonyms, hasLength(14));
@@ -186,6 +187,7 @@ void main() {
       find.byKey(LanguageSettingsScreen.languageKey('tr')),
     );
     await tester.tap(find.byKey(LanguageSettingsScreen.languageKey('tr')));
+    await pumpActualLocaleReady(tester);
     await tester.pumpAndSettle();
     expect(controller.selectedTag, 'tr');
     expect(find.text('Dil'), findsOneWidget);
@@ -227,6 +229,7 @@ void main() {
       final controller = LanguagePreferencesController.ephemeral();
       addTearDown(controller.dispose);
       await tester.pumpWidget(host(controller));
+      await pumpActualLocaleReady(tester);
       await tester.pumpAndSettle();
       expect(
         Localizations.localeOf(
@@ -235,6 +238,7 @@ void main() {
         localeForAppTag('tr'),
       );
       tester.platformDispatcher.localesTestValue = const <Locale>[Locale('de')];
+      await pumpActualLocaleReady(tester);
       await tester.pumpAndSettle();
       expect(
         Localizations.localeOf(
@@ -243,13 +247,16 @@ void main() {
         localeForAppTag('de'),
       );
       await controller.setSelectedTag('ar');
+      await pumpActualLocaleReady(tester);
       await tester.pumpAndSettle();
       tester.platformDispatcher.localesTestValue = const <Locale>[Locale('ja')];
+      await pumpActualLocaleReady(tester);
       await tester.pumpAndSettle();
       final context = tester.element(find.byType(LanguageSettingsScreen));
       expect(Localizations.localeOf(context), localeForAppTag('ar'));
       expect(Directionality.of(context), TextDirection.rtl);
       await controller.setSelectedTag(null);
+      await pumpActualLocaleReady(tester);
       await tester.pumpAndSettle();
       expect(
         Localizations.localeOf(
@@ -272,6 +279,7 @@ void main() {
     await tester.pumpWidget(
       host(controller, localeOverride: const Locale('en')),
     );
+    await pumpActualLocaleReady(tester);
     await tester.pumpAndSettle();
     await tester.ensureVisible(
       find.byKey(LanguageSettingsScreen.languageKey('en')),
@@ -308,6 +316,7 @@ void main() {
       await tester.pumpWidget(
         host(controller, localeOverride: const Locale('en')),
       );
+      await pumpActualLocaleReady(tester);
       await tester.pumpAndSettle();
       expect(find.byKey(LanguageSettingsScreen.loadIssueKey), findsOneWidget);
       expect(controller.selectedTag, isNull);
@@ -334,6 +343,7 @@ void main() {
     await tester.pumpWidget(
       host(controller, home: ProfileScreen(content: content)),
     );
+    await pumpActualLocaleReady(tester);
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('Language'));
     await tester.tap(find.text('Language'));
@@ -388,6 +398,7 @@ void main() {
         );
         await tester.pumpAndSettle();
         await controller.setSelectedTag('ar');
+        await pumpActualLocaleReady(tester);
         await tester.pumpAndSettle();
         expect(
           tester.widget<MaterialApp>(find.byType(MaterialApp)).key,
@@ -430,6 +441,7 @@ void main() {
     await tester.pumpWidget(
       host(controller, textScale: 1.8, reduceMotion: true),
     );
+    await pumpActualLocaleReady(tester);
     await tester.pumpAndSettle();
     await tester.ensureVisible(
       find.byKey(LanguageSettingsScreen.languageKey('zh-Hans')),
@@ -457,6 +469,7 @@ void main() {
           reduceMotion: true,
         ),
       );
+      await pumpActualLocaleReady(tester);
       await tester.pumpAndSettle();
       expect(find.byKey(LanguageSettingsScreen.savingKey), findsOneWidget);
       expect(find.byType(CircularProgressIndicator), findsNothing);
