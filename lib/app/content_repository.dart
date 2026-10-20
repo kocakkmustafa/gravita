@@ -331,6 +331,7 @@ final class ContentRepository {
     String? accountUserId,
     Directory? supportDirectory,
     String courseId = 'calisthenics-foundations',
+    String courseVersion = '1.0.0',
   }) async {
     final epoch = AccountStoreEpochRegistry.capture(accountUserId);
     final support = supportDirectory ?? await getApplicationSupportDirectory();
@@ -340,6 +341,7 @@ final class ContentRepository {
       accountUserId,
       epoch: epoch,
       courseId: courseId,
+      courseVersion: courseVersion,
     );
   }
 

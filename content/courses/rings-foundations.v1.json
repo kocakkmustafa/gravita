@@ -1,36 +1,36 @@
 {
   "schemaVersion": 1,
   "id": "rings-foundations",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": {
-    "en": "Low-ring pull and support foundations · review pending",
-    "tr": "Alçak halka çekiş ve destek temelleri · inceleme bekliyor"
+    "en": "Low rings: independent supported foundations",
+    "tr": "Alçak halka: bağımsız destekli temeller"
   },
   "description": {
-    "en": "A complete foundation sequence draft: setup, progressive tasks, easier options, recovery and exit review. Physical tasks await expert review and original demonstrations; training/calibration comes later.",
-    "tr": "Tam temel sıra taslağı: kurulum, ilerleyen görevler, kolay seçenekler, dinlenme ve çıkış incelemesi. Fiziksel görevler uzman incelemesi ve özgün gösterim bekler; eğitim/kalibrasyon sonradır."
+    "en": "Twelve original lessons teach setup decisions, a nearly upright two-foot row, standing low-ring pressure and a small repeatable session. Both feet keep supporting the body. Hanging, feet-off support, dips, false grip, swings and muscle-ups are separate teaching. No playable demonstration is packaged.",
+    "tr": "On iki özgün ders kurulum kararını, dikeye yakın iki ayak destekli rowu, ayakta alçak halkaya hafif basmayı ve küçük tekrarlanabilir oturumu öğretir. İki ayak bedeni desteklemeyi sürdürür. Asılma, ayaksız destek, dip, false grip, sallanma ve muscle-up ayrı öğretimdir. Oynatılabilir gösterim paketlenmemiştir."
   },
   "healthNotice": {
-    "en": "Expert review and learner observation are pending. Read now; physical practice and physical completion are held. No individual suitability, injury-prevention, mastery or model-accuracy claim.",
-    "tr": "Uzman incelemesi ve öğrenci gözlemi bekliyor. Şimdi okuyabilirsin; fiziksel pratik ve fiziksel tamamlama kapalı. Kişisel uygunluk, yaralanma önleme, ustalık veya model doğruluğu iddiası yok."
+    "en": "General adult skill education. Choose the easier or written option when needed. Stop for new pain, dizziness, unusual breathlessness, faintness, tingling or loss of grip/balance; do not retest symptoms. Persistent or concerning symptoms need appropriate individual assessment. Learning reports do not validate form or personal suitability.",
+    "tr": "Yetişkinler için genel beceri eğitimi. Gerektiğinde kolay veya yazılı seçeneği seç. Yeni ağrı, baş dönmesi, olağandışı nefes darlığı, baygınlık hissi, karıncalanma veya tutuş/denge kaybında dur; belirtileri yeniden sınama. Süren veya kaygı veren belirtilerde uygun bireysel değerlendirme gerekir. Öğrenme bildirimi formu veya kişisel uygunluğu doğrulamaz."
   },
   "evidenceMode": "self_report",
-  "reviewStatus": "expert_review_required",
+  "reviewStatus": "first_release_draft",
   "scope": {
-    "en": "Provisional healthy adult beginner scope; exact equipment and individual suitability require qualified review.",
-    "tr": "Geçici sağlıklı yetişkin başlangıç kapsamı; kesin ekipman ve kişisel uygunluk yetkin inceleme ister."
+    "en": "Optional adult beginner learning close to standing, using a manufacturer-compatible installation and continuous two-foot support. This is an original learning sequence, not a test of strength, personal medical suitability or injury prevention.",
+    "tr": "Üreticiye uygun kurulum ve sürekli iki ayak desteğiyle, ayakta durmaya yakın isteğe bağlı yetişkin başlangıç öğrenimi. Bu özgün öğrenme sırasıdır; kuvvet, kişisel tıbbi uygunluk veya yaralanma önleme testi değildir."
   },
   "equipment": {
-    "en": "Low rings, manufacturer-rated attachment, inspected straps/buckles, non-slip floor.",
-    "tr": "Alçak halka, üreticiye uygun bağlantı, incelenmiş kayış/toka, kaymayan zemin."
+    "en": "Manufacturer-compatible fixed attachment, matching intact straps and correctly threaded buckles, intact rings, non-slip floor and footwear. Adjust equal ring heights while unloaded. Furniture, door trim, unverified options and improvised anchors are excluded.",
+    "tr": "Üreticinin uygun gördüğü sabit bağlantı, eş sağlam kayış ve doğru geçirilmiş tokalar, sağlam halkalar, kaymayan zemin ve tutunan ayakkabı. Eş halka yüksekliğini yüksüzken ayarla. Mobilya, kapı pervazı, doğrulanmamış hareket biçimi ve doğaçlama bağlantı kullanılmaz."
   },
   "entryCriteria": {
-    "en": "Read scope, identify equipment and unresolved suitability questions, and arrange the actual setup review.",
-    "tr": "Kapsamı oku, ekipmanı ve çözülmemiş uygunluk sorularını belirle, gerçek kurulum incelemesini düzenle."
+    "en": "Explain the setup and standing return, stand steadily on both feet and open and close a comfortable grip. If an actual setup condition is unresolved, choose written learning. A checkbox cannot inspect an anchor or grant personal clearance.",
+    "tr": "Kurulumu ve ayakta dönüşü açıkla, iki ayak üzerinde dengeli dur ve rahat tutuşu açıp kapat. Gerçek kurulum koşulu çözülmemişse yazılı öğrenmeyi seç. Bir kutu bağlantıyı inceleyemez veya kişisel uygunluk izni veremez."
   },
   "exitCriteria": {
-    "en": "Explain setup, selected task, regression, recovery and exit; physical performance requires separate demonstrations and observed learner review.",
-    "tr": "Kurulum, seçilen görev, kolaylaştırma, dinlenme ve çıkışı açıkla; fiziksel performans ayrı gösterim ve gözlenmiş öğrenci incelemesi ister."
+    "en": "Without notes, accept or reject an actual setup, reconstruct entry and standing release, distinguish a small row from standing pressure, choose a stop or easier option and record a short session honestly. This does not establish feet-off support or advanced ring readiness.",
+    "tr": "Notsuz gerçek kurulumu kabul et veya reddet, giriş ve ayakta bırakışı yeniden kur, küçük row ile ayakta basmayı ayır, durma veya kolay seçeneği seç ve kısa oturumu dürüstçe kaydet. Bu sonuç ayaksız destek veya ileri halka hazırlığı oluşturmaz."
   },
   "sources": [
     {
@@ -38,12 +38,51 @@
       "title": "Mayo Clinic: Weight training technique",
       "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/weight-training/art-20045842",
       "supports": {
-        "en": "General preparation, controlled movement, breathing and recovery principles.",
-        "tr": "Genel hazırlık, kontrollü hareket, nefes ve toparlanma ilkeleri."
+        "en": "General controlled movement, breathing, gradual learning and rest.",
+        "tr": "Genel kontrollü hareket, nefes, kademeli öğrenme ve dinlenme."
       },
       "doesNotSupport": {
-        "en": "These original draft lessons, equipment installation, individual suitability or expert approval.",
-        "tr": "Bu özgün taslak dersleri, ekipman kurulumunu, kişisel uygunluğu veya uzman onayını kanıtlamaz."
+        "en": "The exact ring installation, assembled sequence, editorial doses, individual suitability or observed form.",
+        "tr": "Kesin halka kurulumu, birleşik sıra, editoryal doz, kişisel uygunluk veya gözlenmiş form."
+      }
+    },
+    {
+      "id": "gmb_rings_setup",
+      "title": "GMB: Hanging gymnastic rings",
+      "url": "https://gmb.io/hanging-gymnastic-rings/",
+      "supports": {
+        "en": "The source-map author read the publisher page on space and hanging arrangements. The parent separately recorded buckle/strap and indoor/outdoor setup sample frames.",
+        "tr": "Kaynak haritası yazarı yayıncının alan ve asma düzeni sayfasını okudu. Ana oturum ayrıca toka/kayış ve iç/dış ortam kurulum örnek kareleri kaydetti."
+      },
+      "doesNotSupport": {
+        "en": "Full installation review, manufacturer-specific threading, anchor strength, a complete row or support exit, these doses or personal readiness.",
+        "tr": "Tam kurulum incelemesi, üreticiye özgü kayış geçişi, bağlantı dayanımı, tam row veya destek çıkışı, bu dozlar veya kişisel hazırlık."
+      }
+    },
+    {
+      "id": "gmb_rings_grips",
+      "title": "GMB: Gymnastic rings grips",
+      "url": "https://gmb.io/gymnastic-rings-grips/",
+      "supports": {
+        "en": "The source map distinguishes neutral/below-ring, false-grip and above-ring concepts. This course selects only ordinary comfortable closed grip.",
+        "tr": "Kaynak haritası nötr/halka altı, false grip ve halka üstü kavramlarını ayırır. Bu kurs yalnız rahat normal kapalı tutuşu seçer."
+      },
+      "doesNotSupport": {
+        "en": "No grip video was watched by this author. The reference does not approve false grip, muscle-up, hanging, injury prevention or personal wrist tolerance.",
+        "tr": "Bu yazar tutuş videosu izlemedi. Referans false grip, muscle-up, asılma, yaralanma önleme veya kişisel bilek toleransını onaylamaz."
+      }
+    },
+    {
+      "id": "nhs_warmup_frames",
+      "title": "NHS Strength and Flex: parent sampled warm-up frames",
+      "url": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+      "supports": {
+        "en": "Parent sample frames show general standing shoulder/arm movement and a small knee bend at 11.16, 20, 41, 62 seconds.",
+        "tr": "Ana oturumun 11.16, 20, 41, 62.saniye örnekleri genel ayakta omuz/kol hareketi ve küçük diz bükme gösterir."
+      },
+      "doesNotSupport": {
+        "en": "A complete warm-up, ring technique, installation, a full return, a dose or individual readiness.",
+        "tr": "Tam ısınma, halka tekniği, kurulum, tam dönüş, doz veya kişisel hazırlık."
       }
     }
   ],
@@ -58,207 +97,264 @@
         {
           "id": "rings-01",
           "title": {
-            "en": "Scope and supported pathway",
-            "tr": "Kapsam ve destekli yol"
+            "en": "Choose the supported endpoint",
+            "tr": "Destekli son noktayı seç"
           },
           "objective": {
-            "en": "Learn the defined task: Scope and supported pathway.",
-            "tr": "Tanımlı görevi öğren: Kapsam ve destekli yol."
+            "en": "Name the two taught tasks and reject three advanced substitutions.",
+            "tr": "İki öğretilen görevi adlandır ve üç ileri alternatifi reddet."
           },
           "steps": [
             {
-              "en": "Choose low rings with feet kept on the floor.",
-              "tr": "Ayakların yerde kaldığı alçak halkaları seç."
+              "en": "Read without ring load; no previous ring skill is needed. Draw columns for taught here and separate teaching. Put nearly upright two-foot row and standing low-ring pressure in the first: in both, the feet keep supporting the body.",
+              "tr": "Halkaya yük vermeden oku; önceki halka becerisi gerekmez. Burada öğretilen ve ayrı öğretim sütunlarını çiz. İlkine dikeye yakın iki ayak destekli rowu ve ayakta alçak halkaya basmayı yaz: ikisinde de ayaklar bedeni desteklemeyi sürdürür."
             },
             {
-              "en": "Separate supported pull/support from hanging, dips and muscle-up.",
-              "tr": "Destekli çekiş/desteği asılma, dip ve muscle-uptan ayır."
+              "en": "Put hanging, feet-off support, dips, false grip, swings and muscle-up in the other column. Reading the name gives no attempt.",
+              "tr": "Diğerine asılma, ayaksız destek, dip, false grip, sallanma ve muscle-up yaz. Adını okumak deneme görevi vermez."
             },
             {
-              "en": "Write the exact attachment and reviewer still needed.",
-              "tr": "Gereken kesin bağlantıyı ve değerlendiriciyi yaz."
+              "en": "Describe the common finish: return fully upright on both feet, unload the straps, then release one ring and the other.",
+              "tr": "Ortak bitişi anlat: iki ayakla tamamen dik duruşa dön, kayışları yüksüz bırak, sonra bir halkayı ve diğerini bırak."
             }
           ],
           "practice": {
-            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
-            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+            "en": "Write two taught tasks and cross out three advanced substitutions; compare with the scope.\n\nCommon mistake and correction: A feet-supported task is mistaken for a feet-off strength test. Correct the name before planning an attempt.",
+            "tr": "İki öğretilen görevi yaz, üç ileri alternatifi çiz; kapsamla karşılaştır.\n\nSık hata ve düzeltme: Ayak destekli görev ayaksız kuvvet testi sanılır. Deneme planlamadan görev adını düzelt."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Can I explain why my feet stay down?",
+              "tr": "Ayaklarımın neden yerde kaldığını açıklayabiliyor muyum?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Can I describe release without leaning on the rings?",
+              "tr": "Halkaya yaslanmadan bırakışı anlatabiliyor muyum?"
             }
           ],
           "adaptation": {
-            "en": "Read without touching equipment.",
-            "tr": "Ekipmana dokunmadan oku."
+            "en": "Use only a drawing and spoken explanation.",
+            "tr": "Yalnız çizim ve sözlü açıklama kullan."
           },
           "progression": {
-            "en": "Select the actual setup with a qualified coach.",
-            "tr": "Gerçek kurulumu yetkin eğitmenle seç."
+            "en": "Move to setup decisions when you can distinguish both tasks and their finish without the page.",
+            "tr": "İki görevi ve bitişini sayfaya bakmadan ayırınca kurulum kararına geç."
           },
           "regression": {
-            "en": "Read without touching equipment.",
-            "tr": "Ekipmana dokunmadan oku."
+            "en": "Use only a drawing and spoken explanation.",
+            "tr": "Yalnız çizim ve sözlü açıklama kullan."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Pause about one minute before recall; take longer as needed.",
+            "tr": "Hatırlamadan önce yaklaşık bir dakika ara ver; gerekirse uzat."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Do not plan a task requiring hanging, jumping, a dip or feet leaving the floor.",
+            "tr": "Asılma, sıçrama, dip veya ayakların yerden ayrılmasını gerektiren görev planlama."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "gmb_rings_setup"
           ],
           "prerequisites": [],
-          "minutes": 8,
+          "minutes": 6,
           "practiceType": "learning_only",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for rings-01: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "rings-01 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:rings-01"
+          "movementTaskId": "gravita:rings-01",
+          "candidatePracticeAccess": "learning_only",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "gmb_rings_setup"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Continuous complete low-ring row or standing-pressure entry-task-unload-release",
+              "Manufacturer-specific actual installation and individual anchor integrity",
+              "Editorial rehearsal dose and individual suitability"
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "rings-02",
           "title": {
-            "en": "Attachment and strap inspection",
-            "tr": "Bağlantı ve kayış kontrolü"
+            "en": "Accept or reject the actual installation",
+            "tr": "Gerçek kurulumu kabul et veya reddet"
           },
           "objective": {
-            "en": "Learn the defined task: Attachment and strap inspection.",
-            "tr": "Tanımlı görevi öğren: Bağlantı ve kayış kontrolü."
+            "en": "Identify the actual attachment, strap path and return area from the correct instructions; reject unknowns.",
+            "tr": "Doğru talimattan gerçek bağlantı, kayış yolu ve dönüş alanını belirle; bilinmeyeni reddet."
           },
           "steps": [
             {
-              "en": "Use only the actual manufacturer-rated attachment instructions.",
-              "tr": "Yalnız gerçek üreticinin uygun bağlantı talimatını kullan."
+              "en": "After explaining the course scope, inspect from the floor without body load. Have the exact ring and strap instructions and a manufacturer-compatible attachment. Match the components to those instructions; unknown attachment suitability, limits or threading mean no loaded attempt, not a hanging test. Resolve the actual installation before proceeding.",
+              "tr": "Kurs kapsamını açıkladıktan sonra zeminden beden yükü vermeden incele. Kesin halka ve kayış talimatı ile üreticiye uygun bağlantı bulunsun. Parçaları talimatla eşleştir; bilinmeyen bağlantı uygunluğu, sınırı veya kayış geçişi asılma testi değil, yük vererek denememe nedenidir. İlerlemeden gerçek kurulumu çöz."
             },
             {
-              "en": "Have the anchor, straps, buckles and ring condition checked; the app cannot inspect strength.",
-              "tr": "Dayanak, kayış, toka ve halka durumunu kontrol ettir; uygulama dayanımı inceleyemez."
+              "en": "Check damage, cracks, wrong threading and slipping adjustment. Set equal reachable heights by the manufacturer method while unloaded.",
+              "tr": "Hasarı, çatlağı, yanlış geçişi ve kayan ayarı kontrol et. Eş ulaşılabilir yüksekliği üretici yöntemiyle yüksüzken ayarla."
             },
             {
-              "en": "Mark a clear foot-supported entry and exit area.",
-              "tr": "Ayak destekli giriş ve çıkış alanını belirle."
+              "en": "Clear the standing and return areas; check shoe traction. Keep people and loose objects away from the ring and strap paths.",
+              "tr": "Ayakta duruş ve dönüş alanını boşalt; ayakkabı tutunmasını kontrol et. İnsan ve gevşek eşyayı halka/kayış yolundan uzak tut."
+            },
+            {
+              "en": "Mark each condition known or unresolved. An image, camera score or completion badge does not certify the installation.",
+              "tr": "Her koşulu biliniyor veya çözülmemiş işaretle. Görüntü, kamera puanı veya tamamlama rozeti kurulumu sertifikalandırmaz."
             }
           ],
           "practice": {
-            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
-            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+            "en": "Make a four-item setup card: instructions, intact correctly threaded hardware, equal height, clear floor and return.\n\nCommon mistake and correction: Hanging on an unknown anchor confuses testing with inspection. Replace it with rejection and an equipment-free lesson.",
+            "tr": "Dört maddeli kurulum kartı yap: talimat, sağlam doğru geçirilmiş donanım, eş yükseklik, boş zemin ve dönüş.\n\nSık hata ve düzeltme: Bilinmeyen bağlantıya asılmak testle incelemeyi karıştırır. Yerine ret ve ekipmansız ders seç."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Can I point to the actual instructions rather than a generic video frame?",
+              "tr": "Genel video karesi yerine gerçek talimatı gösterebiliyor muyum?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Did I reject every unresolved attachment or buckle question?",
+              "tr": "Çözülmemiş her bağlantı veya toka sorusunu reddettim mi?"
             }
           ],
           "adaptation": {
-            "en": "Use an equipment diagram; never improvise a door or ceiling anchor.",
-            "tr": "Ekipman şeması kullan; doğaçlama kapı veya tavan bağlantısı yapma."
+            "en": "Use hypothetical accept/reject cases on paper; do not improvise an anchor.",
+            "tr": "Kâğıtta varsayımsal kabul/ret örnekleri kullan; bağlantı uydurma."
           },
           "progression": {
-            "en": "Resolve all setup doubts before any loading.",
-            "tr": "Yük vermeden önce tüm kurulum şüphelerini çöz."
+            "en": "Try standing grip only after the actual setup is known. Otherwise continue reading.",
+            "tr": "Ayakta tutuşu yalnız gerçek kurulum biliniyorsa dene. Aksi halde okumayı sürdür."
           },
           "regression": {
-            "en": "Use an equipment diagram; never improvise a door or ceiling anchor.",
-            "tr": "Ekipman şeması kullan; doğaçlama kapı veya tavan bağlantısı yapma."
+            "en": "Use hypothetical accept/reject cases on paper; do not improvise an anchor.",
+            "tr": "Kâğıtta varsayımsal kabul/ret örnekleri kullan; bağlantı uydurma."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Pause about one minute before recall; take longer as needed.",
+            "tr": "Hatırlamadan önce yaklaşık bir dakika ara ver; gerekirse uzat."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Damage, slipping adjustment, unknown attachment or an obstructed return ends the equipment option.",
+            "tr": "Hasar, kayan ayar, bilinmeyen bağlantı veya kapalı dönüş ekipman seçeneğini bitirir."
           },
           "sourceIds": [
-            "general"
+            "gmb_rings_setup"
           ],
           "prerequisites": [
             "rings-01"
           ],
-          "minutes": 8,
+          "minutes": 6,
           "practiceType": "learning_only",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for rings-02: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "rings-02 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:rings-02"
+          "movementTaskId": "gravita:rings-02",
+          "candidatePracticeAccess": "learning_only",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "gmb_rings_setup"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=q5JSXfknmYs",
+                "publisherUrl": "https://gmb.io/hanging-gymnastic-rings/",
+                "playerId": "q5JSXfknmYs",
+                "sampledSeconds": [
+                  135.6,
+                  300,
+                  419,
+                  478
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "Buckle and strap direction examples plus indoor/outdoor setup contexts. Not complete installation, a manufacturer-specific threading instruction, anchor certification, row or controlled exit.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Continuous complete low-ring row or standing-pressure entry-task-unload-release",
+              "Manufacturer-specific actual installation and individual anchor integrity",
+              "Editorial rehearsal dose and individual suitability"
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "rings-03",
           "title": {
-            "en": "Grip and feet-supported entry",
-            "tr": "Tutuş ve ayak destekli giriş"
+            "en": "Grip and release while standing",
+            "tr": "Ayakta tut ve bırak"
           },
           "objective": {
-            "en": "Learn the defined task: Grip and feet-supported entry.",
-            "tr": "Tanımlı görevi öğren: Tutuş ve ayak destekli giriş."
+            "en": "Take and release both rings without leaning, jumping or loading the straps.",
+            "tr": "Yaslanmadan, sıçramadan veya kayışa yük vermeden iki halkayı tut ve bırak."
           },
           "steps": [
             {
-              "en": "After preparation, use reviewed low rings while standing securely.",
-              "tr": "Hazırlıktan sonra dengeli ayakta dururken incelenmiş alçak halkaları kullan."
+              "en": "Use the accepted setup only when ordinary standing and hand opening/closing are comfortable, without current symptoms. After familiar easy preparation, face rings reachable around the lower chest, with no overhead reach or tiptoe stance. Stand with feet comfortably apart, body over the feet and straps slack.",
+              "tr": "Kabul edilen kurulumu yalnız normal ayakta durma ve eli açıp kapama mevcut belirti olmadan rahatsa kullan. Tanıdık rahat hazırlıktan sonra alt göğüs çevresinde ulaşılabilir halkalara dön; baş üstüne uzanma veya parmak ucunda duruş yok. Ayaklar rahat aralıkta, beden ayakların üzerinde, kayışlar yüksüz dur."
             },
             {
-              "en": "Take a comfortable closed grip without hanging or jumping.",
-              "tr": "Asılmadan veya sıçramadan rahat kapalı tutuş al."
+              "en": "Close one hand around the lower ring with the thumb around it, then the other. Let the rings turn to a comfortable neutral hand position; do not drape the wrist over the ring or use false grip.",
+              "tr": "Başparmağı çevresine getirerek bir elini halkanın altına, sonra diğerini kapat. Halkalar rahat nötr el konumuna dönebilsin; bileği halkanın üstüne dolama veya false grip kullanma."
             },
             {
-              "en": "Release one ring then the other only while fully standing.",
-              "tr": "Yalnız tam ayaktayken bir halkayı sonra diğerini bırak."
+              "en": "Remain upright. Confirm unloaded straps, open one hand then the other, and step away with both hands free.",
+              "tr": "Dik kal. Yüksüz kayışı doğrula, bir eli sonra diğerini aç ve iki el serbest uzaklaş."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "Perform one grip-release cycle; after rest, one repeat is optional if nothing changed.\n\nCommon mistake and correction: Leaning back before both grips are established changes the task. Correct with slack straps and ordinary standing.",
+            "tr": "Bir tut-bırak döngüsü yap; dinlenmeden sonra hiçbir şey değişmediyse bir tekrar isteğe bağlı.\n\nSık hata ve düzeltme: İki tutuş kurulmadan geriye yaslanmak görevi değiştirir. Yüksüz kayış ve normal ayakta duruşla düzelt."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Did both feet remain still as I opened and closed each grip?",
+              "tr": "Her tutuşu açıp kapatırken iki ayak sabit kaldı mı?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Could I release without a pull, hop or wrist reposition?",
+              "tr": "Çekiş, sıçrama veya bileği yeniden yerleştirme olmadan bırakabildim mi?"
             }
           ],
           "adaptation": {
-            "en": "Keep all body weight through the feet.",
-            "tr": "Tüm beden ağırlığını ayaklarda tut."
+            "en": "Open and close empty hands and explain the sequence aloud.",
+            "tr": "Boş elleri açıp kapat, sırayı sesli anlat."
           },
           "progression": {
-            "en": "Rehearse the same supported entry before leaning.",
-            "tr": "Eğilmeden önce aynı destekli girişi prova et."
+            "en": "On a later comfortable session, try the tiny lean only when the full standing release is repeatable.",
+            "tr": "Sonraki rahat seansta küçük eğilmeyi yalnız tam ayakta bırakış yinelenebiliyorsa dene."
           },
           "regression": {
-            "en": "Keep all body weight through the feet.",
-            "tr": "Tüm beden ağırlığını ayaklarda tut."
+            "en": "Open and close empty hands and explain the sequence aloud.",
+            "tr": "Boş elleri açıp kapat, sırayı sesli anlat."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Rest 60–90 seconds fully standing, with rings unloaded and hands free. Allow longer until ordinary breathing and comfortable control return; end the session if they do not.",
+            "tr": "Halkalar yüksüz ve eller serbestken tamamen ayakta 60–90 saniye dinlen. Olağan nefes ve rahat kontrol dönene kadar uzat; dönmüyorsa seansı bitir."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Stop for discomfort, tingling, changing grip, unstable feet or equipment movement. Do not lean to test an uncertain grip.",
+            "tr": "Rahatsızlık, karıncalanma, değişen tutuş, dengesiz ayak veya ekipman hareketinde dur. Belirsiz tutuşu sınamak için yaslanma."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "gmb_rings_setup",
+            "gmb_rings_grips",
+            "nhs_warmup_frames"
           ],
           "prerequisites": [
             "rings-02"
@@ -267,71 +363,126 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for rings-03: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "rings-03 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:rings-03"
+          "movementTaskId": "gravita:rings-03",
+          "candidatePracticeAccess": "available_supported_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "gmb_rings_setup",
+              "gmb_rings_grips"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=q5JSXfknmYs",
+                "publisherUrl": "https://gmb.io/hanging-gymnastic-rings/",
+                "playerId": "q5JSXfknmYs",
+                "sampledSeconds": [
+                  135.6,
+                  300,
+                  419,
+                  478
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "Buckle and strap direction examples plus indoor/outdoor setup contexts. Not complete installation, a manufacturer-specific threading instruction, anchor certification, row or controlled exit.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              },
+              {
+                "sourceUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "publisherUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "playerId": "1763945815001",
+                "sampledSeconds": [
+                  11.16,
+                  20,
+                  41,
+                  62
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "General standing preparation illustration, not ring technique, complete warm-up or readiness.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Continuous complete low-ring row or standing-pressure entry-task-unload-release",
+              "Manufacturer-specific actual installation and individual anchor integrity",
+              "Editorial rehearsal dose and individual suitability"
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "rings-04",
           "title": {
-            "en": "Small supported lean",
-            "tr": "Küçük destekli eğilme"
+            "en": "Enter a tiny lean and return upright",
+            "tr": "Küçük eğilmeye gir ve dik dön"
           },
           "objective": {
-            "en": "Learn the defined task: Small supported lean.",
-            "tr": "Tanımlı görevi öğren: Küçük destekli eğilme."
+            "en": "Make a tiny two-foot weight shift and stand upright before releasing.",
+            "tr": "Küçük iki ayaklı yük aktarımı yap ve bırakmadan dik dur."
           },
           "steps": [
             {
-              "en": "Keep both feet planted at the reviewed near-upright angle.",
-              "tr": "İncelenmiş dikeye yakın açıda iki ayağı yerde tut."
+              "en": "Begin only after the lesson 03 standing release is repeatable without symptoms. Keep the accepted ring height and both feet flat. Stay so close to normal standing that returning needs only a small elbow bend; no low body angle. Close both grips and say the finish first: upright, unload, release.",
+              "tr": "Yalnız 03 dersindeki ayakta bırakış belirtisiz yinelenebiliyorsa başla. Kabul edilen halka yüksekliğini ve tamamen basılı iki ayağı koru. Dönüş yalnız küçük dirsek bükmesi gerektirecek kadar normal ayakta duruşa yakın kal; alçak beden açısı yok. İki tutuşu kapat ve önce bitişi söyle: dik dur, yüksüz bırak, elleri aç."
             },
             {
-              "en": "Lean back a little with straight comfortable arms and a quiet trunk; no swinging.",
-              "tr": "Kollar rahat düz, gövde sakin halde az geriye eğil; sallanma yok."
+              "en": "Keep both feet flat and move the body back only a small amount as straps become gently taut. Let the arms lengthen comfortably; do not force elbow lock, lift feet or swing.",
+              "tr": "İki ayağı tamamen yerde tut; kayış hafifçe gerilirken bedeni yalnız az geriye götür. Kollar rahatça uzasın; dirseği kilide zorlama, ayak kaldırma veya sallanma yok."
             },
             {
-              "en": "Step back to full standing support before releasing.",
-              "tr": "Bırakmadan önce adımla tam ayakta desteğe dön."
+              "en": "Gently bend the elbows enough to bring the chest back toward the rings and return weight over both feet. No jerk or backward arch.",
+              "tr": "Göğsü halkaya yaklaştırıp yükü iki ayağın üstüne döndürecek kadar dirsekleri nazikçe bük. Ani çekiş veya geriye bel çukuru yok."
+            },
+            {
+              "en": "Once fully upright, unload the straps and release one ring then the other. A return requiring a heave or foot shuffle is a reason to use 03 next time.",
+              "tr": "Tam dikken kayışı yüksüz bırak, bir halkayı sonra diğerini aç. Savurma veya ayak sürükleme isteyen dönüş sonraki sefer 03 ü seçme nedenidir."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "One tiny lean-return-release cycle; after rest a second at the same angle is optional.\n\nCommon mistake and correction: A larger lean is chosen to make the task count. Correct to a smaller shift that returns without jerking.",
+            "tr": "Bir küçük eğil-dön-bırak döngüsü; dinlenmeden sonra aynı açıda ikincisi isteğe bağlı.\n\nSık hata ve düzeltme: Görev sayılması için büyük yaslanma seçilir. Ani çekişsiz dönülen daha küçük aktarıma dönerek düzelt."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Did both feet stay flat and still?",
+              "tr": "İki ayak tamamen basılı ve sabit kaldı mı?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Was I fully upright before opening either hand?",
+              "tr": "Bir eli açmadan tamamen dik miydim?"
             }
           ],
           "adaptation": {
-            "en": "Stay more upright and reduce the lean.",
-            "tr": "Daha dik kal ve eğilmeyi azalt."
+            "en": "Use 03 with slack straps, or draw the complete return without loading.",
+            "tr": "Yüksüz kayışla 03 ü kullan veya yük vermeden tam dönüşü çiz."
           },
           "progression": {
-            "en": "Increase only the reviewed comfortable range.",
-            "tr": "Yalnız incelenmiş rahat aralığı artır."
+            "en": "Move to the small row after two comfortable sessions with controlled upright return; a harder angle is not a readiness test.",
+            "tr": "Kontrollü dik dönüşlü iki rahat seanstan sonra küçük rowa geç; daha zor açı hazırlık testi değildir."
           },
           "regression": {
-            "en": "Stay more upright and reduce the lean.",
-            "tr": "Daha dik kal ve eğilmeyi azalt."
+            "en": "Use 03 with slack straps, or draw the complete return without loading.",
+            "tr": "Yüksüz kayışla 03 ü kullan veya yük vermeden tam dönüşü çiz."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Rest 60–90 seconds fully standing, with rings unloaded and hands free. Allow longer until ordinary breathing and comfortable control return; end the session if they do not.",
+            "tr": "Halkalar yüksüz ve eller serbestken tamamen ayakta 60–90 saniye dinlen. Olağan nefes ve rahat kontrol dönene kadar uzat; dönmüyorsa seansı bitir."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Symptoms, slipping feet, changing grip or moving hardware end the attempt. Do not retest at a different angle.",
+            "tr": "Belirti, kayan ayak, değişen tutuş veya oynayan donanım denemeyi bitirir. Başka açıyla yeniden sınama."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "gmb_rings_setup",
+            "gmb_rings_grips"
           ],
           "prerequisites": [
             "rings-03"
@@ -340,10 +491,28 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for rings-04: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "rings-04 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:rings-04"
+          "movementTaskId": "gravita:rings-04",
+          "candidatePracticeAccess": "available_supported_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "gmb_rings_setup",
+              "gmb_rings_grips"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Continuous complete low-ring row or standing-pressure entry-task-unload-release",
+              "Manufacturer-specific actual installation and individual anchor integrity",
+              "Editorial rehearsal dose and individual suitability"
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         }
       ]
     },
@@ -357,63 +526,69 @@
         {
           "id": "rings-05",
           "title": {
-            "en": "Near-upright ring row",
-            "tr": "Dikeye yakın halka row"
+            "en": "One near-upright row with its full finish",
+            "tr": "Tam bitişli bir dikeye yakın row"
           },
           "objective": {
-            "en": "Learn the defined task: Near-upright ring row.",
-            "tr": "Tanımlı görevi öğren: Dikeye yakın halka row."
+            "en": "Use a small elbow bend and controlled lengthening while the feet and torso stay quiet.",
+            "tr": "Ayak ve gövde sakinken küçük dirsek bükmesi ve kontrollü açılma kullan."
           },
           "steps": [
             {
-              "en": "Start from the already reviewed foot-supported lean.",
-              "tr": "Önceden incelenmiş ayak destekli eğilmeden başla."
+              "en": "Use this row only after the 04 entry and full upright return were comfortable on separate sessions, without current symptoms. Keep the same accepted height, a tiny lean needing no large pull, both feet flat and clear elbow space beside the torso. Enter that tiny lean and pause while breathing naturally.",
+              "tr": "Bu rowu yalnız 04 giriş ve tam dik dönüş ayrı seanslarda mevcut belirti olmadan rahatsa kullan. Aynı kabul edilen yüksekliği, büyük çekiş gerektirmeyen küçük eğilmeyi, tamamen basılı iki ayağı ve gövde yanında boş dirsek yolunu koru. Küçük eğilmeye gir ve doğal nefesle durakla."
             },
             {
-              "en": "Bend elbows to draw the rings toward the ribs without a shrug or jerk.",
-              "tr": "Omuz silkmeden veya ani çekmeden dirsekleri büküp halkaları kaburgalara yaklaştır."
+              "en": "Bend the elbows to bring the rings toward the lower-chest sides. Keep the torso quiet; stop before shrugging, hip thrusting or pulling elbows far behind the body.",
+              "tr": "Halkayı alt göğüs yanına getirmek için dirsekleri bük. Gövde sakin kalsın; omuz silkme, kalça fırlatma veya dirsekleri çok geriye çekmeden bitir."
             },
             {
-              "en": "Return smoothly to the easy lean, then stand and release.",
-              "tr": "Kolay eğilmeye düzgün dön, sonra ayağa kalk ve bırak."
+              "en": "Lengthen the elbows smoothly to the original tiny lean without snapping into lock. Both feet remain still.",
+              "tr": "Dirsekleri kilide savurmadan ilk küçük eğilmeye düzgünce aç. İki ayak sabit kalsın."
+            },
+            {
+              "en": "Use the 04 small elbow bend to return upright, unload and release. A row is not finished until this return is controlled.",
+              "tr": "04 küçük dirsek bükmesiyle dik dön, yüksüz bırak ve elleri aç. Bu dönüş kontrollü olmadan row bitmez."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "One row with full return; after resting a second separate single row is optional. Do not link repetitions yet.\n\nCommon mistake and correction: The hips thrust to move the rings. Correct with an empty-hand elbow-path rehearsal; select the established smaller lean on a later symptom-free attempt.",
+            "tr": "Tam dönüşlü bir row; dinlenmeden sonra ikinci ayrı tek row isteğe bağlı. Henüz tekrar bağlama.\n\nSık hata ve düzeltme: Halkayı hareket ettirmek için kalça atılır. Boş elle dirsek yolu provasıyla düzelt; sonraki belirtisiz denemede önceden öğrenilen küçük eğilmeyi seç."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Did elbow bending rather than hip thrust bring the rings closer?",
+              "tr": "Halkayı kalça atma yerine dirsek bükme mi yaklaştırdı?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Could I return to the tiny lean, then stand before release?",
+              "tr": "Küçük eğilmeye dönüp bırakmadan ayağa gelebildim mi?"
             }
           ],
           "adaptation": {
-            "en": "Move the feet to remain more upright.",
-            "tr": "Daha dik kalmak için ayakları yeniden yerleştir."
+            "en": "Use 03 standing grip or empty-hand elbow-path learning.",
+            "tr": "03 ayakta tutuşu veya boş elle dirsek yolu öğrenimini kullan."
           },
           "progression": {
-            "en": "Repeat the same angle before changing leverage.",
-            "tr": "Kaldıracı değiştirmeden aynı açıyı yinele."
+            "en": "Repeat the same single row on another comfortable session before combining repetitions; no lower angle required.",
+            "tr": "Tekrar bağlamadan aynı tek rowu başka rahat seansta yinele; daha alçak açı gerekmez."
           },
           "regression": {
-            "en": "Move the feet to remain more upright.",
-            "tr": "Daha dik kalmak için ayakları yeniden yerleştir."
+            "en": "Use 03 standing grip or empty-hand elbow-path learning.",
+            "tr": "03 ayakta tutuşu veya boş elle dirsek yolu öğrenimini kullan."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Rest 60–90 seconds fully standing, with rings unloaded and hands free. Allow longer until ordinary breathing and comfortable control return; end the session if they do not.",
+            "tr": "Halkalar yüksüz ve eller serbestken tamamen ayakta 60–90 saniye dinlen. Olağan nefes ve rahat kontrol dönene kadar uzat; dönmüyorsa seansı bitir."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Stop symptoms, an uncontrolled return, rescue grip changes or any foot or equipment movement.",
+            "tr": "Belirtide, kontrolsüz dönüşte, kurtarma için tutuş değiştirmede veya ayak/ekipman hareketinde dur."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "gmb_rings_setup",
+            "gmb_rings_grips"
           ],
           "prerequisites": [
             "rings-04"
@@ -422,71 +597,95 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for rings-05: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "rings-05 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:rings-05"
+          "movementTaskId": "gravita:rings-05",
+          "candidatePracticeAccess": "available_supported_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "gmb_rings_setup",
+              "gmb_rings_grips"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Continuous complete low-ring row or standing-pressure entry-task-unload-release",
+              "Manufacturer-specific actual installation and individual anchor integrity",
+              "Editorial rehearsal dose and individual suitability"
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "rings-06",
           "title": {
-            "en": "Reset and repeat the row",
-            "tr": "Row sıfırlama ve yineleme"
+            "en": "Reset before a second small row",
+            "tr": "İkinci küçük rowdan önce sıfırla"
           },
           "objective": {
-            "en": "Learn the defined task: Reset and repeat the row.",
-            "tr": "Tanımlı görevi öğren: Row sıfırlama ve yineleme."
+            "en": "Repeat the familiar row without letting repetition two change the entry, lean or exit.",
+            "tr": "İkinci tekrarın giriş, eğilme veya çıkışı değiştirmesine izin vermeden tanıdık rowu yinele."
           },
           "steps": [
             {
-              "en": "Check equal strap length and foot grip after the break.",
-              "tr": "Aradan sonra eş kayış boyunu ve ayak tutunmasını kontrol et."
+              "en": "After two separate comfortable 05 single-row sessions, keep the same height, foot position and tiny lean; no new symptom or equipment change. Recheck straps and floor unloaded, especially after adjustment. Enter the familiar lean and make one 05 row.",
+              "tr": "İki ayrı rahat 05 tek-row seansından sonra aynı yükseklik, ayak konumu ve küçük eğilmeyi koru; yeni belirti veya ekipman değişikliği olmasın. Özellikle ayardan sonra kayış ve zemini yüksüz kontrol et. Tanıdık eğilmeye gir ve bir 05 rowu yap."
             },
             {
-              "en": "Do a few easy rows with a controlled reset; stop before swinging starts.",
-              "tr": "Kontrollü sıfırlamayla birkaç kolay row yap; sallanma başlamadan dur."
+              "en": "At the original lean, pause while breathing. Ask whether the same small elbow path and upright return remain available.",
+              "tr": "İlk eğilmede nefes alarak durakla. Aynı küçük dirsek yolu ve dik dönüşün hâlâ mümkün olup olmadığını sor."
             },
             {
-              "en": "Stand fully, release, and recover before another set.",
-              "tr": "Tam doğrul, bırak ve başka setten önce dinlen."
+              "en": "If unchanged, make one more row. If control is becoming uncertain, return upright instead of starting the second.",
+              "tr": "Değişmediyse bir row daha yap. Kontrol belirsizleşiyorsa ikinciye başlamak yerine dik dön."
+            },
+            {
+              "en": "Stand, unload and release. Record one or two actual rows including an early finish.",
+              "tr": "Dik dur, yüksüz bırak ve elleri aç. Erken bitiş dahil gerçekte yapılan bir veya iki rowu kaydet."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "One set of at most 2 familiar rows; use one to learn the pause. No second set is needed.\n\nCommon mistake and correction: Skipping the reset makes the second row a swing. Correct with single row→stand→release.",
+            "tr": "En çok 2 tanıdık rowdan bir set; duraklamayı öğrenirken birini kullan. İkinci set gerekmez.\n\nSık hata ve düzeltme: Sıfırlamayı atlamak ikinci rowu sallanmaya çevirir. Tek row→dik dur→bırak yoluyla düzelt."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Did the pause preserve the original small lean?",
+              "tr": "Duraklama ilk küçük eğilmeyi korudu mu?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Did I choose one row if two would change the finish?",
+              "tr": "İki row bitişi değiştirecekken birini seçtim mi?"
             }
           ],
           "adaptation": {
-            "en": "Use one row per supported entry.",
-            "tr": "Her destekli girişte tek row kullan."
+            "en": "One 05 single row with full release, or empty-hand reconstruction.",
+            "tr": "Tam bırakışlı bir 05 tek row veya boş elle yeniden kurma."
           },
           "progression": {
-            "en": "Change range OR lean with review, never both at once.",
-            "tr": "İncelemeyle aralığı VEYA eğilmeyi değiştir; ikisini birden değil."
+            "en": "Keep this dose while learning standing pressure. Do not raise angle and repetitions together.",
+            "tr": "Ayakta basmayı öğrenirken bu dozu koru. Açı ve tekrarı birlikte artırma."
           },
           "regression": {
-            "en": "Use one row per supported entry.",
-            "tr": "Her destekli girişte tek row kullan."
+            "en": "One 05 single row with full release, or empty-hand reconstruction.",
+            "tr": "Tam bırakışlı bir 05 tek row veya boş elle yeniden kurma."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Rest 60–90 seconds fully standing, with rings unloaded and hands free. Allow longer until ordinary breathing and comfortable control return; end the session if they do not.",
+            "tr": "Halkalar yüksüz ve eller serbestken tamamen ayakta 60–90 saniye dinlen. Olağan nefes ve rahat kontrol dönene kadar uzat; dönmüyorsa seansı bitir."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "End before jerking, foot movement or uncertain grip. Symptoms or hardware movement end physical work for this session.",
+            "tr": "Ani çekiş, ayak hareketi veya belirsiz tutuştan önce bitir. Belirti veya donanım hareketi bu seansta fiziksel işi bitirir."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "gmb_rings_setup",
+            "gmb_rings_grips"
           ],
           "prerequisites": [
             "rings-05"
@@ -495,71 +694,91 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for rings-06: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "rings-06 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:rings-06"
+          "movementTaskId": "gravita:rings-06",
+          "candidatePracticeAccess": "available_supported_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "gmb_rings_setup",
+              "gmb_rings_grips"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Continuous complete low-ring row or standing-pressure entry-task-unload-release",
+              "Manufacturer-specific actual installation and individual anchor integrity",
+              "Editorial rehearsal dose and individual suitability"
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "rings-07",
           "title": {
-            "en": "Feet-assisted low support",
-            "tr": "Ayak yardımlı alçak destek"
+            "en": "Light standing pressure beside the hips",
+            "tr": "Kalça yanında hafif ayakta basma"
           },
           "objective": {
-            "en": "Learn the defined task: Feet-assisted low support.",
-            "tr": "Tanımlı görevi öğren: Ayak yardımlı alçak destek."
+            "en": "Distinguish standing downward pressure from lifting into feet-off ring support.",
+            "tr": "Ayakta aşağı basmayı ayaksız halka desteğine kaldırmadan ayır."
           },
           "steps": [
             {
-              "en": "Set rings beside the body at a coach-reviewed low height.",
-              "tr": "Halkaları bedenin yanında eğitmenin incelediği alçak yüksekliğe ayarla."
+              "en": "Use the 03 comfortable standing grip/release with accepted equipment and no current symptoms; row strength is not a test. Adjust both rings unloaded beside the hips so shoulders stay relaxed and full feet stay planted. Stand with weight on both feet, close the grips and keep elbows softly straight without forcing lock.",
+              "tr": "Kabul edilen ekipman ve mevcut belirti yokken 03 rahat ayakta tut-bırak yolunu kullan; row kuvveti test değildir. İki halkayı yüksüzken omuzlar rahat ve ayaklar tamamen basılı kalacak şekilde kalça yanında ayarla. Yük iki ayaktayken dur, tutuşları kapat, dirsekler kilide zorlanmadan rahat düz kalsın."
             },
             {
-              "en": "Keep feet bearing weight, hands beside hips and elbows comfortably straight; do not lift the feet.",
-              "tr": "Ayaklar yük taşırken eller kalçanın yanında, dirsekler rahat düz kalsın; ayakları kaldırma."
+              "en": "Keep heels and forefeet down; apply only light downward pressure to make straps gently taut. Do not rise on toes, bend for a dip or lift a foot.",
+              "tr": "Topuk ve ön ayağı yerde tut; kayışı hafifçe gerecek kadar az aşağı bas. Parmak ucuna yükselme, dip için bükülme veya ayak kaldırma yok."
             },
             {
-              "en": "Return all load to the feet before opening the hands.",
-              "tr": "Elleri açmadan tüm yükü ayaklara geri ver."
+              "en": "Ease pressure until straps are unloaded while keeping both grips. Confirm normal standing, then release one hand and the other.",
+              "tr": "İki tutuşu koruyarak kayış yüksüz kalana kadar basmayı azalt. Normal ayakta duruşu doğrula, bir eli sonra diğerini aç."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "One brief pressure-release cycle; after rest repeat once only if feet remained loaded and the task comfortable.\n\nCommon mistake and correction: Lifting heels or forcing shoulders down makes a different task. Correct by reducing pressure until ordinary standing is unchanged.",
+            "tr": "Bir kısa bas-bırak döngüsü; dinlenmeden sonra yalnız ayaklar yük taşımışsa ve görev rahatsa bir kez yinele.\n\nSık hata ve düzeltme: Topuk kaldırma veya omuzu aşağı zorlama farklı görev yapar. Normal ayakta duruş değişmeyene kadar basmayı azaltarak düzelt."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Did both full feet keep carrying my body weight?",
+              "tr": "İki ayağın tamamı beden yükünü taşımayı sürdürdü mü?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Could I unload the straps before opening a hand?",
+              "tr": "Bir eli açmadan kayışı yüksüz bırakabildim mi?"
             }
           ],
           "adaptation": {
-            "en": "Keep minimal hand pressure or remain standing.",
-            "tr": "El basıncını en azda tut veya ayakta kal."
+            "en": "Hold slack rings or rehearse empty hands beside the hips.",
+            "tr": "Yüksüz halka tut veya eller kalça yanında boş elle prova yap."
           },
           "progression": {
-            "en": "Shorten support rather than add instability.",
-            "tr": "Dengesizlik eklemek yerine desteği kısalt."
+            "en": "Repeat this same task on another comfortable session before linking entry and exit; feet-off support is separate.",
+            "tr": "Giriş ve çıkışı bağlamadan aynı görevi başka rahat seansta yinele; ayaksız destek ayrıdır."
           },
           "regression": {
-            "en": "Keep minimal hand pressure or remain standing.",
-            "tr": "El basıncını en azda tut veya ayakta kal."
+            "en": "Hold slack rings or rehearse empty hands beside the hips.",
+            "tr": "Yüksüz halka tut veya eller kalça yanında boş elle prova yap."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Rest 60–90 seconds fully standing, with rings unloaded and hands free. Allow longer until ordinary breathing and comfortable control return; end the session if they do not.",
+            "tr": "Halkalar yüksüz ve eller serbestken tamamen ayakta 60–90 saniye dinlen. Olağan nefes ve rahat kontrol dönene kadar uzat; dönmüyorsa seansı bitir."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Stop symptoms, shaking that changes balance, forced elbow lock, rising feet or hardware movement.",
+            "tr": "Belirti, dengeyi değiştiren titreme, zorlanmış dirsek kilidi, yükselen ayak veya donanım hareketinde dur."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "gmb_rings_setup",
+            "gmb_rings_grips"
           ],
           "prerequisites": [
             "rings-06"
@@ -568,71 +787,91 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for rings-07: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "rings-07 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:rings-07"
+          "movementTaskId": "gravita:rings-07",
+          "candidatePracticeAccess": "available_supported_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "gmb_rings_setup",
+              "gmb_rings_grips"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Continuous complete low-ring row or standing-pressure entry-task-unload-release",
+              "Manufacturer-specific actual installation and individual anchor integrity",
+              "Editorial rehearsal dose and individual suitability"
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "rings-08",
           "title": {
-            "en": "Supported entry-support-exit",
-            "tr": "Destekli giriş-destek-çıkış"
+            "en": "Link standing entry, pressure and release",
+            "tr": "Ayakta giriş, basma ve bırakışı bağla"
           },
           "objective": {
-            "en": "Learn the defined task: Supported entry-support-exit.",
-            "tr": "Tanımlı görevi öğren: Destekli giriş-destek-çıkış."
+            "en": "Perform the complete standing-pressure cycle without skipping its unloaded finish.",
+            "tr": "Yüksüz bitişi atlamadan tam ayakta basma döngüsünü yap."
           },
           "steps": [
             {
-              "en": "Use the same low height and stable feet.",
-              "tr": "Aynı alçak yüksekliği ve sabit ayakları kullan."
+              "en": "Begin after the 07 task was comfortable on another session and the accepted setup is unchanged. Use the same low height and clear standing area. Say grip→light pressure→unload→release, then stand normally and close both grips, leaving room beside the hips so rings do not catch clothing.",
+              "tr": "07 görevi başka seansta rahatsa ve kabul edilen kurulum değişmediyse başla. Aynı alçak yüksekliği ve boş ayakta duruş alanını kullan. Tutuş→hafif basma→yüksüz bırakma→elleri açma de; sonra normal ayakta durup halkaların giysiye takılmaması için kalça yanında boşluk bırakarak iki tutuşu kapat."
             },
             {
-              "en": "Move from full standing to a brief foot-assisted support without a dip.",
-              "tr": "Dip yapmadan tam ayaktan kısa ayak yardımlı desteğe geç."
+              "en": "Apply 07 light pressure for a short comfortable count with both feet loaded and breathing continuous. No dip or lift-off belongs in this cycle.",
+              "tr": "İki ayak yük taşırken ve nefes sürerken 07 hafif basmayı kısa rahat sayım boyunca uygula. Dip veya yerden ayrılma bu döngüde yok."
             },
             {
-              "en": "Stand, release and check that straps have not slipped.",
-              "tr": "Doğrul, bırak ve kayışların kaymadığını kontrol et."
+              "en": "Ease pressure, confirm slack straps and normal standing, then open one hand and the other. Check for slipping adjustment before a later cycle.",
+              "tr": "Basmayı azalt, yüksüz kayış ve normal duruşu doğrula, bir eli sonra diğerini aç. Sonraki döngüden önce kayan ayarı kontrol et."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "Say the three parts, perform one cycle, then explain why unloading precedes opening the hands.\n\nCommon mistake and correction: Hands open while still pressing. Correct by saying slack before release and practising without pressure.",
+            "tr": "Üç bölümü söyle, bir döngü yap, sonra yüksüz bırakmanın elleri açmadan neden önce geldiğini açıkla.\n\nSık hata ve düzeltme: Basma sürerken eller açılır. Bırakmadan önce yüksüz de ve basmadan prova ederek düzelt."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Was pressure fully removed before the first hand opened?",
+              "tr": "İlk el açılmadan basma tamamen kaldırıldı mı?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Did cycle two use the same ordinary standing posture?",
+              "tr": "İkinci döngü aynı normal ayakta duruşu kullandı mı?"
             }
           ],
           "adaptation": {
-            "en": "Rehearse the exit alone.",
-            "tr": "Yalnız çıkışı prova et."
+            "en": "One 07 cycle or an empty-hand verbal walkthrough.",
+            "tr": "Bir 07 döngüsü veya boş elle sözlü sıralama."
           },
           "progression": {
-            "en": "Repeat with direct review before any reduced foot assistance.",
-            "tr": "Ayak yardımını azaltmadan doğrudan incelemeyle yinele."
+            "en": "Proceed to task choice when both row and pressure exits can be explained; do not add a dip.",
+            "tr": "Row ve basma çıkışları açıklanabildiğinde görev seçimine geç; dip ekleme."
           },
           "regression": {
-            "en": "Rehearse the exit alone.",
-            "tr": "Yalnız çıkışı prova et."
+            "en": "One 07 cycle or an empty-hand verbal walkthrough.",
+            "tr": "Bir 07 döngüsü veya boş elle sözlü sıralama."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Rest 60–90 seconds fully standing, with rings unloaded and hands free. Allow longer until ordinary breathing and comfortable control return; end the session if they do not.",
+            "tr": "Halkalar yüksüz ve eller serbestken tamamen ayakta 60–90 saniye dinlen. Olağan nefes ve rahat kontrol dönene kadar uzat; dönmüyorsa seansı bitir."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Symptoms, unexpected remaining strap tension or setup movement end the attempt; do not troubleshoot by reloading.",
+            "tr": "Belirti, beklenmedik kalan kayış gerilimi veya kurulum hareketi denemeyi bitirir; yeniden yük vererek sorun çözme."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "gmb_rings_setup",
+            "gmb_rings_grips"
           ],
           "prerequisites": [
             "rings-07"
@@ -641,10 +880,28 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for rings-08: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "rings-08 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:rings-08"
+          "movementTaskId": "gravita:rings-08",
+          "candidatePracticeAccess": "available_supported_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "gmb_rings_setup",
+              "gmb_rings_grips"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Continuous complete low-ring row or standing-pressure entry-task-unload-release",
+              "Manufacturer-specific actual installation and individual anchor integrity",
+              "Editorial rehearsal dose and individual suitability"
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         }
       ]
     },
@@ -658,63 +915,69 @@
         {
           "id": "rings-09",
           "title": {
-            "en": "Control and regression choice",
-            "tr": "Kontrol ve kolaylaştırma seçimi"
+            "en": "Choose from one actual observation",
+            "tr": "Tek gerçek gözlemden seçim yap"
           },
           "objective": {
-            "en": "Learn the defined task: Control and regression choice.",
-            "tr": "Tanımlı görevi öğren: Kontrol ve kolaylaştırma seçimi."
+            "en": "Select standing grip, one small row or light pressure from one observation without symptom retesting.",
+            "tr": "Belirtiyi yeniden sınamadan tek gözlemle ayakta tutuş, bir küçük row veya hafif basma seç."
           },
           "steps": [
             {
-              "en": "Compare a supported row with a supported static task.",
-              "tr": "Destekli row ile destekli sabit görevi karşılaştır."
+              "en": "First explain the 05 and 07 finishes; use an accepted familiar setup with no current symptoms. Read the last note before touching the rings. Choose one observation: smooth return, a second row starting to jerk, or heels lightening with pressure. Symptoms or equipment movement mean stop, not an easier-angle trial.",
+              "tr": "Önce 05 ve 07 bitişlerini açıkla; mevcut belirti olmadan kabul edilen tanıdık kurulumu kullan. Halkaya dokunmadan son notu oku. Tek gözlem seç: düzgün dönüş, ani çekişe başlayan ikinci row veya basmada hafifleyen topuk. Belirti veya ekipman hareketi daha kolay açı deneyi değil durma nedenidir."
             },
             {
-              "en": "If rings drift, grip changes or feet slip, stop; choose a more upright/fully foot-supported version.",
-              "tr": "Halkalar kaçarsa, tutuş değişirse veya ayak kayarsa dur; daha dik/tam ayak destekli sürümü seç."
+              "en": "For a symptom-free instruction error, reconstruct the correction empty-handed. Select one smaller task: one rather than two rows, standing grip rather than lean, or less pressure rather than feet-off support.",
+              "tr": "Belirtisiz yönerge hatasında düzeltmeyi boş elle yeniden kur. Tek küçük görev seç: iki yerine bir row, eğilme yerine ayakta tutuş veya ayaksız destek yerine daha az basma."
             },
             {
-              "en": "Reset attachment and area before a new easy attempt.",
-              "tr": "Yeni kolay denemeden önce bağlantı ve alanı yeniden kur."
+              "en": "If the familiar physical option remains comfortable, use it once with its learned finish. If uncertain, finish the written comparison without loading.",
+              "tr": "Tanıdık fiziksel seçenek rahatsa öğrenilen bitişiyle bir kez kullan. Belirsizse yazılı karşılaştırmayı yük vermeden bitir."
+            },
+            {
+              "en": "Write observation, change and result. Plan another day instead of adding trials to prove the correction.",
+              "tr": "Gözlem, değişiklik ve sonucu yaz. Düzeltmeyi kanıtlamak için deneme eklemek yerine başka günü planla."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "Answer one scenario, then choose at most one familiar physical cycle; explain why two other choices were rejected.\n\nCommon mistake and correction: Changing angle, repetitions and pressure together hides the cause. Correct the plan to one variable and one observation.",
+            "tr": "Bir senaryoyu yanıtla, sonra en çok bir tanıdık fiziksel döngü seç; diğer iki seçimin neden reddedildiğini açıkla.\n\nSık hata ve düzeltme: Açı, tekrar ve basmayı birlikte değiştirmek nedeni gizler. Planı tek değişken ve tek gözleme indirerek düzelt."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Did I separate a symptom stop from a symptom-free correction?",
+              "tr": "Belirti nedeniyle durmayı belirtisiz düzeltmeden ayırdım mı?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Can I name the one thing changed?",
+              "tr": "Değişen tek şeyi söyleyebiliyor muyum?"
             }
           ],
           "adaptation": {
-            "en": "Return to standing grip practice.",
-            "tr": "Ayakta tutuş pratiğine dön."
+            "en": "Complete the same choice on paper without rings.",
+            "tr": "Aynı seçimi halkasız kâğıtta tamamla."
           },
           "progression": {
-            "en": "Record the changed variant, not an inferred skill level.",
-            "tr": "Çıkarılmış beceri seviyesi yerine değişen varyantı kaydet."
+            "en": "Combine tasks only when each return is familiar and the choice stays comfortable on another session.",
+            "tr": "Görevleri yalnız her dönüş tanıdıksa ve seçim başka seansta rahatsa birleştir."
           },
           "regression": {
-            "en": "Return to standing grip practice.",
-            "tr": "Ayakta tutuş pratiğine dön."
+            "en": "Complete the same choice on paper without rings.",
+            "tr": "Aynı seçimi halkasız kâğıtta tamamla."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Rest 60–90 seconds fully standing, with rings unloaded and hands free. Allow longer until ordinary breathing and comfortable control return; end the session if they do not.",
+            "tr": "Halkalar yüksüz ve eller serbestken tamamen ayakta 60–90 saniye dinlen. Olağan nefes ve rahat kontrol dönene kadar uzat; dönmüyorsa seansı bitir."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Any symptom or equipment uncertainty ends physical work. Do not use a lighter task to diagnose symptoms.",
+            "tr": "Her belirti veya ekipman belirsizliği fiziksel işi bitirir. Belirtiyi anlamak için hafif görev kullanma."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "gmb_rings_setup",
+            "gmb_rings_grips"
           ],
           "prerequisites": [
             "rings-08"
@@ -723,71 +986,96 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for rings-09: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "rings-09 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:rings-09"
+          "movementTaskId": "gravita:rings-09",
+          "candidatePracticeAccess": "available_supported_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "gmb_rings_setup",
+              "gmb_rings_grips"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Continuous complete low-ring row or standing-pressure entry-task-unload-release",
+              "Manufacturer-specific actual installation and individual anchor integrity",
+              "Editorial rehearsal dose and individual suitability"
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "rings-10",
           "title": {
-            "en": "Short pull and support session",
-            "tr": "Kısa çekiş ve destek oturumu"
+            "en": "Build one short pull-and-pressure session",
+            "tr": "Bir kısa çekiş ve basma oturumu kur"
           },
           "objective": {
-            "en": "Learn the defined task: Short pull and support session.",
-            "tr": "Tanımlı görevi öğren: Kısa çekiş ve destek oturumu."
+            "en": "Combine preparation, one familiar row, rest and optional pressure with separate exits.",
+            "tr": "Hazırlık, bir tanıdık row, dinlenme ve isteğe bağlı basmayı ayrı çıkışlarla birleştir."
           },
           "steps": [
             {
-              "en": "Prepare and recheck the actual attachment.",
-              "tr": "Hazırlan ve gerçek bağlantıyı tekrar kontrol et."
+              "en": "Combine only familiar 05 and 07 tasks whose returns were comfortable on separate sessions, with no current symptoms. Write a two-task card; differing heights require unloaded adjustment and the 02 check between tasks. Use familiar easy general preparation, then confirm actual hardware and exit space; choose reading if any readiness condition is uncertain.",
+              "tr": "Yalnız dönüşleri ayrı seanslarda mevcut belirti olmadan rahat olan tanıdık 05 ve 07 görevlerini birleştir. İki görevli kart yaz; farklı yükseklikler görev arasında yüksüz ayar ve 02 kontrolü ister. Tanıdık rahat genel hazırlık yap, sonra gerçek donanım ve çıkış alanını doğrula; hazırlık koşulu belirsizse okumayı seç."
             },
             {
-              "en": "Use one reviewed easy row block, rest, then an optional foot-assisted support block.",
-              "tr": "İncelenmiş kolay row bölümü kullan, dinlen, sonra isteğe bağlı ayak yardımlı destek bölümü yap."
+              "en": "At the familiar row height perform one 05 row and full standing release. Rest completely unloaded for 90–120 seconds.",
+              "tr": "Tanıdık row yüksekliğinde bir 05 row ve tam ayakta bırakış yap. Tamamen yüksüz 90–120 saniye dinlen."
             },
             {
-              "en": "Stand to exit each block and end before control changes.",
-              "tr": "Her bölümden ayakta çıkarak kontrol değişmeden bitir."
+              "en": "If still comfortable, adjust to 07 height while unloaded, recheck and make one 2–3 second pressure cycle. It is optional; no dip or second row set.",
+              "tr": "Hâlâ rahatsa yüksüz 07 yüksekliğine ayarla, kontrol et ve bir 2–3 saniye basma döngüsü yap. İsteğe bağlıdır; dip veya ikinci row seti yok."
+            },
+            {
+              "en": "Release, move clear, rest and record actual or skipped tasks. End rather than increasing angle because one attempt felt easy.",
+              "tr": "Bırak, alanı boşalt, dinlen, yapılan veya atlananı kaydet. Tek deneme kolay geldiği için açıyı artırmak yerine bitir."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "Use the card once: preparation→one row→release/rest→optional pressure→release/log. A one-task session is valid.\n\nCommon mistake and correction: Switching tasks without unloading skips hardware checks. Correct by fully finishing, then adjusting with no body load.",
+            "tr": "Kartı bir kez kullan: hazırlık→bir row→bırak/dinlen→isteğe bağlı basma→bırak/kaydet. Tek görevli oturum geçerlidir.\n\nSık hata ve düzeltme: Yüksüz bırakmadan görev değiştirmek donanım kontrolünü atlar. Tam bitirip sonra beden yükü olmadan ayarlayarak düzelt."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Did every task finish standing with both rings released?",
+              "tr": "Her görev iki halka bırakılmış ayakta duruşla bitti mi?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Did I keep the optional task optional?",
+              "tr": "İsteğe bağlı görevi isteğe bağlı tuttum mu?"
             }
           ],
           "adaptation": {
-            "en": "Choose only one task today.",
-            "tr": "Bugün yalnız tek görev seç."
+            "en": "One familiar standing-grip cycle plus the written two-task plan.",
+            "tr": "Bir tanıdık ayakta tutuş döngüsü ve yazılı iki görev planı."
           },
           "progression": {
-            "en": "Repeat the same setup in a later recovered session.",
-            "tr": "Aynı kurulumu sonraki dinlenmiş oturumda yinele."
+            "en": "Repeat the same card on a later comfortable day before changing any dose or angle; no automatic weekly rise.",
+            "tr": "Doz veya açı değiştirmeden aynı kartı sonraki rahat günde yinele; otomatik haftalık artış yok."
           },
           "regression": {
-            "en": "Choose only one task today.",
-            "tr": "Bugün yalnız tek görev seç."
+            "en": "One familiar standing-grip cycle plus the written two-task plan.",
+            "tr": "Bir tanıdık ayakta tutuş döngüsü ve yazılı iki görev planı."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Rest 60–90 seconds fully standing, with rings unloaded and hands free. Allow longer until ordinary breathing and comfortable control return; end the session if they do not.",
+            "tr": "Halkalar yüksüz ve eller serbestken tamamen ayakta 60–90 saniye dinlen. Olağan nefes ve rahat kontrol dönene kadar uzat; dönmüyorsa seansı bitir."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "New symptoms, less reliable return, control-changing fatigue or hardware changes end the session; do not finish the optional task to satisfy the card.",
+            "tr": "Yeni belirti, azalan dönüş güvenilirliği, kontrolü değiştiren yorgunluk veya donanım değişimi seansı bitirir; kartı karşılamak için isteğe bağlı görevi tamamlama."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "gmb_rings_setup",
+            "gmb_rings_grips",
+            "nhs_warmup_frames"
           ],
           "prerequisites": [
             "rings-09"
@@ -796,156 +1084,232 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for rings-10: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "rings-10 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:rings-10"
+          "movementTaskId": "gravita:rings-10",
+          "candidatePracticeAccess": "available_supported_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "gmb_rings_setup",
+              "gmb_rings_grips"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "publisherUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "playerId": "1763945815001",
+                "sampledSeconds": [
+                  11.16,
+                  20,
+                  41,
+                  62
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "General standing preparation illustration, not ring technique, complete warm-up or readiness.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Continuous complete low-ring row or standing-pressure entry-task-unload-release",
+              "Manufacturer-specific actual installation and individual anchor integrity",
+              "Editorial rehearsal dose and individual suitability"
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "rings-11",
           "title": {
-            "en": "Recovery and equipment log",
-            "tr": "Dinlenme ve ekipman kaydı"
+            "en": "Record actual work and choose recovery",
+            "tr": "Gerçek işi kaydet ve toparlanmayı seç"
           },
           "objective": {
-            "en": "Learn the defined task: Recovery and equipment log.",
-            "tr": "Tanımlı görevi öğren: Dinlenme ve ekipman kaydı."
+            "en": "Separate performed, planned, skipped and uncertain work, then choose repetition or recovery.",
+            "tr": "Yapılan, planlanan, atlanan ve belirsiz işi ayır; sonra tekrar veya toparlanma seç."
           },
           "steps": [
             {
-              "en": "Record anchor type, ring height, foot position and task.",
-              "tr": "Dayanak türü, halka yüksekliği, ayak konumu ve görevi kaydet."
+              "en": "Leave the rings unloaded and start with a written or physical 10 session note; a skipped physical task does not block this lesson. Use fields for hardware, height/feet, task, actual dose, return and symptoms. Mark each item performed, explained only, skipped or uncertain; a plan is not a completed repetition.",
+              "tr": "Halkaları yüksüz bırak ve yazılı veya fiziksel 10 oturum notuyla başla; fiziksel görevin atlanması bu dersi kapatmaz. Donanım, yükseklik/ayak, görev, gerçek doz, dönüş ve belirti alanları kullan. Her maddeyi yapıldı, yalnız açıklandı, atlandı veya belirsiz işaretle; plan tamamlanan tekrar değildir."
             },
             {
-              "en": "Allow recovery and report any grip or joint discomfort before returning.",
-              "tr": "Dönüşten önce dinlenmeye yer ver ve tutuş/eklem rahatsızlığını bildir."
+              "en": "Record actual amount, return control and symptom or equipment concerns. A camera image does not measure ring load, anchor strength or form accuracy.",
+              "tr": "Gerçek miktar, dönüş kontrolü ve belirti/ekipman kaygısını kaydet. Kamera görüntüsü halka yükünü, bağlantı dayanımını veya form doğruluğunu ölçmez."
             },
             {
-              "en": "Do not infer strap strength, load or readiness from a camera image.",
-              "tr": "Kamera görüntüsünden kayış dayanımı, yük veya hazırlık çıkarma."
+              "en": "Choose recovery now. For a later symptom-free session, repeat the familiar task or easier route; resolve persistent symptoms or hardware questions before physical return.",
+              "tr": "Şimdi toparlanmayı seç. Sonraki belirtisiz seansta tanıdık görevi veya kolay yolu yinele; süren belirti veya donanım sorusunu fiziksel dönüşten önce çöz."
             }
           ],
           "practice": {
-            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
-            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+            "en": "Complete one honest record and a next-session sentence allowing both repeat and rest.\n\nCommon mistake and correction: Two planned rows are written as performed. Correct the status rather than claiming the plan happened.",
+            "tr": "Bir dürüst kayıt ve hem tekrar hem dinlenmeye izin veren sonraki seans cümlesi yaz.\n\nSık hata ve düzeltme: Planlanan iki row yapılmış yazılır. Plan gerçekleşti demek yerine durum etiketini düzelt."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Can someone tell what I actually did?",
+              "tr": "Gerçekte ne yaptığım anlaşılır mı?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Does the next choice allow rest without a catch-up dose?",
+              "tr": "Sonraki seçim telafi dozu olmadan dinlenmeye izin veriyor mu?"
             }
           ],
           "adaptation": {
-            "en": "Review notes without practice.",
-            "tr": "Pratik yapmadan notları incele."
+            "en": "Use the sample session without claiming personal performance.",
+            "tr": "Örnek oturumu kendi yaptığını iddia etmeden kullan."
           },
           "progression": {
-            "en": "Arrange the next reviewed session.",
-            "tr": "Sonraki incelenmiş oturumu düzenle."
+            "en": "Proceed to final reconstruction once the record separates learning from physical performance.",
+            "tr": "Kayıt öğrenme ile fiziksel uygulamayı ayırdığında son yeniden kurmaya geç."
           },
           "regression": {
-            "en": "Review notes without practice.",
-            "tr": "Pratik yapmadan notları incele."
+            "en": "Use the sample session without claiming personal performance.",
+            "tr": "Örnek oturumu kendi yaptığını iddia etmeden kullan."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Pause about one minute before recall; take longer as needed.",
+            "tr": "Hatırlamadan önce yaklaşık bir dakika ara ver; gerekirse uzat."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Do not use completion to clear unresolved symptoms, unknown installation or a new feet-off task.",
+            "tr": "Tamamlamayı çözülmemiş belirtiye, bilinmeyen kuruluma veya yeni ayaksız göreve izin sayma."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "gmb_rings_setup"
           ],
           "prerequisites": [
             "rings-10"
           ],
-          "minutes": 8,
+          "minutes": 6,
           "practiceType": "learning_only",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for rings-11: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "rings-11 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:rings-11"
+          "movementTaskId": "gravita:rings-11",
+          "candidatePracticeAccess": "learning_only",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "gmb_rings_setup"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Continuous complete low-ring row or standing-pressure entry-task-unload-release",
+              "Manufacturer-specific actual installation and individual anchor integrity",
+              "Editorial rehearsal dose and individual suitability"
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "rings-12",
           "title": {
-            "en": "Foundation review and future skills",
-            "tr": "Temel değerlendirme ve sonraki beceriler"
+            "en": "Reconstruct the supported course boundary",
+            "tr": "Destekli kurs sınırını yeniden kur"
           },
           "objective": {
-            "en": "Learn the defined task: Foundation review and future skills.",
-            "tr": "Tanımlı görevi öğren: Temel değerlendirme ve sonraki beceriler."
+            "en": "Explain an actual setup decision, a chosen supported task and its exit; name the separate next-course requirements.",
+            "tr": "Gerçek kurulum kararını, seçilen destekli görevi ve çıkışını açıkla; ayrı sonraki kurs gereklerini adlandır."
           },
           "steps": [
             {
-              "en": "Explain attachment, supported entry, row, support and exit.",
-              "tr": "Bağlantıyı, destekli girişi, rowu, desteği ve çıkışı açıkla."
+              "en": "Close the earlier pages and keep the equipment card nearby. Explain an actual setup and one familiar comfortable task; without equipment, choose the complete written walkthrough. Any optional physical cycle uses the same accepted tiny setting, not a new skill. Explain why attachment and floor are accepted or rejected and name one condition that changes the decision.",
+              "tr": "Önceki sayfaları kapat, ekipman kartı yakında olsun. Gerçek kurulumu ve bir tanıdık rahat görevi açıkla; ekipman yoksa tam yazılı sıralamayı seç. İsteğe bağlı fiziksel döngü yeni beceri değil aynı kabul edilen küçük ayarı kullanır. Bağlantı ve zeminin neden kabul veya ret edildiğini açıkla; kararı değiştiren bir koşulu adlandır."
             },
             {
-              "en": "List unresolved demonstrations and observed learner checks.",
-              "tr": "Çözülmemiş gösterim ve gözlenmiş öğrenci kontrollerini listele."
+              "en": "Reconstruct entry→small row or standing pressure→upright unloaded release. If appropriate, use one familiar cycle; otherwise trace it empty-handed.",
+              "tr": "Giriş→küçük row veya ayakta basma→dik yüksüz bırakış sırasını kur. Uygunsa bir tanıdık döngü kullan; değilse boş elle göster."
             },
             {
-              "en": "Keep hanging, unassisted support, dips, levers and muscle-up in separate reviewed progressions.",
-              "tr": "Asılma, yardımsız destek, dip, lever ve muscle-upı ayrı incelenmiş ilerlemelerde tut."
+              "en": "Name one error, a symptom-free correction and a stop that must not be retested. Compare after answering and correct one missing explanation.",
+              "tr": "Bir hata, belirtisiz düzeltme ve yeniden sınanmaması gereken durma nedeni söyle. Yanıttan sonra karşılaştır, eksik bir açıklamayı düzelt."
+            },
+            {
+              "en": "List separate instruction, entry/return, suitable setup and demonstration needs for hanging, feet-off support, dips or dynamic skills. No automatic unlock or camera accuracy is awarded.",
+              "tr": "Asılma, ayaksız destek, dip veya dinamik beceri için ayrı öğretim, giriş/dönüş, uygun kurulum ve gösterim ihtiyacını yaz. Otomatik açılma veya kamera doğruluğu verilmez."
             }
           ],
           "practice": {
-            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
-            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+            "en": "Give one complete explanation and correct one missing part. Optional physical work is a familiar single cycle, not a strength test.\n\nCommon mistake and correction: Knowing muscle-up stages is mistaken for permission. Correct to separate teaching required and keep the current task supported.",
+            "tr": "Bir tam açıklama ver, eksik bir kısmı düzelt. İsteğe bağlı fiziksel iş kuvvet testi değil tanıdık tek döngüdür.\n\nSık hata ve düzeltme: Muscle-up aşamalarını bilmek izin sanılır. Ayrı öğretim gerekli diye düzelt; mevcut görevi destekli tut."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Can I reconstruct the whole finish without looking?",
+              "tr": "Bütün bitişi bakmadan kurabiliyor muyum?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Can I name a real missing demonstration without claiming it was watched?",
+              "tr": "İzlendiğini iddia etmeden gerçek eksik gösterimi adlandırabiliyor muyum?"
             }
           ],
           "adaptation": {
-            "en": "Repeat supported foundations.",
-            "tr": "Destekli temelleri yinele."
+            "en": "Use words or diagrams for the entire review; equipment absence is not failure.",
+            "tr": "Tüm incelemede söz veya şema kullan; ekipman yokluğu başarısızlık değildir."
           },
           "progression": {
-            "en": "Course completion is not ring competence certification.",
-            "tr": "Kurs tamamlaması halka yetkinliği sertifikası değildir."
+            "en": "Keep this small supported practice repeatable. Different ring skills require separate teaching decisions, not a higher lesson number.",
+            "tr": "Bu küçük destekli pratiği tekrarlanabilir tut. Farklı halka becerisi yüksek ders numarası değil ayrı öğretim kararı ister."
           },
           "regression": {
-            "en": "Repeat supported foundations.",
-            "tr": "Destekli temelleri yinele."
+            "en": "Use words or diagrams for the entire review; equipment absence is not failure.",
+            "tr": "Tüm incelemede söz veya şema kullan; ekipman yokluğu başarısızlık değildir."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Pause about one minute before recall; take longer as needed.",
+            "tr": "Hatırlamadan önce yaklaşık bir dakika ara ver; gerekirse uzat."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "No new attempt when setup, entry or exit cannot be explained; stop symptoms and equipment uncertainty rather than proving completion.",
+            "tr": "Kurulum, giriş veya çıkış açıklanamıyorsa yeni deneme yok; tamamlamayı kanıtlamak yerine belirtide ve ekipman belirsizliğinde dur."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "gmb_rings_setup",
+            "gmb_rings_grips"
           ],
           "prerequisites": [
             "rings-11"
           ],
-          "minutes": 8,
+          "minutes": 6,
           "practiceType": "learning_only",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for rings-12: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "rings-12 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:rings-12"
+          "movementTaskId": "gravita:rings-12",
+          "candidatePracticeAccess": "learning_only",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "gmb_rings_setup",
+              "gmb_rings_grips"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Continuous complete low-ring row or standing-pressure entry-task-unload-release",
+              "Manufacturer-specific actual installation and individual anchor integrity",
+              "Editorial rehearsal dose and individual suitability"
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         }
       ]
     }

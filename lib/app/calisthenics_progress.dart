@@ -96,10 +96,12 @@ final class CalisthenicsProgressStore {
     this.file, {
     AccountStoreEpoch? epoch,
     this.courseId = 'calisthenics-foundations',
+    this.courseVersion = '1.0.0',
   }) : _lease = CourseProgressLease(file, epoch: epoch);
 
   final File file;
   final String courseId;
+  final String courseVersion;
   final CourseProgressLease _lease;
 
   Future<CalisthenicsProgress> load() => _lease.mutate(_loadUnlocked);
@@ -127,7 +129,9 @@ final class CalisthenicsProgressStore {
           CalisthenicsLessonProgress.fromJson(
             (entry.value as Map).cast<String, dynamic>(),
           );
-      if (progress.practiceCount < 0 ||
+      if ((foundationCourseIds.contains(courseId) &&
+              progress.contentVersion != courseVersion) ||
+          progress.practiceCount < 0 ||
           (progress.state != CalisthenicsLessonState.seen &&
               (progress.practiceCount == 0 ||
                   progress.lastPractisedAt == null)) ||
@@ -179,6 +183,9 @@ final class CalisthenicsProgressStore {
     CalisthenicsLesson lesson,
     CalisthenicsLessonState requested,
   ) async {
+    if (course.version != courseVersion) {
+      throw StateError('Course revision does not match this progress store');
+    }
     if (course.id != courseId ||
         !course.lessons.any(
           (CalisthenicsLesson item) => item.id == lesson.id,
@@ -259,6 +266,7 @@ CalisthenicsProgressStore calisthenicsProgressStoreFor(
   String? accountUserId, {
   AccountStoreEpoch? epoch,
   String courseId = 'calisthenics-foundations',
+  String courseVersion = '1.0.0',
 }) {
   if (!(<String>{
     'calisthenics-foundations',
@@ -269,8 +277,14 @@ CalisthenicsProgressStore calisthenicsProgressStoreFor(
   }).contains(courseId)) {
     throw ArgumentError.value(courseId, 'courseId');
   }
+  if (courseVersion != '1.0.0' &&
+      !(foundationCourseIds.contains(courseId) && courseVersion == '1.1.0')) {
+    throw ArgumentError.value(courseVersion, 'courseVersion');
+  }
   final name = foundationCourseIds.contains(courseId)
-      ? '$courseId-progress.v1.json'
+      ? courseVersion == '1.1.0'
+            ? '$courseId-progress.course-1.1.0.v1.json'
+            : '$courseId-progress.v1.json'
       : courseId == 'calisthenics-foundations'
       ? 'calisthenics-course-progress.v1.json'
       : courseId == 'dbkb-written-foundations'
@@ -282,5 +296,6 @@ CalisthenicsProgressStore calisthenicsProgressStoreFor(
     File('${accountDataDirectory(support, accountUserId).path}/$name'),
     epoch: epoch,
     courseId: courseId,
+    courseVersion: courseVersion,
   );
 }

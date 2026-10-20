@@ -25,7 +25,10 @@ import 'program_model.dart';
 /// sabit (düşürülmüş) dozunu kullanır. Bu, ardışık deload'suz haftalarda
 /// tekrar/tutuş süresinin YALNIZ artabileceğini (asla azalamayacağını,
 /// tavana çarpana kadar) ve deload'un TEK planlı düşüş olduğunu garanti
-/// eder — roadmap Step 5'in "unsafe progression sıfır" şartı.
+/// eder. Bu yalnız deterministik sayı üretme sözleşmesidir; kişinin hazır
+/// oluşunu, hareketin uygunluğunu veya yaralanma riskini doğrulamaz. Haftanın
+/// geçmesi tek başına dozu artırma gereği değildir. Dersin daha küçük dozu,
+/// rahat bir varyantı ve daha uzun dinlenme seçimi önceliklidir.
 final class ProgramBuilder {
   const ProgramBuilder({required this.config, required this.catalog});
 

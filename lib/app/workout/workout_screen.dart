@@ -9,6 +9,8 @@ import '../content_repository.dart';
 import '../library_strings.dart';
 import '../program/program_builder.dart';
 import '../program/program_model.dart';
+import '../program/program_safety_notice.dart';
+import '../movement_page.dart';
 import '../program/program_schedule_store.dart';
 import '../program/program_signature.dart';
 import '../program/program_setup_screen.dart';
@@ -434,6 +436,14 @@ class _ProgramOverviewState extends State<_ProgramOverview> {
             'değildir. İlerleme düzeni hareket bilimi incelemesinden geçmedi.',
           ),
         ),
+        const SizedBox(height: 16),
+        ProgramSafetyNotice(
+          containsSwing: widget.program.days.any(
+            (day) => day.exercises.any(
+              (exercise) => exercise.movementId == 'kb_swing',
+            ),
+          ),
+        ),
         const SizedBox(height: 24),
         for (final int week in byWeek.keys.toList()..sort())
           Padding(
@@ -457,6 +467,7 @@ class _ProgramOverviewState extends State<_ProgramOverview> {
                     scheduledDate: _schedule.dates[dayIndex],
                     rpe: _schedule.rpeByDayIndex[dayIndex],
                     today: widget.today,
+                    accountUserId: widget.accountUserId,
                     onMarkDone: (int rpe) => _markDone(dayIndex, rpe),
                     onReschedule: () => _reschedule(dayIndex),
                   ),
@@ -475,6 +486,7 @@ class _DayCard extends StatefulWidget {
     required this.scheduledDate,
     required this.rpe,
     required this.today,
+    this.accountUserId,
     required this.onMarkDone,
     required this.onReschedule,
   });
@@ -486,6 +498,7 @@ class _DayCard extends StatefulWidget {
   /// `null` = gün henüz tamamlanmadı; dolu = RPE'siyle birlikte bitti.
   final int? rpe;
   final DateTime today;
+  final String? accountUserId;
   final Future<bool> Function(int) onMarkDone;
   final Future<bool> Function() onReschedule;
 
@@ -561,6 +574,30 @@ class _DayCardState extends State<_DayCard> {
                   ),
                   style: GravitaType.body(context: context, size: 13.5),
                 ),
+                if (widget.content.catalogue.byId(e.movementId)
+                    case final movement?)
+                  TextButton.icon(
+                    key: ValueKey<String>(
+                      'workout.movementGuide.${e.movementId}',
+                    ),
+                    icon: const Icon(Icons.menu_book_outlined),
+                    label: Text(
+                      localized(
+                        context,
+                        'Movement details and learning options',
+                        'Hareket ayrıntıları ve öğrenme seçenekleri',
+                      ),
+                    ),
+                    onPressed: () => Navigator.of(context).push<void>(
+                      MaterialPageRoute<void>(
+                        builder: (_) => MovementPage(
+                          movement: movement,
+                          content: widget.content,
+                          accountUserId: widget.accountUserId,
+                        ),
+                      ),
+                    ),
+                  ),
                 const SizedBox(height: 6),
                 Wrap(
                   spacing: 8,

@@ -1,49 +1,115 @@
 {
   "schemaVersion": 1,
   "id": "barbell-foundations",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": {
-    "en": "Barbell strength foundations · review pending",
-    "tr": "Barbell kuvvet temelleri · inceleme bekliyor"
+    "en": "Barbell foundations: a small controlled start",
+    "tr": "Barbell temelleri: küçük kontrollü başlangıç"
   },
   "description": {
-    "en": "A complete foundation sequence draft: setup, progressive tasks, easier options, recovery and exit review. Physical tasks await expert review and original demonstrations; training/calibration comes later.",
-    "tr": "Tam temel sıra taslağı: kurulum, ilerleyen görevler, kolay seçenekler, dinlenme ve çıkış incelemesi. Fiziksel görevler uzman incelemesi ve özgün gösterim bekler; eğitim/kalibrasyon sonradır."
+    "en": "Twelve original lessons connect equipment literacy, unloaded rehearsal, a light raised-start hinge and an optional separate rack-squat option. Exact equipment suitability and comfortable control are entry conditions; a written completion does not validate physical performance.",
+    "tr": "On iki özgün ders ekipman bilgisini, yüksüz provayı, hafif yükseltilmiş başlangıçlı menteşeyi ve isteğe bağlı ayrı rack-squat hareket biçimini birleştirir. Kesin ekipman uygunluğu ve rahat kontrol giriş koşuludur; yazılı tamamlama fiziksel performansı doğrulamaz."
   },
   "healthNotice": {
-    "en": "Expert review and learner observation are pending. Read now; physical practice and physical completion are held. No individual suitability, injury-prevention, mastery or model-accuracy claim.",
-    "tr": "Uzman incelemesi ve öğrenci gözlemi bekliyor. Şimdi okuyabilirsin; fiziksel pratik ve fiziksel tamamlama kapalı. Kişisel uygunluk, yaralanma önleme, ustalık veya model doğruluğu iddiası yok."
+    "en": "General adult skill education. Choose the easier or written option when needed. Stop for new pain, dizziness, unusual breathlessness, faintness, tingling or loss of grip/balance; do not retest symptoms. Persistent or concerning symptoms need appropriate individual assessment. Learning reports do not validate form or personal suitability.",
+    "tr": "Yetişkinler için genel beceri eğitimi. Gerektiğinde kolay veya yazılı seçeneği seç. Yeni ağrı, baş dönmesi, olağandışı nefes darlığı, baygınlık hissi, karıncalanma veya tutuş/denge kaybında dur; belirtileri yeniden sınama. Süren veya kaygı veren belirtilerde uygun bireysel değerlendirme gerekir. Öğrenme bildirimi formu veya kişisel uygunluğu doğrulamaz."
   },
   "evidenceMode": "self_report",
-  "reviewStatus": "expert_review_required",
+  "reviewStatus": "first_release_draft",
   "scope": {
-    "en": "Provisional healthy adult beginner scope; exact equipment and individual suitability require qualified review.",
-    "tr": "Geçici sağlıklı yetişkin başlangıç kapsamı; kesin ekipman ve kişisel uygunluk yetkin inceleme ister."
+    "en": "Adult beginner learning with a known manageable light technique bar and suitable actual supports; unloaded alternatives remain valid. No added plates, heavy/maximal lifts, Olympic lifts, overhead work or deliberate failure testing.",
+    "tr": "Kütlesi bilinen yönetilebilir hafif teknik bar ve uygun gerçek desteklerle yetişkin başlangıç öğrenmesi; yüksüz alternatifler geçerlidir. Plaka ekleme, ağır/maksimum kaldırış, olimpik kaldırış, baş üstü iş veya bilinçli başarısızlık sınaması yoktur."
   },
   "equipment": {
-    "en": "Light technique bar; rated supports; suitable rack and safeties for the squat branch.",
-    "tr": "Hafif teknik bar; uygun destek; squat dalı için uygun rack ve güvenlik kolları."
+    "en": "For physical bar options: a marked light technique bar and matched manufacturer-compatible raised supports; the rack option additionally needs appropriate hooks and actual safeties. Otherwise use clear non-slip floor and empty hands.",
+    "tr": "Fiziksel bar seçeneklerinde: işaretli hafif teknik bar ve üreticiye uygun eş yükseltilmiş destek; rack hareket biçimi ayrıca uygun kanca ve gerçek güvenlik destekleri ister. Bunlar yoksa boş kaymayan zemin ve boş el kullan."
   },
   "entryCriteria": {
-    "en": "Read scope, identify equipment and unresolved suitability questions, and arrange the actual setup review.",
-    "tr": "Kapsamı oku, ekipmanı ve çözülmemiş uygunluk sorularını belirle, gerçek kurulum incelemesini düzenle."
+    "en": "Explain the stop signs, choose an empty area and retain a written option. Start from the first lesson, not from a loaded exercise label.",
+    "tr": "Durma işaretlerini açıkla, boş alan seç ve yazılı seçeneği koru. Yüklü egzersiz adından değil ilk dersten başla."
   },
   "exitCriteria": {
-    "en": "Explain setup, selected task, regression, recovery and exit; physical performance requires separate demonstrations and observed learner review.",
-    "tr": "Kurulum, seçilen görev, kolaylaştırma, dinlenme ve çıkışı açıkla; fiziksel performans ayrı gösterim ve gözlenmiş öğrenci incelemesi ister."
+    "en": "Independently reconstruct the selected complete setup–entry–small task–supported return–rest, choose an unloaded alternative and distinguish written learning, sampled video examples and unmeasured physical performance.",
+    "tr": "Seçilen tam kurulum–giriş–küçük görev–destekli dönüş–dinlenmeyi bağımsız kur; yüksüz alternatif seç ve yazılı öğrenme, örnek video kareleri ile ölçülmemiş fiziksel performansı ayır."
   },
+  "catalogueGuides": [],
   "sources": [
     {
       "id": "general",
       "title": "Mayo Clinic: Weight training technique",
       "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/weight-training/art-20045842",
       "supports": {
-        "en": "General preparation, controlled movement, breathing and recovery principles.",
-        "tr": "Genel hazırlık, kontrollü hareket, nefes ve toparlanma ilkeleri."
+        "en": "General preparation, controlled technique, breathing, recovery and asking for appropriate help.",
+        "tr": "Genel hazırlık, kontrollü teknik, nefes, toparlanma ve uygun yardım isteme."
       },
       "doesNotSupport": {
-        "en": "These original draft lessons, equipment installation, individual suitability or expert approval.",
-        "tr": "Bu özgün taslak dersleri, ekipman kurulumunu, kişisel uygunluğu veya uzman onayını kanıtlamaz."
+        "en": "This original twelve-lesson package, its rehearsal doses, individual suitability, actual rack/support inspection or a loaded barbell demonstration.",
+        "tr": "Bu özgün on iki derslik paket, prova dozları, kişiye uygunluk, gerçek rack/destek incelemesi veya yüklü barbell gösterimi."
+      }
+    },
+    {
+      "id": "strongfirst_hinge",
+      "title": "StrongFirst: Enter the Barbell Deadlift — written wall-hinge section",
+      "url": "https://www.strongfirst.com/enter-the-barbell-deadlift/",
+      "supports": {
+        "en": "The written hips-back hinge-direction explanation identified in the source map.",
+        "tr": "Kaynak haritasında tanımlanan yazılı kalçayı geriye götürme menteşe yönü açıklaması."
+      },
+      "doesNotSupport": {
+        "en": "No video was identified on the retrieved page. Heavy sets, breath holding, exact first loaded pickup/return and this editorial dose are not adopted.",
+        "tr": "Erişilen sayfada video belirlenmedi. Ağır setler, nefes tutma, ilk yüklü alma/dönüş ve bu editoryal doz benimsenmez."
+      }
+    },
+    {
+      "id": "nhs_strength",
+      "title": "NHS: Strength exercises",
+      "url": "https://www.nhs.uk/live-well/exercise/strength-exercises/",
+      "supports": {
+        "en": "General slow-start and stable-chair options already referenced by the existing calisthenics course.",
+        "tr": "Mevcut calisthenics kursunda zaten bağlı olan genel yavaş başlangıç ve sağlam sandalye seçenekleri."
+      },
+      "doesNotSupport": {
+        "en": "Loaded rack squat, an exact universal joint angle or this package’s two-cycle learning dose.",
+        "tr": "Yüklü rack squat, evrensel kesin eklem açısı veya bu paketin iki döngülük öğrenme dozu."
+      }
+    },
+    {
+      "id": "nsca_high_bar_samples",
+      "title": "NSCA: Exercise Technique — High Bar Back Squat",
+      "url": "https://www.nsca.com/education/videos/exercise-technique-high-bar-back-squat/",
+      "supports": {
+        "en": "Parent observed only 19/25/31/73second samples: grip at rack, bar on upper back, standing step/start and a side squat image.",
+        "tr": "Ana oturum yalnız 19/25/31/73 saniye örneklerini gördü: rackte tutuş, üst sırtta bar, ayakta adım/başlangıç ve yandan squat karesi."
+      },
+      "doesNotSupport": {
+        "en": "Continuous sequence, rack setting, rerack, failed-lift recovery, a personal load or physical validation. This author did not watch the video.",
+        "tr": "Kesintisiz sıra, rack ayarı, geri koyma, başarısız kaldırış çıkışı, kişisel yük veya fiziksel doğrulama değildir. Bu yazar videoyu izlemedi."
+      }
+    },
+    {
+      "id": "testify_rerack_text_samples",
+      "title": "Testify: Never Make This Squat Mistake Again — text and sampled images",
+      "url": "https://www.youtube.com/watch?v=eeHXHVyp0bs",
+      "supports": {
+        "en": "Auto captions at 60–88 seconds describe moving forward to both uprights then lowering to hooks. Parent7second image is a heavy-bar counterexample; 78.916 seconds shows the presenter with the bar behind on both hooks.",
+        "tr": "60–88 saniye otomatik altyazısı iki dikmeye ileri gidip sonra kancalara alçaltmayı anlatır. Ana oturumun7 saniye karesi ağır-bar karşıörneği; 78, 916 saniye karesi arkasında iki kancada bar olan anlatıcıdır."
+      },
+      "doesNotSupport": {
+        "en": "The complete rerack motion was not visually observed. Heavy plates are not adopted as a beginner dose; no hook adjustment or failure recovery is demonstrated here.",
+        "tr": "Tam geri-koyma hareketi görüntüyle gözlenmedi. Ağır plakalar başlangıç dozu olarak alınmaz; burada kanca ayarı veya başarısızlık çıkışı gösterilmiş sayılmaz."
+      }
+    },
+    {
+      "id": "ace_deadlift_samples_text",
+      "title": "ACE: Technique Series — How to Deadlift; sampled images and captions",
+      "url": "https://www.acefitness.org/continuing-education/prosource/september-2015/5579/technique-series-how-to-deadlift/",
+      "supports": {
+        "en": "Parent sampled 16/71/123.083 seconds: hinged grip closeup, bar before lower legs and a floor-resting bar with empty hands. Caption/text intervals 30–47 and 65–129 seconds include setup and controlled lowering/reset.",
+        "tr": "Ana oturum 16/71/123, 083 saniyeleri örnekledi: menteşede tutuş yakın görünümü, alt bacakların önünde bar ve eller boşken yerde dinlenen bar.30–47 ve 65–129 saniye altyazı/metin aralıklarında kurulum ve kontrollü indirme/sıfırlama var."
+      },
+      "doesNotSupport": {
+        "en": "No continuous complete sequence or this raised-support variant was visually reviewed. Mixed grip, forced chest/lumbar extension, heavy loads, source sets and kettlebell parking are not adopted.",
+        "tr": "Kesintisiz tam sıra veya buradaki yükseltilmiş-destek varyantı görüntüyle incelenmedi. Karışık tutuş, zorlanmış göğüs/bel açma, ağır yük, kaynak setleri ve kettlebellparkı benimsenmez."
       }
     }
   ],
@@ -58,60 +124,64 @@
         {
           "id": "barbell-01",
           "title": {
-            "en": "Scope and first-lift choice",
-            "tr": "Kapsam ve ilk kaldırış seçimi"
+            "en": "Choose your first barbell learning endpoint",
+            "tr": "İlk barbell öğrenme hedefini seç"
           },
           "objective": {
-            "en": "Distinguish a light technique bar from a standard bar.",
-            "tr": "Hafif teknik bar ile standart barı ayır."
+            "en": "Distinguish written understanding, unloaded rehearsal and an optional light-bar option, then choose one first learning task.",
+            "tr": "Yazılı anlayış, yüksüz prova ve isteğe bağlı hafif-bar hareket biçimini ayır; sonra tek ilk öğrenme görevini seç."
           },
           "steps": [
             {
-              "en": "Name the bar, rack and available coach.",
-              "tr": "Barı, rack sistemini ve mevcut eğitmeni adlandır."
+              "en": "Start: Start with reading; no bar or rack is needed. Know how to stop the task and leave the space.\n\nSetup: Use a clear floor or paper diagram. Keep stored bars and plates untouched.\n\nWrite two columns: equipment/sequence learning and physical practice. Name the empty-hand alternative and the optional known-light bar option; completion of one column does not prove the other.",
+              "tr": "Başlangıç: Okumayla başla; bar veya rack gerekmez. Görevi durdurup alandan nasıl çıkacağını bil.\n\nKurulum: Boş zemin veya kâğıt şema kullan. Depodaki bar ve plakalara dokunma.\n\nİki sütun yaz: ekipman/sıra öğrenmesi ve fiziksel pratik. Boş-el alternatifi ile isteğe bağlı kütlesi bilinen hafif-bar hareket biçimini adlandır; bir sütunu tamamlama ötekini kanıtlamaz."
             },
             {
-              "en": "Choose hinge/deadlift as the first reviewed pattern; squat is a separate rack task.",
-              "tr": "İlk incelenecek hareket olarak menteşe/deadlift seç; squat ayrı rack görevidir."
+              "en": "Choose one pattern: hips back for a hinge, or a shallow bodyweight squat. Say how you will return to standing before attempting it.",
+              "tr": "Bir örüntü seç: menteşede kalçayı geriye götürme veya sığ vücut ağırlığı squat. Denemeden önce ayakta konuma nasıl döneceğini söyle."
             },
             {
-              "en": "Write what remains outside the course: max attempts, Olympic lifts and overhead work.",
-              "tr": "Maksimum deneme, olimpik kaldırış ve baş üstü çalışmalarının dışarıda kaldığını yaz."
+              "en": "Name a real bar’s marked type and mass only from its actual label or manufacturer information. A standard empty bar may already be too heavy; the word empty is not permission to lift.",
+              "tr": "Gerçek barın türü ve kütlesini yalnız gerçek etiketten veya üretici bilgisinden adlandır. Standart boş bar zaten ağır olabilir; boş sözcüğü kaldırma izni değildir."
+            },
+            {
+              "en": "Keep added plates, heavy/maximal attempts, overhead and Olympic lifting outside the course. Choose the raised-start hinge first; the rack squat has separate setup, exit and safety conditions.",
+              "tr": "Plaka ekleme, ağır/maksimum deneme, baş üstü ve olimpik kaldırışı kurs dışında tut. Önce yükseltilmiş başlangıçlı menteşeyi seç; rack squatın ayrı kurulum, çıkış ve güvenlik koşulları vardır."
             }
           ],
           "practice": {
-            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
-            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+            "en": "In three minutes, write one chosen empty-hand task, its return and one excluded loaded task. Close the page and explain the difference once; no lifting is assigned.\n\nMistake: calling an unlabelled bar a beginner load. Correction: leave it supported and record its identity as unknown.",
+            "tr": "Üç dakikada seçilen bir boş-el görevini, dönüşünü ve dışarıda kalan bir yüklü işi yaz. Sayfayı kapatıp farkı bir kez açıkla; kaldırış verilmez.\n\nHata: etiketi bilinmeyen barı başlangıç yükü saymak. Düzeltme: destek üzerinde bırak ve kimliğini bilinmiyor diye kaydet."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Can I name today’s task without calling it a barbell lift?",
+              "tr": "Bugünkü görevi barbell kaldırışı demeden adlandırabiliyor muyum?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Can I explain why an empty bar and empty hands are different?",
+              "tr": "Boş bar ile boş elin farkını açıklayabiliyor muyum?"
             }
           ],
           "adaptation": {
-            "en": "Read without equipment.",
-            "tr": "Ekipmansız oku."
+            "en": "Work entirely from a drawing; identify the two columns without entering a gym.",
+            "tr": "Tamamını çizimle çalış; spor salonuna girmeden iki sütunu ayır."
           },
           "progression": {
-            "en": "Agree the exact first lift with a qualified coach.",
-            "tr": "Kesin ilk kaldırışı yetkin eğitmenle kararlaştır."
+            "en": "Move to lesson 02 when you can name the chosen option, easier option and excluded lifts from memory. A completion record does not inspect equipment or prove readiness.",
+            "tr": "Seçilen hareket biçimi, kolay seçeneği ve dışlanan kaldırışları hatırlayarak söyleyince 02 dersine geç. Tamamlama kaydı ekipmanı incelemez veya hazır oluşu kanıtlamaz."
           },
           "regression": {
-            "en": "Read without equipment.",
-            "tr": "Ekipmansız oku."
+            "en": "Work entirely from a drawing; identify the two columns without entering a gym.",
+            "tr": "Tamamını çizimle çalış; spor salonuna girmeden iki sütunu ayır."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Pause about one minute before recall; take longer as needed.",
+            "tr": "Hatırlamadan önce yaklaşık bir dakika ara ver; gerekirse uzat."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Do not move unknown equipment to answer a reading question. If the space cannot be used without approaching a load, use the paper task.",
+            "tr": "Okuma sorusunu yanıtlamak için bilinmeyen ekipmanı oynatma. Yüke yaklaşmadan alan kullanılamıyorsa kâğıt görevini seç."
           },
           "sourceIds": [
             "general"
@@ -121,68 +191,86 @@
           "practiceType": "learning_only",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for barbell-01: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "barbell-01 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:barbell-01"
+          "movementTaskId": "gravita:barbell-01",
+          "candidatePracticeAccess": "learning_only",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Only separately recorded parent sample frames can support visible examples; full continuous sequence, actual equipment suitability and physical learner performance are not validated."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "barbell-02",
           "title": {
-            "en": "Equipment, plates and exit area",
-            "tr": "Ekipman, plakalar ve çıkış alanı"
+            "en": "Map the bar, supports and clear return space",
+            "tr": "Barı, destekleri ve boş dönüş alanını haritala"
           },
           "objective": {
-            "en": "Identify the equipment checks needed before handling a bar.",
-            "tr": "Barı tutmadan gereken ekipman kontrollerini tanı."
+            "en": "Identify what must be checked before touching a bar and draw a route that stays clear of stored loads.",
+            "tr": "Bara dokunmadan önce nelerin kontrol edilmesi gerektiğini belirle ve depolanmış yüklerden uzak bir yol çiz."
           },
           "steps": [
             {
-              "en": "Read the actual manufacturer instructions with the coach.",
-              "tr": "Gerçek üretici talimatını eğitmenle oku."
+              "en": "Start: Explain lesson 01’s empty-hand endpoint. Actual equipment information may be read without moving any equipment.\n\nSetup: Use manufacturer instructions and a diagram of the intended space. Do not add plates, change rack height or test supports by hanging on them.\n\nLocate the bar’s marked mass/type, the supports’ intended use and any missing information. Write unknown rather than guessing.",
+              "tr": "Başlangıç: 01 dersindeki boş-el hedefini açıkla. Gerçek ekipman bilgisi ekipman oynatmadan okunabilir.\n\nKurulum: Üretici talimatını ve planlanan alanın şemasını kullan. Plaka ekleme, rack yüksekliği değiştirme veya desteklere asılarak sınama yapma.\n\nBarın işaretli kütle/türünü, desteklerin amaçlanan kullanımını ve eksik bilgiyi bul. Tahmin etmek yerine bilinmiyor yaz."
             },
             {
-              "en": "Locate stable supports, matching plates, collars and a clear return location; do not improvise anchors.",
-              "tr": "Sabit destekleri, eş plakaları, kilitleri ve boş dönüş yerini belirle; doğaçlama bağlantı yapma."
+              "en": "Mark the bar’s resting area, the person’s approach and the complete return area. Keep feet, pets and loose objects out of these paths.",
+              "tr": "Barın dinlenme yerini, kişinin yaklaşmasını ve tam dönüş alanını işaretle. Ayakları, evcil hayvanları ve gevşek nesneleri bu yollardan uzak tut."
             },
             {
-              "en": "Describe balanced plate handling while the bar is supported; leave hands away from pinch points.",
-              "tr": "Bar destekliyken dengeli plaka kullanımını anlat; elleri sıkışma noktalarından uzak tut."
+              "en": "On paper, mark equal loading, collars and pinch points as checks for a later equipment-specific lesson. Do not practise loading plates or reaching under a bar.",
+              "tr": "Kâğıtta eş yükleme, kilit ve sıkışma noktalarını sonraki ekipmana özgü dersin kontrolleri diye işaretle. Plaka yükleme veya barın altına uzanma provası yapma."
+            },
+            {
+              "en": "Explain what would cancel a loaded setup: unknown suitability, damaged parts, blocked return or a bar that requires a strain just to position. Keep today’s route empty-handed.",
+              "tr": "Yüklü kurulumu iptal ettirecek durumları açıkla: bilinmeyen uygunluk, hasarlı parça, kapalı dönüş veya konumlandırmak için bile zorlanılan bar. Bugünkü yolu boş elle kullan."
             }
           ],
           "practice": {
-            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
-            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+            "en": "Make one labelled sketch with four items: bar identity, resting supports, approach and return. Take a short break, then point to the return without looking at your labels.\n\nMistake: treating a photograph as proof that supports fit this bar. Correction: list the actual manufacturer/model information that is missing.",
+            "tr": "Dört öğeli bir şema çiz: bar kimliği, dinlenme destekleri, yaklaşma ve dönüş. Kısa ara ver; sonra etiketlere bakmadan dönüşü göster.\n\nHata: fotoğrafı desteklerin bu bara uygunluğunun kanıtı saymak. Düzeltme: eksik gerçek üretici/model bilgisini listele."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Have I kept unknown load capacity unknown?",
+              "tr": "Bilinmeyen taşıma sınırını bilinmiyor olarak korudum mu?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Can someone follow my empty-hand route without stepping over plates?",
+              "tr": "Biri plakanın üzerinden geçmeden boş-el yolumu izleyebilir mi?"
             }
           ],
           "adaptation": {
-            "en": "Use a photograph or equipment diagram only.",
-            "tr": "Yalnız fotoğraf veya ekipman şeması kullan."
+            "en": "Use a paper layout only if equipment labels cannot be read from an ordinary standing position.",
+            "tr": "Ekipman etiketleri olağan ayakta konumdan okunamıyorsa yalnız kâğıt düzenini kullan."
           },
           "progression": {
-            "en": "Have the actual setup checked before the first physical lesson.",
-            "tr": "İlk fiziksel dersten önce gerçek kurulumu kontrol ettir."
+            "en": "Begin lesson 03’s unloaded rehearsal only after selecting an unobstructed standing area. Unresolved equipment questions remain outside that rehearsal.",
+            "tr": "Engelsiz ayakta çalışma alanını seçince 03 dersinin yüksüz provasına başla. Çözülmemiş ekipman soruları bu provanın dışında kalır."
           },
           "regression": {
-            "en": "Use a photograph or equipment diagram only.",
-            "tr": "Yalnız fotoğraf veya ekipman şeması kullan."
+            "en": "Use a paper layout only if equipment labels cannot be read from an ordinary standing position.",
+            "tr": "Ekipman etiketleri olağan ayakta konumdan okunamıyorsa yalnız kâğıt düzenini kullan."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Pause about one minute before recall; take longer as needed.",
+            "tr": "Hatırlamadan önce yaklaşık bir dakika ara ver; gerekirse uzat."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Cancel the equipment task for damaged, moving or unrated supports. Never move a stored load to create the exercise area.",
+            "tr": "Hasarlı, oynayan veya uygunluğu bilinmeyen destekte ekipman görevini iptal et. Çalışma alanı açmak için depolanmış yükü oynatma."
           },
           "sourceIds": [
             "general"
@@ -194,71 +282,91 @@
           "practiceType": "learning_only",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for barbell-02: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "barbell-02 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:barbell-02"
+          "movementTaskId": "gravita:barbell-02",
+          "candidatePracticeAccess": "learning_only",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Only separately recorded parent sample frames can support visible examples; full continuous sequence, actual equipment suitability and physical learner performance are not validated."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "barbell-03",
           "title": {
-            "en": "Preparation and unloaded hinge",
-            "tr": "Hazırlık ve yüksüz menteşe"
+            "en": "Prepare and rehearse a small empty-hand hinge",
+            "tr": "Hazırlan ve küçük boş-el menteşe prova et"
           },
           "objective": {
-            "en": "Rehearse the hip-back direction without a bar.",
-            "tr": "Barsız kalçayı geriye götürme yönünü prova et."
+            "en": "Move the hips back and return to standing without holding a bar or turning the task into a deep squat.",
+            "tr": "Bar tutmadan ve görevi derin çömelmeye çevirmeden kalçayı geriye götürüp ayakta konuma dön."
           },
           "steps": [
             {
-              "en": "After general preparation, stand with empty hands and space behind the hips.",
-              "tr": "Genel hazırlıktan sonra eller boş, kalçanın arkasında alan varken ayakta dur."
+              "en": "Start: A clear standing area and a comfortable ordinary walk or seated preparation are available. No symptoms are being tested by this task.\n\nSetup: Keep both hands empty and enough space behind the hips. Use a wall only as a nearby location reference, without leaning on it or forcing contact.\n\nTake two minutes of familiar comfortable walking or seated stepping. Make two small relaxed shoulder movements; preparation is not a test of readiness for a bar.",
+              "tr": "Başlangıç: Boş ayakta çalışma alanı ve rahat olağan yürüyüş veya oturarak hazırlık seçeneği vardır. Bu görevle belirti sınanmaz.\n\nKurulum: İki el boş, kalçanın arkasında yeterli alan olsun. Duvarı yalnız yakındaki konum referansı olarak kullan; üzerine yaslanma veya teması zorlama.\n\nİki dakika tanıdık rahat yürüyüş veya oturarak adımlama yap. Omuzlarla iki küçük rahat hareket yap; hazırlık bara hazır oluş testi değildir."
             },
             {
-              "en": "Let the hips travel back through a small comfortable range with softly bent knees; keep breathing.",
-              "tr": "Dizleri hafif bükerek kalçayı küçük rahat aralıkta geriye götür; nefesi sürdür."
+              "en": "Stand comfortably with the whole feet supported and knees softly bent. Place empty hands near the front of the hips to notice their direction, without pushing on them.",
+              "tr": "Ayak tabanları destekli ve dizler hafif bükülü rahat dur. Yönü fark etmek için boş elleri kalçanın önüne yaklaştır; ellerle itme."
             },
             {
-              "en": "Return to standing under control before repeating.",
-              "tr": "Yenilemeden önce kontrollü ayakta konuma dön."
+              "en": "Send the hips a small distance back as the trunk inclines from the hips. Keep the reach short enough to breathe normally; a deeper fold is not the goal.",
+              "tr": "Gövde kalçadan eğilirken kalçayı az geriye götür. Normal nefes sürecek kadar kısa uzan; daha derin katlanmak hedef değildir."
+            },
+            {
+              "en": "Reverse the same motion to stand, pause and let the arms relax. Finish before balance or the return becomes uncertain.",
+              "tr": "Aynı hareketi tersine çevirip ayağa dön, durakla ve kolları rahatlat. Denge veya dönüş belirsizleşmeden bitir."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "Try one set of two small unloaded hinges, with a standing pause between them. Rest 60–90 seconds; repeat that set once only if both returns were comfortable and controlled. End there.\n\nMistake: bending the knees farther to touch a distant wall. Correction: shorten the hip movement and remove the wall target; do not chase contact.",
+            "tr": "Aralarında ayakta duraklayarak bir set iki küçük yüksüz menteşe dene. 60–90 saniye dinlen; iki dönüş de rahat ve kontrollüyse seti yalnız bir kez yinele. Orada bitir.\n\nHata: uzak duvara değmek için dizleri daha çok bükmek. Düzeltme: kalça hareketini kısalt ve duvar hedefini kaldır; teması kovalamayı hedefleme."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Did the hips travel back before I reached for depth?",
+              "tr": "Derinlik aramadan önce kalça geriye gitti mi?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Could I return, pause and speak normally?",
+              "tr": "Dönebildim, duraklayabildim ve olağan konuşabildim mi?"
             }
           ],
           "adaptation": {
-            "en": "Shorten the range or use the existing wall-hinge preparation.",
-            "tr": "Aralığı kısalt veya mevcut duvar menteşesi hazırlığını kullan."
+            "en": "Explain the hips-back direction from a chair without rehearsing it. Seated explanation is recorded as learning, not a completed standing hinge.",
+            "tr": "Yönü sandalyede oturarak anlat, prova yapma. Oturarak açıklama öğrenme diye kaydedilir; tamamlanmış ayakta menteşe diye değil."
           },
           "progression": {
-            "en": "Only add an external object after coached review.",
-            "tr": "Dış nesneyi yalnız eğitmen incelemesinden sonra ekle."
+            "en": "Repeat this short version on another comfortable session before lesson 04. Add no bar, depth or extra repetitions to prove completion.",
+            "tr": "04 dersinden önce başka rahat seansta bu kısa sürümü yinele. Tamamlamayı kanıtlamak için bar, derinlik veya ek tekrar ekleme."
           },
           "regression": {
-            "en": "Shorten the range or use the existing wall-hinge preparation.",
-            "tr": "Aralığı kısalt veya mevcut duvar menteşesi hazırlığını kullan."
+            "en": "Explain the hips-back direction from a chair without rehearsing it. Seated explanation is recorded as learning, not a completed standing hinge.",
+            "tr": "Yönü sandalyede oturarak anlat, prova yapma. Oturarak açıklama öğrenme diye kaydedilir; tamamlanmış ayakta menteşe diye değil."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Stop for new pain, dizziness, unusual breathlessness or balance loss. Do not retry the symptom with a smaller hinge; use a reading task instead.",
+            "tr": "Yeni ağrı, baş dönmesi, olağandışı nefes darlığı veya denge kaybında dur. Belirtiyi daha küçük menteşeyle yeniden sınama; okuma görevine geç."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "strongfirst_hinge",
+            "ace_deadlift_samples_text"
           ],
           "prerequisites": [
             "barbell-02"
@@ -267,71 +375,140 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for barbell-03: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "barbell-03 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:barbell-03"
+          "movementTaskId": "gravita:barbell-03",
+          "candidatePracticeAccess": "available_unloaded_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "strongfirst_hinge",
+              "ace_deadlift_samples_text"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "publisherUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "playerId": "1763945815001",
+                "sampledSeconds": [
+                  11.16,
+                  20,
+                  41,
+                  62
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "Only selected general standing preparation positions, not a hinge tutorial.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              },
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=gSHyHMLuJqI",
+                "publisherUrl": "https://www.acefitness.org/continuing-education/prosource/september-2015/5579/technique-series-how-to-deadlift/",
+                "playerId": "gSHyHMLuJqI",
+                "sampledSeconds": [
+                  16,
+                  71,
+                  123.083
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "visible hinge/grip,bar before lower legs and floor-resting-bar samples;not the full sequence or raised supports",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=gSHyHMLuJqI",
+                "intervalSeconds": [
+                  [
+                    30,
+                    47
+                  ],
+                  [
+                    65,
+                    129
+                  ]
+                ],
+                "evidenceType": "caption_text",
+                "onlySupports": "setup and controlled lower/reset;source mixedgrip/forcedlumbar/heavyset instructions not adopted",
+                "countsAsObservedMotion": false
+              }
+            ],
+            "unseenScope": [
+              "No sampled frame shows this empty-hand hinge or an exact barbell lift/return. Written hinge direction is the support; the two-repetition rehearsal is original editorial learning dose."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "barbell-04",
           "title": {
-            "en": "Raised technique-bar start",
-            "tr": "Yükseltilmiş teknik bar başlangıcı"
+            "en": "Set a light technique bar on appropriate raised supports",
+            "tr": "Hafif teknik barı uygun yükseltilmiş destekte hazırla"
           },
           "objective": {
-            "en": "Learn a supported start at a reviewed height.",
-            "tr": "İncelenmiş yükseklikte destekli başlangıcı öğren."
+            "en": "Choose a reachable raised start and rehearse the grip and return before taking a known light technique bar.",
+            "tr": "Kütlesi bilinen hafif teknik barı almadan önce ulaşılabilir yükseltilmiş başlangıcı seç, tutuşu ve dönüşü prova et."
           },
           "steps": [
             {
-              "en": "Coach selects a light technique bar and stable rated supports; no plate increase.",
-              "tr": "Eğitmen hafif teknik barı ve uygun sabit destekleri seçsin; plaka artırma."
+              "en": "Start: Recall the short empty-hand hinge. Use only a real technique bar with known mass and manufacturer-compatible stable supports; if those are absent, complete the same route empty-handed.\n\nSetup: Set the bar on matched purpose-made supports on a level non-slip floor, with its full resting contacts clear and stable. Follow the support maker’s instructions; no chair, books, stacked loose plates or unknown furniture. Keep the full bar ends and return area clear. Do not add plates in this first sequence.\n\nRead the actual marked bar mass and identify the exact two resting contacts. The bar must be manageable for a short lift and the complete return; “empty standard bar” is not a load choice. If uncertain, use empty hands.",
+              "tr": "Başlangıç: Kısa boş-el menteşeyi hatırla. Yalnız kütlesi bilinen gerçek teknik bar ve üreticiye uygun sabit destek kullan; bunlar yoksa aynı yolu boş elle tamamla.\n\nKurulum: Barı düz kaymayan zeminde eş, amaca uygun desteklere yerleştir; bütün dinlenme temasları boş ve sabit olsun. Destek üreticisinin talimatını izle; sandalye, kitap, gevşek plaka yığını veya bilinmeyen mobilya yoktur. Barın iki ucunu ve dönüş alanını boş tut. İlk sırada plaka ekleme.\n\nGerçek işaretli bar kütlesini oku ve iki kesin dinlenme temasını belirle. Bar kısa kaldırış ve tam dönüş için yönetilebilir olmalı; “boş standart bar” yük seçimi değildir. Belirsizlikte boş eli kullan."
             },
             {
-              "en": "Approach with the bar near the legs; use the reviewed grip and bend at hips/knees to reach without pulling.",
-              "tr": "Bar bacaklara yakınken yaklaş; incelenmiş tutuşla kalça/dizleri büküp çekmeden ulaş."
+              "en": "Stand close to the supported bar with feet settled approximately hip-width. Hinge and bend the knees only enough to reach without twisting, stretching or a deep squat. Choose a higher suitable start before lifting if needed.",
+              "tr": "Destekli bara yakın, ayaklar yaklaşık kalça genişliğinde yerleşmiş dur. Dönme, zorlanmış uzanma veya derin squat olmadan ulaşacak kadar menteşe ve diz bükme kullan. Gerekiyorsa kaldırmadan önce daha yüksek uygun başlangıç seç."
             },
             {
-              "en": "Stand away after releasing the supported bar; confirm the return area.",
-              "tr": "Desteklenen barı bıraktıktan sonra uzaklaş; dönüş alanını doğrula."
+              "en": "While the bar stays fully supported, place both hands evenly outside the legs, palms toward you/down and thumbs closed around the bar. Keep the wrists comfortable; do not use a mixed grip, change hands under load or reach around another weight.",
+              "tr": "Bar tamamen destekliyken iki eli bacakların dışında eş uzaklıkta, avuçlar sana/aşağı bakar ve başparmaklar barı kapatır şekilde yerleştir. Bilekler rahat kalsın; karışık tutuş, yük altında el değiştirme veya başka ağırlığın üzerinden uzanma yoktur."
+            },
+            {
+              "en": "Release only while the bar is still fully supported; stand and explain the reverse route. Rehearse the same reach and return empty-handed once. The first actual rise is the next lesson, not a surprise equipment test.",
+              "tr": "Bar tamamen destekliyken elleri bırak; ayağa dön ve ters yolu açıkla. Aynı uzanma ve dönüşü boş elle bir kez prova et. İlk gerçek doğrulma sonraki derstir; beklenmedik ekipman sınaması değildir."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "One setup check and two empty-hand reaches, with a standing pause between them; rest 60–90 seconds. Touch a supported bar’s grip only if the actual equipment checks are satisfied. No lift is needed to complete this setup lesson.\n\nMistake: reaching lower or widening the hands to work around unsuitable supports. Correction: leave the bar down, change to an appropriate support arrangement before any lift, or remain empty-handed.",
+            "tr": "Bir kurulum kontrolü ve arada ayakta duraklamalı iki boş-el uzanma; 60–90 saniye dinlen. Destekli barın tutuşuna yalnız gerçek ekipman koşulları sağlanıyorsa dokun. Kurulum dersini tamamlamak için kaldırış gerekmez.\n\nHata: uygun olmayan desteği telafi için daha aşağı uzanmak veya elleri açmak. Düzeltme: barı aşağıda bırak, kaldırmadan önce uygun destek düzenine geç veya boş elle kal."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Can I identify the marked mass and both resting contacts?",
+              "tr": "İşaretli kütleyi ve iki dinlenme temasını belirleyebiliyor muyum?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Can I reach and withdraw without twisting or moving the supports?",
+              "tr": "Dönmeden veya destekleri oynatmadan uzanıp geri çekilebiliyor muyum?"
             }
           ],
           "adaptation": {
-            "en": "Return to empty-hand hinge if reaching changes control.",
-            "tr": "Uzanma kontrolü değiştiriyorsa boş el menteşesine dön."
+            "en": "Use the same approach, symmetric grip shape and return with empty hands; keep the imaginary bar above the depth that requires strain.",
+            "tr": "Aynı yaklaşma, eş tutuş biçimi ve dönüşü boş elle yap; hayali barı zorlanma gerektiren derinliğin üzerinde tut."
           },
           "progression": {
-            "en": "Progress by a small reviewed range change, not by adding load.",
-            "tr": "Yük ekleyerek değil küçük incelenmiş aralık değişimiyle ilerle."
+            "en": "Go to one light rise in lesson 05 only if setup, grip and return can be explained and rehearsed calmly. Unknown equipment keeps the physical option unloaded; no expert certificate is required.",
+            "tr": "Kurulum, tutuş ve dönüş sakin biçimde açıklanıp prova edilebiliyorsa 05 dersindeki tek hafif doğrulmaya geç. Bilinmeyen ekipmanda fiziksel seçenek yüksüz kalır; uzman sertifikası gerekmez."
           },
           "regression": {
-            "en": "Return to empty-hand hinge if reaching changes control.",
-            "tr": "Uzanma kontrolü değiştiriyorsa boş el menteşesine dön."
+            "en": "Use the same approach, symmetric grip shape and return with empty hands; keep the imaginary bar above the depth that requires strain.",
+            "tr": "Aynı yaklaşma, eş tutuş biçimi ve dönüşü boş elle yap; hayali barı zorlanma gerektiren derinliğin üzerinde tut."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Reject damaged, moving or unsuitable supports and unknown bar mass. Stop symptoms rather than testing them with a lighter bar.",
+            "tr": "Hasarlı, oynayan veya uygun olmayan destek ve bilinmeyen bar kütlesini reddet. Belirtiyi daha hafif barla sınamak yerine dur."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "strongfirst_hinge",
+            "ace_deadlift_samples_text"
           ],
           "prerequisites": [
             "barbell-03"
@@ -340,80 +517,138 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for barbell-04: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "barbell-04 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:barbell-04"
+          "movementTaskId": "gravita:barbell-04",
+          "candidatePracticeAccess": "available_supported_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "strongfirst_hinge",
+              "ace_deadlift_samples_text"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=gSHyHMLuJqI",
+                "publisherUrl": "https://www.acefitness.org/continuing-education/prosource/september-2015/5579/technique-series-how-to-deadlift/",
+                "playerId": "gSHyHMLuJqI",
+                "sampledSeconds": [
+                  16,
+                  71,
+                  123.083
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "visible hinge/grip,bar before lower legs and floor-resting-bar samples;not the full sequence or raised supports",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=gSHyHMLuJqI",
+                "intervalSeconds": [
+                  [
+                    30,
+                    47
+                  ],
+                  [
+                    65,
+                    129
+                  ]
+                ],
+                "evidenceType": "caption_text",
+                "onlySupports": "setup and controlled lower/reset;source mixedgrip/forcedlumbar/heavyset instructions not adopted",
+                "countsAsObservedMotion": false
+              }
+            ],
+            "unseenScope": [
+              "The complete original written sequence is not claimed as continuous visual review. Actual equipment compatibility, personal suitability and failed-lift recovery are not validated. Parent sample-frame links are added only after exact record readback."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         }
       ]
     },
     {
       "id": "barbell-module-2",
       "title": {
-        "en": "Supported tasks and control",
-        "tr": "Destekli görevler ve kontrol"
+        "en": "Unloaded pattern practice",
+        "tr": "Yüksüz örüntü pratiği"
       },
       "lessons": [
         {
           "id": "barbell-05",
           "title": {
-            "en": "First lift and controlled return",
-            "tr": "İlk kaldırış ve kontrollü bırakış"
+            "en": "Make one light supported-start rise and return",
+            "tr": "Destekten tek hafif doğrulma ve dönüş yap"
           },
           "objective": {
-            "en": "Connect the reviewed start, lift and supported return.",
-            "tr": "İncelenmiş başlangıç, kaldırış ve desteğe dönüşü bağla."
+            "en": "Connect a known light technique bar’s supported start, controlled rise and fully supported replacement.",
+            "tr": "Kütlesi bilinen hafif teknik barın destekli başlangıcını, kontrollü doğrulmasını ve tam destekli geri bırakılışını birleştir."
           },
           "steps": [
             {
-              "en": "Use the same coach-approved light bar and raised setup.",
-              "tr": "Aynı eğitmen onaylı hafif barı ve yükseltilmiş kurulumu kullan."
+              "en": "Start: Lesson 04’s actual equipment, symmetric grip and clear return checks are satisfied; first rehearse the complete motion empty-handed. Choose no bar if its known mass cannot be handled without strain.\n\nSetup: Use the same raised supports and unplated light technique bar. Keep other people outside both bar ends and the complete return path. Decide before pickup to return immediately if control or ordinary breathing changes.\n\nSet the familiar closed, even grip while the bar is supported. Settle the feet, bring the bar close to the legs and take a normal breath; do not jerk or deliberately hold the breath.",
+              "tr": "Başlangıç: 04 dersinin gerçek ekipman, eş tutuş ve boş dönüş kontrolleri sağlanır; önce tam hareketi boş elle prova et. Bilinen kütle zorlanmadan yönetilemiyorsa bar kullanma.\n\nKurulum: Aynı yükseltilmiş destekleri ve plakasız hafif teknik barı kullan. Diğer kişiler barın iki ucunun ve tam dönüş yolunun dışında olsun. Kontrol veya olağan nefes değişirse hemen aynı yoldan bırakmayı almadan önce kararlaştır.\n\nBar destekliyken tanıdık kapalı eş tutuşu kur. Ayakları yerleştir, barı bacaklara yakın tut ve normal nefes al; silkme veya bilinçli nefes tutma yapma."
             },
             {
-              "en": "Stand smoothly with the bar close, without a jerk or leaning back at the top; breathe continuously.",
-              "tr": "Bar yakınken silkmeden düzgün doğrul; tepede geriye yaslanma; nefesi sürdür."
+              "en": "Lift by smoothly extending hips and knees together through the small learned route. Keep the bar close and the arms long without snapping the elbows; do not pull it toward the chest.",
+              "tr": "Öğrenilen küçük yolda kalça ve dizleri birlikte düzgün açarak kaldır. Bar yakın, kollar dirsekler sertçe açılmadan uzun kalsın; göğse doğru çekme."
             },
             {
-              "en": "Reverse the hinge to the same supports and release only when the bar is stable.",
-              "tr": "Menteşeyi tersine aynı desteklere dön; bar sabitken bırak."
+              "en": "Finish at ordinary upright standing with the bar beside the thighs. Pause briefly without leaning backward, shrugging or changing the grip. If the rise needs momentum or strain, do not attempt another repetition.",
+              "tr": "Bar uylukların yanında olağan dik ayakta konumda bitir. Geriye yaslanmadan, omuz silkmeden veya tutuş değiştirmeden kısa durakla. Doğrulma ivme veya zorlanma istiyorsa başka tekrar deneme."
+            },
+            {
+              "en": "Send the hips back and bend the knees as needed to guide the bar close to the legs onto the same two supports. Do not aim for extra depth below the supports.",
+              "tr": "Barı bacaklara yakın aynı iki desteğe yöneltmek için kalçayı geriye götür ve gerektiği kadar dizleri bük. Desteklerden daha aşağı ek derinlik arama."
+            },
+            {
+              "en": "Verify both contacts are fully resting and the bar is still before opening the hands. Stand clear empty-handed. Use this same controlled return for an early finish while control remains; never try to catch a falling bar.",
+              "tr": "Elleri açmadan önce iki temasın tam dinlendiğini ve barın hareketsiz olduğunu doğrula. Boş elle uzaklaş. Kontrol sürerken erken bitişte aynı kontrollü dönüşü kullan; düşen barı yakalamaya çalışma."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "Begin with one empty-hand rehearsal, then optionally one light supported-start rise and return. Rest 120 seconds with hands empty. If the whole route remains easy and symptom-free, one identical repetition is optional; finish after that. No plate or range increase.\n\nMistake: releasing when only one end has contacted a support. Correction: retain the grip, settle both ends in the known resting positions while control remains, then release; correct the setup before a later attempt.",
+            "tr": "Bir boş-el provasıyla başla; sonra isteğe bağlı tek hafif destekten doğrulma ve dönüş yap. Eller boşken 120 saniye dinlen. Tam yol kolay ve belirtisiz kalıyorsa aynı tek tekrar isteğe bağlıdır; sonra bitir. Plaka veya aralık artışı yok.\n\nHata: yalnız bir uç desteğe değince bırakmak. Düzeltme: kontrol sürerken tutuşu koruyup iki ucu bilinen dinlenme yerine yerleştir, sonra bırak; sonraki denemeden önce kurulumu düzelt."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Did the bar rise and return close without a jerk or chest pull?",
+              "tr": "Bar silkme veya göğse çekme olmadan yakından kalkıp döndü mü?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Were both supports carrying the still bar before I released?",
+              "tr": "Bırakmadan önce iki destek de hareketsiz barı taşıyor muydu?"
             }
           ],
           "adaptation": {
-            "en": "Repeat only the start setup without lifting.",
-            "tr": "Yalnız kaldırmadan başlangıç kurulumunu yinele."
+            "en": "Use the complete empty-hand rise and return from lesson 03–04, or read the sequence without touching equipment.",
+            "tr": "03–04 dersinden tam boş-el doğrulma ve dönüşü kullan veya ekipmana dokunmadan sırayı oku."
           },
           "progression": {
-            "en": "Repeat the same easy range in another reviewed session before changing it.",
-            "tr": "Değiştirmeden önce aynı kolay aralığı başka incelenmiş oturumda yinele."
+            "en": "Repeat the same single lift on another comfortable session before lesson 06. It is valid to remain unloaded. A learning report does not establish measured technique.",
+            "tr": "06 dersinden önce başka rahat seansta aynı tek kaldırışı yinele. Yüksüz kalmak geçerlidir. Öğrenme bildirimi ölçülmüş teknik oluşturmaz."
           },
           "regression": {
-            "en": "Repeat only the start setup without lifting.",
-            "tr": "Yalnız kaldırmadan başlangıç kurulumunu yinele."
+            "en": "Use the complete empty-hand rise and return from lesson 03–04, or read the sequence without touching equipment.",
+            "tr": "03–04 dersinden tam boş-el doğrulma ve dönüşü kullan veya ekipmana dokunmadan sırayı oku."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Stop for symptoms, grip slip, moving supports, an obstructed return or a rise that requires heaving. While still in control use the taught return. If control is lost, do not catch, step under or chase the bar; keep people clear and end the task.",
+            "tr": "Belirti, kayan tutuş, oynayan destek, kapalı dönüş veya savurarak doğrulma gereğinde dur. Kontrol sürüyorsa öğretilen dönüşü kullan. Kontrol kaybında barı yakalama, altına girme veya peşinden gitme; insanları uzak tut ve görevi bitir."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "strongfirst_hinge",
+            "ace_deadlift_samples_text"
           ],
           "prerequisites": [
             "barbell-04"
@@ -422,71 +657,125 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for barbell-05: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "barbell-05 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:barbell-05"
+          "movementTaskId": "gravita:barbell-05",
+          "candidatePracticeAccess": "available_supported_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "strongfirst_hinge",
+              "ace_deadlift_samples_text"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=gSHyHMLuJqI",
+                "publisherUrl": "https://www.acefitness.org/continuing-education/prosource/september-2015/5579/technique-series-how-to-deadlift/",
+                "playerId": "gSHyHMLuJqI",
+                "sampledSeconds": [
+                  16,
+                  71,
+                  123.083
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "visible hinge/grip,bar before lower legs and floor-resting-bar samples;not the full sequence or raised supports",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=gSHyHMLuJqI",
+                "intervalSeconds": [
+                  [
+                    30,
+                    47
+                  ],
+                  [
+                    65,
+                    129
+                  ]
+                ],
+                "evidenceType": "caption_text",
+                "onlySupports": "setup and controlled lower/reset;source mixedgrip/forcedlumbar/heavyset instructions not adopted",
+                "countsAsObservedMotion": false
+              }
+            ],
+            "unseenScope": [
+              "The complete original written sequence is not claimed as continuous visual review. Actual equipment compatibility, personal suitability and failed-lift recovery are not validated. Parent sample-frame links are added only after exact record readback."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "barbell-06",
           "title": {
-            "en": "Repeatable small sets",
-            "tr": "Tekrarlanabilir küçük setler"
+            "en": "Reset a small light-bar set",
+            "tr": "Küçük hafif-bar setinde sıfırla"
           },
           "objective": {
-            "en": "Keep each start and return distinct.",
-            "tr": "Her başlangıç ve dönüşü ayrı tut."
+            "en": "Repeat a single known light rise only after fully replacing the bar and restoring the setup.",
+            "tr": "Tek bilinen hafif doğrulmayı ancak barı tam bırakıp kurulumu yeniden kurduktan sonra yinele."
           },
           "steps": [
             {
-              "en": "Check the support and clear area again after every break.",
-              "tr": "Her aradan sonra desteği ve boş alanı yeniden kontrol et."
+              "en": "Start: One lesson 05 rise and fully supported return have stayed comfortable on a separate session. No plate, support height or bar change is introduced.\n\nSetup: Retain the exact light bar, raised supports, grip and clear return from lesson 05. Keep a resting place outside the bar’s path.\n\nRecheck the two bar contacts, hand clearance and feet before the first pickup. Rehearse the return empty-handed once if the setup is unfamiliar today.",
+              "tr": "Başlangıç: 05 dersinin tek doğrulması ve tam destekli dönüşü ayrı seansta rahat kalmıştır. Plaka, destek yüksekliği veya bar değişimi eklenmez.\n\nKurulum: 05 dersinin kesin hafif barını, yükseltilmiş desteklerini, tutuşunu ve boş dönüşünü koru. Dinlenme yeri bar yolunun dışında olsun.\n\nİlk almadan önce iki bar temasını, el boşluğunu ve ayakları yeniden kontrol et. Kurulum bugün yabancı geliyorsa dönüşü bir kez boş elle prova et."
             },
             {
-              "en": "Use a few easy controlled repetitions with a full stable reset; do not bounce.",
-              "tr": "Tam sabit sıfırlamayla birkaç kolay kontrollü tekrar kullan; sektirme."
+              "en": "Use one lesson 05 rise and return; place the bar completely on both supports. Release, stand and pause before deciding on another pickup.",
+              "tr": "05 dersinden tek doğrulma ve dönüş kullan; barı iki desteğe tamamen koy. Yeniden almaya karar vermeden bırak, ayağa dön ve durakla."
             },
             {
-              "en": "End the set before control deteriorates, return the bar and rest.",
-              "tr": "Kontrol bozulmadan seti bitir, barı bırak ve dinlen."
+              "en": "If the first return stayed unchanged and ordinary breathing continues, re-establish the supported grip for one identical second lift. Never bounce off the supports or change the hands in the air.",
+              "tr": "İlk dönüş değişmemiş ve olağan nefes sürüyorsa aynı ikinci kaldırış için destekli tutuşu yeniden kur. Destekten sektirme veya elleri havada değiştirme yapma."
+            },
+            {
+              "en": "Replace the bar completely, release and finish the set. Record whether the second return matched the first; fewer repetitions are an acceptable result.",
+              "tr": "Barı tamamen geri koy, bırak ve seti bitir. İkinci dönüşün ilkle aynı olup olmadığını kaydet; daha az tekrar kabul edilebilir sonuçtur."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "One set is one or two identical light lifts, each fully reset on the supports. Rest 120 seconds. There is no second set required today; use empty hands if any readiness condition is missing.\n\nMistake: bouncing the bar to keep the set moving. Correction: settle it fully, release and reset; if that is not repeatable, finish the set and use one empty-hand cycle later.",
+            "tr": "Bir set, desteklerde her biri tam sıfırlanan bir veya iki aynı hafif kaldırıştır.120 saniye dinlen. Bugün ikinci set gerekmez; hazır oluş koşulu eksikse boş el kullan.\n\nHata: seti sürdürmek için barı sektirmek. Düzeltme: tam yerleştir, bırak ve yeniden kur; bu yinelenemiyorsa seti bitir ve sonra tek boş-el döngüsü kullan."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Did each repetition have a supported reset?",
+              "tr": "Her tekrarın destekli sıfırlaması var mıydı?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Could I stop after the first repetition without chasing a quota?",
+              "tr": "Kota kovalamadan ilk tekrardan sonra durabilir miydim?"
             }
           ],
           "adaptation": {
-            "en": "Use one reviewed repetition at a time.",
-            "tr": "Bir seferde tek incelenmiş tekrar kullan."
+            "en": "Repeat the two-cycle empty-hand reset task from the same lesson instead of lifting the bar.",
+            "tr": "Bar kaldırmak yerine aynı dersin iki döngülük boş-el sıfırlama görevini yinele."
           },
           "progression": {
-            "en": "Change one variable with the coach after repeatable easy sessions.",
-            "tr": "Tekrarlanabilir kolay oturumlardan sonra eğitmenle tek değişkeni değiştir."
+            "en": "Keep this small set unchanged across comfortable sessions. Learning the rack option is optional and does not require increasing this load or set size.",
+            "tr": "Rahat seanslarda bu küçük seti değiştirme. Rack hareket biçimini öğrenmek isteğe bağlıdır; bu yükü veya seti artırmayı gerektirmez."
           },
           "regression": {
-            "en": "Use one reviewed repetition at a time.",
-            "tr": "Bir seferde tek incelenmiş tekrar kullan."
+            "en": "Repeat the two-cycle empty-hand reset task from the same lesson instead of lifting the bar.",
+            "tr": "Bar kaldırmak yerine aynı dersin iki döngülük boş-el sıfırlama görevini yinele."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "End the set for grip change, a rushed return, symptoms or support movement. Do not retry a symptom by reducing the bar weight.",
+            "tr": "Tutuş değişimi, acele dönüş, belirti veya destek oynamasında seti bitir. Bar ağırlığını azaltarak belirtiyi yeniden sınama."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "strongfirst_hinge",
+            "ace_deadlift_samples_text"
           ],
           "prerequisites": [
             "barbell-05"
@@ -495,71 +784,125 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for barbell-06: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "barbell-06 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:barbell-06"
+          "movementTaskId": "gravita:barbell-06",
+          "candidatePracticeAccess": "available_supported_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "strongfirst_hinge",
+              "ace_deadlift_samples_text"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=gSHyHMLuJqI",
+                "publisherUrl": "https://www.acefitness.org/continuing-education/prosource/september-2015/5579/technique-series-how-to-deadlift/",
+                "playerId": "gSHyHMLuJqI",
+                "sampledSeconds": [
+                  16,
+                  71,
+                  123.083
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "visible hinge/grip,bar before lower legs and floor-resting-bar samples;not the full sequence or raised supports",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=gSHyHMLuJqI",
+                "intervalSeconds": [
+                  [
+                    30,
+                    47
+                  ],
+                  [
+                    65,
+                    129
+                  ]
+                ],
+                "evidenceType": "caption_text",
+                "onlySupports": "setup and controlled lower/reset;source mixedgrip/forcedlumbar/heavyset instructions not adopted",
+                "countsAsObservedMotion": false
+              }
+            ],
+            "unseenScope": [
+              "The complete original written sequence is not claimed as continuous visual review. Actual equipment compatibility, personal suitability and failed-lift recovery are not validated. Parent sample-frame links are added only after exact record readback."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "barbell-07",
           "title": {
-            "en": "Rack-supported squat setup",
-            "tr": "Rack destekli squat kurulumu"
+            "en": "Set a separate light-bar rack option",
+            "tr": "Ayrı hafif-bar rack hareket biçimini kur"
           },
           "objective": {
-            "en": "Treat rack and safety settings as a separate skill.",
-            "tr": "Rack ve güvenlik ayarlarını ayrı beceri olarak ele al."
+            "en": "Identify the matched hooks, safeties, upper-back bar position and short return route before unracking.",
+            "tr": "Kancadan almadan önce eş kancaları, güvenlik desteklerini, üst-sırt bar yerini ve kısa dönüş yolunu belirle."
           },
           "steps": [
             {
-              "en": "Coach checks rack stability, hooks, safety height and a light bar that is appropriate for you.",
-              "tr": "Eğitmen rack sabitliğini, kancaları, güvenlik yüksekliğini ve sana uygun hafif barı kontrol etsin."
+              "en": "Start: The unloaded shallow squat and planned return are comfortable. Use a stable manufacturer-compatible rack with actual safeties and a known manageable technique bar; otherwise continue the hinge or bodyweight option.\n\nSetup: Set matching J-hooks so the bar can be cleared by standing, without tiptoeing or a deep squat. Set actual safeties according to the rack maker and the chosen shallow range before taking the bar. If you cannot identify a controlled supported finish for an incomplete repetition, choose the non-rack option.\n\nConfirm the rack is stable, both hooks match and the bar rests fully on them. Keep collars and any later plate handling outside this first unplated technique-bar lesson.",
+              "tr": "Başlangıç: Yüksüz sığ squat ve planlı dönüş rahattır. Gerçek güvenlik destekli, üreticiye uygun sabit rack ve yönetilebilir kütlesi bilinen teknik bar kullan; aksi halde menteşe veya vücut ağırlığı seçeneğini sürdür.\n\nKurulum: Eş J-kancalarını bar parmak ucuna çıkmadan veya derin çömelmeden ayağa kalkarak ayrılacak şekilde ayarla. Barı almadan önce gerçek güvenlik desteklerini rack üreticisine ve seçilen sığ aralığa göre ayarla. Tamamlanamayan tekrar için kontrollü destekli bitişi belirleyemiyorsan rack dışı hareket biçimi seç.\n\nRackin sabitliğini, iki kancanın eşliğini ve barın tamamen bunlara oturduğunu doğrula. Kilit ve sonraki plaka kullanımını bu ilk plakasız teknik-bar dersinin dışında tut."
             },
             {
-              "en": "Learn the specific grip and bar position without lifting off; an empty standard bar may still be too heavy.",
-              "tr": "Kaldırmadan özel tutuş ve bar konumunu öğren; boş standart bar yine ağır olabilir."
+              "en": "With the bar still supported, establish an even closed grip and a comfortable upper-back resting shelf below the neck. The bar is not carried on the neck or balanced only in the hands; do not force a wrist or shoulder position to fit it.",
+              "tr": "Bar hâlâ destekliyken eş kapalı tutuş ve boynun altında rahat üst-sırt dinlenme yerini kur. Bar boyunda taşınmaz veya yalnız ellerde dengelenmez; uyması için bilek veya omuz konumunu zorlama."
             },
             {
-              "en": "Identify both hooks and the return path before any unrack.",
-              "tr": "Rack çıkışından önce iki kancayı ve dönüş yolunu belirle."
+              "en": "Stand with both feet settled beneath the supported bar position and rehearse a small straighten-and-settle motion without removing the bar. If the fit is uncomfortable or requires twisting, leave the bar racked and use the unloaded option.",
+              "tr": "İki ayak destekli bar konumunun altında yerleşmişken barı kancadan çıkarmadan küçük doğrulma-yerleşme yönünü prova et. Yerleşim rahatsızsa veya dönme istiyorsa barı rackte bırak ve yüksüz seçeneği kullan."
+            },
+            {
+              "en": "Map the shortest clear step back, the standing squat space and the straight forward route to both uprights. Explain that the return reaches both hooks before the bar is lowered and released. No squat or walkout is needed to complete this setup lesson.",
+              "tr": "En kısa boş geri adımı, ayakta squat alanını ve iki dikmeye düz ileri dönüşü haritala. Dönüşte bar alçaltılıp bırakılmadan önce iki kancaya ulaşıldığını açıkla. Kurulum dersini tamamlamak için squat veya rackten çıkış gerekmez."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "One rack/support inspection and two empty-hand route rehearsals, then 90 seconds rest. If actual fit is comfortable, one supported bar-position check is optional; keep the bar on its hooks.\n\nMistake: using a comfortable-looking rack without identifying its safeties. Correction: keep the bar racked and choose the hinge/bodyweight option until the actual setup is understood.",
+            "tr": "Bir rack/destek incelemesi ve iki boş-el yol provası, sonra 90 saniye dinlenme. Gerçek yerleşim rahatsa bir destekli bar-konum kontrolü isteğe bağlıdır; barı kancalarında tut.\n\nHata: güvenlik desteklerini belirlemeden rahat görünen racki kullanmak. Düzeltme: bar rackte kalsın; gerçek kurulum anlaşılana kadar menteşe/vücut ağırlığı hareket biçimini seç."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Can I identify both hooks and the actual safety supports?",
+              "tr": "İki kancayı ve gerçek güvenlik desteklerini belirleyebiliyor muyum?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Can I explain the forward-to-both-hooks return without rotating a loaded bar?",
+              "tr": "Yüklü barı döndürmeden iki kancaya ileri dönüşü açıklayabiliyor muyum?"
             }
           ],
           "adaptation": {
-            "en": "Use unloaded squat preparation instead.",
-            "tr": "Yerine yüksüz squat hazırlığını kullan."
+            "en": "Map the setup on paper and practise the same short walking route with empty hands outside the rack.",
+            "tr": "Kurulumu kâğıtta haritala ve aynı kısa yürüme yolunu rack dışında boş elle prova et."
           },
           "progression": {
-            "en": "Unrack only after the actual setup and assistance plan are reviewed.",
-            "tr": "Yalnız gerçek kurulum ve yardım planı incelendikten sonra rack çıkışı yap."
+            "en": "Move to lesson 08 only if the actual bar fit, hook clearance, safeties and return are understood and comfortable. No external expert approval is a blanket requirement; unresolved equipment or fit remains a real reason to choose the unloaded option.",
+            "tr": "Gerçek bar yerleşimi, kancadan ayrılma, güvenlik destekleri ve dönüş anlaşılır ve rahatsa 08 dersine geç. Harici uzman onayı genel zorunluluk değildir; çözülmemiş ekipman veya yerleşim, yüksüz hareket biçimi seçmek için gerçek nedendir."
           },
           "regression": {
-            "en": "Use unloaded squat preparation instead.",
-            "tr": "Yerine yüksüz squat hazırlığını kullan."
+            "en": "Map the setup on paper and practise the same short walking route with empty hands outside the rack.",
+            "tr": "Kurulumu kâğıtta haritala ve aynı kısa yürüme yolunu rack dışında boş elle prova et."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Do not unrack with unknown safeties, unequal hooks, blocked return, painful fit or a bar that needs strain to support. Never test a failed repetition to check the rack.",
+            "tr": "Bilinmeyen güvenlik desteği, eş olmayan kanca, kapalı dönüş, ağrılı yerleşim veya taşımak için zorlanılan barda kancadan alma. Racki kontrol etmek için başarısız tekrar sınama."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "nsca_high_bar_samples",
+            "testify_rerack_text_samples"
           ],
           "prerequisites": [
             "barbell-06"
@@ -568,71 +911,137 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for barbell-07: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "barbell-07 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:barbell-07"
+          "movementTaskId": "gravita:barbell-07",
+          "candidatePracticeAccess": "available_supported_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "testify_rerack_text_samples"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.nsca.com/education/videos/exercise-technique-high-bar-back-squat/",
+                "publisherUrl": "https://www.nsca.com/education/videos/exercise-technique-high-bar-back-squat/",
+                "playerId": "71457142",
+                "sampledSeconds": [
+                  19,
+                  25,
+                  31,
+                  73
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "rack grip, upper-back bar placement, standing step/start and a side squat sample; not the complete sequence",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              },
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=eeHXHVyp0bs",
+                "publisherUrl": "https://testifysc.com/articles/never-make-this-squat-mistake-again-fast-fix",
+                "playerId": "eeHXHVyp0bs",
+                "sampledSeconds": [
+                  7,
+                  78.916
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "7second heavy-load counterexample and78.916second presenter with racked bar; not full rerack motion",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=eeHXHVyp0bs",
+                "intervalSeconds": [
+                  60,
+                  88
+                ],
+                "evidenceType": "caption_text",
+                "onlySupports": "forward to both uprights before lowering into both hooks",
+                "countsAsObservedMotion": false
+              }
+            ],
+            "unseenScope": [
+              "The complete original written sequence is not claimed as continuous visual review. Actual equipment compatibility, personal suitability and failed-lift recovery are not validated. Parent sample-frame links are added only after exact record readback."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "barbell-08",
           "title": {
-            "en": "Unrack, shallow squat, rerack",
-            "tr": "Rack çıkışı, sığ squat, dönüş"
+            "en": "Unrack, make one shallow squat and rerack",
+            "tr": "Kancadan al, tek sığ squat yap ve geri koy"
           },
           "objective": {
-            "en": "Link a small coached squat with a stable return.",
-            "tr": "Küçük eğitmenli squat ile sabit dönüşü bağla."
+            "en": "Connect a light technique-bar walkout, one chosen shallow squat and a controlled return to both hooks.",
+            "tr": "Hafif teknik barla rackten çıkışı, seçilen tek sığ squatı ve iki kancaya kontrollü dönüşü birleştir."
           },
           "steps": [
             {
-              "en": "Use the reviewed light-bar rack configuration and supervision.",
-              "tr": "İncelenmiş hafif bar rack ayarını ve gözetimi kullan."
+              "en": "Start: All lesson 07 setup conditions are satisfied; rehearse the complete route empty-handed first. If the known technique bar or supported finish is not manageable, choose the bodyweight option.\n\nSetup: Use the same unplated light technique bar, matched hooks and actual safeties. Clear the shortest step back and return route. No heavy, maximum or failed-lift test is assigned.\n\nTake the comfortable supported bar position and closed even grip from lesson 07. Set both feet, then straighten only enough to clear both hooks without rising onto the toes.",
+              "tr": "Başlangıç: 07 dersinin bütün kurulum koşulları sağlanır; önce tam yolu boş elle prova et. Kütlesi bilinen teknik bar veya destekli bitiş yönetilemiyorsa vücut ağırlığı seçeneğini kullan.\n\nKurulum: Aynı plakasız hafif teknik barı, eş kancaları ve gerçek güvenlik desteklerini kullan. En kısa geri adımı ve dönüş yolunu boşalt. Ağır, maksimum veya başarısız kaldırış sınaması verilmez.\n\n07 dersinin rahat destekli bar konumunu ve kapalı eş tutuşunu al. İki ayağı yerleştir; sonra parmak ucuna çıkmadan iki kancadan ayrılacak kadar doğrul."
             },
             {
-              "en": "Unrack with a small stable step, squat only within the reviewed comfortable range and stand without a bounce.",
-              "tr": "Küçük dengeli adımla çık, yalnız incelenmiş rahat aralıkta çömel ve sektirmeden doğrul."
+              "en": "Take the rehearsed small step back, settle both feet and pause. Do not begin the squat while stepping or turn the loaded bar to search for space.",
+              "tr": "Prova edilen küçük geri adımı at, iki ayağı yerleştir ve durakla. Adım sırasında squata başlama veya alan aramak için yüklü barı döndürme."
             },
             {
-              "en": "Approach both hooks; verify the bar is fully supported before stepping away.",
-              "tr": "İki kancaya yaklaş; uzaklaşmadan barın tam desteklendiğini doğrula."
+              "en": "Bend hips and knees together to the already comfortable shallow range, keeping the feet supported. Reverse to standing without a bounce or backward lean; depth is not a target to chase.",
+              "tr": "Ayaklar destekliyken kalça ve dizleri birlikte önceden rahat olan sığ aralığa bük. Sektirmeden veya geriye yaslanmadan ayağa dön; derinlik kovalanacak hedef değildir."
+            },
+            {
+              "en": "Walk straight forward by the rehearsed short route until the bar meets both rack uprights/hooks. Keep the grip; do not lower toward one hook while the other end is still outside.",
+              "tr": "Prova edilen kısa yoldan bar iki rack dikmesi/kancasıyla buluşana kadar düz ileri yürü. Tutuşu koru; öteki uç hâlâ dışarıdayken tek kancaya doğru alçaltma."
+            },
+            {
+              "en": "Lower the bar onto both hooks. Verify full still support on both sides before releasing the hands and stepping away. If ordinary control is changing, finish before squatting again; no extra repetition is owed.",
+              "tr": "Barı iki kancaya alçalt. Elleri bırakıp uzaklaşmadan önce iki tarafta tam ve hareketsiz desteği doğrula. Olağan kontrol değişiyorsa yeniden çömelmeden bitir; ek tekrar borcu yoktur."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "First one empty-hand walkout–shallow-squat–return. If all setup conditions remain satisfied, optionally one identical cycle with the known light technique bar, then 120 seconds rest and finish. Do not add plates or a second loaded cycle today.\n\nMistake: lowering onto the first hook that touches while the opposite end is out. Correction: retain control, meet both uprights along the planned forward route, then lower to both hooks; if the route is uncertain, do not begin the loaded cycle.",
+            "tr": "Önce boş elle tek çıkış–sığ squat–dönüş. Bütün kurulum koşulları sürüyorsa isteğe bağlı aynı tek döngüyü kütlesi bilinen hafif teknik barla yap; sonra 120 saniye dinlen ve bitir. Bugün plaka veya ikinci yüklü döngü ekleme.\n\nHata: karşı uç dışarıdayken ilk değen kancaya alçaltmak. Düzeltme: kontrolü koru, planlı ileri yolda iki dikmeyle buluş, sonra iki kancaya alçalt; yol belirsizse yüklü döngüye başlama."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Were both feet still before descending?",
+              "tr": "Alçalmadan önce iki ayak sabit miydi?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Did both hooks carry a still bar before release?",
+              "tr": "Bırakmadan önce iki kanca da hareketsiz barı taşıyor muydu?"
             }
           ],
           "adaptation": {
-            "en": "Rehearse the empty-hand movement or omit squat.",
-            "tr": "Boş el hareketini prova et veya squatı atla."
+            "en": "Use the shallow bodyweight squat in the same empty route; or do only the written entry/return sequence. A rack is not needed for this alternative.",
+            "tr": "Aynı boş yolda sığ vücut ağırlığı squatı kullan veya yalnız yazılı giriş/dönüş sırasını çalış. Bu alternatif için rack gerekmez."
           },
           "progression": {
-            "en": "Increase range only with direct review; no automatic load prescription.",
-            "tr": "Aralığı yalnız doğrudan incelemeyle artır; otomatik yük reçetesi yok."
+            "en": "Repeat the same one-cycle dose on a later comfortable session. No calendar increase or heavier bar follows from one successful cycle.",
+            "tr": "Sonraki rahat seansta aynı tek döngü dozunu yinele. Tek başarılı döngü takvimli artış veya daha ağır bar getirmez."
           },
           "regression": {
-            "en": "Rehearse the empty-hand movement or omit squat.",
-            "tr": "Boş el hareketini prova et veya squatı atla."
+            "en": "Use the shallow bodyweight squat in the same empty route; or do only the written entry/return sequence. A rack is not needed for this alternative.",
+            "tr": "Aynı boş yolda sığ vücut ağırlığı squatı kullan veya yalnız yazılı giriş/dönüş sırasını çalış. Bu alternatif için rack gerekmez."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Stop for symptoms, shifting feet, uncertain return or changing bar control. While control remains, use the planned supported return. A failed-repetition recovery must already be understood for the actual rack; otherwise use the unloaded option and never improvise a drop or catch.",
+            "tr": "Belirti, oynayan ayak, belirsiz dönüş veya değişen bar kontrolünde dur. Kontrol sürüyorsa planlı destekli dönüşü kullan. Gerçek rack için tamamlanamayan tekrarın destekli bitişi önceden anlaşılmış olmalıdır; aksi halde yüksüz hareket biçimi kullan, doğaçlama düşürme veya yakalama yapma."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "nhs_strength",
+            "nsca_high_bar_samples",
+            "testify_rerack_text_samples"
           ],
           "prerequisites": [
             "barbell-07"
@@ -641,80 +1050,156 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for barbell-08: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "barbell-08 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:barbell-08"
+          "movementTaskId": "gravita:barbell-08",
+          "candidatePracticeAccess": "available_supported_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "nhs_strength",
+              "testify_rerack_text_samples"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "publisherUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "playerId": "1763919389001",
+                "sampledSeconds": [
+                  13.54,
+                  21,
+                  27,
+                  33
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "Parent observed front/side samples, arms forward, raised heels under red mark at27s and feet down under green mark at33s; not a loaded squat tutorial.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              },
+              {
+                "sourceUrl": "https://www.nsca.com/education/videos/exercise-technique-high-bar-back-squat/",
+                "publisherUrl": "https://www.nsca.com/education/videos/exercise-technique-high-bar-back-squat/",
+                "playerId": "71457142",
+                "sampledSeconds": [
+                  19,
+                  25,
+                  31,
+                  73
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "rack grip, upper-back bar placement, standing step/start and a side squat sample; not the complete sequence",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              },
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=eeHXHVyp0bs",
+                "publisherUrl": "https://testifysc.com/articles/never-make-this-squat-mistake-again-fast-fix",
+                "playerId": "eeHXHVyp0bs",
+                "sampledSeconds": [
+                  7,
+                  78.916
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "7second heavy-load counterexample and78.916second presenter with racked bar; not full rerack motion",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=eeHXHVyp0bs",
+                "intervalSeconds": [
+                  60,
+                  88
+                ],
+                "evidenceType": "caption_text",
+                "onlySupports": "forward to both uprights before lowering into both hooks",
+                "countsAsObservedMotion": false
+              }
+            ],
+            "unseenScope": [
+              "The complete original written sequence is not claimed as continuous visual review. Actual equipment compatibility, personal suitability and failed-lift recovery are not validated. Parent sample-frame links are added only after exact record readback."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         }
       ]
     },
     {
       "id": "barbell-module-3",
       "title": {
-        "en": "Integration and review",
-        "tr": "Birleştirme ve inceleme"
+        "en": "Choose, record and continue",
+        "tr": "Seç, kaydet ve sürdür"
       },
       "lessons": [
         {
           "id": "barbell-09",
           "title": {
-            "en": "One change and retest",
-            "tr": "Tek değişken ve yeniden deneme"
+            "en": "Reduce one feature without changing the lift",
+            "tr": "Kaldırışı değiştirmeden tek özelliği azalt"
           },
           "objective": {
-            "en": "Choose a regression before fatigue changes the pattern.",
-            "tr": "Yorgunluk hareketi değiştirmeden kolaylaştırma seç."
+            "en": "Choose a smaller range or one fewer repetition from a symptom-free rehearsal and compare a single observation.",
+            "tr": "Belirtisiz provada daha küçük aralık veya bir eksik tekrar seç ve tek gözlemi karşılaştır."
           },
           "steps": [
             {
-              "en": "Review the last easy set with your coach.",
-              "tr": "Son kolay seti eğitmeninle gözden geçir."
+              "en": "Start: Use only the exact unloaded or light-bar version already learned, on a currently symptom-free session. Equipment and support geometry stay unchanged.\n\nSetup: Keep the same unweighted task and clear area. Choose either range or repetition count as the one feature; keep all others unchanged.\n\nWrite the previous version and one observed issue without a diagnosis: for example, the second return was rushed.",
+              "tr": "Başlangıç: Yalnız önceden öğrenilmiş kesin yüksüz veya hafif-bar sürümünü, şu an belirtisiz seansta kullan. Ekipman ve destek düzeni aynı kalır.\n\nKurulum: Aynı yüksüz görevi ve boş alanı koru. Tek özellik olarak aralık veya tekrar sayısını seç; diğerlerini aynı tut.\n\nÖnceki sürümü ve tanı koymadan gözlenen tek sorunu yaz: örneğin ikinci dönüş aceleydi."
             },
             {
-              "en": "If range or return is inconsistent, reduce the range or use the lighter setup; change only one thing.",
-              "tr": "Aralık veya dönüş tutarsızsa aralığı azalt veya hafif kurulumu kullan; tek şeyi değiştir."
+              "en": "Plan a smaller, easier next version: one cycle instead of two, or a shorter hinge/squat range. Do not change range and repetitions together.",
+              "tr": "Bir sonraki sürümü daha küçük ve kolay planla: iki yerine bir döngü veya daha kısa menteşe/squat aralığı. Aralık ve tekrarları birlikte değiştirme."
             },
             {
-              "en": "Compare another easy attempt, then put the bar away.",
-              "tr": "Başka kolay denemeyi karşılaştır, sonra barı yerine bırak."
+              "en": "Only when currently symptom-free, rehearse the one smaller version using the already learned entry and complete supported return. Otherwise explain it on paper; movement is not a recovery test.",
+              "tr": "Yalnız şu an belirtisizken önceden öğrenilen giriş ve tam destekli dönüşle tek küçük sürümü prova et. Aksi halde kâğıtta anlat; hareket iyileşme testi değildir."
+            },
+            {
+              "en": "Compare only the planned observation, then finish. Improvement in a self-report is not a reason to add a bar or make another variable harder.",
+              "tr": "Yalnız planlanan gözlemi karşılaştır ve bitir. Öz bildirimde iyileşme bar ekleme veya başka değişkeni zorlaştırma nedeni değildir."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "Write one comparison. On a symptom-free session, optionally do just one familiar unloaded or known-light supported cycle, then rest 120 seconds and finish. Use one repetition instead of two; do not add weight or depth to compensate.\n\nMistake: reducing depth and immediately adding repetitions to compensate. Correction: retain one small version and compare one observation, with no compensation.",
+            "tr": "Tek karşılaştırma yaz. Belirtisiz seansta isteğe bağlı yalnız tek tanıdık yüksüz veya kütlesi bilinen hafif destekli döngü yap; sonra 120 saniye dinlen ve bitir. İki yerine bir tekrar kullan; telafi için ağırlık veya derinlik ekleme.\n\nHata: derinliği azaltıp telafi için hemen tekrar eklemek. Düzeltme: telafisiz tek küçük sürümde kal ve tek gözlemi karşılaştır."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Did I change only one feature?",
+              "tr": "Yalnız tek özelliği değiştirdim mi?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Can I distinguish a rushed movement from a symptom that ends the task?",
+              "tr": "Acele hareket ile görevi bitiren belirtiyi ayırabiliyor muyum?"
             }
           ],
           "adaptation": {
-            "en": "Return to setup only.",
-            "tr": "Yalnız kuruluma dön."
+            "en": "Compare two drawn versions and explain the one change without rehearsing either.",
+            "tr": "İki çizilmiş sürümü karşılaştır ve ikisini de prova etmeden tek değişimi anlat."
           },
           "progression": {
-            "en": "Record the chosen variant and why it stayed comfortable.",
-            "tr": "Seçilen varyantı ve neden rahat kaldığını kaydet."
+            "en": "Use a familiar version in lesson 10 only after the smaller option has a repeatable calm return. Choosing recovery remains a complete planning decision.",
+            "tr": "Daha küçük seçeneğin sakin dönüşü yinelenebilir olduğunda 10 dersinde tanıdık sürümü kullan. Toparlanmayı seçmek tam bir planlama kararıdır."
           },
           "regression": {
-            "en": "Return to setup only.",
-            "tr": "Yalnız kuruluma dön."
+            "en": "Compare two drawn versions and explain the one change without rehearsing either.",
+            "tr": "İki çizilmiş sürümü karşılaştır ve ikisini de prova etmeden tek değişimi anlat."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Any pain, dizziness, unusual breathlessness or loss of control ends the comparison. Do not find a symptom threshold by trying several easier variants.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı veya kontrol kaybı karşılaştırmayı bitirir. Birkaç kolay varyant deneyerek belirti eşiği arama."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "ace_deadlift_samples_text"
           ],
           "prerequisites": [
             "barbell-08"
@@ -723,71 +1208,124 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for barbell-09: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "barbell-09 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:barbell-09"
+          "movementTaskId": "gravita:barbell-09",
+          "candidatePracticeAccess": "available_supported_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "ace_deadlift_samples_text"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=gSHyHMLuJqI",
+                "publisherUrl": "https://www.acefitness.org/continuing-education/prosource/september-2015/5579/technique-series-how-to-deadlift/",
+                "playerId": "gSHyHMLuJqI",
+                "sampledSeconds": [
+                  16,
+                  71,
+                  123.083
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "visible hinge/grip,bar before lower legs and floor-resting-bar samples;not the full sequence or raised supports",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=gSHyHMLuJqI",
+                "intervalSeconds": [
+                  [
+                    30,
+                    47
+                  ],
+                  [
+                    65,
+                    129
+                  ]
+                ],
+                "evidenceType": "caption_text",
+                "onlySupports": "setup and controlled lower/reset;source mixedgrip/forcedlumbar/heavyset instructions not adopted",
+                "countsAsObservedMotion": false
+              }
+            ],
+            "unseenScope": [
+              "The complete original written sequence is not claimed as continuous visual review. Actual equipment compatibility, personal suitability and failed-lift recovery are not validated. Parent sample-frame links are added only after exact record readback."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "barbell-10",
           "title": {
-            "en": "Short supervised session",
-            "tr": "Kısa gözetimli oturum"
+            "en": "Build a short session from one exact learned option",
+            "tr": "Öğrenilen tek kesin hareket biçiminden kısa seans kur"
           },
           "objective": {
-            "en": "Combine preparation, one reviewed lift and recovery.",
-            "tr": "Hazırlığı, tek incelenmiş kaldırışı ve dinlenmeyi birleştir."
+            "en": "Combine preparation, one familiar hinge or rack option, full return and rest without adding an unlearned lift.",
+            "tr": "Hazırlık, tek tanıdık menteşe veya rack hareket biçimi, tam dönüş ve dinlenmeyi öğrenilmemiş kaldırış eklemeden birleştir."
           },
           "steps": [
             {
-              "en": "Pick the already reviewed hinge OR rack squat and its exact equipment.",
-              "tr": "Önceden incelenmiş menteşe VEYA rack squatı ve kesin ekipmanını seç."
+              "en": "Start: Choose the exact already learned version from lessons 05–06 or 07–08, including its actual equipment checks. The empty-hand/bodyweight version remains equally valid.\n\nSetup: Use only that option’s unchanged equipment, entry and return. Rest with the bar fully supported and hands empty. Clear people and loose objects from both bar ends and the route.\n\nWrite the exact option and easier version. Use two minutes of familiar comfortable preparation, then review that option’s equipment and stop checks.",
+              "tr": "Başlangıç: Gerçek ekipman kontrolleri dahil 05–06 veya 07–08 derslerinden önceden öğrenilmiş kesin sürümü seç. Boş-el/vücut ağırlığı sürümü aynı ölçüde geçerlidir.\n\nKurulum: Yalnız o dalın değişmemiş ekipman, giriş ve dönüşünü kullan. Bar tamamen destekli ve eller boşken dinlen. İnsanları ve gevşek nesneleri barın iki ucundan ve yoldan uzak tut.\n\nKesin hareket biçimi ve kolay sürümü yaz. İki dakika tanıdık rahat hazırlık yap; sonra dalın ekipman ve durma kontrollerini gözden geçir."
             },
             {
-              "en": "Rehearse, do a small easy set, rest until ready and repeat only if control is unchanged.",
-              "tr": "Prova yap, küçük kolay seti yap, hazır olana kadar dinlen ve yalnız kontrol aynıysa yinele."
+              "en": "Rehearse the whole entry–task–return empty-handed once. If the real setup does not match, keep today’s session unloaded instead of inventing a new setup.",
+              "tr": "Tam giriş–görev–dönüşü boş elle bir kez prova et. Gerçek kurulum eşleşmiyorsa yeni düzen uydurmak yerine bugünkü seansı yüksüz tut."
             },
             {
-              "en": "Return equipment, review symptoms and note the variant; do not add an unfamiliar second lift.",
-              "tr": "Ekipmanı yerine bırak, belirtileri gözden geçir ve varyantı yaz; bilinmeyen ikinci kaldırış ekleme."
+              "en": "Choose one familiar cycle at the small dose from the selected lesson. Replace the bar completely before resting 120 seconds. An optional second hinge cycle is allowed only if lesson 06 is already familiar; the first rack session stays one cycle.",
+              "tr": "Seçilen dersin küçük dozunda tek tanıdık döngü seç.120 saniye dinlenmeden önce barı tamamen geri koy. İsteğe bağlı ikinci menteşe döngüsü yalnız 06 dersi zaten tanıdıksa kullanılabilir; ilk rack seansı tek döngü kalır."
+            },
+            {
+              "en": "Finish with equipment fully supported and hands empty. Record the exact variant, what was done/skipped and the next choice: same easy task or recovery; do not add an unknown second lift.",
+              "tr": "Ekipman tamamen destekli ve eller boşken bitir. Kesin varyantı, yapılan/atlanan işi ve sonraki seçimi kaydet: aynı kolay görev veya toparlanma; bilinmeyen ikinci kaldırış ekleme."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "Preparation, one empty-hand full-route rehearsal, one optional known-light or unloaded cycle, 120 seconds rest and finish. A shorter or written-only session is valid; filling a clock is not the goal.\n\nMistake: adding a different lift or heavier bar because the first task felt short. Correction: record the exact short session; choose any new lift in its own complete lesson on another session.",
+            "tr": "Hazırlık, boş elle tek tam-yol provası, isteğe bağlı tek kütlesi bilinen hafif veya yüksüz döngü, 120 saniye dinlenme ve bitiş. Daha kısa veya yalnız yazılı seans geçerlidir; süre doldurmak hedef değildir.\n\nHata: ilk görev kısa geldi diye farklı kaldırış veya ağır bar eklemek. Düzeltme: kesin kısa seansı kaydet; yeni kaldırışı başka seansta kendi tam dersi içinde seç."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Did I keep the same exact option and return?",
+              "tr": "Aynı kesin hareket biçimi ve dönüşü korudum mu?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Did I finish with the bar supported before writing the note?",
+              "tr": "Not yazmadan önce bar destekliyken bitirdim mi?"
             }
           ],
           "adaptation": {
-            "en": "Keep only preparation and one easy set.",
-            "tr": "Yalnız hazırlık ve tek kolay set kullan."
+            "en": "Use the complete empty-hand/bodyweight option or verbally run the same session, marking planned rather than performed sections.",
+            "tr": "Tam boş-el/vücut ağırlığı hareket biçimini kullan veya aynı seansı sözle yürüt; planlanan bölümleri yapıldı diye işaretleme."
           },
           "progression": {
-            "en": "Plan another nonconsecutive session with the coach.",
-            "tr": "Eğitmenle ardışık olmayan başka oturumu planla."
+            "en": "Keep the exact same small task across comfortable sessions before changing anything. Learning completion does not automatically change load, range or weekly frequency.",
+            "tr": "Bir şey değiştirmeden önce rahat seanslarda aynı kesin küçük görevi koru. Öğrenme tamamlama yük, aralık veya haftalık sıklığı otomatik değiştirmez."
           },
           "regression": {
-            "en": "Keep only preparation and one easy set.",
-            "tr": "Yalnız hazırlık ve tek kolay set kullan."
+            "en": "Use the complete empty-hand/bodyweight option or verbally run the same session, marking planned rather than performed sections.",
+            "tr": "Tam boş-el/vücut ağırlığı hareket biçimini kullan veya aynı seansı sözle yürüt; planlanan bölümleri yapıldı diye işaretleme."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "End for symptoms, fatigue that changes the return, uncertain support or grip loss. Do not switch options to work around the problem in the same session.",
+            "tr": "Belirti, dönüşü değiştiren yorgunluk, belirsiz destek veya tutuş kaybında bitir. Aynı seansta sorunun etrafından çalışmak için hareket biçimi değiştirme."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "strongfirst_hinge",
+            "ace_deadlift_samples_text"
           ],
           "prerequisites": [
             "barbell-09"
@@ -796,68 +1334,135 @@
           "practiceType": "physical",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for barbell-10: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "barbell-10 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:barbell-10"
+          "movementTaskId": "gravita:barbell-10",
+          "candidatePracticeAccess": "available_supported_beginner",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "strongfirst_hinge",
+              "ace_deadlift_samples_text"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "publisherUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "playerId": "1763945815001",
+                "sampledSeconds": [
+                  11.16,
+                  20,
+                  41,
+                  62
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "Only sampled ordinary standing preparation positions, not this session dose.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              },
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=gSHyHMLuJqI",
+                "publisherUrl": "https://www.acefitness.org/continuing-education/prosource/september-2015/5579/technique-series-how-to-deadlift/",
+                "playerId": "gSHyHMLuJqI",
+                "sampledSeconds": [
+                  16,
+                  71,
+                  123.083
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "visible hinge/grip,bar before lower legs and floor-resting-bar samples;not the full sequence or raised supports",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=gSHyHMLuJqI",
+                "intervalSeconds": [
+                  [
+                    30,
+                    47
+                  ],
+                  [
+                    65,
+                    129
+                  ]
+                ],
+                "evidenceType": "caption_text",
+                "onlySupports": "setup and controlled lower/reset;source mixedgrip/forcedlumbar/heavyset instructions not adopted",
+                "countsAsObservedMotion": false
+              }
+            ],
+            "unseenScope": [
+              "The complete original written sequence is not claimed as continuous visual review. Actual equipment compatibility, personal suitability and failed-lift recovery are not validated. Parent sample-frame links are added only after exact record readback."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "barbell-11",
           "title": {
-            "en": "Recovery and session log",
-            "tr": "Dinlenme ve oturum kaydı"
+            "en": "Record what happened and choose recovery",
+            "tr": "Olanı kaydet ve toparlanmayı seç"
           },
           "objective": {
-            "en": "Separate self-report from measured performance.",
-            "tr": "Öz bildirimi ölçülmüş performanstan ayır."
+            "en": "Separate planned, self-reported and actually observed work, then choose the next small session from the exact variant record.",
+            "tr": "Planlanan, öz bildirilen ve gerçekten gözlenen işi ayır; sonra kesin varyant kaydından sonraki küçük seansı seç."
           },
           "steps": [
             {
-              "en": "Write equipment, start height, variant and perceived difficulty.",
-              "tr": "Ekipmanı, başlangıç yüksekliğini, varyantı ve hissedilen zorluğu yaz."
+              "en": "Start: Use a real note from lesson 10 or a clearly labelled imagined example. No physical practice is required to complete this lesson.\n\nSetup: Have a short log with fields for date, exact unloaded version, dose, return and any reason to stop.\n\nWrite exactly what was done: empty-hand rehearsal or the known light bar, support height, hinge/rack variant and completed or skipped cycles. Do not turn a plan into performed work.",
+              "tr": "Başlangıç: 10 dersinden gerçek not veya hayali olduğu açık işaretli örnek kullan. Bu dersi tamamlamak için fiziksel pratik gerekmez.\n\nKurulum: Tarih, kesin yüksüz sürüm, doz, dönüş ve varsa durma nedeni alanlı kısa kayıt hazırla.\n\nTam yapılanı yaz: boş-el prova veya kütlesi bilinen hafif bar, destek yüksekliği, menteşe/rack varyantı ve yapılan/atlanan döngüler. Planı yapılmış işe dönüştürme."
             },
             {
-              "en": "Leave recovery between demanding sessions; do not use a completion badge as permission to add weight.",
-              "tr": "Zorlu oturumlar arasında dinlen; tamamlama rozetini yük ekleme izni sayma."
+              "en": "Record whether the entry and return stayed calm and whether rest was extended. Do not invent force, joint angles or a form score.",
+              "tr": "Giriş ve dönüşün sakin kalıp kalmadığını, dinlenmenin uzayıp uzamadığını kaydet. Kuvvet, eklem açısı veya form puanı uydurma."
             },
             {
-              "en": "Bring unresolved discomfort or equipment concerns to the reviewer before returning.",
-              "tr": "Çözülmemiş rahatsızlık veya ekipman sorununu dönüşten önce değerlendiriciye taşı."
+              "en": "For a later session, choose the same easy rehearsal or recovery. Ongoing or concerning symptoms require appropriate individual assessment, not a new repetition target.",
+              "tr": "Sonraki seans için aynı kolay prova veya toparlanmayı seç. Süren veya kaygı veren belirti yeni tekrar hedefi değil, uygun bireysel değerlendirme gerektirir."
+            },
+            {
+              "en": "Keep equipment identity and unreviewed loaded skills in a separate future-work note. Completing the log does not verify the equipment or the learner.",
+              "tr": "Ekipman kimliğini ve görüntüsü incelenmemiş yüklü becerileri ayrı sonraki iş notunda tut. Kaydı tamamlamak ekipmanı veya öğrenciyi doğrulamaz."
             }
           ],
           "practice": {
-            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
-            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+            "en": "Write three short lines: performed task, one observation, next choice. Read them once after a one-minute break and remove any statement that claims an unperformed lift.\n\nMistake: calling a complete checklist a successful loaded lift. Correction: replace it with the exact observed or self-reported unloaded task.",
+            "tr": "Üç kısa satır yaz: yapılan görev, tek gözlem, sonraki seçim. Bir dakikalık aradan sonra bir kez oku ve yapılmamış kaldırışı iddia eden ifadeyi çıkar.\n\nHata: tamamlanan listeyi başarılı yüklü kaldırış saymak. Düzeltme: yerine tam gözlenen veya öz bildirilen yüksüz görevi yaz."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Can another reader tell which work was only planned?",
+              "tr": "Başka okur hangi işin yalnız planlandığını anlayabilir mi?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Does my next choice avoid a forced increase?",
+              "tr": "Sonraki seçimim zorunlu artıştan kaçınıyor mu?"
             }
           ],
           "adaptation": {
-            "en": "Review your notes without a physical attempt.",
-            "tr": "Fiziksel denemeden notlarını incele."
+            "en": "Dictate the three lines or use performed/planned/skipped labels beside a drawing.",
+            "tr": "Üç satırı sesle yazdır veya çizimin yanında yapıldı/planlandı/atlandı etiketleri kullan."
           },
           "progression": {
-            "en": "Agree the next session rather than infer readiness from a counter.",
-            "tr": "Hazırlığı sayaçtan çıkarmak yerine sonraki oturumu kararlaştır."
+            "en": "Proceed to lesson 12 when the record can be explained without changing what happened.",
+            "tr": "Olanı değiştirmeden kayıt açıklanabiliyorsa 12 dersine geç."
           },
           "regression": {
-            "en": "Review your notes without a physical attempt.",
-            "tr": "Fiziksel denemeden notlarını incele."
+            "en": "Dictate the three lines or use performed/planned/skipped labels beside a drawing.",
+            "tr": "Üç satırı sesle yazdır veya çizimin yanında yapıldı/planlandı/atlandı etiketleri kullan."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Pause about one minute before recall; take longer as needed.",
+            "tr": "Hatırlamadan önce yaklaşık bir dakika ara ver; gerekirse uzat."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Stop editing if the record encourages hiding symptoms or inventing repetitions. Keep uncertainty in the note and choose the reading-only review.",
+            "tr": "Kayıt belirtileri saklamaya veya tekrar uydurmaya yöneltiyorsa düzenlemeyi durdur. Belirsizliği notta koru ve yalnız okuma incelemesini seç."
           },
           "sourceIds": [
             "general"
@@ -869,71 +1474,92 @@
           "practiceType": "learning_only",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for barbell-11: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "barbell-11 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:barbell-11"
+          "movementTaskId": "gravita:barbell-11",
+          "candidatePracticeAccess": "learning_only",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Only separately recorded parent sample frames can support visible examples; full continuous sequence, actual equipment suitability and physical learner performance are not validated."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "barbell-12",
           "title": {
-            "en": "Exit review and next course",
-            "tr": "Çıkış değerlendirmesi ve sonraki kurs"
+            "en": "Reconstruct the whole chosen option",
+            "tr": "Seçilen dalın tamamını yeniden kur"
           },
           "objective": {
-            "en": "State the boundary of the foundation course.",
-            "tr": "Temel kursun sınırını söyle."
+            "en": "Explain the complete chosen hinge or rack option, its easier option, stop signs and supported finish without the page.",
+            "tr": "Seçilen menteşe veya rack hareket biçiminin tamamını, kolay seçeneğini, durma işaretlerini ve destekli bitişini sayfasız açıkla."
           },
           "steps": [
             {
-              "en": "Describe setup, a chosen easy lift, return and regression in order.",
-              "tr": "Kurulumu, seçilen kolay kaldırışı, dönüşü ve kolaylaştırmayı sırayla anlat."
+              "en": "Start: Have the notes from lessons 01–11. Choose written recall even if physical practice was skipped; do not perform a new lift for assessment.\n\nSetup: Use five headings: area, preparation, entry, small task, exit/rest. Keep actual bars and racks out of the assessment.\n\nClose the page and reconstruct one selected option: actual setup, preparation, entry, one small task, supported return and rest. State the unloaded alternative.",
+              "tr": "Başlangıç: 01–11 notlarını hazırla. Fiziksel pratik atlandıysa da yazılı hatırlamayı seç; değerlendirme için yeni kaldırış yapma.\n\nKurulum: Beş başlık kullan: alan, hazırlık, giriş, küçük görev, çıkış/dinlenme. Gerçek bar ve rack değerlendirme dışında kalsın.\n\nSayfayı kapat ve tek seçilen hareket biçimi yeniden kur: gerçek kurulum, hazırlık, giriş, tek küçük görev, destekli dönüş ve dinlenme. Yüksüz alternatifi belirt."
             },
             {
-              "en": "List missing demonstrations, observed learner review and calibration evidence.",
-              "tr": "Eksik gösterimleri, gözlenmiş öğrenci incelemesini ve kalibrasyon kanıtını listele."
+              "en": "Name one mistake, its symptom-free easier response and a stop sign that ends the task instead of starting a retest.",
+              "tr": "Tek hata, bunun belirtisiz kolay yanıtı ve yeniden deneme başlatmak yerine görevi bitiren bir durma işareti söyle."
             },
             {
-              "en": "Choose whether to repeat foundations or seek a separate reviewed progression.",
-              "tr": "Temeli yinelemeyi veya ayrı incelenmiş ilerleme istemeyi seç."
+              "en": "Compare your answer to the lesson, correct one missing step and explain the corrected sequence again without the page. This is a learning check, not a physical test.",
+              "tr": "Yanıtını dersle karşılaştır, eksik tek adımı düzelt ve düzeltilmiş sırayı sayfasız yeniden anlat. Bu öğrenme kontrolüdür; fiziksel test değildir."
+            },
+            {
+              "en": "Name what this course still does not teach: plate loading, heavy/maximal attempts, overhead/Olympic lifts or a universal failed-lift escape. Continue the same small option or choose a separately completed next lesson; no automatic mastery or load badge follows.",
+              "tr": "Kursun hâlâ öğretmediğini adlandır: plaka yükleme, ağır/maksimum deneme, baş üstü/olimpik kaldırış veya evrensel başarısız-kaldırış kaçışı. Aynı küçük hareket biçimi sürdür veya ayrıca tamamlanmış sonraki dersi seç; otomatik ustalık veya yük rozeti gelmez."
             }
           ],
           "practice": {
-            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
-            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+            "en": "In up to five minutes, recall, compare and retell the complete selected option. Mark any unperformed physical part honestly; no new lift is assigned for this assessment.\n\nMistake: treating a foundation recall as permission to squat under a real bar. Correction: separate the learned unloaded route from the named, still untaught loaded route.",
+            "tr": "En çok beş dakikada seçilen tam hareket biçimi hatırla, karşılaştır ve yeniden anlat. Yapılmamış fiziksel bölümü dürüstçe işaretle; bu değerlendirmede yeni kaldırış verilmez.\n\nHata: temel hatırlamayı gerçek bar altında squat izni saymak. Düzeltme: öğrenilen yüksüz yolu adlandırılmış, hâlâ öğretilmemiş yüklü yoldan ayır."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Can I reconstruct the whole entry–task–exit without a prompt?",
+              "tr": "Giriş–görev–çıkışın tamamını ipucusuz kurabiliyor muyum?"
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "Can I separate complete written instruction from sampled images and an unverified physical performance?",
+              "tr": "Tam yazılı yönergeyi örnek görüntüden ve doğrulanmamış fiziksel performanstan ayırabiliyor muyum?"
             }
           ],
           "adaptation": {
-            "en": "Repeat the equipment and setup lessons.",
-            "tr": "Ekipman ve kurulum derslerini yinele."
+            "en": "Reconstruct the same option using empty hands and a diagram, clearly recording physical work as planned rather than performed.",
+            "tr": "Aynı hareket biçimi boş el ve şemayla yeniden kur; fiziksel işi yapıldı yerine planlandı diye açık kaydet."
           },
           "progression": {
-            "en": "No maximum strength, advanced lift or safety certification follows from completion.",
-            "tr": "Tamamlama maksimum kuvvet, ileri kaldırış veya güvenlik sertifikası vermez."
+            "en": "Repeat the same small chosen option independently when its entry conditions remain satisfied. Select a new load, variant or skill only through its own complete instruction and equipment checks.",
+            "tr": "Giriş koşulları sürüyorsa aynı küçük seçilen hareket biçimi bağımsız yinele. Yeni yük, varyant veya beceriyi yalnız kendi tam yönergesi ve ekipman kontrolleriyle seç."
           },
           "regression": {
-            "en": "Repeat the equipment and setup lessons.",
-            "tr": "Ekipman ve kurulum derslerini yinele."
+            "en": "Reconstruct the same option using empty hands and a diagram, clearly recording physical work as planned rather than performed.",
+            "tr": "Aynı hareket biçimi boş el ve şemayla yeniden kur; fiziksel işi yapıldı yerine planlandı diye açık kaydet."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Pause about one minute before recall; take longer as needed.",
+            "tr": "Hatırlamadan önce yaklaşık bir dakika ara ver; gerekirse uzat."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Do not improvise a loaded task to fill a missing answer or demonstration. Record the gap and end the assessment with the written sequence.",
+            "tr": "Eksik yanıt veya gösterimi doldurmak için yüklü görev doğaçlama. Açığı kaydet ve değerlendirmeyi yazılı sırayla bitir."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "nsca_high_bar_samples",
+            "testify_rerack_text_samples",
+            "ace_deadlift_samples_text"
           ],
           "prerequisites": [
             "barbell-11"
@@ -942,13 +1568,98 @@
           "practiceType": "learning_only",
           "evidenceMode": "self_report",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for barbell-12: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "barbell-12 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:barbell-12"
+          "movementTaskId": "gravita:barbell-12",
+          "candidatePracticeAccess": "learning_only",
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "testify_rerack_text_samples",
+              "ace_deadlift_samples_text"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.nsca.com/education/videos/exercise-technique-high-bar-back-squat/",
+                "publisherUrl": "https://www.nsca.com/education/videos/exercise-technique-high-bar-back-squat/",
+                "playerId": "71457142",
+                "sampledSeconds": [
+                  19,
+                  25,
+                  31,
+                  73
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "rack grip, upper-back bar placement, standing step/start and a side squat sample; not the complete sequence",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              },
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=eeHXHVyp0bs",
+                "publisherUrl": "https://testifysc.com/articles/never-make-this-squat-mistake-again-fast-fix",
+                "playerId": "eeHXHVyp0bs",
+                "sampledSeconds": [
+                  7,
+                  78.916
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "7second heavy-load counterexample and78.916second presenter with racked bar; not full rerack motion",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              },
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=gSHyHMLuJqI",
+                "publisherUrl": "https://www.acefitness.org/continuing-education/prosource/september-2015/5579/technique-series-how-to-deadlift/",
+                "playerId": "gSHyHMLuJqI",
+                "sampledSeconds": [
+                  16,
+                  71,
+                  123.083
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "visible hinge/grip,bar before lower legs and floor-resting-bar samples;not the full sequence or raised supports",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=eeHXHVyp0bs",
+                "intervalSeconds": [
+                  60,
+                  88
+                ],
+                "evidenceType": "caption_text",
+                "onlySupports": "forward to both uprights before lowering into both hooks",
+                "countsAsObservedMotion": false
+              },
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=gSHyHMLuJqI",
+                "intervalSeconds": [
+                  [
+                    30,
+                    47
+                  ],
+                  [
+                    65,
+                    129
+                  ]
+                ],
+                "evidenceType": "caption_text",
+                "onlySupports": "setup and controlled lower/reset;source mixedgrip/forcedlumbar/heavyset instructions not adopted",
+                "countsAsObservedMotion": false
+              }
+            ],
+            "unseenScope": [
+              "Only separately recorded parent sample frames can support visible examples; full continuous sequence, actual equipment suitability and physical learner performance are not validated."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         }
       ]
     }
-  ],
-  "catalogueGuides": []
+  ]
 }

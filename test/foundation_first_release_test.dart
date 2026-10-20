@@ -1,0 +1,454 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:gravita/app/account_store_epoch.dart';
+import 'package:gravita/app/app_locale.dart';
+import 'package:gravita/app/calisthenics_course.dart';
+import 'package:gravita/app/calisthenics_course_screen.dart';
+import 'package:gravita/app/calisthenics_progress.dart';
+import 'package:gravita/app/localization/locale_delegate.dart';
+import 'support/launch_harness.dart';
+import 'support/locale_asset_harness.dart';
+
+const _areas = ['barbell', 'rings', 'hands'];
+const _ownerA = '11111111-1111-4111-8111-111111111111';
+const _ownerB = '22222222-2222-4222-8222-222222222222';
+
+CalisthenicsCourse _course(String area, {bool legacy = false}) =>
+    CalisthenicsCourse.parse(
+      File(
+        legacy
+            ? 'test/fixtures/foundations_v1/$area-foundations.v1.json'
+            : 'content/courses/$area-foundations.v1.json',
+      ).readAsStringSync(),
+    );
+
+Future<void> _reveal(WidgetTester t, Finder target) async {
+  await t.scrollUntilVisible(
+    target,
+    320,
+    scrollable: find.byType(Scrollable).first,
+    maxScrolls: 220,
+  );
+  await t.ensureVisible(target);
+  await t.pump();
+  expect(target.hitTestable(), findsOneWidget);
+}
+
+void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(warmActualLocaleAssets);
+
+  for (final area in _areas) {
+    final course = _course(area);
+    final legacy = _course(area, legacy: true);
+    final physical = course.lessons.firstWhere(
+      (lesson) => !lesson.learningOnly,
+    );
+
+    test(
+      '$area 1.1 original sequence opens beginner options and fails closed',
+      () {
+        expect(course.version, '1.1.0');
+        expect(course.isFoundationCourse, isTrue);
+        expect(course.reviewRequired, isFalse);
+        expect(course.lessons, hasLength(12));
+        expect(
+          course.lessons.where((lesson) => !lesson.learningOnly),
+          hasLength(8),
+        );
+        expect(course.lessons.where(course.practiceHeld), isEmpty);
+        expect(legacy.version, '1.0.0');
+        expect(legacy.lessons.where(legacy.practiceHeld), hasLength(8));
+        for (final lesson in course.lessons) {
+          expect(lesson.steps.length, inInclusiveRange(3, 5));
+          expect(lesson.practice.en.trim(), isNotEmpty);
+          expect(lesson.stop.en.trim(), isNotEmpty);
+          expect(lesson.progression, isNotNull);
+          expect(lesson.regression, isNotNull);
+          expect(lesson.rest, isNotNull);
+        }
+        final raw = File(
+          'content/courses/$area-foundations.v1.json',
+        ).readAsStringSync();
+        for (final mutate in <void Function(Map<String, dynamic>)>[
+          (v) => v['reviewStatus'] = 'expert_approved',
+          (v) => v['version'] = '1.2.0',
+          (v) =>
+              v['modules'][0]['lessons'][2].remove('candidatePracticeAccess'),
+          (v) => v['modules'][0]['lessons'][2]['candidatePracticeAccess'] =
+              'unrestricted',
+          (v) => v['modules'][0]['lessons'][2]['candidatePracticeAccess'] =
+              'learning_only',
+        ]) {
+          final changed = jsonDecode(raw) as Map<String, dynamic>;
+          mutate(changed);
+          expect(
+            () => CalisthenicsCourse.parse(jsonEncode(changed)),
+            throwsFormatException,
+          );
+        }
+      },
+    );
+
+    test(
+      '$area revision store preserves1.0 bytes and requires two self reports',
+      () async {
+        final root = Directory.systemTemp.createTempSync('gravita-revision-');
+        try {
+          final old = calisthenicsProgressStoreFor(
+            root,
+            null,
+            courseId: course.id,
+          );
+          await old.markPractised(legacy, legacy.lessons.first);
+          await old.markCompleted(
+            legacy,
+            legacy.lessons.first,
+            selfChecksConfirmed: true,
+          );
+          final oldBytes = old.file.readAsBytesSync();
+          final current = calisthenicsProgressStoreFor(
+            root,
+            null,
+            courseId: course.id,
+            courseVersion: course.version,
+          );
+          expect(current.file.path, isNot(old.file.path));
+          expect(current.file.existsSync(), isFalse);
+          await expectLater(old.markSeen(course, physical), throwsStateError);
+          expect(old.file.readAsBytesSync(), oldBytes);
+          await current.markSeen(course, physical);
+          await current.markPractised(course, physical);
+          await expectLater(
+            current.markCompleted(course, physical, selfChecksConfirmed: true),
+            throwsStateError,
+          );
+          expect(
+            () => current.markCompleted(
+              course,
+              physical,
+              selfChecksConfirmed: false,
+            ),
+            throwsStateError,
+          );
+          await current.markPractised(course, physical);
+          await current.markCompleted(
+            course,
+            physical,
+            selfChecksConfirmed: true,
+          );
+          final reopened = calisthenicsProgressStoreFor(
+            root,
+            null,
+            courseId: course.id,
+            courseVersion: course.version,
+          );
+          final result = await reopened.load();
+          expect(result.forLesson(physical, course.version)?.practiceCount, 2);
+          expect(
+            result.forLesson(physical, course.version)?.state,
+            CalisthenicsLessonState.selfReportedComplete,
+          );
+          expect(result.completedCount(course), 1);
+          expect(old.file.readAsBytesSync(), oldBytes);
+          expect((await old.load()).completedCount(legacy), 1);
+          expect(
+            (await calisthenicsProgressStoreFor(
+              root,
+              _ownerA,
+              courseId: course.id,
+              courseVersion: course.version,
+            ).load()).records,
+            isEmpty,
+          );
+          final another = _course(
+            _areas.firstWhere((candidate) => candidate != area),
+          );
+          expect(
+            (await calisthenicsProgressStoreFor(
+              root,
+              null,
+              courseId: another.id,
+              courseVersion: another.version,
+            ).load()).records,
+            isEmpty,
+          );
+          expect(
+            () => calisthenicsProgressStoreFor(
+              root,
+              null,
+              courseId: course.id,
+              courseVersion: '1.2.0',
+            ),
+            throwsArgumentError,
+          );
+        } finally {
+          await AccountStoreEpochRegistry.resetForTest();
+          root.deleteSync(recursive: true);
+        }
+      },
+    );
+
+    test(
+      '$area corrupt revision and retired owner cannot rewrite history',
+      () async {
+        final root = Directory.systemTemp.createTempSync(
+          'gravita-revision-owner-',
+        );
+        try {
+          await AccountStoreEpochRegistry.enableManagedAdmission();
+          final epoch = AccountStoreEpochRegistry.activate(_ownerA);
+          final store = calisthenicsProgressStoreFor(
+            root,
+            _ownerA,
+            epoch: epoch,
+            courseId: course.id,
+            courseVersion: course.version,
+          );
+          await store.markSeen(course, physical);
+          final beforeRetire = store.file.readAsBytesSync();
+          await epoch.retireAndDrain();
+          await expectLater(
+            store.markPractised(course, physical),
+            throwsStateError,
+          );
+          expect(store.file.readAsBytesSync(), beforeRetire);
+          AccountStoreEpochRegistry.activate(_ownerB);
+          final other = calisthenicsProgressStoreFor(
+            root,
+            _ownerB,
+            courseId: course.id,
+            courseVersion: course.version,
+          );
+          expect((await other.load()).records, isEmpty);
+          AccountStoreEpochRegistry.activate(_ownerA);
+          final fresh = calisthenicsProgressStoreFor(
+            root,
+            _ownerA,
+            courseId: course.id,
+            courseVersion: course.version,
+          );
+          final changed =
+              jsonDecode(fresh.file.readAsStringSync()) as Map<String, dynamic>;
+          changed['lessons'][physical.id]['contentVersion'] = '1.0.0';
+          fresh.file.writeAsStringSync(jsonEncode(changed));
+          final corruptedBytes = fresh.file.readAsBytesSync();
+          await expectLater(fresh.load(), throwsFormatException);
+          await expectLater(
+            fresh.markPractised(course, physical),
+            throwsFormatException,
+          );
+          expect(fresh.file.readAsBytesSync(), corruptedBytes);
+          expect(File('${fresh.file.path}.tmp').existsSync(), isFalse);
+        } finally {
+          await AccountStoreEpochRegistry.resetForTest();
+          root.deleteSync(recursive: true);
+        }
+      },
+    );
+
+    for (final dark in [false, true]) {
+      final lang = dark ? 'tr' : 'en';
+      testWidgets(
+        '${area}1.1 $lang ${dark ? 'dark' : 'light'}320px2x two visits and completion',
+        (t) async {
+          final root = Directory.systemTemp.createTempSync(
+            'gravita-release-reader-',
+          );
+          t.view.physicalSize = const Size(320, 900);
+          t.view.devicePixelRatio = 1;
+          addTearDown(t.view.reset);
+          final store = calisthenicsProgressStoreFor(
+            root,
+            null,
+            courseId: course.id,
+            courseVersion: course.version,
+          );
+          try {
+            for (var visit = 0; visit < 2; visit++) {
+              await t.pumpWidget(
+                MaterialApp(
+                  key: ValueKey('$area-$visit'),
+                  locale: Locale(lang),
+                  supportedLocales: appSupportedLocales,
+                  localizationsDelegates: appLocalizationsDelegates,
+                  theme: ThemeData(
+                    brightness: dark ? Brightness.dark : Brightness.light,
+                  ),
+                  builder: (context, child) => MediaQuery(
+                    data: MediaQuery.of(
+                      context,
+                    ).copyWith(textScaler: TextScaler.linear(2)),
+                    child: child!,
+                  ),
+                  home: CalisthenicsLessonScreen(
+                    course: course,
+                    lesson: physical,
+                    storeLoader: (_) async => store,
+                  ),
+                ),
+              );
+              await pumpActualLocaleReady(t);
+              final count = find.byKey(const Key('calisthenics.practiceCount'));
+              await settleUntil(
+                t,
+                () =>
+                    count.evaluate().isNotEmpty &&
+                    t.widget<Text>(count).data!.endsWith('$visit'),
+              );
+              expect(t.widget<Text>(count).data!.endsWith('$visit'), isTrue);
+              final prepared = find.byKey(const Key('calisthenics.prepared'));
+              await _reveal(t, prepared);
+              expect(t.widget<CheckboxListTile>(prepared).value, isFalse);
+              await t.tap(prepared.hitTestable());
+              await t.pump();
+              final practice = find.byKey(const Key('calisthenics.practised'));
+              await _reveal(t, practice);
+              await settleUntil(
+                t,
+                () => t.widget<OutlinedButton>(practice).onPressed != null,
+              );
+              expect(t.widget<OutlinedButton>(practice).onPressed, isNotNull);
+              await t.tap(practice.hitTestable());
+              await settleUntil(
+                t,
+                () => t.widget<Text>(count).data!.endsWith('${visit + 1}'),
+              );
+              expect(
+                t.widget<Text>(count).data!.endsWith('${visit + 1}'),
+                isTrue,
+              );
+              expect(
+                t.widget<OutlinedButton>(practice).onPressed,
+                isNull,
+                reason: 'Only one report per reader visit',
+              );
+              final confirmation = find.byKey(
+                const Key('calisthenics.confirm'),
+              );
+              await _reveal(t, confirmation);
+              await t.tap(confirmation.hitTestable());
+              await t.pump();
+              final complete = find.byKey(const Key('calisthenics.complete'));
+              await _reveal(t, complete);
+              expect(
+                t.widget<FilledButton>(complete).onPressed,
+                visit == 0 ? isNull : isNotNull,
+              );
+              if (visit == 1) {
+                await t.tap(complete.hitTestable());
+                await t.pump();
+                await settleUntil(
+                  t,
+                  () =>
+                      t.widget<CheckboxListTile>(confirmation).onChanged !=
+                      null,
+                );
+                expect(
+                  t.widget<CheckboxListTile>(confirmation).onChanged,
+                  isNotNull,
+                );
+              }
+              expect(t.takeException(), isNull);
+              await t.pumpWidget(const SizedBox.shrink());
+              await t.pump();
+            }
+            final saved = (await t.runAsync(store.load))!;
+            expect(saved.forLesson(physical, course.version)?.practiceCount, 2);
+            expect(
+              saved.forLesson(physical, course.version)?.state,
+              CalisthenicsLessonState.selfReportedComplete,
+            );
+          } finally {
+            await t.pumpWidget(const SizedBox.shrink());
+            await t.pump();
+            await t.runAsync(AccountStoreEpochRegistry.resetForTest);
+            root.deleteSync(recursive: true);
+          }
+        },
+      );
+    }
+  }
+
+  testWidgets('1.1 actual lesson resources cover14 locales and RTL', (t) async {
+    final course = CalisthenicsCourse.parse(
+      File('content/courses/calisthenics.v1.json').readAsStringSync(),
+    );
+    final lesson = course.lessons.singleWhere((item) => item.id == 'cal-52');
+    final root = Directory.systemTemp.createTempSync(
+      'gravita-release-locales-',
+    );
+    final store = calisthenicsProgressStoreFor(
+      root,
+      null,
+      courseId: course.id,
+      courseVersion: course.version,
+    );
+    try {
+      for (final locale in appSupportedLocales) {
+        await t.pumpWidget(
+          MaterialApp(
+            key: ValueKey(locale.toLanguageTag()),
+            locale: locale,
+            supportedLocales: appSupportedLocales,
+            localizationsDelegates: appLocalizationsDelegates,
+            home: CalisthenicsLessonScreen(
+              course: course,
+              lesson: lesson,
+              storeLoader: (_) async => store,
+            ),
+          ),
+        );
+        await pumpActualLocaleReady(t);
+        final context = t.element(find.byType(CalisthenicsLessonScreen));
+        expect(
+          Localizations.of<GravitaLocalizations>(
+            context,
+            GravitaLocalizations,
+          )?.localeTag,
+          canonicalLocaleTag(locale.toLanguageTag()),
+        );
+        expect(
+          Directionality.of(context),
+          locale.languageCode == 'ar' ? TextDirection.rtl : TextDirection.ltr,
+        );
+        expect(find.byType(CalisthenicsLessonScreen), findsOneWidget);
+        final corrected = localized(
+          context,
+          "If fatigue increases without symptoms, choose recovery or plan an easier option for a later session. If symptoms appear or increase, end the current task; do not retest symptoms with an easier version. Persistent or concerning symptoms need appropriate individual assessment before resuming. A course checklist is not a training deadline.",
+          "Belirti olmadan yorgunluk artarsa toparlanmayı seç veya sonraki bir seans için daha kolay seçeneği planla. Belirti ortaya çıkar ya da artarsa mevcut görevi bitir; belirtileri daha kolay biçimle yeniden sınama. Süren veya kaygı veren belirtilerde yeniden başlamadan önce uygun bireysel değerlendirme gerekir. Kurs listesi antrenman son tarihi değildir.",
+        );
+        expect(
+          localized(context, lesson.steps[2].en, lesson.steps[2].tr),
+          corrected,
+          reason:
+              'Reviewed cal52 display correction must be present under the canonical sourceID in every locale',
+        );
+        if (const ['en', 'tr', 'ar'].contains(locale.languageCode)) {
+          final line = localized(
+            context,
+            '{number}. {label}',
+            '{number}. {label}',
+            values: <String, Object>{'number': 3, 'label': corrected},
+          );
+          await _reveal(t, find.text(line));
+          expect(find.text(line).hitTestable(), findsOneWidget);
+        }
+        expect(t.takeException(), isNull);
+        await t.pumpWidget(const SizedBox.shrink());
+        await t.pump();
+        // Drain the synthetic file IO in the real event loop before the next
+        // reader lifetime. This never opens a provider or a user account.
+        await t.runAsync(store.load);
+      }
+    } finally {
+      await t.pumpWidget(const SizedBox.shrink());
+      await t.pump();
+      await t.runAsync(AccountStoreEpochRegistry.resetForTest);
+      root.deleteSync(recursive: true);
+    }
+  });
+}

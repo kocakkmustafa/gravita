@@ -1,0 +1,954 @@
+{
+  "schemaVersion": 1,
+  "id": "hand-support-foundations",
+  "version": "1.0.0",
+  "title": {
+    "en": "Hand support and straight-arm foundations · review pending",
+    "tr": "El desteği ve düz kol temelleri · inceleme bekliyor"
+  },
+  "description": {
+    "en": "A complete foundation sequence draft: setup, progressive tasks, easier options, recovery and exit review. Physical tasks await expert review and original demonstrations; training/calibration comes later.",
+    "tr": "Tam temel sıra taslağı: kurulum, ilerleyen görevler, kolay seçenekler, dinlenme ve çıkış incelemesi. Fiziksel görevler uzman incelemesi ve özgün gösterim bekler; eğitim/kalibrasyon sonradır."
+  },
+  "healthNotice": {
+    "en": "Expert review and learner observation are pending. Read now; physical practice and physical completion are held. No individual suitability, injury-prevention, mastery or model-accuracy claim.",
+    "tr": "Uzman incelemesi ve öğrenci gözlemi bekliyor. Şimdi okuyabilirsin; fiziksel pratik ve fiziksel tamamlama kapalı. Kişisel uygunluk, yaralanma önleme, ustalık veya model doğruluğu iddiası yok."
+  },
+  "evidenceMode": "self_report",
+  "reviewStatus": "expert_review_required",
+  "scope": {
+    "en": "Provisional healthy adult beginner scope; exact equipment and individual suitability require qualified review.",
+    "tr": "Geçici sağlıklı yetişkin başlangıç kapsamı; kesin ekipman ve kişisel uygunluk yetkin inceleme ister."
+  },
+  "equipment": {
+    "en": "Fixed wall, stable raised surface, comfortable mat and clear floor space.",
+    "tr": "Sabit duvar, sabit yükseltilmiş yüzey, rahat minder ve boş zemin alanı."
+  },
+  "entryCriteria": {
+    "en": "Read scope, identify equipment and unresolved suitability questions, and arrange the actual setup review.",
+    "tr": "Kapsamı oku, ekipmanı ve çözülmemiş uygunluk sorularını belirle, gerçek kurulum incelemesini düzenle."
+  },
+  "exitCriteria": {
+    "en": "Explain setup, selected task, regression, recovery and exit; physical performance requires separate demonstrations and observed learner review.",
+    "tr": "Kurulum, seçilen görev, kolaylaştırma, dinlenme ve çıkışı açıkla; fiziksel performans ayrı gösterim ve gözlenmiş öğrenci incelemesi ister."
+  },
+  "sources": [
+    {
+      "id": "general",
+      "title": "Mayo Clinic: Weight training technique",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/weight-training/art-20045842",
+      "supports": {
+        "en": "General preparation, controlled movement, breathing and recovery principles.",
+        "tr": "Genel hazırlık, kontrollü hareket, nefes ve toparlanma ilkeleri."
+      },
+      "doesNotSupport": {
+        "en": "These original draft lessons, equipment installation, individual suitability or expert approval.",
+        "tr": "Bu özgün taslak dersleri, ekipman kurulumunu, kişisel uygunluğu veya uzman onayını kanıtlamaz."
+      }
+    }
+  ],
+  "modules": [
+    {
+      "id": "hands-module-1",
+      "title": {
+        "en": "Scope and preparation",
+        "tr": "Kapsam ve hazırlık"
+      },
+      "lessons": [
+        {
+          "id": "hands-01",
+          "title": {
+            "en": "Scope and support preparation",
+            "tr": "Kapsam ve destek hazırlığı"
+          },
+          "objective": {
+            "en": "Learn the defined task: Scope and support preparation.",
+            "tr": "Tanımlı görevi öğren: Kapsam ve destek hazırlığı."
+          },
+          "steps": [
+            {
+              "en": "Choose upright and floor-supported preparation first.",
+              "tr": "Önce dik ve yer destekli hazırlığı seç."
+            },
+            {
+              "en": "Distinguish hand support from handstand balance and planche.",
+              "tr": "El desteğini amut dengesi ve plancheden ayır."
+            },
+            {
+              "en": "Keep inversions closed until a separate suitability/entry/exit review.",
+              "tr": "Ayrı uygunluk/giriş/çıkış incelemesine kadar ters duruşları kapalı tut."
+            }
+          ],
+          "practice": {
+            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
+            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read without loading the hands.",
+            "tr": "Ellere yük vermeden oku."
+          },
+          "progression": {
+            "en": "Agree the exact support surface and learner scope.",
+            "tr": "Kesin destek yüzeyini ve öğrenci kapsamını kararlaştır."
+          },
+          "regression": {
+            "en": "Read without loading the hands.",
+            "tr": "Ellere yük vermeden oku."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for hands-01: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "hands-01 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:hands-01"
+        },
+        {
+          "id": "hands-02",
+          "title": {
+            "en": "Surface, wrist and exit setup",
+            "tr": "Yüzey, bilek ve çıkış kurulumu"
+          },
+          "objective": {
+            "en": "Learn the defined task: Surface, wrist and exit setup.",
+            "tr": "Tanımlı görevi öğren: Yüzey, bilek ve çıkış kurulumu."
+          },
+          "steps": [
+            {
+              "en": "Choose a fixed wall or stable raised surface that cannot slide or tip.",
+              "tr": "Kaymayan veya devrilmeyen sabit duvar ya da yükseltilmiş yüzey seç."
+            },
+            {
+              "en": "Inspect clear floor space and a comfortable hand placement with the reviewer.",
+              "tr": "Boş zemin alanını ve rahat el yerleşimini değerlendiriciyle incele."
+            },
+            {
+              "en": "Plan to step back to feet or return knees to the floor before releasing.",
+              "tr": "Bırakmadan ayaklara adımlamayı veya dizleri yere döndürmeyi planla."
+            }
+          ],
+          "practice": {
+            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
+            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Use standing hands-free preparation.",
+            "tr": "Ayakta eller serbest hazırlık kullan."
+          },
+          "progression": {
+            "en": "Obtain individual review if loading is uncomfortable.",
+            "tr": "Yük verme rahatsızsa kişisel inceleme al."
+          },
+          "regression": {
+            "en": "Use standing hands-free preparation.",
+            "tr": "Ayakta eller serbest hazırlık kullan."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "hands-01"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for hands-02: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "hands-02 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:hands-02"
+        },
+        {
+          "id": "hands-03",
+          "title": {
+            "en": "Gentle hands and shoulders preparation",
+            "tr": "Rahat el ve omuz hazırlığı"
+          },
+          "objective": {
+            "en": "Learn the defined task: Gentle hands and shoulders preparation.",
+            "tr": "Tanımlı görevi öğren: Rahat el ve omuz hazırlığı."
+          },
+          "steps": [
+            {
+              "en": "Begin after general preparation with hands free.",
+              "tr": "Genel hazırlıktan sonra eller serbest başla."
+            },
+            {
+              "en": "Move wrists and shoulders in a small comfortable range without forcing an end position.",
+              "tr": "Bilek ve omuzları son konuma zorlamadan küçük rahat aralıkta hareket ettir."
+            },
+            {
+              "en": "Return to neutral and stop if pain or tingling appears.",
+              "tr": "Nötre dön; ağrı veya karıncalanmada dur."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Use a smaller free range.",
+            "tr": "Daha küçük serbest aralık kullan."
+          },
+          "progression": {
+            "en": "Only add light supported contact if reviewed and comfortable.",
+            "tr": "Yalnız incelenmiş ve rahatsa hafif destekli temas ekle."
+          },
+          "regression": {
+            "en": "Use a smaller free range.",
+            "tr": "Daha küçük serbest aralık kullan."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "hands-02"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for hands-03: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "hands-03 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:hands-03"
+        },
+        {
+          "id": "hands-04",
+          "title": {
+            "en": "Upright wall support",
+            "tr": "Dik duvar desteği"
+          },
+          "objective": {
+            "en": "Learn the defined task: Upright wall support.",
+            "tr": "Tanımlı görevi öğren: Dik duvar desteği."
+          },
+          "steps": [
+            {
+              "en": "Stand near a fixed wall with comfortable palms at shoulder height.",
+              "tr": "Sabit duvara yakın, avuçlar rahat omuz yüksekliğinde dur."
+            },
+            {
+              "en": "Keep feet planted and elbows comfortably straight while leaning a little toward the hands.",
+              "tr": "Ayaklar yerde, dirsekler rahat düzken ellere doğru az eğil."
+            },
+            {
+              "en": "Step toward the wall to unload before releasing hands.",
+              "tr": "Elleri bırakmadan yükü azaltmak için duvara doğru adımla."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Stand closer with less lean.",
+            "tr": "Daha yakın dur ve az eğil."
+          },
+          "progression": {
+            "en": "Repeat this upright option before a lower surface.",
+            "tr": "Alçak yüzeyden önce bu dik seçeneği yinele."
+          },
+          "regression": {
+            "en": "Stand closer with less lean.",
+            "tr": "Daha yakın dur ve az eğil."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "hands-03"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for hands-04: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "hands-04 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:hands-04"
+        }
+      ]
+    },
+    {
+      "id": "hands-module-2",
+      "title": {
+        "en": "Supported tasks and control",
+        "tr": "Destekli görevler ve kontrol"
+      },
+      "lessons": [
+        {
+          "id": "hands-05",
+          "title": {
+            "en": "Raised straight-arm support",
+            "tr": "Yükseltilmiş düz kol desteği"
+          },
+          "objective": {
+            "en": "Learn the defined task: Raised straight-arm support.",
+            "tr": "Tanımlı görevi öğren: Yükseltilmiş düz kol desteği."
+          },
+          "steps": [
+            {
+              "en": "Use the reviewed stable surface with both feet on the floor.",
+              "tr": "İncelenmiş sabit yüzeyi iki ayak yerdeyken kullan."
+            },
+            {
+              "en": "Place hands comfortably and hold a short easy line without forcing elbows into lockout.",
+              "tr": "Elleri rahat yerleştir; dirsekleri kilide zorlamadan kısa kolay çizgiyi koru."
+            },
+            {
+              "en": "Walk feet toward hands until fully supported before lifting palms.",
+              "tr": "Avuçları kaldırmadan tam desteklenene kadar ayakları ellere yaklaştır."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Return to the upright wall.",
+            "tr": "Dik duvara dön."
+          },
+          "progression": {
+            "en": "Lower the surface only after reviewed repeatable control.",
+            "tr": "Yüzeyi yalnız incelenmiş tekrarlanabilir kontrolden sonra alçalt."
+          },
+          "regression": {
+            "en": "Return to the upright wall.",
+            "tr": "Dik duvara dön."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "hands-04"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for hands-05: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "hands-05 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:hands-05"
+        },
+        {
+          "id": "hands-06",
+          "title": {
+            "en": "Quadruped entry and exit",
+            "tr": "Dört ayak giriş ve çıkış"
+          },
+          "objective": {
+            "en": "Learn the defined task: Quadruped entry and exit.",
+            "tr": "Tanımlı görevi öğren: Dört ayak giriş ve çıkış."
+          },
+          "steps": [
+            {
+              "en": "Use a comfortable mat, knees down and hands below shoulders.",
+              "tr": "Rahat minder, dizler yerde ve eller omuz altında olsun."
+            },
+            {
+              "en": "Keep a quiet trunk and breathe with a small amount of hand support.",
+              "tr": "Az el desteğiyle gövdeyi sakin tut ve nefes al."
+            },
+            {
+              "en": "Shift back toward knees before lifting the hands; do not lift knees.",
+              "tr": "Elleri kaldırmadan dizlere doğru geriye dön; dizleri kaldırma."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Return to the raised or wall surface.",
+            "tr": "Yükseltilmiş yüzeye veya duvara dön."
+          },
+          "progression": {
+            "en": "Repeat easy entry and exit before adding weight shifts.",
+            "tr": "Ağırlık yönü değişiminden önce kolay giriş ve çıkışı yinele."
+          },
+          "regression": {
+            "en": "Return to the raised or wall surface.",
+            "tr": "Yükseltilmiş yüzeye veya duvara dön."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "hands-05"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for hands-06: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "hands-06 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:hands-06"
+        },
+        {
+          "id": "hands-07",
+          "title": {
+            "en": "Small quadruped weight shifts",
+            "tr": "Dört ayakta küçük yön değişimi"
+          },
+          "objective": {
+            "en": "Learn the defined task: Small quadruped weight shifts.",
+            "tr": "Tanımlı görevi öğren: Dört ayakta küçük yön değişimi."
+          },
+          "steps": [
+            {
+              "en": "Use the already comfortable knees-down position.",
+              "tr": "Önceden rahat olan dizler yerde konumu kullan."
+            },
+            {
+              "en": "Move the trunk a little forward/back while hands stay planted; this is not a measured load ratio.",
+              "tr": "Eller yerdeyken gövdeyi az ileri/geri götür; bu ölçülmüş yük oranı değildir."
+            },
+            {
+              "en": "Return toward knees, unload and rest.",
+              "tr": "Dizlere dön, yükü azalt ve dinlen."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Keep still or reduce the shift.",
+            "tr": "Sabit kal veya yön değişimini azalt."
+          },
+          "progression": {
+            "en": "Change only a small comfortable range with review.",
+            "tr": "İncelemeyle yalnız küçük rahat aralığı değiştir."
+          },
+          "regression": {
+            "en": "Keep still or reduce the shift.",
+            "tr": "Sabit kal veya yön değişimini azalt."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "hands-06"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for hands-07: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "hands-07 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:hands-07"
+        },
+        {
+          "id": "hands-08",
+          "title": {
+            "en": "Scapular push with knees down",
+            "tr": "Dizler yerde kürek kemiği itişi"
+          },
+          "objective": {
+            "en": "Learn the defined task: Scapular push with knees down.",
+            "tr": "Tanımlı görevi öğren: Dizler yerde kürek kemiği itişi."
+          },
+          "steps": [
+            {
+              "en": "Keep knees supported, hands comfortable and elbows softly straight.",
+              "tr": "Dizler destekli, eller rahat ve dirsekler yumuşak düz olsun."
+            },
+            {
+              "en": "Gently push the floor away through the shoulder blades without bending elbows or dropping the trunk.",
+              "tr": "Dirsekleri bükmeden veya gövdeyi düşürmeden kürek kemikleriyle zemini rahatça it."
+            },
+            {
+              "en": "Return to the starting position, shift back and release.",
+              "tr": "Başlangıca dön, geriye kay ve bırak."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Use a wall version or smaller motion.",
+            "tr": "Duvar sürümü veya küçük hareket kullan."
+          },
+          "progression": {
+            "en": "Repeat comfortably before a longer hold.",
+            "tr": "Uzun tutuştan önce rahat yinele."
+          },
+          "regression": {
+            "en": "Use a wall version or smaller motion.",
+            "tr": "Duvar sürümü veya küçük hareket kullan."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "hands-07"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for hands-08: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "hands-08 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:hands-08"
+        }
+      ]
+    },
+    {
+      "id": "hands-module-3",
+      "title": {
+        "en": "Integration and review",
+        "tr": "Birleştirme ve inceleme"
+      },
+      "lessons": [
+        {
+          "id": "hands-09",
+          "title": {
+            "en": "Short support with a planned exit",
+            "tr": "Planlı çıkışla kısa destek"
+          },
+          "objective": {
+            "en": "Learn the defined task: Short support with a planned exit.",
+            "tr": "Tanımlı görevi öğren: Planlı çıkışla kısa destek."
+          },
+          "steps": [
+            {
+              "en": "Select wall, raised support or knees-down support already reviewed.",
+              "tr": "Önceden incelenmiş duvar, yükseltilmiş veya diz destekli seçeneği seç."
+            },
+            {
+              "en": "Use a brief easy hold while breathing; no feet-off or inverted attempts.",
+              "tr": "Nefes sürerken kısa kolay tutuş kullan; ayaklar havada veya ters deneme yok."
+            },
+            {
+              "en": "Use the planned step/knees exit before fatigue changes control.",
+              "tr": "Yorgunluk kontrolü değiştirmeden planlı adım/diz çıkışını kullan."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Shorten the hold and raise support.",
+            "tr": "Tutuşu kısalt ve desteği yükselt."
+          },
+          "progression": {
+            "en": "Increase one variable only after review.",
+            "tr": "Yalnız incelemeden sonra tek değişkeni artır."
+          },
+          "regression": {
+            "en": "Shorten the hold and raise support.",
+            "tr": "Tutuşu kısalt ve desteği yükselt."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "hands-08"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for hands-09: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "hands-09 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:hands-09"
+        },
+        {
+          "id": "hands-10",
+          "title": {
+            "en": "Prepare-practise-recover sequence",
+            "tr": "Hazırlan-çalış-dinlen sırası"
+          },
+          "objective": {
+            "en": "Learn the defined task: Prepare-practise-recover sequence.",
+            "tr": "Tanımlı görevi öğren: Hazırlan-çalış-dinlen sırası."
+          },
+          "steps": [
+            {
+              "en": "Choose one comfortable support, prepare and clear the exit.",
+              "tr": "Tek rahat desteği seç, hazırlan ve çıkışı boşalt."
+            },
+            {
+              "en": "Rehearse entry, do a short easy task, exit and rest fully before an optional repeat.",
+              "tr": "Girişi prova et, kısa kolay görevi yap, çık ve isteğe bağlı yinelemeden önce tam dinlen."
+            },
+            {
+              "en": "Finish with hands unloaded and record the variant.",
+              "tr": "Eller yüksüz bitir ve varyantı kaydet."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Do only preparation today.",
+            "tr": "Bugün yalnız hazırlık yap."
+          },
+          "progression": {
+            "en": "Plan a recovered session rather than chasing duration.",
+            "tr": "Süre kovalamak yerine dinlenmiş oturum planla."
+          },
+          "regression": {
+            "en": "Do only preparation today.",
+            "tr": "Bugün yalnız hazırlık yap."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "hands-09"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for hands-10: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "hands-10 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:hands-10"
+        },
+        {
+          "id": "hands-11",
+          "title": {
+            "en": "Future inversion gate",
+            "tr": "Sonraki ters duruş kapısı"
+          },
+          "objective": {
+            "en": "Learn the defined task: Future inversion gate.",
+            "tr": "Tanımlı görevi öğren: Sonraki ters duruş kapısı."
+          },
+          "steps": [
+            {
+              "en": "Explain that upright support does not prove handstand readiness.",
+              "tr": "Dik desteğin amuda hazırlığı kanıtlamadığını açıkla."
+            },
+            {
+              "en": "A later inversion course needs separate setup, assistance and entry/exit demonstrations plus learner review.",
+              "tr": "Sonraki ters kurs ayrı kurulum, yardım, giriş/çıkış gösterimi ve öğrenci incelemesi ister."
+            },
+            {
+              "en": "Any inversion inference requires orientation-aware S2; image-plane pose cannot establish force or balance.",
+              "tr": "Her ters duruş çıkarımı yönelim farkındalıklı S2 ister; görüntü düzlemi pozu kuvvet veya dengeyi kanıtlamaz."
+            }
+          ],
+          "practice": {
+            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
+            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Stay with the reviewed upright option.",
+            "tr": "İncelenmiş dik seçenekte kal."
+          },
+          "progression": {
+            "en": "Do not add kick-up, wall-walk or free handstand here.",
+            "tr": "Buraya tekmeyle çıkış, duvarda yürüme veya serbest amut ekleme."
+          },
+          "regression": {
+            "en": "Stay with the reviewed upright option.",
+            "tr": "İncelenmiş dik seçenekte kal."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "hands-10"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for hands-11: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "hands-11 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:hands-11"
+        },
+        {
+          "id": "hands-12",
+          "title": {
+            "en": "Foundation review and individual next step",
+            "tr": "Temel değerlendirme ve kişisel sonraki adım"
+          },
+          "objective": {
+            "en": "Learn the defined task: Foundation review and individual next step.",
+            "tr": "Tanımlı görevi öğren: Temel değerlendirme ve kişisel sonraki adım."
+          },
+          "steps": [
+            {
+              "en": "Describe surface check, preparation, support, exit and regression.",
+              "tr": "Yüzey kontrolü, hazırlık, destek, çıkış ve kolaylaştırmayı anlat."
+            },
+            {
+              "en": "Review unresolved discomfort, demonstrations and learner observations.",
+              "tr": "Çözülmemiş rahatsızlık, gösterim ve öğrenci gözlemlerini incele."
+            },
+            {
+              "en": "Choose repetition or separately reviewed balance/straight-arm work; no automatic readiness badge.",
+              "tr": "Yinelemeyi veya ayrı incelenmiş denge/düz kol çalışmasını seç; otomatik hazırlık rozeti yok."
+            }
+          ],
+          "practice": {
+            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
+            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Repeat wall or raised foundations.",
+            "tr": "Duvar veya yükseltilmiş temeli yinele."
+          },
+          "progression": {
+            "en": "Physical suitability and expert acceptance remain separate.",
+            "tr": "Fiziksel uygunluk ve uzman kabulü ayrı kalır."
+          },
+          "regression": {
+            "en": "Repeat wall or raised foundations.",
+            "tr": "Duvar veya yükseltilmiş temeli yinele."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "hands-11"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for hands-12: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "hands-12 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:hands-12"
+        }
+      ]
+    }
+  ],
+  "catalogueGuides": []
+}

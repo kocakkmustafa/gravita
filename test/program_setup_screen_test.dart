@@ -38,6 +38,13 @@ void main() {
   Widget host(Widget child) =>
       MaterialApp(theme: GravitaTheme.light, home: child);
 
+  Future<void> tapVisible(WidgetTester tester, Finder target) async {
+    await tester.ensureVisible(target);
+    await tester.pump();
+    expect(target.hitTestable(), findsOneWidget);
+    await tester.tap(target.hitTestable());
+  }
+
   /// Kurulum → yazma → geçiş → `WorkoutScreen`in KENDİ yükleyicisi zinciri
   /// baştan sona GERÇEK G/Ç — `settleUntil` (`support/launch_harness.dart`)
   /// bu YÜZDEN gerekiyor: `pumpAndSettle` ilk yazımda hiçbir şey beklemeden
@@ -91,7 +98,7 @@ void main() {
     // Varsayılan: beginner + ekipmansız + 3 gün — hiçbir seçim değiştirmeden
     // "Build" basmak GEÇERLİ bir program üretmeli (beginner+bodyweight
     // program_builder_test.dart'ta ZATEN çökmediği doğrulanmış bir girdi).
-    await tester.tap(find.byKey(ProgramSetupScreen.buildButtonKey));
+    await tapVisible(tester, find.byKey(ProgramSetupScreen.buildButtonKey));
     await settleReal(tester);
 
     // WorkoutScreen'e geçildi VE program (boş-durum DEĞİL) çizildi.
@@ -133,15 +140,15 @@ void main() {
     await tester.pumpWidget(host(ProgramSetupScreen(content: content)));
     await tester.pump();
 
-    await tester.tap(find.text('Intermediate'));
+    await tapVisible(tester, find.text('Intermediate'));
     await tester.pump();
     // Katalogdan türetilen ilk ekipman çipine dokun.
-    await tester.tap(find.byType(FilterChip).first);
+    await tapVisible(tester, find.byType(FilterChip).first);
     await tester.pump();
-    await tester.tap(find.byIcon(Icons.add_circle_outline));
+    await tapVisible(tester, find.byIcon(Icons.add_circle_outline));
     await tester.pump();
 
-    await tester.tap(find.byKey(ProgramSetupScreen.buildButtonKey));
+    await tapVisible(tester, find.byKey(ProgramSetupScreen.buildButtonKey));
     await settleReal(tester);
 
     final ProgramInputs? saved = await realIo(

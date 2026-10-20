@@ -1,36 +1,36 @@
 {
   "schemaVersion": 1,
   "id": "hand-support-foundations",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": {
-    "en": "Hand support and straight-arm foundations · review pending",
-    "tr": "El desteği ve düz kol temelleri · inceleme bekliyor"
+    "en": "Hand support and straight-arm foundations",
+    "tr": "El desteği ve düz kol temelleri"
   },
   "description": {
-    "en": "A complete foundation sequence draft: setup, progressive tasks, easier options, recovery and exit review. Physical tasks await expert review and original demonstrations; training/calibration comes later.",
-    "tr": "Tam temel sıra taslağı: kurulum, ilerleyen görevler, kolay seçenekler, dinlenme ve çıkış incelemesi. Fiziksel görevler uzman incelemesi ve özgün gösterim bekler; eğitim/kalibrasyon sonradır."
+    "en": "A complete written beginner sequence for support choice, preparation, entry, a tiny rehearsal dose, unloading finish, error correction and review. Upright, suitable raised and knees-down options are available when their own setup and symptom-free prerequisites fit. No inversion, dynamic entry or feet-off task is assigned.",
+    "tr": "Destek seçimi, hazırlık, giriş, küçük prova dozu, yüksüz bitiş, hata düzeltme ve değerlendirme için tam yazılı başlangıç sırası. Dik, uygun yükseltilmiş ve diz destekli hareket biçimleri kendi kurulum ve belirtisiz önkoşulları uyduğunda erişilebilirdir. Ters duruş, dinamik giriş veya ayaklar havada görev verilmez."
   },
   "healthNotice": {
-    "en": "Expert review and learner observation are pending. Read now; physical practice and physical completion are held. No individual suitability, injury-prevention, mastery or model-accuracy claim.",
-    "tr": "Uzman incelemesi ve öğrenci gözlemi bekliyor. Şimdi okuyabilirsin; fiziksel pratik ve fiziksel tamamlama kapalı. Kişisel uygunluk, yaralanma önleme, ustalık veya model doğruluğu iddiası yok."
+    "en": "General adult skill education. Choose the easier or written option when needed. Stop for new pain, dizziness, unusual breathlessness, faintness, tingling or loss of grip/balance; do not retest symptoms. Persistent or concerning symptoms need appropriate individual assessment. Learning reports do not validate form or personal suitability.",
+    "tr": "Yetişkinler için genel beceri eğitimi. Gerektiğinde kolay veya yazılı seçeneği seç. Yeni ağrı, baş dönmesi, olağandışı nefes darlığı, baygınlık hissi, karıncalanma veya tutuş/denge kaybında dur; belirtileri yeniden sınama. Süren veya kaygı veren belirtilerde uygun bireysel değerlendirme gerekir. Öğrenme bildirimi formu veya kişisel uygunluğu doğrulamaz."
   },
   "evidenceMode": "self_report",
-  "reviewStatus": "expert_review_required",
+  "reviewStatus": "first_release_draft",
   "scope": {
-    "en": "Provisional healthy adult beginner scope; exact equipment and individual suitability require qualified review.",
-    "tr": "Geçici sağlıklı yetişkin başlangıç kapsamı; kesin ekipman ve kişisel uygunluk yetkin inceleme ister."
+    "en": "Healthy adult beginner support with feet or both knees down, a suitable fixed surface and an unhurried hands-free finish. Unseen exact source-video scope stays disclosed separately; inversions and advanced balance stay outside scope.",
+    "tr": "Ayaklar veya iki diz yerde, uygun sabit yüzey ve acele gerektirmeyen eller serbest bitişle sağlıklı yetişkin başlangıç desteği. Görülmemiş kesin kaynak video kapsamı ayrıca açıklanır; ters duruşlar ve ileri denge kapsam dışındadır."
   },
   "equipment": {
-    "en": "Fixed wall, stable raised surface, comfortable mat and clear floor space.",
-    "tr": "Sabit duvar, sabit yükseltilmiş yüzey, rahat minder ve boş zemin alanı."
+    "en": "Fixed wall, dry non-slip floor and clear space; for raised support a fixed purpose-built non-tipping surface; for floor tasks a comfortable non-slip knee mat and a familiar route to/from kneeling. No improvised furniture or anchor.",
+    "tr": "Sabit duvar, kuru kaymayan zemin ve boş alan; yükseltide sabit amaca uygun devrilmeyen yüzey; yer görevinde rahat kaymayan diz minderi ve tanıdık diz üstüne geliş/ayrılış yolu. Doğaçlama eşya veya bağlantı yok."
   },
   "entryCriteria": {
-    "en": "Read scope, identify equipment and unresolved suitability questions, and arrange the actual setup review.",
-    "tr": "Kapsamı oku, ekipmanı ve çözülmemiş uygunluk sorularını belirle, gerçek kurulum incelemesini düzenle."
+    "en": "Explain the supported route, inspect the chosen surface and footing, and identify a comfortable unloading finish. Choose reading when the setup, current symptoms or task access prevents practice.",
+    "tr": "Destekli yolu açıkla, seçilen yüzeyi ve basışı incele, rahat yük azaltma bitişini tanı. Kurulum, mevcut belirtiler veya görev erişimi pratiği engelliyorsa okumayı seç."
   },
   "exitCriteria": {
-    "en": "Explain setup, selected task, regression, recovery and exit; physical performance requires separate demonstrations and observed learner review.",
-    "tr": "Kurulum, seçilen görev, kolaylaştırma, dinlenme ve çıkışı açıkla; fiziksel performans ayrı gösterim ve gözlenmiş öğrenci incelemesi ister."
+    "en": "Explain and self-report only the actually selected supported route: setup, preparation, entry, small task, unload, finish, error/correction, rest and next choice. Completion is learning, not mastery, inversion readiness or clinical/physical certification.",
+    "tr": "Yalnız gerçekten seçilen destekli yolu açıkla ve öz bildir: kurulum, hazırlık, giriş, küçük görev, yük azaltma, bitiş, hata/düzeltme, dinlenme ve sonraki seçim. Tamamlama ustalık, ters duruş hazır oluşu veya klinik/fiziksel sertifika değil öğrenmedir."
   },
   "sources": [
     {
@@ -42,8 +42,60 @@
         "tr": "Genel hazırlık, kontrollü hareket, nefes ve toparlanma ilkeleri."
       },
       "doesNotSupport": {
-        "en": "These original draft lessons, equipment installation, individual suitability or expert approval.",
-        "tr": "Bu özgün taslak dersleri, ekipman kurulumunu, kişisel uygunluğu veya uzman onayını kanıtlamaz."
+        "en": "The exact wall/floor exit, this editorial dose, equipment integrity, individual suitability or expert acceptance.",
+        "tr": "Kesin duvar/yer çıkışı, bu editoryal doz, ekipman dayanımı, kişisel uygunluk veya uzman kabulü."
+      }
+    },
+    {
+      "id": "nhs_general_warmup",
+      "title": "NHS: Body warm-up video page",
+      "url": "https://www.nhs.uk/live-well/exercise/strength-and-resistance/body-blast-warm-up/",
+      "supports": {
+        "en": "General warm-up purpose and scope; this page is a different item from the visually sampled NHS strength-and-flex warm-up clip.",
+        "tr": "Genel ısınma amacı ve kapsamı; bu sayfa görsel örneklenen NHS strength-and-flex ısınma klibinden farklı öğedir."
+      },
+      "doesNotSupport": {
+        "en": "The exact wrist drill, numeric rehearsal dose, loading readiness or visual review of its embedded video.",
+        "tr": "Kesin bilek alıştırması, sayısal prova dozu, yüke hazır oluş veya gömülü videosunun görsel incelenmesi."
+      }
+    },
+    {
+      "id": "nhs_strength_flex_visual",
+      "title": "NHS: Strength and flex how-to videos — parent sampled frames",
+      "url": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+      "supports": {
+        "en": "Only the concrete shoulder-movement and standing external-hand-support frames in the parent review record.",
+        "tr": "Yalnız parent inceleme kaydındaki somut omuz hareketi ve ayakta dış el desteği kareleri."
+      },
+      "doesNotSupport": {
+        "en": "An exact wall adaptation, complete release sequence, raised/floor support, this dose or individual safety.",
+        "tr": "Kesin duvar uyarlaması, tam bırakma sırası, yükselti/yer desteği, bu doz veya kişisel güvenlik."
+      }
+    },
+    {
+      "id": "gmb_handstand_page",
+      "title": "GMB Fitness: Handstand progression page",
+      "url": "https://gmb.io/handstand/",
+      "supports": {
+        "en": "Separating preparation and progressive handstand stages; the page identifies the original d6_lcWtQDxw source.",
+        "tr": "Hazırlık ile ilerleyen amut aşamalarını ayırma; sayfa özgün d6_lcWtQDxw kaynağını tanımlar."
+      },
+      "doesNotSupport": {
+        "en": "Beginning an inversion, the exact supported floor tasks, their doses or completion of a physical exit review.",
+        "tr": "Ters duruşa başlama, kesin destekli yer görevleri, bunların dozları veya fiziksel çıkış incelemesinin tamamlanması."
+      }
+    },
+    {
+      "id": "gmb_handstand_video",
+      "title": "GMB Fitness: Handstand progression — parent sampled frames",
+      "url": "https://www.youtube.com/watch?v=d6_lcWtQDxw",
+      "supports": {
+        "en": "Examples of advanced wall/free inversion and a standing endpoint, strictly within recorded sample times.",
+        "tr": "Yalnız kayıtlı örnek zamanlarda ileri duvarlı/serbest ters duruş ve ayakta bitiş örnekleri."
+      },
+      "doesNotSupport": {
+        "en": "Continuous complete entry/exit, wrist preparation, individual readiness, beginner authorization or media reuse rights.",
+        "tr": "Kesintisiz tam giriş/çıkış, bilek hazırlığı, kişisel hazır oluş, başlangıç deneme izni veya medya yeniden kullanım hakları."
       }
     }
   ],
@@ -58,280 +110,415 @@
         {
           "id": "hands-01",
           "title": {
-            "en": "Scope and support preparation",
-            "tr": "Kapsam ve destek hazırlığı"
+            "en": "Choose the supported learning route",
+            "tr": "Destekli öğrenme yolunu seç"
           },
           "objective": {
-            "en": "Learn the defined task: Scope and support preparation.",
-            "tr": "Tanımlı görevi öğren: Kapsam ve destek hazırlığı."
+            "en": "Explain which tasks keep the feet or knees supported and choose one available route without treating an inversion as the next required step.",
+            "tr": "Ayak veya diz desteğini koruyan görevleri açıkla; ters duruşu zorunlu sonraki adım saymadan erişilebilir tek yolu seç."
           },
           "steps": [
             {
-              "en": "Choose upright and floor-supported preparation first.",
-              "tr": "Önce dik ve yer destekli hazırlığı seç."
+              "en": "With hands unloaded, read scope and stop signs; use a note to separate upright wall, suitable raised and knees-down support.",
+              "tr": "Eller yüksüzken kapsamı ve durma işaretlerini oku; notta dik duvar, uygun yükselti ve diz destekli yolları ayır."
             },
             {
-              "en": "Distinguish hand support from handstand balance and planche.",
-              "tr": "El desteğini amut dengesi ve plancheden ayır."
+              "en": "Choose upright practice, or the suitable raised/knees-down option when its own setup and practical prerequisites fit; source-video gaps do not replace those checks.",
+              "tr": "Kendi kurulum ve pratik önkoşulları uyduğunda dik pratiği veya uygun yükselti/diz destekli hareket biçimi seç; kaynak video açıkları bu kontrollerin yerini almaz."
             },
             {
-              "en": "Keep inversions closed until a separate suitability/entry/exit review.",
-              "tr": "Ayrı uygunluk/giriş/çıkış incelemesine kadar ters duruşları kapalı tut."
+              "en": "State the course boundary: no jumping, feet-off support, handstand, wall-walk or planche attempt.",
+              "tr": "Kurs sınırını söyle: sıçrama, ayaklar havada destek, amut, duvarda yürüme veya planche denemesi yok."
+            },
+            {
+              "en": "Choose learning-only review when symptoms or setup uncertainty prevents practice; a harder support is never required for learning completion.",
+              "tr": "Belirti veya kurulum belirsizliği pratiği engelliyorsa yalnız öğrenmeyi seç; öğrenme tamamlaması için zor destek gerekmez."
             }
           ],
           "practice": {
-            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
-            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+            "en": "Write one supported practice choice, one hands-free learning alternative and one action outside this course. Explain the different prerequisites without an advanced attempt.\n\nFinish: Finish with the selected route named; keep hands unloaded.\n\nRest: Pause reading as needed; the course has no timed deadline.\n\nCommon mistake: Treating the next numbered page as permission to try a harder support. Correction: Check practical prerequisites, suitable setup and stop signs; page order or completion never replaces them.",
+            "tr": "Bir destekli pratik seçimi, eller serbest bir öğrenme alternatifi ve kurs dışında bir eylem yaz. İleri deneme yapmadan farklı önkoşulları açıkla.\n\nBitiş: Seçilen yolu adlandırarak bitir; ellere yük verme.\n\nDinlenme: Gerektikçe okumaya ara ver; kursta süreli bitirme hedefi yok.\n\nSık hata: Sonraki numaralı sayfayı daha zor destek deneme izni saymak. Düzeltme: Pratik önkoşulları, uygun kurulumu ve durma işaretlerini kontrol et; sayfa sırası veya tamamlama bunların yerini tutmaz."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "I can distinguish a readable task from an assigned physical task.",
+              "tr": "Okunabilir görev ile verilmiş fiziksel görevi ayırabiliyorum."
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "I know that the advanced source frames do not assign an inversion.",
+              "tr": "İleri kaynak karelerinin ters duruş görevi vermediğini biliyorum."
+            },
+            {
+              "en": "I can choose reading without recording a physical attempt.",
+              "tr": "Fiziksel deneme kaydetmeden okumayı seçebiliyorum."
             }
           ],
           "adaptation": {
-            "en": "Read without loading the hands.",
-            "tr": "Ellere yük vermeden oku."
+            "en": "Stay with the note and source boundaries without touching a support.",
+            "tr": "Desteğe dokunmadan notta ve kaynak sınırlarında kal."
           },
           "progression": {
-            "en": "Agree the exact support surface and learner scope.",
-            "tr": "Kesin destek yüzeyini ve öğrenci kapsamını kararlaştır."
+            "en": "Move to the setup explanation when you can identify the standing route and its exit; no physical test is needed.",
+            "tr": "Ayakta yolu ve çıkışını tanıyınca kurulum açıklamasına geç; fiziksel test gerekmez."
           },
           "regression": {
-            "en": "Read without loading the hands.",
-            "tr": "Ellere yük vermeden oku."
+            "en": "Stay with the note and source boundaries without touching a support.",
+            "tr": "Desteğe dokunmadan notta ve kaynak sınırlarında kal."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Pause about one minute before recall; take longer as needed.",
+            "tr": "Hatırlamadan önce yaklaşık bir dakika ara ver; gerekirse uzat."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Do not turn a confusing boundary into a physical experiment; remain with reading until the route is clear.",
+            "tr": "Anlaşılmayan sınırı fiziksel deneye çevirme; yol netleşene kadar okumada kal."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "gmb_handstand_page",
+            "gmb_handstand_video"
           ],
           "prerequisites": [],
-          "minutes": 8,
+          "minutes": 5,
           "practiceType": "learning_only",
           "evidenceMode": "self_report",
+          "movementTaskId": "gravita:hands-01",
+          "candidatePracticeAccess": "learning_only",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for hands-01: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "hands-01 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:hands-01"
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "gmb_handstand_page"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=d6_lcWtQDxw",
+                "publisherUrl": "https://gmb.io/handstand/",
+                "playerId": "d6_lcWtQDxw",
+                "sampledSeconds": [
+                  9,
+                  25,
+                  30,
+                  34,
+                  37,
+                  43,
+                  52,
+                  65
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "Parent recorded examples of wall/free inversion and a standing endpoint. The sampled frames identify advanced scope; they do not show one complete controlled beginner entry and exit.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "No complete beginner inversion entry/exit or individual readiness was reviewed."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "hands-02",
           "title": {
-            "en": "Surface, wrist and exit setup",
-            "tr": "Yüzey, bilek ve çıkış kurulumu"
+            "en": "Check the wall, floor and unloading space",
+            "tr": "Duvarı, zemini ve yükü bırakma alanını kontrol et"
           },
           "objective": {
-            "en": "Learn the defined task: Surface, wrist and exit setup.",
-            "tr": "Tanımlı görevi öğren: Yüzey, bilek ve çıkış kurulumu."
+            "en": "Describe an upright setup in which both feet remain stable and the palms can be released only after the body is supported by the feet.",
+            "tr": "İki ayağın sabit kaldığı, avuçların yalnız beden ayaklarla desteklendikten sonra bırakıldığı dik kurulumu anlat."
           },
           "steps": [
             {
-              "en": "Choose a fixed wall or stable raised surface that cannot slide or tip.",
-              "tr": "Kaymayan veya devrilmeyen sabit duvar ya da yükseltilmiş yüzey seç."
+              "en": "After hands-01, choose a fixed wall, dry non-slip floor and clear standing/return space; no door, glass or loose furniture. If uncertain, use reading only.",
+              "tr": "hands-01 sonrası sabit duvar, kuru kaymayan zemin ve boş ayakta/dönüş alanı seç; kapı, cam veya gevşek eşya yok. Belirsizse yalnız oku."
             },
             {
-              "en": "Inspect clear floor space and a comfortable hand placement with the reviewer.",
-              "tr": "Boş zemin alanını ve rahat el yerleşimini değerlendiriciyle incele."
+              "en": "Point out the hand area and the place for both feet without placing body weight on the hands.",
+              "tr": "Ellere beden ağırlığı vermeden el alanını ve iki ayağın yerini göster."
             },
             {
-              "en": "Plan to step back to feet or return knees to the floor before releasing.",
-              "tr": "Bırakmadan ayaklara adımlamayı veya dizleri yere döndürmeyi planla."
+              "en": "Explain the finish in order: return the body to full foot support, confirm balance, then remove the palms.",
+              "tr": "Bitişi sırayla anlat: bedeni tam ayak desteğine döndür, dengeyi doğrula, sonra avuçları kaldır."
+            },
+            {
+              "en": "Reject a setup that requires reaching, twisting or a rushed step to release the hands.",
+              "tr": "Elleri bırakmak için uzanma, dönme veya acele adım gerektiren kurulumu seçme."
             }
           ],
           "practice": {
-            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
-            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+            "en": "Sketch the wall, feet and clear standing space. Add an arrow for unloading before palm release and name one reason to reject this setup.\n\nFinish: Leave the area clear and return to the page; no equipment is moved or tested by leaning.\n\nRest: Sit or pause reading if checking the space is tiring; no practice target depends on finishing today.\n\nCommon mistake: Testing a loose support by leaning harder against it. Correction: Reject it at the setup check; do not use a body-weight test as proof of stability.",
+            "tr": "Duvarı, ayakları ve boş ayakta alanı çiz. Avuçları bırakmadan yükü azaltma okunu ekle; bu kurulumu seçmemek için bir neden yaz.\n\nBitiş: Alanı boş bırak ve sayfaya dön; eğilerek eşya taşıma veya sınama yapılmaz.\n\nDinlenme: Alanı kontrol etmek yoruyorsa otur veya okumaya ara ver; bugün bitirmeye bağlı pratik hedefi yok.\n\nSık hata: Gevşek desteği daha sert yaslanarak sınamak. Düzeltme: Kurulum kontrolünde ele; beden ağırlığı testini sabitlik kanıtı sayma."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "I can identify what prevents the support from sliding or moving.",
+              "tr": "Desteğin kaymasını veya oynamasını neyin engellediğini tanıyabiliyorum."
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "I can describe unloading before lifting my palms.",
+              "tr": "Avuçlarımı kaldırmadan yükü azaltmayı anlatabiliyorum."
+            },
+            {
+              "en": "I will choose reading if the surface or floor remains uncertain.",
+              "tr": "Yüzey veya zemin belirsiz kalırsa okumayı seçeceğim."
             }
           ],
           "adaptation": {
-            "en": "Use standing hands-free preparation.",
-            "tr": "Ayakta eller serbest hazırlık kullan."
+            "en": "Use a photograph-free written sketch; no wall contact is necessary.",
+            "tr": "Fotoğraf gerektirmeyen yazılı çizim kullan; duvar teması gerekmez."
           },
           "progression": {
-            "en": "Obtain individual review if loading is uncomfortable.",
-            "tr": "Yük verme rahatsızsa kişisel inceleme al."
+            "en": "Prepare hands-free in hands-03 only after the standing area is clear; postpone wall contact if any setup question remains.",
+            "tr": "Ayakta alan boşaldıktan sonra hands-03 içinde eller serbest hazırlan; kurulum sorusu kalırsa duvar temasını ertele."
           },
           "regression": {
-            "en": "Use standing hands-free preparation.",
-            "tr": "Ayakta eller serbest hazırlık kullan."
+            "en": "Use a photograph-free written sketch; no wall contact is necessary.",
+            "tr": "Fotoğraf gerektirmeyen yazılı çizim kullan; duvar teması gerekmez."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Pause about one minute before recall; take longer as needed.",
+            "tr": "Hatırlamadan önce yaklaşık bir dakika ara ver; gerekirse uzat."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Do not proceed with wet footing, a moving surface or unresolved discomfort at rest; loading is not the way to investigate it.",
+            "tr": "Islak basma alanı, oynayan yüzey veya dinlenirken çözülmemiş rahatsızlık varsa ilerleme; bunu araştırmanın yolu yük vermek değildir."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "nhs_strength_flex_visual"
           ],
           "prerequisites": [
             "hands-01"
           ],
-          "minutes": 8,
+          "minutes": 6,
           "practiceType": "learning_only",
           "evidenceMode": "self_report",
+          "movementTaskId": "gravita:hands-02",
+          "candidatePracticeAccess": "learning_only",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for hands-02: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "hands-02 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:hands-02"
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "publisherUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "playerId": "1763919379001",
+                "sampledSeconds": [
+                  7,
+                  18,
+                  24,
+                  30
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "Parent-recorded standing external hand support, bent/straight arms and return examples against a tree. No exact wall palm-release sequence or floor support is established.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "The sampled tree-support frames do not inspect your wall or demonstrate the complete exact wall exit."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "hands-03",
           "title": {
-            "en": "Gentle hands and shoulders preparation",
-            "tr": "Rahat el ve omuz hazırlığı"
+            "en": "Hands-free wrist and shoulder rehearsal",
+            "tr": "Ellere yük vermeden bilek ve omuz provası"
           },
           "objective": {
-            "en": "Learn the defined task: Gentle hands and shoulders preparation.",
-            "tr": "Tanımlı görevi öğren: Rahat el ve omuz hazırlığı."
+            "en": "Move wrists and shoulders through a small comfortable range while keeping balance and breathing ordinary, then finish with the hands unloaded.",
+            "tr": "Dengeyi ve olağan nefesi koruyarak bilek ve omuzları küçük rahat aralıkta hareket ettir; eller yüksüz bitir."
           },
           "steps": [
             {
-              "en": "Begin after general preparation with hands free.",
-              "tr": "Genel hazırlıktan sonra eller serbest başla."
+              "en": "In the clear hands-02 space, without pain/tingling/dizziness, stand comfortably or use your usual stable seat with arms free; if comfortable walk/march gently 20–30 seconds.",
+              "tr": "Boş hands-02 alanında ağrı/karıncalanma/baş dönmesi olmadan rahat dur veya kollar serbest alıştığın sabit koltuğu kullan; rahatsa 20–30 saniye hafif yürü/adımla."
             },
             {
-              "en": "Move wrists and shoulders in a small comfortable range without forcing an end position.",
-              "tr": "Bilek ve omuzları son konuma zorlamadan küçük rahat aralıkta hareket ettir."
+              "en": "With forearms relaxed, move each wrist slowly a small distance forward/back twice; do not pull on the fingers or force an end position.",
+              "tr": "Ön kollar rahatken her bileği iki kez yavaşça küçük aralıkta öne/arkaya hareket ettir; parmakları çekme veya son konumu zorlama."
             },
             {
-              "en": "Return to neutral and stop if pain or tingling appears.",
-              "tr": "Nötre dön; ağrı veya karıncalanmada dur."
+              "en": "Raise and lower the shoulders gently twice, then let the arms settle; no overhead reach or large circle is required.",
+              "tr": "Omuzları iki kez rahatça yükseltip indir, sonra kolları bırak; baş üstü uzanma veya geniş daire gerekmez."
+            },
+            {
+              "en": "Rest with arms beside you and check how the movements felt before choosing wall contact.",
+              "tr": "Kollar yanında dinlen; duvar temasını seçmeden hareketlerin nasıl hissettirdiğini kontrol et."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "Use one short hands-free rehearsal: 20–30 seconds easy movement, two small wrist movements each side and two gentle shoulder movements. Stop earlier if needed; this does not establish suitability for hand loading.\n\nFinish: Let arms hang comfortably or rest them without hand loading; pause 30–60 seconds and do not add a stretch to test discomfort.\n\nRest: Rest 30–60 seconds with normal breathing; take longer or end today if not recovered.\n\nCommon mistake: Pulling the fingers back to make a bigger preparation range. Correction: Keep the hands free and use a smaller self-moved range; do not use the other hand as a lever.\n\nCommon mistake: Adding more movements to get a readiness feeling. Correction: Finish the short sequence and make a separate setup/symptom choice.",
+            "tr": "Tek kısa eller serbest prova kullan: 20–30 saniye kolay hareket, her tarafta iki küçük bilek hareketi ve iki rahat omuz hareketi. Gerekirse erken dur; bu, ellere yük vermeye uygunluğu kanıtlamaz.\n\nBitiş: Kolları rahat bırak veya ellere yük vermeden dinlendir; 30–60 saniye ara ver, rahatsızlığı sınamak için esnetme ekleme.\n\nDinlenme: Olağan nefesle 30–60 saniye dinlen; toparlanmadıysan uzat veya bugünü bitir.\n\nSık hata: Hazırlık aralığını büyütmek için parmakları geriye çekmek. Düzeltme: Elleri serbest tut ve kendi hareketinle daha küçük aralık kullan; diğer eli kaldıraç yapma.\n\nSık hata: Hazır hissetmek için hareket eklemek. Düzeltme: Kısa sırayı bitir; kurulum ve belirti seçimini ayrıca yap."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "My shoulders can settle after the movement without a forced reach.",
+              "tr": "Hareketten sonra omuzlarım zorlanmış uzanma olmadan rahatlıyor."
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "I can stop a wrist movement before an uncomfortable endpoint.",
+              "tr": "Bilek hareketini rahatsız son noktadan önce durdurabiliyorum."
+            },
+            {
+              "en": "I know warm-up is preparation, not proof that loading will be comfortable.",
+              "tr": "Isınmanın hazırlık olduğunu, yükün rahat olacağını kanıtlamadığını biliyorum."
             }
           ],
           "adaptation": {
-            "en": "Use a smaller free range.",
-            "tr": "Daha küçük serbest aralık kullan."
+            "en": "Describe the movements with arms relaxed, or use one small movement instead of the sequence.",
+            "tr": "Kollar rahatken hareketleri anlat veya sıra yerine tek küçük hareket kullan."
           },
           "progression": {
-            "en": "Only add light supported contact if reviewed and comfortable.",
-            "tr": "Yalnız incelenmiş ve rahatsa hafif destekli temas ekle."
+            "en": "On another comfortable session repeat the same small range; increasing circles or stretching is not a requirement for hands-04.",
+            "tr": "Başka rahat seansta aynı küçük aralığı yinele; hands-04 için daireyi veya esnetmeyi artırmak gerekmez."
           },
           "regression": {
-            "en": "Use a smaller free range.",
-            "tr": "Daha küçük serbest aralık kullan."
+            "en": "Describe the movements with arms relaxed, or use one small movement instead of the sequence.",
+            "tr": "Kollar rahatken hareketleri anlat veya sıra yerine tek küçük hareket kullan."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "End for pain, tingling, dizziness or unusual breathlessness; do not repeat a smaller movement to test the symptom. Seek appropriate individual assessment for persistent or concerning symptoms.",
+            "tr": "Ağrı, karıncalanma, baş dönmesi veya olağandışı nefes darlığında bitir; belirtiyi sınamak için küçük hareketi yineleme. Süren veya kaygı veren belirtilerde uygun bireysel değerlendirme al."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "nhs_general_warmup",
+            "nhs_strength_flex_visual"
           ],
           "prerequisites": [
             "hands-02"
           ],
-          "minutes": 8,
+          "minutes": 5,
           "practiceType": "physical",
           "evidenceMode": "self_report",
+          "movementTaskId": "gravita:hands-03",
+          "candidatePracticeAccess": "available_supported_beginner",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for hands-03: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "hands-03 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:hands-03"
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "nhs_general_warmup"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "publisherUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "playerId": "1763945815001",
+                "sampledSeconds": [
+                  11.16
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "Parent recorded a standing shoulder-movement frame. It does not demonstrate this lesson’s wrist sequence, repetition dose or individual readiness.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "The exact wrist sequence and this small rehearsal dose were not visually reviewed; they are original editorial preparation."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "hands-04",
           "title": {
-            "en": "Upright wall support",
-            "tr": "Dik duvar desteği"
+            "en": "Light upright contact and full-foot finish",
+            "tr": "Hafif dik temas ve tam ayakla bitiş"
           },
           "objective": {
-            "en": "Learn the defined task: Upright wall support.",
-            "tr": "Tanımlı görevi öğren: Dik duvar desteği."
+            "en": "Place the palms on a fixed wall with both feet planted, use only a slight comfortable lean, and unload onto the feet before releasing the hands.",
+            "tr": "İki ayak yerdeyken avuçları sabit duvara koy; yalnız az rahat eğil, elleri bırakmadan yükü ayaklara döndür."
           },
           "steps": [
             {
-              "en": "Stand near a fixed wall with comfortable palms at shoulder height.",
-              "tr": "Sabit duvara yakın, avuçlar rahat omuz yüksekliğinde dur."
+              "en": "After comfortable hands-03 preparation without symptoms, stand close to the fixed wall on dry non-slip floor, both feet fully down; place comfortable palms around shoulder height without reaching or tiptoeing.",
+              "tr": "Belirtisiz rahat hands-03 hazırlığı sonrası kuru kaymayan zeminde sabit duvara yakın, iki ayak tabanı yerde dur; uzanmadan/parmak ucuna çıkmadan rahat avuçları omuz yüksekliği çevresine koy."
             },
             {
-              "en": "Keep feet planted and elbows comfortably straight while leaning a little toward the hands.",
-              "tr": "Ayaklar yerde, dirsekler rahat düzken ellere doğru az eğil."
+              "en": "With both feet planted, shift only a little toward the wall; keep elbows comfortably straight rather than forcing a lock.",
+              "tr": "İki ayak yerdeyken duvara doğru yalnız az yönel; dirsekleri kilide zorlamak yerine rahat düz tut."
             },
             {
-              "en": "Step toward the wall to unload before releasing hands.",
-              "tr": "Elleri bırakmadan yükü azaltmak için duvara doğru adımla."
+              "en": "Keep ordinary breathing for 3 seconds; this is contact practice, not a wall push-up or endurance test.",
+              "tr": "3 saniye olağan nefesi sürdür; bu temas provasıdır, duvar şınavı veya dayanıklılık testi değildir."
+            },
+            {
+              "en": "Bring the body back to full foot support, moving closer if needed; confirm you are standing without relying on the hands.",
+              "tr": "Gerekirse yaklaşarak bedeni tam ayak desteğine geri getir; ellere dayanmadan ayakta olduğunu doğrula."
+            },
+            {
+              "en": "Only then remove the palms and let the arms rest at the sides.",
+              "tr": "Ancak sonra avuçları kaldır ve kolları yanında dinlendir."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "One 3-second light wall contact followed by the complete foot-supported finish. After 30–60 seconds of rest, one identical optional repeat is enough if entirely comfortable; no farther lean is assigned.\n\nFinish: Return fully onto both feet before palm release; finish upright with hands free and record whether the finish felt unhurried.\n\nRest: Rest 30–60 seconds with arms free; use longer rest or stop rather than add a longer contact.\n\nCommon mistake: Standing farther away to make the contact count as harder work. Correction: Keep the close upright version; the finish matters more than distance.\n\nCommon mistake: Lifting palms while the body is still leaning on them. Correction: Rehearse the unload-to-feet order verbally; do not repeat while any symptom is present.",
+            "tr": "Tam ayak destekli bitişle tek 3 saniyelik hafif duvar teması. 30–60 saniye dinlenmeden sonra bütünüyle rahatsa isteğe bağlı tek aynı tekrar yeterlidir; daha fazla eğilme görevi verilmez.\n\nBitiş: Avuçları bırakmadan iki ayağa tam dön; eller serbest dik bitir ve bitişin acele gerektirip gerektirmediğini kaydet.\n\nDinlenme: Kollar serbest 30–60 saniye dinlen; teması uzatmak yerine daha uzun dinlen veya bitir.\n\nSık hata: Temas daha zor çalışma sayılsın diye uzakta durmak. Düzeltme: Yakın dik sürümü koru; bitiş mesafeden önemlidir.\n\nSık hata: Beden hâlâ ellere dayanırken avuçları kaldırmak. Düzeltme: Ayaklara yükü geri verme sırasını sözlü prova et; belirti varken yineleme."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Both feet stayed planted; I did not rise onto the toes to reach.",
+              "tr": "İki ayağım yerde kaldı; uzanmak için parmak ucuna yükselmedim."
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "I unloaded before removing the palms, rather than dropping backward.",
+              "tr": "Geri düşmek yerine avuçları kaldırmadan yükü azalttım."
+            },
+            {
+              "en": "I could breathe ordinarily and did not force a straight elbow.",
+              "tr": "Olağan nefes alabildim; düz dirseği zorlamadım."
             }
           ],
           "adaptation": {
-            "en": "Stand closer with less lean.",
-            "tr": "Daha yakın dur ve az eğil."
+            "en": "Keep hands off the wall and explain the finish, or use a nearly upright touch with no deliberate lean only when symptom-free.",
+            "tr": "Elleri duvardan uzak tutup bitişi anlat veya yalnız belirti yokken bilerek eğilmeden neredeyse dik temas kullan."
           },
           "progression": {
-            "en": "Repeat this upright option before a lower surface.",
-            "tr": "Alçak yüzeyden önce bu dik seçeneği yinele."
+            "en": "After two separate comfortable sessions, repeat the contact and finish with less prompting. Raised/knees-down practice is an optional choice only when its own suitable setup and exit are understood.",
+            "tr": "İki ayrı rahat seanstan sonra temas ve bitişi daha az yönergeyle yinele. Yükselti/diz destekli pratik yalnız kendi uygun kurulumu ve çıkışı anlaşılınca isteğe bağlı seçenektir."
           },
           "regression": {
-            "en": "Stand closer with less lean.",
-            "tr": "Daha yakın dur ve az eğil."
+            "en": "Keep hands off the wall and explain the finish, or use a nearly upright touch with no deliberate lean only when symptom-free.",
+            "tr": "Elleri duvardan uzak tutup bitişi anlat veya yalnız belirti yokken bilerek eğilmeden neredeyse dik temas kullan."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Stop for wrist/shoulder pain, tingling, foot slip, loss of balance or a need to hold the breath. Do not retry with a smaller lean to test symptoms.",
+            "tr": "Bilek/omuz ağrısı, karıncalanma, ayağın kayması, denge kaybı veya nefes tutma gereğinde dur. Belirtileri sınamak için daha az eğilerek yeniden deneme."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "nhs_strength_flex_visual"
           ],
           "prerequisites": [
             "hands-03"
@@ -339,11 +526,42 @@
           "minutes": 8,
           "practiceType": "physical",
           "evidenceMode": "self_report",
+          "movementTaskId": "gravita:hands-04",
+          "candidatePracticeAccess": "available_supported_beginner",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for hands-04: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "hands-04 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:hands-04"
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "publisherUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "playerId": "1763919379001",
+                "sampledSeconds": [
+                  7,
+                  18,
+                  24,
+                  30
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "Parent-recorded standing external hand support, bent/straight arms and return examples against a tree. No exact wall palm-release sequence or floor support is established.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "The exact fixed-wall placement and complete unloading/palm-release were not continuously observed; this is an original narrow upright adaptation, not an expert-validated exit.",
+              "No foot-off, floor, load-ratio or individual joint-suitability conclusion is supported."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         }
       ]
     },
@@ -357,63 +575,76 @@
         {
           "id": "hands-05",
           "title": {
-            "en": "Raised straight-arm support",
-            "tr": "Yükseltilmiş düz kol desteği"
+            "en": "Raised support: plan the surface and standing return",
+            "tr": "Yükselti desteği: yüzeyi ve ayakta dönüşü planla"
           },
           "objective": {
-            "en": "Learn the defined task: Raised straight-arm support.",
-            "tr": "Tanımlı görevi öğren: Yükseltilmiş düz kol desteği."
+            "en": "Use a suitable fixed raised support with both feet on the floor, maintain a tiny comfortable contact and return fully to standing before palm release.",
+            "tr": "Uygun sabit yükseltide iki ayak yerdeyken küçük rahat teması koru; avuçları bırakmadan tam ayakta desteğe dön."
           },
           "steps": [
             {
-              "en": "Use the reviewed stable surface with both feet on the floor.",
-              "tr": "İncelenmiş sabit yüzeyi iki ayak yerdeyken kullan."
+              "en": "After comfortable hands-03/04 practice and with no symptoms, check the fixed purpose-built surface, dry floor and close-in return path; stand near enough to reach without tiptoeing or stretching.",
+              "tr": "Rahat hands-03/04 pratiği sonrası, belirti yokken sabit amaca uygun yüzeyi, kuru zemini ve yaklaşarak dönüş yolunu kontrol et; parmak ucuna çıkmadan veya uzanmadan erişecek kadar yakın dur."
             },
             {
-              "en": "Place hands comfortably and hold a short easy line without forcing elbows into lockout.",
-              "tr": "Elleri rahat yerleştir; dirsekleri kilide zorlamadan kısa kolay çizgiyi koru."
+              "en": "Place comfortable palms while both feet remain planted; keep elbows comfortably straight without forcing a lock.",
+              "tr": "İki ayak yerdeyken avuçları rahat koy; dirsekleri kilide zorlamadan rahat düz tut."
             },
             {
-              "en": "Walk feet toward hands until fully supported before lifting palms.",
-              "tr": "Avuçları kaldırmadan tam desteklenene kadar ayakları ellere yaklaştır."
+              "en": "Shift the body only a little toward the hands for 3 seconds, breathing normally; no push-up or lifted foot.",
+              "tr": "Olağan nefesle 3 saniye bedeni ellere doğru yalnız az yönelt; şınav veya ayak kaldırma yok."
+            },
+            {
+              "en": "Bring the body upright over the feet, taking small steps closer if needed; pause until the hands no longer support the body before lifting palms.",
+              "tr": "Gerekirse küçük adımlarla yaklaşarak bedeni ayakların üzerinde dikleştir; avuçları kaldırmadan eller artık bedeni desteklemeyene kadar durakla."
+            },
+            {
+              "en": "Rest arms free for at least 60 seconds; no second set is needed today.",
+              "tr": "Kollar serbest en az 60 saniye dinlen; bugün ikinci set gerekmez."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "One light 3-second raised-support contact and complete upright finish is the whole rehearsal. No lower surface, push-up or extra set is required.\n\nFinish: Stand fully over both feet before palm release; finish arms free without a hurried backward step.\n\nRest: Rest hands free for at least 60 seconds; take longer or finish today if breathing or control has not recovered.\n\nCommon mistake: Choosing a low loose table as the next progression. Correction: Use a fixed suitable support or remain with the wall; body weight is not a furniture stability test.\n\nCommon mistake: Lifting palms while still relying on them. Correction: Approach and stand fully over the feet first; release only after balance settles.",
+            "tr": "Tek hafif 3 saniyelik yükselti teması ve tam dik bitiş provanın tamamıdır. Alçak yüzey, şınav veya ek set gerekmez.\n\nBitiş: Avuçları bırakmadan tam iki ayak üzerinde dik dur; acele geri adım olmadan kollar serbest bitir.\n\nDinlenme: En az 60 saniye eller serbest dinlen; nefes veya kontrol toparlanmadıysa uzat ya da bugünü bitir.\n\nSık hata: Sonraki ilerleme olarak alçak gevşek masa seçmek. Düzeltme: Sabit uygun destek kullan veya duvarda kal; beden ağırlığı eşya sabitliği testi değildir.\n\nSık hata: Hâlâ ellere dayanırken avuçları kaldırmak. Düzeltme: Önce yaklaş ve tam ayaklar üzerinde dik dur; yalnız denge yerleşince bırak."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Both feet stayed down during contact and the return remained clear.",
+              "tr": "Temasta iki ayak yerde ve dönüş boş kaldı."
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "I was upright over the feet before releasing palms.",
+              "tr": "Avuçları bırakmadan ayaklar üzerinde diktim."
+            },
+            {
+              "en": "I chose a fixed suitable surface rather than testing loose furniture.",
+              "tr": "Gevşek eşyayı sınamak yerine sabit uygun yüzey seçtim."
             }
           ],
           "adaptation": {
-            "en": "Return to the upright wall.",
-            "tr": "Dik duvara dön."
+            "en": "Use hands-04 upright contact if it is symptom-free and suitable; otherwise keep a hands-free explanation.",
+            "tr": "Belirtisiz ve uygunsa hands-04 dik temasını kullan; değilse eller serbest açıklamada kal."
           },
           "progression": {
-            "en": "Lower the surface only after reviewed repeatable control.",
-            "tr": "Yüzeyi yalnız incelenmiş tekrarlanabilir kontrolden sonra alçalt."
+            "en": "After two separate comfortable rehearsals, repeat the same height and finish with less prompting. Improve the sequence before changing duration; a lower surface is not required.",
+            "tr": "İki ayrı rahat provadan sonra aynı yükseklik ve bitişi daha az yönergeyle yinele. Süreyi değiştirmeden sırayı geliştir; alçak yüzey gerekmez."
           },
           "regression": {
-            "en": "Return to the upright wall.",
-            "tr": "Dik duvara dön."
+            "en": "Use hands-04 upright contact if it is symptom-free and suitable; otherwise keep a hands-free explanation.",
+            "tr": "Belirtisiz ve uygunsa hands-04 dik temasını kullan; değilse eller serbest açıklamada kal."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Do not start on a surface that moves, tips or makes you reach; if discomfort arises, end rather than choose a lower or different support to test it.",
+            "tr": "Oynayan, devrilen veya uzanmayı gerektiren yüzeyde başlama; rahatsızlık ortaya çıkarsa bunu sınamak için alçak ya da başka destek seçmek yerine bitir."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "nhs_strength_flex_visual"
           ],
           "prerequisites": [
             "hands-04"
@@ -421,69 +652,111 @@
           "minutes": 8,
           "practiceType": "physical",
           "evidenceMode": "self_report",
+          "movementTaskId": "gravita:hands-05",
+          "candidatePracticeAccess": "available_supported_beginner",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for hands-05: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "hands-05 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:hands-05"
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "publisherUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "playerId": "1763919379001",
+                "sampledSeconds": [
+                  7,
+                  18,
+                  24,
+                  30
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "Parent-recorded standing external hand support, bent/straight arms and return examples against a tree. No exact wall palm-release sequence or floor support is established.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "No raised-support entry, surface height, full unloading path or palm-release demonstration was visually reviewed."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "hands-06",
           "title": {
-            "en": "Quadruped entry and exit",
-            "tr": "Dört ayak giriş ve çıkış"
+            "en": "Knees-down support: entry and exit map",
+            "tr": "Dizler yerde destek: giriş ve çıkış haritası"
           },
           "objective": {
-            "en": "Learn the defined task: Quadruped entry and exit.",
-            "tr": "Tanımlı görevi öğren: Dört ayak giriş ve çıkış."
+            "en": "Enter knees-down support without dropping, keep a tiny quiet contact with normal breathing, unload the hands and finish in stable kneeling.",
+            "tr": "Kendini bırakmadan diz destekli konuma gir, olağan nefesle küçük sakin teması koru; elleri yüksüzleştirip sabit diz üstünde bitir."
           },
           "steps": [
             {
-              "en": "Use a comfortable mat, knees down and hands below shoulders.",
-              "tr": "Rahat minder, dizler yerde ve eller omuz altında olsun."
+              "en": "After comfortable hands-03 preparation, with no wrist/knee symptoms and a familiar way to reach and leave kneeling, kneel on the non-slip mat; do not drop or jump to the floor.",
+              "tr": "Rahat hands-03 hazırlığı sonrası, bilek/diz belirtisi yokken ve diz üstüne geliş/ayrılış yolu tanıdıkken kaymayan mindere diz çök; yere kendini bırakma veya sıçrama."
             },
             {
-              "en": "Keep a quiet trunk and breathe with a small amount of hand support.",
-              "tr": "Az el desteğiyle gövdeyi sakin tut ve nefes al."
+              "en": "Place palms one at a time about shoulder-width beneath the shoulders, fingers/wrists comfortable; both knees stay on the mat and elbows straight without a forced lock.",
+              "tr": "Parmak/bilekler rahatken avuçları omuzların altına yaklaşık omuz genişliğinde birer birer koy; iki diz minderde, dirsekler zorlanmış kilit olmadan düz kalsın."
             },
             {
-              "en": "Shift back toward knees before lifting the hands; do not lift knees.",
-              "tr": "Elleri kaldırmadan dizlere doğru geriye dön; dizleri kaldırma."
+              "en": "Keep a quiet 3-second contact with ordinary breathing; no knee or foot lifts and no plank is added.",
+              "tr": "Olağan nefesle sakin 3 saniyelik temas koru; diz veya ayak kalkmaz, plank eklenmez."
+            },
+            {
+              "en": "Move hips back toward supported knees through a comfortable range, bringing the torso toward upright kneeling as hands unload; do not force hips onto heels.",
+              "tr": "Kalçayı rahat aralıkta destekli dizlere doğru geriye götür, eller yüksüzleşirken gövdeyi dik diz üstüne yaklaştır; kalçayı topuklara zorlama."
+            },
+            {
+              "en": "Once stable on the knees without relying on hands, lift palms and rest arms free. End in kneeling; return to standing only by your already familiar unhurried route.",
+              "tr": "Ellere dayanmadan dizlerde sabitlenince avuçları kaldır ve kolları serbest dinlendir. Diz üstünde bitir; ayağa yalnız zaten tanıdığın acele gerektirmeyen yolla dön."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "One 3-second knees-down contact and full unload-to-kneeling finish is enough. Both knees stay supported; no lifted-knee hold or floor push-up is assigned.\n\nFinish: Once the torso is stable in kneeling without hand support, release palms and rest. Standing is a separate familiar transition rather than pushing off loaded hands.\n\nRest: Rest hands free for 60–90 seconds with knees comfortable; if kneeling itself is tiring, use the familiar unhurried route to your usual rest position and finish today.\n\nCommon mistake: Lifting knees to make the contact look stronger. Correction: Keep both knees on the mat; this is quiet supported entry and exit, not a plank.\n\nCommon mistake: Pulling palms away before stable kneeling. Correction: Unload toward the knees, let the torso settle, then release palms; do not repeat while symptomatic.",
+            "tr": "Tek 3 saniyelik diz destekli temas ve tam diz üstüne yük azaltma bitişi yeterlidir. İki diz destekli kalır; dizler havada tutuş veya yer şınavı verilmez.\n\nBitiş: Gövde el desteği olmadan diz üstünde sabitlenince avuçları bırak ve dinlen. Ayağa kalkma yüklü ellerden itiş değil ayrı tanıdık geçiştir.\n\nDinlenme: Dizler rahatken eller serbest 60–90 saniye dinlen; diz üstü kalmak yoruyorsa tanıdık acele gerektirmeyen yolla alıştığın dinlenme konumuna dön ve bugünü bitir.\n\nSık hata: Temas güçlü görünsün diye dizleri kaldırmak. Düzeltme: İki dizi minderde tut; bu plank değil sakin destekli giriş ve çıkıştır.\n\nSık hata: Sabit diz üstünden önce avuçları çekmek. Düzeltme: Dizlere doğru yükü azalt, gövdeyi yerleştir, sonra avuçları bırak; belirti varken yineleme."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Both knees stayed supported through contact and unloading.",
+              "tr": "Temas ve yük azaltmada iki diz destekli kaldı."
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "I released palms only after stable kneeling no longer needed the hands.",
+              "tr": "Avuçları yalnız sabit diz üstünde ellere gerek kalmayınca bıraktım."
+            },
+            {
+              "en": "I did not force heel contact or rush my familiar floor route.",
+              "tr": "Topuk temasını zorlamadım, tanıdık yer yolunu aceleye getirmedim."
             }
           ],
           "adaptation": {
-            "en": "Return to the raised or wall surface.",
-            "tr": "Yükseltilmiş yüzeye veya duvara dön."
+            "en": "Before practice choose the upright wall route if kneeling is unsuitable, or use a hands-free explanation. Do not change support to retest symptoms.",
+            "tr": "Diz üstü uygun değilse pratikten önce dik duvar yolunu veya eller serbest açıklamayı seç. Belirtileri yeniden sınamak için desteği değiştirme."
           },
           "progression": {
-            "en": "Repeat easy entry and exit before adding weight shifts.",
-            "tr": "Ağırlık yönü değişiminden önce kolay giriş ve çıkışı yinele."
+            "en": "Repeat the same 3-second entry/contact/finish on two separate comfortable sessions before hands-07 shifts. No extra time or lifted knee is required.",
+            "tr": "hands-07 yönelimlerinden önce aynı 3 saniyelik giriş/temas/bitişi iki ayrı rahat seansta yinele. Ek süre veya diz kaldırma gerekmez."
           },
           "regression": {
-            "en": "Return to the raised or wall surface.",
-            "tr": "Yükseltilmiş yüzeye veya duvara dön."
+            "en": "Before practice choose the upright wall route if kneeling is unsuitable, or use a hands-free explanation. Do not change support to retest symptoms.",
+            "tr": "Diz üstü uygun değilse pratikten önce dik duvar yolunu veya eller serbest açıklamayı seç. Belirtileri yeniden sınamak için desteği değiştirme."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Painful knee pressure, wrist pain, tingling or uncertainty about leaving the floor ends this task; do not repeat to find a tolerable position while symptoms persist.",
+            "tr": "Ağrılı diz basıncı, bilek ağrısı, karıncalanma veya yerden ayrılış belirsizliği bu görevi bitirir; belirti sürerken katlanılabilir konum aramak için yineleme."
           },
           "sourceIds": [
             "general"
@@ -494,69 +767,91 @@
           "minutes": 8,
           "practiceType": "physical",
           "evidenceMode": "self_report",
+          "movementTaskId": "gravita:hands-06",
+          "candidatePracticeAccess": "available_supported_beginner",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for hands-06: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "hands-06 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:hands-06"
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "Four-point placement, kneeling unload, palm release and the separate floor-to-standing route have no recorded visual review here."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "hands-07",
           "title": {
-            "en": "Small quadruped weight shifts",
-            "tr": "Dört ayakta küçük yön değişimi"
+            "en": "Two small shifts with both knees down",
+            "tr": "İki diz yerde iki küçük yönelim"
           },
           "objective": {
-            "en": "Learn the defined task: Small quadruped weight shifts.",
-            "tr": "Tanımlı görevi öğren: Dört ayakta küçük yön değişimi."
+            "en": "Make two small forward/back shifts with both knees and palms supported, then finish hands free in kneeling; do not interpret the shift as a measured hand-load ratio.",
+            "tr": "İki diz ve avuçlar destekli iki küçük ileri/geri yönelim yap, sonra eller serbest diz üstünde bitir; yönelimi ölçülmüş el yükü oranı sayma."
           },
           "steps": [
             {
-              "en": "Use the already comfortable knees-down position.",
-              "tr": "Önceden rahat olan dizler yerde konumu kullan."
+              "en": "With no symptoms and comfortable hands-06 practice, enter the same knees-down support on the non-slip mat, palms below shoulders, and pause.",
+              "tr": "Belirti yokken ve hands-06 pratiği rahatken kaymayan minderde aynı diz destekli konuma gir, avuçlar omuz altında olsun ve durakla."
             },
             {
-              "en": "Move the trunk a little forward/back while hands stay planted; this is not a measured load ratio.",
-              "tr": "Eller yerdeyken gövdeyi az ileri/geri götür; bu ölçülmüş yük oranı değildir."
+              "en": "Keep both knees/palms in contact, move the trunk only a little toward the hands and back to the starting support while breathing normally; elbows stay unforced.",
+              "tr": "İki diz/avuç temasını koru, olağan nefesle gövdeyi ellere doğru yalnız az götür ve başlangıç desteğine dön; dirsekleri zorlama."
             },
             {
-              "en": "Return toward knees, unload and rest.",
-              "tr": "Dizlere dön, yükü azalt ve dinlen."
+              "en": "Repeat the small forward/back cycle once more; do not seek a wrist-bend endpoint, larger lean or load percentage.",
+              "tr": "Küçük ileri/geri döngüyü bir kez daha yap; bilek bükme son noktası, büyük eğilme veya yük yüzdesi arama."
+            },
+            {
+              "en": "Move hips back toward the supported knees without forcing heels, let the torso settle into stable kneeling, then lift palms and rest hands free 60–90 seconds.",
+              "tr": "Topukları zorlamadan kalçayı destekli dizlere doğru geriye götür, gövdeyi sabit diz üstüne yerleştir; sonra avuçları kaldır ve eller serbest 60–90 saniye dinlen."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "One set of two tiny forward/back cycles is enough. Keep four contacts during the cycles and complete the hands-free kneeling finish; no sustained lean or measured load ratio is assigned.\n\nFinish: Return load toward supported knees through a comfortable short range; settle without hand support before lifting palms and leave hands unloaded during rest.\n\nRest: Rest hands free 60–90 seconds after two cycles, longer if needed; no repeat is required today.\n\nCommon mistake: Shifting farther forward to reach an imagined score. Correction: Use a smaller shift that returns to the same contact; there is no angle or load target.\n\nCommon mistake: Letting a knee lift during a shift. Correction: End and unload to stable kneeling; on a later symptom-free session choose still support first.",
+            "tr": "İki küçük ileri/geri döngülük tek set yeterlidir. Döngülerde dört teması koru ve eller serbest diz üstü bitişi tamamla; uzun eğilme veya ölçülmüş yük oranı verilmez.\n\nBitiş: Yükü rahat kısa aralıkta destekli dizlere döndür; avuçları kaldırmadan el desteği olmadan yerleş ve dinlenirken elleri yüksüz bırak.\n\nDinlenme: İki döngü sonrası eller serbest 60–90 saniye, gerekirse uzun dinlen; bugün tekrar gerekmez.\n\nSık hata: Hayal edilen puana ulaşmak için ileri gitmek. Düzeltme: Aynı temasa dönen küçük yönelim kullan; açı veya yük hedefi yok.\n\nSık hata: Yönelimde dizin kalkmasına izin vermek. Düzeltme: Bitir, sabit diz üstüne yükü azalt; sonraki belirtisiz seansta önce sabit desteği seç."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Both knees and palms stayed down during both cycles.",
+              "tr": "İki döngüde iki diz ve avuçlar yerde kaldı."
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "I returned to the same quiet support before exiting.",
+              "tr": "Çıkmadan aynı sakin desteğe döndüm."
+            },
+            {
+              "en": "I kept breathing without an angle or load-percentage target.",
+              "tr": "Açı veya yük yüzdesi hedefi olmadan nefesi sürdürdüm."
             }
           ],
           "adaptation": {
-            "en": "Keep still or reduce the shift.",
-            "tr": "Sabit kal veya yön değişimini azalt."
+            "en": "Before a later suitable session choose still hands-06 support or the wall. Symptoms now end practice rather than invite another angle.",
+            "tr": "Sonraki uygun seans öncesi sabit hands-06 desteğini veya duvarı seç. Şimdiki belirtiler başka açıya davet değil pratiği bitirme nedenidir."
           },
           "progression": {
-            "en": "Change only a small comfortable range with review.",
-            "tr": "İncelemeyle yalnız küçük rahat aralığı değiştir."
+            "en": "After two separate comfortable two-cycle rehearsals, repeat the same range with less prompting. Add no larger range for course completion; choose hands-08 only with familiar entry and finish.",
+            "tr": "İki ayrı rahat iki döngülük provadan sonra aynı aralığı daha az yönergeyle yinele. Kursu bitirmek için geniş aralık ekleme; hands-08 yalnız tanıdık giriş ve bitişle seçilir."
           },
           "regression": {
-            "en": "Keep still or reduce the shift.",
-            "tr": "Sabit kal veya yön değişimini azalt."
+            "en": "Before a later suitable session choose still hands-06 support or the wall. Symptoms now end practice rather than invite another angle.",
+            "tr": "Sonraki uygun seans öncesi sabit hands-06 desteğini veya duvarı seç. Şimdiki belirtiler başka açıya davet değil pratiği bitirme nedenidir."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Stop for wrist discomfort, knee slip, tingling or a need to jerk back. Symptoms are not a cue to try a different angle in the same session.",
+            "tr": "Bilek rahatsızlığı, diz kayması, karıncalanma veya geriye ani kaçma gereğinde dur. Belirti aynı seansta başka açı deneme ipucu değildir."
           },
           "sourceIds": [
             "general"
@@ -567,69 +862,91 @@
           "minutes": 8,
           "practiceType": "physical",
           "evidenceMode": "self_report",
+          "movementTaskId": "gravita:hands-07",
+          "candidatePracticeAccess": "available_supported_beginner",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for hands-07: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "hands-07 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:hands-07"
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "No exact knees-down shifting, contact continuity or controlled exit segment has been reviewed."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "hands-08",
           "title": {
-            "en": "Scapular push with knees down",
-            "tr": "Dizler yerde kürek kemiği itişi"
+            "en": "Small shoulder-blade push, knees supported",
+            "tr": "Dizler destekli küçük kürek kemiği itişi"
           },
           "objective": {
-            "en": "Learn the defined task: Scapular push with knees down.",
-            "tr": "Tanımlı görevi öğren: Dizler yerde kürek kemiği itişi."
+            "en": "Perform two tiny shoulder-girdle pushes without bending into a push-up or forcing elbow lockout, then unload onto supported knees and finish hands free.",
+            "tr": "Şınav için bükülmeden veya dirsek kilidine zorlamadan iki küçük omuz kuşağı itişi yap; sonra yükü destekli dizlere döndürüp eller serbest bitir."
           },
           "steps": [
             {
-              "en": "Keep knees supported, hands comfortable and elbows softly straight.",
-              "tr": "Dizler destekli, eller rahat ve dirsekler yumuşak düz olsun."
+              "en": "After comfortable hands-06/07 practice with no symptoms, use the clear non-slip knee mat and enter quiet knees-down support, palms comfortably below shoulders.",
+              "tr": "Belirtisiz rahat hands-06/07 pratiği sonrası boş kaymayan diz minderinde sakin diz destekli konuma gir; avuçlar omuz altında rahat olsun."
             },
             {
-              "en": "Gently push the floor away through the shoulder blades without bending elbows or dropping the trunk.",
-              "tr": "Dirsekleri bükmeden veya gövdeyi düşürmeden kürek kemikleriyle zemini rahatça it."
+              "en": "With knees down and elbows comfortably straight, gently press the floor away through a tiny shoulder-girdle action; breathe and do not force elbow lockout.",
+              "tr": "Dizler yerde, dirsekler rahat düzken küçük omuz kuşağı hareketiyle zemini rahatça it; nefes al, dirsek kilidini zorlama."
             },
             {
-              "en": "Return to the starting position, shift back and release.",
-              "tr": "Başlangıca dön, geriye kay ve bırak."
+              "en": "Return gently to the initial quiet support without dropping the trunk or bending into a push-up; repeat the tiny action once more.",
+              "tr": "Gövdeyi düşürmeden veya şınav için bükülmeden ilk sakin desteğe rahat dön; küçük hareketi bir kez daha yap."
+            },
+            {
+              "en": "Move hips back toward supported knees through a comfortable range, settle the torso into stable kneeling, then lift palms only once unloaded; rest hands free 60–90 seconds.",
+              "tr": "Kalçayı rahat aralıkta destekli dizlere doğru geriye götür, gövdeyi sabit diz üstüne yerleştir; avuçları yalnız yüksüzken kaldır, eller serbest 60–90 saniye dinlen."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "One set of two tiny shoulder-girdle pushes with both knees down is enough. Explain how the small shoulder action differs from elbow bending; no push-up, longer hold or feet-off task.\n\nFinish: Move back toward supported knees without forcing heel contact; once stable in kneeling without hand support, release palms and rest. Add no final push-up or hold.\n\nRest: Rest hands free 60–90 seconds after two actions, longer if needed; do not use rest for another loaded support.\n\nCommon mistake: Bending elbows to make the shoulder action look larger. Correction: Use a smaller shoulder action and quiet return; visible size is not a completion criterion.\n\nCommon mistake: Forcing straight elbows or pushing through wrist pain. Correction: End and unload; do not change wrist angle or lock elbows to test symptoms.",
+            "tr": "İki diz yerde iki küçük omuz kuşağı itişlik tek set yeterlidir. Küçük omuz hareketinin dirsek bükümünden farkını açıkla; şınav, uzun tutuş veya ayaklar havada görev yok.\n\nBitiş: Topuk temasını zorlamadan destekli dizlere geriye git; el desteği olmadan sabit diz üstüne gelince avuçları bırak ve dinlen. Son şınav veya tutuş ekleme.\n\nDinlenme: İki hareket sonrası eller serbest 60–90 saniye, gerekirse uzun dinlen; dinlenmede başka yüklü destek kullanma.\n\nSık hata: Omuz hareketi büyük görünsün diye dirsekleri bükmek. Düzeltme: Küçük omuz hareketi ve sakin dönüş kullan; görünür büyüklük tamamlama ölçütü değildir.\n\nSık hata: Düz dirseği zorlamak veya bilek ağrısına rağmen itmek. Düzeltme: Bitir ve yükü azalt; belirtiyi sınamak için bilek açısı değiştirme veya dirseği kilitleme."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "Both knees stayed down as I distinguished shoulder movement from elbow bending.",
+              "tr": "Omuz hareketini dirsek bükümünden ayırırken iki diz yerde kaldı."
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "I kept breathing without forcing a locked elbow.",
+              "tr": "Kilitli dirseği zorlamadan nefesi sürdürdüm."
+            },
+            {
+              "en": "I used the full kneeling unload before palm release.",
+              "tr": "Avuç bırakmadan tam diz üstüne yük azaltmayı kullandım."
             }
           ],
           "adaptation": {
-            "en": "Use a wall version or smaller motion.",
-            "tr": "Duvar sürümü veya küçük hareket kullan."
+            "en": "At a later symptom-free suitable session choose still knees-down support or the earlier wall task; a hands-free diagram remains valid learning. Symptoms now end practice.",
+            "tr": "Sonraki belirtisiz uygun seansta sabit diz desteği veya önceki duvar görevini seç; eller serbest şema geçerli öğrenmedir. Şimdiki belirtiler pratiği bitirir."
           },
           "progression": {
-            "en": "Repeat comfortably before a longer hold.",
-            "tr": "Uzun tutuştan önce rahat yinele."
+            "en": "Repeat the same tiny two-action set comfortably on separate sessions before changing the number. Learn the action first; unsupported straight-arm holds and planche stay outside this course.",
+            "tr": "Sayıyı değiştirmeden aynı küçük iki hareketlik seti ayrı seanslarda rahat yinele. Önce hareketi öğren; desteksiz düz kol tutuşları ve planche kurs dışında kalır."
           },
           "regression": {
-            "en": "Use a wall version or smaller motion.",
-            "tr": "Duvar sürümü veya küçük hareket kullan."
+            "en": "At a later symptom-free suitable session choose still knees-down support or the earlier wall task; a hands-free diagram remains valid learning. Symptoms now end practice.",
+            "tr": "Sonraki belirtisiz uygun seansta sabit diz desteği veya önceki duvar görevini seç; eller serbest şema geçerli öğrenmedir. Şimdiki belirtiler pratiği bitirir."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Stop for wrist/elbow/shoulder pain, forced breath holding, trunk dropping or loss of a supported knee. Do not force straightness to satisfy the description.",
+            "tr": "Bilek/dirsek/omuz ağrısı, zorunlu nefes tutma, gövde düşmesi veya destekli diz kaybında dur. Açıklamaya uymak için düzlüğü zorlama."
           },
           "sourceIds": [
             "general"
@@ -640,11 +957,25 @@
           "minutes": 8,
           "practiceType": "physical",
           "evidenceMode": "self_report",
+          "movementTaskId": "gravita:hands-08",
+          "candidatePracticeAccess": "available_supported_beginner",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for hands-08: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "hands-08 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:hands-08"
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "No knees-down shoulder-blade demonstration or complete entry/exit was reviewed; the tiny dose is editorial and not a sourced tolerance."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         }
       ]
     },
@@ -658,63 +989,72 @@
         {
           "id": "hands-09",
           "title": {
-            "en": "Short support with a planned exit",
-            "tr": "Planlı çıkışla kısa destek"
+            "en": "One brief wall contact with a planned exit",
+            "tr": "Planlı çıkışla tek kısa duvar teması"
           },
           "objective": {
-            "en": "Learn the defined task: Short support with a planned exit.",
-            "tr": "Tanımlı görevi öğren: Planlı çıkışla kısa destek."
+            "en": "Choose the available upright wall option and end a brief contact by returning fully to the feet before releasing the hands.",
+            "tr": "Erişilebilir dik duvar seçeneğini seç; elleri bırakmadan tam ayak desteğine dönerek kısa teması bitir."
           },
           "steps": [
             {
-              "en": "Select wall, raised support or knees-down support already reviewed.",
-              "tr": "Önceden incelenmiş duvar, yükseltilmiş veya diz destekli seçeneği seç."
+              "en": "After comfortable hands-03/04 practice, check the fixed wall/dry floor and same close stance with both feet down; say the exit: fully onto feet, confirm standing, release palms.",
+              "tr": "Rahat hands-03/04 sonrası sabit duvarı/kuru zemini ve iki ayak yerde aynı yakın duruşu kontrol et; çıkışı söyle: tam ayaklara dön, ayakta duruşu doğrula, avuçları bırak."
             },
             {
-              "en": "Use a brief easy hold while breathing; no feet-off or inverted attempts.",
-              "tr": "Nefes sürerken kısa kolay tutuş kullan; ayaklar havada veya ters deneme yok."
+              "en": "Place comfortable palms and use the same slight lean as hands-04 with elbows unforced.",
+              "tr": "Rahat avuçları koy; dirsekleri zorlamadan hands-04 ile aynı az eğilmeyi kullan."
             },
             {
-              "en": "Use the planned step/knees exit before fatigue changes control.",
-              "tr": "Yorgunluk kontrolü değiştirmeden planlı adım/diz çıkışını kullan."
+              "en": "Maintain ordinary breathing for 3 seconds, ending earlier if the chosen position changes.",
+              "tr": "3 saniye olağan nefesi koru; seçilen konum değişirse erken bitir."
+            },
+            {
+              "en": "Return fully onto the feet before lifting palms; rest arms free and record the actual shorter or complete contact.",
+              "tr": "Avuçları kaldırmadan tam ayaklara dön; kollar serbest dinlen ve gerçekte daha kısa veya tam olan teması kaydet."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "One 3-second wall contact and planned exit is the whole task. Record the actual choice, contact time and stop reason; finishing early is valid.\n\nFinish: Finish upright and hands free before writing the note; there is no requirement to add another contact today.\n\nRest: Rest 45–90 seconds after unloading; finish the session if fatigue makes the exit less certain.\n\nCommon mistake: Holding longer to earn a completion mark after the planned exit becomes rushed. Correction: End with the planned foot support and record the shorter contact; no duration badge establishes readiness.",
+            "tr": "Tek 3 saniyelik duvar teması ve planlı çıkış görevin tamamıdır. Gerçek seçimi, temas süresini ve durma nedenini kaydet; erken bitirmek geçerlidir.\n\nBitiş: Notu yazmadan dik ve eller serbest bitir; bugün başka temas ekleme zorunluluğu yok.\n\nDinlenme: Yükü azalttıktan sonra 45–90 saniye dinlen; yorgunluk çıkışı belirsizleştiriyorsa seansı bitir.\n\nSık hata: Planlı çıkış aceleye dönüşünce tamamlama işareti için daha uzun tutmak. Düzeltme: Planlı ayak desteğiyle bitir, kısa teması kaydet; süre rozeti hazır oluşu kanıtlamaz."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "I named and used the finish before lifting my palms.",
+              "tr": "Avuçlarımı kaldırmadan bitişi adlandırdım ve kullandım."
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "I recorded an early finish honestly instead of restarting a timer.",
+              "tr": "Sayacı yeniden başlatmak yerine erken bitişi dürüstçe kaydettim."
+            },
+            {
+              "en": "I used the chosen standing wall option rather than switching supports during the task.",
+              "tr": "Görev sırasında destek değiştirmek yerine seçilen ayakta duvar seçeneğini kullandım."
             }
           ],
           "adaptation": {
-            "en": "Shorten the hold and raise support.",
-            "tr": "Tutuşu kısalt ve desteği yükselt."
+            "en": "Use a hands-free spoken exit sequence today; a nearly upright touch may be chosen only at a later symptom-free suitable session.",
+            "tr": "Bugün eller serbest sözlü çıkış sırası kullan; neredeyse dik temas yalnız sonraki belirtisiz uygun seansta seçilebilir."
           },
           "progression": {
-            "en": "Increase one variable only after review.",
-            "tr": "Yalnız incelemeden sonra tek değişkeni artır."
+            "en": "After two separate comfortable sessions, repeat the same short contact with less prompting; change neither wall distance nor surface to make it harder.",
+            "tr": "İki ayrı rahat seanstan sonra aynı kısa teması daha az yönergeyle yinele; zorlaştırmak için duvar mesafesini veya yüzeyi değiştirme."
           },
           "regression": {
-            "en": "Shorten the hold and raise support.",
-            "tr": "Tutuşu kısalt ve desteği yükselt."
+            "en": "Use a hands-free spoken exit sequence today; a nearly upright touch may be chosen only at a later symptom-free suitable session.",
+            "tr": "Bugün eller serbest sözlü çıkış sırası kullan; neredeyse dik temas yalnız sonraki belirtisiz uygun seansta seçilebilir."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "End at pain, tingling, unusual breathlessness, slipping feet or an unplanned backward step. Do not restart to test whether a shorter hold removes the symptom.",
+            "tr": "Ağrı, karıncalanma, olağandışı nefes darlığı, kayan ayak veya plansız geri adımda bitir. Kısa tutuş belirtiyi giderir mi diye yeniden başlama."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "nhs_strength_flex_visual"
           ],
           "prerequisites": [
             "hands-08"
@@ -722,72 +1062,116 @@
           "minutes": 8,
           "practiceType": "physical",
           "evidenceMode": "self_report",
+          "movementTaskId": "gravita:hands-09",
+          "candidatePracticeAccess": "available_supported_beginner",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for hands-09: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "hands-09 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:hands-09"
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "publisherUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "playerId": "1763919379001",
+                "sampledSeconds": [
+                  7,
+                  18,
+                  24,
+                  30
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "Parent-recorded standing external hand support, bent/straight arms and return examples against a tree. No exact wall palm-release sequence or floor support is established.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "The parent frames support standing external hand contact, not the exact wall hold dose or a continuous complete exit."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "hands-10",
           "title": {
-            "en": "Prepare-practise-recover sequence",
-            "tr": "Hazırlan-çalış-dinlen sırası"
+            "en": "Prepare, contact, finish and recover",
+            "tr": "Hazırlan, temas et, bitir ve toparlan"
           },
           "objective": {
-            "en": "Learn the defined task: Prepare-practise-recover sequence.",
-            "tr": "Tanımlı görevi öğren: Hazırlan-çalış-dinlen sırası."
+            "en": "Complete one short standing learning sequence with a deliberate finish and recovery, without adding a new support variant when tired.",
+            "tr": "Yorgunken yeni destek varyantı eklemeden, bilinçli bitiş ve toparlanmayla tek kısa ayakta öğrenme sırasını tamamla."
           },
           "steps": [
             {
-              "en": "Choose one comfortable support, prepare and clear the exit.",
-              "tr": "Tek rahat desteği seç, hazırlan ve çıkışı boşalt."
+              "en": "With familiar hands-09 wall practice and no symptoms, clear the same fixed-wall/non-slip space; check support and footing, then use hands-03 preparation rather than a new stretch.",
+              "tr": "Tanıdık hands-09 duvar pratiği ve belirtisiz durumda aynı sabit duvar/kaymayan alanı boşalt; desteği/basışı kontrol et, yeni esnetme yerine hands-03 hazırlığını kullan."
             },
             {
-              "en": "Rehearse entry, do a short easy task, exit and rest fully before an optional repeat.",
-              "tr": "Girişi prova et, kısa kolay görevi yap, çık ve isteğe bağlı yinelemeden önce tam dinlen."
+              "en": "Say the exit order and do one familiar 3-second light wall contact, or end earlier.",
+              "tr": "Çıkış sırasını söyle; tanıdık tek 3 saniyelik hafif duvar temasını yap veya erken bitir."
             },
             {
-              "en": "Finish with hands unloaded and record the variant.",
-              "tr": "Eller yüksüz bitir ve varyantı kaydet."
+              "en": "Unload fully onto the feet, release palms and rest 60–90 seconds with hands free.",
+              "tr": "Tam ayaklara yükü döndür, avuçları bırak ve eller serbest 60–90 saniye dinlen."
+            },
+            {
+              "en": "Choose one optional identical repeat only if comfort, breathing and the exit remain unchanged; otherwise finish.",
+              "tr": "Yalnız rahatlık, nefes ve çıkış aynı kaldıysa isteğe bağlı tek aynı tekrarı seç; değilse bitir."
+            },
+            {
+              "en": "Record the actual route and stop choice without adding a longer hold or a lower support.",
+              "tr": "Daha uzun tutuş veya alçak destek eklemeden gerçek yolu ve durma seçimini kaydet."
             }
           ],
           "practice": {
-            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
-            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+            "en": "One preparation sequence plus one 3-second wall contact; at most one identical optional repeat after 60–90 seconds rest. A short finish is enough; this is not a daily training quota.\n\nFinish: Finish standing without hand support, put the note away and leave recovery before another demanding session.\n\nRest: Use 60–90 seconds between contacts and longer if needed; end today rather than shorten rest to fit a schedule.\n\nCommon mistake: Using rest to try a new floor task. Correction: Keep hands unloaded during rest; choose another supported option separately after recovery and its prerequisite checks.\n\nCommon mistake: Repeating because a timer or checklist is unfinished. Correction: Choose the earlier finish and log what actually happened.",
+            "tr": "Tek hazırlık sırası ve tek 3 saniyelik duvar teması; 60–90 saniye dinlenmeden sonra en çok isteğe bağlı bir aynı tekrar. Kısa bitiş yeterlidir; günlük antrenman kotası değildir.\n\nBitiş: El desteği olmadan ayakta bitir, notu kaldır ve başka zorlayıcı seans öncesi toparlanmaya yer bırak.\n\nDinlenme: Temaslar arasında 60–90 saniye, gerekirse daha uzun dinlen; takvime sığdırmak için dinlenmeyi kısaltmak yerine bugünü bitir.\n\nSık hata: Dinlenmede yeni yer görevini denemek. Düzeltme: Dinlenmede elleri yüksüz tut; başka destekli hareket biçimi toparlanma ve önkoşul kontrollerinden sonra ayrıca seç.\n\nSık hata: Sayaç veya liste bitmediği için yinelemek. Düzeltme: Erken bitişi seç ve gerçekte olanı kaydet."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "I checked the setup again instead of relying on an earlier session.",
+              "tr": "Önceki seansa güvenmek yerine kurulumu yeniden kontrol ettim."
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "I could omit the optional repeat without treating the session as incomplete.",
+              "tr": "Seansı eksik saymadan isteğe bağlı tekrarı atlayabildim."
+            },
+            {
+              "en": "I did not add a floor, raised or inverted task to make the session count.",
+              "tr": "Seans sayılsın diye yer, yükselti veya ters görev eklemedim."
             }
           ],
           "adaptation": {
-            "en": "Do only preparation today.",
-            "tr": "Bugün yalnız hazırlık yap."
+            "en": "Use preparation only, or read and write the sequence hands free; do not use an easier contact to retest symptoms.",
+            "tr": "Yalnız hazırlık kullan veya sırayı eller serbest okuyup yaz; belirtileri sınamak için kolay temas kullanma."
           },
           "progression": {
-            "en": "Plan a recovered session rather than chasing duration.",
-            "tr": "Süre kovalamak yerine dinlenmiş oturum planla."
+            "en": "At a later recovered session, repeat the same sequence with less prompting. Use prior observations to choose repeat or recovery; elapsed days do not automatically increase dose.",
+            "tr": "Sonraki toparlanmış seansta aynı sırayı daha az yönergeyle yinele. Önceki gözlemlerle yineleme veya toparlanma seç; geçen günler dozu otomatik artırmaz."
           },
           "regression": {
-            "en": "Do only preparation today.",
-            "tr": "Bugün yalnız hazırlık yap."
+            "en": "Use preparation only, or read and write the sequence hands free; do not use an easier contact to retest symptoms.",
+            "tr": "Yalnız hazırlık kullan veya sırayı eller serbest okuyup yaz; belirtileri sınamak için kolay temas kullanma."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Use the rest in this task; allow longer until ordinary breathing and comfortable control return. End the session if they do not. Do not retest symptoms.",
+            "tr": "Görevdeki dinlenmeyi kullan; olağan nefes ve rahat kontrol dönene kadar uzat. Dönmüyorsa seansı bitir. Belirtileri yeniden sınama."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Pain, tingling, unusual breathlessness or a less controlled finish ends the current task. Persistent or concerning symptoms need appropriate assessment before resuming; do not retest them today.",
+            "tr": "Ağrı, karıncalanma, olağandışı nefes darlığı veya daha az kontrollü bitiş mevcut görevi bitirir. Süren veya kaygı veren belirtiler yeniden başlamadan uygun değerlendirme ister; bugün yeniden sınama."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "nhs_general_warmup",
+            "nhs_strength_flex_visual"
           ],
           "prerequisites": [
             "hands-09"
@@ -795,157 +1179,273 @@
           "minutes": 8,
           "practiceType": "physical",
           "evidenceMode": "self_report",
+          "movementTaskId": "gravita:hands-10",
+          "candidatePracticeAccess": "available_supported_beginner",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for hands-10: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "hands-10 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:hands-10"
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "nhs_general_warmup"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "publisherUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "playerId": "1763945815001",
+                "sampledSeconds": [
+                  11.16
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "Parent recorded a standing shoulder-movement frame. It does not demonstrate this lesson’s wrist sequence, repetition dose or individual readiness.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              },
+              {
+                "sourceUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "publisherUrl": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/",
+                "playerId": "1763919379001",
+                "sampledSeconds": [
+                  7,
+                  18,
+                  24,
+                  30
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "Parent-recorded standing external hand support, bent/straight arms and return examples against a tree. No exact wall palm-release sequence or floor support is established.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "The complete combined sequence, exact wall exit and editorial dose were not viewed as continuous video."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "hands-11",
           "title": {
-            "en": "Future inversion gate",
-            "tr": "Sonraki ters duruş kapısı"
+            "en": "Why upright support does not open inversions",
+            "tr": "Dik destek neden ters duruşları açmaz"
           },
           "objective": {
-            "en": "Learn the defined task: Future inversion gate.",
-            "tr": "Tanımlı görevi öğren: Sonraki ters duruş kapısı."
+            "en": "Explain why a standing wall-contact report does not establish handstand or planche readiness and identify the separate orientation-aware inference boundary.",
+            "tr": "Ayakta duvar teması bildiriminin neden amut veya planche hazır oluşunu kanıtlamadığını açıkla; ayrı yönelim farkındalıklı çıkarım sınırını tanı."
           },
           "steps": [
             {
-              "en": "Explain that upright support does not prove handstand readiness.",
-              "tr": "Dik desteğin amuda hazırlığı kanıtlamadığını açıkla."
+              "en": "Review scope seated or standing with hands unloaded; identify advanced wall/free inversions in the parent source while this course keeps feet/knees supported. No wall-walk setup.",
+              "tr": "Eller yüksüz oturarak/ayakta kapsamı incele; kurs ayak/diz desteğini korurken parent kaynağında ileri duvarlı/serbest ters duruşları tanı. Duvarda yürüme kurulumu yok."
             },
             {
-              "en": "A later inversion course needs separate setup, assistance and entry/exit demonstrations plus learner review.",
-              "tr": "Sonraki ters kurs ayrı kurulum, yardım, giriş/çıkış gösterimi ve öğrenci incelemesi ister."
+              "en": "Explain why a standing endpoint at a sampled time does not show the whole descent or a controlled beginner exit.",
+              "tr": "Örnek zamanda ayakta bitişin neden tüm inişi veya kontrollü başlangıç çıkışını göstermediğini açıkla."
             },
             {
-              "en": "Any inversion inference requires orientation-aware S2; image-plane pose cannot establish force or balance.",
-              "tr": "Her ters duruş çıkarımı yönelim farkındalıklı S2 ister; görüntü düzlemi pozu kuvvet veya dengeyi kanıtlamaz."
+              "en": "Keep kick-up, wall-walk, handstand and planche attempts outside this course; a learning completion mark does not open them.",
+              "tr": "Tekmeyle çıkış, duvarda yürüme, amut ve planche denemelerini bu kurs dışında tut; öğrenme tamamlama işareti bunları açmaz."
+            },
+            {
+              "en": "State the technical boundary: any later inversion inference requires orientation-aware S2; S1 alone and a 2D image cannot establish physical force or balance.",
+              "tr": "Teknik sınırı söyle: sonraki her ters duruş çıkarımı yönelim farkındalıklı S2 ister; S1 tek başına ve 2B görüntü fiziksel kuvvet veya dengeyi kanıtlayamaz."
             }
           ],
           "practice": {
-            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
-            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+            "en": "Write two missing inversion teaching elements—complete entry/exit and an appropriate setup—and one measurement limit. Explain them without attempting a hold.\n\nFinish: Close the source descriptions with both feet supported or seated; no physical attempt is added to confirm understanding.\n\nRest: Pause reading whenever needed; no hold time or physical rest prescription applies.\n\nCommon mistake: Copying an advanced source pose because the video is linked from a beginner page. Correction: Use the link as a scope reference; this lesson gives no physical inversion assignment.",
+            "tr": "Eksik iki ters duruş öğretim öğesini—tam giriş/çıkış ve uygun kurulum—ve bir ölçüm sınırını yaz. Tutuş denemeden açıkla.\n\nBitiş: Kaynak açıklamalarını iki ayak destekli veya oturarak kapat; anladığını doğrulamak için fiziksel deneme ekleme.\n\nDinlenme: Gerektikçe okumaya ara ver; tutuş süresi veya fiziksel dinlenme reçetesi uygulanmaz.\n\nSık hata: Video başlangıç sayfasından bağlı diye ileri kaynak pozunu kopyalamak. Düzeltme: Bağlantıyı kapsam referansı olarak kullan; bu ders fiziksel ters duruş görevi vermez."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "I do not infer a complete exit from separated advanced frames.",
+              "tr": "Ayrı ileri karelerden tam çıkış sonucu çıkarmıyorum."
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "I can state that S2 is required without calling it a force or safety guarantee.",
+              "tr": "S2 gereğini kuvvet veya güvenlik garantisi saymadan söyleyebiliyorum."
+            },
+            {
+              "en": "I can finish this lesson without trying an inverted position.",
+              "tr": "Ters konum denemeden bu dersi bitirebiliyorum."
             }
           ],
           "adaptation": {
-            "en": "Stay with the reviewed upright option.",
-            "tr": "İncelenmiş dik seçenekte kal."
+            "en": "Read only the written boundary if advanced imagery invites an attempt; an unloaded explanation is a complete learning task.",
+            "tr": "İleri görüntü denemeyi teşvik ediyorsa yalnız yazılı sınırı oku; yüksüz açıklama tam öğrenme görevidir."
           },
           "progression": {
-            "en": "Do not add kick-up, wall-walk or free handstand here.",
-            "tr": "Buraya tekmeyle çıkış, duvarda yürüme veya serbest amut ekleme."
+            "en": "Choose another supported beginner session or a separately defined later course with its own entry/exit evidence; do not create an inversion progression from this page.",
+            "tr": "Başka destekli başlangıç seansını veya kendi giriş/çıkış kanıtı olan ayrı sonraki kursu seç; bu sayfadan ters duruş ilerlemesi üretme."
           },
           "regression": {
-            "en": "Stay with the reviewed upright option.",
-            "tr": "İncelenmiş dik seçenekte kal."
+            "en": "Read only the written boundary if advanced imagery invites an attempt; an unloaded explanation is a complete learning task.",
+            "tr": "İleri görüntü denemeyi teşvik ediyorsa yalnız yazılı sınırı oku; yüksüz açıklama tam öğrenme görevidir."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Pause about one minute before recall; take longer as needed.",
+            "tr": "Hatırlamadan önce yaklaşık bir dakika ara ver; gerekirse uzat."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "Stop any attempt to turn this knowledge task into a kick-up, wall-walk or feet-off trial. Dizziness or symptoms are reasons to end physical activity, not to test a different inversion.",
+            "tr": "Bu bilgi görevini tekmeyle çıkış, duvarda yürüme veya ayaklar havada denemeye çevirmeyi durdur. Baş dönmesi veya belirtiler başka ters duruş sınama değil fiziksel çalışmayı bitirme nedenidir."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "gmb_handstand_page",
+            "gmb_handstand_video"
           ],
           "prerequisites": [
             "hands-10"
           ],
-          "minutes": 8,
+          "minutes": 6,
           "practiceType": "learning_only",
           "evidenceMode": "self_report",
+          "movementTaskId": "gravita:hands-11",
+          "candidatePracticeAccess": "learning_only",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for hands-11: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "hands-11 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:hands-11"
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "gmb_handstand_page"
+            ],
+            "sampledFrameRefs": [
+              {
+                "sourceUrl": "https://www.youtube.com/watch?v=d6_lcWtQDxw",
+                "publisherUrl": "https://gmb.io/handstand/",
+                "playerId": "d6_lcWtQDxw",
+                "sampledSeconds": [
+                  9,
+                  25,
+                  30,
+                  34,
+                  37,
+                  43,
+                  52,
+                  65
+                ],
+                "evidenceType": "sampled_frames",
+                "onlySupports": "Parent recorded examples of wall/free inversion and a standing endpoint. The sampled frames identify advanced scope; they do not show one complete controlled beginner entry and exit.",
+                "continuousSequenceReviewed": false,
+                "copied": false
+              }
+            ],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "The entire inversion entry, assistance, descent, controlled exit, wrist preparation and personal readiness were not reviewed."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         },
         {
           "id": "hands-12",
           "title": {
-            "en": "Foundation review and individual next step",
-            "tr": "Temel değerlendirme ve kişisel sonraki adım"
+            "en": "Review the route and plan the next session",
+            "tr": "Yolu gözden geçir ve sonraki seansı planla"
           },
           "objective": {
-            "en": "Learn the defined task: Foundation review and individual next step.",
-            "tr": "Tanımlı görevi öğren: Temel değerlendirme ve kişisel sonraki adım."
+            "en": "Reconstruct the standing setup–preparation–contact–finish sequence and choose repeat, reading or recovery from the actual note without claiming advanced mastery.",
+            "tr": "Gerçek nottan dik kurulum–hazırlık–temas–bitiş sırasını yeniden kur; ileri ustalık iddia etmeden yineleme, okuma veya toparlanma seç."
           },
           "steps": [
             {
-              "en": "Describe surface check, preparation, support, exit and regression.",
-              "tr": "Yüzey kontrolü, hazırlık, destek, çıkış ve kolaylaştırmayı anlat."
+              "en": "With hands unloaded, use your hands-01 route note and only actual practice records; explain support/floor checks and short hands-free preparation before reviewing contact and finish.",
+              "tr": "Eller yüksüzken hands-01 yol notunu ve yalnız gerçek pratik kayıtlarını kullan; temas/bitiş öncesi destek/zemin kontrolünü ve kısa eller serbest hazırlığı anlat."
             },
             {
-              "en": "Review unresolved discomfort, demonstrations and learner observations.",
-              "tr": "Çözülmemiş rahatsızlık, gösterim ve öğrenci gözlemlerini incele."
+              "en": "Describe the selected close upright contact, its actual duration if attempted, and unloading fully onto the feet before palm release.",
+              "tr": "Seçilen yakın dik teması, denendiyse gerçek süresini ve avuç bırakmadan tam ayaklara yükü döndürmeyi anlat."
             },
             {
-              "en": "Choose repetition or separately reviewed balance/straight-arm work; no automatic readiness badge.",
-              "tr": "Yinelemeyi veya ayrı incelenmiş denge/düz kol çalışmasını seç; otomatik hazırlık rozeti yok."
+              "en": "Name a mistake you avoided or a question that remains, plus the hands-free alternative; do not invent a successful practice report.",
+              "tr": "Kaçındığın bir hatayı veya kalan soruyu ve eller serbest alternatifi adlandır; başarılı pratik bildirimi uydurma."
+            },
+            {
+              "en": "Choose the next session: repeat the same supported option only if symptom-free and appropriate, use reading for unresolved setup, or recover.",
+              "tr": "Sonraki seansı seç: yalnız belirtisiz ve uygunsa aynı destekli seçeneği yinele, çözülmemiş kurulumda okumayı kullan veya toparlan."
+            },
+            {
+              "en": "Keep each supported option’s prerequisites and all inversion boundaries separate; completion states learning, not physical qualification.",
+              "tr": "Her destekli dalın önkoşullarını ve tüm ters duruş sınırlarını ayrı tut; tamamlama fiziksel yeterlilik değil öğrenme bildirir."
             }
           ],
           "practice": {
-            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
-            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+            "en": "Write one four-part sequence, one honest observation and one next-session choice. If there was no physical practice, say so and review the finish verbally.\n\nFinish: End the review with hands unloaded and the next choice recorded. Keep older content-version completion separate from this new sequence.\n\nRest: Leave recovery after any actual support practice; reviewing notes does not require a fresh physical set.\n\nCommon mistake: Reporting a hands-free floor explanation as actual floor practice. Correction: Label the note as written explanation, record only actual practice and keep the separate visual-evidence limit.\n\nCommon mistake: Treating completion of version 1.0.0 as proof this revised sequence was worked through. Correction: Keep the old record as history and report work on 1.1.0 separately.",
+            "tr": "Dört parçalı tek sıra, dürüst bir gözlem ve sonraki seans seçimi yaz. Fiziksel pratik yapılmadıysa bunu söyle ve bitişi sözlü gözden geçir.\n\nBitiş: Eller yüksüz, sonraki seçim kayıtlı olarak değerlendirmeyi bitir. Eski içerik sürümü tamamlamasını bu yeni sıradan ayrı tut.\n\nDinlenme: Gerçek destek pratiğinden sonra toparlanmaya yer bırak; not incelemesi yeni fiziksel set gerektirmez.\n\nSık hata: Eller serbest yer açıklamasını gerçek yer pratiği diye bildirmek. Düzeltme: Notu yazılı açıklama diye etiketle, yalnız gerçek pratiği kaydet ve ayrı görsel kanıt sınırını koru.\n\nSık hata: 1.0.0 sürümü tamamlamasını bu yenilenmiş sıranın çalışıldığı kanıtı saymak. Düzeltme: Eski kaydı geçmiş olarak koru; 1.1.0 çalışmasını ayrı bildir."
           },
           "selfCheck": [
             {
-              "en": "Can I explain the setup and exit without guessing?",
-              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+              "en": "I can explain entry and finish without replacing a missing step with a guess.",
+              "tr": "Eksik adımı tahminle doldurmadan giriş ve bitişi anlatabiliyorum."
             },
             {
-              "en": "Can I state the easier option and the reason to stop?",
-              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+              "en": "My note distinguishes learning, an actual supported attempt and missing visual evidence.",
+              "tr": "Notum öğrenmeyi, gerçek destekli denemeyi ve eksik görsel kanıtı ayırıyor."
+            },
+            {
+              "en": "My next choice depends on what happened, not a badge, weekly timer or advanced source pose.",
+              "tr": "Sonraki seçimim rozet, haftalık sayaç veya ileri kaynak pozuna değil yaşanana dayanıyor."
             }
           ],
           "adaptation": {
-            "en": "Repeat wall or raised foundations.",
-            "tr": "Duvar veya yükseltilmiş temeli yinele."
+            "en": "Use a spoken sequence or a short diagram rather than a physical demonstration.",
+            "tr": "Fiziksel gösterim yerine sözlü sıra veya kısa şema kullan."
           },
           "progression": {
-            "en": "Physical suitability and expert acceptance remain separate.",
-            "tr": "Fiziksel uygunluk ve uzman kabulü ayrı kalır."
+            "en": "Choose the same supported route on a later recovered session; check a different option’s surface and prerequisites before choosing it. Calendar or completion cannot create inversion readiness or automatic dose increase.",
+            "tr": "Sonraki toparlanmış seansta aynı destekli yolu seç; başka hareket biçimi seçmeden yüzeyini ve önkoşullarını kontrol et. Takvim veya tamamlama ters duruş hazır oluşu ya da otomatik doz artışı oluşturamaz."
           },
           "regression": {
-            "en": "Repeat wall or raised foundations.",
-            "tr": "Duvar veya yükseltilmiş temeli yinele."
+            "en": "Use a spoken sequence or a short diagram rather than a physical demonstration.",
+            "tr": "Fiziksel gösterim yerine sözlü sıra veya kısa şema kullan."
           },
           "rest": {
-            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
-            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+            "en": "Pause about one minute before recall; take longer as needed.",
+            "tr": "Hatırlamadan önce yaklaşık bir dakika ara ver; gerekirse uzat."
           },
           "stop": {
-            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
-            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+            "en": "If the log records unresolved pain, tingling, instability or a rushed exit, do not schedule a harder attempt; choose recovery/reading and appropriate assessment for persistent or concerning symptoms.",
+            "tr": "Kayıtta çözülmemiş ağrı, karıncalanma, dengesizlik veya acele çıkış varsa daha zor deneme planlama; toparlanma/okuma ve süren ya da kaygı veren belirtilerde uygun değerlendirme seç."
           },
           "sourceIds": [
-            "general"
+            "general",
+            "gmb_handstand_page"
           ],
           "prerequisites": [
             "hands-11"
           ],
-          "minutes": 8,
+          "minutes": 7,
           "practiceType": "learning_only",
           "evidenceMode": "self_report",
+          "movementTaskId": "gravita:hands-12",
+          "candidatePracticeAccess": "learning_only",
           "mediaBrief": {
-            "en": "Awaiting original permitted demonstration for hands-12: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
-            "tr": "hands-12 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+            "en": "No playable demonstration is bundled. Source links and sampled images support only their stated scope. Your learning record does not validate movement or personal suitability.",
+            "tr": "Oynatılabilir gösterim paketlenmemiştir. Kaynak bağlantıları ve örnek kareler yalnız belirtilen kapsamlarını destekler. Öğrenme kaydın hareketi veya kişisel uygunluğu doğrulamaz."
           },
-          "movementTaskId": "gravita:hands-12"
+          "sourceEvidence": {
+            "writtenSupportIds": [
+              "general",
+              "gmb_handstand_page"
+            ],
+            "sampledFrameRefs": [],
+            "captionTextRefs": [],
+            "unseenScope": [
+              "No end-to-end learner trial, physical suitability, model calibration or complete floor/inversion exit is established by this review."
+            ],
+            "originalEditorialSequence": true,
+            "physicalValidationClaimed": false,
+            "copiedMedia": false
+          }
         }
       ]
     }

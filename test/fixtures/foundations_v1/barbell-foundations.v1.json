@@ -1,0 +1,954 @@
+{
+  "schemaVersion": 1,
+  "id": "barbell-foundations",
+  "version": "1.0.0",
+  "title": {
+    "en": "Barbell strength foundations · review pending",
+    "tr": "Barbell kuvvet temelleri · inceleme bekliyor"
+  },
+  "description": {
+    "en": "A complete foundation sequence draft: setup, progressive tasks, easier options, recovery and exit review. Physical tasks await expert review and original demonstrations; training/calibration comes later.",
+    "tr": "Tam temel sıra taslağı: kurulum, ilerleyen görevler, kolay seçenekler, dinlenme ve çıkış incelemesi. Fiziksel görevler uzman incelemesi ve özgün gösterim bekler; eğitim/kalibrasyon sonradır."
+  },
+  "healthNotice": {
+    "en": "Expert review and learner observation are pending. Read now; physical practice and physical completion are held. No individual suitability, injury-prevention, mastery or model-accuracy claim.",
+    "tr": "Uzman incelemesi ve öğrenci gözlemi bekliyor. Şimdi okuyabilirsin; fiziksel pratik ve fiziksel tamamlama kapalı. Kişisel uygunluk, yaralanma önleme, ustalık veya model doğruluğu iddiası yok."
+  },
+  "evidenceMode": "self_report",
+  "reviewStatus": "expert_review_required",
+  "scope": {
+    "en": "Provisional healthy adult beginner scope; exact equipment and individual suitability require qualified review.",
+    "tr": "Geçici sağlıklı yetişkin başlangıç kapsamı; kesin ekipman ve kişisel uygunluk yetkin inceleme ister."
+  },
+  "equipment": {
+    "en": "Light technique bar; rated supports; suitable rack and safeties for the squat branch.",
+    "tr": "Hafif teknik bar; uygun destek; squat dalı için uygun rack ve güvenlik kolları."
+  },
+  "entryCriteria": {
+    "en": "Read scope, identify equipment and unresolved suitability questions, and arrange the actual setup review.",
+    "tr": "Kapsamı oku, ekipmanı ve çözülmemiş uygunluk sorularını belirle, gerçek kurulum incelemesini düzenle."
+  },
+  "exitCriteria": {
+    "en": "Explain setup, selected task, regression, recovery and exit; physical performance requires separate demonstrations and observed learner review.",
+    "tr": "Kurulum, seçilen görev, kolaylaştırma, dinlenme ve çıkışı açıkla; fiziksel performans ayrı gösterim ve gözlenmiş öğrenci incelemesi ister."
+  },
+  "sources": [
+    {
+      "id": "general",
+      "title": "Mayo Clinic: Weight training technique",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/weight-training/art-20045842",
+      "supports": {
+        "en": "General preparation, controlled movement, breathing and recovery principles.",
+        "tr": "Genel hazırlık, kontrollü hareket, nefes ve toparlanma ilkeleri."
+      },
+      "doesNotSupport": {
+        "en": "These original draft lessons, equipment installation, individual suitability or expert approval.",
+        "tr": "Bu özgün taslak dersleri, ekipman kurulumunu, kişisel uygunluğu veya uzman onayını kanıtlamaz."
+      }
+    }
+  ],
+  "modules": [
+    {
+      "id": "barbell-module-1",
+      "title": {
+        "en": "Scope and preparation",
+        "tr": "Kapsam ve hazırlık"
+      },
+      "lessons": [
+        {
+          "id": "barbell-01",
+          "title": {
+            "en": "Scope and first-lift choice",
+            "tr": "Kapsam ve ilk kaldırış seçimi"
+          },
+          "objective": {
+            "en": "Distinguish a light technique bar from a standard bar.",
+            "tr": "Hafif teknik bar ile standart barı ayır."
+          },
+          "steps": [
+            {
+              "en": "Name the bar, rack and available coach.",
+              "tr": "Barı, rack sistemini ve mevcut eğitmeni adlandır."
+            },
+            {
+              "en": "Choose hinge/deadlift as the first reviewed pattern; squat is a separate rack task.",
+              "tr": "İlk incelenecek hareket olarak menteşe/deadlift seç; squat ayrı rack görevidir."
+            },
+            {
+              "en": "Write what remains outside the course: max attempts, Olympic lifts and overhead work.",
+              "tr": "Maksimum deneme, olimpik kaldırış ve baş üstü çalışmalarının dışarıda kaldığını yaz."
+            }
+          ],
+          "practice": {
+            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
+            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Read without equipment.",
+            "tr": "Ekipmansız oku."
+          },
+          "progression": {
+            "en": "Agree the exact first lift with a qualified coach.",
+            "tr": "Kesin ilk kaldırışı yetkin eğitmenle kararlaştır."
+          },
+          "regression": {
+            "en": "Read without equipment.",
+            "tr": "Ekipmansız oku."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for barbell-01: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "barbell-01 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:barbell-01"
+        },
+        {
+          "id": "barbell-02",
+          "title": {
+            "en": "Equipment, plates and exit area",
+            "tr": "Ekipman, plakalar ve çıkış alanı"
+          },
+          "objective": {
+            "en": "Identify the equipment checks needed before handling a bar.",
+            "tr": "Barı tutmadan gereken ekipman kontrollerini tanı."
+          },
+          "steps": [
+            {
+              "en": "Read the actual manufacturer instructions with the coach.",
+              "tr": "Gerçek üretici talimatını eğitmenle oku."
+            },
+            {
+              "en": "Locate stable supports, matching plates, collars and a clear return location; do not improvise anchors.",
+              "tr": "Sabit destekleri, eş plakaları, kilitleri ve boş dönüş yerini belirle; doğaçlama bağlantı yapma."
+            },
+            {
+              "en": "Describe balanced plate handling while the bar is supported; leave hands away from pinch points.",
+              "tr": "Bar destekliyken dengeli plaka kullanımını anlat; elleri sıkışma noktalarından uzak tut."
+            }
+          ],
+          "practice": {
+            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
+            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Use a photograph or equipment diagram only.",
+            "tr": "Yalnız fotoğraf veya ekipman şeması kullan."
+          },
+          "progression": {
+            "en": "Have the actual setup checked before the first physical lesson.",
+            "tr": "İlk fiziksel dersten önce gerçek kurulumu kontrol ettir."
+          },
+          "regression": {
+            "en": "Use a photograph or equipment diagram only.",
+            "tr": "Yalnız fotoğraf veya ekipman şeması kullan."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "barbell-01"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for barbell-02: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "barbell-02 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:barbell-02"
+        },
+        {
+          "id": "barbell-03",
+          "title": {
+            "en": "Preparation and unloaded hinge",
+            "tr": "Hazırlık ve yüksüz menteşe"
+          },
+          "objective": {
+            "en": "Rehearse the hip-back direction without a bar.",
+            "tr": "Barsız kalçayı geriye götürme yönünü prova et."
+          },
+          "steps": [
+            {
+              "en": "After general preparation, stand with empty hands and space behind the hips.",
+              "tr": "Genel hazırlıktan sonra eller boş, kalçanın arkasında alan varken ayakta dur."
+            },
+            {
+              "en": "Let the hips travel back through a small comfortable range with softly bent knees; keep breathing.",
+              "tr": "Dizleri hafif bükerek kalçayı küçük rahat aralıkta geriye götür; nefesi sürdür."
+            },
+            {
+              "en": "Return to standing under control before repeating.",
+              "tr": "Yenilemeden önce kontrollü ayakta konuma dön."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Shorten the range or use the existing wall-hinge preparation.",
+            "tr": "Aralığı kısalt veya mevcut duvar menteşesi hazırlığını kullan."
+          },
+          "progression": {
+            "en": "Only add an external object after coached review.",
+            "tr": "Dış nesneyi yalnız eğitmen incelemesinden sonra ekle."
+          },
+          "regression": {
+            "en": "Shorten the range or use the existing wall-hinge preparation.",
+            "tr": "Aralığı kısalt veya mevcut duvar menteşesi hazırlığını kullan."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "barbell-02"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for barbell-03: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "barbell-03 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:barbell-03"
+        },
+        {
+          "id": "barbell-04",
+          "title": {
+            "en": "Raised technique-bar start",
+            "tr": "Yükseltilmiş teknik bar başlangıcı"
+          },
+          "objective": {
+            "en": "Learn a supported start at a reviewed height.",
+            "tr": "İncelenmiş yükseklikte destekli başlangıcı öğren."
+          },
+          "steps": [
+            {
+              "en": "Coach selects a light technique bar and stable rated supports; no plate increase.",
+              "tr": "Eğitmen hafif teknik barı ve uygun sabit destekleri seçsin; plaka artırma."
+            },
+            {
+              "en": "Approach with the bar near the legs; use the reviewed grip and bend at hips/knees to reach without pulling.",
+              "tr": "Bar bacaklara yakınken yaklaş; incelenmiş tutuşla kalça/dizleri büküp çekmeden ulaş."
+            },
+            {
+              "en": "Stand away after releasing the supported bar; confirm the return area.",
+              "tr": "Desteklenen barı bıraktıktan sonra uzaklaş; dönüş alanını doğrula."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Return to empty-hand hinge if reaching changes control.",
+            "tr": "Uzanma kontrolü değiştiriyorsa boş el menteşesine dön."
+          },
+          "progression": {
+            "en": "Progress by a small reviewed range change, not by adding load.",
+            "tr": "Yük ekleyerek değil küçük incelenmiş aralık değişimiyle ilerle."
+          },
+          "regression": {
+            "en": "Return to empty-hand hinge if reaching changes control.",
+            "tr": "Uzanma kontrolü değiştiriyorsa boş el menteşesine dön."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "barbell-03"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for barbell-04: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "barbell-04 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:barbell-04"
+        }
+      ]
+    },
+    {
+      "id": "barbell-module-2",
+      "title": {
+        "en": "Supported tasks and control",
+        "tr": "Destekli görevler ve kontrol"
+      },
+      "lessons": [
+        {
+          "id": "barbell-05",
+          "title": {
+            "en": "First lift and controlled return",
+            "tr": "İlk kaldırış ve kontrollü bırakış"
+          },
+          "objective": {
+            "en": "Connect the reviewed start, lift and supported return.",
+            "tr": "İncelenmiş başlangıç, kaldırış ve desteğe dönüşü bağla."
+          },
+          "steps": [
+            {
+              "en": "Use the same coach-approved light bar and raised setup.",
+              "tr": "Aynı eğitmen onaylı hafif barı ve yükseltilmiş kurulumu kullan."
+            },
+            {
+              "en": "Stand smoothly with the bar close, without a jerk or leaning back at the top; breathe continuously.",
+              "tr": "Bar yakınken silkmeden düzgün doğrul; tepede geriye yaslanma; nefesi sürdür."
+            },
+            {
+              "en": "Reverse the hinge to the same supports and release only when the bar is stable.",
+              "tr": "Menteşeyi tersine aynı desteklere dön; bar sabitken bırak."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Repeat only the start setup without lifting.",
+            "tr": "Yalnız kaldırmadan başlangıç kurulumunu yinele."
+          },
+          "progression": {
+            "en": "Repeat the same easy range in another reviewed session before changing it.",
+            "tr": "Değiştirmeden önce aynı kolay aralığı başka incelenmiş oturumda yinele."
+          },
+          "regression": {
+            "en": "Repeat only the start setup without lifting.",
+            "tr": "Yalnız kaldırmadan başlangıç kurulumunu yinele."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "barbell-04"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for barbell-05: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "barbell-05 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:barbell-05"
+        },
+        {
+          "id": "barbell-06",
+          "title": {
+            "en": "Repeatable small sets",
+            "tr": "Tekrarlanabilir küçük setler"
+          },
+          "objective": {
+            "en": "Keep each start and return distinct.",
+            "tr": "Her başlangıç ve dönüşü ayrı tut."
+          },
+          "steps": [
+            {
+              "en": "Check the support and clear area again after every break.",
+              "tr": "Her aradan sonra desteği ve boş alanı yeniden kontrol et."
+            },
+            {
+              "en": "Use a few easy controlled repetitions with a full stable reset; do not bounce.",
+              "tr": "Tam sabit sıfırlamayla birkaç kolay kontrollü tekrar kullan; sektirme."
+            },
+            {
+              "en": "End the set before control deteriorates, return the bar and rest.",
+              "tr": "Kontrol bozulmadan seti bitir, barı bırak ve dinlen."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Use one reviewed repetition at a time.",
+            "tr": "Bir seferde tek incelenmiş tekrar kullan."
+          },
+          "progression": {
+            "en": "Change one variable with the coach after repeatable easy sessions.",
+            "tr": "Tekrarlanabilir kolay oturumlardan sonra eğitmenle tek değişkeni değiştir."
+          },
+          "regression": {
+            "en": "Use one reviewed repetition at a time.",
+            "tr": "Bir seferde tek incelenmiş tekrar kullan."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "barbell-05"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for barbell-06: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "barbell-06 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:barbell-06"
+        },
+        {
+          "id": "barbell-07",
+          "title": {
+            "en": "Rack-supported squat setup",
+            "tr": "Rack destekli squat kurulumu"
+          },
+          "objective": {
+            "en": "Treat rack and safety settings as a separate skill.",
+            "tr": "Rack ve güvenlik ayarlarını ayrı beceri olarak ele al."
+          },
+          "steps": [
+            {
+              "en": "Coach checks rack stability, hooks, safety height and a light bar that is appropriate for you.",
+              "tr": "Eğitmen rack sabitliğini, kancaları, güvenlik yüksekliğini ve sana uygun hafif barı kontrol etsin."
+            },
+            {
+              "en": "Learn the specific grip and bar position without lifting off; an empty standard bar may still be too heavy.",
+              "tr": "Kaldırmadan özel tutuş ve bar konumunu öğren; boş standart bar yine ağır olabilir."
+            },
+            {
+              "en": "Identify both hooks and the return path before any unrack.",
+              "tr": "Rack çıkışından önce iki kancayı ve dönüş yolunu belirle."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Use unloaded squat preparation instead.",
+            "tr": "Yerine yüksüz squat hazırlığını kullan."
+          },
+          "progression": {
+            "en": "Unrack only after the actual setup and assistance plan are reviewed.",
+            "tr": "Yalnız gerçek kurulum ve yardım planı incelendikten sonra rack çıkışı yap."
+          },
+          "regression": {
+            "en": "Use unloaded squat preparation instead.",
+            "tr": "Yerine yüksüz squat hazırlığını kullan."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "barbell-06"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for barbell-07: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "barbell-07 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:barbell-07"
+        },
+        {
+          "id": "barbell-08",
+          "title": {
+            "en": "Unrack, shallow squat, rerack",
+            "tr": "Rack çıkışı, sığ squat, dönüş"
+          },
+          "objective": {
+            "en": "Link a small coached squat with a stable return.",
+            "tr": "Küçük eğitmenli squat ile sabit dönüşü bağla."
+          },
+          "steps": [
+            {
+              "en": "Use the reviewed light-bar rack configuration and supervision.",
+              "tr": "İncelenmiş hafif bar rack ayarını ve gözetimi kullan."
+            },
+            {
+              "en": "Unrack with a small stable step, squat only within the reviewed comfortable range and stand without a bounce.",
+              "tr": "Küçük dengeli adımla çık, yalnız incelenmiş rahat aralıkta çömel ve sektirmeden doğrul."
+            },
+            {
+              "en": "Approach both hooks; verify the bar is fully supported before stepping away.",
+              "tr": "İki kancaya yaklaş; uzaklaşmadan barın tam desteklendiğini doğrula."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Rehearse the empty-hand movement or omit squat.",
+            "tr": "Boş el hareketini prova et veya squatı atla."
+          },
+          "progression": {
+            "en": "Increase range only with direct review; no automatic load prescription.",
+            "tr": "Aralığı yalnız doğrudan incelemeyle artır; otomatik yük reçetesi yok."
+          },
+          "regression": {
+            "en": "Rehearse the empty-hand movement or omit squat.",
+            "tr": "Boş el hareketini prova et veya squatı atla."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "barbell-07"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for barbell-08: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "barbell-08 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:barbell-08"
+        }
+      ]
+    },
+    {
+      "id": "barbell-module-3",
+      "title": {
+        "en": "Integration and review",
+        "tr": "Birleştirme ve inceleme"
+      },
+      "lessons": [
+        {
+          "id": "barbell-09",
+          "title": {
+            "en": "One change and retest",
+            "tr": "Tek değişken ve yeniden deneme"
+          },
+          "objective": {
+            "en": "Choose a regression before fatigue changes the pattern.",
+            "tr": "Yorgunluk hareketi değiştirmeden kolaylaştırma seç."
+          },
+          "steps": [
+            {
+              "en": "Review the last easy set with your coach.",
+              "tr": "Son kolay seti eğitmeninle gözden geçir."
+            },
+            {
+              "en": "If range or return is inconsistent, reduce the range or use the lighter setup; change only one thing.",
+              "tr": "Aralık veya dönüş tutarsızsa aralığı azalt veya hafif kurulumu kullan; tek şeyi değiştir."
+            },
+            {
+              "en": "Compare another easy attempt, then put the bar away.",
+              "tr": "Başka kolay denemeyi karşılaştır, sonra barı yerine bırak."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Return to setup only.",
+            "tr": "Yalnız kuruluma dön."
+          },
+          "progression": {
+            "en": "Record the chosen variant and why it stayed comfortable.",
+            "tr": "Seçilen varyantı ve neden rahat kaldığını kaydet."
+          },
+          "regression": {
+            "en": "Return to setup only.",
+            "tr": "Yalnız kuruluma dön."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "barbell-08"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for barbell-09: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "barbell-09 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:barbell-09"
+        },
+        {
+          "id": "barbell-10",
+          "title": {
+            "en": "Short supervised session",
+            "tr": "Kısa gözetimli oturum"
+          },
+          "objective": {
+            "en": "Combine preparation, one reviewed lift and recovery.",
+            "tr": "Hazırlığı, tek incelenmiş kaldırışı ve dinlenmeyi birleştir."
+          },
+          "steps": [
+            {
+              "en": "Pick the already reviewed hinge OR rack squat and its exact equipment.",
+              "tr": "Önceden incelenmiş menteşe VEYA rack squatı ve kesin ekipmanını seç."
+            },
+            {
+              "en": "Rehearse, do a small easy set, rest until ready and repeat only if control is unchanged.",
+              "tr": "Prova yap, küçük kolay seti yap, hazır olana kadar dinlen ve yalnız kontrol aynıysa yinele."
+            },
+            {
+              "en": "Return equipment, review symptoms and note the variant; do not add an unfamiliar second lift.",
+              "tr": "Ekipmanı yerine bırak, belirtileri gözden geçir ve varyantı yaz; bilinmeyen ikinci kaldırış ekleme."
+            }
+          ],
+          "practice": {
+            "en": "Draft for supervised review: rehearse the entry, one small easy task and exit. No attempt is assigned while review and demonstrations are pending.",
+            "tr": "Gözetimli inceleme taslağı: giriş, tek küçük kolay görev ve çıkışı prova et. İnceleme ve gösterimler beklerken deneme görevi verilmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Keep only preparation and one easy set.",
+            "tr": "Yalnız hazırlık ve tek kolay set kullan."
+          },
+          "progression": {
+            "en": "Plan another nonconsecutive session with the coach.",
+            "tr": "Eğitmenle ardışık olmayan başka oturumu planla."
+          },
+          "regression": {
+            "en": "Keep only preparation and one easy set.",
+            "tr": "Yalnız hazırlık ve tek kolay set kullan."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "barbell-09"
+          ],
+          "minutes": 8,
+          "practiceType": "physical",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for barbell-10: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "barbell-10 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:barbell-10"
+        },
+        {
+          "id": "barbell-11",
+          "title": {
+            "en": "Recovery and session log",
+            "tr": "Dinlenme ve oturum kaydı"
+          },
+          "objective": {
+            "en": "Separate self-report from measured performance.",
+            "tr": "Öz bildirimi ölçülmüş performanstan ayır."
+          },
+          "steps": [
+            {
+              "en": "Write equipment, start height, variant and perceived difficulty.",
+              "tr": "Ekipmanı, başlangıç yüksekliğini, varyantı ve hissedilen zorluğu yaz."
+            },
+            {
+              "en": "Leave recovery between demanding sessions; do not use a completion badge as permission to add weight.",
+              "tr": "Zorlu oturumlar arasında dinlen; tamamlama rozetini yük ekleme izni sayma."
+            },
+            {
+              "en": "Bring unresolved discomfort or equipment concerns to the reviewer before returning.",
+              "tr": "Çözülmemiş rahatsızlık veya ekipman sorununu dönüşten önce değerlendiriciye taşı."
+            }
+          ],
+          "practice": {
+            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
+            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Review your notes without a physical attempt.",
+            "tr": "Fiziksel denemeden notlarını incele."
+          },
+          "progression": {
+            "en": "Agree the next session rather than infer readiness from a counter.",
+            "tr": "Hazırlığı sayaçtan çıkarmak yerine sonraki oturumu kararlaştır."
+          },
+          "regression": {
+            "en": "Review your notes without a physical attempt.",
+            "tr": "Fiziksel denemeden notlarını incele."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "barbell-10"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for barbell-11: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "barbell-11 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:barbell-11"
+        },
+        {
+          "id": "barbell-12",
+          "title": {
+            "en": "Exit review and next course",
+            "tr": "Çıkış değerlendirmesi ve sonraki kurs"
+          },
+          "objective": {
+            "en": "State the boundary of the foundation course.",
+            "tr": "Temel kursun sınırını söyle."
+          },
+          "steps": [
+            {
+              "en": "Describe setup, a chosen easy lift, return and regression in order.",
+              "tr": "Kurulumu, seçilen kolay kaldırışı, dönüşü ve kolaylaştırmayı sırayla anlat."
+            },
+            {
+              "en": "List missing demonstrations, observed learner review and calibration evidence.",
+              "tr": "Eksik gösterimleri, gözlenmiş öğrenci incelemesini ve kalibrasyon kanıtını listele."
+            },
+            {
+              "en": "Choose whether to repeat foundations or seek a separate reviewed progression.",
+              "tr": "Temeli yinelemeyi veya ayrı incelenmiş ilerleme istemeyi seç."
+            }
+          ],
+          "practice": {
+            "en": "Explain the three steps in your own words and list one unresolved question. No physical attempt is required.",
+            "tr": "Üç adımı kendi sözlerinle anlat ve çözülmemiş bir soruyu yaz. Fiziksel deneme gerekmez."
+          },
+          "selfCheck": [
+            {
+              "en": "Can I explain the setup and exit without guessing?",
+              "tr": "Kurulumu ve çıkışı tahmin etmeden anlatabiliyor muyum?"
+            },
+            {
+              "en": "Can I state the easier option and the reason to stop?",
+              "tr": "Kolay seçeneği ve durma nedenini söyleyebiliyor muyum?"
+            }
+          ],
+          "adaptation": {
+            "en": "Repeat the equipment and setup lessons.",
+            "tr": "Ekipman ve kurulum derslerini yinele."
+          },
+          "progression": {
+            "en": "No maximum strength, advanced lift or safety certification follows from completion.",
+            "tr": "Tamamlama maksimum kuvvet, ileri kaldırış veya güvenlik sertifikası vermez."
+          },
+          "regression": {
+            "en": "Repeat the equipment and setup lessons.",
+            "tr": "Ekipman ve kurulum derslerini yinele."
+          },
+          "rest": {
+            "en": "Draft dose is individualized with the reviewer. Rest until breathing and control recover; shorten or stop rather than chase repetitions. Leave recovery between demanding sessions.",
+            "tr": "Taslak doz değerlendiriciyle kişiselleştirilir. Nefes ve kontrol toparlanana kadar dinlen; tekrar kovalamak yerine kısalt veya dur. Zorlu oturumlar arasına toparlanma koy."
+          },
+          "stop": {
+            "en": "Stop for pain, dizziness, unusual breathlessness, tingling, grip/balance loss or unstable equipment; do not retest symptoms.",
+            "tr": "Ağrı, baş dönmesi, olağandışı nefes darlığı, karıncalanma, tutuş/denge kaybı veya oynayan ekipmanda dur; belirtileri yeniden deneme."
+          },
+          "sourceIds": [
+            "general"
+          ],
+          "prerequisites": [
+            "barbell-11"
+          ],
+          "minutes": 8,
+          "practiceType": "learning_only",
+          "evidenceMode": "self_report",
+          "mediaBrief": {
+            "en": "Awaiting original permitted demonstration for barbell-12: exact equipment/variant, full entry–task–exit, side view and a second view if needed, EN/TR captions, rights and reviewer record. No playable video supplied. Do not upload training footage externally.",
+            "tr": "barbell-12 için özgün izinli gösterim bekleniyor: kesin ekipman/varyant, tam giriş–görev–çıkış, yandan ve gerekirse ikinci açı, EN/TR altyazı, hak ve değerlendirici kaydı. Oynatılabilir video sağlanmadı. Eğitim görüntüsünü dışarı yükleme."
+          },
+          "movementTaskId": "gravita:barbell-12"
+        }
+      ]
+    }
+  ],
+  "catalogueGuides": []
+}

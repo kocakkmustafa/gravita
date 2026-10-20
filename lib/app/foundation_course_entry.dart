@@ -23,8 +23,8 @@ class FoundationCourseEntry extends StatelessWidget {
         Text(
           localized(
             context,
-            'Read the complete draft sequences. Physical tasks await expert review and demonstrations; model calibration follows later.',
-            'Tam taslak sıraları oku. Fiziksel görevler uzman incelemesi ve gösterim bekliyor; model kalibrasyonu sonradır.',
+            'Work through the original beginner sequences, with the stated equipment checks, small practice options and easier paths. Learning reports do not validate physical performance; movement feedback requires separate calibration.',
+            'Özgün başlangıç sıralarını belirtilen ekipman kontrolleri,küçük pratik seçenekleri ve kolay yollarla çalış. Öğrenme bildirimi fiziksel performansı doğrulamaz;hareket geri bildirimi ayrı kalibrasyon ister.',
           ),
         ),
         for (final entry in content.foundationCourses.entries)

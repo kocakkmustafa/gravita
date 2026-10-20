@@ -59,6 +59,7 @@ final class CalisthenicsLesson {
           : CourseText.parse(json['regression']),
       rest = json['rest'] == null ? null : CourseText.parse(json['rest']),
       movementTaskId = json['movementTaskId'] as String?,
+      candidatePracticeAccess = json['candidatePracticeAccess'] as String?,
       id = json['id'] as String,
       title = CourseText.parse(json['title']),
       objective = CourseText.parse(json['objective']),
@@ -84,7 +85,13 @@ final class CalisthenicsLesson {
           ? null
           : CourseText.parse(json['answer']) {
     if (id.isEmpty ||
-        (id.startsWith('dbkbh-') ? steps.length < 3 : steps.length != 3) ||
+        (id.startsWith('dbkbh-')
+            ? steps.length < 3
+            : id.startsWith('barbell-') ||
+                  id.startsWith('rings-') ||
+                  id.startsWith('hands-')
+            ? steps.length < 3 || steps.length > 5
+            : steps.length != 3) ||
         selfCheck.length < 2 ||
         minutes <= 0 ||
         sourceIds.isEmpty ||
@@ -97,6 +104,7 @@ final class CalisthenicsLesson {
   }
   final CourseText? progression, regression, rest;
   final String? movementTaskId;
+  final String? candidatePracticeAccess;
   final String id;
   final CourseText title, objective, practice, adaptation, stop, mediaBrief;
   final CourseText? recall, correction, answer;
@@ -142,7 +150,10 @@ final class MovementLearningGuide {
 
 final class CalisthenicsCourse {
   CalisthenicsCourse._(Map<String, dynamic> json)
-    : reviewRequired = foundationCourseIds.contains(json['id']),
+    : isFoundationCourse = foundationCourseIds.contains(json['id']),
+      reviewRequired =
+          foundationCourseIds.contains(json['id']) &&
+          json['reviewStatus'] == 'expert_review_required',
       scope = json['scope'] == null ? null : CourseText.parse(json['scope']),
       equipment = json['equipment'] == null
           ? null
@@ -184,9 +195,9 @@ final class CalisthenicsCourse {
           'dbkb-supported-transitions',
           ...foundationCourseIds,
         }).contains(id) ||
-        version != '1.0.0' ||
+        (version != '1.0.0' && !(isFoundationCourse && version == '1.1.0')) ||
         json['evidenceMode'] != 'self_report' ||
-        (reviewRequired
+        (isFoundationCourse
             ? modules.length != 3 || lessons.length != 12
             : id == 'calisthenics-foundations'
             ? modules.length != 10 || lessons.length != 56
@@ -197,13 +208,27 @@ final class CalisthenicsCourse {
             : modules.length != 1 || lessons.length != 2)) {
       throw const FormatException('Unsupported calisthenics course');
     }
-    if (reviewRequired) {
+    if (isFoundationCourse) {
       final prefix = switch (id) {
         'barbell-foundations' => 'barbell',
         'rings-foundations' => 'rings',
         _ => 'hands',
       };
-      if (json['reviewStatus'] != 'expert_review_required' ||
+      if ((version == '1.0.0'
+              ? json['reviewStatus'] != 'expert_review_required'
+              : json['reviewStatus'] != 'first_release_draft') ||
+          (version == '1.1.0' &&
+              lessons.any(
+                (lesson) =>
+                    lesson.candidatePracticeAccess == null ||
+                    !(<String>{
+                      'learning_only',
+                      'available_supported_beginner',
+                      'available_unloaded_beginner',
+                    }).contains(lesson.candidatePracticeAccess) ||
+                    lesson.learningOnly !=
+                        (lesson.candidatePracticeAccess == 'learning_only'),
+              )) ||
           scope == null ||
           equipment == null ||
           entryCriteria == null ||
@@ -310,7 +335,7 @@ final class CalisthenicsCourse {
   }
   factory CalisthenicsCourse.parse(String text) =>
       CalisthenicsCourse._((jsonDecode(text) as Map).cast<String, dynamic>());
-  final bool reviewRequired;
+  final bool isFoundationCourse, reviewRequired;
   final CourseText? scope, equipment, entryCriteria, exitCriteria;
   bool practiceHeld(CalisthenicsLesson lesson) =>
       reviewRequired &&

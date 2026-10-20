@@ -8,6 +8,7 @@ import '../library_strings.dart';
 import '../theme.dart';
 import '../workout/workout_screen.dart';
 import 'program_model.dart';
+import 'program_safety_notice.dart';
 import 'program_builder.dart';
 import 'program_schedule_store.dart';
 import 'program_signature.dart';
@@ -35,6 +36,8 @@ class ProgramSetupScreen extends StatefulWidget {
   static const Key equipmentKey = Key('programSetup.equipment');
   static const Key daysPerWeekKey = Key('programSetup.daysPerWeek');
   static const Key buildButtonKey = Key('programSetup.build');
+  static const Key swingFamiliarityKey = Key('programSetup.swingFamiliarity');
+  static const Key swingRequirementKey = Key('programSetup.swingRequirement');
 
   final ContentRepository content;
   final String? accountUserId;
@@ -48,6 +51,14 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
   final Set<String> _equipment = <String>{};
   int _daysPerWeek = 3;
   bool _saving = false;
+  // A transient, explicit self-report for NEW plan creation. This is not a
+  // technique assessment, a lesson-completion receipt or a persisted approval.
+  bool _swingFamiliar = false;
+  bool _needsSwingFamiliarity = false;
+
+  bool get _maySelectSwing =>
+      _experience == ExperienceLevel.intermediate &&
+      _equipment.contains('kettlebell');
 
   /// Ekipman listesi HARDCODE değil, katalogdan TÜRETİLİR — yeni bir
   /// hareket yeni bir ekipman türü getirdiğinde bu ekran KENDİLİĞİNDEN
@@ -80,6 +91,18 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
       final entries = await widget.content.programCatalogEntries();
       final builder = ProgramBuilder(config: config, catalog: entries);
       final program = builder.build(inputs);
+      if (program.days.any(
+            (day) => day.exercises.any(
+              (exercise) => exercise.movementId == 'kb_swing',
+            ),
+          ) &&
+          !_swingFamiliar) {
+        // Require this only for an actual selected swing. The coarse preview
+        // must not block a plan whose selected tasks contain no swing.
+        // No file has been written at this point.
+        if (mounted) setState(() => _needsSwingFamiliarity = true);
+        return;
+      }
       final signature = programSignature(inputs, program);
       if (savedInputs != null || savedSchedule != null) {
         if (savedInputs == null ||
@@ -112,7 +135,6 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
       }
     } on Object {
       if (!mounted) return;
-      setState(() => _saving = false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -127,6 +149,8 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
         ),
       );
       return;
+    } finally {
+      if (mounted) setState(() => _saving = false);
     }
     if (!mounted) return;
     Navigator.of(context).pushReplacement<void, void>(
@@ -170,6 +194,8 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
               height: 1.5,
             ),
           ),
+          const SizedBox(height: 16),
+          ProgramSafetyNotice(containsSwing: _maySelectSwing),
           const SizedBox(height: 28),
           Text(
             localizedUpper(
@@ -210,8 +236,11 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
                   // ignore: deprecated_member_use
                   onChanged: _saving
                       ? null
-                      : (ExperienceLevel? v) =>
-                            setState(() => _experience = v ?? _experience),
+                      : (ExperienceLevel? v) => setState(() {
+                          _experience = v ?? _experience;
+                          _swingFamiliar = false;
+                          _needsSwingFamiliarity = false;
+                        }),
                 ),
             ],
           ),
@@ -243,6 +272,8 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
                   onSelected: _saving
                       ? null
                       : (bool sel) => setState(() {
+                          _swingFamiliar = false;
+                          _needsSwingFamiliarity = false;
                           if (sel) {
                             _equipment.add(eq);
                           } else {
@@ -305,6 +336,41 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
               ),
             ],
           ),
+          if (_maySelectSwing || _needsSwingFamiliarity) ...[
+            const SizedBox(height: 18),
+            if (_needsSwingFamiliarity)
+              Semantics(
+                liveRegion: true,
+                child: Text(
+                  localized(
+                    context,
+                    'Your plan includes a kettlebell swing. Before saving, confirm that you have learned its setup and controlled finish, or remove kettlebell from this generated plan and use the learning guides separately.',
+                    'Planında kettlebell swing var. Kaydetmeden önce kurulumunu ve kontrollü bitirişini daha önce öğrendiğini bildir veya bu otomatik plandan kettlebell’i çıkarıp öğrenme rehberlerini ayrıca kullan.',
+                  ),
+                  key: ProgramSetupScreen.swingRequirementKey,
+                  style: GravitaType.body(
+                    context: context,
+                    color: GravitaColors.of(context).error,
+                  ),
+                ),
+              ),
+            CheckboxListTile(
+              key: ProgramSetupScreen.swingFamiliarityKey,
+              contentPadding: EdgeInsets.zero,
+              controlAffinity: ListTileControlAffinity.leading,
+              value: _swingFamiliar,
+              onChanged: _saving
+                  ? null
+                  : (value) => setState(() => _swingFamiliar = value ?? false),
+              title: Text(
+                localized(
+                  context,
+                  'I have already learned the kettlebell swing, including its setup and controlled finish. This is my own report, not an assessment by Gravita.',
+                  'Kettlebell swing’i kurulum ve kontrollü bitirişiyle daha önce öğrendim. Bu benim beyanımdır; Gravita değerlendirmesi değildir.',
+                ),
+              ),
+            ),
+          ],
           const SizedBox(height: 30),
           SizedBox(
             width: double.infinity,

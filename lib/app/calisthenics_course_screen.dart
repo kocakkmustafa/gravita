@@ -237,6 +237,7 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
           : (String? userId) => ContentRepository.openCalisthenicsProgressStore(
               accountUserId: userId,
               courseId: widget.course.id,
+              courseVersion: widget.course.version,
             ));
   @override
   Future<CalisthenicsProgress> readStore(CalisthenicsProgressStore value) =>
@@ -510,6 +511,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
           : (String? userId) => ContentRepository.openCalisthenicsProgressStore(
               accountUserId: userId,
               courseId: widget.course.id,
+              courseVersion: widget.course.version,
             ));
   @override
   Future<CalisthenicsProgress> readStore(CalisthenicsProgressStore value) =>
@@ -839,7 +841,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
               locale: Localizations.localeOf(context).toLanguageTag(),
               accountUserId: AccountScope.maybeOf(context)?.connection?.userId,
             ),
-          if (widget.course.reviewRequired ||
+          if (widget.course.isFoundationCourse ||
               widget.course.id == 'dbkb-written-foundations' ||
               widget.course.id == 'dbkb-controlled-handling' ||
               widget.course.id == 'dbkb-supported-transitions')

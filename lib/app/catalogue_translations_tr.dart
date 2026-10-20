@@ -956,13 +956,14 @@ const Map<CatalogueTextKind, Map<String, _Translation>> _translations = {
           "Arka uyluk kaslarına yük bindiğini hissedene kadar kalçanı daha geriye it.",
       movementIds: {"romanian_deadlift"},
     ),
-    "Push your shoulders further past your hands.": (
+    "Do not force a larger lean to satisfy this rule. This page does not assign a planche attempt.": (
       turkish:
-          "Omuzlarını, ellerinin hizasını daha da geçecek şekilde ileri it.",
+          "Bu kuralı karşılamak için daha fazla öne eğilmeyi zorlama. Bu sayfa planche denemesi vermez.",
       movementIds: {"tuck_planche"},
     ),
-    "Lock your elbows — bent arms put the load on the joint.": (
-      turkish: "Dirseklerini kilitle — bükülü kollar yükü ekleme bindirir.",
+    "Do not force an elbow lock. End the task if you cannot maintain the chosen position comfortably; do not retry to test symptoms. This page does not assign a planche attempt.": (
+      turkish:
+          "Dirsek kilidini zorlama. Seçilen konumu rahatça koruyamıyorsan görevi bitir; belirtileri sınamak için yeniden deneme. Bu sayfa planche denemesi vermez.",
       movementIds: {"tuck_planche"},
     ),
     "Ribs down, squeeze your glutes — flatten the line.": (

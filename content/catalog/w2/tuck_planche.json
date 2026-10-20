@@ -44,7 +44,7 @@
         "value": 6,
         "sustainedMs": 1000,
         "action": "warn_then_end",
-        "cue": "You're sinking back — lean your shoulders past your hands."
+        "cue": "End this task instead of forcing a larger lean."
       },
       {
         "id": "elbow_bend",
@@ -53,7 +53,7 @@
         "value": 145,
         "sustainedMs": 1000,
         "action": "warn",
-        "cue": "Lock your elbows."
+        "cue": "End this task instead of forcing an elbow lock."
       }
     ],
     "endsOn": [
@@ -97,7 +97,7 @@
         "value": 6,
         "sustainedMs": 1000
       },
-      "cue": "Push your shoulders further past your hands.",
+      "cue": "Do not force a larger lean to satisfy this rule. This page does not assign a planche attempt.",
       "perturbation": {
         "metric": "planche_lean_deg",
         "targetValue": 2,
@@ -116,7 +116,7 @@
         "value": 145,
         "sustainedMs": 1000
       },
-      "cue": "Lock your elbows — bent arms put the load on the joint.",
+      "cue": "Do not force an elbow lock. End the task if you cannot maintain the chosen position comfortably; do not retry to test symptoms. This page does not assign a planche attempt.",
       "perturbation": {
         "metric": "elbow_angle",
         "targetValue": 125,
@@ -133,7 +133,7 @@
     ],
     "during": [
       "Lean, don't jump.",
-      "Lock the elbows."
+      "Do not force the elbows into a lock."
     ],
     "success": [
       "Solid lean, arms straight."

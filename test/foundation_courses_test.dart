@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gravita/app/app_locale.dart';
+import 'package:gravita/app/account_store_epoch.dart';
 import 'package:gravita/app/calisthenics_course.dart';
 import 'package:gravita/app/calisthenics_course_screen.dart';
 import 'package:gravita/app/calisthenics_progress.dart';
@@ -13,6 +14,7 @@ import 'package:gravita/app/motion_observation.dart';
 import 'package:gravita/app/foundation_course_entry.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'support/launch_harness.dart';
+import 'support/locale_asset_harness.dart';
 
 class AlteredFoundationBundle extends CachingAssetBundle {
   AlteredFoundationBundle(this.path, {this.missing = false});
@@ -29,6 +31,27 @@ class AlteredFoundationBundle extends CachingAssetBundle {
   }
 }
 
+/// Immutable legacy assets preserve the original1.0 HOLD contract after the
+/// production course advances. Only these four assets use test fixtures.
+class LegacyFoundationBundle extends CachingAssetBundle {
+  @override
+  Future<ByteData> load(String key) async {
+    final name = key.split('/').last;
+    if ((key.startsWith('content/courses/') &&
+            const [
+              'barbell-foundations.v1.json',
+              'rings-foundations.v1.json',
+              'hands-foundations.v1.json',
+            ].contains(name)) ||
+        key == 'content/motion_content/foundations.manifest.json') {
+      return ByteData.sublistView(
+        File('test/fixtures/foundations_v1/$name').readAsBytesSync(),
+      );
+    }
+    return rootBundle.load(key);
+  }
+}
+
 Future<void> reveal(WidgetTester t, Finder target) async {
   final scroll = find.byType(Scrollable).first;
   await t.scrollUntilVisible(target, 250, scrollable: scroll, maxScrolls: 200);
@@ -42,12 +65,17 @@ Future<void> reveal(WidgetTester t, Finder target) async {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  late ContentRepository legacyContent;
+  setUpAll(() async {
+    await warmActualLocaleAssets();
+    legacyContent = await ContentRepository.load(LegacyFoundationBundle());
+  });
   for (final area in ['barbell', 'rings', 'hands']) {
     final raw = File(
-      'content/courses/$area-foundations.v1.json',
+      'test/fixtures/foundations_v1/$area-foundations.v1.json',
     ).readAsStringSync();
     final course = CalisthenicsCourse.parse(raw);
-    test('$area distinct sequence with draft physical gate', () {
+    test('$area legacy1.0 distinct sequence with draft physical gate', () {
       expect(course.lessons, hasLength(12));
       expect(course.lessons.where((l) => course.practiceHeld(l)), hasLength(8));
       for (final lesson in course.lessons) {
@@ -131,7 +159,7 @@ void main() {
     );
     for (final lang in ['tr', 'en']) {
       testWidgets(
-        '$area $lang 320px/2x entry → lesson → held controls → back',
+        '$area legacy1.0 $lang 320px/2x entry → lesson → held controls → back',
         (t) async {
           final dir = Directory.systemTemp.createTempSync(
             'gravita-foundation-ui-',
@@ -144,9 +172,7 @@ void main() {
           t.view.physicalSize = const Size(320, 900);
           t.view.devicePixelRatio = 1;
           addTearDown(t.view.reset);
-          final content = (await t.runAsync(
-            () => ContentRepository.load(rootBundle),
-          ))!;
+          final content = legacyContent;
           await t.pumpWidget(
             MaterialApp(
               locale: Locale(lang),
@@ -165,11 +191,19 @@ void main() {
               ),
             ),
           );
+          await pumpActualLocaleReady(t);
           await t.pumpAndSettle();
           final entry = find.byKey(Key('foundation.entry.$area'));
           await reveal(t, entry);
           await t.tap(entry.hitTestable());
           await t.pumpAndSettle();
+          await settleUntil(
+            t,
+            () => find
+                .byKey(Key('calisthenics.lesson.${course.lessons[2].id}'))
+                .evaluate()
+                .isNotEmpty,
+          );
           expect(find.byType(CalisthenicsCourseScreen), findsOneWidget);
           final lesson = find.byKey(
             Key('calisthenics.lesson.${course.lessons[2].id}'),
@@ -177,6 +211,13 @@ void main() {
           await reveal(t, lesson);
           await t.tap(lesson.hitTestable());
           await t.pumpAndSettle();
+          await settleUntil(
+            t,
+            () => find
+                .byKey(const Key('calisthenics.practised'))
+                .evaluate()
+                .isNotEmpty,
+          );
           expect(find.byType(CalisthenicsLessonScreen), findsOneWidget);
           final heading = find.text(
             lang == 'tr'
@@ -202,6 +243,7 @@ void main() {
           expect(find.byType(CalisthenicsCourseScreen), findsOneWidget);
           await t.pumpWidget(const SizedBox.shrink());
           await t.pumpAndSettle();
+          await t.runAsync(AccountStoreEpochRegistry.resetForTest);
           dir.deleteSync(recursive: true);
         },
       );
