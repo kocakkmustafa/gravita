@@ -385,14 +385,20 @@ void main() {
         final requestCount = harness.fixture.requests.length;
         expect(connection.isIdentityAdmitted!(), isTrue);
         expect(connection.isCurrentIdentityVerified!(), isTrue);
-        unawaited(
-          navigator.push<void>(
-            MaterialPageRoute<void>(
-              builder: (_) => const Scaffold(
-                body: Text('Retained route', key: _retainedRouteKey),
-              ),
-            ),
+        final retainedRoute = MaterialPageRoute<void>(
+          builder: (_) => const Scaffold(
+            body: Text('Retained route', key: _retainedRouteKey),
           ),
+        );
+        var routeDidPop = false;
+        var routeDisposed = false;
+        unawaited(
+          retainedRoute.completed.then<void>((_) => routeDisposed = true),
+        );
+        unawaited(
+          navigator
+              .push<void>(retainedRoute)
+              .then<void>((_) => routeDidPop = true),
         );
         await tester.pump();
         await tester.pump(const Duration(milliseconds: 300));
@@ -439,10 +445,27 @@ void main() {
         expect(harness.fixture.deletions, isEmpty);
         expect(harness.fixture.logoutCalls, 0);
         expect(cleanupCalls, isEmpty);
+        expect(retainedRoute.isCurrent, isTrue);
+        expect(retainedRoute.navigator, same(navigator));
         navigator.pop();
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 300));
+        await tester.pump(retainedRoute.reverseTransitionDuration);
+        // Flutter's interpolation completes strictly after its duration. Let
+        // the actual route finish and dispose on a bounded later fake frame.
+        for (var frame = 0; frame < 3 && !routeDisposed; frame++) {
+          await tester.pump(const Duration(milliseconds: 16));
+        }
+        expect(routeDidPop, isTrue);
+        expect(
+          routeDisposed,
+          isTrue,
+          reason: 'The retained route must complete and dispose after pop',
+        );
         expect(find.byKey(_retainedRouteKey), findsNothing);
+        expect(
+          find.byKey(_retainedRouteKey, skipOffstage: false),
+          findsNothing,
+        );
         expect(find.byType(OnboardingFlow), findsOneWidget);
         expect(tester.state(rootFinder), same(rootState));
       } finally {
