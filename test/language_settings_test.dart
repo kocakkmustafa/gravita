@@ -31,6 +31,7 @@ void main() {
     Locale? localeOverride,
     bool reduceMotion = false,
     double textScale = 1,
+    ThemeMode themeMode = ThemeMode.system,
   }) => AnimatedBuilder(
     animation: controller,
     builder: (context, _) => LanguagePreferencesScope(
@@ -38,6 +39,7 @@ void main() {
       child: MaterialApp(
         theme: GravitaTheme.light,
         darkTheme: GravitaTheme.dark,
+        themeMode: themeMode,
         locale: localeOverride ?? controller.locale,
         supportedLocales: appSupportedLocales,
         localizationsDelegates: appLocalizationsDelegates,
@@ -318,6 +320,91 @@ void main() {
     expect(find.byKey(LanguageSettingsScreen.savingKey), findsNothing);
     expect(store.calls, <String?>['en', 'en']);
   });
+
+  for (final mode in <ThemeMode>[ThemeMode.light, ThemeMode.dark]) {
+    testWidgets(
+      'scrolled language saving and retry remain reachable in ${mode.name}',
+      (tester) async {
+        tester.view.physicalSize = const Size(320, 568);
+        tester.view.devicePixelRatio = 1;
+        addTearDown(tester.view.reset);
+        final store = _ControlledStore();
+        final controller = LanguagePreferencesController(
+          store: store,
+          initial: const LanguagePreferencesLoadResult(),
+        );
+        addTearDown(controller.dispose);
+        await tester.pumpWidget(
+          host(
+            controller,
+            localeOverride: const Locale('ar'),
+            reduceMotion: true,
+            textScale: 2,
+            themeMode: mode,
+          ),
+        );
+        await pumpActualLocaleReady(tester);
+        await tester.pumpAndSettle();
+        final lastLanguage = find.byKey(
+          LanguageSettingsScreen.languageKey('zh-Hans'),
+        );
+        await tester.ensureVisible(lastLanguage);
+        await tester.pump();
+        expect(lastLanguage.hitTestable(), findsOneWidget);
+        final choices = find.descendant(
+          of: find.byType(ListView),
+          matching: find.byType(Scrollable),
+        );
+        expect(
+          tester.state<ScrollableState>(choices).position.pixels,
+          greaterThan(0),
+        );
+        await tester.tap(lastLanguage);
+        await tester.pump();
+        expect(controller.saving, isTrue);
+        expect(store.calls, <String?>['zh-Hans']);
+        expect(find.byKey(LanguageSettingsScreen.savingKey), findsOneWidget);
+        final panel = tester.getRect(
+          find.byKey(LanguageSettingsScreen.statusPanelKey),
+        );
+        expect(panel.top, greaterThanOrEqualTo(kToolbarHeight));
+        expect(panel.bottom, lessThanOrEqualTo(568));
+        expect(
+          panel.height,
+          lessThanOrEqualTo((568 - kToolbarHeight) * 0.4 + 0.001),
+        );
+        expect(
+          panel.contains(
+            tester.getCenter(find.byKey(LanguageSettingsScreen.savingKey)),
+          ),
+          isTrue,
+        );
+        expect(find.byType(CircularProgressIndicator), findsNothing);
+        store.pending.removeAt(0).completeError(StateError('synthetic save'));
+        await tester.pump();
+        await tester.pump();
+        expect(find.byKey(LanguageSettingsScreen.failureKey), findsOneWidget);
+        final retry = find.byKey(LanguageSettingsScreen.retryKey);
+        await tester.ensureVisible(retry);
+        await tester.pump();
+        expect(retry.hitTestable(), findsOneWidget);
+        expect(
+          tester
+              .getRect(find.byKey(LanguageSettingsScreen.statusPanelKey))
+              .contains(tester.getCenter(retry)),
+          isTrue,
+        );
+        await tester.tap(retry);
+        await tester.pump();
+        expect(store.calls, <String?>['zh-Hans', 'zh-Hans']);
+        store.pending.removeAt(0).complete();
+        await tester.pumpAndSettle();
+        expect(find.byKey(LanguageSettingsScreen.savingKey), findsNothing);
+        expect(find.byKey(LanguageSettingsScreen.failureKey), findsNothing);
+        expect(tester.takeException(), isNull);
+      },
+    );
+  }
 
   testWidgets('invalid and unavailable load fallback are visible', (
     tester,
