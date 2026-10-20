@@ -284,8 +284,17 @@ void main() {
     await tester.ensureVisible(
       find.byKey(LanguageSettingsScreen.languageKey('en')),
     );
+    // ensureVisible can jump without laying out the new hit-test geometry.
+    await tester.pump();
+    expect(
+      find.byKey(LanguageSettingsScreen.languageKey('en')).hitTestable(),
+      findsOneWidget,
+    );
     await tester.tap(find.byKey(LanguageSettingsScreen.languageKey('en')));
     await tester.pump();
+    expect(controller.saving, isTrue);
+    expect(store.calls, <String?>['en']);
+    expect(store.pending, hasLength(1));
     expect(find.byKey(LanguageSettingsScreen.savingKey), findsOneWidget);
     expect(controller.selectedTag, 'en');
     store.pending
@@ -296,6 +305,11 @@ void main() {
     expect(find.byKey(LanguageSettingsScreen.failureKey), findsOneWidget);
     expect(find.textContaining('/private/sensitive'), findsNothing);
     await tester.ensureVisible(find.byKey(LanguageSettingsScreen.retryKey));
+    await tester.pump();
+    expect(
+      find.byKey(LanguageSettingsScreen.retryKey).hitTestable(),
+      findsOneWidget,
+    );
     await tester.tap(find.byKey(LanguageSettingsScreen.retryKey));
     await tester.pump();
     store.pending.removeAt(0).complete();
