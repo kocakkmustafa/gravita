@@ -669,29 +669,42 @@ void main() {
         },
       );
       addTearDown(() async {
+        var teardownBridgeSettled = false;
+        // Attach before pumping: a late listener on the completed fake-zone
+        // Future still needs that zone's microtasks to be flushed. The bridge
+        // itself belongs to this teardown's zone, like binding.runTest's bridge.
+        final teardownBridge = settled.then<void>((_) {
+          teardownBridgeSettled = true;
+        });
         debugPrint('surface-cleanup $mode: unmount');
         await tester.pumpWidget(const SizedBox.shrink());
         if (!gate.isCompleted) gate.complete();
-        // The gate and its completion handler belong to the fake test clock.
-        // TearDown runs outside it, so drain that zone before awaiting a bridge
-        // created in this callback's zone (binding.runTest uses the same bridge).
         var turns = 0;
-        while (!cleanupSettled && turns < 16) {
+        while (!teardownBridgeSettled && turns < 16) {
           await tester.pump();
           turns++;
         }
-        debugPrint('surface-cleanup $mode: drain=$cleanupSettled turns=$turns');
+        debugPrint(
+          'surface-cleanup $mode: drain=$cleanupSettled '
+          'bridge=$teardownBridgeSettled turns=$turns',
+        );
         expect(
           cleanupSettled,
           isTrue,
           reason: 'Synthetic erasure did not settle after $turns fake pumps.',
         );
-        await settled.then<void>((_) {});
+        expect(
+          teardownBridgeSettled,
+          isTrue,
+          reason: 'Synthetic erasure bridge did not settle after $turns pumps.',
+        );
+        await teardownBridge;
         expect(
           cleanupError,
           isNull,
           reason: 'Unexpected synthetic cleanup error: $cleanupStackTrace',
         );
+        debugPrint('surface-cleanup $mode: registry reset start');
         await AccountStoreEpochRegistry.resetForTest();
         debugPrint('surface-cleanup $mode: registry reset');
         user.dispose();
