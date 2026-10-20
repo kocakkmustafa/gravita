@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:motion_account/motion_account.dart'
+    show MotionAccountLocalizations;
 
 import 'library_model.dart';
 import 'library_strings.dart';
@@ -53,6 +55,7 @@ Locale resolveAppLocales(List<Locale>? preferred, Iterable<Locale> supported) {
 const List<LocalizationsDelegate<dynamic>> appLocalizationsDelegates =
     <LocalizationsDelegate<dynamic>>[
       GravitaLocalizationsDelegate(),
+      MotionAccountLocalizations.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,

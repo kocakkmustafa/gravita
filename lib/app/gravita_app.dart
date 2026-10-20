@@ -208,41 +208,46 @@ class _GravitaAppState extends State<GravitaApp> with WidgetsBindingObserver {
       body: Builder(
         builder: (context) => SafeArea(
           child: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    localized(
-                      context,
-                      pending
-                          ? 'Account history is unavailable while local cleanup completes.'
-                          : failed
-                          ? 'Local cleanup could not finish. Account history remains unavailable.'
-                          : 'This account was deleted. Its local history is unavailable.',
-                      pending
-                          ? 'Yerel temizlik tamamlanana kadar hesap geçmişi kullanılamıyor.'
-                          : failed
-                          ? 'Yerel temizlik tamamlanamadı. Hesap geçmişi kapalı tutuluyor.'
-                          : 'Bu hesap silindi. Yerel hesap geçmişi kullanılamıyor.',
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  if (account != null)
-                    TextButton(
-                      onPressed: () => Navigator.of(context).push<void>(
-                        MaterialPageRoute<void>(builder: account.pageBuilder),
+            child: LayoutBuilder(
+              builder: (context, constraints) => SingleChildScrollView(
+                padding: EdgeInsets.symmetric(
+                  horizontal: constraints.maxWidth < 360 ? 8 : 24,
+                  vertical: 24,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      localized(
+                        context,
+                        pending
+                            ? 'Account history is unavailable while local cleanup completes.'
+                            : failed
+                            ? 'Local cleanup could not finish. Account history remains unavailable.'
+                            : 'This account was deleted. Its local history is unavailable.',
+                        pending
+                            ? 'Yerel temizlik tamamlanana kadar hesap geçmişi kullanılamıyor.'
+                            : failed
+                            ? 'Yerel temizlik tamamlanamadı. Hesap geçmişi kapalı tutuluyor.'
+                            : 'Bu hesap silindi. Yerel hesap geçmişi kullanılamıyor.',
                       ),
-                      child: Text(
-                        localized(
-                          context,
-                          'Account options',
-                          'Hesap seçenekleri',
+                      textAlign: TextAlign.center,
+                    ),
+                    if (account != null)
+                      TextButton(
+                        onPressed: () => Navigator.of(context).push<void>(
+                          MaterialPageRoute<void>(builder: account.pageBuilder),
+                        ),
+                        child: Text(
+                          localized(
+                            context,
+                            'Account options',
+                            'Hesap seçenekleri',
+                          ),
                         ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

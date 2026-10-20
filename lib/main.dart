@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:motion_account/motion_account.dart';
 
 import 'app/gravita_app.dart';
+import 'app/gravita_motion_host.dart';
 import 'app/language_preferences.dart';
 import 'app/motion_account_bootstrap.dart';
 import 'app/theme_preferences.dart';
@@ -13,8 +13,10 @@ Future<void> main() async {
   try {
     final (runtime, accountConnection) = await initializeMotionAccount();
     runApp(
-      MotionIdentityGate(
+      GravitaMotionHost(
         runtime: runtime,
+        themePreferences: themePreferences,
+        languagePreferences: languagePreferences,
         child: GravitaApp(
           accountConnection: accountConnection,
           themePreferences: themePreferences,

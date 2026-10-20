@@ -122,6 +122,19 @@ void main() {
     return pixels!;
   }
 
+  bool containsPaintedColor(List<int> pixels, Color color) {
+    final argb = color.toARGB32();
+    for (var i = 0; i + 3 < pixels.length; i += 4) {
+      if (pixels[i] == ((argb >> 16) & 0xff) &&
+          pixels[i + 1] == ((argb >> 8) & 0xff) &&
+          pixels[i + 2] == (argb & 0xff) &&
+          pixels[i + 3] == ((argb >> 24) & 0xff)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   void compactPlatform(WidgetTester tester) {
     viewport(tester, const Size(320, 180));
     tester.view.padding = const FakeViewPadding(
@@ -194,6 +207,20 @@ void main() {
       ready: find.byType(LibraryScreen),
     );
     final field = find.byKey(LibraryScreen.searchFieldKey);
+    final choices = find
+        .descendant(
+          of: find.byType(LibraryScreen),
+          matching: find.byType(Scrollable),
+        )
+        .first;
+    await tester.scrollUntilVisible(
+      field,
+      240,
+      scrollable: choices,
+      maxScrolls: 20,
+    );
+    await tester.pump();
+    expect(field.hitTestable(), findsOneWidget);
     await tester.enterText(field, 'push');
     await tester.pump();
     final inputBefore = tester.widget<EditableText>(find.byType(EditableText));
@@ -260,6 +287,17 @@ void main() {
         final palette = GravitaColors.of(tester.element(headline));
         expect(Directionality.of(tester.element(headline)), TextDirection.rtl);
         expect(tester.widget<Text>(headline).style?.color, palette.ink);
+        if (kind == ContentFailureKind.unreadable) {
+          final retry = find.byKey(ContentFailureScreen.retryKey);
+          await tester.scrollUntilVisible(
+            retry,
+            240,
+            scrollable: find.byType(Scrollable).first,
+            maxScrolls: 20,
+          );
+          await tester.pump();
+          expect(retry.hitTestable(), findsOneWidget);
+        }
         expect(
           find.byKey(ContentFailureScreen.retryKey),
           kind == ContentFailureKind.unreadable ? findsOneWidget : findsNothing,
@@ -502,6 +540,12 @@ void main() {
         final boundary = find.byKey(boundaryKey);
         final idle = await paintedRect(tester, boundary, cta);
         expect(idle, isNotEmpty);
+        final palette = GravitaColors.of(tester.element(cta));
+        expect(
+          containsPaintedColor(idle, palette.accent),
+          isTrue,
+          reason: 'The captured CTA must contain its actual accent paint.',
+        );
         final ink = find.descendant(of: cta, matching: find.byType(Ink));
         final node = Focus.of(tester.element(ink));
         await tester.sendKeyEvent(LogicalKeyboardKey.tab);
@@ -606,19 +650,50 @@ void main() {
         selectedTag: 'ar',
       );
       final gate = Completer<void>();
+      final syntheticCleanupFailure = StateError('synthetic cleanup failure');
       final cleanup = AccountStoreEpochRegistry.beginConfirmedAccountErasure(
         id,
         () => gate.future,
       );
+      var cleanupSettled = false;
+      Object? cleanupError;
+      StackTrace? cleanupStackTrace;
       final settled = cleanup.then<void>(
-        (_) {},
-        onError: (Object _, StackTrace __) {},
+        (_) {
+          cleanupSettled = true;
+        },
+        onError: (Object error, StackTrace stackTrace) {
+          cleanupError = error;
+          cleanupStackTrace = stackTrace;
+          cleanupSettled = true;
+        },
       );
       addTearDown(() async {
+        debugPrint('surface-cleanup $mode: unmount');
         await tester.pumpWidget(const SizedBox.shrink());
         if (!gate.isCompleted) gate.complete();
-        await settled;
+        // The gate and its completion handler belong to the fake test clock.
+        // TearDown runs outside it, so drain that zone before awaiting a bridge
+        // created in this callback's zone (binding.runTest uses the same bridge).
+        var turns = 0;
+        while (!cleanupSettled && turns < 16) {
+          await tester.pump();
+          turns++;
+        }
+        debugPrint('surface-cleanup $mode: drain=$cleanupSettled turns=$turns');
+        expect(
+          cleanupSettled,
+          isTrue,
+          reason: 'Synthetic erasure did not settle after $turns fake pumps.',
+        );
+        await settled.then<void>((_) {});
+        expect(
+          cleanupError,
+          isNull,
+          reason: 'Unexpected synthetic cleanup error: $cleanupStackTrace',
+        );
         await AccountStoreEpochRegistry.resetForTest();
+        debugPrint('surface-cleanup $mode: registry reset');
         user.dispose();
         recovery.dispose();
         appearance.dispose();
@@ -659,6 +734,10 @@ void main() {
         await tester.pumpAndSettle();
         final bounds = tester.getRect(scroll);
         final action = tester.getRect(options);
+        debugPrint(
+          'surface-boundary $mode: bounds=$bounds action=$action '
+          'offset=${position.pixels} extent=${position.maxScrollExtent}',
+        );
         expect(bounds.left, greaterThanOrEqualTo(12));
         expect(bounds.top, greaterThanOrEqualTo(16));
         expect(bounds.right, lessThanOrEqualTo(308));
@@ -676,8 +755,14 @@ void main() {
         'Account history is unavailable while local cleanup completes.',
         'Yerel temizlik tamamlanana kadar hesap geçmişi kullanılamıyor.',
       );
-      gate.completeError(StateError('synthetic cleanup failure'));
+      gate.completeError(syntheticCleanupFailure);
       await settled;
+      expect(cleanupError, same(syntheticCleanupFailure));
+      expect(cleanupStackTrace, isNotNull);
+      // Only this explicitly checked, injected failure is consumed. Any other
+      // cleanup error remains recorded for the teardown's isNull assertion.
+      cleanupError = null;
+      cleanupStackTrace = null;
       await tester.pump();
       await checkBoundary(
         'Local cleanup could not finish. Account history remains unavailable.',

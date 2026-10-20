@@ -260,41 +260,45 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                 // bu ekrandaki TEK ProgramSetupScreen tetiği bu kart —
                 // düz buton olsaydı o ekran "ulaşılamıyor ama var"a
                 // düşerdi (skill-trees kartlarıyla AYNI desen).
-                InkWell(
+                Material(
+                  color: Colors.transparent,
                   borderRadius: BorderRadius.circular(14),
-                  focusColor: GravitaColors.of(
-                    context,
-                  ).onAccent.withValues(alpha: 0.2),
-                  hoverColor: GravitaColors.of(
-                    context,
-                  ).onAccent.withValues(alpha: 0.12),
-                  onTap: () => Navigator.of(context).push<void>(
-                    MaterialPageRoute<void>(
-                      builder: (_) => ProgramSetupScreen(
-                        content: widget.content,
-                        accountUserId: widget.accountUserId,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(14),
+                    focusColor: GravitaColors.of(
+                      context,
+                    ).onAccent.withValues(alpha: 0.2),
+                    hoverColor: GravitaColors.of(
+                      context,
+                    ).onAccent.withValues(alpha: 0.12),
+                    onTap: () => Navigator.of(context).push<void>(
+                      MaterialPageRoute<void>(
+                        builder: (_) => ProgramSetupScreen(
+                          content: widget.content,
+                          accountUserId: widget.accountUserId,
+                        ),
                       ),
                     ),
-                  ),
-                  child: Ink(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    decoration: BoxDecoration(
-                      color: GravitaColors.of(context).accent,
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    child: Text(
-                      localized(
-                        context,
-                        LibraryStrings.programNoInputsAction,
-                        'Programını oluştur',
+                    child: Ink(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: BoxDecoration(
+                        color: GravitaColors.of(context).accent,
+                        borderRadius: BorderRadius.circular(14),
                       ),
-                      textAlign: TextAlign.center,
-                      style: GravitaType.body(
-                        context: context,
-                        size: 15,
-                        weight: FontWeight.w600,
-                        color: GravitaColors.of(context).onAccent,
+                      child: Text(
+                        localized(
+                          context,
+                          LibraryStrings.programNoInputsAction,
+                          'Programını oluştur',
+                        ),
+                        textAlign: TextAlign.center,
+                        style: GravitaType.body(
+                          context: context,
+                          size: 15,
+                          weight: FontWeight.w600,
+                          color: GravitaColors.of(context).onAccent,
+                        ),
                       ),
                     ),
                   ),

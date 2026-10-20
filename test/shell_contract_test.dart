@@ -10,7 +10,7 @@ import 'package:yaml/yaml.dart';
 /// Bu testler widget çizmez; kabuğun **neyi paketlediğini** ve **bağımlılığını
 /// nasıl pinlediğini** tutar. İkisi de sessizce bozulabilen ve ancak cihazda
 /// ya da haftalar sonra fark edilen sınıflardır.
-const currentMotionSha = 'ef60e346934d7e5d45c87deb81583b263575b208';
+const currentMotionSha = 'd69e10786e2f1cd509b9eeadeb3ef6ea42d93b5d';
 
 bool hasLocalMotionOverrides([String? source]) {
   final file = File('pubspec_overrides.yaml');
@@ -447,8 +447,8 @@ void main() {
       // Bu test bir pin bump'ta KIRILIR ve kırılması DOĞRUDUR: bump bilinçli
       // bir karardır, sessiz bir kayma değil. Kıran kişi buradaki sabitleri
       // de günceller ve böylece bump kayda geçer.
-      const String sealedRef = 'ef60e346934d7e5d45c87deb81583b263575b208';
-      const String sealedCoreVersion = '0.12.0';
+      const String sealedRef = 'd69e10786e2f1cd509b9eeadeb3ef6ea42d93b5d';
+      const String sealedCoreVersion = '0.13.0';
       const String sealedCameraVersion = '0.2.0';
       const String sealedContentVersion = '0.1.0';
 
@@ -514,7 +514,7 @@ void main() {
         // Explicit frozen-preview branch. Declared canonical Git refs above
         // remain sealed; path selection never implies a published release SHA.
         const versions = {
-          'motion_core': '0.12.0',
+          'motion_core': '0.13.0',
           'motion_account': '0.2.0',
           'motion_entitlements': '0.1.1',
           'motion_store': '0.3.0',
