@@ -7,6 +7,9 @@ import 'account_data_directory.dart';
 import 'account_store_epoch.dart';
 import 'app_locale.dart';
 import 'gravita_account_page.dart';
+import 'language_preferences.dart';
+import 'theme.dart';
+import 'theme_preferences.dart';
 
 const _url = String.fromEnvironment('MOTION_SUPABASE_URL');
 const _publishableKey = String.fromEnvironment(
@@ -35,20 +38,26 @@ initializeMotionAccount() async {
     onDeletedAccount: clearLocalAccountData,
     localAccountIds: () => localAccountIds(supportRoot),
   );
-  return (runtime, bindGravitaMotionAccount(runtime, clearLocalData: clearLocalAccountData));
+  return (
+    runtime,
+    bindGravitaMotionAccount(runtime, clearLocalData: clearLocalAccountData),
+  );
 }
 
 /// Retained owner lifetime is distinct from fresh credential admission.
-AccountConnection bindGravitaMotionAccount(MotionAccountRuntime runtime, {
+AccountConnection bindGravitaMotionAccount(
+  MotionAccountRuntime runtime, {
   required Future<void> Function(String userId) clearLocalData,
 }) {
   Widget accountPage(BuildContext _) => GravitaAccountPage(
     client: runtime.account,
     passwordRecovery: runtime.passwordRecovery,
-    identityAdmissionChanges: Listenable.merge([runtime.phase, runtime.identityVerification]),
+    identityAdmissionChanges: Listenable.merge([
+      runtime.phase,
+      runtime.identityVerification,
+    ]),
     isIdentityAdmitted: () =>
-        runtime.isCurrentSessionVerified &&
-        !runtime.passwordRecovery.value,
+        runtime.isCurrentSessionVerified && !runtime.passwordRecovery.value,
     clearLocalData: clearLocalData,
     onRetryIdentity: runtime.refreshIdentity,
   );
@@ -57,10 +66,11 @@ AccountConnection bindGravitaMotionAccount(MotionAccountRuntime runtime, {
     passwordRecovery: runtime.passwordRecovery,
     identityAdmissionChanges: runtime.phase,
     currentIdentityChanges: runtime.identityVerification,
-    isCurrentIdentityVerified: () => runtime.isCurrentSessionVerified ||
+    isCurrentIdentityVerified: () =>
+        runtime.isCurrentSessionVerified ||
         (!runtime.isDisposed &&
-         runtime.phase.value == MotionIdentityPhase.signedOut &&
-         runtime.account.supabase.auth.currentSession == null),
+            runtime.phase.value == MotionIdentityPhase.signedOut &&
+            runtime.account.supabase.auth.currentSession == null),
     ownerSessionChanges: runtime.account.authChanges
         .where(
           (state) => const {
@@ -72,12 +82,13 @@ AccountConnection bindGravitaMotionAccount(MotionAccountRuntime runtime, {
         .map<void>((_) {}),
     isIdentityAdmitted: () =>
         (!runtime.isDisposed &&
-         runtime.phase.value == MotionIdentityPhase.signedOut &&
-         runtime.account.supabase.auth.currentSession == null) ||
+            runtime.phase.value == MotionIdentityPhase.signedOut &&
+            runtime.account.supabase.auth.currentSession == null) ||
         (!runtime.isDisposed &&
-         runtime.phase.value == MotionIdentityPhase.verified &&
-         runtime.userId.value != null &&
-         runtime.userId.value == runtime.account.supabase.auth.currentSession?.user.id),
+            runtime.phase.value == MotionIdentityPhase.verified &&
+            runtime.userId.value != null &&
+            runtime.userId.value ==
+                runtime.account.supabase.auth.currentSession?.user.id),
     pageBuilder: accountPage,
     requirePaidAccess: (context) => requireMotionPaidAccess(
       context,
@@ -90,24 +101,55 @@ AccountConnection bindGravitaMotionAccount(MotionAccountRuntime runtime, {
 
 /// Invalid build settings must not silently allow the guest shell.
 class AccountStartupFailure extends StatelessWidget {
-  const AccountStartupFailure({super.key});
+  const AccountStartupFailure({
+    this.themePreferences,
+    this.languagePreferences,
+    super.key,
+  });
+
+  final ThemePreferencesController? themePreferences;
+  final LanguagePreferencesController? languagePreferences;
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-    supportedLocales: appSupportedLocales,
-    localizationsDelegates: appLocalizationsDelegates,
-    home: Builder(
-      builder: (context) => Scaffold(
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Text(
-              localized(
-                context,
-                'Sign-in is unavailable in this build. Please try an updated version.',
-                'Bu sürümde giriş kullanılamıyor. Lütfen güncel bir sürüm deneyin.',
+  Widget build(BuildContext context) => AnimatedBuilder(
+    animation: Listenable.merge([themePreferences, languagePreferences]),
+    builder: (context, _) => MaterialApp(
+      theme: GravitaTheme.light,
+      darkTheme: GravitaTheme.dark,
+      themeMode: themePreferences?.themeMode ?? ThemeMode.system,
+      themeAnimationDuration:
+          GravitaMotion.reduceMotion(context) ||
+              WidgetsBinding
+                  .instance
+                  .platformDispatcher
+                  .accessibilityFeatures
+                  .disableAnimations ||
+              WidgetsBinding
+                  .instance
+                  .platformDispatcher
+                  .accessibilityFeatures
+                  .accessibleNavigation
+          ? Duration.zero
+          : const Duration(milliseconds: 200),
+      locale: languagePreferences?.locale,
+      localeListResolutionCallback: resolveAppLocales,
+      supportedLocales: appSupportedLocales,
+      localizationsDelegates: appLocalizationsDelegates,
+      home: Builder(
+        builder: (context) => Scaffold(
+          body: SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24),
+                child: Text(
+                  localized(
+                    context,
+                    'Sign-in is unavailable in this build. Please try an updated version.',
+                    'Bu sürümde giriş kullanılamıyor. Lütfen güncel bir sürüm deneyin.',
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
-              textAlign: TextAlign.center,
             ),
           ),
         ),

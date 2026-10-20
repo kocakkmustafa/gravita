@@ -90,8 +90,8 @@ abstract final class LiveStrings {
           'device and never leaves it.',
     CameraFailure.modelLoadFailed =>
       'The pose model that ships with the app could not be opened. '
-          'Reinstalling usually fixes it. Your lessons and history are '
-          'unaffected.',
+          'Close and reopen the app. If the error persists, contact support '
+          'before removing the app; uninstalling can erase local progress.',
     CameraFailure.alreadyRunning =>
       'Only one camera session runs at a time. Stopping the other one '
           'frees it up.',

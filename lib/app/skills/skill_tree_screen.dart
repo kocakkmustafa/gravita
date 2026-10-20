@@ -39,14 +39,18 @@ class SkillTreeScreen extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(18, 4, 18, 48),
       children: <Widget>[
         Text(
-          localized(
+          localizedUpper(
             context,
-            LibraryStrings.skillTreeScreenStepCount(tree.nodeCount),
-            '${tree.nodeCount} adım, taslak',
-          ).toUpperCase(),
+            tree.nodeCount == 1
+                ? '{count} step, drafted'
+                : '{count} steps, drafted',
+            '{count} adım, taslak',
+            values: <String, Object>{'count': tree.nodeCount},
+          ),
           style: GravitaType.mono(
+            context: context,
             size: 11,
-            color: GravitaColors.textSecondary,
+            color: GravitaColors.of(context).textSecondary,
             weight: FontWeight.w600,
             letterSpacingEm: 0.12,
           ),
@@ -69,12 +73,20 @@ class SkillTreeScreen extends StatelessWidget {
                 )
               : localized(
                   context,
-                  LibraryStrings.skillTreeScreenNotDrawnBody(tree.displayName),
-                  '${skillTreeName(context, tree)} adımlarını tek tek göstermiyoruz: '
-                  'ilerleme koşulları hareket bilimi incelemesinden geçmedi. '
-                  'İlgili bazı hareket sayfaları kütüphanede bulunur. '
-                  'Öğrenme rehberleri ve kamera erişimi ayrıca belirtilir; '
-                  'bu özet fiziksel uygulamayı onaylamaz.',
+                  'We are not showing you the individual steps of {tree}: their '
+                      'unlock criteria have not been through a movement-science review, and '
+                      'we do not want to draw a gate whose number we picked ourselves. The '
+                      'related movement pages in the library show their learning guides and '
+                      'camera availability separately; this summary does not approve physical '
+                      'practice.',
+                  '{tree} adımlarını tek tek göstermiyoruz: '
+                      'ilerleme koşulları hareket bilimi incelemesinden geçmedi. '
+                      'İlgili bazı hareket sayfaları kütüphanede bulunur. '
+                      'Öğrenme rehberleri ve kamera erişimi ayrıca belirtilir; '
+                      'bu özet fiziksel uygulamayı onaylamaz.',
+                  values: <String, Object>{
+                    'tree': skillTreeName(context, tree),
+                  },
                 ),
         ),
       ],

@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'app_locale.dart';
 
 /// App-only display copy. Identity, measurement rules and course data stay
 /// in their canonical source. Changed/unrecognised sources remain in English.
@@ -10,10 +11,9 @@ String catalogueText(
   CatalogueTextKind kind,
   String source,
 ) {
-  if (Localizations.localeOf(context).languageCode != 'tr') return source;
   final translated = _translations[kind]?[source];
   return translated != null && translated.movementIds.contains(movementId)
-      ? translated.turkish
+      ? localized(context, source, translated.turkish)
       : source;
 }
 

@@ -131,7 +131,7 @@ class StudyReviewPage extends StatelessWidget {
                       leading: const Icon(Icons.menu_book_outlined),
                       title: Text(
                         lesson.title.inLanguage(
-                          Localizations.localeOf(context).languageCode,
+                          Localizations.localeOf(context).toLanguageTag(),
                         ),
                       ),
                       onTap: () => Navigator.of(context).push<void>(
@@ -153,7 +153,8 @@ class StudyReviewPage extends StatelessWidget {
 }
 
 extension on StudyText {
-  String inContext(BuildContext context) => _text(context, en, tr);
+  String inContext(BuildContext context) =>
+      inLanguage(Localizations.localeOf(context).toLanguageTag());
 }
 
 enum RecallObservation { notAttempted, uncertain, difference, stopped }
@@ -295,7 +296,15 @@ class _RecallLessonPageState extends State<RecallLessonPage> {
           Text(
             _feedback(observation),
             key: const Key('study-feedback'),
-            semanticsLabel: '${_label(observation)}: ${_feedback(observation)}',
+            semanticsLabel: localized(
+              context,
+              '{state}: {feedback}',
+              '{state}: {feedback}',
+              values: <String, Object>{
+                'state': _label(observation),
+                'feedback': _feedback(observation),
+              },
+            ),
           ),
           if (observation != RecallObservation.stopped)
             TextField(

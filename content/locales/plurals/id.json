@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "localeTag": "id",
+  "entries": {
+    "g_c0975b42c84d": {
+      "count": "count",
+      "forms": {
+        "other": "{count} sesi"
+      }
+    },
+    "g_27de9b3be346": {
+      "count": "count",
+      "forms": {
+        "other": "{count} sesi"
+      }
+    },
+    "g_38d865fbb30f": {
+      "count": "count",
+      "forms": {
+        "other": "{count} gerakan"
+      }
+    },
+    "g_2c46d7b0898e": {
+      "count": "count",
+      "forms": {
+        "other": "{count} gerakan"
+      }
+    },
+    "g_ac22c50eb509": {
+      "count": "count",
+      "forms": {
+        "other": "{count} langkah"
+      }
+    },
+    "g_7b859bb9f07b": {
+      "count": "count",
+      "forms": {
+        "other": "{count} langkah"
+      }
+    },
+    "g_f6cf0184f71a": {
+      "count": "count",
+      "forms": {
+        "other": "{count} detik"
+      }
+    },
+    "g_867d8633f4af": {
+      "count": "count",
+      "forms": {
+        "other": "{count} detik"
+      }
+    },
+    "g_c0ddf984605e": {
+      "count": "count",
+      "forms": {
+        "other": "{count} pengulangan"
+      }
+    },
+    "g_f9ab0332d33c": {
+      "count": "count",
+      "forms": {
+        "other": "{count} pengulangan"
+      }
+    },
+    "g_9b0d2873b401": {
+      "count": "count",
+      "forms": {
+        "other": "{count} pengukuran belum tersedia"
+      }
+    },
+    "g_d0e2e4b25574": {
+      "count": "count",
+      "forms": {
+        "other": "{count} pengukuran belum tersedia"
+      }
+    },
+    "g_e7c2df095e3c": {
+      "count": "count",
+      "forms": {
+        "other": "{count} langkah dalam draf"
+      }
+    },
+    "g_3cc1c7cca3fe": {
+      "count": "count",
+      "forms": {
+        "other": "{count} langkah dalam draf"
+      }
+    },
+    "g_337b622eece7": {
+      "count": "count",
+      "forms": {
+        "other": "{count} bingkai"
+      }
+    }
+  }
+}

@@ -50,11 +50,11 @@ final class HonestyBox {
   });
 
   factory HonestyBox.fromJson(Map<String, dynamic> j) => HonestyBox(
-        measured: _strings(j['measured']),
-        notMeasured: _strings(j['notMeasured']),
-        waitingOnMeasurement: _strings(j['waitingOnMeasurement']),
-        scoring: j['scoring'] as String?,
-      );
+    measured: _strings(j['measured']),
+    notMeasured: _strings(j['notMeasured']),
+    waitingOnMeasurement: _strings(j['waitingOnMeasurement']),
+    scoring: j['scoring'] as String?,
+  );
 
   final List<String> measured;
 
@@ -143,9 +143,10 @@ final class MovementEntry {
       safetyWarnings: _strings(j['safetyWarnings']),
       referenceSources: (j['referenceSources'] as num?)?.toInt() ?? 0,
       blurb: (j['blurb'] as String?) ?? '',
-      honesty:
-          HonestyBox.fromJson((j['honesty'] as Map?)?.cast<String, dynamic>() ??
-              const <String, dynamic>{}),
+      honesty: HonestyBox.fromJson(
+        (j['honesty'] as Map?)?.cast<String, dynamic>() ??
+            const <String, dynamic>{},
+      ),
       comingSoon: _strings(j['comingSoonInThisMovement']),
       blockedBy: _strings(j['blockedBy']),
       skillGraphNode: j['skillGraphNode'] as String?,
@@ -156,9 +157,11 @@ final class MovementEntry {
       // kimliğinden hareketi TAHMİN etmek — ör. önekten çıkarmak — uydurulmuş
       // bir eşleştirme olurdu. Kimlik zaten burada, türetmeye gerek yok.
       lessonIds: courses
-          .expand<String>((dynamic c) =>
-              (((c as Map)['lessons'] as List<dynamic>?) ?? const <dynamic>[])
-                  .map<String>((dynamic l) => (l as Map)['id'] as String))
+          .expand<String>(
+            (dynamic c) =>
+                (((c as Map)['lessons'] as List<dynamic>?) ?? const <dynamic>[])
+                    .map<String>((dynamic l) => (l as Map)['id'] as String),
+          )
           .toList(growable: false),
     );
   }
@@ -166,6 +169,7 @@ final class MovementEntry {
   final String id;
   final String displayName;
   final String family;
+
   /// `null` = içerikte YOK. Uydurulmuş bir seviye çizilmez.
   final String? level;
 
@@ -210,8 +214,9 @@ final class MovementEntry {
 
   bool get isLive => status == MovementStatus.live;
 
-  /// Aramada eşleşecek sözcükler — ad + takma adlar + kas grupları + ekipman.
-  /// Ekran kendi sözlüğünü kurmaz (iki sözlük ayrışır, arama sessizce körelir).
+  /// Kaynak sözcükler — ad + takma adlar + kas grupları + ekipman.
+  /// Yerelleştirilmiş görünür etiketler, ekranın aynı sunum yardımcılarından
+  /// [LibraryCatalogue.search]e eklenir; bu model çeviri sözlüğü taşımaz.
   Iterable<String> get searchTerms sync* {
     yield displayName.toLowerCase();
     for (final String a in aliases) {
@@ -240,17 +245,17 @@ final class ExclusionSection {
   });
 
   factory ExclusionSection.fromJson(Map<String, dynamic> j) => ExclusionSection(
-        id: j['id'] as String,
-        title: j['title'] as String,
-        examples: _strings(j['examples']),
-        userReason: j['userReason'] as String,
-        searchTerms: _strings(j['searchTerms']),
-        // ⚠️ Varsayılan `capability` KOYULMUYOR: G-163'te ölçüldü ki o sınıf
-        // ÖRTÜK BİR VAAT taşıyor (*"daha iyi teknoloji çözer"*). Eksik veriyle
-        // teknik-kısıt iddia etmek, `authority` bir kalemi yanlış anlatır.
-        limitClass: j['limitClass'] as String?,
-        movementClass: j['movementClass'] as String?,
-      );
+    id: j['id'] as String,
+    title: j['title'] as String,
+    examples: _strings(j['examples']),
+    userReason: j['userReason'] as String,
+    searchTerms: _strings(j['searchTerms']),
+    // ⚠️ Varsayılan `capability` KOYULMUYOR: G-163'te ölçüldü ki o sınıf
+    // ÖRTÜK BİR VAAT taşıyor (*"daha iyi teknoloji çözer"*). Eksik veriyle
+    // teknik-kısıt iddia etmek, `authority` bir kalemi yanlış anlatır.
+    limitClass: j['limitClass'] as String?,
+    movementClass: j['movementClass'] as String?,
+  );
 
   final String id;
   final String title;
@@ -285,14 +290,16 @@ final class ExclusionsPage {
   });
 
   factory ExclusionsPage.parse(String jsonText) {
-    final Map<String, dynamic> j =
-        (jsonDecode(jsonText) as Map).cast<String, dynamic>();
+    final Map<String, dynamic> j = (jsonDecode(jsonText) as Map)
+        .cast<String, dynamic>();
     return ExclusionsPage(
       title: j['pageTitle'] as String,
       intro: j['pageIntro'] as String,
       sections: ((j['sections'] as List<dynamic>?) ?? const <dynamic>[])
-          .map((dynamic s) =>
-              ExclusionSection.fromJson((s as Map).cast<String, dynamic>()))
+          .map(
+            (dynamic s) =>
+                ExclusionSection.fromJson((s as Map).cast<String, dynamic>()),
+          )
           .toList(growable: false),
     );
   }
@@ -304,11 +311,15 @@ final class ExclusionsPage {
   /// Sorguya değen bölümler. Boş sorgu HİÇBİR bölümü döndürmez — kapsam-dışı
   /// sayfası aramanın DÜŞTÜĞÜ yer, varsayılan yeri değil.
   List<ExclusionSection> matching(String query) {
-    final String q = query.trim().toLowerCase();
+    final String q = _normalizeSearchText(query);
     if (q.isEmpty) return const <ExclusionSection>[];
     return sections
-        .where((ExclusionSection s) =>
-            s.searchTerms.any((String t) => t.contains(q) || q.contains(t)))
+        .where(
+          (ExclusionSection s) => s.searchTerms.any((String t) {
+            final term = _normalizeSearchText(t);
+            return term.isNotEmpty && (term.contains(q) || q.contains(term));
+          }),
+        )
         .toList(growable: false);
   }
 }
@@ -330,7 +341,7 @@ final class LibrarySearchResult {
   final List<MovementEntry> movements;
   final List<ExclusionSection> exclusions;
 
-  bool get hasQuery => query.trim().isNotEmpty;
+  bool get hasQuery => _normalizeSearchText(query).isNotEmpty;
 
   /// GERÇEK boşluk: ne hareket ne de kapsam-dışı gerekçe eşleşti. Bu hâl de
   /// bir cümledir ("bu bizde hiç geçmiyor"), sessiz boş liste değil.
@@ -352,12 +363,12 @@ final class SkillTree {
   });
 
   factory SkillTree.fromJson(Map<String, dynamic> j) => SkillTree(
-        packId: j['packId'] as String,
-        displayName: j['displayName'] as String,
-        nodeCount: (j['nodeCount'] as num?)?.toInt() ?? 0,
-        nodeIds: _strings(j['nodeIds']),
-        thresholdsValidated: (j['thresholdsValidated'] as bool?) ?? false,
-      );
+    packId: j['packId'] as String,
+    displayName: j['displayName'] as String,
+    nodeCount: (j['nodeCount'] as num?)?.toInt() ?? 0,
+    nodeIds: _strings(j['nodeIds']),
+    thresholdsValidated: (j['thresholdsValidated'] as bool?) ?? false,
+  );
 
   final String packId;
   final String displayName;
@@ -376,13 +387,14 @@ final class SkillTreeIndex {
   const SkillTreeIndex(this.trees);
 
   factory SkillTreeIndex.parse(String jsonText) => SkillTreeIndex(
-        (((jsonDecode(jsonText) as Map).cast<String, dynamic>()['trees']
-                    as List<dynamic>?) ??
-                const <dynamic>[])
-            .map((dynamic t) =>
-                SkillTree.fromJson((t as Map).cast<String, dynamic>()))
-            .toList(growable: false),
-      );
+    (((jsonDecode(jsonText) as Map).cast<String, dynamic>()['trees']
+                as List<dynamic>?) ??
+            const <dynamic>[])
+        .map(
+          (dynamic t) => SkillTree.fromJson((t as Map).cast<String, dynamic>()),
+        )
+        .toList(growable: false),
+  );
 
   final List<SkillTree> trees;
 
@@ -399,13 +411,15 @@ final class SkillTreeIndex {
     return null;
   }
 
-  List<SkillTree> get drafted =>
-      trees.where((SkillTree t) => !t.thresholdsValidated).toList(growable: false);
+  List<SkillTree> get drafted => trees
+      .where((SkillTree t) => !t.thresholdsValidated)
+      .toList(growable: false);
 
   /// `Handstand and Planche` — adlar VERİDEN, elle yazılmaz.
   String get draftedNames {
-    final List<String> names =
-        drafted.map((SkillTree t) => t.displayName).toList(growable: false);
+    final List<String> names = drafted
+        .map((SkillTree t) => t.displayName)
+        .toList(growable: false);
     if (names.isEmpty) return '';
     if (names.length == 1) return names.single;
     return '${names.sublist(0, names.length - 1).join(', ')} and ${names.last}';
@@ -430,7 +444,14 @@ final class LibraryCatalogue {
   /// defterin "yapısal kaldırma yokluk iddiasını vakum-doğru yapar" dersinin
   /// tam da ekran hâli olurdu.
   static const List<String> familyOrder = <String>[
-    'push', 'pull', 'legs', 'core', 'shoulders', 'dbkb', 'skill', 'plyo',
+    'push',
+    'pull',
+    'legs',
+    'core',
+    'shoulders',
+    'dbkb',
+    'skill',
+    'plyo',
     'carry',
   ];
 
@@ -451,7 +472,7 @@ final class LibraryCatalogue {
 
   /// Aileler, W0 sırasında; her ailenin içinde canlılar önce.
   List<({String family, String label, List<MovementEntry> movements})>
-      get families {
+  get families {
     final Map<String, List<MovementEntry>> byFamily =
         <String, List<MovementEntry>>{};
     for (final MovementEntry m in movements) {
@@ -462,14 +483,16 @@ final class LibraryCatalogue {
       ...byFamily.keys.where((String f) => !familyOrder.contains(f)).toList()
         ..sort(),
     ];
-    return ordered.map((String f) {
-      final List<MovementEntry> ms = byFamily[f]!
-        ..sort((MovementEntry a, MovementEntry b) {
-          if (a.isLive != b.isLive) return a.isLive ? -1 : 1;
-          return a.displayName.compareTo(b.displayName);
-        });
-      return (family: f, label: labelFor(f), movements: ms);
-    }).toList(growable: false);
+    return ordered
+        .map((String f) {
+          final List<MovementEntry> ms = byFamily[f]!
+            ..sort((MovementEntry a, MovementEntry b) {
+              if (a.isLive != b.isLive) return a.isLive ? -1 : 1;
+              return a.displayName.compareTo(b.displayName);
+            });
+          return (family: f, label: labelFor(f), movements: ms);
+        })
+        .toList(growable: false);
   }
 
   int get liveCount => movements.where((MovementEntry m) => m.isLive).length;
@@ -481,25 +504,47 @@ final class LibraryCatalogue {
     return null;
   }
 
-  /// Arama — hareketler VE kapsam-dışı bölümler birlikte.
-  LibrarySearchResult search(String query) {
-    final String q = query.trim().toLowerCase();
+  /// Arama — hareketler VE kapsam-dışı bölümler birlikte. Sunum katmanı
+  /// gerçekten çizdiği ad/aile/ekipman metinlerini ekleyebilir; kaynak EN
+  /// terimleri her zaman korunur. Model locale veya BuildContext bilmez.
+  LibrarySearchResult search(
+    String query, {
+    Iterable<String> Function(MovementEntry movement)? additionalMovementTerms,
+  }) {
+    final String q = _normalizeSearchText(query);
     if (q.isEmpty) {
       return LibrarySearchResult(
-          query: query,
-          movements: movements,
-          exclusions: const <ExclusionSection>[]);
+        query: query,
+        movements: movements,
+        exclusions: const <ExclusionSection>[],
+      );
     }
     return LibrarySearchResult(
       query: query,
       movements: movements
-          .where((MovementEntry m) =>
-              m.searchTerms.any((String t) => t.contains(q)))
+          .where(
+            (MovementEntry m) => <String>[
+              ...m.searchTerms,
+              ...?additionalMovementTerms?.call(m),
+            ].any((String t) => _normalizeSearchText(t).contains(q)),
+          )
           .toList(growable: false),
       exclusions: exclusions.matching(q),
     );
   }
 }
+
+final RegExp _searchWhitespace = RegExp(r'\s+', unicode: true);
+
+/// Search treats Turkish dotted/dotless I as keyboard variants while leaving
+/// other accents intact. Fold both text and query, including decomposed İ.
+String _normalizeSearchText(String text) => text
+    .replaceAll('\u0130', 'i')
+    .replaceAll('\u0131', 'i')
+    .toLowerCase()
+    .replaceAll('i\u0307', 'i')
+    .trim()
+    .replaceAll(_searchWhitespace, ' ');
 
 List<String> _strings(dynamic raw) =>
     ((raw as List<dynamic>?) ?? const <dynamic>[]).cast<String>();

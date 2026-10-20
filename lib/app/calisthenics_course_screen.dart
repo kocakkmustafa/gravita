@@ -18,7 +18,7 @@ typedef CalisthenicsStoreLoader =
 Future<CalisthenicsProgressStore> _defaultLoader(String? userId) =>
     ContentRepository.openCalisthenicsProgressStore(accountUserId: userId);
 String _text(BuildContext context, CourseText value) =>
-    value.inLanguage(Localizations.localeOf(context).languageCode);
+    value.inLanguage(Localizations.localeOf(context).toLanguageTag());
 String _stateLabel(BuildContext context, CalisthenicsLessonProgress? record) =>
     switch (record?.state) {
       null => localized(context, 'Not opened', 'Açılmadı'),
@@ -53,7 +53,10 @@ class CalisthenicsEntryCard extends StatelessWidget {
       child: GravitaCard(
         child: Row(
           children: <Widget>[
-            const Icon(Icons.menu_book_outlined, color: GravitaColors.ink),
+            Icon(
+              Icons.menu_book_outlined,
+              color: GravitaColors.of(context).ink,
+            ),
             const SizedBox(width: 14),
             Expanded(
               child: Column(
@@ -61,7 +64,7 @@ class CalisthenicsEntryCard extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     _text(context, content.calisthenicsCourse.title),
-                    style: GravitaType.display(size: 20),
+                    style: GravitaType.display(context: context, size: 20),
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -70,7 +73,7 @@ class CalisthenicsEntryCard extends StatelessWidget {
                       '56 lessons · 10 modules · your own pace',
                       '56 ders · 10 modül · kendi hızında',
                     ),
-                    style: GravitaType.body(size: 13),
+                    style: GravitaType.body(context: context, size: 13),
                   ),
                   const SizedBox(height: 5),
                   Text(
@@ -80,14 +83,18 @@ class CalisthenicsEntryCard extends StatelessWidget {
                       'Öğren, çalış, ilerlemeni kaydet',
                     ),
                     style: GravitaType.body(
+                      context: context,
                       size: 13,
-                      color: GravitaColors.textSecondary,
+                      color: GravitaColors.of(context).textSecondary,
                     ),
                   ),
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, color: GravitaColors.inkMuted),
+            Icon(
+              Icons.chevron_right,
+              color: GravitaColors.of(context).inkMuted,
+            ),
           ],
         ),
       ),
@@ -190,7 +197,7 @@ mixin _CourseIdentity<T extends StatefulWidget> on State<T> {
                   'Progress could not be read or saved. Your reading stays available.',
                   'İlerleme okunamadı veya kaydedilemedi. Dersleri okumaya devam edebilirsin.',
                 ),
-                style: GravitaType.body(size: 14),
+                style: GravitaType.body(context: context, size: 14),
               ),
               TextButton(
                 onPressed: reload,
@@ -255,7 +262,7 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
     final completed = progress.completedCount(course);
     final next = progress.nextLesson(course);
     return Scaffold(
-      backgroundColor: GravitaColors.page,
+      backgroundColor: GravitaColors.of(context).page,
       appBar: AppBar(title: Text(localized(context, 'Your course', 'Kursun'))),
       body: ListView(
         key: const Key('calisthenics.course.body'),
@@ -263,12 +270,12 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
         children: <Widget>[
           Text(
             _text(context, course.title),
-            style: GravitaType.display(size: 28),
+            style: GravitaType.display(context: context, size: 28),
           ),
           const SizedBox(height: 12),
           Text(
             _text(context, course.description),
-            style: GravitaType.body(size: 15),
+            style: GravitaType.body(context: context, size: 15),
           ),
           const SizedBox(height: 18),
           if (course.scope != null) ...[
@@ -283,14 +290,22 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  '$completed / ${course.lessons.length}',
+                  localized(
+                    context,
+                    '{completed} / {total}',
+                    '{completed} / {total}',
+                    values: <String, Object>{
+                      'completed': completed,
+                      'total': course.lessons.length,
+                    },
+                  ),
                   key: const Key('calisthenics.total'),
-                  style: GravitaType.mono(size: 20),
+                  style: GravitaType.mono(context: context, size: 20),
                 ),
                 const SizedBox(height: 10),
                 LinearProgressIndicator(
                   value: completed / course.lessons.length,
-                  color: GravitaColors.ink,
+                  color: GravitaColors.of(context).ink,
                   semanticsLabel: localized(
                     context,
                     'Self-reported learning progress',
@@ -304,14 +319,21 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
                     'Reading, task practice and your completion statement are separate. This is not a camera assessment.',
                     'Okuma, görev pratiği ve tamamlama bildirimin ayrıdır. Bu bir kamera değerlendirmesi değildir.',
                   ),
-                  style: GravitaType.body(size: 13),
+                  style: GravitaType.body(context: context, size: 13),
                 ),
                 if (next != null)
                   TextButton(
                     key: const Key('calisthenics.next'),
                     onPressed: () => open(next),
                     child: Text(
-                      '${localized(context, 'Suggested next', 'Önerilen sıradaki')}: ${_text(context, next.title)}',
+                      localized(
+                        context,
+                        'Suggested next: {lesson}',
+                        'Önerilen sıradaki: {lesson}',
+                        values: <String, Object>{
+                          'lesson': _text(context, next.title),
+                        },
+                      ),
                     ),
                   ),
               ],
@@ -327,8 +349,9 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
             child: Text(
               _text(context, course.healthNotice),
               style: GravitaType.body(
+                context: context,
                 size: 13,
-                color: GravitaColors.honestyText,
+                color: GravitaColors.of(context).honestyText,
               ),
             ),
           ),
@@ -345,14 +368,31 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
                       padding: const EdgeInsets.all(8),
                       child: Text(
                         _text(context, module.title),
-                        style: GravitaType.display(size: 20),
+                        style: GravitaType.display(context: context, size: 20),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Text(
-                        '${module.lessons.where((l) => progress.forLesson(l, course.version)?.state == CalisthenicsLessonState.selfReportedComplete).length} / ${module.lessons.length}',
-                        style: GravitaType.mono(size: 12),
+                        localized(
+                          context,
+                          '{completed} / {total}',
+                          '{completed} / {total}',
+                          values: <String, Object>{
+                            'completed': module.lessons
+                                .where(
+                                  (l) =>
+                                      progress
+                                          .forLesson(l, course.version)
+                                          ?.state ==
+                                      CalisthenicsLessonState
+                                          .selfReportedComplete,
+                                )
+                                .length,
+                            'total': module.lessons.length,
+                          },
+                        ),
+                        style: GravitaType.mono(context: context, size: 12),
                       ),
                     ),
                     for (final lesson in module.lessons)
@@ -360,7 +400,7 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
                         key: Key('calisthenics.lesson.${lesson.id}'),
                         title: Text(
                           _text(context, lesson.title),
-                          style: GravitaType.body(size: 15),
+                          style: GravitaType.body(context: context, size: 15),
                         ),
                         subtitle: Text(
                           _stateLabel(
@@ -368,8 +408,9 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
                             progress.forLesson(lesson, course.version),
                           ),
                           style: GravitaType.body(
+                            context: context,
                             size: 12,
-                            color: GravitaColors.textSecondary,
+                            color: GravitaColors.of(context).textSecondary,
                           ),
                         ),
                         trailing: const Icon(Icons.chevron_right),
@@ -382,8 +423,13 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
             const SizedBox(height: 14),
           ],
           Text(
-            '${localized(context, 'Content version', 'İçerik sürümü')} ${course.version} · ${localized(context, 'Local account progress', 'Hesaba ait yerel ilerleme')}',
-            style: GravitaType.body(size: 12),
+            localized(
+              context,
+              'Content version {version} · Local account progress',
+              'İçerik sürümü {version} · Hesaba ait yerel ilerleme',
+              values: <String, Object>{'version': course.version},
+            ),
+            style: GravitaType.body(context: context, size: 12),
           ),
         ],
       ),
@@ -526,13 +572,16 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
         children: <Widget>[
           Text(
             localized(context, en, tr),
-            style: GravitaType.display(size: 19),
+            style: GravitaType.display(context: context, size: 19),
           ),
           const SizedBox(height: 10),
           for (final line in lines)
             Padding(
               padding: const EdgeInsets.only(bottom: 8),
-              child: Text(line, style: GravitaType.body(size: 15)),
+              child: Text(
+                line,
+                style: GravitaType.body(context: context, size: 15),
+              ),
             ),
         ],
       ),
@@ -606,7 +655,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
     final enoughPracticeReports =
         lesson.learningOnly || (record?.practiceCount ?? 0) >= 2;
     return Scaffold(
-      backgroundColor: GravitaColors.page,
+      backgroundColor: GravitaColors.of(context).page,
       appBar: AppBar(title: Text(localized(context, 'Lesson', 'Ders'))),
       body: ListView(
         key: const Key('calisthenics.lesson.body'),
@@ -614,18 +663,18 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
         children: <Widget>[
           Text(
             _text(context, lesson.title),
-            style: GravitaType.display(size: 27),
+            style: GravitaType.display(context: context, size: 27),
           ),
           const SizedBox(height: 10),
           Text(
             _text(context, lesson.objective),
-            style: GravitaType.body(size: 16),
+            style: GravitaType.body(context: context, size: 16),
           ),
           const SizedBox(height: 12),
           Text(
             _stateLabel(context, record),
             key: const Key('calisthenics.state'),
-            style: GravitaType.body(size: 13),
+            style: GravitaType.body(context: context, size: 13),
           ),
           const SizedBox(height: 16),
           if (lesson.prerequisites.isNotEmpty)
@@ -715,7 +764,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                       'Prepare for this session',
                       'Bu oturuma hazırlan',
                     ),
-                    style: GravitaType.display(size: 19),
+                    style: GravitaType.display(context: context, size: 19),
                   ),
                   const SizedBox(height: 10),
                   Text(
@@ -724,10 +773,13 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                       'If this is a fresh session, walk or march gently, including seated marching if needed, until you feel lightly warm. Move the joints used today through a comfortable range, then rehearse at low effort. If you are still warm from the same session, review the rehearsal before continuing.',
                       'Yeni bir oturumsa hafifçe ısınana kadar yürü veya gerekirse oturarak yerinde adımla. Bugün kullanılacak eklemleri rahat aralıkta hareket ettir, sonra düşük eforla prova yap. Aynı oturumdan hâlâ ısınmışsan devam etmeden önce provayı gözden geçir.',
                     ),
-                    style: GravitaType.body(size: 15),
+                    style: GravitaType.body(context: context, size: 15),
                   ),
                   const SizedBox(height: 8),
-                  Text(preparationFocus(), style: GravitaType.body(size: 15)),
+                  Text(
+                    preparationFocus(),
+                    style: GravitaType.body(context: context, size: 15),
+                  ),
                   CheckboxListTile(
                     key: const Key('calisthenics.prepared'),
                     contentPadding: EdgeInsets.zero,
@@ -744,7 +796,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                         'I prepared for this session or am continuing while still warm · self-report',
                         'Bu oturuma hazırlandım veya hâlâ ısınmışken sürdürüyorum · öz bildirim',
                       ),
-                      style: GravitaType.body(size: 13),
+                      style: GravitaType.body(context: context, size: 13),
                     ),
                   ),
                   if (preparedThisSession)
@@ -769,14 +821,22 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
             ),
           section('Learn the movement', 'Hareketi öğren', <String>[
             for (var i = 0; i < lesson.steps.length; i++)
-              '${i + 1}. ${_text(context, lesson.steps[i])}',
+              localized(
+                context,
+                '{number}. {label}',
+                '{number}. {label}',
+                values: <String, Object>{
+                  'number': i + 1,
+                  'label': _text(context, lesson.steps[i]),
+                },
+              ),
           ]),
           if (widget.course.id == 'calisthenics-foundations')
             LessonMediaSlot.empty(
               key: const Key('calisthenics.lesson.media'),
               course: widget.course,
               lessonId: lesson.id,
-              locale: Localizations.localeOf(context).languageCode,
+              locale: Localizations.localeOf(context).toLanguageTag(),
               accountUserId: AccountScope.maybeOf(context)?.connection?.userId,
             ),
           if (widget.course.reviewRequired ||
@@ -883,7 +943,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                       'Save what you actually worked through. Completion is your statement of learning, including an appropriate easier path.',
                       'Gerçekte çalıştığın görevi kaydet. Tamamlama, uygun kolay yol dahil kendi öğrenme bildirimindir.',
                     ),
-                    style: GravitaType.body(size: 13),
+                    style: GravitaType.body(context: context, size: 13),
                   ),
                   if (!lesson.learningOnly)
                     Text(
@@ -892,7 +952,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                         'Physical lessons need two practice reports from separate visits before you can record learning completion. Reports do not assess form or skill.',
                         'Fiziksel derslerde öğrenme tamamlamasını kaydetmeden önce ayrı ziyaretlerde iki pratik bildirimi gerekir. Bildirimler formu veya beceriyi ölçmez.',
                       ),
-                      style: GravitaType.body(size: 13),
+                      style: GravitaType.body(context: context, size: 13),
                     ),
                   const SizedBox(height: 10),
                   OutlinedButton(
@@ -931,7 +991,7 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                         'I reviewed the self-checks, easier path and stop signs.',
                         'Öz denetimi, kolay yolu ve durma işaretlerini gözden geçirdim.',
                       ),
-                      style: GravitaType.body(size: 13),
+                      style: GravitaType.body(context: context, size: 13),
                     ),
                   ),
                   FilledButton(
@@ -955,9 +1015,16 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                     ),
                   ),
                   Text(
-                    '${localized(context, 'Task reports', 'Görev bildirimleri')}: ${record?.practiceCount ?? 0}',
+                    localized(
+                      context,
+                      'Task reports: {count}',
+                      'Görev bildirimleri: {count}',
+                      values: <String, Object>{
+                        'count': record?.practiceCount ?? 0,
+                      },
+                    ),
                     key: const Key('calisthenics.practiceCount'),
-                    style: GravitaType.mono(size: 12),
+                    style: GravitaType.mono(context: context, size: 12),
                   ),
                 ],
               ),
@@ -981,20 +1048,41 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
                 children: <Widget>[
                   Text(
                     source.title,
-                    style: GravitaType.body(size: 13, weight: FontWeight.w600),
+                    style: GravitaType.body(
+                      context: context,
+                      size: 13,
+                      weight: FontWeight.w600,
+                    ),
                   ),
-                  SelectableText(source.url, style: GravitaType.body(size: 12)),
+                  SelectableText(
+                    source.url,
+                    style: GravitaType.body(context: context, size: 12),
+                  ),
                   if (source.supports case final support?)
                     Text(
-                      '${localized(context, 'Supports only:', 'Yalnız destekler:')} ${localized(context, support.en, support.tr)}',
+                      localized(
+                        context,
+                        'Supports only: {scope}',
+                        'Yalnız destekler: {scope}',
+                        values: <String, Object>{
+                          'scope': localized(context, support.en, support.tr),
+                        },
+                      ),
                       key: Key('calisthenics.sourceScope.${source.id}'),
-                      style: GravitaType.body(size: 12),
+                      style: GravitaType.body(context: context, size: 12),
                     ),
                   if (source.doesNotSupport case final limit?)
                     Text(
-                      '${localized(context, 'Does not establish:', 'Kanıtlamaz:')} ${localized(context, limit.en, limit.tr)}',
+                      localized(
+                        context,
+                        'Does not establish: {scope}',
+                        'Kanıtlamaz: {scope}',
+                        values: <String, Object>{
+                          'scope': localized(context, limit.en, limit.tr),
+                        },
+                      ),
                       key: Key('calisthenics.sourceLimit.${source.id}'),
-                      style: GravitaType.body(size: 12),
+                      style: GravitaType.body(context: context, size: 12),
                     ),
                   TextButton(
                     onPressed: () async {

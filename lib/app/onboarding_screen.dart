@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'app_locale.dart';
+import 'camera_release_policy.dart';
 import 'onboarding_strings.dart';
 import 'theme.dart';
 
@@ -14,9 +15,17 @@ import 'theme.dart';
 /// edilemez" — bu widget'ta geri tuşu/kaydırma ile atlanamaz, yalnız
 /// [OnboardingStrings.safetyConsent] düğmesiyle ilerler.
 class OnboardingFlow extends StatefulWidget {
-  const OnboardingFlow({required this.onComplete, super.key});
+  const OnboardingFlow({required this.onComplete, super.key})
+    : _permissionFlowAvailable = motionPaidCameraLaunchEnabled;
+
+  /// Isolated coverage of the later permission flow. Production onboarding
+  /// always uses the shared release policy through the default constructor.
+  @visibleForTesting
+  const OnboardingFlow.permissionTest({required this.onComplete, super.key})
+    : _permissionFlowAvailable = true;
 
   final Future<void> Function() onComplete;
+  final bool _permissionFlowAvailable;
 
   static const Key valueContinueKey = Key('onboarding.value.continue');
   static const Key safetyConsentKey = Key('onboarding.safety.consent');
@@ -36,9 +45,24 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
   _Step _step = _Step.value;
   bool _cameraDenied = false;
   bool _requesting = false;
+  bool _completing = false;
+
+  Future<void> _complete() async {
+    if (_completing || !mounted) return;
+    setState(() => _completing = true);
+    try {
+      await widget.onComplete();
+    } finally {
+      if (mounted) setState(() => _completing = false);
+    }
+  }
 
   Future<void> _requestCamera() async {
-    if (_requesting || !mounted) return;
+    if (_requesting || _completing || !mounted) return;
+    if (!widget._permissionFlowAvailable) {
+      await _complete();
+      return;
+    }
     setState(() => _requesting = true);
     try {
       final PermissionStatus status;
@@ -52,7 +76,7 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
       }
       if (!mounted) return;
       if (status.isGranted) {
-        await widget.onComplete();
+        await _complete();
       } else {
         setState(() => _cameraDenied = true);
       }
@@ -66,7 +90,7 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
     // O2 dismiss edilemez — geri tuşu adımı ATLAYAMAZ (UI-BRIEF §3.1 O2).
     canPop: false,
     child: Scaffold(
-      backgroundColor: GravitaColors.page,
+      backgroundColor: GravitaColors.of(context).page,
       body: SafeArea(
         child: switch (_step) {
           _Step.value => _ValueStep(
@@ -79,10 +103,11 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
           ),
           _Step.camera => _CameraStep(
             key: const Key('onboarding.step.camera'),
-            requesting: _requesting,
+            available: widget._permissionFlowAvailable,
+            requesting: _requesting || _completing,
             denied: _cameraDenied,
             onAllow: _requestCamera,
-            onContinueWithout: () async => widget.onComplete(),
+            onContinueWithout: _complete,
           ),
         },
       ),
@@ -115,13 +140,18 @@ class _StepScaffold extends StatelessWidget {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(title, style: GravitaType.display(size: 26)),
-        const SizedBox(height: 20),
         Expanded(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: body,
+              children: <Widget>[
+                Text(
+                  title,
+                  style: GravitaType.display(context: context, size: 26),
+                ),
+                const SizedBox(height: 20),
+                ...body,
+              ],
             ),
           ),
         ),
@@ -135,20 +165,20 @@ class _StepScaffold extends StatelessWidget {
             key: primaryKey,
             onPressed: busy ? null : onPrimary,
             style: FilledButton.styleFrom(
-              backgroundColor: GravitaColors.accent,
-              foregroundColor: Colors.white,
+              backgroundColor: GravitaColors.of(context).accent,
+              foregroundColor: GravitaColors.of(context).onAccent,
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(14),
               ),
             ),
             child: busy
-                ? const SizedBox(
+                ? SizedBox(
                     width: 20,
                     height: 20,
                     child: CircularProgressIndicator(
                       strokeWidth: 2,
-                      color: Colors.white,
+                      color: GravitaColors.of(context).disabledInk,
                     ),
                   )
                 : Text(primaryLabel),
@@ -187,7 +217,7 @@ class _ValueStep extends StatelessWidget {
           'seansları bu sürümde kullanılamıyor. Öğrenme ilerlemesi formuna puan '
           'vermez veya tekniğini doğrulamaz.',
         ),
-        style: GravitaType.body(size: 16),
+        style: GravitaType.body(context: context, size: 16),
       ),
       const SizedBox(height: 18),
       Text(
@@ -197,7 +227,11 @@ class _ValueStep extends StatelessWidget {
           'Tıbbi araç değildir. Antrenörün yerini almaz. Düşmenizi '
           'önleyemez.',
         ),
-        style: GravitaType.body(size: 14, color: GravitaColors.textSecondary),
+        style: GravitaType.body(
+          context: context,
+          size: 14,
+          color: GravitaColors.of(context).textSecondary,
+        ),
       ),
     ],
   );
@@ -225,7 +259,7 @@ class _SafetyStep extends StatelessWidget {
           'Gravita bir hareket çalışma aracıdır; tıbbi hizmet veya yüz '
           'yüze antrenörün yerini almaz. Düşmeyi önleyemez.',
         ),
-        style: GravitaType.body(size: 16),
+        style: GravitaType.body(context: context, size: 16),
       ),
       const SizedBox(height: 18),
       Text(
@@ -236,7 +270,11 @@ class _SafetyStep extends StatelessWidget {
           'mesafenizdeki eşyaları kaldırın. Duvar gereken hareketlerde '
           'duvarın tamamı kamera kadrajında görünsün.',
         ),
-        style: GravitaType.body(size: 14, color: GravitaColors.textSecondary),
+        style: GravitaType.body(
+          context: context,
+          size: 14,
+          color: GravitaColors.of(context).textSecondary,
+        ),
       ),
     ],
   );
@@ -244,6 +282,7 @@ class _SafetyStep extends StatelessWidget {
 
 class _CameraStep extends StatelessWidget {
   const _CameraStep({
+    required this.available,
     required this.requesting,
     required this.denied,
     required this.onAllow,
@@ -251,6 +290,7 @@ class _CameraStep extends StatelessWidget {
     super.key,
   });
 
+  final bool available;
   final bool requesting;
   final bool denied;
   final VoidCallback onAllow;
@@ -258,14 +298,16 @@ class _CameraStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => _StepScaffold(
-    title: denied
+    title: !available
+        ? localized(context, 'Camera unavailable', 'Kamera kapalı')
+        : denied
         ? localized(
             context,
             OnboardingStrings.cameraDeniedTitle,
             'Kamera erişimi kapalı',
           )
         : localized(context, OnboardingStrings.cameraTitle, 'Kamera erişimi'),
-    primaryLabel: denied
+    primaryLabel: !available || denied
         ? localized(
             context,
             OnboardingStrings.cameraContinueWithout,
@@ -276,12 +318,12 @@ class _CameraStep extends StatelessWidget {
             OnboardingStrings.cameraAllow,
             'Kameraya izin ver',
           ),
-    primaryKey: denied
+    primaryKey: !available || denied
         ? OnboardingFlow.cameraContinueWithoutKey
         : OnboardingFlow.cameraAllowKey,
-    onPrimary: denied ? onContinueWithout : onAllow,
+    onPrimary: !available || denied ? onContinueWithout : onAllow,
     busy: requesting,
-    secondaryAction: denied
+    secondaryAction: !available || denied
         ? null
         : SizedBox(
             width: double.infinity,
@@ -314,7 +356,7 @@ class _CameraStep extends StatelessWidget {
                 'vermeden devam edebilirsin; görüntü kaydedilmez veya yüklenmez.',
               ),
         key: denied ? OnboardingFlow.cameraDeniedKey : null,
-        style: GravitaType.body(size: 16),
+        style: GravitaType.body(context: context, size: 16),
       ),
     ],
   );

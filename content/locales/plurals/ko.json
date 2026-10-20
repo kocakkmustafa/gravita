@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "localeTag": "ko",
+  "entries": {
+    "g_c0975b42c84d": {
+      "count": "count",
+      "forms": {
+        "other": "세션 {count}회"
+      }
+    },
+    "g_27de9b3be346": {
+      "count": "count",
+      "forms": {
+        "other": "세션 {count}회"
+      }
+    },
+    "g_38d865fbb30f": {
+      "count": "count",
+      "forms": {
+        "other": "동작 {count}개"
+      }
+    },
+    "g_2c46d7b0898e": {
+      "count": "count",
+      "forms": {
+        "other": "동작 {count}개"
+      }
+    },
+    "g_ac22c50eb509": {
+      "count": "count",
+      "forms": {
+        "other": "단계 {count}개"
+      }
+    },
+    "g_7b859bb9f07b": {
+      "count": "count",
+      "forms": {
+        "other": "단계 {count}개"
+      }
+    },
+    "g_f6cf0184f71a": {
+      "count": "count",
+      "forms": {
+        "other": "{count}초"
+      }
+    },
+    "g_867d8633f4af": {
+      "count": "count",
+      "forms": {
+        "other": "{count}초"
+      }
+    },
+    "g_c0ddf984605e": {
+      "count": "count",
+      "forms": {
+        "other": "{count}회"
+      }
+    },
+    "g_f9ab0332d33c": {
+      "count": "count",
+      "forms": {
+        "other": "{count}회"
+      }
+    },
+    "g_9b0d2873b401": {
+      "count": "count",
+      "forms": {
+        "other": "빠진 측정 {count}개"
+      }
+    },
+    "g_d0e2e4b25574": {
+      "count": "count",
+      "forms": {
+        "other": "빠진 측정 {count}개"
+      }
+    },
+    "g_e7c2df095e3c": {
+      "count": "count",
+      "forms": {
+        "other": "단계 {count}개, 초안"
+      }
+    },
+    "g_3cc1c7cca3fe": {
+      "count": "count",
+      "forms": {
+        "other": "단계 {count}개, 초안"
+      }
+    },
+    "g_337b622eece7": {
+      "count": "count",
+      "forms": {
+        "other": "프레임 {count}개"
+      }
+    }
+  }
+}

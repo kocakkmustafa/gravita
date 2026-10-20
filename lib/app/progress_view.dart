@@ -90,14 +90,16 @@ class ProgressView extends StatelessWidget {
         : <Widget>[
             if (summary.withheldRetroactiveCredit > 0)
               _noteCard(
+                context,
                 Text(
                   copy.retroactiveWithheld(summary.withheldRetroactiveCredit),
                 ),
               ),
             if (summary.hasHistoryUnderLock)
-              _noteCard(Text(copy.historyUnderLock)),
+              _noteCard(context, Text(copy.historyUnderLock)),
             if (summary.orphanRecordLessonIds.isNotEmpty)
               _noteCard(
+                context,
                 Text(copy.orphanRecords(summary.orphanRecordLessonIds.length)),
               ),
           ];
@@ -113,10 +115,11 @@ class ProgressView extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(18, 12, 18, 96),
       children: <Widget>[
         if (!motionPaidCameraLaunchEnabled) ...<Widget>[
-          _noteCard(Text(copy.releaseBoundary)),
+          _noteCard(context, Text(copy.releaseBoundary)),
           const SizedBox(height: 20),
         ],
         _section(
+          context,
           key: measuredSectionKey,
           title: copy.measuredSection,
           subtitle: copy.measuredSubtitle,
@@ -124,30 +127,33 @@ class ProgressView extends StatelessWidget {
           // GÖSTERMEZ, `partial` GÖSTERİR ama tabanın eksik olduğunu söyler.
           // İki beyan AYRI cümledir — biri ötekini susturmaz.
           children: switch (historyStatus) {
-            HistoryUnavailable() => <Widget>[_historyUnavailableCard(copy)],
+            HistoryUnavailable() => <Widget>[
+              _historyUnavailableCard(context, copy),
+            ],
             HistoryPartial(:final int unreadableRecords) => <Widget>[
-              _historyPartialBanner(copy, unreadableRecords),
+              _historyPartialBanner(context, copy, unreadableRecords),
               if (open.isEmpty)
-                _emptyCard(copy.emptyHistory)
+                _emptyCard(context, copy.emptyHistory)
               else
-                ...open.map((l) => _measuredRow(copy, l)),
+                ...open.map((l) => _measuredRow(context, copy, l)),
             ],
             HistoryOk() =>
               open.isEmpty
-                  ? <Widget>[_emptyCard(copy.emptyHistory)]
+                  ? <Widget>[_emptyCard(context, copy.emptyHistory)]
                   : open
-                        .map((l) => _measuredRow(copy, l))
+                        .map((l) => _measuredRow(context, copy, l))
                         .toList(growable: false),
           },
         ),
         if (locked.isNotEmpty) ...<Widget>[
           const SizedBox(height: 32),
           _section(
+            context,
             key: lockedSectionKey,
             title: copy.lockedSection,
             subtitle: copy.lockedSubtitle,
             children: locked
-                .map((l) => _lockedRow(copy, l))
+                .map((l) => _lockedRow(context, copy, l))
                 .toList(growable: false),
           ),
         ],
@@ -160,6 +166,7 @@ class ProgressView extends StatelessWidget {
             freeSessions.isNotEmpty) ...<Widget>[
           const SizedBox(height: 32),
           _section(
+            context,
             key: freeSectionKey,
             title: copy.freeSection,
             subtitle: copy.freeSubtitle,
@@ -167,7 +174,11 @@ class ProgressView extends StatelessWidget {
               GravitaCard(
                 child: Text(
                   copy.freeSessions(freeSessions),
-                  style: GravitaType.mono(size: 11.5, color: GravitaColors.ink),
+                  style: GravitaType.mono(
+                    context: context,
+                    size: 11.5,
+                    color: GravitaColors.of(context).ink,
+                  ),
                 ),
               ),
             ],
@@ -176,6 +187,7 @@ class ProgressView extends StatelessWidget {
         if (notes.isNotEmpty) ...<Widget>[
           const SizedBox(height: 32),
           _section(
+            context,
             key: notesSectionKey,
             title: copy.notesSection,
             children: notes,
@@ -185,7 +197,11 @@ class ProgressView extends StatelessWidget {
     );
   }
 
-  Widget _measuredRow(ProgressCopy copy, LessonProgress l) {
+  Widget _measuredRow(
+    BuildContext context,
+    ProgressCopy copy,
+    LessonProgress l,
+  ) {
     final bool notStarted = l.state == LessonProgressState.notStarted;
     return GravitaCard(
       key: Key('progress.measured.${l.lessonId}'),
@@ -197,13 +213,17 @@ class ProgressView extends StatelessWidget {
           // "Reps that count" yazıyordu (biri squat'ın, biri şınavın) ve
           // kullanıcı hangisinin hangisi olduğunu **bilemiyordu**.
           // Ders adı kendi hareketinin bağlamında doğru; düşen şey BAĞLAMDI.
-          _overline(copy.movementName(l)),
+          _overline(context, copy.movementName(l)),
           const SizedBox(height: 4),
           // Kullanıcıya AD gösterilir, kimlik gösterilmez. `lessonId` yalnız
           // [Key]'de: test hangi satıra baktığını bilsin diye.
           Text(
             copy.lessonName(l),
-            style: GravitaType.display(size: 16, weight: FontWeight.w500),
+            style: GravitaType.display(
+              context: context,
+              size: 16,
+              weight: FontWeight.w500,
+            ),
           ),
           if (notStarted) ...<Widget>[
             const SizedBox(height: 6),
@@ -211,8 +231,9 @@ class ProgressView extends StatelessWidget {
             Text(
               copy.notStarted,
               style: GravitaType.body(
+                context: context,
                 size: 13,
-                color: GravitaColors.textSecondary,
+                color: GravitaColors.of(context).textSecondary,
               ),
             ),
           ] else ...<Widget>[
@@ -222,9 +243,9 @@ class ProgressView extends StatelessWidget {
               spacing: 16,
               runSpacing: 6,
               children: <Widget>[
-                _stat(copy.units(l.unitsMeasured, l.unitLabel)),
-                _stat(copy.worked(l.workedSeconds)),
-                _stat(copy.sessions(l.sessionCount)),
+                _stat(context, copy.units(l.unitsMeasured, l.unitLabel)),
+                _stat(context, copy.worked(l.workedSeconds)),
+                _stat(context, copy.sessions(l.sessionCount)),
               ],
             ),
             if (l.unitsUnmeasured > 0) ...<Widget>[
@@ -236,8 +257,9 @@ class ProgressView extends StatelessWidget {
                   l.unmeasuredReasons,
                 ),
                 style: GravitaType.body(
+                  context: context,
                   size: 12.5,
-                  color: GravitaColors.textSecondary,
+                  color: GravitaColors.of(context).textSecondary,
                   height: 1.5,
                 ),
               ),
@@ -247,8 +269,9 @@ class ProgressView extends StatelessWidget {
               Text(
                 copy.unscored(l.unscoredSessions),
                 style: GravitaType.mono(
+                  context: context,
                   size: 10.5,
-                  color: GravitaColors.textSecondary,
+                  color: GravitaColors.of(context).textSecondary,
                 ),
               ),
             ],
@@ -258,7 +281,7 @@ class ProgressView extends StatelessWidget {
     );
   }
 
-  Widget _lockedRow(ProgressCopy copy, LessonProgress l) {
+  Widget _lockedRow(BuildContext context, ProgressCopy copy, LessonProgress l) {
     return GravitaCard(
       key: Key('progress.locked.${l.lessonId}'),
       sealed: true,
@@ -276,23 +299,26 @@ class ProgressView extends StatelessWidget {
                     // kilitli dersleri farklı adlar taşıyor OLABİLİR, ama
                     // "olabilir" bir güvence değildir (M-F-194 pozitif-ikiz
                     // mantığının yüzeydeki hâli).
-                    _overline(copy.movementName(l)),
+                    _overline(context, copy.movementName(l)),
                     const SizedBox(height: 4),
                     Text(
                       copy.lessonName(l),
                       style: GravitaType.display(
+                        context: context,
                         size: 15.5,
                         weight: FontWeight.w500,
-                        color: GravitaColors.honestyText,
+                        color: GravitaColors.of(context).honestyText,
                       ),
                     ),
                   ],
                 ),
               ),
               const SizedBox(width: 10),
-              GravitaPill(
-                label: copy.lockedBadge,
-                tone: GravitaColors.honestySeal,
+              Flexible(
+                child: GravitaPill(
+                  label: copy.lockedBadge,
+                  tone: GravitaColors.of(context).honestySeal,
+                ),
               ),
             ],
           ),
@@ -304,8 +330,9 @@ class ProgressView extends StatelessWidget {
           Text(
             copy.lockedReason(l),
             style: GravitaType.body(
+              context: context,
               size: 13,
-              color: GravitaColors.honestyText,
+              color: GravitaColors.of(context).honestyText,
               height: 1.55,
             ),
           ),
@@ -319,12 +346,14 @@ class ProgressView extends StatelessWidget {
               runSpacing: 6,
               children: <Widget>[
                 _stat(
+                  context,
                   copy.units(l.unitsMeasured, l.unitLabel),
-                  color: GravitaColors.honestyText,
+                  color: GravitaColors.of(context).honestyText,
                 ),
                 _stat(
+                  context,
                   copy.sessions(l.sessionCount),
-                  color: GravitaColors.honestyText,
+                  color: GravitaColors.of(context).honestyText,
                 ),
               ],
             ),
@@ -334,54 +363,27 @@ class ProgressView extends StatelessWidget {
     );
   }
 
-  Widget _historyUnavailableCard(ProgressCopy copy) => GravitaCard(
-    key: historyFailureKey,
-    sealed: true,
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const Icon(
-          Icons.history_toggle_off,
-          color: GravitaColors.honestySeal,
-          size: 20,
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Text(
-            copy.historyUnavailable,
-            style: GravitaType.body(
-              size: 13.5,
-              color: GravitaColors.honestyText,
-              height: 1.55,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-
-  Widget _historyPartialBanner(ProgressCopy copy, int unreadable) =>
+  Widget _historyUnavailableCard(BuildContext context, ProgressCopy copy) =>
       GravitaCard(
+        key: historyFailureKey,
         sealed: true,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Icon(
-              Icons.info_outline,
-              color: GravitaColors.honestySeal,
-              size: 18,
+            Icon(
+              Icons.history_toggle_off,
+              color: GravitaColors.of(context).honestySeal,
+              size: 20,
             ),
-            const SizedBox(width: 10),
+            const SizedBox(width: 12),
             Expanded(
-              // Key doğrudan Text'te: bir test `tester.widget<Text>(...)`
-              // ile içeriğini okuyor, sarmalayıcıda olsa tip hatası verirdi.
               child: Text(
-                copy.historyPartial(unreadable),
-                key: historyPartialKey,
+                copy.historyUnavailable,
                 style: GravitaType.body(
-                  size: 13,
-                  color: GravitaColors.honestyText,
-                  height: 1.5,
+                  context: context,
+                  size: 13.5,
+                  color: GravitaColors.of(context).honestyText,
+                  height: 1.55,
                 ),
               ),
             ),
@@ -389,25 +391,63 @@ class ProgressView extends StatelessWidget {
         ),
       );
 
-  Widget _emptyCard(String text) => GravitaCard(
-    child: Text(
-      text,
-      style: GravitaType.body(size: 13.5, color: GravitaColors.textSecondary),
+  Widget _historyPartialBanner(
+    BuildContext context,
+    ProgressCopy copy,
+    int unreadable,
+  ) => GravitaCard(
+    sealed: true,
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Icon(
+          Icons.info_outline,
+          color: GravitaColors.of(context).honestySeal,
+          size: 18,
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          // Key doğrudan Text'te: bir test `tester.widget<Text>(...)`
+          // ile içeriğini okuyor, sarmalayıcıda olsa tip hatası verirdi.
+          child: Text(
+            copy.historyPartial(unreadable),
+            key: historyPartialKey,
+            style: GravitaType.body(
+              context: context,
+              size: 13,
+              color: GravitaColors.of(context).honestyText,
+              height: 1.5,
+            ),
+          ),
+        ),
+      ],
     ),
   );
 
-  Widget _noteCard(Widget child) => Container(
+  Widget _emptyCard(BuildContext context, String text) => GravitaCard(
+    child: Text(
+      text,
+      style: GravitaType.body(
+        context: context,
+        size: 13.5,
+        color: GravitaColors.of(context).textSecondary,
+      ),
+    ),
+  );
+
+  Widget _noteCard(BuildContext context, Widget child) => Container(
     padding: const EdgeInsets.all(15),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(18),
       border: Border.all(
-        color: GravitaColors.textTertiary.withValues(alpha: 0.35),
+        color: GravitaColors.of(context).textTertiary.withValues(alpha: 0.35),
       ),
     ),
     child: DefaultTextStyle.merge(
       style: GravitaType.body(
+        context: context,
         size: 12.5,
-        color: GravitaColors.textSecondary,
+        color: GravitaColors.of(context).textSecondary,
         height: 1.6,
       ),
       child: child,
@@ -420,22 +460,29 @@ class ProgressView extends StatelessWidget {
   /// zaten kullandığı mono/aralıklı/ikincil dizgisinin aynısı, bir punto
   /// küçüğü. *Bir kusuru düzeltirken tasarım yönü açmak, düzeltmenin
   /// kendisini bir karara dönüştürürdü* (M-F-77).
-  Widget _overline(String text) => Text(
+  Widget _overline(BuildContext context, String text) => Text(
     text.toUpperCase(),
     style: GravitaType.mono(
+      context: context,
       size: 10.5,
-      color: GravitaColors.textSecondary,
+      color: GravitaColors.of(context).textSecondary,
       weight: FontWeight.w600,
       letterSpacingEm: 0.12,
     ),
   );
 
-  Widget _stat(String text, {Color color = GravitaColors.ink}) => Text(
+  Widget _stat(BuildContext context, String text, {Color? color}) => Text(
     text,
-    style: GravitaType.mono(size: 11.5, color: color, weight: FontWeight.w500),
+    style: GravitaType.mono(
+      context: context,
+      size: 11.5,
+      color: color ?? GravitaColors.of(context).ink,
+      weight: FontWeight.w500,
+    ),
   );
 
-  Widget _section({
+  Widget _section(
+    BuildContext context, {
     required Key key,
     required String title,
     required List<Widget> children,
@@ -448,8 +495,9 @@ class ProgressView extends StatelessWidget {
         Text(
           title,
           style: GravitaType.mono(
+            context: context,
             size: 11,
-            color: GravitaColors.textSecondary,
+            color: GravitaColors.of(context).textSecondary,
             weight: FontWeight.w600,
             letterSpacingEm: 0.12,
           ),
@@ -459,8 +507,9 @@ class ProgressView extends StatelessWidget {
           Text(
             subtitle,
             style: GravitaType.body(
+              context: context,
               size: 12.5,
-              color: GravitaColors.textSecondary,
+              color: GravitaColors.of(context).textSecondary,
               height: 1.5,
             ),
           ),

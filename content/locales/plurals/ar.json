@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "localeTag": "ar",
+  "entries": {
+    "g_c0975b42c84d": {
+      "count": "count",
+      "forms": {
+        "zero": "لا توجد جلسات ({count})",
+        "one": "جلسة واحدة ({count})",
+        "two": "جلستان ({count})",
+        "few": "{count} جلسات",
+        "many": "{count} جلسة",
+        "other": "{count} جلسة"
+      }
+    },
+    "g_27de9b3be346": {
+      "count": "count",
+      "forms": {
+        "zero": "لا توجد جلسات ({count})",
+        "one": "جلسة واحدة ({count})",
+        "two": "جلستان ({count})",
+        "few": "{count} جلسات",
+        "many": "{count} جلسة",
+        "other": "{count} جلسة"
+      }
+    },
+    "g_38d865fbb30f": {
+      "count": "count",
+      "forms": {
+        "zero": "لا توجد حركات ({count})",
+        "one": "حركة واحدة ({count})",
+        "two": "حركتان ({count})",
+        "few": "{count} حركات",
+        "many": "{count} حركة",
+        "other": "{count} حركة"
+      }
+    },
+    "g_2c46d7b0898e": {
+      "count": "count",
+      "forms": {
+        "zero": "لا توجد حركات ({count})",
+        "one": "حركة واحدة ({count})",
+        "two": "حركتان ({count})",
+        "few": "{count} حركات",
+        "many": "{count} حركة",
+        "other": "{count} حركة"
+      }
+    },
+    "g_ac22c50eb509": {
+      "count": "count",
+      "forms": {
+        "zero": "لا توجد خطوات ({count})",
+        "one": "خطوة واحدة ({count})",
+        "two": "خطوتان ({count})",
+        "few": "{count} خطوات",
+        "many": "{count} خطوة",
+        "other": "{count} خطوة"
+      }
+    },
+    "g_7b859bb9f07b": {
+      "count": "count",
+      "forms": {
+        "zero": "لا توجد خطوات ({count})",
+        "one": "خطوة واحدة ({count})",
+        "two": "خطوتان ({count})",
+        "few": "{count} خطوات",
+        "many": "{count} خطوة",
+        "other": "{count} خطوة"
+      }
+    },
+    "g_f6cf0184f71a": {
+      "count": "count",
+      "forms": {
+        "zero": "لا توجد ثوانٍ ({count})",
+        "one": "ثانية واحدة ({count})",
+        "two": "ثانيتان ({count})",
+        "few": "{count} ثوانٍ",
+        "many": "{count} ثانية",
+        "other": "{count} ثانية"
+      }
+    },
+    "g_867d8633f4af": {
+      "count": "count",
+      "forms": {
+        "zero": "لا توجد ثوانٍ ({count})",
+        "one": "ثانية واحدة ({count})",
+        "two": "ثانيتان ({count})",
+        "few": "{count} ثوانٍ",
+        "many": "{count} ثانية",
+        "other": "{count} ثانية"
+      }
+    },
+    "g_c0ddf984605e": {
+      "count": "count",
+      "forms": {
+        "zero": "لا توجد تكرارات ({count})",
+        "one": "تكرار واحد ({count})",
+        "two": "تكراران ({count})",
+        "few": "{count} تكرارات",
+        "many": "{count} تكرار",
+        "other": "{count} تكرار"
+      }
+    },
+    "g_f9ab0332d33c": {
+      "count": "count",
+      "forms": {
+        "zero": "لا توجد تكرارات ({count})",
+        "one": "تكرار واحد ({count})",
+        "two": "تكراران ({count})",
+        "few": "{count} تكرارات",
+        "many": "{count} تكرار",
+        "other": "{count} تكرار"
+      }
+    },
+    "g_9b0d2873b401": {
+      "count": "count",
+      "forms": {
+        "zero": "لا توجد قياسات ناقصة ({count})",
+        "one": "قياس واحد ناقص ({count})",
+        "two": "قياسان ناقصان ({count})",
+        "few": "{count} قياسات ناقصة",
+        "many": "{count} قياس ناقص",
+        "other": "{count} قياس ناقص"
+      }
+    },
+    "g_d0e2e4b25574": {
+      "count": "count",
+      "forms": {
+        "zero": "لا توجد قياسات ناقصة ({count})",
+        "one": "قياس واحد ناقص ({count})",
+        "two": "قياسان ناقصان ({count})",
+        "few": "{count} قياسات ناقصة",
+        "many": "{count} قياس ناقص",
+        "other": "{count} قياس ناقص"
+      }
+    },
+    "g_e7c2df095e3c": {
+      "count": "count",
+      "forms": {
+        "zero": "لا توجد خطوات في المسودة ({count})",
+        "one": "خطوة واحدة في المسودة ({count})",
+        "two": "خطوتان في المسودة ({count})",
+        "few": "{count} خطوات في المسودة",
+        "many": "{count} خطوة في المسودة",
+        "other": "{count} خطوة في المسودة"
+      }
+    },
+    "g_3cc1c7cca3fe": {
+      "count": "count",
+      "forms": {
+        "zero": "لا توجد خطوات في المسودة ({count})",
+        "one": "خطوة واحدة في المسودة ({count})",
+        "two": "خطوتان في المسودة ({count})",
+        "few": "{count} خطوات في المسودة",
+        "many": "{count} خطوة في المسودة",
+        "other": "{count} خطوة في المسودة"
+      }
+    },
+    "g_337b622eece7": {
+      "count": "count",
+      "forms": {
+        "zero": "لا توجد إطارات ({count})",
+        "one": "إطار واحد ({count})",
+        "two": "إطاران ({count})",
+        "few": "{count} إطارات",
+        "many": "{count} إطار",
+        "other": "{count} إطار"
+      }
+    }
+  }
+}

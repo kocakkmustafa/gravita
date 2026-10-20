@@ -1,8 +1,12 @@
 // Authored reading/recall activities derived from the source references below.
 // These do not promote physical instruction, media rights, scoring or mastery.
+import 'localization/locale_catalog.dart';
+
 final class StudyText {
   const StudyText(this.en, this.tr);
   final String en, tr;
+  String inLanguage(String localeTag) =>
+      resolveLocalized(localeTag, en, turkish: tr);
 }
 
 final class RecallLesson {

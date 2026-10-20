@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "localeTag": "it",
+  "entries": {
+    "g_c0975b42c84d": {
+      "count": "count",
+      "forms": {
+        "one": "{count} sessione",
+        "many": "{count} sessioni",
+        "other": "{count} sessioni"
+      }
+    },
+    "g_27de9b3be346": {
+      "count": "count",
+      "forms": {
+        "one": "{count} sessione",
+        "many": "{count} sessioni",
+        "other": "{count} sessioni"
+      }
+    },
+    "g_38d865fbb30f": {
+      "count": "count",
+      "forms": {
+        "one": "{count} movimento",
+        "many": "{count} movimenti",
+        "other": "{count} movimenti"
+      }
+    },
+    "g_2c46d7b0898e": {
+      "count": "count",
+      "forms": {
+        "one": "{count} movimento",
+        "many": "{count} movimenti",
+        "other": "{count} movimenti"
+      }
+    },
+    "g_ac22c50eb509": {
+      "count": "count",
+      "forms": {
+        "one": "{count} passaggio",
+        "many": "{count} passaggi",
+        "other": "{count} passaggi"
+      }
+    },
+    "g_7b859bb9f07b": {
+      "count": "count",
+      "forms": {
+        "one": "{count} passaggio",
+        "many": "{count} passaggi",
+        "other": "{count} passaggi"
+      }
+    },
+    "g_f6cf0184f71a": {
+      "count": "count",
+      "forms": {
+        "one": "{count} secondo",
+        "many": "{count} secondi",
+        "other": "{count} secondi"
+      }
+    },
+    "g_867d8633f4af": {
+      "count": "count",
+      "forms": {
+        "one": "{count} secondo",
+        "many": "{count} secondi",
+        "other": "{count} secondi"
+      }
+    },
+    "g_c0ddf984605e": {
+      "count": "count",
+      "forms": {
+        "one": "{count} ripetizione",
+        "many": "{count} ripetizioni",
+        "other": "{count} ripetizioni"
+      }
+    },
+    "g_f9ab0332d33c": {
+      "count": "count",
+      "forms": {
+        "one": "{count} ripetizione",
+        "many": "{count} ripetizioni",
+        "other": "{count} ripetizioni"
+      }
+    },
+    "g_9b0d2873b401": {
+      "count": "count",
+      "forms": {
+        "one": "{count} misurazione mancante",
+        "many": "{count} misurazioni mancanti",
+        "other": "{count} misurazioni mancanti"
+      }
+    },
+    "g_d0e2e4b25574": {
+      "count": "count",
+      "forms": {
+        "one": "{count} misurazione mancante",
+        "many": "{count} misurazioni mancanti",
+        "other": "{count} misurazioni mancanti"
+      }
+    },
+    "g_e7c2df095e3c": {
+      "count": "count",
+      "forms": {
+        "one": "{count} passaggio in bozza",
+        "many": "{count} passaggi in bozza",
+        "other": "{count} passaggi in bozza"
+      }
+    },
+    "g_3cc1c7cca3fe": {
+      "count": "count",
+      "forms": {
+        "one": "{count} passaggio in bozza",
+        "many": "{count} passaggi in bozza",
+        "other": "{count} passaggi in bozza"
+      }
+    },
+    "g_337b622eece7": {
+      "count": "count",
+      "forms": {
+        "one": "{count} fotogramma",
+        "many": "{count} fotogrammi",
+        "other": "{count} fotogrammi"
+      }
+    }
+  }
+}

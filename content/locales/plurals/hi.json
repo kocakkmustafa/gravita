@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "localeTag": "hi",
+  "entries": {
+    "g_c0975b42c84d": {
+      "count": "count",
+      "forms": {
+        "other": "{count} सत्र"
+      }
+    },
+    "g_27de9b3be346": {
+      "count": "count",
+      "forms": {
+        "other": "{count} सत्र"
+      }
+    },
+    "g_38d865fbb30f": {
+      "count": "count",
+      "forms": {
+        "one": "{count} गतिविधि",
+        "other": "{count} गतिविधियाँ"
+      }
+    },
+    "g_2c46d7b0898e": {
+      "count": "count",
+      "forms": {
+        "one": "{count} गतिविधि",
+        "other": "{count} गतिविधियाँ"
+      }
+    },
+    "g_ac22c50eb509": {
+      "count": "count",
+      "forms": {
+        "other": "{count} चरण"
+      }
+    },
+    "g_7b859bb9f07b": {
+      "count": "count",
+      "forms": {
+        "other": "{count} चरण"
+      }
+    },
+    "g_f6cf0184f71a": {
+      "count": "count",
+      "forms": {
+        "other": "{count} सेकंड"
+      }
+    },
+    "g_867d8633f4af": {
+      "count": "count",
+      "forms": {
+        "other": "{count} सेकंड"
+      }
+    },
+    "g_c0ddf984605e": {
+      "count": "count",
+      "forms": {
+        "other": "{count} दोहराव"
+      }
+    },
+    "g_f9ab0332d33c": {
+      "count": "count",
+      "forms": {
+        "other": "{count} दोहराव"
+      }
+    },
+    "g_9b0d2873b401": {
+      "count": "count",
+      "forms": {
+        "one": "{count} माप बाकी है",
+        "other": "{count} माप बाकी हैं"
+      }
+    },
+    "g_d0e2e4b25574": {
+      "count": "count",
+      "forms": {
+        "one": "{count} माप बाकी है",
+        "other": "{count} माप बाकी हैं"
+      }
+    },
+    "g_e7c2df095e3c": {
+      "count": "count",
+      "forms": {
+        "one": "{count} चरण का मसौदा",
+        "other": "{count} चरणों का मसौदा"
+      }
+    },
+    "g_3cc1c7cca3fe": {
+      "count": "count",
+      "forms": {
+        "one": "{count} चरण का मसौदा",
+        "other": "{count} चरणों का मसौदा"
+      }
+    },
+    "g_337b622eece7": {
+      "count": "count",
+      "forms": {
+        "other": "{count} फ़्रेम"
+      }
+    }
+  }
+}

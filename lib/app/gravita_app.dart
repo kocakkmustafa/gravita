@@ -14,6 +14,7 @@ import 'content_repository.dart';
 import 'home_screen.dart';
 import 'library_screen.dart';
 import 'library_strings.dart';
+import 'language_preferences.dart';
 import 'live_session_screen.dart';
 import 'onboarding_screen.dart';
 import 'onboarding_store.dart';
@@ -21,6 +22,7 @@ import 'profile_screen.dart';
 import 'progress_copy.dart';
 import 'progress_view.dart';
 import 'theme.dart';
+import 'theme_preferences.dart';
 
 /// Uygulama kabuğu.
 ///
@@ -37,15 +39,26 @@ import 'theme.dart';
 /// Progress (gerçek geçmiş) · Profile (sınırlar + veri yeri). Ortadaki seans
 /// düğmesi hâlâ NÖBETLİ: canlı yol yoksa ÇİZİLMEZ.
 class GravitaApp extends StatefulWidget {
-  const GravitaApp({super.key, this.accountConnection});
+  const GravitaApp({
+    super.key,
+    this.accountConnection,
+    this.themePreferences,
+    this.languagePreferences,
+  });
 
   final AccountConnection? accountConnection;
+  final ThemePreferencesController? themePreferences;
+  final LanguagePreferencesController? languagePreferences;
 
   @override
   State<GravitaApp> createState() => _GravitaAppState();
 }
 
-class _GravitaAppState extends State<GravitaApp> {
+class _GravitaAppState extends State<GravitaApp> with WidgetsBindingObserver {
+  late ThemePreferencesController _themePreferences;
+  late bool _ownsThemePreferences;
+  late LanguagePreferencesController _languagePreferences;
+  late bool _ownsLanguagePreferences;
   Listenable? _signals;
   StreamSubscription<void>? _ownerSessionSubscription;
   String? _previousUser;
@@ -65,7 +78,34 @@ class _GravitaAppState extends State<GravitaApp> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _bindThemePreferences();
+    _bindLanguagePreferences();
     _bind();
+  }
+
+  void _bindThemePreferences() {
+    _ownsThemePreferences = widget.themePreferences == null;
+    _themePreferences =
+        widget.themePreferences ?? ThemePreferencesController.ephemeral();
+    _themePreferences.addListener(_themeChanged);
+  }
+
+  void _themeChanged() {
+    // Appearance never rotates account epochs or changes the Navigator key.
+    if (mounted) setState(() {});
+  }
+
+  void _bindLanguagePreferences() {
+    _ownsLanguagePreferences = widget.languagePreferences == null;
+    _languagePreferences =
+        widget.languagePreferences ?? LanguagePreferencesController.ephemeral();
+    _languagePreferences.addListener(_themeChanged);
+  }
+
+  @override
+  void didChangeAccessibilityFeatures() {
+    if (mounted) setState(() {});
   }
 
   void _bind() {
@@ -125,6 +165,16 @@ class _GravitaAppState extends State<GravitaApp> {
   @override
   void didUpdateWidget(covariant GravitaApp oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (oldWidget.themePreferences != widget.themePreferences) {
+      _themePreferences.removeListener(_themeChanged);
+      if (_ownsThemePreferences) _themePreferences.dispose();
+      _bindThemePreferences();
+    }
+    if (oldWidget.languagePreferences != widget.languagePreferences) {
+      _languagePreferences.removeListener(_themeChanged);
+      if (_ownsLanguagePreferences) _languagePreferences.dispose();
+      _bindLanguagePreferences();
+    }
     if (oldWidget.accountConnection != widget.accountConnection) {
       _signals?.removeListener(_identityChanged);
       unawaited(_ownerSessionSubscription?.cancel());
@@ -137,6 +187,11 @@ class _GravitaAppState extends State<GravitaApp> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _themePreferences.removeListener(_themeChanged);
+    if (_ownsThemePreferences) _themePreferences.dispose();
+    _languagePreferences.removeListener(_themeChanged);
+    if (_ownsLanguagePreferences) _languagePreferences.dispose();
     _signals?.removeListener(_identityChanged);
     unawaited(_ownerSessionSubscription?.cancel());
     if (_managed) unawaited(AccountStoreEpochRegistry.retireAll());
@@ -151,42 +206,44 @@ class _GravitaAppState extends State<GravitaApp> {
     final failed = AccountStoreEpochRegistry.erasureError(userId) != null;
     return Scaffold(
       body: Builder(
-        builder: (context) => Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  localized(
-                    context,
-                    pending
-                        ? 'Account history is unavailable while local cleanup completes.'
-                        : failed
-                        ? 'Local cleanup could not finish. Account history remains unavailable.'
-                        : 'This account was deleted. Its local history is unavailable.',
-                    pending
-                        ? 'Yerel temizlik tamamlanana kadar hesap geçmişi kullanılamıyor.'
-                        : failed
-                        ? 'Yerel temizlik tamamlanamadı. Hesap geçmişi kapalı tutuluyor.'
-                        : 'Bu hesap silindi. Yerel hesap geçmişi kullanılamıyor.',
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                if (account != null)
-                  TextButton(
-                    onPressed: () => Navigator.of(context).push<void>(
-                      MaterialPageRoute<void>(builder: account.pageBuilder),
+        builder: (context) => SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    localized(
+                      context,
+                      pending
+                          ? 'Account history is unavailable while local cleanup completes.'
+                          : failed
+                          ? 'Local cleanup could not finish. Account history remains unavailable.'
+                          : 'This account was deleted. Its local history is unavailable.',
+                      pending
+                          ? 'Yerel temizlik tamamlanana kadar hesap geçmişi kullanılamıyor.'
+                          : failed
+                          ? 'Yerel temizlik tamamlanamadı. Hesap geçmişi kapalı tutuluyor.'
+                          : 'Bu hesap silindi. Yerel hesap geçmişi kullanılamıyor.',
                     ),
-                    child: Text(
-                      localized(
-                        context,
-                        'Account options',
-                        'Hesap seçenekleri',
+                    textAlign: TextAlign.center,
+                  ),
+                  if (account != null)
+                    TextButton(
+                      onPressed: () => Navigator.of(context).push<void>(
+                        MaterialPageRoute<void>(builder: account.pageBuilder),
+                      ),
+                      child: Text(
+                        localized(
+                          context,
+                          'Account options',
+                          'Hesap seçenekleri',
+                        ),
                       ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -199,28 +256,58 @@ class _GravitaAppState extends State<GravitaApp> {
     final account = widget.accountConnection;
     final userId = account?.userId.value;
     final ownerKey = 'gravita-account-${userId ?? 'signed-out'}';
-    return AccountScope(
-      connection: account,
-      currentUserId: userId,
-      child: MaterialApp(
-        key: ValueKey<String>(
-          _managed ? '$ownerKey-$_navigationRevision' : ownerKey,
-        ),
-        title: 'Gravita',
-        theme: GravitaTheme.light,
-        builder: (BuildContext context, Widget? child) =>
-            AnnotatedRegion<SystemUiOverlayStyle>(
-              value: SystemUiOverlayStyle.dark,
-              child: child ?? const SizedBox.shrink(),
+    final accessibility =
+        WidgetsBinding.instance.platformDispatcher.accessibilityFeatures;
+    final platformReducedMotion =
+        accessibility.disableAnimations || accessibility.accessibleNavigation;
+    final reducedMotion =
+        GravitaMotion.reduceMotion(context) || platformReducedMotion;
+    return ThemePreferencesScope(
+      controller: _themePreferences,
+      child: LanguagePreferencesScope(
+        controller: _languagePreferences,
+        child: AccountScope(
+          connection: account,
+          currentUserId: userId,
+          child: MaterialApp(
+            key: ValueKey<String>(
+              _managed ? '$ownerKey-$_navigationRevision' : ownerKey,
             ),
-        supportedLocales: appSupportedLocales,
-        localizationsDelegates: appLocalizationsDelegates,
-        debugShowCheckedModeBanner: false,
-        home: !_admitted
-            ? _closedAccountHome(account, userId)
-            : _recovery && account != null
-            ? Builder(builder: account.pageBuilder)
-            : const GravitaRoot(),
+            title: 'Gravita',
+            theme: GravitaTheme.light,
+            darkTheme: GravitaTheme.dark,
+            themeMode: _themePreferences.themeMode,
+            themeAnimationDuration: reducedMotion
+                ? Duration.zero
+                : GravitaMotion.duration(context),
+            builder: (BuildContext context, Widget? child) {
+              final dark = Theme.of(context).brightness == Brightness.dark;
+              final overlay = dark
+                  ? SystemUiOverlayStyle.light
+                  : SystemUiOverlayStyle.dark;
+              return AnnotatedRegion<SystemUiOverlayStyle>(
+                value: overlay.copyWith(
+                  statusBarColor: Colors.transparent,
+                  systemNavigationBarColor: GravitaColors.of(context).page,
+                  systemNavigationBarIconBrightness: dark
+                      ? Brightness.light
+                      : Brightness.dark,
+                ),
+                child: child ?? const SizedBox.shrink(),
+              );
+            },
+            supportedLocales: appSupportedLocales,
+            locale: _languagePreferences.locale,
+            localeListResolutionCallback: resolveAppLocales,
+            localizationsDelegates: appLocalizationsDelegates,
+            debugShowCheckedModeBanner: false,
+            home: !_admitted
+                ? _closedAccountHome(account, userId)
+                : _recovery && account != null
+                ? Builder(builder: account.pageBuilder)
+                : const GravitaRoot(),
+          ),
+        ),
       ),
     );
   }
@@ -420,8 +507,8 @@ class _GravitaShellState extends State<GravitaShell> {
               // planda kaybolmuş görünüyordu. Vurgu rengi burada "ölçülen
               // kriter / kapı / mühür" kuralının dışında bir dördüncü iş
               // yapmıyor: bu düğme canlı ölçümün hızlı girişidir.
-              backgroundColor: GravitaColors.accent,
-              foregroundColor: Colors.white,
+              backgroundColor: GravitaColors.of(context).accent,
+              foregroundColor: GravitaColors.of(context).onAccent,
               onPressed: motionPaidCameraLaunchEnabled
                   ? () => _openLiveSession(live)
                   : null,
@@ -440,8 +527,8 @@ class _GravitaShellState extends State<GravitaShell> {
         key: GravitaShell.navBarKey,
         selectedIndex: _index,
         onDestinationSelected: (int i) => setState(() => _index = i),
-        backgroundColor: GravitaColors.page,
-        indicatorColor: GravitaColors.accent.withValues(alpha: 0.1),
+        backgroundColor: GravitaColors.of(context).page,
+        indicatorColor: GravitaColors.of(context).accent.withValues(alpha: 0.1),
         destinations: <NavigationDestination>[
           NavigationDestination(
             icon: const Icon(Icons.today_outlined),

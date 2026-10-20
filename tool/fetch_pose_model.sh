@@ -31,7 +31,9 @@ verify() {
 
 # Aile hattında zaten indirilmişse KOPYALA — aynı pinli dosyayı ikinci kez
 # indirmek ağ israfı, ve iki kopyanın hash'i zaten aynı olmak zorunda.
-LOCAL="$HOME/Documents/YULAlab-AI/ventures/motion-core/lib/tools/fixture_pipeline/models/${VARIANT}.v1.task"
+# The canonical sibling checkout is optional (CI can use the pinned URL).
+# Resolve relative to this script's app root, never a historical home folder.
+LOCAL="../../motion-core/lib/tools/fixture_pipeline/models/${VARIANT}.v1.task"
 if [ -f "$DEST" ] && verify "$DEST" 2>/dev/null; then
   echo "model zaten yerinde: $DEST"; exit 0
 fi

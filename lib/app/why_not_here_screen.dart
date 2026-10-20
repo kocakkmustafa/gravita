@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'catalog_copy_tr.dart';
+import 'app_locale.dart';
 import 'library_model.dart';
 import 'theme.dart';
 
@@ -24,11 +25,7 @@ import 'theme.dart';
 /// yüzey gibi görünmek zorunda: sıfır sonuç ürünü DAR gösterir, gerekçeli bir
 /// sınır KASITLI gösterir.
 class WhyNotHereScreen extends StatelessWidget {
-  const WhyNotHereScreen({
-    required this.page,
-    this.focusSectionId,
-    super.key,
-  });
+  const WhyNotHereScreen({required this.page, this.focusSectionId, super.key});
 
   static const Key introKey = Key('whyNot.intro');
   static Key sectionKey(String id) => Key('whyNot.section.$id');
@@ -50,7 +47,11 @@ class WhyNotHereScreen extends StatelessWidget {
             exclusionPageIntro(context, page),
             key: introKey,
             style: GravitaType.body(
-                size: 14.5, color: GravitaColors.inkMuted, height: 1.6),
+              context: context,
+              size: 14.5,
+              color: GravitaColors.of(context).inkMuted,
+              height: 1.6,
+            ),
           ),
           const SizedBox(height: 26),
           for (final ExclusionSection s in page.sections) ...<Widget>[
@@ -62,84 +63,99 @@ class WhyNotHereScreen extends StatelessWidget {
     );
   }
 
-  Widget _section(BuildContext context, ExclusionSection s,
-          {required bool focused}) =>
-      GravitaCard(
-        key: sectionKey(s.id),
-        // Vurgu MÜHÜR ile yapılıyor, ayrı bir "seçili" rengiyle değil: aynı
-        // görsel dil, ikinci bir anlam katmanı eklemeden.
-        sealed: focused,
-        child: Column(
+  Widget _section(
+    BuildContext context,
+    ExclusionSection s, {
+    required bool focused,
+  }) => GravitaCard(
+    key: sectionKey(s.id),
+    // Vurgu MÜHÜR ile yapılıyor, ayrı bir "seçili" rengiyle değil: aynı
+    // görsel dil, ikinci bir anlam katmanı eklemeden.
+    sealed: focused,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Expanded(
-                  child: Text(
-                    exclusionSectionTitle(context, s),
-                    style: GravitaType.display(
-                        size: 17,
-                        weight: FontWeight.w600,
-                        color: focused ? GravitaColors.honestyText : null),
-                  ),
+            Expanded(
+              child: Text(
+                exclusionSectionTitle(context, s),
+                style: GravitaType.display(
+                  context: context,
+                  size: 17,
+                  weight: FontWeight.w600,
+                  color: focused ? GravitaColors.of(context).honestyText : null,
                 ),
-                if (s.movementClass != null) ...<Widget>[
-                  const SizedBox(width: 10),
-                  GravitaPill(
-                    label: Localizations.localeOf(context).languageCode == 'tr'
-                        ? 'SINIF ${s.movementClass}'
-                        : 'CLASS ${s.movementClass}',
-                    tone: GravitaColors.textSecondary,
-                    filled: false,
+              ),
+            ),
+            if (s.movementClass != null) ...<Widget>[
+              const SizedBox(width: 10),
+              Flexible(
+                child: GravitaPill(
+                  label: localizedUpper(
+                    context,
+                    'Class {class}',
+                    'Sınıf {class}',
+                    values: <String, Object>{'class': s.movementClass!},
                   ),
-                ],
-              ],
-            ),
-            const SizedBox(height: 10),
-            Text(
-              exclusionSectionReason(context, s),
-              style: GravitaType.body(
-                  size: 13.5,
-                  height: 1.6,
-                  color: focused
-                      ? GravitaColors.honestyText
-                      : GravitaColors.inkMuted),
-            ),
-            // ⚠️ Sınıf yoksa satır ÇİZİLMEZ (O-070): "kamera göremiyor"
-            // varsayılanı, vaat taşıyan sınıfı uydurmak olurdu.
-            if (s.limitClass != null) ...<Widget>[
-            const SizedBox(height: 10),
-            // ⭐ SINIF cümlesi gerekçenin HEMEN ALTINDA. Yukarıya koymak onu
-            // başlık gibi okuturdu; aşağıya atmak dipnot yapardı. Okuyucu
-            // *"demek teknoloji gelişince eklenir"* diye düşündüğü an tam
-            // burası.
-            Text(
-              exclusionClassLine(context, s.limitClass),
-              key: Key('whyNot.class.${s.id}'),
-              style: GravitaType.mono(
-                  size: 11,
-                  color: GravitaColors.honestySeal,
-                  letterSpacingEm: 0.02),
-            ),
-            ],
-            if (s.examples.isNotEmpty) ...<Widget>[
-              const SizedBox(height: 14),
-              // Örnekler ARAMANIN eşleştiği sözcüklerdir; göstermek, "bunu
-              // aradıysan doğru yerdesin" demenin en kısa yolu.
-              Wrap(
-                spacing: 7,
-                runSpacing: 7,
-                children: s.examples
-                    .map((String e) => GravitaPill(
-                          label: exclusionExample(context, e),
-                          tone: GravitaColors.textSecondary,
-                          filled: false,
-                        ))
-                    .toList(growable: false),
+                  tone: GravitaColors.of(context).textSecondary,
+                  filled: false,
+                ),
               ),
             ],
           ],
         ),
-      );
+        const SizedBox(height: 10),
+        Text(
+          exclusionSectionReason(context, s),
+          style: GravitaType.body(
+            context: context,
+            size: 13.5,
+            height: 1.6,
+            color: focused
+                ? GravitaColors.of(context).honestyText
+                : GravitaColors.of(context).inkMuted,
+          ),
+        ),
+        // ⚠️ Sınıf yoksa satır ÇİZİLMEZ (O-070): "kamera göremiyor"
+        // varsayılanı, vaat taşıyan sınıfı uydurmak olurdu.
+        if (s.limitClass != null) ...<Widget>[
+          const SizedBox(height: 10),
+          // ⭐ SINIF cümlesi gerekçenin HEMEN ALTINDA. Yukarıya koymak onu
+          // başlık gibi okuturdu; aşağıya atmak dipnot yapardı. Okuyucu
+          // *"demek teknoloji gelişince eklenir"* diye düşündüğü an tam
+          // burası.
+          Text(
+            exclusionClassLine(context, s.limitClass),
+            key: Key('whyNot.class.${s.id}'),
+            style: GravitaType.mono(
+              context: context,
+              size: 11,
+              color: GravitaColors.of(context).honestySeal,
+              letterSpacingEm: 0.02,
+            ),
+          ),
+        ],
+        if (s.examples.isNotEmpty) ...<Widget>[
+          const SizedBox(height: 14),
+          // Örnekler ARAMANIN eşleştiği sözcüklerdir; göstermek, "bunu
+          // aradıysan doğru yerdesin" demenin en kısa yolu.
+          Wrap(
+            spacing: 7,
+            runSpacing: 7,
+            children: s.examples
+                .map(
+                  (String e) => GravitaPill(
+                    label: exclusionExample(context, e),
+                    tone: GravitaColors.of(context).textSecondary,
+                    filled: false,
+                  ),
+                )
+                .toList(growable: false),
+          ),
+        ],
+      ],
+    ),
+  );
 }

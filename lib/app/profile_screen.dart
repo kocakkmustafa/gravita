@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
 
 import 'app_locale.dart';
+import 'catalog_copy_tr.dart';
 import 'account_connection.dart';
 import 'content_repository.dart';
 import 'library_strings.dart';
+import 'language_preferences.dart';
+import 'language_settings_screen.dart';
 import 'surface_widgets.dart';
 import 'theme.dart';
+import 'theme_preferences.dart';
+import 'theme_settings_screen.dart';
 import 'why_not_here_screen.dart';
 
 /// Profil — bugün yalnız DOĞRU olan şeyleri söyleyen bir ekran.
 ///
-/// ## Tasarımın kamera/veri AYARLARI neden yok
-///
-/// Design'ın `profile` ekranı ayar satırları çiziyor. Bir ayar satırı, arkasında
-/// DEĞİŞTİRİLECEK bir şey olmadan çizilirse ölü butondur — bu ailenin en açık
-/// yasaklarından biri. Bugün değiştirilebilir tek bir tercih yok: kamera izni
-/// işletim sisteminde, veri yeri sabit, ölçüm ayarı yok.
-///
-/// Tasarımın AYNI ekranda istediği "what this app won't do" bloku ise
-/// GERÇEK ve `exclusions.json`'a bağlı. Bu ekran o bloku taşıyor, ayarları
-/// taşımıyor — ve ayarların yokluğunu da söylüyor, sessizce atlamıyor.
+/// Görünüm cihaz tercihidir. Kamera izni işletim sisteminde, veri yeri sabit;
+/// ölçüm ayarı ve tıbbi iddia eklenmez. Kapsam dışı blok gerçek kataloğa bağlıdır.
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({required this.content, super.key});
 
   static const Key noSettingsKey = Key('profile.noSettings');
+  static const Key appearanceKey = Key('profile.appearance');
+  static const Key languageKey = Key('profile.language');
   static const Key dataKey = Key('profile.data');
   static const Key wontDoKey = Key('profile.wontDo');
 
@@ -38,29 +37,74 @@ class ProfileScreen extends StatelessWidget {
     body: ListView(
       padding: const EdgeInsets.fromLTRB(18, 4, 18, 96),
       children: <Widget>[
-        if (AccountScope.maybeOf(context)?.connection case final AccountConnection account) ...<Widget>[
+        if (AccountScope.maybeOf(context)?.connection
+            case final AccountConnection account) ...<Widget>[
           OutlinedButton.icon(
-            onPressed: () => Navigator.of(context).push<void>(
-              MaterialPageRoute<void>(builder: account.pageBuilder),
-            ),
+            onPressed: () => Navigator.of(
+              context,
+            ).push<void>(MaterialPageRoute<void>(builder: account.pageBuilder)),
             icon: const Icon(Icons.person_outline),
             label: Text(localized(context, 'Account', 'Hesap')),
+          ),
+          const SizedBox(height: 14),
+        ],
+        if (ThemePreferencesScope.maybeOf(context) != null) ...<Widget>[
+          ListTile(
+            key: appearanceKey,
+            leading: Icon(
+              Icons.contrast,
+              color: GravitaColors.of(context).accent,
+            ),
+            title: Text(localized(context, 'Appearance', 'Görünüm')),
+            subtitle: Text(
+              localized(
+                context,
+                'Device, light or dark',
+                'Cihaz, açık veya koyu',
+              ),
+            ),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.of(context).push<void>(
+              MaterialPageRoute<void>(
+                builder: (_) => const ThemeSettingsScreen(),
+              ),
+            ),
+          ),
+          const SizedBox(height: 14),
+        ],
+        if (LanguagePreferencesScope.maybeOf(context) != null) ...<Widget>[
+          ListTile(
+            key: languageKey,
+            leading: Icon(
+              Icons.translate,
+              color: GravitaColors.of(context).accent,
+            ),
+            title: Text(localized(context, 'Language', 'Dil')),
+            subtitle: Text(
+              localized(
+                context,
+                'Choose the app language',
+                'Uygulama dilini seçin',
+              ),
+            ),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.of(context).push<void>(
+              MaterialPageRoute<void>(
+                builder: (_) => const LanguageSettingsScreen(),
+              ),
+            ),
           ),
           const SizedBox(height: 14),
         ],
         NoteCard(
           key: noSettingsKey,
           icon: Icons.tune_outlined,
-          title: AccountScope.maybeOf(context)?.connection == null
-              ? localized(context, LibraryStrings.profileNoSettings,
-                  'Ayarlanacak seçenek yok')
-              : localized(context, 'Measurement settings', 'Ölçüm ayarları'),
-          text: AccountScope.maybeOf(context)?.connection == null
-              ? localized(context, LibraryStrings.profileNoSettingsBody,
-                  'Bu ekranda değiştirebileceğiniz bir ayar bulunmuyor.')
-              : localized(context,
-                  'There are no measurement preferences to change. Account options are available above.',
-                  'Değiştirilecek bir ölçüm tercihi yok. Hesap seçenekleri yukarıdadır.'),
+          title: localized(context, 'Measurement settings', 'Ölçüm ayarları'),
+          text: localized(
+            context,
+            'There are no measurement preferences to change.',
+            'Değiştirilecek bir ölçüm tercihi yok.',
+          ),
         ),
         const SizedBox(height: 14),
         NoteCard(
@@ -81,9 +125,9 @@ class ProfileScreen extends StatelessWidget {
         const SizedBox(height: 30),
         SurfaceSection(
           key: wontDoKey,
-          title: localized(
+          title: localizedUpper(
             context,
-            LibraryStrings.profileWontTitle.toUpperCase(),
+            LibraryStrings.profileWontTitle,
             'BU UYGULAMANIN YAPMADIKLARI',
           ),
           subtitle: localized(
@@ -110,27 +154,29 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 child: Row(
                   children: <Widget>[
-                    const Icon(
+                    Icon(
                       Icons.help_outline,
                       size: 18,
-                      color: GravitaColors.accent,
+                      color: GravitaColors.of(context).accent,
                     ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
-                        localized(context,
-                            content.catalogue.exclusions.title,
-                            'Gravita’da neler yok — ve neden'),
+                        exclusionPageTitle(
+                          context,
+                          content.catalogue.exclusions,
+                        ),
                         style: GravitaType.body(
+                          context: context,
                           size: 14,
                           weight: FontWeight.w500,
                         ),
                       ),
                     ),
-                    const Icon(
+                    Icon(
                       Icons.chevron_right,
                       size: 20,
-                      color: GravitaColors.textTertiary,
+                      color: GravitaColors.of(context).textTertiary,
                     ),
                   ],
                 ),

@@ -178,7 +178,9 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
     _accountConnection?.passwordRecovery?.removeListener(
       _accountAdmissionChanged,
     );
-    _accountConnection?.currentIdentityChanges?.removeListener(_freshIdentityChanged);
+    _accountConnection?.currentIdentityChanges?.removeListener(
+      _freshIdentityChanged,
+    );
     _accountConnection?.identityAdmissionChanges?.removeListener(
       _accountAdmissionChanged,
     );
@@ -186,7 +188,8 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
 
   bool get _accountAdmissionOpen =>
       !_accountRetired &&
-      (_capture != null || (_accountConnection?.isCurrentIdentityVerified?.call() ?? true)) &&
+      (_capture != null ||
+          (_accountConnection?.isCurrentIdentityVerified?.call() ?? true)) &&
       _accountConnection?.passwordRecovery?.value != true &&
       (_accountConnection?.isIdentityAdmitted?.call() ?? true) &&
       !AccountStoreEpochRegistry.isAccountErasureBlocked(
@@ -207,11 +210,13 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
     }
     _invalidateAttempt();
     if (mounted) setState(() => _state = const LiveIdle());
-    unawaited(_releaseCamera().then<void>((result) {
-      if (!result.released && mounted) {
-        setState(() => _state = _failureFor(result.error!));
-      }
-    }));
+    unawaited(
+      _releaseCamera().then<void>((result) {
+        if (!result.released && mounted) {
+          setState(() => _state = _failureFor(result.error!));
+        }
+      }),
+    );
   }
 
   void _accountAdmissionChanged() {
@@ -319,7 +324,9 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
   }
 
   bool _isCurrent(int generation) =>
-      mounted && _foreground && generation == _generation &&
+      mounted &&
+      _foreground &&
+      generation == _generation &&
       (!_starting || _freshIdentityVerified);
 
   void _abandonUnadoptedStart(int generation) {
@@ -684,11 +691,11 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: GravitaColors.sessionStage,
+      backgroundColor: GravitaColors.of(context).sessionStage,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        foregroundColor: GravitaColors.sessionInkOnDark,
+        foregroundColor: GravitaColors.of(context).sessionInkOnDark,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         // ⭐ G-205: başlık İÇERİKTEN gelir, sabitten değil. Sabit `'Push-ups'`
         // iken açılan seans squat'tı (tek giriş `liveConfig` → `library.json`
@@ -697,23 +704,31 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
         title: Text(
           catalogName(context, widget.config.id, widget.config.name),
           style: GravitaType.display(
+            context: context,
             size: 18,
-            color: GravitaColors.sessionInkOnDark,
+            color: GravitaColors.of(context).sessionInkOnDark,
           ),
         ),
       ),
       // Kamera-alanı görsel bir DOLGU — gerçek görüntü YOK (dosya doc
       // yorumu). Sahte bir "canlı" iddiası taşımasın diye etiketsiz.
       body: DecoratedBox(
-        decoration: const BoxDecoration(color: GravitaColors.sessionCamera),
+        decoration: BoxDecoration(
+          color: GravitaColors.of(context).sessionCamera,
+        ),
         child: SafeArea(
           top: false,
           child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
+              const padding = EdgeInsets.fromLTRB(20, 24, 20, 28);
               return SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(20, 24, 20, 28),
+                padding: padding,
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  constraints: BoxConstraints(
+                    minHeight: (constraints.maxHeight - padding.vertical)
+                        .clamp(0.0, double.infinity)
+                        .toDouble(),
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -762,12 +777,12 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
     ),
     LiveStarting() => _sheet(
       children: <Widget>[
-        const SizedBox(
+        SizedBox(
           height: 18,
           width: 18,
           child: CircularProgressIndicator(
             strokeWidth: 2.2,
-            color: GravitaColors.accent,
+            color: GravitaColors.of(context).accent,
           ),
         ),
         const SizedBox(height: 14),
@@ -787,12 +802,8 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
                   LiveStrings.permissionBlockedTitle,
                   'Kamera erişimi engellendi',
                 )
-              : localized(
-                  context,
-                  LiveStrings.failureTitle(failure),
-                  _failureTitleTr(failure),
-                ),
-          color: GravitaColors.honestyText,
+              : _failureTitle(failure),
+          color: GravitaColors.of(context).honestyText,
         ),
         const SizedBox(height: 10),
         _sheetNote(
@@ -802,12 +813,8 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
                   LiveStrings.permissionBlockedBody,
                   'Sistem izin penceresini tekrar açmayacak. Kamera erişimini Ayarlar’dan açman gerekiyor. Hiçbir şey kaydedilmez veya yüklenmez; video bu cihazda kalır. Derslerin ve geçmişin etkilenmez.',
                 )
-              : localized(
-                  context,
-                  LiveStrings.failureBody(failure),
-                  _failureBodyTr(failure),
-                ),
-          color: GravitaColors.honestyText,
+              : _failureBody(failure),
+          color: GravitaColors.of(context).honestyText,
         ),
         const SizedBox(height: 22),
         // Kalıcı engelde `Start` ÇİZİLMEZ: basılabilir ama ASLA
@@ -832,7 +839,7 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
                     _closeUncertain ||
                     CameraReleaseLatch.requiresRecovery ||
                     !_accountAdmissionOpen ||
-                  !_freshIdentityVerified
+                    !_freshIdentityVerified
                 ? null
                 : _start,
             child: Text(localized(context, LiveStrings.start, 'Başlat')),
@@ -863,13 +870,13 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
                       LiveStrings.noRepsYet,
                       'Tam tekrar sayılmadı.',
                     )
-                  : localized(
-                      context,
-                      LiveStrings.reps(reps.length),
-                      '${reps.length} tekrar',
-                    ),
+                  : _repText(reps.length),
               key: LiveSessionScreen.repCountKey,
-              style: GravitaType.display(size: 40, color: GravitaColors.ink),
+              style: GravitaType.display(
+                context: context,
+                size: 40,
+                color: GravitaColors.of(context).ink,
+              ),
             ),
             const SizedBox(height: 6),
             _sheetNote(
@@ -887,10 +894,16 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
           // kararı (koordinatör kuyruğunda, 5-faz ölçümüyle birlikte);
           // bugün görünen tek ek bilgi zaten var olan kare sayacı.
           Text(
-            localized(context, '$framesSeen frames', '$framesSeen kare'),
+            localized(
+              context,
+              '{count} frames',
+              '{count} kare',
+              values: <String, Object>{'count': framesSeen},
+            ),
             style: GravitaType.mono(
+              context: context,
               size: 10.5,
-              color: GravitaColors.sessionInkMutedOnDark,
+              color: GravitaColors.of(context).textSecondary,
             ),
           ),
           const SizedBox(height: 22),
@@ -942,13 +955,13 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
                       LiveStrings.finishedNoReps,
                       'Tam tekrar sayılmadı.',
                     )
-                  : localized(
-                      context,
-                      LiveStrings.reps(repCount),
-                      '$repCount tekrar',
-                    ),
+                  : _repText(repCount),
               key: LiveSessionScreen.finishedRepCountKey,
-              style: GravitaType.display(size: 40, color: GravitaColors.ink),
+              style: GravitaType.display(
+                context: context,
+                size: 40,
+                color: GravitaColors.of(context).ink,
+              ),
             ),
             const SizedBox(height: 8),
             if (repCount == 0)
@@ -960,13 +973,7 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
                 ),
               )
             else ...<Widget>[
-              _sheetNote(
-                localized(
-                  context,
-                  LiveStrings.finishedDuration(elapsed),
-                  '${elapsed.inMinutes} dk ${elapsed.inSeconds % 60} sn',
-                ),
-              ),
+              _sheetNote(_durationText(elapsed)),
               // Tempo YALNIZ tekrar varken çizilir: sıfır tekrarda
               // gösterilecek bir iniş/çıkış süresi yoktur ve "0,0s"
               // basmak ölçülmemiş bir şeyi ölçülmüş gibi gösterirdi.
@@ -993,88 +1000,224 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
       ),
   };
 
+  String _repText(int count) => count == 1
+      ? localized(
+          context,
+          '{count} rep',
+          '{count} tekrar',
+          values: <String, Object>{'count': count},
+        )
+      : localized(
+          context,
+          '{count} reps',
+          '{count} tekrar',
+          values: <String, Object>{'count': count},
+        );
+
+  String _durationText(Duration elapsed) => elapsed.inMinutes > 0
+      ? localized(
+          context,
+          '{minutes} min {seconds}s',
+          '{minutes} dk {seconds} sn',
+          values: <String, Object>{
+            'minutes': elapsed.inMinutes,
+            'seconds': elapsed.inSeconds % 60,
+          },
+        )
+      : localized(
+          context,
+          '{seconds}s',
+          '{seconds} sn',
+          values: <String, Object>{'seconds': elapsed.inSeconds % 60},
+        );
+
   /// Tempo satırı — ölçüm yoksa `null` ve satır HİÇ çizilmez.
   String? _tempoText() {
     final LiveState s = _state;
     if (s is! LiveFinished) return null;
     final ({Duration ascent, Duration descent})? t = s.tempo;
     if (t == null) return null;
-    final String english = LiveStrings.finishedTempo(t.descent, t.ascent);
-    final String down = (t.descent.inMilliseconds / 1000).toStringAsFixed(1);
-    final String up = (t.ascent.inMilliseconds / 1000).toStringAsFixed(1);
     return localized(
       context,
-      english,
-      '$down sn iniş · $up sn çıkış (ortanca)',
+      '{down}s down · {up}s up (median)',
+      '{down} sn iniş · {up} sn çıkış (ortanca)',
+      values: <String, Object>{
+        'down': LocaleNumber(
+          t.descent.inMilliseconds / 1000,
+          fractionDigits: 1,
+        ),
+        'up': LocaleNumber(t.ascent.inMilliseconds / 1000, fractionDigits: 1),
+      },
     );
   }
 
   String _gateNote() {
-    final String english =
+    final String source =
         widget.config.contract.gateNote ?? LiveStrings.gateNoteFallback;
-    final String turkish = switch (widget.config.id) {
-      'bodyweight_squat' =>
+    // Match the exact reviewed contract too: a revised source must not inherit
+    // a different movement's gate claim through its ID alone.
+    if (widget.config.id == 'bodyweight_squat' &&
+        source ==
+            'We only count a rep when your hip and knee move through it together. That is how we tell a real squat from a knee that simply bends. Reps we could not verify are left out rather than guessed.') {
+      return localized(
+        context,
+        'We only count a rep when your hip and knee move through it together. That is how we tell a real squat from a knee that simply bends. Reps we could not verify are left out rather than guessed.',
         'Tekrarı yalnızca kalça ve diz birlikte hareket ettiğinde sayarız. Bu, gerçek bir squat hareketini yalnızca diz bükmekten ayırır. Doğrulanamayan tekrarlar tahmin edilerek sayılmaz.',
-      'push_up' =>
+      );
+    }
+    if (widget.config.id == 'push_up' &&
+        source ==
+            'We only count a rep when we can see your torso is actually horizontal. That is how we tell a real push-up from an elbow that simply bends. Reps we could not verify are left out rather than guessed.') {
+      return localized(
+        context,
+        'We only count a rep when we can see your torso is actually horizontal. That is how we tell a real push-up from an elbow that simply bends. Reps we could not verify are left out rather than guessed.',
         'Tekrarı yalnızca gövdenin yatay olduğunu görebildiğimizde sayarız. Bu, gerçek bir şınavı yalnızca dirsek bükmekten ayırır. Doğrulanamayan tekrarlar tahmin edilerek sayılmaz.',
-      _ =>
-        'Yalnızca doğrulayabildiğimiz tekrarları sayarız. Doğrulanamayanları tahmin ederek eklemeyiz.',
-    };
-    return localized(context, english, turkish);
+      );
+    }
+    return source == LiveStrings.gateNoteFallback
+        ? localized(
+            context,
+            LiveStrings.gateNoteFallback,
+            'Yalnızca doğrulayabildiğimiz tekrarları sayarız. Doğrulanamayanları tahmin ederek eklemeyiz.',
+          )
+        : source;
   }
 
-  String _failureTitleTr(CameraFailure? failure) => switch (failure) {
-    CameraFailure.permissionDenied => 'Kamera erişimi kapalı',
-    CameraFailure.modelLoadFailed => 'Poz modeli yüklenemedi',
-    CameraFailure.alreadyRunning => 'Bir seans zaten çalışıyor',
-    CameraFailure.notRunning => 'Çalışan seans yok',
-    CameraFailure.lifecycleUnavailable => 'Kamera henüz hazır değil',
-    CameraFailure.sessionInterrupted => 'Kamera seansı kesildi',
-    CameraFailure.ownedProtocolUnavailable =>
+  String _failureTitle(CameraFailure? failure) => switch (failure) {
+    CameraFailure.permissionDenied => localized(
+      context,
+      'Camera access is off',
+      'Kamera erişimi kapalı',
+    ),
+    CameraFailure.modelLoadFailed => localized(
+      context,
+      "We couldn't load our pose model",
+      'Poz modeli yüklenemedi',
+    ),
+    CameraFailure.alreadyRunning => localized(
+      context,
+      'A session is already running',
+      'Bir seans zaten çalışıyor',
+    ),
+    CameraFailure.notRunning => localized(
+      context,
+      'No session is running',
+      'Çalışan seans yok',
+    ),
+    CameraFailure.lifecycleUnavailable => localized(
+      context,
+      'The camera is unavailable',
+      'Kamera henüz hazır değil',
+    ),
+    CameraFailure.sessionInterrupted => localized(
+      context,
+      'The camera session was interrupted',
+      'Kamera seansı kesildi',
+    ),
+    CameraFailure.ownedProtocolUnavailable => localized(
+      context,
+      'The camera bridge needs an update',
       'Kamera köprüsü güncelleme istiyor',
-    CameraFailure.closeUncertain => 'Kamera kapanışı doğrulanamadı',
-    CameraFailure.noSuchCamera => 'Kamera başlatılamadı',
-    null => 'Kamera bilinmeyen bir nedenle durdu',
+    ),
+    CameraFailure.closeUncertain => localized(
+      context,
+      'Camera closure could not be confirmed',
+      'Kamera kapanışı doğrulanamadı',
+    ),
+    CameraFailure.noSuchCamera => localized(
+      context,
+      "The camera couldn't start",
+      'Kamera başlatılamadı',
+    ),
+    null => localized(
+      context,
+      "The camera stopped for a reason we don't recognise",
+      'Kamera bilinmeyen bir nedenle durdu',
+    ),
   };
 
-  String _failureBodyTr(CameraFailure? failure) => switch (failure) {
-    CameraFailure.permissionDenied =>
+  String _failureBody(CameraFailure? failure) => switch (failure) {
+    CameraFailure.permissionDenied => localized(
+      context,
+      'Gravita needs the camera to count your reps. You can turn it on in '
+          'Settings; nothing is recorded or uploaded — video stays on this '
+          'device and never leaves it.',
       'Gravita tekrarları saymak için kameraya ihtiyaç duyar. Erişimi Ayarlar’dan açabilirsin. Video kaydedilmez, yüklenmez ve bu cihazdan çıkmaz.',
-    CameraFailure.modelLoadFailed =>
-      'Uygulamayla gelen poz modeli açılamadı. Yeniden yüklemek genellikle sorunu çözer. Derslerin ve geçmişin etkilenmez.',
-    CameraFailure.alreadyRunning =>
+    ),
+    CameraFailure.modelLoadFailed => localized(
+      context,
+      'The pose model that ships with the app could not be opened. '
+          'Close and reopen the app. If the error persists, contact support '
+          'before removing the app; uninstalling can erase local progress.',
+      'Uygulamayla gelen poz modeli açılamadı. Uygulamayı kapatıp yeniden aç. '
+          'Hata sürerse uygulamayı kaldırmadan önce desteğe ulaş; uygulamayı '
+          'kaldırmak yerel ilerlemeyi silebilir.',
+    ),
+    CameraFailure.alreadyRunning => localized(
+      context,
+      'Only one camera session runs at a time. Stopping the other one frees it up.',
       'Aynı anda yalnızca bir kamera seansı çalışır. Diğerini durdurduğunda yeniden deneyebilirsin.',
-    CameraFailure.notRunning =>
+    ),
+    CameraFailure.notRunning => localized(
+      context,
+      'The session had already stopped when we tried to stop it. Nothing was lost.',
       'Durdurmayı denediğimizde seans zaten durmuştu. Veri kaybı olmadı.',
-    CameraFailure.lifecycleUnavailable =>
+    ),
+    CameraFailure.lifecycleUnavailable => localized(
+      context,
+      'The camera cannot start in this view. Return to the app and try again.',
       'Kamera bu ekranda henüz başlatılamıyor. Uygulamaya dönüp yeniden deneyebilirsin.',
-    CameraFailure.sessionInterrupted =>
+    ),
+    CameraFailure.sessionInterrupted => localized(
+      context,
+      'The camera session ended before it was ready. Open this screen again and retry.',
       'Kamera seansı hazır olmadan kesildi. Bu ekranı yeniden açıp deneyebilirsin.',
-    CameraFailure.ownedProtocolUnavailable =>
+    ),
+    CameraFailure.ownedProtocolUnavailable => localized(
+      context,
+      'This version cannot confirm camera ownership. Capture stays unavailable; '
+          'an updated version is needed. Your lessons and history are unaffected.',
       'Bu sürüm kamera sahipliğini doğrulayamıyor. Kamera kapalı kalır; güncel bir sürüm gerekir. Derslerin ve geçmişin etkilenmez.',
-    CameraFailure.closeUncertain =>
+    ),
+    CameraFailure.closeUncertain => localized(
+      context,
+      'The camera and pose model could not be confirmed closed. A new capture '
+          'will remain blocked. Your lessons and history are unaffected.',
       'Kamera ve poz modelinin kapandığı doğrulanamadı. Yeni kamera seansı açılmayacak. Derslerin ve geçmişin etkilenmez.',
-    CameraFailure.noSuchCamera =>
+    ),
+    CameraFailure.noSuchCamera => localized(
+      context,
+      'The camera could not open on this device. You can try again; '
+          'no session was saved from this attempt. Your lessons and history are unaffected.',
       'Kamera bu cihazda açılamadı. Yeniden deneyebilirsin; bu denemede seans kaydedilmedi. Derslerin ve geçmişin etkilenmez.',
-    null =>
+    ),
+    null => localized(
+      context,
+      'The camera stopped unexpectedly. You can try again. '
+          'Your lessons and history are unaffected.',
       'Kamera beklenmedik biçimde durdu. Yeniden deneyebilirsin. Derslerin ve geçmişin etkilenmez.',
+    ),
   };
 
-  // Sheet zemini AÇIK (design: `rgba(255,253,252,…)` üstte), yalnız kamera
-  // arkaplanı koyu — o yüzden buradaki varsayılan renkler ink/secondary'dir,
-  // sessionInkOnDark DEĞİL (o yalnız AppBar'ın dosdoğru koyu zemin üstündeki
-  // metni için; sheet'in kendisi zaten AÇIK bir yüzey).
+  // Kamera zemini her temada koyu kalır; sheet kendi tema yüzeyini ve
+  // ink/secondary metin renklerini kullanır. AppBar doğrudan kamera zemini
+  // üzerinde olduğu için sessionInkOnDark kullanır.
   Widget _sheetHeadline(String text, {Color? color, Key? key}) => Text(
     text,
     key: key,
-    style: GravitaType.display(size: 22, color: color ?? GravitaColors.ink),
+    style: GravitaType.display(
+      context: context,
+      size: 22,
+      color: color ?? GravitaColors.of(context).ink,
+    ),
   );
 
   Widget _sheetNote(String text, {Color? color}) => Text(
     text,
     style: GravitaType.body(
+      context: context,
       size: 13.5,
-      color: color ?? GravitaColors.textSecondary,
+      color: color ?? GravitaColors.of(context).textSecondary,
       height: 1.55,
     ),
   );
@@ -1094,12 +1237,15 @@ class _LiveSessionScreenState extends State<LiveSessionScreen>
       padding: const EdgeInsets.fromLTRB(22, 20, 22, 22),
       decoration: BoxDecoration(
         color: sealed
-            ? GravitaColors.sessionSheetSealed
-            : GravitaColors.surfaceTop,
+            ? GravitaColors.of(context).sessionSheetSealed
+            : GravitaColors.of(context).surfaceTop,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
         border: sealed
-            ? const Border(
-                top: BorderSide(color: GravitaColors.honestySeal, width: 2),
+            ? Border(
+                top: BorderSide(
+                  color: GravitaColors.of(context).honestySeal,
+                  width: 2,
+                ),
               )
             : null,
       ),

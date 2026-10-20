@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'app_locale.dart';
 import 'theme.dart';
 
 enum _Sketch { space, wallPress, planche, tuck, lever, pull, turnover, support }
@@ -131,7 +132,6 @@ class CalisthenicsKnowledgeDiagrams extends StatelessWidget {
   Widget build(BuildContext context) {
     final panels = _panels[lessonId];
     if (panels == null) return const SizedBox.shrink();
-    final tr = Localizations.localeOf(context).languageCode == 'tr';
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: GravitaCard(
@@ -141,37 +141,75 @@ class CalisthenicsKnowledgeDiagrams extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              tr
-                  ? 'Yalnız bilgi · şemayı incele'
-                  : 'Knowledge only · study the diagram',
-              style: GravitaType.body(size: 16, weight: FontWeight.w600),
+              localized(
+                context,
+                'Knowledge only · study the diagram',
+                'Yalnız bilgi · şemayı incele',
+              ),
+              style: GravitaType.body(
+                context: context,
+                size: 16,
+                weight: FontWeight.w600,
+              ),
             ),
             const SizedBox(height: 8),
             Text(
-              tr
-                  ? 'Şekli taklit etme. Bunlar anatomik ölçüm veya güvenlik onayı değil, stilize kavram çizimleridir. Deneme öncesi nitelikli eğitmenle kurulumu ve çıkışı görüş.'
-                  : 'Do not copy the pose. These are stylized concept drawings, not anatomical measurements or safety approval. Discuss setup and exit with a qualified coach before an attempt.',
-              style: GravitaType.body(size: 13, height: 1.5),
+              localized(
+                context,
+                'Do not copy the pose. These are stylized concept drawings, not anatomical measurements or safety approval. Discuss setup and exit with a qualified coach before an attempt.',
+                'Şekli taklit etme. Bunlar anatomik ölçüm veya güvenlik onayı değil, stilize kavram çizimleridir. Deneme öncesi nitelikli eğitmenle kurulumu ve çıkışı görüş.',
+              ),
+              style: GravitaType.body(context: context, size: 13, height: 1.5),
             ),
             for (final panel in panels) ...[
               const SizedBox(height: 18),
               Text(
-                tr ? panel.tr : panel.en,
-                style: GravitaType.body(size: 15, weight: FontWeight.w600),
+                localized(context, panel.en, panel.tr),
+                style: GravitaType.body(
+                  context: context,
+                  size: 15,
+                  weight: FontWeight.w600,
+                ),
               ),
               ExcludeSemantics(
                 child: SizedBox(
                   height: 180,
                   width: double.infinity,
-                  child: CustomPaint(painter: _KnowledgePainter(panel.sketch)),
+                  child: CustomPaint(
+                    painter: _KnowledgePainter(
+                      panel.sketch,
+                      ink: GravitaColors.of(context).ink,
+                      labelStyle: GravitaType.body(
+                        context: context,
+                        size: 15,
+                        color: GravitaColors.of(context).page,
+                      ),
+                    ),
+                  ),
                 ),
               ),
               for (var i = 0; i < panel.labelsEn.length; i++)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 6),
                   child: Text(
-                    '${i + 1}. ${(tr ? panel.labelsTr : panel.labelsEn)[i]}',
-                    style: GravitaType.body(size: 13, height: 1.5),
+                    localized(
+                      context,
+                      '{number}. {label}',
+                      '{number}. {label}',
+                      values: <String, Object>{
+                        'number': i + 1,
+                        'label': localized(
+                          context,
+                          panel.labelsEn[i],
+                          panel.labelsTr[i],
+                        ),
+                      },
+                    ),
+                    style: GravitaType.body(
+                      context: context,
+                      size: 13,
+                      height: 1.5,
+                    ),
                   ),
                 ),
             ],
@@ -183,15 +221,21 @@ class CalisthenicsKnowledgeDiagrams extends StatelessWidget {
 }
 
 class _KnowledgePainter extends CustomPainter {
-  const _KnowledgePainter(this.sketch);
+  const _KnowledgePainter(
+    this.sketch, {
+    required this.ink,
+    required this.labelStyle,
+  });
   final _Sketch sketch;
+  final Color ink;
+  final TextStyle labelStyle;
 
   @override
   void paint(Canvas canvas, Size size) {
     canvas.save();
     canvas.scale(size.width / 300, size.height / 180);
     final pen = Paint()
-      ..color = GravitaColors.ink
+      ..color = ink
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4
       ..strokeCap = StrokeCap.round
@@ -205,12 +249,9 @@ class _KnowledgePainter extends CustomPainter {
 
     void head(double x, double y) => canvas.drawCircle(Offset(x, y), 11, pen);
     void mark(int n, double x, double y) {
-      canvas.drawCircle(Offset(x, y), 12, Paint()..color = GravitaColors.ink);
+      canvas.drawCircle(Offset(x, y), 12, Paint()..color = ink);
       final text = TextPainter(
-        text: TextSpan(
-          text: '$n',
-          style: GravitaType.body(size: 15, color: Colors.white),
-        ),
+        text: TextSpan(text: '$n', style: labelStyle),
         textDirection: TextDirection.ltr,
       )..layout();
       text.paint(canvas, Offset(x - text.width / 2, y - text.height / 2));
@@ -303,5 +344,7 @@ class _KnowledgePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_KnowledgePainter oldDelegate) =>
-      oldDelegate.sketch != sketch;
+      oldDelegate.sketch != sketch ||
+      oldDelegate.ink != ink ||
+      oldDelegate.labelStyle != labelStyle;
 }

@@ -41,8 +41,9 @@ class SurfaceSection extends StatelessWidget {
             child: Text(
               title,
               style: GravitaType.mono(
+                context: context,
                 size: 11,
-                color: GravitaColors.textSecondary,
+                color: GravitaColors.of(context).textSecondary,
                 weight: FontWeight.w600,
                 letterSpacingEm: 0.12,
               ),
@@ -56,8 +57,9 @@ class SurfaceSection extends StatelessWidget {
         Text(
           subtitle!,
           style: GravitaType.body(
+            context: context,
             size: 12.5,
-            color: GravitaColors.textSecondary,
+            color: GravitaColors.of(context).textSecondary,
             height: 1.5,
           ),
         ),
@@ -102,6 +104,7 @@ class MovementCard extends StatelessWidget {
                     Text(
                       catalogName(context, movement.id, movement.displayName),
                       style: GravitaType.display(
+                        context: context,
                         size: 16,
                         weight: FontWeight.w500,
                       ),
@@ -110,8 +113,9 @@ class MovementCard extends StatelessWidget {
                     Text(
                       movementMetaLine(context, movement),
                       style: GravitaType.body(
+                        context: context,
                         size: 12.5,
-                        color: GravitaColors.textSecondary,
+                        color: GravitaColors.of(context).textSecondary,
                       ),
                     ),
                     if (!live && movement.blockedBy.isNotEmpty) ...<Widget>[
@@ -119,14 +123,18 @@ class MovementCard extends StatelessWidget {
                       Text(
                         localized(
                           context,
-                          LibraryStrings.blockerCount(
-                            movement.blockedBy.length,
-                          ),
-                          '${movement.blockedBy.length} ölçüm engeli',
+                          movement.blockedBy.length == 1
+                              ? '{count} measurement missing'
+                              : '{count} measurements missing',
+                          '{count} ölçüm engeli',
+                          values: <String, Object>{
+                            'count': movement.blockedBy.length,
+                          },
                         ),
                         style: GravitaType.mono(
+                          context: context,
                           size: 10.5,
-                          color: GravitaColors.honestySeal,
+                          color: GravitaColors.of(context).honestySeal,
                         ),
                       ),
                     ],
@@ -140,13 +148,13 @@ class MovementCard extends StatelessWidget {
                 constraints: BoxConstraints(maxWidth: constraints.maxWidth / 2),
                 child: GravitaPill(
                   label: live
-                      ? localized(
-                          context,
-                          LibraryStrings.openBadge,
-                          motionPaidCameraLaunchEnabled
-                              ? 'AÇIK'
-                              : 'KAMERA KAPALI',
-                        )
+                      ? motionPaidCameraLaunchEnabled
+                            ? localized(context, 'OPEN', 'AÇIK')
+                            : localized(
+                                context,
+                                'CAMERA CLOSED',
+                                'KAMERA KAPALI',
+                              )
                       : localized(
                           context,
                           LibraryStrings.queuedBadge,
@@ -154,8 +162,8 @@ class MovementCard extends StatelessWidget {
                         ),
                   // Pill ETİKETİ metindir (mono 10) → non-text token kullanılamaz.
                   tone: live
-                      ? GravitaColors.accent
-                      : GravitaColors.textSecondary,
+                      ? GravitaColors.of(context).accent
+                      : GravitaColors.of(context).textSecondary,
                   filled: live,
                 ),
               ),
@@ -187,8 +195,8 @@ class NoteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color ink = sealed
-        ? GravitaColors.honestyText
-        : GravitaColors.textSecondary;
+        ? GravitaColors.of(context).honestyText
+        : GravitaColors.of(context).textSecondary;
     return GravitaCard(
       sealed: sealed,
       child: Row(
@@ -199,8 +207,8 @@ class NoteCard extends StatelessWidget {
               icon,
               size: 18,
               color: sealed
-                  ? GravitaColors.honestySeal
-                  : GravitaColors.textTertiary,
+                  ? GravitaColors.of(context).honestySeal
+                  : GravitaColors.of(context).textTertiary,
             ),
             const SizedBox(width: 10),
           ],
@@ -212,16 +220,24 @@ class NoteCard extends StatelessWidget {
                   Text(
                     title!,
                     style: GravitaType.display(
+                      context: context,
                       size: 15,
                       weight: FontWeight.w500,
-                      color: sealed ? GravitaColors.honestyText : null,
+                      color: sealed
+                          ? GravitaColors.of(context).honestyText
+                          : null,
                     ),
                   ),
                   const SizedBox(height: 8),
                 ],
                 Text(
                   text,
-                  style: GravitaType.body(size: 13.5, color: ink, height: 1.55),
+                  style: GravitaType.body(
+                    context: context,
+                    size: 13.5,
+                    color: ink,
+                    height: 1.55,
+                  ),
                 ),
               ],
             ),
@@ -241,14 +257,14 @@ class NoteCard extends StatelessWidget {
 class ReasonList extends StatelessWidget {
   const ReasonList({
     required this.items,
-    this.color = GravitaColors.ink,
-    this.bulletColor = GravitaColors.textTertiary,
+    this.color,
+    this.bulletColor,
     super.key,
   });
 
   final List<String> items;
-  final Color color;
-  final Color bulletColor;
+  final Color? color;
+  final Color? bulletColor;
 
   @override
   Widget build(BuildContext context) => Column(
@@ -263,12 +279,12 @@ class ReasonList extends StatelessWidget {
               // Madde işareti ilk satırın x-yüksekliğine hizalanır;
               // `CrossAxisAlignment.start` tek başına onu satırın TEPESİNE
               // yapıştırır ve çok satırlı maddede kayık görünür.
-              padding: const EdgeInsets.only(top: 7, right: 10),
+              padding: const EdgeInsetsDirectional.only(top: 7, end: 10),
               child: Container(
                 width: 4,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: bulletColor,
+                  color: bulletColor ?? GravitaColors.of(context).textTertiary,
                   shape: BoxShape.circle,
                 ),
               ),
@@ -276,7 +292,12 @@ class ReasonList extends StatelessWidget {
             Expanded(
               child: Text(
                 items[i],
-                style: GravitaType.body(size: 13.5, color: color, height: 1.55),
+                style: GravitaType.body(
+                  context: context,
+                  size: 13.5,
+                  color: color ?? GravitaColors.of(context).ink,
+                  height: 1.55,
+                ),
               ),
             ),
           ],

@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../app_locale.dart';
+import '../camera_release_policy.dart';
 import '../content_repository.dart';
 import '../library_strings.dart';
 import '../program/program_builder.dart';
@@ -26,14 +29,25 @@ import '../theme.dart';
 /// `session_projector.dart`/Drift DB gelecek; BU dosya yalnız yerel, küçük
 /// bir JSON dosyasına yazıyor, `program_schedule_store.dart`).
 class WorkoutScreen extends StatefulWidget {
-  const WorkoutScreen({required this.content, this.accountUserId, super.key});
+  const WorkoutScreen({required this.content, this.accountUserId, super.key})
+    : _now = null;
+
+  @visibleForTesting
+  const WorkoutScreen.withClock({
+    required this.content,
+    required DateTime Function() now,
+    this.accountUserId,
+    super.key,
+  }) : _now = now;
 
   static const Key emptyKey = Key('workout.empty');
   static const Key disclaimerKey = Key('workout.disclaimer');
   static const Key unavailableKey = Key('workout.unavailable');
+  static const Key retryKey = Key('workout.retry');
 
   final ContentRepository content;
   final String? accountUserId;
+  final DateTime Function()? _now;
 
   @override
   State<WorkoutScreen> createState() => _WorkoutScreenState();
@@ -47,14 +61,71 @@ typedef _Loaded = ({
   bool blocked,
 });
 
-class _WorkoutScreenState extends State<WorkoutScreen> {
-  late final Future<_Loaded> _future = _load();
+class _WorkoutScreenState extends State<WorkoutScreen>
+    with WidgetsBindingObserver {
+  late Future<_Loaded> _future = _load();
+  late DateTime _viewNow = _now();
+  Timer? _dayTimer;
+
+  DateTime _now() => widget._now?.call() ?? DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _armNextDay();
+  }
+
+  void _armNextDay() {
+    _dayTimer?.cancel();
+    final now = _now();
+    final next = now.isUtc
+        ? DateTime.utc(now.year, now.month, now.day + 1)
+        : DateTime(now.year, now.month, now.day + 1);
+    _dayTimer = Timer(next.difference(now), _refreshToday);
+  }
+
+  void _refreshToday() {
+    if (!mounted) return;
+    final now = _now();
+    if (now.year != _viewNow.year ||
+        now.month != _viewNow.month ||
+        now.day != _viewNow.day ||
+        now.timeZoneOffset != _viewNow.timeZoneOffset) {
+      setState(() => _viewNow = now);
+    }
+    _armNextDay();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) _refreshToday();
+  }
+
+  @override
+  void didUpdateWidget(covariant WorkoutScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.accountUserId != widget.accountUserId ||
+        oldWidget.content != widget.content) {
+      _future = _load();
+    }
+    if (oldWidget._now != widget._now) {
+      _viewNow = _now();
+      _armNextDay();
+    }
+  }
+
+  @override
+  void dispose() {
+    _dayTimer?.cancel();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   Future<_Loaded> _load() async {
-    // ⚠️ `DateTime.now()` YALNIZ BURADA, imperative kablo katmanında —
-    // `program_builder.dart`nın kendi disiplini: saf mantık gerçek-zamanı
-    // hiç bilmez, çağıran taraf TEK bir "şimdi" yakalayıp aşağı taşır.
-    final DateTime now = DateTime.now();
+    // The view clock never rewrites persisted dates. The builder remains pure;
+    // midnight/resume updates only which scheduled days appear overdue.
+    final DateTime now = _now();
     try {
       final ProgramInputs? inputs = await (await ProgramStore.open(
         accountUserId: widget.accountUserId,
@@ -125,29 +196,47 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       future: _future,
       builder: (BuildContext context, AsyncSnapshot<_Loaded> snap) {
         final _Loaded? data = snap.data;
-        if (data == null) {
+        if (data == null ||
+            snap.connectionState != ConnectionState.done && !data.blocked) {
           return const Center(child: CircularProgressIndicator());
         }
         if (data.blocked) {
-          return Padding(
+          return SingleChildScrollView(
             padding: const EdgeInsets.all(18),
-            child: NoteCard(
-              key: WorkoutScreen.unavailableKey,
-              icon: Icons.info_outline,
-              text: localized(
-                context,
-                'Your saved program could not be safely loaded. Its dates and '
-                    'progress have been kept. It has not been replaced with a '
-                    'new plan. Reopen the app or contact support before changing it.',
-                'Kayıtlı programın güvenle açılamadı. Tarihlerin ve ilerlemen '
-                    'korundu; yerine yeni bir plan yazılmadı. Değişiklik '
-                    'yapmadan önce uygulamayı yeniden aç veya desteğe ulaş.',
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                NoteCard(
+                  key: WorkoutScreen.unavailableKey,
+                  icon: Icons.info_outline,
+                  text: localized(
+                    context,
+                    'Your saved program could not be safely loaded. Its dates and '
+                        'progress have been kept. It has not been replaced with a '
+                        'new plan. Reopen the app or contact support before changing it.',
+                    'Kayıtlı programın güvenle açılamadı. Tarihlerin ve ilerlemen '
+                        'korundu; yerine yeni bir plan yazılmadı. Değişiklik '
+                        'yapmadan önce uygulamayı yeniden aç veya desteğe ulaş.',
+                  ),
+                ),
+                const SizedBox(height: 12),
+                OutlinedButton.icon(
+                  key: WorkoutScreen.retryKey,
+                  onPressed: snap.connectionState != ConnectionState.done
+                      ? null
+                      : () => setState(() => _future = _load()),
+                  icon: const Icon(Icons.refresh),
+                  label: Text(
+                    localized(context, 'Retry loading', 'Yeniden okumayı dene'),
+                  ),
+                ),
+              ],
             ),
           );
         }
         if (data.program == null || data.schedule == null) {
-          return Padding(
+          return SingleChildScrollView(
             padding: const EdgeInsets.all(18),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,6 +262,12 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 // düşerdi (skill-trees kartlarıyla AYNI desen).
                 InkWell(
                   borderRadius: BorderRadius.circular(14),
+                  focusColor: GravitaColors.of(
+                    context,
+                  ).onAccent.withValues(alpha: 0.2),
+                  hoverColor: GravitaColors.of(
+                    context,
+                  ).onAccent.withValues(alpha: 0.12),
                   onTap: () => Navigator.of(context).push<void>(
                     MaterialPageRoute<void>(
                       builder: (_) => ProgramSetupScreen(
@@ -181,11 +276,11 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                       ),
                     ),
                   ),
-                  child: Container(
+                  child: Ink(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     decoration: BoxDecoration(
-                      color: GravitaColors.accent,
+                      color: GravitaColors.of(context).accent,
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Text(
@@ -196,9 +291,10 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                       ),
                       textAlign: TextAlign.center,
                       style: GravitaType.body(
+                        context: context,
                         size: 15,
                         weight: FontWeight.w600,
-                        color: Colors.white,
+                        color: GravitaColors.of(context).onAccent,
                       ),
                     ),
                   ),
@@ -208,10 +304,13 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
           );
         }
         return _ProgramOverview(
+          key: ValueKey<String>(
+            '${widget.accountUserId ?? 'guest'}:${data.schedule!.programSignature}',
+          ),
           content: widget.content,
           program: data.program!,
           initialSchedule: data.schedule!,
-          today: data.today,
+          today: _viewNow,
           daysPerWeek: data.inputs!.daysPerWeek,
           accountUserId: widget.accountUserId,
           signature: data.schedule!.programSignature!,
@@ -222,7 +321,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
 }
 
 /// Takvimi KENDİ yerel durumu olarak taşır — `WorkoutScreen`in `_future`ı
-/// yalnız İLK yüklemeyi sürer; sonraki "mark done"/"reschedule" etkileşimleri
+/// ilk yükleme ve açık yeniden denemeyi sürer; "mark done"/"reschedule" etkileşimleri
 /// TÜM zinciri (asset+katalog+program üretimi) yeniden ÇALIŞTIRMAZ, yalnız
 /// takvimi günceller.
 class _ProgramOverview extends StatefulWidget {
@@ -234,6 +333,7 @@ class _ProgramOverview extends StatefulWidget {
     required this.daysPerWeek,
     this.accountUserId,
     required this.signature,
+    super.key,
   });
 
   final ContentRepository content;
@@ -335,15 +435,15 @@ class _ProgramOverviewState extends State<_ProgramOverview> {
           Padding(
             padding: const EdgeInsets.only(bottom: 20),
             child: SurfaceSection(
-              title: localized(
+              title: localizedUpper(
                 context,
-                LibraryStrings.programWeekLabel(
-                  week,
-                  widget.program.days[byWeek[week]!.first].isDeload,
-                ).toUpperCase(),
                 widget.program.days[byWeek[week]!.first].isDeload
-                    ? '$week. HAFTA — HAFİFLETME'
-                    : '$week. HAFTA',
+                    ? 'Week {week} — deload'
+                    : 'Week {week}',
+                widget.program.days[byWeek[week]!.first].isDeload
+                    ? '{week}. HAFTA — HAFİFLETME'
+                    : '{week}. HAFTA',
+                values: <String, Object>{'week': week},
               ),
               children: <Widget>[
                 for (final int dayIndex in byWeek[week]!)
@@ -414,66 +514,99 @@ class _DayCardState extends State<_DayCard> {
         Text(
           localized(
             context,
-            LibraryStrings.programDayLabel(widget.day.dayNumber),
-            '${widget.day.dayNumber}. gün',
+            'Day {day}',
+            '{day}. gün',
+            values: <String, Object>{'day': widget.day.dayNumber},
           ),
-          style: GravitaType.display(size: 14.5, weight: FontWeight.w500),
+          style: GravitaType.display(
+            context: context,
+            size: 14.5,
+            weight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          localized(
+            context,
+            'Scheduled: {date}',
+            'Planlanan tarih: {date}',
+            values: <String, Object>{'date': LocaleDate(widget.scheduledDate)},
+          ),
+          style: GravitaType.body(
+            context: context,
+            size: 12,
+            color: GravitaColors.of(context).textSecondary,
+          ),
         ),
         const SizedBox(height: 10),
         for (final PrescribedExercise e in widget.day.exercises)
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Expanded(
-                  child: Text(
-                    // HAM id YOK — displayName katalogdan, bulunamazsa
-                    // (yapısal olarak olmamalı, ama uydurma yerine
-                    // dürüst düşer) id'nin kendisi yerine boş geçilmez.
-                    catalogName(
-                      context,
-                      e.movementId,
-                      widget.content.catalogue
-                              .byId(e.movementId)
-                              ?.displayName ??
-                          e.movementId,
-                    ),
-                    style: GravitaType.body(size: 13.5),
-                  ),
-                ),
                 Text(
-                  e.isHold
-                      ? localized(
-                          context,
-                          LibraryStrings.programSetsHold(
-                            e.sets,
-                            e.targetHoldSeconds!,
-                          ),
-                          '${e.sets} × ${e.targetHoldSeconds} sn tutuş',
-                        )
-                      : LibraryStrings.programSetsReps(e.sets, e.targetReps!),
-                  style: GravitaType.mono(
-                    size: 12,
-                    color: GravitaColors.textSecondary,
+                  // HAM id YOK — displayName katalogdan, bulunamazsa
+                  // (yapısal olarak olmamalı, ama uydurma yerine
+                  // dürüst düşer) id'nin kendisi yerine boş geçilmez.
+                  catalogName(
+                    context,
+                    e.movementId,
+                    widget.content.catalogue.byId(e.movementId)?.displayName ??
+                        e.movementId,
                   ),
+                  style: GravitaType.body(context: context, size: 13.5),
                 ),
-                const SizedBox(width: 8),
-                GravitaPill(
-                  label: e.isLiveMeasured
-                      ? localized(
-                          context,
-                          LibraryStrings.programLiveBadge,
-                          'Canlı tekrar sayımı',
-                        )
-                      : localized(
-                          context,
-                          LibraryStrings.programManualLogBadge,
-                          'Elle kayıt',
-                        ),
-                  tone: e.isLiveMeasured
-                      ? GravitaColors.accent
-                      : GravitaColors.textSecondary,
-                  filled: e.isLiveMeasured,
+                const SizedBox(height: 6),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 6,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      e.isHold
+                          ? localized(
+                              context,
+                              '{sets} × {seconds}s hold',
+                              '{sets} × {seconds} sn tutuş',
+                              values: <String, Object>{
+                                'sets': e.sets,
+                                'seconds': e.targetHoldSeconds!,
+                              },
+                            )
+                          : localized(
+                              context,
+                              '{sets} × {reps}',
+                              '{sets} × {reps}',
+                              values: <String, Object>{
+                                'sets': e.sets,
+                                'reps': e.targetReps!,
+                              },
+                            ),
+                      style: GravitaType.mono(
+                        context: context,
+                        size: 12,
+                        color: GravitaColors.of(context).textSecondary,
+                      ),
+                    ),
+                    GravitaPill(
+                      label: motionPaidCameraLaunchEnabled && e.isLiveMeasured
+                          ? localized(
+                              context,
+                              LibraryStrings.programLiveBadge,
+                              'Canlı tekrar sayımı',
+                            )
+                          : localized(
+                              context,
+                              LibraryStrings.programManualLogBadge,
+                              'Elle kayıt',
+                            ),
+                      tone: motionPaidCameraLaunchEnabled && e.isLiveMeasured
+                          ? GravitaColors.of(context).accent
+                          : GravitaColors.of(context).textSecondary,
+                      filled: motionPaidCameraLaunchEnabled && e.isLiveMeasured,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -489,15 +622,19 @@ class _DayCardState extends State<_DayCard> {
       return GravitaPill(
         label: localized(
           context,
-          LibraryStrings.programDayDoneLabel(widget.rpe!),
-          'Tamamlandı · RPE ${widget.rpe}',
+          'Done · RPE {rpe}',
+          'Tamamlandı · RPE {rpe}',
+          values: <String, Object>{'rpe': widget.rpe!},
         ),
-        tone: GravitaColors.textSecondary,
+        tone: GravitaColors.of(context).textSecondary,
         filled: false,
       );
     }
-    if (_isMissed) {
-      return Row(
+    if (_isMissed && !_pickingRpe) {
+      return Wrap(
+        spacing: 12,
+        runSpacing: 8,
+        crossAxisAlignment: WrapCrossAlignment.center,
         children: <Widget>[
           GravitaPill(
             label: localized(
@@ -505,10 +642,9 @@ class _DayCardState extends State<_DayCard> {
               LibraryStrings.programDayMissedLabel,
               'Kaçırıldı',
             ),
-            tone: GravitaColors.textSecondary,
+            tone: GravitaColors.of(context).textSecondary,
             filled: false,
           ),
-          const Spacer(),
           InkWell(
             key: ValueKey<String>(
               'workout.reschedule.${widget.day.weekNumber}.${widget.day.dayNumber}',
@@ -523,8 +659,10 @@ class _DayCardState extends State<_DayCard> {
                       if (mounted) setState(() => _saving = false);
                     }
                   },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+            child: Container(
+              constraints: const BoxConstraints(minHeight: 48, minWidth: 48),
+              alignment: AlignmentDirectional.centerStart,
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
               child: Text(
                 localized(
                   context,
@@ -532,8 +670,9 @@ class _DayCardState extends State<_DayCard> {
                   'Yeniden planla',
                 ),
                 style: GravitaType.mono(
+                  context: context,
                   size: 11,
-                  color: GravitaColors.accent,
+                  color: GravitaColors.of(context).accent,
                   weight: FontWeight.w600,
                 ),
               ),
@@ -548,8 +687,10 @@ class _DayCardState extends State<_DayCard> {
           'workout.markDone.${widget.day.weekNumber}.${widget.day.dayNumber}',
         ),
         onTap: () => setState(() => _pickingRpe = true),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 48, minWidth: 48),
+          alignment: AlignmentDirectional.centerStart,
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
           child: Text(
             localized(
               context,
@@ -557,8 +698,9 @@ class _DayCardState extends State<_DayCard> {
               'Tamamlandı olarak işaretle',
             ),
             style: GravitaType.mono(
+              context: context,
               size: 11,
-              color: GravitaColors.accent,
+              color: GravitaColors.of(context).accent,
               weight: FontWeight.w600,
             ),
           ),
@@ -576,8 +718,9 @@ class _DayCardState extends State<_DayCard> {
             'Bu senin beyanındır; kamera bunu ölçmez.',
           ),
           style: GravitaType.body(
+            context: context,
             size: 12.5,
-            color: GravitaColors.textSecondary,
+            color: GravitaColors.of(context).textSecondary,
           ),
         ),
         const SizedBox(height: 8),
@@ -587,9 +730,16 @@ class _DayCardState extends State<_DayCard> {
           children: <Widget>[
             for (int rpe = 1; rpe <= 10; rpe++)
               ChoiceChip(
-                label: Text('$rpe'),
+                label: Text(
+                  formatLocaleNumber(
+                    rpe,
+                    Localizations.localeOf(context).toLanguageTag(),
+                  ),
+                ),
                 selected: _selectedRpe == rpe,
-                onSelected: (bool sel) => setState(() => _selectedRpe = rpe),
+                onSelected: _saving
+                    ? null
+                    : (bool sel) => setState(() => _selectedRpe = rpe),
               ),
           ],
         ),

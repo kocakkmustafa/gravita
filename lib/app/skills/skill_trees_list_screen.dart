@@ -84,27 +84,33 @@ class _TreeRow extends StatelessWidget {
               children: <Widget>[
                 Text(
                   skillTreeName(context, tree),
-                  style: GravitaType.display(size: 16, weight: FontWeight.w500),
+                  style: GravitaType.display(
+                    context: context,
+                    size: 16,
+                    weight: FontWeight.w500,
+                  ),
                 ),
                 const SizedBox(height: 5),
                 Text(
                   localized(
                     context,
-                    LibraryStrings.skillTreeRowSteps(tree.nodeCount),
-                    '${tree.nodeCount} adım',
+                    tree.nodeCount == 1 ? '{count} step' : '{count} steps',
+                    '{count} adım',
+                    values: <String, Object>{'count': tree.nodeCount},
                   ),
                   style: GravitaType.body(
+                    context: context,
                     size: 12.5,
-                    color: GravitaColors.textSecondary,
+                    color: GravitaColors.of(context).textSecondary,
                   ),
                 ),
               ],
             ),
           ),
-          const Icon(
+          Icon(
             Icons.chevron_right,
             size: 20,
-            color: GravitaColors.textTertiary,
+            color: GravitaColors.of(context).textTertiary,
           ),
         ],
       ),

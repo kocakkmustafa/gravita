@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "localeTag": "es-419",
+  "entries": {
+    "g_c0975b42c84d": {
+      "count": "count",
+      "forms": {
+        "one": "{count} sesión",
+        "other": "{count} sesiones"
+      }
+    },
+    "g_27de9b3be346": {
+      "count": "count",
+      "forms": {
+        "one": "{count} sesión",
+        "other": "{count} sesiones"
+      }
+    },
+    "g_38d865fbb30f": {
+      "count": "count",
+      "forms": {
+        "one": "{count} movimiento",
+        "other": "{count} movimientos"
+      }
+    },
+    "g_2c46d7b0898e": {
+      "count": "count",
+      "forms": {
+        "one": "{count} movimiento",
+        "other": "{count} movimientos"
+      }
+    },
+    "g_ac22c50eb509": {
+      "count": "count",
+      "forms": {
+        "one": "{count} paso",
+        "other": "{count} pasos"
+      }
+    },
+    "g_7b859bb9f07b": {
+      "count": "count",
+      "forms": {
+        "one": "{count} paso",
+        "other": "{count} pasos"
+      }
+    },
+    "g_f6cf0184f71a": {
+      "count": "count",
+      "forms": {
+        "one": "{count} segundo",
+        "other": "{count} segundos"
+      }
+    },
+    "g_867d8633f4af": {
+      "count": "count",
+      "forms": {
+        "one": "{count} segundo",
+        "other": "{count} segundos"
+      }
+    },
+    "g_c0ddf984605e": {
+      "count": "count",
+      "forms": {
+        "one": "{count} repetición",
+        "other": "{count} repeticiones"
+      }
+    },
+    "g_f9ab0332d33c": {
+      "count": "count",
+      "forms": {
+        "one": "{count} repetición",
+        "other": "{count} repeticiones"
+      }
+    },
+    "g_9b0d2873b401": {
+      "count": "count",
+      "forms": {
+        "one": "Falta {count} medición",
+        "other": "Faltan {count} mediciones"
+      }
+    },
+    "g_d0e2e4b25574": {
+      "count": "count",
+      "forms": {
+        "one": "Falta {count} medición",
+        "other": "Faltan {count} mediciones"
+      }
+    },
+    "g_e7c2df095e3c": {
+      "count": "count",
+      "forms": {
+        "one": "{count} paso en borrador",
+        "other": "{count} pasos en borrador"
+      }
+    },
+    "g_3cc1c7cca3fe": {
+      "count": "count",
+      "forms": {
+        "one": "{count} paso en borrador",
+        "other": "{count} pasos en borrador"
+      }
+    },
+    "g_337b622eece7": {
+      "count": "count",
+      "forms": {
+        "one": "{count} fotograma",
+        "other": "{count} fotogramas"
+      }
+    }
+  }
+}

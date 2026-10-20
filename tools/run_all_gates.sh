@@ -126,6 +126,18 @@ run "flutter test (serial real-I/O fixtures)" flutter test --concurrency=1 --rep
 app_n="$(printf '%s' "$last_stdout" | grep -oE '\+[0-9]+' | tail -1 | tr -d '+')"
 app_n="${app_n:-?}"
 
+# Standalone Dart entry points are deliberately not named *_test.dart.
+# Flutter's discovery must not mistake a main() without test registrations
+# for a widget suite. Keep these real asset/IO contracts in the same CI lane;
+# their assertion counts are reported separately from the Flutter test count.
+run "locale catalogue contracts" dart --enable-asserts test/pure_dart/locale_catalog_regression.dart
+run "shipping locale assets" dart --enable-asserts test/pure_dart/locale_assets_regression.dart
+run "locale plural contracts" dart --enable-asserts test/pure_dart/locale_plural_regression.dart
+run "language preference IO" dart --enable-asserts test/pure_dart/language_preferences_io_regression.dart
+run "theme preference IO" dart --enable-asserts test/pure_dart/theme_preferences_io_regression.dart
+run "program input IO" dart --enable-asserts test/pure_dart/program_inputs_io_regression.dart
+run "visible library search" dart --enable-asserts test/pure_dart/library_search_regression.dart
+
 line; echo "SÜİT 2 — gravita_engine ($(ls packages/gravita_engine/test/*.dart | wc -l | tr -d ' ') dosya)"; line
 run "dart test" bash -c "cd packages/gravita_engine && dart test --reporter expanded"
 eng_n="$(printf '%s' "$last_stdout" | grep -oE '\+[0-9]+' | tail -1 | tr -d '+')"

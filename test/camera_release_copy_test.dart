@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
@@ -10,10 +12,19 @@ import 'package:gravita/app/home_screen.dart';
 import 'package:gravita/app/library_screen.dart';
 import 'package:gravita/app/live_session_screen.dart';
 import 'package:gravita/app/movement_page.dart';
+import 'package:gravita/app/program/program_builder.dart';
+import 'package:gravita/app/program/program_model.dart';
+import 'package:gravita/app/program/program_schedule_store.dart';
+import 'package:gravita/app/program/program_signature.dart';
+import 'package:gravita/app/program/program_store.dart';
 import 'package:gravita/app/theme.dart';
 import 'package:gravita/app/why_not_here_screen.dart';
+import 'package:gravita/app/workout/workout_screen.dart';
 import 'package:motion_account/motion_account.dart'
     show motionPaidFeaturesAvailable;
+import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
+
+import 'support/launch_harness.dart' show FakeSupportDir, realIo, settleUntil;
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -121,6 +132,83 @@ void main() {
         reason:
             'Guest teaching access must remain available with camera closed.',
       );
+      expect(find.byType(LiveSessionScreen), findsNothing);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('$language Workout uses manual badges while camera is closed', (
+      tester,
+    ) async {
+      useNarrowTall(tester);
+      final originalProvider = PathProviderPlatform.instance;
+      final temp = await realIo(
+        tester,
+        () => Directory.systemTemp.createTemp('gravita-closed-workout-'),
+      );
+      PathProviderPlatform.instance = FakeSupportDir(temp.path);
+      addTearDown(() async {
+        await tester.pumpWidget(const SizedBox.shrink());
+        await tester.pump();
+        PathProviderPlatform.instance = originalProvider;
+        await tester.runAsync(() async {
+          if (await temp.exists()) await temp.delete(recursive: true);
+        });
+      });
+      final content = await loadReal(tester);
+      expect(motionPaidCameraLaunchEnabled, isFalse);
+      await realIo(tester, () async {
+        const inputs = ProgramInputs(
+          availableEquipment: <String>{},
+          daysPerWeek: 3,
+          experience: ExperienceLevel.beginner,
+        );
+        final config = await ContentRepository.loadProgramConfig(rootBundle);
+        final entries = await content.programCatalogEntries();
+        final program = ProgramBuilder(
+          config: config,
+          catalog: entries,
+        ).build(inputs);
+        expect(
+          program.days.first.exercises.any((e) => e.isLiveMeasured),
+          isTrue,
+          reason: 'Fixture must include a catalogue-live prescription.',
+        );
+        await (await ProgramStore.open()).write(inputs);
+        await (await ProgramScheduleStore.open()).write(
+          ProgramSchedule(
+            dates: scheduleProgram(
+              program: program,
+              startDate: DateTime.now(),
+              daysPerWeek: inputs.daysPerWeek,
+            ),
+            rpeByDayIndex: const <int, int>{},
+            programSignature: programSignature(inputs, program),
+          ),
+        );
+      });
+      await tester.pumpWidget(host(WorkoutScreen(content: content), language));
+      await settleUntil(
+        tester,
+        () => find.byKey(WorkoutScreen.disclaimerKey).evaluate().isNotEmpty,
+        maxRounds: 40,
+      );
+      expect(find.byKey(WorkoutScreen.disclaimerKey), findsOneWidget);
+      expect(find.byKey(WorkoutScreen.unavailableKey), findsNothing);
+      expect(
+        find.text(tr ? 'Canlı tekrar sayımı' : 'Live rep count'),
+        findsNothing,
+      );
+      final manual = find.text(tr ? 'Elle kayıt' : 'Manual log');
+      expect(manual, findsWidgets);
+      for (final element in manual.evaluate()) {
+        final pill = find
+            .ancestor(
+              of: find.byWidget(element.widget),
+              matching: find.byType(GravitaPill),
+            )
+            .first;
+        expect(tester.widget<GravitaPill>(pill).filled, isFalse);
+      }
       expect(find.byType(LiveSessionScreen), findsNothing);
       expect(tester.takeException(), isNull);
     });

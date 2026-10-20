@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "localeTag": "fr",
+  "entries": {
+    "g_c0975b42c84d": {
+      "count": "count",
+      "forms": {
+        "one": "{count} séance",
+        "other": "{count} séances"
+      }
+    },
+    "g_27de9b3be346": {
+      "count": "count",
+      "forms": {
+        "one": "{count} séance",
+        "other": "{count} séances"
+      }
+    },
+    "g_38d865fbb30f": {
+      "count": "count",
+      "forms": {
+        "one": "{count} mouvement",
+        "other": "{count} mouvements"
+      }
+    },
+    "g_2c46d7b0898e": {
+      "count": "count",
+      "forms": {
+        "one": "{count} mouvement",
+        "other": "{count} mouvements"
+      }
+    },
+    "g_ac22c50eb509": {
+      "count": "count",
+      "forms": {
+        "one": "{count} étape",
+        "other": "{count} étapes"
+      }
+    },
+    "g_7b859bb9f07b": {
+      "count": "count",
+      "forms": {
+        "one": "{count} étape",
+        "other": "{count} étapes"
+      }
+    },
+    "g_f6cf0184f71a": {
+      "count": "count",
+      "forms": {
+        "one": "{count} seconde",
+        "other": "{count} secondes"
+      }
+    },
+    "g_867d8633f4af": {
+      "count": "count",
+      "forms": {
+        "one": "{count} seconde",
+        "other": "{count} secondes"
+      }
+    },
+    "g_c0ddf984605e": {
+      "count": "count",
+      "forms": {
+        "one": "{count} répétition",
+        "other": "{count} répétitions"
+      }
+    },
+    "g_f9ab0332d33c": {
+      "count": "count",
+      "forms": {
+        "one": "{count} répétition",
+        "other": "{count} répétitions"
+      }
+    },
+    "g_9b0d2873b401": {
+      "count": "count",
+      "forms": {
+        "one": "{count} mesure manquante",
+        "other": "{count} mesures manquantes"
+      }
+    },
+    "g_d0e2e4b25574": {
+      "count": "count",
+      "forms": {
+        "one": "{count} mesure manquante",
+        "other": "{count} mesures manquantes"
+      }
+    },
+    "g_e7c2df095e3c": {
+      "count": "count",
+      "forms": {
+        "one": "{count} étape en ébauche",
+        "other": "{count} étapes en ébauche"
+      }
+    },
+    "g_3cc1c7cca3fe": {
+      "count": "count",
+      "forms": {
+        "one": "{count} étape en ébauche",
+        "other": "{count} étapes en ébauche"
+      }
+    },
+    "g_337b622eece7": {
+      "count": "count",
+      "forms": {
+        "one": "{count} image",
+        "other": "{count} images"
+      }
+    }
+  }
+}

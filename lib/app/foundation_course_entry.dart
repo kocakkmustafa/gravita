@@ -18,7 +18,7 @@ class FoundationCourseEntry extends StatelessWidget {
             'Three foundation pathways',
             'Üç temel öğrenme yolu',
           ),
-          style: GravitaType.display(size: 20),
+          style: GravitaType.display(context: context, size: 20),
         ),
         Text(
           localized(
@@ -33,7 +33,7 @@ class FoundationCourseEntry extends StatelessWidget {
             icon: const Icon(Icons.menu_book_outlined),
             label: Text(
               entry.value.title.inLanguage(
-                Localizations.localeOf(context).languageCode,
+                Localizations.localeOf(context).toLanguageTag(),
               ),
             ),
             onPressed: () => Navigator.of(context).push<void>(

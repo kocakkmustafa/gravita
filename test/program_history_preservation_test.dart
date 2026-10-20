@@ -11,6 +11,7 @@ import 'package:gravita/app/course_progress_io.dart';
 import 'package:gravita/app/library_strings.dart';
 import 'package:gravita/app/program/program_builder.dart';
 import 'package:gravita/app/program/program_model.dart';
+import 'package:gravita/app/program/program_inputs_io.dart';
 import 'package:gravita/app/program/program_schedule_store.dart';
 import 'package:gravita/app/program/program_setup_screen.dart';
 import 'package:gravita/app/program/program_signature.dart';
@@ -130,8 +131,17 @@ void main() {
     );
   }
 
-  Future<void> showWorkout(WidgetTester tester) async {
-    await tester.pumpWidget(host(WorkoutScreen(content: content)));
+  Future<void> showWorkout(
+    WidgetTester tester, {
+    DateTime Function()? now,
+  }) async {
+    await tester.pumpWidget(
+      host(
+        now == null
+            ? WorkoutScreen(content: content)
+            : WorkoutScreen.withClock(content: content, now: now),
+      ),
+    );
     await settleUntil(
       tester,
       () =>
@@ -197,6 +207,113 @@ void main() {
             .join(','),
       )
       .join('|');
+
+  Future<void> seedOnDate(WidgetTester tester, DateTime date) async {
+    await seed(tester, rpe: const <int, int>{});
+    await realIo(tester, () async {
+      final store = ProgramScheduleStore.forFile(scheduleFile());
+      final saved = (await store.read())!;
+      await store.write(
+        saved.withDates(
+          scheduleProgram(
+            program: builder.build(initial),
+            startDate: date,
+            daysPerWeek: initial.daysPerWeek,
+          ),
+        ),
+      );
+    });
+  }
+
+  testWidgets('retry rereads repaired fixture without creating a plan', (
+    tester,
+  ) async {
+    prepareView(tester);
+    await seed(tester);
+    final original = await bytes(tester);
+    const broken = '{"dates":';
+    await realIo(tester, () => scheduleFile().writeAsString(broken));
+    await showWorkout(tester);
+    expectUnavailable();
+    await tester.tap(find.byKey(WorkoutScreen.retryKey));
+    await settleUntil(
+      tester,
+      () =>
+          tester
+              .widget<OutlinedButton>(find.byKey(WorkoutScreen.retryKey))
+              .onPressed !=
+          null,
+    );
+    expect(await realIo(tester, () => scheduleFile().readAsString()), broken);
+    // The fixture is repaired explicitly by the test, never by Workout.
+    await realIo(tester, () => scheduleFile().writeAsBytes(original.schedule!));
+    await tester.tap(find.byKey(WorkoutScreen.retryKey));
+    await settleUntil(
+      tester,
+      () => find.byKey(WorkoutScreen.disclaimerKey).evaluate().isNotEmpty,
+    );
+    expect(find.text('Done · RPE 7'), findsOneWidget);
+    await expectBytes(tester, original);
+  });
+
+  testWidgets('midnight refreshes day classification without rewriting dates', (
+    tester,
+  ) async {
+    prepareView(tester);
+    var clock = DateTime.utc(2026, 10, 20, 23, 59, 59);
+    await seedOnDate(tester, DateTime.utc(2026, 10, 20));
+    final before = await bytes(tester);
+    await showWorkout(tester, now: () => clock);
+    const done = ValueKey<String>('workout.markDone.1.1');
+    const reschedule = ValueKey<String>('workout.reschedule.1.1');
+    expect(find.byKey(done), findsOneWidget);
+    clock = DateTime.utc(2026, 10, 21, 0, 0, 1);
+    await tester.pump(const Duration(seconds: 2));
+    expect(find.byKey(reschedule), findsOneWidget);
+    expect(find.byKey(done), findsNothing);
+    await expectBytes(tester, before);
+  });
+
+  testWidgets('resume refreshes only the view date', (tester) async {
+    prepareView(tester);
+    var clock = DateTime(2026, 10, 20, 9);
+    await seedOnDate(tester, DateTime(2026, 10, 20));
+    final before = await bytes(tester);
+    await showWorkout(tester, now: () => clock);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+    clock = DateTime(2026, 10, 21, 9);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    await tester.pump();
+    expect(
+      find.byKey(const ValueKey<String>('workout.reschedule.1.1')),
+      findsOneWidget,
+    );
+    await expectBytes(tester, before);
+  });
+
+  testWidgets('midnight preserves an unsaved RPE choice', (tester) async {
+    prepareView(tester);
+    var clock = DateTime.utc(2026, 10, 20, 23, 59, 59);
+    await seedOnDate(tester, DateTime.utc(2026, 10, 20));
+    final before = await bytes(tester);
+    await showWorkout(tester, now: () => clock);
+    await tester.tap(
+      find.byKey(const ValueKey<String>('workout.markDone.1.1')),
+    );
+    await tester.pump();
+    await tester.tap(find.widgetWithText(ChoiceChip, '7'));
+    clock = DateTime.utc(2026, 10, 21, 0, 0, 1);
+    await tester.pump(const Duration(seconds: 2));
+    expect(
+      find.byKey(const ValueKey<String>('workout.saveRpe.1.1')),
+      findsOneWidget,
+    );
+    expect(
+      tester.widget<ChoiceChip>(find.widgetWithText(ChoiceChip, '7')).selected,
+      isTrue,
+    );
+    await expectBytes(tester, before);
+  });
 
   testWidgets('iki dosya da yoksa Workout salt okunur boş durumu gösterir', (
     tester,
@@ -316,7 +433,7 @@ void main() {
         }
         await expectLater(
           ProgramStore.forFile(inputFile()).read(),
-          throwsA(isA<FormatException>()),
+          throwsA(isA<ProgramInputsException>()),
         );
       });
       final before = await bytes(tester);

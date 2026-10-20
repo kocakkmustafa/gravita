@@ -76,36 +76,36 @@ class HomeScreen extends StatelessWidget {
             title: localized(
               context,
               LibraryStrings.homeNoPlanTitle,
-              'Gününüzü planlamıyoruz',
+              'Çalışmanı seç',
             ),
             text: localized(
               context,
               LibraryStrings.homeNoPlanBody,
               motionPaidCameraLaunchEnabled
-                  ? 'Gravita günlük antrenman planlayıcısı içermez. Aşağıda '
-                        'şu anda ölçebildiğimiz hareketleri ve diğer hareketlerin '
-                        'durumunu görebilirsiniz.'
-                  : 'Kursu, öğrenme rehberlerini ve ölçüm kataloğunu incele. '
-                        'Gravita günlük antrenman planı oluşturmaz. '
+                  ? 'Kursları, öğrenme rehberlerini ve genel sekiz haftalık programı incele.'
+                  : 'Kursları, öğrenme rehberlerini ve genel sekiz haftalık programı incele. '
                         'Canlı kamera seansları bu sürümde kullanılamıyor.',
             ),
           ),
           const SizedBox(height: 30),
           SurfaceSection(
             key: openNowKey,
-            title: localized(
+            title: localizedUpper(
               context,
-              LibraryStrings.homeOpenNowTitle.toUpperCase(),
+              LibraryStrings.homeOpenNowTitle,
               motionPaidCameraLaunchEnabled ? 'ŞU ANDA AÇIK' : 'ÖLÇÜM KATALOĞU',
             ),
             subtitle: localized(
               context,
-              LibraryStrings.homeOpenBody(live.length),
               motionPaidCameraLaunchEnabled
-                  ? '${live.length} harekette canlı tekrar sayımı açık. Duruşunuz puanlanmaz.'
-                  : '${live.length} yapılandırılmış ölçüm sözleşmesi. '
+                  ? '{count} movements are open for live rep counting.'
+                  : '{count} configured measurement contracts. Live camera sessions are unavailable in this release. Learning guides record only your own practice report.',
+              motionPaidCameraLaunchEnabled
+                  ? '{count} harekette canlı tekrar sayımı açık. Duruşunuz puanlanmaz.'
+                  : '{count} yapılandırılmış ölçüm sözleşmesi. '
                         'Canlı kamera seansları bu sürümde kullanılamıyor. '
                         'Öğrenme rehberleri yalnız kendi pratik bildirimini kaydeder.',
+              values: <String, Object>{'count': live.length},
             ),
             children: live
                 .map(
@@ -149,9 +149,9 @@ class HomeScreen extends StatelessWidget {
           // bu kartın kendi async kapısı yok) VE her zaman görünür.
           SurfaceSection(
             key: programKey,
-            title: localized(
+            title: localizedUpper(
               context,
-              LibraryStrings.programOverviewTitle.toUpperCase(),
+              LibraryStrings.programOverviewTitle,
               '8 HAFTALIK PROGRAMINIZ',
             ),
             children: <Widget>[
@@ -183,15 +183,16 @@ class HomeScreen extends StatelessWidget {
                             '8 haftalık programınız',
                           ),
                           style: GravitaType.body(
+                            context: context,
                             size: 14,
                             weight: FontWeight.w500,
                           ),
                         ),
                       ),
-                      const Icon(
+                      Icon(
                         Icons.chevron_right,
                         size: 20,
-                        color: GravitaColors.textTertiary,
+                        color: GravitaColors.of(context).textTertiary,
                       ),
                     ],
                   ),
@@ -227,15 +228,16 @@ class HomeScreen extends StatelessWidget {
                             'Programınızı kurun',
                           ),
                           style: GravitaType.body(
+                            context: context,
                             size: 14,
                             weight: FontWeight.w500,
                           ),
                         ),
                       ),
-                      const Icon(
+                      Icon(
                         Icons.chevron_right,
                         size: 20,
-                        color: GravitaColors.textTertiary,
+                        color: GravitaColors.of(context).textTertiary,
                       ),
                     ],
                   ),
@@ -262,15 +264,16 @@ class HomeScreen extends StatelessWidget {
           // yazışımda tam bu sebeple "ulaşılamıyor ama var" çıktı).
           SurfaceSection(
             key: skillTreesKey,
-            title: localized(
+            title: localizedUpper(
               context,
-              LibraryStrings.skillTreesTitle.toUpperCase(),
+              LibraryStrings.skillTreesTitle,
               'BECERİ AĞAÇLARI',
             ),
             subtitle: localized(
               context,
-              LibraryStrings.homeSkillTreesBody(c.skillTrees.trees.length),
-              '${c.skillTrees.trees.length} taslak ilerleme yolu',
+              'Drafted progressions: {count}',
+              'Taslak ilerleme yolu: {count}',
+              values: <String, Object>{'count': c.skillTrees.trees.length},
             ),
             children: <Widget>[
               InkWell(
@@ -297,15 +300,16 @@ class HomeScreen extends StatelessWidget {
                             'Beceri ağaçları',
                           ),
                           style: GravitaType.body(
+                            context: context,
                             size: 14,
                             weight: FontWeight.w500,
                           ),
                         ),
                       ),
-                      const Icon(
+                      Icon(
                         Icons.chevron_right,
                         size: 20,
-                        color: GravitaColors.textTertiary,
+                        color: GravitaColors.of(context).textTertiary,
                       ),
                     ],
                   ),
@@ -316,16 +320,20 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(height: 30),
           SurfaceSection(
             key: queueKey,
-            title: localized(
+            title: localizedUpper(
               context,
-              LibraryStrings.homeQueueTitle.toUpperCase(),
+              LibraryStrings.homeQueueTitle,
               'KAPALI HAREKETLER',
             ),
             subtitle: localized(
               context,
-              LibraryStrings.homeQueueBody(queued, c.movements.length),
-              'Katalogdaki ${c.movements.length} hareketin $queued tanesi '
-              'açık değil. Her hareketin sayfasında eksik ölçüm yazılıdır.',
+              '{queued} of {total} catalogue movements have pending measurement evidence. Each movement page explains the missing measurements.',
+              'Katalogdaki {total} hareketin {queued} tanesi '
+                  'açık değil. Her hareketin sayfasında eksik ölçüm yazılıdır.',
+              values: <String, Object>{
+                'queued': queued,
+                'total': c.movements.length,
+              },
             ),
             children: <Widget>[
               InkWell(
@@ -347,15 +355,16 @@ class HomeScreen extends StatelessWidget {
                             'Kütüphane',
                           ),
                           style: GravitaType.body(
+                            context: context,
                             size: 14,
                             weight: FontWeight.w500,
                           ),
                         ),
                       ),
-                      const Icon(
+                      Icon(
                         Icons.chevron_right,
                         size: 20,
-                        color: GravitaColors.textTertiary,
+                        color: GravitaColors.of(context).textTertiary,
                       ),
                     ],
                   ),

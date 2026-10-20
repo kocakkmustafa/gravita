@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
@@ -6,6 +5,7 @@ import '../account_data_directory.dart';
 import '../course_progress_io.dart';
 import '../account_store_epoch.dart';
 
+import 'program_inputs_io.dart';
 import 'program_model.dart';
 
 /// Kullanıcının program girdilerinin + üretilmiş programın KALICILIĞI —
@@ -21,10 +21,17 @@ import 'program_model.dart';
 class ProgramStore {
   ProgramStore._(File file, {AccountStoreEpoch? epoch})
     : _file = file,
-      _lease = CourseProgressLease(file, epoch: epoch);
+      _lease = CourseProgressLease(file, epoch: epoch) {
+    _io = ProgramInputsIo(
+      file,
+      serialize: _lease.mutate,
+      checkCurrent: _lease.checkCurrent,
+    );
+  }
 
   final File _file;
   final CourseProgressLease _lease;
+  late final ProgramInputsIo _io;
 
   static Future<ProgramStore> open({String? accountUserId}) async {
     final epoch = AccountStoreEpochRegistry.capture(accountUserId);
@@ -44,42 +51,9 @@ class ProgramStore {
 
   /// Only an absent file is null. Invalid/unavailable inputs must not be
   /// mistaken for a fresh setup and written over by the caller.
-  Future<ProgramInputs?> read() => _lease.mutate(() async {
-    final String contents;
-    try {
-      contents = await _file.readAsString();
-    } on FileSystemException catch (error) {
-      if (error.osError?.errorCode == 2 ||
-          (Platform.isWindows && error.osError?.errorCode == 3)) {
-        return null;
-      }
-      rethrow;
-    }
-    final Map<String, dynamic> j = jsonDecode(contents) as Map<String, dynamic>;
-    if (j.containsKey('schemaVersion') &&
-        (j['schemaVersion'] is! int || j['schemaVersion'] != 1)) {
-      throw const FormatException('Unsupported program inputs schema');
-    }
-    return ProgramInputs(
-      availableEquipment: (j['availableEquipment'] as List<dynamic>)
-          .cast<String>()
-          .toSet(),
-      daysPerWeek: j['daysPerWeek'] as int,
-      experience: ExperienceLevel.values.byName(j['experience'] as String),
-    );
-  });
+  Future<ProgramInputs?> read() => _io.read();
 
-  Future<void> write(ProgramInputs inputs) => _lease.mutate(() async {
-    await _file.parent.create(recursive: true);
-    await _file.writeAsString(
-      jsonEncode(<String, dynamic>{
-        'schemaVersion': 1,
-        'availableEquipment': inputs.availableEquipment.toList(),
-        'daysPerWeek': inputs.daysPerWeek,
-        'experience': inputs.experience.name,
-      }),
-    );
-  });
+  Future<void> write(ProgramInputs inputs) => _io.write(inputs);
 
   /// Programı kaldırır (kullanıcı yeniden kurmak isterse). Dosya yoksa
   /// sessizce başarılı sayılır — "zaten yok" bir hata değildir.

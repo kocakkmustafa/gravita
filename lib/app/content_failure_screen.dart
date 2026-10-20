@@ -50,29 +50,34 @@ class ContentFailureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: GravitaColors.page,
+      backgroundColor: GravitaColors.of(context).page,
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
           children: <Widget>[
-            const Icon(
+            Icon(
               Icons.report_outlined,
               size: 44,
-              color: GravitaColors.honestySeal,
+              color: GravitaColors.of(context).honestySeal,
             ),
             const SizedBox(height: 18),
             Text(
               _headline(context),
               key: headlineKey,
-              style: GravitaType.display(size: 24, weight: FontWeight.w600),
+              style: GravitaType.display(
+                context: context,
+                size: 24,
+                weight: FontWeight.w600,
+              ),
             ),
             const SizedBox(height: 12),
             Text(
               _body(context),
               key: bodyKey,
               style: GravitaType.body(
+                context: context,
                 size: 14.5,
-                color: GravitaColors.textSecondary,
+                color: GravitaColors.of(context).textSecondary,
                 height: 1.6,
               ),
             ),
@@ -90,8 +95,8 @@ class ContentFailureScreen extends StatelessWidget {
               child: Theme(
                 data: Theme.of(context).copyWith(
                   dividerColor: Colors.transparent,
-                  listTileTheme: const ListTileThemeData(
-                    iconColor: GravitaColors.textTertiary,
+                  listTileTheme: ListTileThemeData(
+                    iconColor: GravitaColors.of(context).textTertiary,
                   ),
                 ),
                 child: ExpansionTile(
@@ -101,7 +106,11 @@ class ContentFailureScreen extends StatelessWidget {
                   childrenPadding: const EdgeInsets.fromLTRB(18, 0, 18, 18),
                   title: Text(
                     localized(context, 'Technical detail', 'Teknik ayrıntı'),
-                    style: GravitaType.body(size: 14, weight: FontWeight.w500),
+                    style: GravitaType.body(
+                      context: context,
+                      size: 14,
+                      weight: FontWeight.w500,
+                    ),
                   ),
                   subtitle: Text(
                     localized(
@@ -110,8 +119,9 @@ class ContentFailureScreen extends StatelessWidget {
                       'Sorunu bildirirken paylaşabileceğin ayrıntılar',
                     ),
                     style: GravitaType.mono(
+                      context: context,
                       size: 10.5,
-                      color: GravitaColors.textSecondary,
+                      color: GravitaColors.of(context).textSecondary,
                     ),
                   ),
                   children: <Widget>[
@@ -125,8 +135,9 @@ class ContentFailureScreen extends StatelessWidget {
                           : failure.detail,
                       key: detailKey,
                       style: GravitaType.mono(
+                        context: context,
                         size: 11.5,
-                        color: GravitaColors.textSecondary,
+                        color: GravitaColors.of(context).textSecondary,
                       ),
                     ),
                   ],

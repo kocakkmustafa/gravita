@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'localization/locale_catalog.dart';
 
 final class CourseText {
   const CourseText(this.en, this.tr);
@@ -14,7 +15,8 @@ final class CourseText {
   }
   final String en;
   final String tr;
-  String inLanguage(String language) => language == 'tr' ? tr : en;
+  String inLanguage(String language) =>
+      resolveLocalized(language, en, turkish: tr);
 }
 
 final class CalisthenicsSource {

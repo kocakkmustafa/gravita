@@ -1,7 +1,7 @@
 import 'library_model.dart';
 import 'camera_release_policy.dart';
 
-/// Kütüphane · Home · Hareket sayfası · Profil metinleri (V1 yalnız `en`).
+/// Canonical English source copy; app_locale resolves the selected dictionary.
 ///
 /// **Neden ayrı dosya:** `progress_strings.dart` ile aynı gerekçe — kopya
 /// motora sızmasın, tasarım/çeviri turu tek dosya açsın.
@@ -47,16 +47,12 @@ abstract final class LibraryStrings {
   // ── Home / Today ───────────────────────────────────────────────────────
   static const String homeTitle = 'Today';
 
-  /// ⚠️ Home'un boş hâli SAHTE PLAN üretmez. Tasarımın "bugünkü plan" bloku
-  /// bir PLANLAYICI varsayıyor; öyle bir motor YOK. Uydurulmuş bir "bugünün
-  /// antrenmanı" placeholder veri olurdu (aile kuralı: sahte veri YASAK).
-  static const String homeNoPlanTitle = 'We don\'t plan your day';
+  /// Discovery copy includes the available general eight-week guide without
+  /// implying an adaptive coach, a measured result or an open camera.
+  static const String homeNoPlanTitle = 'Choose your practice';
   static const String homeNoPlanBody = motionPaidCameraLaunchEnabled
-      ? 'Gravita has no training planner, so there is nothing here pretending to '
-            'be today\'s workout. What we do have is below: the movements we can '
-            'measure right now, and the honest state of everything else.'
-      : 'Explore the course, learning guides and measurement catalogue. '
-            'Gravita does not create a daily workout plan. '
+      ? 'Explore courses, learning guides and the general eight-week program.'
+      : 'Explore courses, learning guides and the general eight-week program. '
             'Live camera sessions are unavailable in this release.';
 
   static const String homeOpenNowTitle = motionPaidCameraLaunchEnabled

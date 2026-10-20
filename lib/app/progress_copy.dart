@@ -10,8 +10,11 @@ import 'progress_strings.dart';
 final class ProgressCopy {
   ProgressCopy(this.context);
   final BuildContext context;
-  bool get _tr => Localizations.localeOf(context).languageCode == 'tr';
-  String _text(String en, String tr) => localized(context, en, tr);
+  String _text(
+    String en,
+    String tr, {
+    Map<String, Object> values = const <String, Object>{},
+  }) => localized(context, en, tr, values: values);
 
   String get measuredSection =>
       _text(ProgressStrings.measuredSection, 'Ölçülenler');
@@ -52,43 +55,84 @@ final class ProgressCopy {
     'Aşağıdaki bazı oturumlar yeniden kilitlenen bir derse ait. Çalışmanı sakladık; ölçümü geri çektik.',
   );
 
-  String units(int n, String label) => _tr
-      ? '$n ${switch (label) {
-          'rep' => 'tekrar',
-          'second' => 'saniye',
-          _ => label,
-        }}'
-      : ProgressStrings.units(n, label);
-  String sessions(int n) => _tr ? '$n oturum' : ProgressStrings.sessions(n);
+  String units(int n, String label) => switch (label) {
+    'rep' => _text(
+      n == 1 ? '{count} rep' : '{count} reps',
+      '{count} tekrar',
+      values: <String, Object>{'count': n},
+    ),
+    'second' => _text(
+      n == 1 ? '{count} second' : '{count} seconds',
+      '{count} saniye',
+      values: <String, Object>{'count': n},
+    ),
+    // Unknown stored units remain visible. They never become repetitions.
+    _ => _text(
+      '{count} {unit}',
+      '{count} {unit}',
+      values: <String, Object>{'count': n, 'unit': label},
+    ),
+  };
+  String sessions(int n) => _text(
+    n == 1 ? '{count} session' : '{count} sessions',
+    '{count} oturum',
+    values: <String, Object>{'count': n},
+  );
   String worked(int seconds) {
-    if (!_tr) return ProgressStrings.worked(seconds);
-    if (seconds < 60) return '$seconds sn çalışma';
+    if (seconds < 60) {
+      return _text(
+        '{seconds} s worked',
+        '{seconds} sn çalışma',
+        values: <String, Object>{'seconds': seconds},
+      );
+    }
     final minutes = seconds ~/ 60, remainder = seconds % 60;
     return remainder == 0
-        ? '$minutes dk çalışma'
-        : '$minutes dk $remainder sn çalışma';
+        ? _text(
+            '{minutes} min worked',
+            '{minutes} dk çalışma',
+            values: <String, Object>{'minutes': minutes},
+          )
+        : _text(
+            '{minutes} min {seconds} s worked',
+            '{minutes} dk {seconds} sn çalışma',
+            values: <String, Object>{'minutes': minutes, 'seconds': remainder},
+          );
   }
 
-  String historyPartial(int n) => _tr
-      ? 'Aşağıdaki sayılar tam toplam değil, alt sınırdır: $n kayıtlı oturum okunamadı. Gerçek toplamların en az burada gösterilen kadardır.'
-      : ProgressStrings.historyPartial(n);
+  String historyPartial(int n) => _text(
+    n == 1
+        ? 'Numbers below are a floor, not a full count: {count} saved session could not be read back, so your real totals are at least this high.'
+        : 'Numbers below are a floor, not a full count: {count} saved sessions could not be read back, so your real totals are at least this high.',
+    'Aşağıdaki sayılar tam toplam değil, alt sınırdır: {count} kayıtlı oturum okunamadı. Gerçek toplamların en az burada gösterilen kadardır.',
+    values: <String, Object>{'count': n},
+  );
   String unmeasured(int n, String label, List<String> reasons) {
-    if (!_tr) return ProgressStrings.unmeasured(n, label, reasons);
     final why = reasons.isEmpty
         ? ''
-        : ' (${reasons.map((r) => r == 'framing' ? 'kadraj' : r).join(', ')})';
-    return '${units(n, label)} ölçülemedi$why. İlerlemen azalmaz.';
+        : ' (${reasons.map((r) => r == 'framing' ? _text('framing', 'kadraj') : r).join(', ')})';
+    return _text(
+      "{amount} we couldn't measure{reasons}. Your progress doesn't drop.",
+      '{amount} ölçülemedi{reasons}. İlerlemen azalmaz.',
+      values: <String, Object>{'amount': units(n, label), 'reasons': why},
+    );
   }
 
-  String unscored(int n) => _tr
-      ? '${sessions(n)} sayıldı, puanlanmadı.'
-      : ProgressStrings.unscored(n);
-  String retroactiveWithheld(int n) => _tr
-      ? '${sessions(n)} sayılmış, puanlanmamış olarak kalır. Puanlamayı daha sonra açtık; o sırada ölçmediğimiz oturumları geriye dönük puanlamayız.'
-      : ProgressStrings.retroactiveWithheld(n);
-  String orphanRecords(int n) => _tr
-      ? 'Ayrıca mevcut derslerle eşleşmeyen $n derse ait geçmiş var. Saklandı; burada gösterilmiyor.'
-      : ProgressStrings.orphanRecords(n);
+  String unscored(int n) => _text(
+    '{sessions} counted, not graded.',
+    '{sessions} sayıldı, puanlanmadı.',
+    values: <String, Object>{'sessions': sessions(n)},
+  );
+  String retroactiveWithheld(int n) => _text(
+    "{sessions} stay counted-not-graded. We opened grading later, and we don't grade sessions we didn't measure at the time.",
+    '{sessions} sayılmış, puanlanmamış olarak kalır. Puanlamayı daha sonra açtık; o sırada ölçmediğimiz oturumları geriye dönük puanlamayız.',
+    values: <String, Object>{'sessions': sessions(n)},
+  );
+  String orphanRecords(int n) => _text(
+    'We also have {count} lesson(s) of history that no current lesson matches. Kept, not shown here.',
+    'Ayrıca mevcut derslerle eşleşmeyen {count} derse ait geçmiş var. Saklandı; burada gösterilmiyor.',
+    values: <String, Object>{'count': n},
+  );
 
   /// Each stored unit keeps its own total. A second must never become a rep.
   String freeSessions(List<SessionRecord> records) {
@@ -101,30 +145,42 @@ final class ProgressCopy {
       );
     }
     final values = totals.entries.map((e) => units(e.value, e.key)).join(' · ');
-    return '${sessions(records.length)} · $values ${_tr ? 'sayıldı' : 'counted'}';
+    return _text(
+      '{sessions} · {totals} counted',
+      '{sessions} · {totals} sayıldı',
+      values: <String, Object>{
+        'sessions': sessions(records.length),
+        'totals': values,
+      },
+    );
   }
 
   String lessonName(LessonProgress lesson) {
-    if (!_tr) return lesson.displayName;
     return switch ((lesson.lessonId, lesson.displayName)) {
       (
         'leg_foundations.reps_and_depth' || 'push_foundations.reps_and_tempo',
         'Reps that count',
       ) =>
-        'Sayılan tekrarlar',
-      ('leg_foundations.depth_and_lean_check', 'Depth & lean check') =>
+        _text(lesson.displayName, 'Sayılan tekrarlar'),
+      ('leg_foundations.depth_and_lean_check', 'Depth & lean check') => _text(
+        lesson.displayName,
         'Derinlik ve eğim kontrolü',
-      ('push_foundations.form_check', 'Body-line check') =>
+      ),
+      ('push_foundations.form_check', 'Body-line check') => _text(
+        lesson.displayName,
         'Gövde çizgisi kontrolü',
+      ),
       _ => lesson.displayName,
     };
   }
 
   String movementName(LessonProgress lesson) {
-    if (!_tr) return lesson.movementName;
     return switch ((lesson.lessonId.split('.').first, lesson.movementName)) {
-      ('leg_foundations', 'Bodyweight Squat') => 'Vücut ağırlığıyla squat',
-      ('push_foundations', 'Push-Up') => 'Şınav',
+      ('leg_foundations', 'Bodyweight Squat') => _text(
+        lesson.movementName,
+        'Vücut ağırlığıyla squat',
+      ),
+      ('push_foundations', 'Push-Up') => _text(lesson.movementName, 'Şınav'),
       _ => lesson.movementName,
     };
   }
@@ -134,19 +190,25 @@ final class ProgressCopy {
     final copy = _lockedReasons[lesson.lessonId];
     if (copy == null || source != copy.source) return source;
     // Historical catalogue availability is distinct from release access.
-    final body = _tr ? copy.turkish : copy.source;
-    if (motionPaidCameraLaunchEnabled) return body;
-    final ending = _tr ? copy.turkishEnding : copy.sourceEnding;
-    return body.substring(0, body.length - ending.length) +
-        _text(
-          'This describes the measurement contract; live camera sessions are unavailable in this release.',
-          'Bu açıklama ölçüm sözleşmesini anlatır; bu sürümde canlı kamera oturumları kullanılamıyor.',
-        );
+    if (motionPaidCameraLaunchEnabled) return _text(copy.source, copy.turkish);
+    final prefix = _text(
+      copy.closedSource,
+      copy.turkish.substring(
+        0,
+        copy.turkish.length - copy.turkishEnding.length,
+      ),
+    ).trimRight();
+    final boundary = _text(
+      'This describes the measurement contract; live camera sessions are unavailable in this release.',
+      'Bu açıklama ölçüm sözleşmesini anlatır; bu sürümde canlı kamera oturumları kullanılamıyor.',
+    );
+    return '$prefix $boundary';
   }
 }
 
 typedef _LockedCopy = ({
   String source,
+  String closedSource,
   String sourceEnding,
   String turkish,
   String turkishEnding,
@@ -157,6 +219,8 @@ const Map<String, _LockedCopy> _lockedReasons = {
     source:
         "We can see your depth and lean, but we can't grade them. Our instructor reference is attested (5 instructors, 25 takes) — hip and thigh tolerances come from their measured spread, but knee, shin and torso still sit at our default floor. A depth or lean judgement would come from that default, not from real instructors, so we won't score you against it. Rep counting is unaffected and stays open.",
     sourceEnding: 'Rep counting is unaffected and stays open.',
+    closedSource:
+        "We can see your depth and lean, but we can't grade them. Our instructor reference is attested (5 instructors, 25 takes) — hip and thigh tolerances come from their measured spread, but knee, shin and torso still sit at our default floor. A depth or lean judgement would come from that default, not from real instructors, so we won't score you against it. ",
     turkish:
         'Derinliği ve eğimi görebiliriz, ancak bunlara puan veremeyiz. Eğitmen referansımızın kaynağı doğrulanmış olsa da (5 eğitmen, 25 çekim), yalnız kalça ve uyluk toleransları ölçülen dağılımdan geliyor; diz, kaval ve gövde toleransları hâlâ varsayılan alt sınırımızda. Derinlik veya eğim hükmü gerçek eğitmenlerden değil, bu varsayımdan geleceği için buna göre puan vermeyiz. Tekrar sayımı etkilenmez ve açık kalır.',
     turkishEnding: 'Tekrar sayımı etkilenmez ve açık kalır.',
@@ -165,6 +229,8 @@ const Map<String, _LockedCopy> _lockedReasons = {
     source:
         "We can see your body line, but we can't grade it. Our instructor reference is attested (5 instructors, 36 takes) — but not one of the nine joint tolerances came out of the instructors' measured disagreement; every one still sits at our default floor. A 'good line' number would come from that default, not from real instructors, so we won't score you against it. Rep counting and depth are unaffected and stay open.",
     sourceEnding: 'Rep counting and depth are unaffected and stay open.',
+    closedSource:
+        "We can see your body line, but we can't grade it. Our instructor reference is attested (5 instructors, 36 takes) — but not one of the nine joint tolerances came out of the instructors' measured disagreement; every one still sits at our default floor. A 'good line' number would come from that default, not from real instructors, so we won't score you against it. ",
     turkish:
         'Gövde çizgisini görebiliriz, ancak buna puan veremeyiz. Eğitmen referansımızın kaynağı doğrulanmış olsa da (5 eğitmen, 36 çekim), dokuz eklem toleransının hiçbiri eğitmenler arasındaki ölçülmüş farktan türetilmedi; hepsi hâlâ varsayılan alt sınırımızda. İyi bir gövde çizgisi puanı gerçek eğitmenlerden değil, bu varsayımdan geleceği için buna göre puan vermeyiz. Tekrar sayımı ve derinlik etkilenmez ve açık kalır.',
     turkishEnding: 'Tekrar sayımı ve derinlik etkilenmez ve açık kalır.',

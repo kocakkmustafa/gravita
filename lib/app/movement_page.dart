@@ -145,15 +145,17 @@ class _MovementPageState extends State<MovementPage> {
                     : null,
                 icon: const Icon(Icons.videocam_outlined),
                 label: Text(
-                  localized(
-                    context,
-                    motionPaidCameraLaunchEnabled
-                        ? LibraryStrings.startSession
-                        : LibraryStrings.cameraUnavailable,
-                    motionPaidCameraLaunchEnabled
-                        ? 'Seansı başlat'
-                        : 'Kamera kapalı',
-                  ),
+                  motionPaidCameraLaunchEnabled
+                      ? localized(
+                          context,
+                          LibraryStrings.startSession,
+                          'Seansı başlat',
+                        )
+                      : localized(
+                          context,
+                          LibraryStrings.cameraUnavailable,
+                          'Kamera kapalı',
+                        ),
                 ),
               ),
             ),
@@ -203,19 +205,19 @@ class _MovementPageState extends State<MovementPage> {
         children: <Widget>[
           GravitaPill(
             label: m.isLive
-                ? localized(
-                    context,
-                    LibraryStrings.openBadge,
-                    motionPaidCameraLaunchEnabled ? 'AÇIK' : 'KAMERA KAPALI',
-                  )
+                ? motionPaidCameraLaunchEnabled
+                      ? localized(context, 'OPEN', 'AÇIK')
+                      : localized(context, 'CAMERA CLOSED', 'KAMERA KAPALI')
                 : localized(context, LibraryStrings.queuedBadge, 'KAPALI'),
-            tone: m.isLive ? GravitaColors.accent : GravitaColors.textSecondary,
+            tone: m.isLive
+                ? GravitaColors.of(context).accent
+                : GravitaColors.of(context).textSecondary,
             filled: m.isLive,
           ),
           if (m.classBadge != null)
             GravitaPill(
               label: movementClassBadge(context, m.classBadge!),
-              tone: GravitaColors.textSecondary,
+              tone: GravitaColors.of(context).textSecondary,
               filled: false,
             ),
         ],
@@ -223,14 +225,19 @@ class _MovementPageState extends State<MovementPage> {
       const SizedBox(height: 12),
       Text(
         movementMetaLine(context, m),
-        style: GravitaType.mono(size: 11, color: GravitaColors.textSecondary),
+        style: GravitaType.mono(
+          context: context,
+          size: 11,
+          color: GravitaColors.of(context).textSecondary,
+        ),
       ),
       const SizedBox(height: 12),
       Text(
         movementBlurb(context, m),
         style: GravitaType.body(
+          context: context,
           size: 14.5,
-          color: GravitaColors.inkMuted,
+          color: GravitaColors.of(context).inkMuted,
           height: 1.6,
         ),
       ),
@@ -241,8 +248,9 @@ class _MovementPageState extends State<MovementPage> {
         Text(
           movementClassExplanation(context, m.movementClass),
           style: GravitaType.body(
+            context: context,
             size: 12.5,
-            color: GravitaColors.textSecondary,
+            color: GravitaColors.of(context).textSecondary,
             height: 1.5,
           ),
         ),
@@ -258,11 +266,7 @@ class _MovementPageState extends State<MovementPage> {
   /// bloku hâline gelir ve bu metin kendiliğinden düşer.
   Widget _howTo(MovementEntry m) => SurfaceSection(
     key: MovementPage.howToKey,
-    title: localized(
-      context,
-      LibraryStrings.howToTitle.toUpperCase(),
-      'NASIL YAPILIR',
-    ),
+    title: localizedUpper(context, LibraryStrings.howToTitle, 'NASIL YAPILIR'),
     children: <Widget>[
       NoteCard(
         icon: Icons.videocam_off_outlined,
@@ -279,8 +283,12 @@ class _MovementPageState extends State<MovementPage> {
               )
             : localized(
                 context,
-                LibraryStrings.howToReferenceNotDrawable(m.referenceSources),
-                'Bu hareket için ${m.referenceSources} eğitmenden görüntü var. Ancak bunlardan izlenebilir bir gösterim hazırlanmadı; türetilen şey ölçüm, oynatılabilir bir hareket dizisi değil.',
+                'We have footage from {instructors} instructors for this movement, but we '
+                    'have not built a demonstration you can watch from it — what we derived '
+                    'was measurement, not a sequence to play back. We would rather show you '
+                    'nothing than draw a figure we made up.',
+                'Bu hareket için {instructors} eğitmenden görüntü var. Ancak bunlardan izlenebilir bir gösterim hazırlanmadı; türetilen şey ölçüm, oynatılabilir bir hareket dizisi değil.',
+                values: <String, Object>{'instructors': m.referenceSources},
               ),
       ),
     ],
@@ -291,23 +299,26 @@ class _MovementPageState extends State<MovementPage> {
   Widget _learningGuide(MovementEntry movement) {
     final course = widget.content.calisthenicsCourse;
     final guide = course.guideFor(movement.id)!;
-    final (en, tr) = switch (guide.kind) {
-      MovementGuideKind.practice => (
+    final title = switch (guide.kind) {
+      MovementGuideKind.practice => localized(
+        context,
         'Related practice · self-report',
         'İlgili pratik · öz bildirim',
       ),
-      MovementGuideKind.preparation => (
+      MovementGuideKind.preparation => localized(
+        context,
         'Preparation variants · self-report',
         'Hazırlık varyasyonları · öz bildirim',
       ),
-      MovementGuideKind.readingOnly => (
+      MovementGuideKind.readingOnly => localized(
+        context,
         'Reading pathway · no physical task',
         'Bilgi yolu · fiziksel görev yok',
       ),
     };
     return SurfaceSection(
       key: MovementPage.learningGuideKey,
-      title: localized(context, en, tr),
+      title: title,
       children: [
         Text(
           localized(
@@ -315,7 +326,11 @@ class _MovementPageState extends State<MovementPage> {
             'Read the prerequisites and adaptations first. Learning records do not validate technique or open camera coaching.',
             'Önce önkoşulları ve uyarlamaları oku. Öğrenme kaydı teknik doğrulamaz veya kamera koçluğunu açmaz.',
           ),
-          style: GravitaType.body(size: 13, color: GravitaColors.textSecondary),
+          style: GravitaType.body(
+            context: context,
+            size: 13,
+            color: GravitaColors.of(context).textSecondary,
+          ),
         ),
         for (final id in guide.lessonIds)
           TextButton.icon(
@@ -375,13 +390,17 @@ class _MovementPageState extends State<MovementPage> {
 
   Widget _honestyBox(MovementEntry m) => SurfaceSection(
     key: MovementPage.honestyKey,
-    title: localized(
-      context,
-      LibraryStrings.honestyTitle.toUpperCase(),
-      motionPaidCameraLaunchEnabled
-          ? 'NEYİ ÖLÇÜYORUZ, NEYİ ÖLÇMÜYORUZ'
-          : 'ÖLÇÜM KATALOĞU VE SINIRLAR',
-    ),
+    title: motionPaidCameraLaunchEnabled
+        ? localizedUpper(
+            context,
+            'What we measure — and what we do not',
+            'NEYİ ÖLÇÜYORUZ, NEYİ ÖLÇMÜYORUZ',
+          )
+        : localizedUpper(
+            context,
+            'Measurement catalogue and limits',
+            'ÖLÇÜM KATALOĞU VE SINIRLAR',
+          ),
     children: <Widget>[
       GravitaCard(
         sealed: true,
@@ -391,11 +410,13 @@ class _MovementPageState extends State<MovementPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _honestyHeading(
-              localized(
-                context,
-                LibraryStrings.honestyMeasuredLabel,
-                motionPaidCameraLaunchEnabled ? 'Ölçülen' : 'Katalog ölçümleri',
-              ),
+              motionPaidCameraLaunchEnabled
+                  ? localizedUpper(context, 'Measured', 'Ölçülenler')
+                  : localizedUpper(
+                      context,
+                      'Configured measurements',
+                      'Katalog ölçümleri',
+                    ),
             ),
             const SizedBox(height: 10),
             if (m.honesty.measuresNothing)
@@ -408,8 +429,9 @@ class _MovementPageState extends State<MovementPage> {
                   'Hiçbir şey. Bu hareket için eksik olan ölçümler ve nedenleri aşağıda listelenir.',
                 ),
                 style: GravitaType.body(
+                  context: context,
                   size: 13.5,
-                  color: GravitaColors.honestyText,
+                  color: GravitaColors.of(context).honestyText,
                   height: 1.55,
                 ),
               )
@@ -418,8 +440,8 @@ class _MovementPageState extends State<MovementPage> {
                 items: m.honesty.measured
                     .map((source) => _honestyCopy(m, source))
                     .toList(growable: false),
-                color: GravitaColors.honestyText,
-                bulletColor: GravitaColors.honestySeal,
+                color: GravitaColors.of(context).honestyText,
+                bulletColor: GravitaColors.of(context).honestySeal,
               ),
             // ⭐ Ayrım, `measured` listesinin HEMEN ALTINDA duruyor —
             // "not measured" başlığından ÖNCE. Aşağı atmak onu ikinci
@@ -439,14 +461,17 @@ class _MovementPageState extends State<MovementPage> {
                   // herhangi bir ikincil tonu eşik altına düşürüyorsa,
                   // o zemin bir TUZAKTIR ve ilk yeniden düzenlemede
                   // ısırır. Zemin düzeltildi, ton değil.
-                  color: GravitaColors.honestySeal.withValues(alpha: 0.05),
+                  color: GravitaColors.of(
+                    context,
+                  ).honestySeal.withValues(alpha: 0.05),
                 ),
                 child: Text(
                   _honestyCopy(m, m.honesty.scoring!),
                   key: MovementPage.scoringKey,
                   style: GravitaType.body(
+                    context: context,
                     size: 12.5,
-                    color: GravitaColors.honestyText,
+                    color: GravitaColors.of(context).honestyText,
                     height: 1.55,
                   ),
                 ),
@@ -460,7 +485,7 @@ class _MovementPageState extends State<MovementPage> {
             if (m.honesty.waitingOnMeasurement.isNotEmpty) ...<Widget>[
               const SizedBox(height: 20),
               _honestyHeading(
-                localized(
+                localizedUpper(
                   context,
                   LibraryStrings.honestyWaitingLabel,
                   'Ölçüm eksik',
@@ -471,14 +496,14 @@ class _MovementPageState extends State<MovementPage> {
                 items: m.honesty.waitingOnMeasurement
                     .map((source) => waitingMeasurementCopy(context, m, source))
                     .toList(growable: false),
-                color: GravitaColors.honestyText,
-                bulletColor: GravitaColors.honestySeal,
+                color: GravitaColors.of(context).honestyText,
+                bulletColor: GravitaColors.of(context).honestySeal,
               ),
             ],
             if (m.honesty.notMeasured.isNotEmpty) ...<Widget>[
               const SizedBox(height: 20),
               _honestyHeading(
-                localized(
+                localizedUpper(
                   context,
                   LibraryStrings.honestyNotMeasuredLabel,
                   'Tek kamera bunu göremez',
@@ -499,8 +524,8 @@ class _MovementPageState extends State<MovementPage> {
                           : translated;
                     })
                     .toList(growable: false),
-                color: GravitaColors.honestyText,
-                bulletColor: GravitaColors.honestySeal,
+                color: GravitaColors.of(context).honestyText,
+                bulletColor: GravitaColors.of(context).honestySeal,
               ),
             ],
           ],
@@ -524,10 +549,11 @@ class _MovementPageState extends State<MovementPage> {
   /// bu makinenin google_fonts önbelleğinde duruyordu; w700 durmuyordu ve
   /// tuzak tam orada ateşlenmişti.
   Widget _honestyHeading(String label) => Text(
-    label.toUpperCase(),
+    label,
     style: GravitaType.mono(
+      context: context,
       size: 10.5,
-      color: GravitaColors.honestySeal,
+      color: GravitaColors.of(context).honestySeal,
       weight: FontWeight.w600,
       letterSpacingEm: 0.14,
     ),
@@ -537,11 +563,7 @@ class _MovementPageState extends State<MovementPage> {
 
   Widget _queue(MovementEntry m) => SurfaceSection(
     key: MovementPage.queueKey,
-    title: localized(
-      context,
-      LibraryStrings.queueTitle.toUpperCase(),
-      'EKSİK OLANLAR',
-    ),
+    title: localizedUpper(context, LibraryStrings.queueTitle, 'EKSİK OLANLAR'),
     children: <Widget>[
       GravitaCard(
         child: Column(
@@ -555,8 +577,9 @@ class _MovementPageState extends State<MovementPage> {
                   'Bu açıklamalar ölçüm kataloğuna aittir. Canlı kamera oturumları ve kamera geri bildirimi bu sürümde kullanılamıyor.',
                 ),
                 style: GravitaType.body(
+                  context: context,
                   size: 13,
-                  color: GravitaColors.textSecondary,
+                  color: GravitaColors.of(context).textSecondary,
                 ),
               ),
               const SizedBox(height: 12),
@@ -572,7 +595,7 @@ class _MovementPageState extends State<MovementPage> {
                     ),
                   )
                   .toList(growable: false),
-              color: GravitaColors.inkMuted,
+              color: GravitaColors.of(context).inkMuted,
             ),
           ],
         ),
@@ -591,29 +614,16 @@ class _MovementPageState extends State<MovementPage> {
       }
       return SurfaceSection(
         key: MovementPage.formErrorsKey,
-        title: localized(
+        title: localizedUpper(
           context,
-          LibraryStrings.formErrorsTitle.toUpperCase(),
+          LibraryStrings.formErrorsTitle,
           'KURALLAR NEYİ İZLER',
         ),
         // ⚠️ Cümle harekete göre değişir: kural SAYISI verilerden gelir ve
         // "koşmuyor" beyanı hareketin CANLI olup olmamasına bağlı.
         // Kuralların varlığını "çalışıyor" gibi sunmak, bu ürünün en
         // kolay düşeceği yalan olurdu.
-        subtitle: m.isLive
-            ? localized(
-                context,
-                LibraryStrings.formErrorsBodyLive(c.formErrors.length),
-                motionPaidCameraLaunchEnabled
-                    ? '${c.formErrors.length} kural kayıtlı görüntülerde ve canlı çalışmada değerlendirilir; sonuçlar set sırasında gösterilmez.'
-                    : '${c.formErrors.length} kural kayıtlı görüntü tekrarları için yapılandırılmıştır. '
-                          'Canlı kamera seansları bu sürümde kullanılamıyor; kamera geri bildirimi veya form puanı sunulmaz.',
-              )
-            : localized(
-                context,
-                LibraryStrings.formErrorsBody(c.formErrors.length),
-                '${c.formErrors.length} kural yazılıdır; şu anda çalışmaz.',
-              ),
+        subtitle: _formErrorsDescription(m, c.formErrors.length),
         children: c.formErrors
             .map(
               (FormError e) => GravitaCard(
@@ -633,6 +643,7 @@ class _MovementPageState extends State<MovementPage> {
                         e.label,
                       ),
                       style: GravitaType.display(
+                        context: context,
                         size: 14.5,
                         weight: FontWeight.w500,
                       ),
@@ -649,8 +660,9 @@ class _MovementPageState extends State<MovementPage> {
                         e.cue,
                       ),
                       style: GravitaType.body(
+                        context: context,
                         size: 13,
-                        color: GravitaColors.textSecondary,
+                        color: GravitaColors.of(context).textSecondary,
                         height: 1.5,
                       ),
                     ),
@@ -665,11 +677,97 @@ class _MovementPageState extends State<MovementPage> {
 
   // ── 6. Kurslar ─────────────────────────────────────────────────────────
 
+  String _formErrorsDescription(MovementEntry movement, int count) {
+    if (!movement.isLive) {
+      return count == 1
+          ? localized(
+              context,
+              '{count} rule is written for this movement. It does not run.',
+              '{count} kural yazılıdır; şu anda çalışmaz.',
+              values: <String, Object>{'count': count},
+            )
+          : localized(
+              context,
+              '{count} rules are written for this movement. They do not run.',
+              '{count} kural yazılıdır; şu anda çalışmaz.',
+              values: <String, Object>{'count': count},
+            );
+    }
+    if (!motionPaidCameraLaunchEnabled) {
+      return localized(
+        context,
+        '{count} rules are configured for replay of recorded footage. '
+            'Live camera sessions are unavailable in this release; '
+            'no camera feedback or form score is delivered.',
+        '{count} kural kayıtlı görüntü tekrarları için yapılandırılmıştır. '
+            'Canlı kamera seansları bu sürümde kullanılamıyor; kamera geri bildirimi veya form puanı sunulmaz.',
+        values: <String, Object>{'count': count},
+      );
+    }
+    return count == 1
+        ? localized(
+            context,
+            '{count} rule is written for this movement. It fires on recorded '
+                'footage and is checked live while you train, but the result is '
+                'not shown to you mid-set.',
+            '{count} kural kayıtlı görüntülerde ve canlı çalışmada değerlendirilir; sonuçlar set sırasında gösterilmez.',
+            values: <String, Object>{'count': count},
+          )
+        : localized(
+            context,
+            '{count} rules are written for this movement. They fire on recorded '
+                'footage and are checked live while you train, but the results '
+                'are not shown to you mid-set.',
+            '{count} kural kayıtlı görüntülerde ve canlı çalışmada değerlendirilir; sonuçlar set sırasında gösterilmez.',
+            values: <String, Object>{'count': count},
+          );
+  }
+
+  String _courseCountText(MovementEntry movement) =>
+      switch ((movement.courseCount == 1, movement.lessonCount == 1)) {
+        (true, true) => localized(
+          context,
+          '{courses} course · {lessons} lesson',
+          '{courses} kurs · {lessons} ders',
+          values: <String, Object>{
+            'courses': movement.courseCount,
+            'lessons': movement.lessonCount,
+          },
+        ),
+        (true, false) => localized(
+          context,
+          '{courses} course · {lessons} lessons',
+          '{courses} kurs · {lessons} ders',
+          values: <String, Object>{
+            'courses': movement.courseCount,
+            'lessons': movement.lessonCount,
+          },
+        ),
+        (false, true) => localized(
+          context,
+          '{courses} courses · {lessons} lesson',
+          '{courses} kurs · {lessons} ders',
+          values: <String, Object>{
+            'courses': movement.courseCount,
+            'lessons': movement.lessonCount,
+          },
+        ),
+        (false, false) => localized(
+          context,
+          '{courses} courses · {lessons} lessons',
+          '{courses} kurs · {lessons} ders',
+          values: <String, Object>{
+            'courses': movement.courseCount,
+            'lessons': movement.lessonCount,
+          },
+        ),
+      };
+
   Widget _courses(MovementEntry m) => SurfaceSection(
     key: MovementPage.coursesKey,
-    title: localized(
+    title: localizedUpper(
       context,
-      LibraryStrings.coursesTitle.toUpperCase(),
+      LibraryStrings.coursesTitle,
       'KAMERA DERSİ KATALOĞU',
     ),
     children: <Widget>[
@@ -685,12 +783,12 @@ class _MovementPageState extends State<MovementPage> {
       else
         GravitaCard(
           child: Text(
-            localized(
-              context,
-              LibraryStrings.coursesCount(m.courseCount, m.lessonCount),
-              '${m.courseCount} kurs · ${m.lessonCount} ders',
+            _courseCountText(m),
+            style: GravitaType.mono(
+              context: context,
+              size: 12,
+              color: GravitaColors.of(context).ink,
             ),
-            style: GravitaType.mono(size: 12, color: GravitaColors.ink),
           ),
         ),
     ],
@@ -703,9 +801,9 @@ class _MovementPageState extends State<MovementPage> {
     if (future == null) {
       return SurfaceSection(
         key: MovementPage.trendKey,
-        title: localized(
+        title: localizedUpper(
           context,
-          'YOUR HISTORY WITH THIS MOVEMENT',
+          LibraryStrings.trendTitle,
           'BU HAREKETTE GEÇMİŞİN',
         ),
         children: <Widget>[
@@ -727,9 +825,9 @@ class _MovementPageState extends State<MovementPage> {
         if (t == null) return const SizedBox(height: 24);
         return SurfaceSection(
           key: MovementPage.trendKey,
-          title: localized(
+          title: localizedUpper(
             context,
-            LibraryStrings.trendTitle.toUpperCase(),
+            LibraryStrings.trendTitle,
             'BU HAREKETTE GEÇMİŞİN',
           ),
           children: <Widget>[
@@ -764,7 +862,11 @@ class _MovementPageState extends State<MovementPage> {
                     ),
                     t.records.first.unitLabel,
                   ),
-                  style: GravitaType.mono(size: 12, color: GravitaColors.ink),
+                  style: GravitaType.mono(
+                    context: context,
+                    size: 12,
+                    color: GravitaColors.of(context).ink,
+                  ),
                 ),
               ),
           ],
@@ -779,9 +881,9 @@ class _MovementPageState extends State<MovementPage> {
   /// güvenlik uyarısı, güvenlik uyarısı değildir.
   Widget _safety(MovementEntry m) => SurfaceSection(
     key: MovementPage.safetyKey,
-    title: localized(
+    title: localizedUpper(
       context,
-      LibraryStrings.safetyTitle.toUpperCase(),
+      LibraryStrings.safetyTitle,
       'BAŞLAMADAN ÖNCE',
     ),
     children: <Widget>[
@@ -791,8 +893,8 @@ class _MovementPageState extends State<MovementPage> {
           items: m.safetyWarnings
               .map((warning) => safetyWarning(context, warning))
               .toList(growable: false),
-          color: GravitaColors.honestyText,
-          bulletColor: GravitaColors.honestySeal,
+          color: GravitaColors.of(context).honestyText,
+          bulletColor: GravitaColors.of(context).honestySeal,
         ),
       ),
     ],
@@ -813,10 +915,13 @@ class _MovementPageState extends State<MovementPage> {
       text: switch (tree) {
         final SkillTree t => localized(
           context,
-          LibraryStrings.skillTreeIn(t.displayName),
-          'Bu hareket, taslak ${skillTreeName(context, t)} gelişim yolunun bir adımı. '
-          'Açılma ölçütleri hareket bilimi incelemesinden geçmediği '
-          'için bu yolu çizim olarak göstermiyoruz.',
+          'This movement is one step in our drafted {tree} progression. We are '
+              'not drawing that progression: its unlock criteria have not been '
+              'through a movement-science review.',
+          'Bu hareket, taslak {tree} gelişim yolunun bir adımı. '
+              'Açılma ölçütleri hareket bilimi incelemesinden geçmediği '
+              'için bu yolu çizim olarak göstermiyoruz.',
+          values: <String, Object>{'tree': skillTreeName(context, t)},
         ),
         null => localized(
           context,
@@ -828,9 +933,9 @@ class _MovementPageState extends State<MovementPage> {
     );
     return SurfaceSection(
       key: MovementPage.skillTreeKey,
-      title: localized(
+      title: localizedUpper(
         context,
-        LibraryStrings.skillTreeLinkTitle.toUpperCase(),
+        LibraryStrings.skillTreeLinkTitle,
         'BİR GELİŞİM YOLUNUN PARÇASI',
       ),
       children: <Widget>[

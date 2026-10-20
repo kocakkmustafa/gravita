@@ -5,9 +5,6 @@ import 'camera_release_policy.dart';
 import 'library_model.dart';
 import 'library_strings.dart';
 
-bool _isTurkish(BuildContext context) =>
-    Localizations.localeOf(context).languageCode == 'tr';
-
 /// Display copy is guarded by the shipped English source. A changed source
 /// remains visible in English until its meaning is reviewed again.
 String movementBlurb(BuildContext context, MovementEntry movement) {
@@ -22,11 +19,10 @@ String movementBlurb(BuildContext context, MovementEntry movement) {
       'pratik bildirimini kaydeder.',
     );
   }
-  if (!_isTurkish(context)) return movement.blurb;
   if (movement.isLive) {
     final copy = _liveBlurbs[movement.id];
     return copy != null && movement.blurb == copy.english
-        ? copy.turkish
+        ? localized(context, copy.english, copy.turkish)
         : movement.blurb;
   }
   final expected =
@@ -34,9 +30,15 @@ String movementBlurb(BuildContext context, MovementEntry movement) {
       '${movement.blockedBy.length} measurements are missing before we would '
       'coach it — named below, in plain terms.';
   if (movement.blurb != expected) return movement.blurb;
-  return '${catalogName(context, movement.id, movement.displayName)} katalogda '
-      'yer alıyor ancak kullanıma kapalı. ${movement.blockedBy.length} ölçüm '
-      'eksik; adları ve gerekçeleri aşağıda.';
+  return localized(
+    context,
+    '{movement} is in our catalogue and closed. {count} measurements are missing before we would coach it — named below, in plain terms.',
+    '{movement} katalogda yer alıyor ancak kullanıma kapalı. {count} ölçüm eksik; adları ve gerekçeleri aşağıda.',
+    values: <String, Object>{
+      'movement': catalogName(context, movement.id, movement.displayName),
+      'count': movement.blockedBy.length,
+    },
+  );
 }
 
 typedef _LiveBlurb = ({String english, String turkish});
@@ -69,16 +71,15 @@ const Map<String, _LiveBlurb> _liveBlurbs = <String, _LiveBlurb>{
 /// measurement contract changes, its revised English copy stays visible
 /// until the translation is reviewed against that new contract.
 String liveHonestyCopy(BuildContext context, String movementId, String source) {
-  if (!_isTurkish(context)) return source;
-  return _liveHonestyCopy[movementId]?[source] ?? source;
+  final turkish = _liveHonestyCopy[movementId]?[source];
+  return turkish == null ? source : localized(context, source, turkish);
 }
 
 /// Measurement limits only. These exact-source translations do not add a
 /// technique cue, a measurement or permission to practise a closed movement.
 String catalogEvidenceCopy(BuildContext context, String source) {
-  if (!_isTurkish(context)) return source;
   final common = _catalogEvidenceCopy[source];
-  if (common != null) return common;
+  if (common != null) return localized(context, source, common);
   for (var n = 1; n <= 4; n++) {
     final expected =
         'Its $n error ${n == 1 ? 'rule' : 'rules'} have never been '
@@ -86,10 +87,14 @@ String catalogEvidenceCopy(BuildContext context, String source) {
         'movement, so we have no evidence they fire when they should — or '
         'stay quiet when they should.';
     if (source == expected) {
-      return 'Bu hareketin $n hata kuralı gerçek görüntüler üzerinde hiç '
-          'çalıştırılmadı. Gerçek görüntüyle tekrar oynatma testi bulunmuyor; '
-          'kuralların gerektiğinde uyarı verdiğini veya gerekmediğinde sessiz '
-          'kaldığını gösteren kanıtımız yok.';
+      return localized(
+        context,
+        n == 1
+            ? 'Its {count} error rule have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.'
+            : 'Its {count} error rules have never been run against real footage. There is no replay fixture for this movement, so we have no evidence they fire when they should — or stay quiet when they should.',
+        'Bu hareketin {count} hata kuralı gerçek görüntüler üzerinde hiç çalıştırılmadı. Gerçek görüntüyle tekrar oynatma testi bulunmuyor; kuralların gerektiğinde uyarı verdiğini veya gerekmediğinde sessiz kaldığını gösteren kanıtımız yok.',
+        values: <String, Object>{'count': n},
+      );
     }
   }
   return source;
@@ -100,7 +105,6 @@ String waitingMeasurementCopy(
   MovementEntry m,
   String source,
 ) {
-  if (!_isTurkish(context)) return source;
   final common = catalogEvidenceCopy(context, source);
   if (common != source) return common;
   final name = m.displayName.toLowerCase();
@@ -115,10 +119,29 @@ String waitingMeasurementCopy(
         '${n == 1 ? 'thing is' : 'things are'} still missing before we would '
         'run them — and each one alone is enough for us to keep this closed.';
     if (source == expected) {
-      return 'Burada hiçbir şey ölçülmüyor. $translatedName için '
-          '${written ? 'kurallar yazılmış olsa da' : 'henüz kural yazılmadı ve'} '
-          'kuralları çalıştırabilmemiz için $n eksik var. Her biri tek başına '
-          'bu ölçümü kapalı tutmamız için yeterli.';
+      return localized(
+        context,
+        written
+            ? (n == 1
+                  ? 'Nothing is measured here. The rules for the {sourceName} are written, but {count} thing is still missing before we would run them — and each one alone is enough for us to keep this closed.'
+                  : 'Nothing is measured here. The rules for the {sourceName} are written, but {count} things are still missing before we would run them — and each one alone is enough for us to keep this closed.')
+            : (n == 1
+                  ? 'Nothing is measured here. No rules have been written for the {sourceName} at all, and {count} thing is still missing before we would run them — and each one alone is enough for us to keep this closed.'
+                  : 'Nothing is measured here. No rules have been written for the {sourceName} at all, and {count} things are still missing before we would run them — and each one alone is enough for us to keep this closed.'),
+        written
+            ? 'Burada hiçbir şey ölçülmüyor. {sourceName} için kurallar yazılmış olsa da kuralları çalıştırabilmemiz için {count} eksik var. Her biri tek başına bu ölçümü kapalı tutmamız için yeterli.'
+            : 'Burada hiçbir şey ölçülmüyor. {sourceName} için henüz kural yazılmadı ve kuralları çalıştırabilmemiz için {count} eksik var. Her biri tek başına bu ölçümü kapalı tutmamız için yeterli.',
+        values: <String, Object>{
+          'sourceName':
+              canonicalLocaleTag(
+                    Localizations.localeOf(context).toLanguageTag(),
+                  ) ==
+                  'en'
+              ? name
+              : translatedName,
+          'count': n,
+        },
+      );
     }
   }
   if (source ==
@@ -126,20 +149,40 @@ String waitingMeasurementCopy(
           'we verify your torso is actually horizontal before a rep counts; the '
           'equivalent test for the $name has not been derived from measurement, '
           'so nothing would stop us counting a movement that only looks like one.') {
-    return 'Bu hareketin doğru hareket olduğunu kontrol eden bir ölçüm yok. '
-        'Şınav ölçüm sözleşmesinde tekrar sayılmadan önce gövdenin gerçekten '
-        'yatay olduğu kontrol edilir. $translatedName için karşılık gelen '
-        'kontrol ölçümden türetilmedi; yalnız benzer görünen başka bir '
-        'hareketin sayılmasını engelleyemezdik.';
+    return localized(
+      context,
+      'There is no identity check for this movement. For push-ups we verify your torso is actually horizontal before a rep counts; the equivalent test for the {sourceName} has not been derived from measurement, so nothing would stop us counting a movement that only looks like one.',
+      'Bu hareketin doğru hareket olduğunu kontrol eden bir ölçüm yok. Şınav ölçüm sözleşmesinde tekrar sayılmadan önce gövdenin gerçekten yatay olduğu kontrol edilir. {sourceName} için karşılık gelen kontrol ölçümden türetilmedi; yalnız benzer görünen başka bir hareketin sayılmasını engelleyemezdik.',
+      values: <String, Object>{
+        'sourceName':
+            canonicalLocaleTag(
+                  Localizations.localeOf(context).toLanguageTag(),
+                ) ==
+                'en'
+            ? name
+            : translatedName,
+      },
+    );
   }
   if (source ==
       'We cannot tell when this movement starts. The $name has a '
           'defined start position, but the measurement that recognises it is not '
           'something we produce — so the app would wait forever without ever '
           'saying why. Counting stays closed until that measurement exists.') {
-    return 'Bu hareketin ne zaman başladığını belirleyemiyoruz. $translatedName '
-        'için başlangıç konumu tanımlı, ancak onu tanıyan ölçümü üretmiyoruz; '
-        'uygulama nedenini söylemeden beklerdi. Bu ölçüm sağlanana kadar sayım kapalı kalır.';
+    return localized(
+      context,
+      'We cannot tell when this movement starts. The {sourceName} has a defined start position, but the measurement that recognises it is not something we produce — so the app would wait forever without ever saying why. Counting stays closed until that measurement exists.',
+      'Bu hareketin ne zaman başladığını belirleyemiyoruz. {sourceName} için başlangıç konumu tanımlı, ancak onu tanıyan ölçümü üretmiyoruz; uygulama nedenini söylemeden beklerdi. Bu ölçüm sağlanana kadar sayım kapalı kalır.',
+      values: <String, Object>{
+        'sourceName':
+            canonicalLocaleTag(
+                  Localizations.localeOf(context).toLanguageTag(),
+                ) ==
+                'en'
+            ? name
+            : translatedName,
+      },
+    );
   }
   return source;
 }
@@ -321,20 +364,23 @@ const Map<String, String> _safetyWarnings = <String, String>{
 };
 
 String safetyWarning(BuildContext context, String source) =>
-    _isTurkish(context) ? _safetyWarnings[source] ?? source : source;
+    localized(context, source, _safetyWarnings[source] ?? source);
 
 String exclusionPageTitle(BuildContext context, ExclusionsPage page) =>
-    _isTurkish(context) && page.title == "What's not in Gravita — and why"
-    ? 'Gravita’da neler yok — ve neden'
+    page.title == "What's not in Gravita — and why"
+    ? localized(context, page.title, 'Gravita’da neler yok — ve neden')
     : page.title;
 
 String exclusionPageIntro(BuildContext context, ExclusionsPage page) =>
-    _isTurkish(context) &&
-        page.intro ==
-            "We'd rather do fewer movements properly than list hundreds we can't actually coach. Here's what we left out and the honest reason."
-    ? 'Gerçekte destekleyemediğimiz yüzlerce hareketi listelemek yerine '
-          'kapsamı sınırlı tutuyoruz. Kapsam dışında bıraktıklarımız ve '
-          'gerekçeleri burada.'
+    page.intro ==
+        "We'd rather do fewer movements properly than list hundreds we can't actually coach. Here's what we left out and the honest reason."
+    ? localized(
+        context,
+        page.intro,
+        'Gerçekte destekleyemediğimiz yüzlerce hareketi listelemek yerine '
+        'kapsamı sınırlı tutuyoruz. Kapsam dışında bıraktıklarımız ve '
+        'gerekçeleri burada.',
+      )
     : page.intro;
 
 typedef _ExclusionCopy = ({
@@ -434,8 +480,8 @@ const Map<String, _ExclusionCopy> _exclusionCopy = <String, _ExclusionCopy>{
 
 String exclusionSectionTitle(BuildContext context, ExclusionSection section) {
   final copy = _exclusionCopy[section.id];
-  return _isTurkish(context) && copy?.title == section.title
-      ? copy!.titleTr
+  return copy?.title == section.title
+      ? localized(context, section.title, copy!.titleTr)
       : section.title;
 }
 
@@ -450,8 +496,8 @@ String exclusionSectionReason(BuildContext context, ExclusionSection section) {
     );
   }
   final copy = _exclusionCopy[section.id];
-  return _isTurkish(context) && copy?.reason == section.userReason
-      ? copy!.reasonTr
+  return copy?.reason == section.userReason
+      ? localized(context, section.userReason, copy!.reasonTr)
       : section.userReason;
 }
 
@@ -491,11 +537,11 @@ const Map<String, String> _exclusionExamples = <String, String>{
 };
 
 String exclusionExample(BuildContext context, String source) =>
-    _isTurkish(context) ? _exclusionExamples[source] ?? source : source;
+    localized(context, source, _exclusionExamples[source] ?? source);
 
 String exclusionClassLine(BuildContext context, String? limitClass) {
-  if (!_isTurkish(context)) return LibraryStrings.limitClassLine(limitClass);
-  return switch (limitClass) {
+  final source = LibraryStrings.limitClassLine(limitClass);
+  final turkish = switch (limitClass) {
     null => '',
     'authority' =>
       'Bu, teknolojinin sınırı değil; bilerek çizdiğimiz bir sınır. '
@@ -504,4 +550,5 @@ String exclusionClassLine(BuildContext context, String? limitClass) {
     'capability' => 'Tek telefon kamerası gerekenleri göremez.',
     _ => LibraryStrings.limitClassLine(limitClass),
   };
+  return source.isEmpty ? source : localized(context, source, turkish);
 }

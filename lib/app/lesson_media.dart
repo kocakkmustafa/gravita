@@ -12,6 +12,7 @@ import 'account_store_epoch.dart';
 import 'calisthenics_course.dart';
 import 'flutter_bundle_content_asset_reader.dart';
 import 'gravita_source_projection_pin.dart';
+import 'localization/locale_catalog.dart';
 
 const String _courseAssetPath = GravitaSourceProjectionPin.coursePath;
 const String _productionIndexSha256 =
@@ -775,11 +776,12 @@ class _LessonMediaSlotState extends State<LessonMediaSlot>
         _nativePlaybackUnconfirmed) {
       return const SizedBox.shrink();
     }
-    final isTurkish = widget.locale == 'tr';
     return Semantics(
-      label: isTurkish
-          ? 'Paketli ders gösterimi'
-          : 'Packaged lesson demonstration',
+      label: resolveLocalized(
+        widget.locale,
+        'Packaged lesson demonstration',
+        turkish: 'Paketli ders gösterimi',
+      ),
       child: Column(
         children: <Widget>[
           AspectRatio(
@@ -844,9 +846,13 @@ class _LessonMediaSlotState extends State<LessonMediaSlot>
               controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
             ),
             label: Text(
-              isTurkish
-                  ? (controller.value.isPlaying ? 'Duraklat' : 'Oynat')
-                  : (controller.value.isPlaying ? 'Pause' : 'Play'),
+              controller.value.isPlaying
+                  ? resolveLocalized(
+                      widget.locale,
+                      'Pause',
+                      turkish: 'Duraklat',
+                    )
+                  : resolveLocalized(widget.locale, 'Play', turkish: 'Oynat'),
             ),
           ),
         ],

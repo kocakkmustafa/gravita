@@ -164,21 +164,23 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
                   'programlar ve ilerlemeleri değiştirilmeden korunur.',
             ),
             style: GravitaType.body(
+              context: context,
               size: 13.5,
-              color: GravitaColors.textSecondary,
+              color: GravitaColors.of(context).textSecondary,
               height: 1.5,
             ),
           ),
           const SizedBox(height: 28),
           Text(
-            localized(
+            localizedUpper(
               context,
-              LibraryStrings.programExperienceLabel.toUpperCase(),
+              LibraryStrings.programExperienceLabel,
               'DENEYİM',
             ),
             style: GravitaType.mono(
+              context: context,
               size: 11,
-              color: GravitaColors.textSecondary,
+              color: GravitaColors.of(context).textSecondary,
               weight: FontWeight.w600,
               letterSpacingEm: 0.12,
             ),
@@ -206,21 +208,24 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
                   // ignore: deprecated_member_use
                   groupValue: _experience,
                   // ignore: deprecated_member_use
-                  onChanged: (ExperienceLevel? v) =>
-                      setState(() => _experience = v ?? _experience),
+                  onChanged: _saving
+                      ? null
+                      : (ExperienceLevel? v) =>
+                            setState(() => _experience = v ?? _experience),
                 ),
             ],
           ),
           const SizedBox(height: 24),
           Text(
-            localized(
+            localizedUpper(
               context,
-              LibraryStrings.programEquipmentLabel.toUpperCase(),
+              LibraryStrings.programEquipmentLabel,
               'EKİPMANLARIN — YALNIZ VÜCUT AĞIRLIĞI İÇİN HEPSİNİ BOŞ BIRAK',
             ),
             style: GravitaType.mono(
+              context: context,
               size: 11,
-              color: GravitaColors.textSecondary,
+              color: GravitaColors.of(context).textSecondary,
               weight: FontWeight.w600,
               letterSpacingEm: 0.12,
             ),
@@ -235,26 +240,29 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
                 FilterChip(
                   label: Text(equipmentDisplayName(context, eq)),
                   selected: _equipment.contains(eq),
-                  onSelected: (bool sel) => setState(() {
-                    if (sel) {
-                      _equipment.add(eq);
-                    } else {
-                      _equipment.remove(eq);
-                    }
-                  }),
+                  onSelected: _saving
+                      ? null
+                      : (bool sel) => setState(() {
+                          if (sel) {
+                            _equipment.add(eq);
+                          } else {
+                            _equipment.remove(eq);
+                          }
+                        }),
                 ),
             ],
           ),
           const SizedBox(height: 24),
           Text(
-            localized(
+            localizedUpper(
               context,
-              LibraryStrings.programDaysPerWeekLabel.toUpperCase(),
+              LibraryStrings.programDaysPerWeekLabel,
               'HAFTALIK GÜN SAYISI',
             ),
             style: GravitaType.mono(
+              context: context,
               size: 11,
-              color: GravitaColors.textSecondary,
+              color: GravitaColors.of(context).textSecondary,
               weight: FontWeight.w600,
               letterSpacingEm: 0.12,
             ),
@@ -264,17 +272,34 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
             children: <Widget>[
               IconButton(
                 icon: const Icon(Icons.remove_circle_outline),
-                onPressed: _daysPerWeek > 2
+                tooltip: localized(
+                  context,
+                  'Fewer days per week',
+                  'Haftalık gün sayısını azalt',
+                ),
+                onPressed: !_saving && _daysPerWeek > 2
                     ? () => setState(() => _daysPerWeek--)
                     : null,
               ),
               Text(
-                '$_daysPerWeek',
-                style: GravitaType.display(size: 20, weight: FontWeight.w500),
+                formatLocaleNumber(
+                  _daysPerWeek,
+                  Localizations.localeOf(context).toLanguageTag(),
+                ),
+                style: GravitaType.display(
+                  context: context,
+                  size: 20,
+                  weight: FontWeight.w500,
+                ),
               ),
               IconButton(
                 icon: const Icon(Icons.add_circle_outline),
-                onPressed: _daysPerWeek < 6
+                tooltip: localized(
+                  context,
+                  'More days per week',
+                  'Haftalık gün sayısını artır',
+                ),
+                onPressed: !_saving && _daysPerWeek < 6
                     ? () => setState(() => _daysPerWeek++)
                     : null,
               ),
@@ -287,8 +312,8 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
               key: ProgramSetupScreen.buildButtonKey,
               onPressed: _saving ? null : _build,
               style: FilledButton.styleFrom(
-                backgroundColor: GravitaColors.accent,
-                foregroundColor: Colors.white,
+                backgroundColor: GravitaColors.of(context).accent,
+                foregroundColor: GravitaColors.of(context).onAccent,
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14),

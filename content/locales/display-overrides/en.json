@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "localeTag": "en",
+  "messages": {
+    "g_053d7c4896da": "Stop for elbow or shoulder pain, or if you cannot lower smoothly.",
+    "g_056926ff7cf6": "Stop if you have sharp pain, tingling or symptoms that persist after unloading.",
+    "g_05a4e4ffb450": "Stop if you feel shoulder pinching or neck strain.",
+    "g_466c477d6020": "Its {count} error rule has never been run against real footage. There is no replay fixture for this movement, so we have no evidence that it fires when it should — or stays quiet when it should.",
+    "g_f7090ef702c1": "Still counted, not graded: {sessions}. We opened grading later, and we don't grade sessions we didn't measure at the time."
+  }
+}

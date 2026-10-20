@@ -101,80 +101,96 @@ void main() {
     },
   );
 
-  group('HAPPY PATH — G-218\'in belirsiz bıraktığı gözlem (2026-08-16, A1)', () {
-    testWidgets('fresh guest can skip camera, persist onboarding and open '
-        'the course without any permission calls', (tester) async {
-      const channel = MethodChannel('flutter.baseflow.com/permissions/methods');
-      final calls = <MethodCall>[];
-      final messenger = tester.binding.defaultBinaryMessenger;
-      messenger.setMockMethodCallHandler(channel, (call) async {
-        calls.add(call);
-        throw StateError('The guest course path must not request permission');
-      });
-      addTearDown(() => messenger.setMockMethodCallHandler(channel, null));
-      await bootGravitaRoot(
-        tester,
-        supportPath: tmp.path,
-        restoreTo: defaultProvider,
-        size: const Size(390, 844),
-      );
-      await tester.tap(find.byKey(OnboardingFlow.valueContinueKey));
-      await tester.pump();
-      await tester.tap(find.byKey(OnboardingFlow.safetyConsentKey));
-      await tester.pump();
-      expect(find.byKey(OnboardingFlow.cameraDeniedKey), findsNothing);
-      expect(find.byKey(OnboardingFlow.cameraAllowKey), findsOneWidget);
-      final skip = find.byKey(OnboardingFlow.cameraContinueWithoutKey);
-      expect(skip.hitTestable(), findsOneWidget);
-
-      PathProviderPlatform.instance = FakeSupportDir(tmp.path);
-      await tester.tap(skip);
-      await settleUntil(
-        tester,
-        () => find.byType(GravitaShell).evaluate().isNotEmpty,
-      );
-      expect(find.byType(GravitaShell), findsOneWidget);
-      expect(
-        await realIo(
+  group(
+    'HAPPY PATH — G-218\'in belirsiz bıraktığı gözlem (2026-08-16, A1)',
+    () {
+      testWidgets('fresh guest can skip camera, persist onboarding and open '
+          'the course without any permission calls', (tester) async {
+        const channel = MethodChannel(
+          'flutter.baseflow.com/permissions/methods',
+        );
+        final calls = <MethodCall>[];
+        final messenger = tester.binding.defaultBinaryMessenger;
+        messenger.setMockMethodCallHandler(channel, (call) async {
+          calls.add(call);
+          throw StateError('The guest course path must not request permission');
+        });
+        addTearDown(() => messenger.setMockMethodCallHandler(channel, null));
+        await bootGravitaRoot(
           tester,
-          () => OnboardingStore.forFile(
-            File('${tmp.path}/onboarding.json'),
-          ).isComplete(),
-        ),
-        isTrue,
-      );
-      final courseEntry = find.byKey(const Key('calisthenics.entry')).first;
-      await tester.ensureVisible(courseEntry);
-      await tester.tap(courseEntry);
-      await tester.pumpAndSettle();
-      await tester.runAsync(
-        () => Future<void>.delayed(const Duration(milliseconds: 50)),
-      );
-      await tester.pumpAndSettle();
-      expect(find.byType(CalisthenicsCourseScreen), findsOneWidget);
-      expect(find.textContaining('Progress could not be read'), findsNothing);
-      expect(calls, isEmpty);
-      await tester.pumpWidget(const SizedBox.shrink());
-    });
+          supportPath: tmp.path,
+          restoreTo: defaultProvider,
+          size: const Size(390, 844),
+        );
+        await tester.tap(find.byKey(OnboardingFlow.valueContinueKey));
+        await tester.pump();
+        await tester.tap(find.byKey(OnboardingFlow.safetyConsentKey));
+        await tester.pump();
+        expect(find.byKey(OnboardingFlow.cameraDeniedKey), findsNothing);
+        expect(find.byKey(OnboardingFlow.cameraAllowKey), findsNothing);
+        final skip = find.byKey(OnboardingFlow.cameraContinueWithoutKey);
+        expect(skip.hitTestable(), findsOneWidget);
 
-    /// ⭐ G-218 (2026-08-14) bu akışı GERÇEK simülatörde yürütürken
-    /// `flutter run` sona erdi; "akışın tamamlanıp tamamlanmadığı belirsiz"
-    /// kaldı. O turda zorlanmadı (G-219'un kararı: belirsiz gözlemden sebep
-    /// üretme) — B5 (font ağ reddi) kalkana kadar bekletildi. F2 (D1)
-    /// indi, artık zorlanabilir: burada gerçek simülatör yerine gerçek
-    /// widget ağacı + gerçek dosya G/Ç kullanılıyor (ürünün KENDİ kapısı,
-    /// bkz. dosya başı doc), ama iddia AYRIŞTIRILMIŞ — Ostinato'nun `O-138`
-    /// dersi: *"UI yürüyüşü ile motor gerçeği İKİ AYRI İDDİA."*
-    ///
-    /// Yan kazanım: kamera izni VERİLDİ (`status: 1`) dalı bu dosyada hiç
-    /// sınanmamıştı — yalnız REDDEDİLDİ dalı (üstteki/alttaki gruplar).
-    /// `_requestCamera`in `status.isGranted` bacağı (`onboarding_screen.
-    /// dart:42-44`) bugüne dek ölçülmemiş bir koddu.
-    testWidgets(
-      'akış GERÇEK tıklamalarla + kamera-izni-VERİLDİ ile tamamlanır, '
-      'SONRAKİ açılış onboarding\'i atlar',
-      (WidgetTester tester) async {
-        mockPermissionChannel(status: 1); // granted
+        PathProviderPlatform.instance = FakeSupportDir(tmp.path);
+        await tester.tap(skip);
+        await settleUntil(
+          tester,
+          () => find.byType(GravitaShell).evaluate().isNotEmpty,
+        );
+        expect(find.byType(GravitaShell), findsOneWidget);
+        expect(
+          await realIo(
+            tester,
+            () => OnboardingStore.forFile(
+              File('${tmp.path}/onboarding.json'),
+            ).isComplete(),
+          ),
+          isTrue,
+        );
+        final courseEntry = find.byKey(const Key('calisthenics.entry')).first;
+        await tester.ensureVisible(courseEntry);
+        await tester.tap(courseEntry);
+        await tester.pumpAndSettle();
+        await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 50)),
+        );
+        await tester.pumpAndSettle();
+        expect(find.byType(CalisthenicsCourseScreen), findsOneWidget);
+        expect(find.textContaining('Progress could not be read'), findsNothing);
+        expect(calls, isEmpty);
+        await tester.pumpWidget(const SizedBox.shrink());
+      });
+
+      /// ⭐ G-218 (2026-08-14) bu akışı GERÇEK simülatörde yürütürken
+      /// `flutter run` sona erdi; "akışın tamamlanıp tamamlanmadığı belirsiz"
+      /// kaldı. O turda zorlanmadı (G-219'un kararı: belirsiz gözlemden sebep
+      /// üretme) — B5 (font ağ reddi) kalkana kadar bekletildi. F2 (D1)
+      /// indi, artık zorlanabilir: burada gerçek simülatör yerine gerçek
+      /// widget ağacı + gerçek dosya G/Ç kullanılıyor (ürünün KENDİ kapısı,
+      /// bkz. dosya başı doc), ama iddia AYRIŞTIRILMIŞ — Ostinato'nun `O-138`
+      /// dersi: *"UI yürüyüşü ile motor gerçeği İKİ AYRI İDDİA."*
+      ///
+      /// Kapalı release'in gerçek root yolu izin istemeden tamamlanır.
+      /// Koşullu granted/denied yolları ayrı permissionTest fixture'ındadır.
+      testWidgets('kapalı kamera akışı izin istemeden tamamlanır, '
+          'SONRAKİ açılış onboarding\'i atlar', (WidgetTester tester) async {
+        const channel = MethodChannel(
+          'flutter.baseflow.com/permissions/methods',
+        );
+        var permissionCalls = 0;
+        tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+          channel,
+          (_) async {
+            permissionCalls++;
+            throw StateError('Closed release must not call permission channel');
+          },
+        );
+        addTearDown(
+          () => tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+            channel,
+            null,
+          ),
+        );
         await bootGravitaRoot(
           tester,
           supportPath: tmp.path,
@@ -203,10 +219,9 @@ void main() {
         // düştü: kabuk göründü, `wrote` `false` çıktı — ürün kusuru değil,
         // testin kendi sağlayıcı penceresi kapalıydı.
         PathProviderPlatform.instance = FakeSupportDir(tmp.path);
-        await tester.tap(find.byKey(OnboardingFlow.cameraAllowKey));
-        // `Permission.camera.request()` (kanal) → `onComplete()` (GERÇEK G/Ç,
-        // önceki denemeden farklı olarak bu kez GERÇEKTEN yazıyor, sahte
-        // sağlayıcı sayesinde) zinciri sahte saatli gövdede tek pump'la
+        expect(find.byKey(OnboardingFlow.cameraAllowKey), findsNothing);
+        await tester.tap(find.byKey(OnboardingFlow.cameraContinueWithoutKey));
+        // onComplete() gerçek G/Ç ile yazıyor; zincir tek pump'la
         // bitmez. Sabit tur sayısı YETMİYOR (harness'ın kendi ③ numaralı
         // dersi — `bootGravitaRoot`un kendisi de bunun için SABİT değil
         // KOŞULLU döngü kullanıyor): burada da aynı desen — yükleyici/eski
@@ -228,10 +243,10 @@ void main() {
           findsOneWidget,
           reason:
               'UI-GÖZLEMLİ İDDİA: akış tamamlandı, kabuk göründü. '
-              'cameraDeniedKey EKRANA GELMEMELİ — bu status:1 dalı, '
-              'status:0 dalından FARKLI bir kod yolu.',
+              'Kapalı sürümde izin veya ret dalı açılmadan tamamlanmalı.',
         );
         expect(find.byKey(OnboardingFlow.cameraDeniedKey), findsNothing);
+        expect(permissionCalls, 0);
 
         // ② MOTOR-SONUCU İDDİASI — AYRI ölçülür: UI kabuğa geçti diye
         // dosyanın GERÇEKTEN yazıldığı çıkarılmaz.
@@ -246,9 +261,11 @@ void main() {
         );
 
         // ③ G-218'İN TAM SORUSU: bu kalıcılık bir SONRAKİ, TAMAMEN YENİ
-        // widget ağacında (gerçek bir yeniden-açılışın testteki karşılığı)
-        // GERÇEKTEN iş görüyor mu? `bootGravitaRoot`un kendi `pumpWidget`ı
-        // ağacı zaten baştan kurar — ayrı bir temizleme adımı gerekmiyor.
+        // widget ağacında yeniden okunuyor mu? Aynı StatefulWidget tipini
+        // pump etmek state'i koruyabilir; önce açıkça unmount et. Bu bir
+        // host remount kontrolüdür, native OS cold-start kabulü değildir.
+        await tester.pumpWidget(const SizedBox.shrink());
+        await tester.pump();
         await bootGravitaRoot(
           tester,
           supportPath: tmp.path,
@@ -263,14 +280,13 @@ void main() {
               'o gece flutter run çöktüğü için hiç ölçülememişti.',
         );
         expect(find.byType(OnboardingFlow), findsNothing);
-      },
-    );
-  });
+      });
+    },
+  );
 
   group('DEPOLAMA ARIZASI — göster, ama kalıcılaştırma (G-183 / hüküm b)', () {
-    // Kamera izni REDDEDİLDİ olarak yanıtlanıyor: akışın sonuna ürünün
-    // kendi "continue without" dalından varılıyor (izin VERİLSEYDİ de aynı
-    // `onComplete` çağrılırdı — ölçülen şey kalıcılık, izin değil).
+    // Kapalı sürümde doğrudan continue-without kullanılır; bu handler
+    // mevcut olsa bile release yolu hiçbir permission isteği yapmamalı.
     setUp(() => mockPermissionChannel(status: 0));
 
     /// ⚠️ BU TEST BİLEREK ÇEVRİLDİ, sessizce kaymadı.
@@ -322,16 +338,8 @@ void main() {
       await tester.pump();
       expect(find.text(OnboardingStrings.cameraRationale), findsOneWidget);
 
-      // O5: kullanıcı izni REDDEDİYOR → ürünün kendi "continue without"
-      // dalı. `mockPermissionChannel` yalnız kanalın sessizliğini gideriyor.
-      await tester.tap(find.byKey(OnboardingFlow.cameraAllowKey));
-      await tester.pump();
-      await tester.pump();
-      expect(
-        find.byKey(OnboardingFlow.cameraDeniedKey),
-        findsOneWidget,
-        reason: 'Ret dalı çizilmeliydi; kanal yanıtı ürüne ulaşmamış.',
-      );
+      expect(find.byKey(OnboardingFlow.cameraAllowKey), findsNothing);
+      expect(find.byKey(OnboardingFlow.cameraDeniedKey), findsNothing);
       await tester.tap(find.byKey(OnboardingFlow.cameraContinueWithoutKey));
       // `markComplete` GERÇEK G/Ç dener ve arızada FIRLATIR; ürün onu yutup
       // yine de kabuğa geçmeli. Gerçek-zaman turu o denemeye yer açıyor.
@@ -366,9 +374,7 @@ void main() {
       await tester.pump();
       await tester.tap(find.byKey(OnboardingFlow.safetyConsentKey));
       await tester.pump();
-      await tester.tap(find.byKey(OnboardingFlow.cameraAllowKey));
-      await tester.pump();
-      await tester.pump();
+      expect(find.byKey(OnboardingFlow.cameraAllowKey), findsNothing);
       await tester.tap(find.byKey(OnboardingFlow.cameraContinueWithoutKey));
       await tester.runAsync(
         () => Future<void>.delayed(const Duration(milliseconds: 150)),

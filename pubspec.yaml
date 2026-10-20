@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  # Already resolved by Flutter localization; app-owned formatters use it directly.
+  intl: 0.20.3
   # Shared Motion account uses the same immutable revision as core and camera.
   motion_account:
     git:
@@ -102,6 +104,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - content/locales/
+    - content/locales/plurals/
+    - content/locales/display-overrides/
     # İçerik çalışma-zamanında yorumlanan sürümlü JSON'dur (ADR-004):
     # yeni hareket = yeni JSON, kod değişmez.
     - content/library.json

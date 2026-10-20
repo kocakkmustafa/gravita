@@ -80,7 +80,22 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final LibrarySearchResult result = _catalogue.search(_query.text);
+    final LibrarySearchResult result = _catalogue.search(
+      _query.text,
+      additionalMovementTerms: (movement) => <String>[
+        catalogName(context, movement.id, movement.displayName),
+        familyDisplayName(
+          context,
+          movement.family,
+          LibraryCatalogue.labelFor(movement.family),
+        ),
+        // Includes the card's actual family/level/equipment wording, including
+        // its no-equipment label, rather than a second search translation map.
+        movementMetaLine(context, movement),
+        for (final equipment in movement.equipment)
+          equipmentDisplayName(context, equipment),
+      ],
+    );
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -101,37 +116,47 @@ class _LibraryScreenState extends State<LibraryScreen> {
           Text(
             localized(
               context,
-              '${widget.content.foundationCoverage.practiceGuideIds.length} movement guides · '
-                  '${widget.content.foundationCoverage.readingGuideIds.length} reading pathways · self-report',
-              '${widget.content.foundationCoverage.practiceGuideIds.length} hareket rehberi · '
-                  '${widget.content.foundationCoverage.readingGuideIds.length} bilgi yolu · öz bildirim',
+              '{guides} movement guides · {reading} reading pathways · self-report',
+              '{guides} hareket rehberi · {reading} bilgi yolu · öz bildirim',
+              values: <String, Object>{
+                'guides':
+                    widget.content.foundationCoverage.practiceGuideIds.length,
+                'reading':
+                    widget.content.foundationCoverage.readingGuideIds.length,
+              },
             ),
             key: const Key('library.learningCoverage'),
             style: GravitaType.body(
+              context: context,
               size: 12,
-              color: GravitaColors.textSecondary,
+              color: GravitaColors.of(context).textSecondary,
             ),
           ),
           const SizedBox(height: 20),
           Text(
             localized(
               context,
-              LibraryStrings.libraryCount(
-                _catalogue.movements.length,
-                _catalogue.liveCount,
-              ),
               motionPaidCameraLaunchEnabled
-                  ? '${_catalogue.movements.length} hareket · '
-                        '${_catalogue.liveCount} açık · '
-                        '${_catalogue.movements.length - _catalogue.liveCount} '
+                  ? '{total} movements · {live} open · {pending} waiting on a measurement'
+                  : '{total} movements · {live} configured measurements · {pending} pending measurement evidence',
+              motionPaidCameraLaunchEnabled
+                  ? '{total} hareket · '
+                        '{live} açık · '
+                        '{pending} '
                         'ölçüm bekliyor'
-                  : '${_catalogue.movements.length} hareket · '
-                        '${_catalogue.liveCount} yapılandırılmış ölçüm · '
-                        '${_catalogue.movements.length - _catalogue.liveCount} ölçüm kanıtı bekliyor',
+                  : '{total} hareket · '
+                        '{live} yapılandırılmış ölçüm · '
+                        '{pending} ölçüm kanıtı bekliyor',
+              values: <String, Object>{
+                'total': _catalogue.movements.length,
+                'live': _catalogue.liveCount,
+                'pending': _catalogue.movements.length - _catalogue.liveCount,
+              },
             ),
             style: GravitaType.mono(
+              context: context,
               size: 11,
-              color: GravitaColors.textSecondary,
+              color: GravitaColors.of(context).textSecondary,
             ),
           ),
           if (!motionPaidCameraLaunchEnabled) ...[
@@ -145,8 +170,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
               ),
               key: const Key('library.cameraUnavailable'),
               style: GravitaType.body(
+                context: context,
                 size: 12,
-                color: GravitaColors.textSecondary,
+                color: GravitaColors.of(context).textSecondary,
               ),
             ),
           ],
@@ -163,13 +189,20 @@ class _LibraryScreenState extends State<LibraryScreen> {
     key: LibraryScreen.searchFieldKey,
     controller: _query,
     onChanged: (_) => setState(() {}),
-    style: GravitaType.body(size: 15),
+    style: GravitaType.body(context: context, size: 15),
     decoration: InputDecoration(
       hintText: localized(context, LibraryStrings.searchHint, 'Hareket ara'),
       // İpucu metni de METİNDİR — placeholder olması WCAG'den muaf
       // tutmaz; kullanıcı onu okuyup ne yazacağını anlıyor.
-      hintStyle: GravitaType.body(size: 15, color: GravitaColors.textSecondary),
-      prefixIcon: const Icon(Icons.search, color: GravitaColors.textTertiary),
+      hintStyle: GravitaType.body(
+        context: context,
+        size: 15,
+        color: GravitaColors.of(context).textSecondary,
+      ),
+      prefixIcon: Icon(
+        Icons.search,
+        color: GravitaColors.of(context).textTertiary,
+      ),
       suffixIcon: _query.text.isEmpty
           ? null
           : IconButton(
@@ -182,14 +215,14 @@ class _LibraryScreenState extends State<LibraryScreen> {
               onPressed: () => setState(_query.clear),
             ),
       filled: true,
-      fillColor: Colors.white.withValues(alpha: 0.55),
+      fillColor: GravitaColors.of(context).cardTop,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(999),
-        borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.7)),
+        borderSide: BorderSide(color: GravitaColors.of(context).cardBorder),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(999),
-        borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.7)),
+        borderSide: BorderSide(color: GravitaColors.of(context).cardBorder),
       ),
     ),
   );
@@ -202,8 +235,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
         key: LibraryScreen.movementResultsKey,
         title: localized(
           context,
-          LibraryStrings.searchMovementHeading(result.movements.length),
-          '${result.movements.length} hareket',
+          result.movements.length == 1
+              ? '{count} movement'
+              : '{count} movements',
+          '{count} hareket',
+          values: <String, Object>{'count': result.movements.length},
         ),
         children: result.movements
             .map(
@@ -247,9 +283,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
         icon: Icons.search_off,
         text: localized(
           context,
-          LibraryStrings.searchNothing(result.query.trim()),
-          'Katalogda "${result.query.trim()}" ile eşleşen bir hareket '
-          'veya kapsam dışı gerekçe bulunamadı.',
+          'Nothing in our catalogue matches "{query}", and it is not one of the things we have deliberately left out either. It may simply be a movement we have not written up.',
+          'Katalogda "{query}" ile eşleşen bir hareket '
+              'veya kapsam dışı gerekçe bulunamadı.',
+          values: <String, Object>{'query': result.query.trim()},
         ),
       ),
     const SizedBox(height: 24),
@@ -265,12 +302,20 @@ class _LibraryScreenState extends State<LibraryScreen> {
       out.add(
         SurfaceSection(
           key: Key('library.family.${f.family}'),
-          title: familyDisplayName(context, f.family, f.label).toUpperCase(),
+          title: localizedUpper(
+            context,
+            f.label,
+            familyDisplayName(context, f.family, f.label),
+          ),
           trailing: Text(
-            '${f.movements.length}',
+            formatLocaleNumber(
+              f.movements.length,
+              Localizations.localeOf(context).toLanguageTag(),
+            ),
             style: GravitaType.mono(
+              context: context,
               size: 11,
-              color: GravitaColors.textSecondary,
+              color: GravitaColors.of(context).textSecondary,
             ),
           ),
           children: f.movements
@@ -305,9 +350,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
   /// paketin eşiği bu ekrandan yapısal olarak SIZAMAZ.
   Widget _skillTrees() => SurfaceSection(
     key: LibraryScreen.skillTreesKey,
-    title: localized(
+    title: localizedUpper(
       context,
-      LibraryStrings.skillTreesTitle.toUpperCase(),
+      LibraryStrings.skillTreesTitle,
       'BECERİ AĞAÇLARI',
     ),
     children: <Widget>[
@@ -316,16 +361,17 @@ class _LibraryScreenState extends State<LibraryScreen> {
         icon: Icons.account_tree_outlined,
         text: localized(
           context,
-          LibraryStrings.skillTreesBody(
-            _catalogue.skillTrees.drafted.length,
-            _catalogue.skillTrees.draftedNames,
-          ),
-          '${_catalogue.skillTrees.drafted.length} taslak ilerleme ağacı '
-          'bulunuyor (${draftedTreeNames(context, _catalogue.skillTrees)}). İlerleme koşulları '
-          'hareket bilimi incelemesinden geçmediği için ağaçları adım adım '
-          'göstermiyoruz. İlgili bazı hareket sayfaları kütüphanede bulunur. '
-          'Öğrenme rehberleri ve kamera erişimi ayrıca belirtilir; '
-          'bu özet fiziksel uygulamayı onaylamaz.',
+          'Drafted progression trees: {count} ({names}). Their unlock criteria have not been through a movement-science review. We are not drawing a tree whose gates would be numbers we picked ourselves. Some related movement pages are in the library. Learning guides and camera availability are shown separately; this summary does not approve physical practice.',
+          '{count} taslak ilerleme ağacı '
+              'bulunuyor ({names}). İlerleme koşulları '
+              'hareket bilimi incelemesinden geçmediği için ağaçları adım adım '
+              'göstermiyoruz. İlgili bazı hareket sayfaları kütüphanede bulunur. '
+              'Öğrenme rehberleri ve kamera erişimi ayrıca belirtilir; '
+              'bu özet fiziksel uygulamayı onaylamaz.',
+          values: <String, Object>{
+            'count': _catalogue.skillTrees.drafted.length,
+            'names': draftedTreeNames(context, _catalogue.skillTrees),
+          },
         ),
       ),
     ],
@@ -340,7 +386,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
       child: Row(
         children: <Widget>[
-          const Icon(Icons.help_outline, size: 18, color: GravitaColors.accent),
+          Icon(
+            Icons.help_outline,
+            size: 18,
+            color: GravitaColors.of(context).accent,
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
@@ -349,13 +399,17 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 LibraryStrings.whyNotLink,
                 'Bir hareket neden burada yok?',
               ),
-              style: GravitaType.body(size: 14, weight: FontWeight.w500),
+              style: GravitaType.body(
+                context: context,
+                size: 14,
+                weight: FontWeight.w500,
+              ),
             ),
           ),
-          const Icon(
+          Icon(
             Icons.chevron_right,
             size: 20,
-            color: GravitaColors.textTertiary,
+            color: GravitaColors.of(context).textTertiary,
           ),
         ],
       ),
