@@ -397,6 +397,11 @@ class _GravitaRootState extends State<GravitaRoot> {
             final loading = ContentRepository.load(
               DefaultAssetBundle.of(context),
             );
+            // FutureBuilder subscribes only on the next build; a load that
+            // fails before then must not escape as an uncaught zone error.
+            // ignore() does not swallow it: the builder still receives the
+            // error and shows the typed ContentFailureScreen.
+            loading.ignore();
             setState(() {
               _future = loading;
             });
