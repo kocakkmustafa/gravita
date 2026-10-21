@@ -144,6 +144,9 @@ void main() {
         ),
       );
       await pumpActualLocaleReady(tester);
+      // Readiness is observed at the Navigator before locale dependents
+      // rebuild; after a locale switch, pump that rebuild frame.
+      await tester.pump();
       expect(english, original.blurb);
       expect(changedTurkish, changed.blurb);
       expect(
@@ -267,6 +270,8 @@ void main() {
       ),
     );
     await pumpActualLocaleReady(tester);
+    // Same locale-switch rebuild frame as above.
+    await tester.pump();
     expect(english, 'Force or load');
   });
 

@@ -53,7 +53,15 @@ void main() {
             if (language == 'tr') {
               expect(text, isNot(source), reason: '${movement.id}: $source');
             } else {
-              expect(text, source);
+              // The reviewed EN display override corrects only the singular
+              // source grammar ("rule have" -> "rule has").
+              expect(
+                text,
+                source.replaceFirst(
+                  ' error rule have never ',
+                  ' error rule has never ',
+                ),
+              );
             }
             expect(
               waitingMeasurementCopy(context, movement, '$source Revised.'),
