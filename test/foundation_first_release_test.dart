@@ -9,7 +9,6 @@ import 'package:gravita/app/calisthenics_course.dart';
 import 'package:gravita/app/calisthenics_course_screen.dart';
 import 'package:gravita/app/calisthenics_progress.dart';
 import 'package:gravita/app/localization/locale_delegate.dart';
-import 'support/launch_harness.dart';
 import 'support/locale_asset_harness.dart';
 
 const _areas = ['barbell', 'rings', 'hands'];
@@ -51,6 +50,34 @@ Future<void> _reveal(WidgetTester t, Finder target) async {
   expect(target.hitTestable(), findsOneWidget);
 }
 
+Future<void> _waitReaderUntil(
+  WidgetTester t,
+  bool Function() ready, {
+  required String stage,
+}) async {
+  // Preserve the former 10x150ms real budget without limiting serial file IO
+  // to ten pump boundaries. Stopwatch is real time even inside FakeAsync.
+  final watch = Stopwatch()..start();
+  var turns = 0;
+  while (!ready() && watch.elapsedMilliseconds < 1500 && turns < 4096) {
+    await t.runAsync<void>(
+      () => Future<void>.delayed(const Duration(milliseconds: 1)),
+    );
+    await t.pump(const Duration(milliseconds: 80));
+    turns++;
+  }
+  final reached = ready();
+  debugPrint(
+    'reader-wait $stage: ready=$reached turns=$turns '
+    'wallMs=${watch.elapsedMilliseconds}',
+  );
+  expect(
+    reached,
+    isTrue,
+    reason: 'Reader readiness was false at the 1500ms deadline: $stage',
+  );
+}
+
 Future<T> _driveReaderIo<T>(
   WidgetTester t,
   Future<T> Function() operation, {
@@ -74,7 +101,7 @@ Future<T> _driveReaderIo<T>(
       completed = true;
     },
   );
-  await settleUntil(t, () => completed);
+  await _waitReaderUntil(t, () => completed, stage: stage);
   expect(
     completed,
     isTrue,
@@ -344,11 +371,12 @@ void main() {
               await pumpActualLocaleReady(t);
               final count = find.byKey(const Key('calisthenics.practiceCount'));
               await _reveal(t, count);
-              await settleUntil(
+              await _waitReaderUntil(
                 t,
                 () =>
                     count.evaluate().isNotEmpty &&
                     t.widget<Text>(count).data!.endsWith('$visit'),
+                stage: '$area $lang visit $visit initial count',
               );
               expect(t.widget<Text>(count).data!.endsWith('$visit'), isTrue);
               final prepared = find.byKey(const Key('calisthenics.prepared'));
@@ -358,15 +386,17 @@ void main() {
               await t.pump();
               final practice = find.byKey(const Key('calisthenics.practised'));
               await _reveal(t, practice);
-              await settleUntil(
+              await _waitReaderUntil(
                 t,
                 () => t.widget<OutlinedButton>(practice).onPressed != null,
+                stage: '$area $lang visit $visit practice admission',
               );
               expect(t.widget<OutlinedButton>(practice).onPressed, isNotNull);
               await t.tap(practice.hitTestable());
-              await settleUntil(
+              await _waitReaderUntil(
                 t,
                 () => t.widget<Text>(count).data!.endsWith('${visit + 1}'),
+                stage: '$area $lang visit $visit practice report saved',
               );
               expect(
                 t.widget<Text>(count).data!.endsWith('${visit + 1}'),
@@ -392,11 +422,12 @@ void main() {
               if (visit == 1) {
                 await t.tap(complete.hitTestable());
                 await t.pump();
-                await settleUntil(
+                await _waitReaderUntil(
                   t,
                   () =>
                       t.widget<CheckboxListTile>(confirmation).onChanged !=
                       null,
+                  stage: '$area $lang completion saved',
                 );
                 expect(
                   t.widget<CheckboxListTile>(confirmation).onChanged,
