@@ -1423,6 +1423,17 @@ void main() {
           );
         }
       }
+      final firstDay = builder
+          .build(swingInputs)
+          .days
+          .singleWhere((day) => day.weekNumber == 1 && day.dayNumber == 1);
+      expect(
+        firstDay.exercises.where(
+          (exercise) => exercise.movementId == 'bodyweight_squat',
+        ),
+        hasLength(1),
+      );
+      expect(content.catalogue.byId('bodyweight_squat'), isNotNull);
       for (final mode in <ThemeMode>[ThemeMode.light, ThemeMode.dark]) {
         for (final scale in <double>[2, 3]) {
           support = await io(
@@ -1500,14 +1511,22 @@ void main() {
           await expectWorkout(tester);
           await checkSaved(tester, swingInputs);
           await expectNotice(tester, tag, swing: true);
-          final guide = find
-              .byKey(
-                const ValueKey<String>(
-                  'workout.movementGuide.bodyweight_squat',
-                ),
-              )
-              .first;
+          // Week cards are lazy and repeat movement keys across days. Keep
+          // both queries empty-safe until reveal mounts the actual first day.
+          final firstDayCard = find.ancestor(
+            of: find.byKey(const ValueKey<String>('workout.markDone.1.1')),
+            matching: find.byType(GravitaCard),
+          );
+          final guide = find.descendant(
+            of: firstDayCard,
+            matching: find.byKey(
+              const ValueKey<String>('workout.movementGuide.bodyweight_squat'),
+            ),
+          );
           await reveal(tester, guide);
+          expect(firstDayCard, findsOneWidget);
+          expect(guide, findsOneWidget);
+          expect(tester.widget<TextButton>(guide).onPressed, isNotNull);
           expect(guide.hitTestable(), findsOneWidget);
           final guideSemantics = tester.getSemantics(guide).getSemanticsData();
           expect(guideSemantics.label, contains(dictionaries[tag]![_guideId]!));
@@ -1547,10 +1566,13 @@ void main() {
 }
 
 Future<void> tabTo(WidgetTester tester, Finder target) async {
+  expect(target, findsOneWidget, reason: 'Keyboard target must be mounted.');
   bool inside() {
+    final targets = target.evaluate().toList();
+    if (targets.length != 1) return false;
     final focusContext = FocusManager.instance.primaryFocus?.context;
     if (focusContext == null) return false;
-    final targetElement = tester.element(target);
+    final targetElement = targets.single;
     var found = identical(focusContext, targetElement);
     focusContext.visitAncestorElements((ancestor) {
       if (identical(ancestor, targetElement)) found = true;
@@ -1563,6 +1585,11 @@ Future<void> tabTo(WidgetTester tester, Finder target) async {
     await tester.sendKeyEvent(LogicalKeyboardKey.tab);
     await tester.pump();
   }
+  expect(
+    target,
+    findsOneWidget,
+    reason: 'Keyboard target must remain mounted.',
+  );
   expect(
     inside(),
     isTrue,
