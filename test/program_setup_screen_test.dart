@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gravita/app/app_locale.dart';
 import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/program/program_builder.dart';
 import 'package:gravita/app/program/program_model.dart';
@@ -15,12 +16,15 @@ import 'package:gravita/app/workout/workout_screen.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 
 import 'support/launch_harness.dart' show FakeSupportDir, realIo, settleUntil;
+import 'support/locale_asset_harness.dart'
+    show warmActualLocaleAssets, pumpActualLocaleReady;
 
 /// [ProgramSetupScreen] — GRA-P1-003. `FakeSupportDir`/`realIo` `test/
 /// support/launch_harness.dart`tan — İKİNCİ bir sahte sağlayıcı/G-Ç
 /// sarmalayıcı YAZILMADI (G-079 dersi: iki ev tutarsızlaşır).
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(warmActualLocaleAssets);
 
   late PathProviderPlatform defaultProvider;
   late Directory tmp;
@@ -35,11 +39,63 @@ void main() {
     if (await tmp.exists()) await tmp.delete(recursive: true);
   });
 
-  Widget host(Widget child) =>
-      MaterialApp(theme: GravitaTheme.light, home: child);
+  Widget host(Widget child) => MaterialApp(
+    theme: GravitaTheme.light,
+    locale: const Locale('en'),
+    supportedLocales: appSupportedLocales,
+    localizationsDelegates: appLocalizationsDelegates,
+    localeListResolutionCallback: resolveAppLocales,
+    home: child,
+  );
 
   Future<void> tapVisible(WidgetTester tester, Finder target) async {
-    await tester.ensureVisible(target);
+    final scrollable = find.byElementPredicate((element) {
+      final widget = element.widget;
+      if (widget is! Scrollable ||
+          axisDirectionToAxis(widget.axisDirection) != Axis.vertical) {
+        return false;
+      }
+      final route = ModalRoute.of(element);
+      if (route?.isCurrent != true) return false;
+      var hasOuterVerticalViewport = false;
+      element.visitAncestorElements((ancestor) {
+        final outer = ancestor.widget;
+        if (outer is Scrollable &&
+            axisDirectionToAxis(outer.axisDirection) == Axis.vertical &&
+            identical(ModalRoute.of(ancestor), route)) {
+          hasOuterVerticalViewport = true;
+          return false;
+        }
+        return true;
+      });
+      return !hasOuterVerticalViewport;
+    }, description: 'active setup route outer vertical Scrollable');
+    expect(scrollable, findsOneWidget);
+    if (target.evaluate().isEmpty) {
+      final state = tester.state<ScrollableState>(scrollable);
+      var usedScrolls = 0;
+      while (state.position.pixels > state.position.minScrollExtent + 1 &&
+          usedScrolls < 100) {
+        await tester.drag(scrollable, const Offset(0, 600));
+        await tester.pump();
+        usedScrolls++;
+      }
+      expect(
+        state.position.pixels,
+        lessThanOrEqualTo(state.position.minScrollExtent + 1),
+      );
+      if (target.evaluate().isEmpty) {
+        expect(usedScrolls, lessThan(100));
+        await tester.scrollUntilVisible(
+          target,
+          240,
+          scrollable: scrollable,
+          maxScrolls: 100 - usedScrolls,
+        );
+      }
+    }
+    expect(target, findsOneWidget);
+    await Scrollable.ensureVisible(tester.element(target), alignment: 0.5);
     await tester.pump();
     expect(target.hitTestable(), findsOneWidget);
     await tester.tap(target.hitTestable());
@@ -93,7 +149,7 @@ void main() {
     });
 
     await tester.pumpWidget(host(ProgramSetupScreen(content: content)));
-    await tester.pump();
+    await pumpActualLocaleReady(tester);
 
     // Varsayılan: beginner + ekipmansız + 3 gün — hiçbir seçim değiştirmeden
     // "Build" basmak GEÇERLİ bir program üretmeli (beginner+bodyweight
@@ -138,12 +194,27 @@ void main() {
     });
 
     await tester.pumpWidget(host(ProgramSetupScreen(content: content)));
-    await tester.pump();
+    await pumpActualLocaleReady(tester);
 
     await tapVisible(tester, find.text('Intermediate'));
     await tester.pump();
-    // Katalogdan türetilen ilk ekipman çipine dokun.
-    await tapVisible(tester, find.byType(FilterChip).first);
+    // Select the first catalogue equipment by identity, not lazy widget index.
+    final equipmentOptions = <String>{
+      for (final movement in content.catalogue.movements) ...movement.equipment,
+    }.toList()..sort();
+    expect(equipmentOptions, isNotEmpty);
+    final selectedEquipment = equipmentOptions.first;
+    final equipmentLabel = equipmentDisplayName(
+      tester.element(find.byType(ProgramSetupScreen)),
+      selectedEquipment,
+    );
+    await tapVisible(
+      tester,
+      find.descendant(
+        of: find.byKey(ProgramSetupScreen.equipmentKey),
+        matching: find.widgetWithText(FilterChip, equipmentLabel),
+      ),
+    );
     await tester.pump();
     await tapVisible(tester, find.byIcon(Icons.add_circle_outline));
     await tester.pump();
@@ -159,6 +230,7 @@ void main() {
     expect(saved!.experience, ExperienceLevel.intermediate);
     expect(saved.daysPerWeek, 4);
     expect(saved.availableEquipment, isNotEmpty);
+    expect(saved.availableEquipment, contains(selectedEquipment));
     await expectBoundSchedule(tester, content, saved);
   });
 }

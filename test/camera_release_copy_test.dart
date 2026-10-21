@@ -91,7 +91,8 @@ void main() {
         final launch = find.byKey(GravitaShell.startSessionKey);
         expect(tester.widget<FloatingActionButton>(launch).onPressed, isNull);
         expect(
-          find.text(tr ? 'Kamera kapalı' : 'Camera unavailable'),
+          // g_06cc3b14a4df: canonical TR means camera remains unavailable.
+          find.text(tr ? 'Kamera kullanılamıyor' : 'Camera unavailable'),
           findsOneWidget,
         );
         await tester.tap(launch);
@@ -243,7 +244,7 @@ void main() {
         final button = find.byKey(MovementPage.startSessionKey);
         expect(tester.widget<FilledButton>(button).onPressed, isNull);
         expect(
-          find.text(tr ? 'Kamera kapalı' : 'Camera unavailable'),
+          find.text(tr ? 'Kamera kullanılamıyor' : 'Camera unavailable'),
           findsOneWidget,
         );
         expect(

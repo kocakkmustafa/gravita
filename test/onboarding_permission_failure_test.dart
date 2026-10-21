@@ -66,7 +66,10 @@ void main() {
         expect(find.byKey(OnboardingFlow.cameraAllowKey), findsNothing);
         expect(find.byKey(OnboardingFlow.cameraDeniedKey), findsNothing);
         expect(
-          find.text(language == 'tr' ? 'Kamera kapalı' : 'Camera unavailable'),
+          // g_06cc3b14a4df: reviewed packaged TR copy, ahead of fallback text.
+          find.text(
+            language == 'tr' ? 'Kamera kullanılamıyor' : 'Camera unavailable',
+          ),
           findsOneWidget,
         );
         expect(

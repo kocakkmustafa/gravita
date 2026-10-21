@@ -393,11 +393,14 @@ class _GravitaRootState extends State<GravitaRoot> {
       if (snapshot.hasError) {
         return ContentFailureScreen(
           failure: ContentFailure.from(snapshot.error!),
-          onRetry: () async => setState(
-            () => _future = ContentRepository.load(
+          onRetry: () async {
+            final loading = ContentRepository.load(
               DefaultAssetBundle.of(context),
-            ),
-          ),
+            );
+            setState(() {
+              _future = loading;
+            });
+          },
         );
       }
       final ContentRepository? content = snapshot.data;

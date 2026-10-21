@@ -241,6 +241,8 @@ void main() {
     await showWorkout(tester);
     expectUnavailable();
     await tester.tap(find.byKey(WorkoutScreen.retryKey));
+    await tester.pump();
+    expect(tester.takeException(), isNull);
     await settleUntil(
       tester,
       () =>
@@ -253,6 +255,8 @@ void main() {
     // The fixture is repaired explicitly by the test, never by Workout.
     await realIo(tester, () => scheduleFile().writeAsBytes(original.schedule!));
     await tester.tap(find.byKey(WorkoutScreen.retryKey));
+    await tester.pump();
+    expect(tester.takeException(), isNull);
     await settleUntil(
       tester,
       () => find.byKey(WorkoutScreen.disclaimerKey).evaluate().isNotEmpty,

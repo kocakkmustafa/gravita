@@ -227,7 +227,12 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                   key: WorkoutScreen.retryKey,
                   onPressed: snap.connectionState != ConnectionState.done
                       ? null
-                      : () => setState(() => _future = _load()),
+                      : () {
+                          final loading = _load();
+                          setState(() {
+                            _future = loading;
+                          });
+                        },
                   icon: const Icon(Icons.refresh),
                   label: Text(
                     localized(context, 'Retry loading', 'Yeniden okumayı dene'),
