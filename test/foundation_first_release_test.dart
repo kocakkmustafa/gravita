@@ -26,15 +26,65 @@ CalisthenicsCourse _course(String area, {bool legacy = false}) =>
     );
 
 Future<void> _reveal(WidgetTester t, Finder target) async {
+  final scrollable = find
+      .descendant(
+        of: find.byKey(const Key('calisthenics.lesson.body')),
+        matching: find.byType(Scrollable),
+      )
+      .first;
+  expect(scrollable, findsOneWidget);
+  // A previous target may be below a lazily disposed target. Start an absent
+  // target's bounded scan from the top; ensureVisible handles mounted targets.
+  if (target.evaluate().isEmpty) {
+    final position = t.state<ScrollableState>(scrollable).position;
+    position.jumpTo(position.minScrollExtent);
+    await t.pump();
+  }
   await t.scrollUntilVisible(
     target,
     320,
-    scrollable: find.byType(Scrollable).first,
+    scrollable: scrollable,
     maxScrolls: 220,
   );
   await t.ensureVisible(target);
   await t.pump();
   expect(target.hitTestable(), findsOneWidget);
+}
+
+Future<T> _driveReaderIo<T>(
+  WidgetTester t,
+  Future<T> Function() operation, {
+  required String stage,
+}) async {
+  var completed = false;
+  late T result;
+  Object? failure;
+  StackTrace? failureStack;
+  debugPrint('reader-io START: $stage');
+  // Start and observe in the fake zone. A real-zone await of a queue's fake
+  // predecessor prevents runAsync from returning so that fake pumps can resume.
+  final observed = operation().then<void>(
+    (value) {
+      result = value;
+      completed = true;
+    },
+    onError: (Object error, StackTrace stack) {
+      failure = error;
+      failureStack = stack;
+      completed = true;
+    },
+  );
+  await settleUntil(t, () => completed);
+  expect(
+    completed,
+    isTrue,
+    reason: 'Reader IO did not complete within the bounded turns: $stage',
+  );
+  await observed;
+  final error = failure;
+  if (error != null) Error.throwWithStackTrace(error, failureStack!);
+  debugPrint('reader-io END: $stage');
+  return result;
 }
 
 void main() {
@@ -293,6 +343,7 @@ void main() {
               );
               await pumpActualLocaleReady(t);
               final count = find.byKey(const Key('calisthenics.practiceCount'));
+              await _reveal(t, count);
               await settleUntil(
                 t,
                 () =>
@@ -356,7 +407,11 @@ void main() {
               await t.pumpWidget(const SizedBox.shrink());
               await t.pump();
             }
-            final saved = (await t.runAsync(store.load))!;
+            final saved = await _driveReaderIo(
+              t,
+              store.load,
+              stage: '$area $lang saved two-visit history',
+            );
             expect(saved.forLesson(physical, course.version)?.practiceCount, 2);
             expect(
               saved.forLesson(physical, course.version)?.state,
@@ -365,7 +420,11 @@ void main() {
           } finally {
             await t.pumpWidget(const SizedBox.shrink());
             await t.pump();
-            await t.runAsync(AccountStoreEpochRegistry.resetForTest);
+            await _driveReaderIo(
+              t,
+              AccountStoreEpochRegistry.resetForTest,
+              stage: '$area $lang reader registry reset',
+            );
             root.deleteSync(recursive: true);
           }
         },
@@ -440,14 +499,22 @@ void main() {
         expect(t.takeException(), isNull);
         await t.pumpWidget(const SizedBox.shrink());
         await t.pump();
-        // Drain the synthetic file IO in the real event loop before the next
-        // reader lifetime. This never opens a provider or a user account.
-        await t.runAsync(store.load);
+        // Alternate real IO turns and fake callbacks before the next lifetime;
+        // never await the fake-zone file queue inside a real-only runAsync.
+        await _driveReaderIo(
+          t,
+          store.load,
+          stage: 'cal52 ${locale.toLanguageTag()} reader history drain',
+        );
       }
     } finally {
       await t.pumpWidget(const SizedBox.shrink());
       await t.pump();
-      await t.runAsync(AccountStoreEpochRegistry.resetForTest);
+      await _driveReaderIo(
+        t,
+        AccountStoreEpochRegistry.resetForTest,
+        stage: 'cal52 reader registry reset',
+      );
       root.deleteSync(recursive: true);
     }
   });
