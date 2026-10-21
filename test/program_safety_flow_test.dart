@@ -27,7 +27,7 @@ import 'package:gravita/app/theme.dart';
 import 'package:gravita/app/workout/workout_screen.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 
-import 'support/launch_harness.dart' show FakeSupportDir, realIo, settleUntil;
+import 'support/launch_harness.dart' show FakeSupportDir, settleUntil;
 import 'support/locale_asset_harness.dart'
     show warmActualLocaleAssets, pumpActualLocaleReady;
 
@@ -65,6 +65,7 @@ void main() {
   late Directory root;
   late Directory support;
   final fixedNow = DateTime.utc(2040, 5, 10, 12);
+  final setupStart = DateTime(2040, 5, 10);
   const first = '11111111-1111-4111-8111-111111111111';
   const second = '22222222-2222-4222-8222-222222222222';
   const beginner = ProgramInputs(
@@ -113,8 +114,29 @@ void main() {
     if (await root.exists()) await root.delete(recursive: true);
   });
 
-  Future<T> io<T>(WidgetTester tester, Future<T> Function() operation) =>
-      realIo(tester, () => operation().timeout(const Duration(seconds: 8)));
+  Future<T> io<T>(WidgetTester tester, Future<T> Function() operation) async {
+    late T result;
+    var completed = false;
+    Object? failure;
+    StackTrace? failureStack;
+    // runAsync reports uncaught errors to the framework and returns null.
+    // Capture inside its real zone, then rethrow in the calling test so that
+    // an assertion keeps its original identity/stack instead of a late result.
+    await tester.runAsync<void>(() async {
+      try {
+        result = await operation().timeout(const Duration(seconds: 8));
+      } on Object catch (error, stack) {
+        failure = error;
+        failureStack = stack;
+      } finally {
+        completed = true;
+      }
+    });
+    expect(completed, isTrue, reason: 'Program fixture IO did not complete');
+    final error = failure;
+    if (error != null) Error.throwWithStackTrace(error, failureStack!);
+    return result;
+  }
 
   Future<void> waitFor(
     WidgetTester tester,
@@ -213,10 +235,15 @@ void main() {
     ThemeMode mode = ThemeMode.light,
     double scale = 1,
     String? owner,
+    DateTime? scheduleStart,
   }) async {
     await tester.pumpWidget(
       host(
-        ProgramSetupScreen(content: content, accountUserId: owner),
+        ProgramSetupScreen.withClock(
+          content: content,
+          accountUserId: owner,
+          now: () => scheduleStart ?? setupStart,
+        ),
         locale: locale,
         mode: mode,
         scale: scale,
@@ -261,7 +288,41 @@ void main() {
   }
 
   Future<void> reveal(WidgetTester tester, Finder target) async {
-    final scrollable = find.byType(Scrollable).first;
+    // A pushed route can retain the previous ListView during its transition.
+    // Select the active route's outer vertical viewport, not a retained route
+    // or the nested scrollable belonging to SelectableText.
+    final scrollable = find.byElementPredicate((element) {
+      final widget = element.widget;
+      if (widget is! Scrollable ||
+          axisDirectionToAxis(widget.axisDirection) != Axis.vertical) {
+        return false;
+      }
+      final route = ModalRoute.of(element);
+      if (route?.isCurrent != true) return false;
+      var hasOuterVerticalViewport = false;
+      element.visitAncestorElements((ancestor) {
+        final outer = ancestor.widget;
+        if (outer is Scrollable &&
+            axisDirectionToAxis(outer.axisDirection) == Axis.vertical &&
+            identical(ModalRoute.of(ancestor), route)) {
+          hasOuterVerticalViewport = true;
+          return false;
+        }
+        return true;
+      });
+      return !hasOuterVerticalViewport;
+    }, description: 'active route outer vertical Scrollable');
+    await waitFor(tester, () {
+      final elements = scrollable.evaluate().toList();
+      if (elements.length != 1) return false;
+      final route = ModalRoute.of(elements.single)!;
+      return (route.animation == null ||
+              route.animation!.status == AnimationStatus.completed) &&
+          (route.secondaryAnimation == null ||
+              route.secondaryAnimation!.status == AnimationStatus.dismissed);
+    }, 'Active route viewport and transition must be ready');
+    expect(scrollable, findsOneWidget);
+    expect(scrollable.hitTestable(), findsOneWidget);
     if (target.evaluate().isEmpty) {
       // A ListView may have evicted a target above the current viewport.
       // Return by real drag gestures, then search downward with a finite budget.
@@ -526,6 +587,7 @@ void main() {
         expect(schedule.dates, hasLength(program.days.length));
         final start = schedule.dates.first;
         expect(start, DateTime(start.year, start.month, start.day));
+        expect(start, setupStart);
         expect(
           schedule.dates,
           scheduleProgram(
@@ -572,6 +634,42 @@ void main() {
     expect(find.textContaining('could not be saved'), findsOneWidget);
     expect(find.byType(ProgramSetupScreen), findsOneWidget);
   }
+
+  testWidgets('P00 fixture IO preserves the original error and stack', (
+    tester,
+  ) async {
+    final sentinel = StateError('program-io-regression-sentinel');
+    final origin = StackTrace.fromString('program-io-regression-origin');
+    Object? caught;
+    StackTrace? caughtStack;
+    try {
+      await io<void>(tester, () => Future<void>.error(sentinel, origin));
+    } on Object catch (error, stack) {
+      caught = error;
+      caughtStack = stack;
+    }
+    expect(caught, same(sentinel));
+    expect(caughtStack.toString(), origin.toString());
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('P00 injected setup clock preserves non-midnight timestamp', (
+    tester,
+  ) async {
+    prepare(tester);
+    final start = DateTime(2040, 5, 10, 12, 34, 56, 789, 123);
+    await showSetup(tester, scheduleStart: start);
+    await submit(tester);
+    await expectWorkout(tester);
+    final saved = await io(
+      tester,
+      () async => (await ProgramScheduleStore.open()).read(),
+    );
+    expect(saved, isNotNull);
+    expect(saved!.dates.first, start);
+    expect(saved.dates.first.isUtc, isFalse);
+    expect(tester.takeException(), isNull);
+  });
 
   test('P01 actual catalogue excludes advanced/elite at both v1 levels', () {
     final allEquipment = <String>{

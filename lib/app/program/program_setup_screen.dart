@@ -30,7 +30,15 @@ class ProgramSetupScreen extends StatefulWidget {
     required this.content,
     this.accountUserId,
     super.key,
-  });
+  }) : _now = null;
+
+  @visibleForTesting
+  const ProgramSetupScreen.withClock({
+    required this.content,
+    required DateTime Function() now,
+    this.accountUserId,
+    super.key,
+  }) : _now = now;
 
   static const Key experienceKey = Key('programSetup.experience');
   static const Key equipmentKey = Key('programSetup.equipment');
@@ -41,6 +49,7 @@ class ProgramSetupScreen extends StatefulWidget {
 
   final ContentRepository content;
   final String? accountUserId;
+  final DateTime Function()? _now;
 
   @override
   State<ProgramSetupScreen> createState() => _ProgramSetupScreenState();
@@ -121,7 +130,7 @@ class _ProgramSetupScreenState extends State<ProgramSetupScreen> {
           () => ProgramSchedule(
             dates: scheduleProgram(
               program: program,
-              startDate: DateTime.now(),
+              startDate: widget._now?.call() ?? DateTime.now(),
               daysPerWeek: inputs.daysPerWeek,
             ),
             rpeByDayIndex: const <int, int>{},
