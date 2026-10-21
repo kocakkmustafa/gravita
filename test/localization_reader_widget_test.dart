@@ -207,33 +207,36 @@ void main() {
       tester.view.devicePixelRatio = 1;
       addTearDown(tester.view.reset);
       final semantics = tester.ensureSemantics();
-      addTearDown(semantics.dispose);
-      late String label;
-      await tester.pumpWidget(
-        host(
-          'ar',
-          Builder(
-            builder: (context) {
-              label = localized(
-                context,
-                '{count} sessions',
-                '{count} oturum',
-                values: const <String, Object>{'count': 12},
-              );
-              return MediaQuery(
-                data: MediaQuery.of(
+      try {
+        late String label;
+        await tester.pumpWidget(
+          host(
+            'ar',
+            Builder(
+              builder: (context) {
+                label = localized(
                   context,
-                ).copyWith(textScaler: TextScaler.linear(2)),
-                child: TextButton(onPressed: () {}, child: Text(label)),
-              );
-            },
+                  '{count} sessions',
+                  '{count} oturum',
+                  values: const <String, Object>{'count': 12},
+                );
+                return MediaQuery(
+                  data: MediaQuery.of(
+                    context,
+                  ).copyWith(textScaler: TextScaler.linear(2)),
+                  child: TextButton(onPressed: () {}, child: Text(label)),
+                );
+              },
+            ),
           ),
-        ),
-      );
-      await tester.pumpAndSettle();
-      expect(label, '\u2068${formatLocaleNumber(12, 'ar')}\u2069 جلسة');
-      expect(find.bySemanticsLabel(label), findsOneWidget);
-      expect(tester.takeException(), isNull);
+        );
+        await tester.pumpAndSettle();
+        expect(label, '\u2068${formatLocaleNumber(12, 'ar')}\u2069 جلسة');
+        expect(find.bySemanticsLabel(label), findsOneWidget);
+        expect(tester.takeException(), isNull);
+      } finally {
+        semantics.dispose();
+      }
     },
   );
 
