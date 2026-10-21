@@ -1385,182 +1385,201 @@ void main() {
     ) async {
       prepare(tester, size: const Size(320, 900));
       final semantics = tester.ensureSemantics();
-      addTearDown(semantics.dispose);
-      expect(dictionaries.keys.toSet(), <String>{
-        'tr',
-        'en',
-        'es-419',
-        'pt-BR',
-        'de',
-        'fr',
-        'ja',
-        'ar',
-        'it',
-        'ko',
-        'id',
-        'pl',
-        'hi',
-        'zh-Hans',
-      });
-      for (final entry in _criticalEnglish.entries) {
+      try {
+        expect(dictionaries.keys.toSet(), <String>{
+          'tr',
+          'en',
+          'es-419',
+          'pt-BR',
+          'de',
+          'fr',
+          'ja',
+          'ar',
+          'it',
+          'ko',
+          'id',
+          'pl',
+          'hi',
+          'zh-Hans',
+        });
+        for (final entry in _criticalEnglish.entries) {
+          expect(
+            dictionaries['en']![entry.key],
+            entry.value,
+            reason: 'The canonical source must actually be packaged.',
+          );
+        }
+        expect(appSupportedLocales, hasLength(14));
+        var index = 0;
+        for (final entry in _criticalEnglish.entries) {
+          final translated = dictionaries[tag]![entry.key];
+          expect(translated, isNotNull, reason: '$tag missing ${entry.key}');
+          expect(translated!.trim(), isNotEmpty);
+          if (tag != 'en') {
+            expect(
+              translated,
+              isNot(entry.value),
+              reason: '$tag must not pass by copying English.',
+            );
+          }
+        }
+        final firstDay = builder
+            .build(swingInputs)
+            .days
+            .singleWhere((day) => day.weekNumber == 1 && day.dayNumber == 1);
         expect(
-          dictionaries['en']![entry.key],
-          entry.value,
-          reason: 'The canonical source must actually be packaged.',
+          firstDay.exercises.where(
+            (exercise) => exercise.movementId == 'bodyweight_squat',
+          ),
+          hasLength(1),
         );
-      }
-      expect(appSupportedLocales, hasLength(14));
-      var index = 0;
-      for (final entry in _criticalEnglish.entries) {
-        final translated = dictionaries[tag]![entry.key];
-        expect(translated, isNotNull, reason: '$tag missing ${entry.key}');
-        expect(translated!.trim(), isNotEmpty);
-        if (tag != 'en') {
-          expect(
-            translated,
-            isNot(entry.value),
-            reason: '$tag must not pass by copying English.',
-          );
-        }
-      }
-      final firstDay = builder
-          .build(swingInputs)
-          .days
-          .singleWhere((day) => day.weekNumber == 1 && day.dayNumber == 1);
-      expect(
-        firstDay.exercises.where(
-          (exercise) => exercise.movementId == 'bodyweight_squat',
-        ),
-        hasLength(1),
-      );
-      expect(content.catalogue.byId('bodyweight_squat'), isNotNull);
-      for (final mode in <ThemeMode>[ThemeMode.light, ThemeMode.dark]) {
-        for (final scale in <double>[2, 3]) {
-          support = await io(
-            tester,
-            () => Directory('${root.path}/P09-${index++}').create(),
-          );
-          PathProviderPlatform.instance = FakeSupportDir(support.path);
-          await showSetup(tester, locale: locale, mode: mode, scale: scale);
-          final context = tester.element(find.byType(ProgramSetupScreen));
-          expect(Localizations.localeOf(context), locale);
-          expect(
-            Directionality.of(context),
-            tag == 'ar' ? TextDirection.rtl : TextDirection.ltr,
-          );
-          expect(
-            Theme.of(context).brightness,
-            mode == ThemeMode.dark ? Brightness.dark : Brightness.light,
-          );
-          expect(MediaQuery.textScalerOf(context).scale(10), scale * 10);
-          expect(MediaQuery.of(context).disableAnimations, isTrue);
-          await configure(tester, swingInputs);
-          await expectNotice(tester, tag, swing: true);
-          await submit(tester);
-          final requirement = find.byKey(
-            ProgramSetupScreen.swingRequirementKey,
-          );
-          final build = find.byKey(ProgramSetupScreen.buildButtonKey);
-          await waitFor(
-            tester,
-            () => requirement.evaluate().isNotEmpty,
-            '$tag $mode $scale inline requirement',
-          );
-          await reveal(tester, build);
-          expect(tester.widget<FilledButton>(build).onPressed, isNotNull);
-          await reveal(tester, requirement);
-          expect(
-            tester.widget<Text>(requirement).data,
-            dictionaries[tag]![_requirementId],
-          );
-          expect(
-            find.ancestor(
-              of: requirement,
-              matching: find.byWidgetPredicate(
-                (widget) =>
-                    widget is Semantics && widget.properties.liveRegion == true,
+        expect(content.catalogue.byId('bodyweight_squat'), isNotNull);
+        for (final mode in <ThemeMode>[ThemeMode.light, ThemeMode.dark]) {
+          for (final scale in <double>[2, 3]) {
+            support = await io(
+              tester,
+              () => Directory('${root.path}/P09-${index++}').create(),
+            );
+            PathProviderPlatform.instance = FakeSupportDir(support.path);
+            await showSetup(tester, locale: locale, mode: mode, scale: scale);
+            final context = tester.element(find.byType(ProgramSetupScreen));
+            expect(Localizations.localeOf(context), locale);
+            expect(
+              Directionality.of(context),
+              tag == 'ar' ? TextDirection.rtl : TextDirection.ltr,
+            );
+            expect(
+              Theme.of(context).brightness,
+              mode == ThemeMode.dark ? Brightness.dark : Brightness.light,
+            );
+            expect(MediaQuery.textScalerOf(context).scale(10), scale * 10);
+            expect(MediaQuery.of(context).disableAnimations, isTrue);
+            await configure(tester, swingInputs);
+            await expectNotice(tester, tag, swing: true);
+            await submit(tester);
+            final requirement = find.byKey(
+              ProgramSetupScreen.swingRequirementKey,
+            );
+            final build = find.byKey(ProgramSetupScreen.buildButtonKey);
+            await waitFor(
+              tester,
+              () => requirement.evaluate().isNotEmpty,
+              '$tag $mode $scale inline requirement',
+            );
+            await reveal(tester, build);
+            expect(tester.widget<FilledButton>(build).onPressed, isNotNull);
+            await reveal(tester, requirement);
+            expect(
+              tester.widget<Text>(requirement).data,
+              dictionaries[tag]![_requirementId],
+            );
+            expect(
+              find.ancestor(
+                of: requirement,
+                matching: find.byWidgetPredicate(
+                  (widget) =>
+                      widget is Semantics &&
+                      widget.properties.liveRegion == true,
+                ),
               ),
-            ),
-            findsOneWidget,
-          );
-          await expectNoWrites(tester);
-          await reveal(tester, reportBox());
-          final reportSemantics = tester
-              .getSemantics(reportTile())
-              .getSemanticsData();
-          expect(
-            reportSemantics.label,
-            contains(dictionaries[tag]![_reportId]!),
-          );
-          expect(reportSemantics.hasAction(SemanticsAction.tap), isTrue);
-          expect(tester.widget<CheckboxListTile>(reportTile()).value, isFalse);
-          // The tile owns keyboard activation; Flutter excludes its visual
-          // Checkbox child from focus traversal. Keep using actual Tab/Space.
-          await tabTo(tester, reportTile());
-          await tester.sendKeyEvent(LogicalKeyboardKey.space);
-          await tester.pump();
-          expect(tester.widget<CheckboxListTile>(reportTile()).value, isTrue);
-          await reveal(tester, build);
-          expect(build.hitTestable(), findsOneWidget);
-          final buildSemantics = tester.getSemantics(build).getSemanticsData();
-          expect(buildSemantics.label.trim(), isNotEmpty);
-          expect(buildSemantics.hasAction(SemanticsAction.tap), isTrue);
-          await tabTo(tester, build);
-          await tester.sendKeyEvent(LogicalKeyboardKey.enter);
-          await tester.pump();
-          await expectWorkout(tester);
-          await checkSaved(tester, swingInputs);
-          await expectNotice(tester, tag, swing: true);
-          // Week cards are lazy and repeat movement keys across days. Keep
-          // both queries empty-safe until reveal mounts the actual first day.
-          final firstDayCard = find.ancestor(
-            of: find.byKey(const ValueKey<String>('workout.markDone.1.1')),
-            matching: find.byType(GravitaCard),
-          );
-          final guide = find.descendant(
-            of: firstDayCard,
-            matching: find.byKey(
-              const ValueKey<String>('workout.movementGuide.bodyweight_squat'),
-            ),
-          );
-          await reveal(tester, guide);
-          expect(firstDayCard, findsOneWidget);
-          expect(guide, findsOneWidget);
-          expect(tester.widget<TextButton>(guide).onPressed, isNotNull);
-          expect(guide.hitTestable(), findsOneWidget);
-          final guideSemantics = tester.getSemantics(guide).getSemanticsData();
-          expect(guideSemantics.label, contains(dictionaries[tag]![_guideId]!));
-          expect(guideSemantics.hasAction(SemanticsAction.tap), isTrue);
-          await tabTo(tester, guide);
-          await tester.sendKeyEvent(LogicalKeyboardKey.enter);
-          await tester.pump();
-          await waitFor(
-            tester,
-            () => find.byType(MovementPage).evaluate().isNotEmpty,
-            '$tag $mode $scale keyboard learning navigation',
-          );
-          expect(
-            tester.widget<MovementPage>(find.byType(MovementPage)).movement.id,
-            'bodyweight_squat',
-          );
-          expect(find.byKey(MovementPage.startSessionKey), findsNothing);
-          expect(
-            tester.takeException(),
-            isNull,
-            reason:
-                '$tag $mode $scale must not clip with a framework overflow.',
-          );
-          await tester.pumpWidget(const SizedBox.shrink());
-          await tester.pump();
+              findsOneWidget,
+            );
+            await expectNoWrites(tester);
+            await reveal(tester, reportBox());
+            final reportSemantics = tester
+                .getSemantics(reportTile())
+                .getSemanticsData();
+            expect(
+              reportSemantics.label,
+              contains(dictionaries[tag]![_reportId]!),
+            );
+            expect(reportSemantics.hasAction(SemanticsAction.tap), isTrue);
+            expect(
+              tester.widget<CheckboxListTile>(reportTile()).value,
+              isFalse,
+            );
+            // The tile owns keyboard activation; Flutter excludes its visual
+            // Checkbox child from focus traversal. Keep using actual Tab/Space.
+            await tabTo(tester, reportTile());
+            await tester.sendKeyEvent(LogicalKeyboardKey.space);
+            await tester.pump();
+            expect(tester.widget<CheckboxListTile>(reportTile()).value, isTrue);
+            await reveal(tester, build);
+            expect(build.hitTestable(), findsOneWidget);
+            final buildSemantics = tester
+                .getSemantics(build)
+                .getSemanticsData();
+            expect(buildSemantics.label.trim(), isNotEmpty);
+            expect(buildSemantics.hasAction(SemanticsAction.tap), isTrue);
+            await tabTo(tester, build);
+            await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+            await tester.pump();
+            await expectWorkout(tester);
+            await checkSaved(tester, swingInputs);
+            await expectNotice(tester, tag, swing: true);
+            // Week cards are lazy and repeat movement keys across days. Keep
+            // both queries empty-safe until reveal mounts the actual first day.
+            final firstDayCard = find.ancestor(
+              of: find.byKey(const ValueKey<String>('workout.markDone.1.1')),
+              matching: find.byType(GravitaCard),
+            );
+            final guide = find.descendant(
+              of: firstDayCard,
+              matching: find.byKey(
+                const ValueKey<String>(
+                  'workout.movementGuide.bodyweight_squat',
+                ),
+              ),
+            );
+            await reveal(tester, guide);
+            expect(firstDayCard, findsOneWidget);
+            expect(guide, findsOneWidget);
+            expect(tester.widget<TextButton>(guide).onPressed, isNotNull);
+            expect(guide.hitTestable(), findsOneWidget);
+            final guideSemantics = tester
+                .getSemantics(guide)
+                .getSemanticsData();
+            expect(
+              guideSemantics.label,
+              contains(dictionaries[tag]![_guideId]!),
+            );
+            expect(guideSemantics.hasAction(SemanticsAction.tap), isTrue);
+            await tabTo(tester, guide);
+            await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+            await tester.pump();
+            await waitFor(
+              tester,
+              () => find.byType(MovementPage).evaluate().isNotEmpty,
+              '$tag $mode $scale keyboard learning navigation',
+            );
+            expect(
+              tester
+                  .widget<MovementPage>(find.byType(MovementPage))
+                  .movement
+                  .id,
+              'bodyweight_squat',
+            );
+            expect(find.byKey(MovementPage.startSessionKey), findsNothing);
+            expect(
+              tester.takeException(),
+              isNull,
+              reason:
+                  '$tag $mode $scale must not clip with a framework overflow.',
+            );
+            await tester.pumpWidget(const SizedBox.shrink());
+            await tester.pump();
+          }
         }
+        expect(index, 4);
+        expect(
+          index * appSupportedLocales.length,
+          56,
+          reason:
+              'All 14 P09 locale registrations retain four layout vectors each.',
+        );
+      } finally {
+        semantics.dispose();
       }
-      expect(index, 4);
-      expect(
-        index * appSupportedLocales.length,
-        56,
-        reason:
-            'All 14 P09 locale registrations retain four layout vectors each.',
-      );
     });
   }
 }
