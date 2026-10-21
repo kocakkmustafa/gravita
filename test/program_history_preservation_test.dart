@@ -271,9 +271,13 @@ void main() {
     await tester.tap(find.byKey(WorkoutScreen.retryKey));
     await tester.pump();
     expect(tester.takeException(), isNull);
+    // A successful reload walks the whole real-IO load chain (measured: 11
+    // windows), unlike the early-throwing broken read above; same 40-round
+    // budget as the first successful load in showWorkout.
     await settleUntil(
       tester,
       () => find.byKey(WorkoutScreen.disclaimerKey).evaluate().isNotEmpty,
+      maxRounds: 40,
     );
     // settleUntil is bounded and does not itself assert its final condition.
     expect(find.byKey(WorkoutScreen.disclaimerKey), findsOneWidget);
