@@ -126,6 +126,45 @@ void main() {
     expect(tester.takeException(), isNull, reason: reason);
   }
 
+  Future<void> drainAfterWidget(WidgetTester tester) async {
+    var completed = false;
+    Object? failure;
+    StackTrace? failureStack;
+    debugPrint('program-cleanup START: registry drain');
+    // A failed assertion can leave the widget's admitted file work in the fake
+    // zone. Drain it before the global real-zone teardown awaits the registry.
+    final observed = AccountStoreEpochRegistry.resetForTest().then<void>(
+      (_) => completed = true,
+      onError: (Object error, StackTrace stack) {
+        failure = error;
+        failureStack = stack;
+        completed = true;
+      },
+    );
+    final watch = Stopwatch()..start();
+    var turns = 0;
+    while (!completed && watch.elapsedMilliseconds < 1500 && turns < 4096) {
+      await tester.runAsync<void>(
+        () => Future<void>.delayed(const Duration(milliseconds: 1)),
+      );
+      await tester.pump(const Duration(milliseconds: 80));
+      turns++;
+    }
+    debugPrint(
+      'program-cleanup registry drain: completed=$completed turns=$turns '
+      'wallMs=${watch.elapsedMilliseconds}',
+    );
+    expect(
+      completed,
+      isTrue,
+      reason: 'Program registry drain missed the 1500ms deadline',
+    );
+    await observed;
+    final error = failure;
+    if (error != null) Error.throwWithStackTrace(error, failureStack!);
+    debugPrint('program-cleanup END: registry drain');
+  }
+
   void prepare(WidgetTester tester, {Size size = const Size(900, 1200)}) {
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1;
@@ -133,6 +172,7 @@ void main() {
     addTearDown(() async {
       await tester.pumpWidget(const SizedBox.shrink());
       await tester.pump();
+      await drainAfterWidget(tester);
     });
   }
 
@@ -321,6 +361,18 @@ void main() {
       'Actual selected swing requires a correctable report',
     );
     await reveal(tester, build);
+    // The previous inline warning remains visible during a second submit.
+    // Once the button is mounted, also wait for that submit's async work to
+    // release saving; warning presence alone does not establish readiness.
+    debugPrint('program-blocked-state WAIT: saving released');
+    await waitFor(
+      tester,
+      () =>
+          build.evaluate().isNotEmpty &&
+          tester.widget<FilledButton>(build).onPressed != null,
+      'Blocked swing must release saving and remain correctable',
+    );
+    debugPrint('program-blocked-state END: saving released');
     expect(tester.widget<FilledButton>(build).onPressed, isNotNull);
     await reveal(tester, requirement);
     expect(find.byType(ProgramSetupScreen), findsOneWidget);
