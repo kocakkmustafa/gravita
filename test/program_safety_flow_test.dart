@@ -372,23 +372,39 @@ void main() {
         ),
       );
 
-  Future<void> chooseEquipment(WidgetTester tester, String equipment) {
-    // Use the actual catalogue-derived chip order; do not translate its label
-    // in the test or invoke onSelected instead of the real hit target.
+  Future<void> chooseEquipment(WidgetTester tester, String equipment) async {
+    // The catalogue index only validates membership. Lazy ListView children
+    // may be unmounted, so never index the currently mounted chip candidates.
     final options = <String>{
       for (final movement in content.catalogue.movements) ...movement.equipment,
     }.toList()..sort();
     final index = options.indexOf(equipment);
     expect(index, greaterThanOrEqualTo(0));
-    return tapVisible(
-      tester,
-      find
-          .descendant(
-            of: find.byKey(ProgramSetupScreen.equipmentKey),
-            matching: find.byType(FilterChip),
-          )
-          .at(index),
+    final context = tester.element(find.byType(ProgramSetupScreen));
+    final label = equipmentDisplayName(context, equipment);
+    expect(label.trim(), isNotEmpty);
+    expect(
+      options.where((option) => equipmentDisplayName(context, option) == label),
+      hasLength(1),
+      reason: 'The localized equipment label must identify one catalogue item.',
     );
+    final chip = find.descendant(
+      of: find.byKey(ProgramSetupScreen.equipmentKey),
+      matching: find.byWidgetPredicate(
+        (widget) =>
+            widget is FilterChip &&
+            widget.label is Text &&
+            (widget.label as Text).data == label,
+        description: 'FilterChip for localized equipment $equipment',
+      ),
+    );
+    // This empty-safe semantic finder lets reveal mount the real target by
+    // scrolling, independent of locale, wrapping or current candidate count.
+    await reveal(tester, chip);
+    final before = tester.widget<FilterChip>(chip).selected;
+    expect(tester.widget<FilterChip>(chip).onSelected, isNotNull);
+    await tapVisible(tester, chip);
+    expect(tester.widget<FilterChip>(chip).selected, !before);
   }
 
   Future<void> configure(WidgetTester tester, ProgramInputs inputs) async {
