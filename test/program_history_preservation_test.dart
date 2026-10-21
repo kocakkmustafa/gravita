@@ -236,6 +236,12 @@ void main() {
     prepareView(tester);
     await seed(tester);
     final original = await bytes(tester);
+    final expectedSchedule = await realIo(
+      tester,
+      () => ProgramScheduleStore.forFile(scheduleFile()).read(),
+    );
+    expect(expectedSchedule, isNotNull);
+    expect(expectedSchedule!.rpeByDayIndex, <int, int>{0: 7});
     const broken = '{"dates":';
     await realIo(tester, () => scheduleFile().writeAsString(broken));
     await showWorkout(tester);
@@ -251,9 +257,17 @@ void main() {
               .onPressed !=
           null,
     );
+    expectUnavailable();
+    expect(
+      tester
+          .widget<OutlinedButton>(find.byKey(WorkoutScreen.retryKey))
+          .onPressed,
+      isNotNull,
+    );
     expect(await realIo(tester, () => scheduleFile().readAsString()), broken);
     // The fixture is repaired explicitly by the test, never by Workout.
     await realIo(tester, () => scheduleFile().writeAsBytes(original.schedule!));
+    await expectBytes(tester, original);
     await tester.tap(find.byKey(WorkoutScreen.retryKey));
     await tester.pump();
     expect(tester.takeException(), isNull);
@@ -261,7 +275,73 @@ void main() {
       tester,
       () => find.byKey(WorkoutScreen.disclaimerKey).evaluate().isNotEmpty,
     );
+    // settleUntil is bounded and does not itself assert its final condition.
+    expect(find.byKey(WorkoutScreen.disclaimerKey), findsOneWidget);
+    expect(find.byKey(WorkoutScreen.unavailableKey), findsNothing);
+    expect(find.byKey(WorkoutScreen.emptyKey), findsNothing);
+    expect(tester.takeException(), isNull);
+    expect(
+      Localizations.localeOf(tester.element(find.byType(WorkoutScreen))),
+      const Locale('en'),
+    );
+    // Read the actual store after the reload completed, before searching UI.
+    // A lost or rebound RPE must fail even if another card has similar text.
+    final reloaded = await realIo(
+      tester,
+      () => ProgramScheduleStore.forFile(scheduleFile()).read(),
+    );
+    expect(reloaded, isNotNull);
+    expect(reloaded!.rpeByDayIndex, <int, int>{0: 7});
+    expect(reloaded.programSignature, expectedSchedule.programSignature);
+    expect(reloaded.dates, expectedSchedule.dates);
+    await expectBytes(tester, original);
+
+    // A lazy ListView's disclaimer does not prove a day card was mounted.
+    // Find the first persisted date by its public label, never widget index.
+    final firstDate = find.text(
+      'Scheduled: ${formatLocaleDate(expectedSchedule.dates[0], 'en')}',
+    );
+    final scrollable = find.descendant(
+      of: find.byType(WorkoutScreen),
+      matching: find.byWidgetPredicate(
+        (widget) =>
+            widget is Scrollable &&
+            axisDirectionToAxis(widget.axisDirection) == Axis.vertical,
+      ),
+    );
+    expect(scrollable, findsOneWidget);
+    if (firstDate.evaluate().isEmpty) {
+      await tester.scrollUntilVisible(
+        firstDate,
+        240,
+        scrollable: scrollable,
+        maxScrolls: 100,
+      );
+    }
+    expect(firstDate, findsOneWidget);
+    final firstDayCard = find.ancestor(
+      of: firstDate,
+      matching: find.byType(GravitaCard),
+    );
+    expect(firstDayCard, findsOneWidget);
+    final firstDayDone = find.descendant(
+      of: firstDayCard,
+      matching: find.text('Done · RPE 7'),
+    );
+    expect(
+      firstDayDone,
+      findsOneWidget,
+      reason:
+          'The persisted first day must show its RPE; mounted pill labels: '
+          '${tester.widgetList<GravitaPill>(find.descendant(of: firstDayCard, matching: find.byType(GravitaPill))).map((pill) => pill.label).toList()}',
+    );
+    await Scrollable.ensureVisible(
+      tester.element(firstDayDone),
+      alignment: 0.5,
+    );
+    await tester.pump();
     expect(find.text('Done · RPE 7'), findsOneWidget);
+    expect(firstDayDone.hitTestable(), findsOneWidget);
     await expectBytes(tester, original);
   });
 
