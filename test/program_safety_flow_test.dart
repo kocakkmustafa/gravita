@@ -1482,7 +1482,10 @@ void main() {
             contains(dictionaries[tag]![_reportId]!),
           );
           expect(reportSemantics.hasAction(SemanticsAction.tap), isTrue);
-          await tabTo(tester, reportBox());
+          expect(tester.widget<CheckboxListTile>(reportTile()).value, isFalse);
+          // The tile owns keyboard activation; Flutter excludes its visual
+          // Checkbox child from focus traversal. Keep using actual Tab/Space.
+          await tabTo(tester, reportTile());
           await tester.sendKeyEvent(LogicalKeyboardKey.space);
           await tester.pump();
           expect(tester.widget<CheckboxListTile>(reportTile()).value, isTrue);
