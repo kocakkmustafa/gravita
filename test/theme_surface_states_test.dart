@@ -549,23 +549,38 @@ void main() {
         final ink = find.descendant(of: cta, matching: find.byType(Ink));
         final node = Focus.of(tester.element(ink));
         await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+        // The first frame starts a newly scheduled ink ticker at elapsed zero;
+        // advance the existing fade interval only after that starting frame.
+        await tester.pump();
         await tester.pump(const Duration(milliseconds: 250));
         expect(node.hasFocus, isTrue);
+        expect(
+          FocusManager.instance.highlightMode,
+          FocusHighlightMode.traditional,
+        );
+        debugPrint(
+          'surface-cta $mode: focus=${node.hasFocus} '
+          'highlight=${FocusManager.instance.highlightMode}',
+        );
         final focused = await paintedRect(tester, boundary, cta);
         expect(focused, isNot(orderedEquals(idle)));
         node.unfocus();
+        await tester.pump();
         await tester.pump(const Duration(milliseconds: 250));
+        expect(node.hasFocus, isFalse);
         final mouse = await tester.createGesture(
           kind: ui.PointerDeviceKind.mouse,
         );
         addTearDown(mouse.removePointer);
         await mouse.addPointer(location: const Offset(1, 1));
         await mouse.moveTo(tester.getCenter(cta));
+        await tester.pump();
         await tester.pump(const Duration(milliseconds: 250));
         final hovered = await paintedRect(tester, boundary, cta);
         expect(hovered, isNot(orderedEquals(idle)));
         await mouse.moveTo(const Offset(1, 1));
         node.requestFocus();
+        await tester.pump();
         await tester.pump(const Duration(milliseconds: 250));
         await tester.sendKeyEvent(LogicalKeyboardKey.enter);
         await tester.pumpAndSettle();
