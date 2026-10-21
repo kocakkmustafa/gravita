@@ -495,20 +495,36 @@ void main() {
                 .evaluate()
                 .isNotEmpty,
           );
-          // Drain the screen's real markSeen write before reading or disposing.
-          final journal = await realIo(tester, store.load);
-          await tester.pump();
           expectLocale(tester, find.byType(CalisthenicsLessonScreen), tag);
           expect(find.text(lesson.title.inLanguage(tag)), findsOneWidget);
+          // markSeen starts in the widget zone. Advance both clocks until its
+          // actual Seen state is painted before awaiting a queued real read.
+          final seen = find.byKey(const Key('calisthenics.state'));
+          final seenText = resolveLocalized(tag, 'Seen', turkish: 'Görüldü');
+          debugPrint('surface-lesson WAIT Seen writer: $label');
+          await reveal(tester, seen, '$label health lesson writer readiness');
+          bool seenReady() =>
+              seen.evaluate().length == 1 &&
+              tester.widget<Text>(seen).data == seenText;
+          await settleUntil(tester, seenReady, maxRounds: 40);
+          expect(
+            seenReady(),
+            isTrue,
+            reason: '$label actual markSeen writer must settle before read',
+          );
+          debugPrint('surface-lesson READY Seen writer: $label');
+          // Keep the real serialized read and all journal/UI safety oracles.
+          debugPrint('surface-lesson START journal read: $label');
+          final journal = await realIo(tester, store.load);
+          debugPrint('surface-lesson END journal read: $label');
+          await tester.pump();
           expect(
             journal.forLesson(lesson, course.version)?.state,
             CalisthenicsLessonState.seen,
           );
           // The title/objective can push the lazy state label off-screen.
           // Preserve the actual Seen UI oracle after IO and a real reveal.
-          final seen = find.byKey(const Key('calisthenics.state'));
           await reveal(tester, seen, '$label health lesson seen state');
-          final seenText = resolveLocalized(tag, 'Seen', turkish: 'Görüldü');
           expect(tester.widget<Text>(seen).data, seenText);
           expect(find.text(seenText), findsOneWidget);
           expectPaintedWithoutError(tester, '$label health lesson initial');
