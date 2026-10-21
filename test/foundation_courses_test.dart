@@ -63,6 +63,45 @@ Future<void> reveal(WidgetTester t, Finder target) async {
   expect(target.hitTestable(), findsOneWidget);
 }
 
+Future<void> drainLegacyRegistry(WidgetTester t, String stage) async {
+  var completed = false;
+  Object? failure;
+  StackTrace? failureStack;
+  debugPrint('legacy-drain START: $stage');
+  // Pending work was admitted by widgets in the fake zone. Awaiting its
+  // drain inside one real-zone runAsync prevents those callbacks from pumping.
+  final observed = AccountStoreEpochRegistry.resetForTest().then<void>(
+    (_) => completed = true,
+    onError: (Object error, StackTrace stack) {
+      failure = error;
+      failureStack = stack;
+      completed = true;
+    },
+  );
+  final watch = Stopwatch()..start();
+  var turns = 0;
+  while (!completed && watch.elapsedMilliseconds < 1500 && turns < 4096) {
+    await t.runAsync<void>(
+      () => Future<void>.delayed(const Duration(milliseconds: 1)),
+    );
+    await t.pump(const Duration(milliseconds: 80));
+    turns++;
+  }
+  debugPrint(
+    'legacy-drain $stage: completed=$completed turns=$turns '
+    'wallMs=${watch.elapsedMilliseconds}',
+  );
+  expect(
+    completed,
+    isTrue,
+    reason: 'Legacy registry drain missed the 1500ms deadline: $stage',
+  );
+  await observed;
+  final error = failure;
+  if (error != null) Error.throwWithStackTrace(error, failureStack!);
+  debugPrint('legacy-drain END: $stage');
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late ContentRepository legacyContent;
@@ -173,6 +212,7 @@ void main() {
           t.view.devicePixelRatio = 1;
           addTearDown(t.view.reset);
           final content = legacyContent;
+          debugPrint('legacy-stage $area $lang: mount and locale');
           await t.pumpWidget(
             MaterialApp(
               locale: Locale(lang),
@@ -195,6 +235,7 @@ void main() {
           await t.pumpAndSettle();
           final entry = find.byKey(Key('foundation.entry.$area'));
           await reveal(t, entry);
+          debugPrint('legacy-stage $area $lang: enter course');
           await t.tap(entry.hitTestable());
           await t.pumpAndSettle();
           await settleUntil(
@@ -209,6 +250,7 @@ void main() {
             Key('calisthenics.lesson.${course.lessons[2].id}'),
           );
           await reveal(t, lesson);
+          debugPrint('legacy-stage $area $lang: enter held lesson');
           await t.tap(lesson.hitTestable());
           await t.pumpAndSettle();
           await settleUntil(
@@ -238,12 +280,14 @@ void main() {
             isNull,
           );
           expect(t.takeException(), isNull);
+          debugPrint('legacy-stage $area $lang: back to course');
           await t.tap(find.byType(BackButton));
           await t.pumpAndSettle();
           expect(find.byType(CalisthenicsCourseScreen), findsOneWidget);
+          debugPrint('legacy-stage $area $lang: unmount');
           await t.pumpWidget(const SizedBox.shrink());
           await t.pumpAndSettle();
-          await t.runAsync(AccountStoreEpochRegistry.resetForTest);
+          await drainLegacyRegistry(t, '$area $lang registry reset');
           dir.deleteSync(recursive: true);
         },
       );
