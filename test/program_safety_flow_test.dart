@@ -404,6 +404,10 @@ void main() {
     final before = tester.widget<FilterChip>(chip).selected;
     expect(tester.widget<FilterChip>(chip).onSelected, isNotNull);
     await tapVisible(tester, chip);
+    // Selecting kettlebell can add the swing notice above this lazy child.
+    // Reacquire it after that layout change before reading the current state;
+    // do not assume the pre-gesture element stays mounted or reuse its widget.
+    await reveal(tester, chip);
     expect(tester.widget<FilterChip>(chip).selected, !before);
   }
 
