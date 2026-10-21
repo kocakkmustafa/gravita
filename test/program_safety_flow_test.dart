@@ -1004,6 +1004,66 @@ void main() {
   testWidgets('P07 actual guide route retains owner/epoch fences on switch', (
     tester,
   ) async {
+    bool settledCurrentRoute(Element element) {
+      final route = ModalRoute.of(element);
+      return route?.isCurrent == true &&
+          (route!.animation == null ||
+              route.animation!.status == AnimationStatus.completed) &&
+          (route.secondaryAnimation == null ||
+              route.secondaryAnimation!.status == AnimationStatus.dismissed);
+    }
+
+    Finder currentPage(Type type) => find.byElementPredicate(
+      (element) =>
+          element.widget.runtimeType == type &&
+          ModalRoute.of(element)?.isCurrent == true,
+      description: 'current $type route page',
+    );
+
+    Future<void> backFromTo({required Type from, required Type to}) async {
+      final source = currentPage(from);
+      await waitFor(tester, () {
+        final elements = source.evaluate().toList();
+        return elements.length == 1 && settledCurrentRoute(elements.single);
+      }, '$from must be the settled current route before Back');
+      expect(source, findsOneWidget);
+      final sourceElement = source.evaluate().single;
+      final sourceRoute = ModalRoute.of(sourceElement)!;
+      final appBar = find.descendant(of: source, matching: find.byType(AppBar));
+      expect(appBar, findsOneWidget);
+      final back = find.descendant(
+        of: appBar,
+        matching: find.byType(BackButton),
+      );
+      expect(back, findsOneWidget);
+      expect(
+        find.descendant(
+          of: back,
+          matching: find.byTooltip(
+            MaterialLocalizations.of(sourceElement).backButtonTooltip,
+          ),
+        ),
+        findsOneWidget,
+      );
+      expect(back.hitTestable(), findsOneWidget);
+      // Use the actual public AppBar action. Neither a global tooltip match
+      // nor a direct Navigator.pop establishes which route's control was used.
+      await tester.tap(back);
+      await tester.pump();
+      final destination = currentPage(to);
+      final retiredSource = find.byType(from, skipOffstage: false);
+      await waitFor(tester, () {
+        final elements = destination.evaluate().toList();
+        return elements.length == 1 &&
+            settledCurrentRoute(elements.single) &&
+            retiredSource.evaluate().isEmpty &&
+            !sourceRoute.isActive;
+      }, '$from must retire and $to must become the settled current route');
+      expect(retiredSource, findsNothing);
+      expect(sourceRoute.isActive, isFalse);
+      expect(destination, findsOneWidget);
+    }
+
     prepare(tester);
     await io(tester, () async {
       await AccountStoreEpochRegistry.enableManagedAdmission();
@@ -1042,6 +1102,9 @@ void main() {
       pageBuilder: (_) => const SizedBox.shrink(),
     );
     await showWorkout(tester, owner: first, connection: connection);
+    final retainedWorkoutRoute = ModalRoute.of(
+      find.byType(WorkoutScreen).evaluate().single,
+    );
     await tapVisible(
       tester,
       find
@@ -1224,10 +1287,16 @@ void main() {
     await expectBytes(tester, beforeB, second);
     // Keep the obsolete A workout route alive deliberately: an actual RPE
     // action must fail rather than opening B's store under the new scope.
-    await tester.pageBack();
-    await tester.pump(const Duration(milliseconds: 400));
-    await tester.pageBack();
-    await tester.pump(const Duration(milliseconds: 400));
+    await backFromTo(from: CalisthenicsLessonScreen, to: MovementPage);
+    await backFromTo(from: MovementPage, to: WorkoutScreen);
+    expect(
+      ModalRoute.of(currentPage(WorkoutScreen).evaluate().single),
+      same(retainedWorkoutRoute),
+    );
+    expect(
+      tester.widget<WorkoutScreen>(currentPage(WorkoutScreen)).accountUserId,
+      first,
+    );
     await tapVisible(
       tester,
       find.byKey(const ValueKey<String>('workout.markDone.1.1')),
