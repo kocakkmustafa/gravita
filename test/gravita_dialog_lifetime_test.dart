@@ -6,14 +6,16 @@ import 'package:gravita/app/app_locale.dart';
 import 'package:gravita/app/gravita_account_page.dart';
 import 'package:motion_account/motion_account.dart';
 
-import 'account_action_ticket_test.dart'
-    show AccountHttpFixture, ticketAlice;
+import 'support/locale_asset_harness.dart'
+    show warmActualLocaleAssets, pumpActualLocaleReady;
+import 'account_action_ticket_test.dart' show AccountHttpFixture, ticketAlice;
 
 /// Staged only: root runs this against the explicitly selected disposable
 /// package_config. The imported fixture uses real Core/Supabase clients with
 /// synthetic HTTP. No native/provider acceptance or test execution is claimed.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(warmActualLocaleAssets);
   late AccountHttpFixture fixture;
   late AccountStoreEpoch epoch;
 
@@ -36,6 +38,7 @@ void main() {
       final harness = _DialogHarness(fixture);
       try {
         await tester.pumpWidget(harness.widget);
+        await pumpActualLocaleReady(tester);
         await tester.pump();
         final wrapper = tester.state<State<GravitaAccountPage>>(
           find.byType(GravitaAccountPage),
@@ -91,6 +94,10 @@ void main() {
 
         harness.locale.value = const Locale('tr');
         await _finishFrame(tester);
+        // The actual locale delegate loads outside the fake clock; then pump
+        // the dependents' rebuild frame.
+        await pumpActualLocaleReady(tester);
+        await tester.pump();
         expect(
           tester.takeException(),
           isNull,
@@ -98,8 +105,9 @@ void main() {
         );
         _expectRetainedDialog(tester, harness, navigator, route);
         expect(
-          Localizations.localeOf(tester.element(find.byType(AlertDialog)))
-              .languageCode,
+          Localizations.localeOf(
+            tester.element(find.byType(AlertDialog)),
+          ).languageCode,
           'tr',
           reason: 'the retained dialog actually received the changed locale',
         );
@@ -127,6 +135,7 @@ void main() {
       final harness = _DialogHarness(fixture);
       try {
         await tester.pumpWidget(harness.widget);
+        await pumpActualLocaleReady(tester);
         await tester.pump();
         final wrapper = tester.state<State<GravitaAccountPage>>(
           find.byType(GravitaAccountPage),
@@ -150,6 +159,10 @@ void main() {
 
         harness.locale.value = const Locale('tr');
         await _finishFrame(tester);
+        // The actual locale delegate loads outside the fake clock; then pump
+        // the dependents' rebuild frame.
+        await pumpActualLocaleReady(tester);
+        await tester.pump();
         expect(
           tester.takeException(),
           isNull,
@@ -157,8 +170,9 @@ void main() {
         );
         _expectRetainedDialog(tester, harness, navigator, route);
         expect(
-          Localizations.localeOf(tester.element(find.byType(AlertDialog)))
-              .languageCode,
+          Localizations.localeOf(
+            tester.element(find.byType(AlertDialog)),
+          ).languageCode,
           'tr',
         );
         // First scenario attempts stale confirmation; this scenario exercises
