@@ -11,6 +11,8 @@ import 'package:gravita/app/home_screen.dart';
 import 'package:gravita/app/library_screen.dart';
 import 'package:gravita/app/theme.dart';
 import 'support/launch_harness.dart';
+import 'support/locale_asset_harness.dart'
+    show warmActualLocaleAssets, pumpActualLocaleReady;
 
 class _FileBundle extends AssetBundle {
   @override
@@ -23,6 +25,7 @@ class _FileBundle extends AssetBundle {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(warmActualLocaleAssets);
   late Directory temp;
   late ContentRepository content;
   setUp(() async {
@@ -46,6 +49,20 @@ void main() {
   }
 
   Future<void> to(WidgetTester tester, Key key, {double delta = 200}) async {
+    // The body mounts after its real-IO progress store resolves.
+    await settleUntil(
+      tester,
+      () =>
+          find
+              .byKey(const Key('calisthenics.lesson.body'))
+              .evaluate()
+              .isNotEmpty ||
+          find
+              .byKey(const Key('calisthenics.course.body'))
+              .evaluate()
+              .isNotEmpty,
+      maxRounds: 40,
+    );
     await tester.scrollUntilVisible(
       find.byKey(key),
       delta,
@@ -76,6 +93,7 @@ void main() {
         LibraryScreen(content: content),
       ]) {
         await tester.pumpWidget(host(page));
+        await pumpActualLocaleReady(tester);
         await tester.pump();
         expect(find.byKey(const Key('calisthenics.entry')), findsOneWidget);
         await tester.tap(find.byKey(const Key('calisthenics.entry')));
@@ -615,10 +633,12 @@ void main() {
         );
         try {
           await tester.pumpWidget(page(a));
+          await pumpActualLocaleReady(tester);
           await tester.pump();
           expect(loaded, isNotEmpty);
           expect(loaded, everyElement(isNull));
           await tester.pumpWidget(page(b));
+          await pumpActualLocaleReady(tester);
           await tester.pump();
           expect(loaded, everyElement(isNull));
         } finally {
