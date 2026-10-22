@@ -5,9 +5,12 @@ import 'package:gravita/app/account_connection.dart';
 import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/gravita_app.dart';
 import 'package:gravita/app/profile_screen.dart';
+import 'support/locale_asset_harness.dart'
+    show warmActualLocaleAssets, pumpActualLocaleReady;
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(warmActualLocaleAssets);
   const first = '11111111-1111-4111-8111-111111111111';
   const second = '22222222-2222-4222-8222-222222222222';
   late ContentRepository content;
@@ -27,11 +30,15 @@ void main() {
         ),
       ),
     );
+    // A (re)keyed MaterialApp builds its subtree after the actual locale
+    // delegates load.
+    await pumpActualLocaleReady(tester);
     expect(find.text('ACCOUNT_PAGE_TEST'), findsNothing);
     expect(find.byType(GravitaRoot), findsOneWidget);
 
     userId.value = first;
     await tester.pump();
+    await pumpActualLocaleReady(tester);
     expect(find.byType(GravitaRoot), findsOneWidget);
     expect(
       tester.widget<MaterialApp>(find.byType(MaterialApp)).key,
@@ -40,6 +47,7 @@ void main() {
 
     userId.value = second;
     await tester.pump();
+    await pumpActualLocaleReady(tester);
     expect(
       tester.widget<MaterialApp>(find.byType(MaterialApp)).key,
       const ValueKey<String>('gravita-account-$second'),
@@ -47,6 +55,7 @@ void main() {
 
     userId.value = null;
     await tester.pump();
+    await pumpActualLocaleReady(tester);
     expect(find.text('ACCOUNT_PAGE_TEST'), findsNothing);
     expect(find.byType(GravitaRoot), findsOneWidget);
   });

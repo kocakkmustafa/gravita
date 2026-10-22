@@ -5,9 +5,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gravita/app/account_connection.dart';
 import 'package:gravita/app/account_store_epoch.dart';
 import 'package:gravita/app/gravita_app.dart';
+import 'support/locale_asset_harness.dart'
+    show warmActualLocaleAssets, pumpActualLocaleReady;
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(warmActualLocaleAssets);
   const first = '11111111-1111-4111-8111-111111111111';
 
   setUp(() async {
@@ -33,6 +36,7 @@ void main() {
           ),
         ),
       );
+      await pumpActualLocaleReady(tester);
       final oldEpoch = AccountStoreEpochRegistry.capture(first);
       final initialKey = tester
           .widget<MaterialApp>(find.byType(MaterialApp))
@@ -44,6 +48,7 @@ void main() {
         ),
       );
       await tester.pump();
+      await pumpActualLocaleReady(tester);
       await tester.pump(const Duration(seconds: 1));
       expect(find.text('OLD_ACTIVE_ROUTE'), findsOneWidget);
 
@@ -54,6 +59,7 @@ void main() {
       expect(oldEpoch.writeLease.isActive, isFalse);
       expect(() => AccountStoreEpochRegistry.capture(first), throwsStateError);
       await tester.pump();
+      await pumpActualLocaleReady(tester);
       expect(find.text('OLD_ACTIVE_ROUTE'), findsNothing);
       expect(find.byType(GravitaRoot), findsNothing);
       expect(find.text('RECOVERY_true'), findsOneWidget);
@@ -66,6 +72,7 @@ void main() {
       final freshEpoch = AccountStoreEpochRegistry.capture(first);
       expect(identical(oldEpoch, freshEpoch), isFalse);
       await tester.pump();
+      await pumpActualLocaleReady(tester);
       expect(find.text('RECOVERY_true'), findsNothing);
       expect(find.byType(GravitaRoot), findsOneWidget);
       await tester.pumpWidget(const SizedBox());
@@ -92,12 +99,14 @@ void main() {
         ),
       ),
     );
+    await pumpActualLocaleReady(tester);
     final old = AccountStoreEpochRegistry.capture(first);
     final oldKey = tester.widget<MaterialApp>(find.byType(MaterialApp)).key;
     owners.add(null);
     expect(old.checkCurrent, throwsStateError);
     expect(identical(old, AccountStoreEpochRegistry.capture(first)), isFalse);
     await tester.pump();
+    await pumpActualLocaleReady(tester);
     expect(
       tester.widget<MaterialApp>(find.byType(MaterialApp)).key,
       isNot(oldKey),
@@ -125,6 +134,7 @@ void main() {
           ),
         ),
       );
+      await pumpActualLocaleReady(tester);
       final old = AccountStoreEpochRegistry.capture(first);
       final cleanup = AccountStoreEpochRegistry.beginConfirmedAccountErasure(
         first,
@@ -133,16 +143,19 @@ void main() {
       expect(old.checkCurrent, throwsStateError);
       expect(() => AccountStoreEpochRegistry.capture(first), throwsStateError);
       await tester.pump();
+      await pumpActualLocaleReady(tester);
       expect(find.byType(GravitaRoot), findsNothing);
       expect(find.textContaining('local cleanup completes'), findsOneWidget);
       recovery.value = true;
       recovery.value = false;
       await tester.pump();
+      await pumpActualLocaleReady(tester);
       expect(tester.takeException(), isNull);
       expect(find.byType(GravitaRoot), findsNothing);
       gate.complete();
       await cleanup;
       await tester.pump();
+      await pumpActualLocaleReady(tester);
       expect(find.textContaining('local cleanup completes'), findsNothing);
       expect(find.textContaining('This account was deleted'), findsOneWidget);
       expect(find.byType(GravitaRoot), findsNothing);
@@ -173,6 +186,7 @@ void main() {
           ),
         ),
       );
+      await pumpActualLocaleReady(tester);
       final old = AccountStoreEpochRegistry.capture(null);
       final oldKey = tester.widget<MaterialApp>(find.byType(MaterialApp)).key;
       // Core keeps signedOut when its auth client has no current user.
@@ -185,6 +199,7 @@ void main() {
       expect(identical(old, fresh), isFalse);
       expect(fresh.isActive, isTrue);
       await tester.pump();
+      await pumpActualLocaleReady(tester);
       expect(tester.takeException(), isNull);
       expect(find.byType(GravitaRoot), findsOneWidget);
       expect(
@@ -220,6 +235,7 @@ void main() {
         ),
       ),
     );
+    await pumpActualLocaleReady(tester);
     final old = AccountStoreEpochRegistry.capture(first);
     // Real Core runtime closes its canonical phase before later observers.
     admitted.value = false;
@@ -227,6 +243,7 @@ void main() {
     expect(old.checkCurrent, throwsStateError);
     expect(() => AccountStoreEpochRegistry.capture(first), throwsStateError);
     await tester.pump();
+    await pumpActualLocaleReady(tester);
     expect(tester.takeException(), isNull);
     expect(find.byType(GravitaRoot), findsNothing);
     await tester.pumpWidget(const SizedBox());
@@ -252,16 +269,19 @@ void main() {
         ),
       ),
     );
+    await pumpActualLocaleReady(tester);
     expect(find.text('RECOVERY_VIEW'), findsOneWidget);
     admitted.value = false;
     recovery.value = false;
     expect(() => AccountStoreEpochRegistry.capture(first), throwsStateError);
     await tester.pump();
+    await pumpActualLocaleReady(tester);
     expect(find.byType(GravitaRoot), findsNothing);
     expect(find.text('RECOVERY_VIEW'), findsNothing);
     admitted.value = true;
     expect(AccountStoreEpochRegistry.capture(first), isNotNull);
     await tester.pump();
+    await pumpActualLocaleReady(tester);
     expect(find.byType(GravitaRoot), findsOneWidget);
     await tester.pumpWidget(const SizedBox());
   });

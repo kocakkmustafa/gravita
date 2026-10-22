@@ -7,6 +7,8 @@ import 'package:gravita/app/gravita_account_page.dart';
 
 import 'account_action_ticket_test.dart' show AccountHttpFixture;
 import 'package:gravita/app/gravita_app.dart';
+import 'package:gravita/app/language_preferences.dart';
+import 'package:gravita/app/theme_preferences.dart';
 import 'package:gravita/app/theme.dart';
 import 'package:gravita/app/surface_widgets.dart';
 import 'package:gravita/app/movement_page.dart';
@@ -201,18 +203,31 @@ void main() {
     final _RouteWitness witness = _RouteWitness();
     final accountUser = ValueNotifier<String?>(null);
     addTearDown(accountUser.dispose);
+    // GravitaApp always provides these scopes (ephemeral controllers when
+    // none are injected); without them Profile hides its Appearance and
+    // Language entries and the walk cannot reach those settings screens.
+    final themePreferences = ThemePreferencesController.ephemeral();
+    final languagePreferences = LanguagePreferencesController.ephemeral();
+    addTearDown(themePreferences.dispose);
+    addTearDown(languagePreferences.dispose);
     await tester.pumpWidget(
-      AccountScope(
-        connection: AccountConnection(
-          userId: accountUser,
-          pageBuilder: (_) =>
-              GravitaAccountPage(client: accountFixture.account),
-        ),
-        currentUserId: null,
-        child: MaterialApp(
-          theme: GravitaTheme.light,
-          navigatorObservers: <NavigatorObserver>[witness],
-          home: GravitaShell(content: content),
+      ThemePreferencesScope(
+        controller: themePreferences,
+        child: LanguagePreferencesScope(
+          controller: languagePreferences,
+          child: AccountScope(
+            connection: AccountConnection(
+              userId: accountUser,
+              pageBuilder: (_) =>
+                  GravitaAccountPage(client: accountFixture.account),
+            ),
+            currentUserId: null,
+            child: MaterialApp(
+              theme: GravitaTheme.light,
+              navigatorObservers: <NavigatorObserver>[witness],
+              home: GravitaShell(content: content),
+            ),
+          ),
         ),
       ),
     );

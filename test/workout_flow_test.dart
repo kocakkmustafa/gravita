@@ -14,6 +14,7 @@ import 'package:gravita/app/workout/workout_screen.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 
 import 'support/launch_harness.dart' show FakeSupportDir, realIo, settleUntil;
+import 'support/locale_asset_harness.dart' show warmActualLocaleAssets;
 
 /// GRA-P1-003 Step 3/4 — RPE toplama (yalnız kullanıcı beyanı, "camera
 /// sonucu değildir") + kaçırılan günü CEZASIZ yeniden sıralama. İkisi de
@@ -22,6 +23,7 @@ import 'support/launch_harness.dart' show FakeSupportDir, realIo, settleUntil;
 /// `test/support/launch_harness.dart`tan, İKİNCİ bir sahte YAZILMADI.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(warmActualLocaleAssets);
 
   late PathProviderPlatform defaultProvider;
   late Directory tmp;
@@ -112,6 +114,10 @@ void main() {
       maxRounds: 30,
     );
 
+    await tester.ensureVisible(
+      find.byKey(const ValueKey<String>('workout.markDone.1.1')),
+    );
+    await tester.pump();
     await tester.tap(
       find.byKey(const ValueKey<String>('workout.markDone.1.1')),
     );
@@ -119,11 +125,19 @@ void main() {
 
     // RPE 7 seç — çip metniyle DEĞİL, `ChoiceChip` soyundan arayarak (başka
     // bir yerde tesadüfen "7" metni olabilir, ör. set/tekrar sayısı).
+    await tester.ensureVisible(
+      find.descendant(of: find.byType(ChoiceChip), matching: find.text('7')),
+    );
+    await tester.pump();
     await tester.tap(
       find.descendant(of: find.byType(ChoiceChip), matching: find.text('7')),
     );
     await tester.pump();
 
+    await tester.ensureVisible(
+      find.byKey(const ValueKey<String>('workout.saveRpe.1.1')),
+    );
+    await tester.pump();
     await tester.tap(find.byKey(const ValueKey<String>('workout.saveRpe.1.1')));
     await settleUntil(
       tester,
@@ -189,6 +203,10 @@ void main() {
         reason: '1. gün geçmişte planlanmıştı — kaçırıldı sayılmalı.',
       );
 
+      await tester.ensureVisible(
+        find.byKey(const ValueKey<String>('workout.reschedule.1.1')),
+      );
+      await tester.pump();
       await tester.tap(
         find.byKey(const ValueKey<String>('workout.reschedule.1.1')),
       );

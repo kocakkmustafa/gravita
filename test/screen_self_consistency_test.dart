@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gravita/app/camera_release_policy.dart';
 import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/library_model.dart';
 import 'package:gravita/app/library_strings.dart';
@@ -170,9 +171,17 @@ void main() {
         reason: 'Ürün koçluk etmiyor (G-212: kural değerlendirmesi hiç '
             'çağrılmıyor). Aynı iddia homeOpenBody\'den J-124\'te '
             'kaldırılmıştı; komşusunda kalmış.');
-    expect(s, contains('measurement catalogue'),
-        reason: 'Yasak sözcüğü silmek yetmez — ürünün GERÇEKTEN yaptığı '
-            'söylenmeli, yoksa cümle anlamsızlaşır.');
+    // 40fd0e0: the body now names what Gravita actually offers (courses,
+    // learning guides, the general eight-week program) instead of the
+    // removed "measurement catalogue / no daily plan" wording.
+    for (final claim in ['courses', 'learning guides', 'eight-week program']) {
+      expect(s, contains(claim),
+          reason: 'Yasak sözcüğü silmek yetmez — ürünün GERÇEKTEN yaptığı '
+              'söylenmeli, yoksa cümle anlamsızlaşır.');
+    }
+    if (!motionPaidCameraLaunchEnabled) {
+      expect(s, contains('live camera sessions are unavailable'));
+    }
   });
 
   /// Pozitif yön: D sınıfının AYRIMI kaybolmadı — cümle boşaltılarak da

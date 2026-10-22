@@ -12,9 +12,12 @@ import 'package:gravita/app/workout/workout_screen.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 
 import 'support/launch_harness.dart' show FakeSupportDir, settleUntil;
+import 'support/locale_asset_harness.dart'
+    show warmActualLocaleAssets, pumpActualLocaleReady;
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(warmActualLocaleAssets);
 
   late ContentRepository content;
   setUpAll(() async {
@@ -28,15 +31,36 @@ void main() {
     home: child,
   );
 
+  // ProgramSetupScreen is a lazy list: reveal targets below the first view.
+  Future<void> reveal(WidgetTester tester, Finder target) async {
+    if (target.evaluate().isEmpty) {
+      await tester.scrollUntilVisible(
+        target,
+        240,
+        scrollable: find
+            .byWidgetPredicate(
+              (w) =>
+                  w is Scrollable &&
+                  axisDirectionToAxis(w.axisDirection) == Axis.vertical,
+            )
+            .first,
+        maxScrolls: 100,
+      );
+    }
+  }
+
   testWidgets(
     'Turkish program setup and movement header keep localized chrome',
     (tester) async {
       await tester.pumpWidget(
         host(const Locale('tr'), ProgramSetupScreen(content: content)),
       );
+      await pumpActualLocaleReady(tester);
       expect(find.text('Programını oluştur'), findsOneWidget);
       expect(find.text('Başlangıç'), findsOneWidget);
+      await reveal(tester, find.text('HAFTALIK GÜN SAYISI'));
       expect(find.text('HAFTALIK GÜN SAYISI'), findsOneWidget);
+      await reveal(tester, find.text('Dambıl'));
       expect(find.text('Dambıl'), findsOneWidget);
       expect(find.text('Set up your program'), findsNothing);
 
@@ -49,7 +73,10 @@ void main() {
           MovementPage(movement: movement, content: content),
         ),
       );
-      expect(find.text('FORM SINIFI'), findsOneWidget);
+      await pumpActualLocaleReady(tester);
+      // The reviewed TR catalog (g_3ebf6dd5eef8) names this badge; the
+      // app_locale switch value is only a fallback.
+      expect(find.text('FORM REHBERLİĞİ'), findsOneWidget);
       expect(
         find.text(
           'Sınıf A — kameranın ihtiyaç duyduğu her şey yandan görünür.',
@@ -76,6 +103,8 @@ void main() {
         ),
       ),
     );
+    await pumpActualLocaleReady(tester);
+    await tester.pump();
     await tester.pumpWidget(
       host(
         const Locale('tr'),
@@ -87,6 +116,8 @@ void main() {
         ),
       ),
     );
+    await pumpActualLocaleReady(tester);
+    await tester.pump();
     expect(english, '2 sessions · 12 reps');
     expect(turkish, '2 oturum · 12 tekrar');
   });
@@ -106,12 +137,16 @@ void main() {
     await tester.pumpWidget(
       host(const Locale('tr'), ProgramSetupScreen(content: content)),
     );
+    await pumpActualLocaleReady(tester);
+    await tester.pump();
+    await reveal(tester, find.byKey(ProgramSetupScreen.buildButtonKey));
+    await tester.ensureVisible(find.byKey(ProgramSetupScreen.buildButtonKey));
     await tester.pump();
     await tester.tap(find.byKey(ProgramSetupScreen.buildButtonKey));
     await settleUntil(
       tester,
       () => find.byKey(WorkoutScreen.disclaimerKey).evaluate().isNotEmpty,
-      maxRounds: 30,
+      maxRounds: 40,
     );
     expect(find.text('Sekiz haftalık programın'), findsOneWidget);
     expect(find.byKey(WorkoutScreen.disclaimerKey), findsOneWidget);
