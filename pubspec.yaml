@@ -19,7 +19,7 @@ dependencies:
     git:
       url: https://github.com/kocakkmustafa/motion-core.git
       path: packages/motion_account
-      ref: d69e10786e2f1cd509b9eeadeb3ef6ea42d93b5d
+      ref: 583203112c942dd38673bc43d7d05f82f4f5173d
 
   # Motor AYRI paket ve Flutter bağımlılığı YOK (M-F-160, JabLab/Choreia
   # yerleşim aynası): ölçüm/hüküm mantığı widget ağacı olmadan test edilebilir
@@ -45,14 +45,14 @@ dependencies:
     git:
       url: https://github.com/kocakkmustafa/motion-core.git
       path: packages/motion_core
-      ref: d69e10786e2f1cd509b9eeadeb3ef6ea42d93b5d
+      ref: 583203112c942dd38673bc43d7d05f82f4f5173d
   # Bundled course bytes share the immutable Core revision. This reader bridge
   # does not declare a production media manifest or enable delivery.
   motion_content:
     git:
       url: https://github.com/kocakkmustafa/motion-core.git
       path: packages/motion_content
-      ref: d69e10786e2f1cd509b9eeadeb3ef6ea42d93b5d
+      ref: 583203112c942dd38673bc43d7d05f82f4f5173d
 
   # Packaged, offline lesson demonstrations. The shipping media catalog is
   # empty until a separately accepted media package is produced.
@@ -64,7 +64,7 @@ dependencies:
     git:
       url: https://github.com/kocakkmustafa/motion-core.git
       path: packages/motion_camera
-      ref: d69e10786e2f1cd509b9eeadeb3ef6ea42d93b5d
+      ref: 583203112c942dd38673bc43d7d05f82f4f5173d
   # Kamera izni: reddedilme DÜRÜST bir hâldir, sessizce boş ekran değil.
   permission_handler: ^12.0.3
 

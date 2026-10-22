@@ -6,7 +6,12 @@ import 'account_store_epoch.dart';
 /// Authority captured when the account page mounts, before any confirmation
 /// dialog. Tokens stay private and are never included in errors or reports.
 final class AccountActionTicket {
-  AccountActionTicket._(this.userId, this.epoch, this._accessToken, this._session);
+  AccountActionTicket._(
+    this.userId,
+    this.epoch,
+    this._accessToken,
+    this._session,
+  );
 
   final String userId;
   final AccountStoreEpoch epoch;
@@ -74,6 +79,9 @@ class EpochBoundMotionAccountClient extends MotionAccountClient {
          supabase: original.supabase,
          app: original.app,
          emailRedirectTo: original.emailRedirectTo,
+         deletionReceipt: original.deletionReceipt,
+         operationTimeout: original.operationTimeout,
+         readTimeout: original.readTimeout,
        );
 
   final AccountActionTicket? ticket;
