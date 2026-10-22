@@ -15,6 +15,7 @@ import 'package:gravita/app/dbkb_course_entry.dart';
 import 'package:gravita/app/home_screen.dart';
 import 'package:gravita/app/library_screen.dart';
 import 'package:gravita/app/theme.dart';
+import 'support/locale_asset_harness.dart' show warmActualLocaleAssets, pumpActualLocaleReady;
 
 const asset = 'content/courses/dbkb-written.v1.json';
 const manifest = 'content/motion_content/dbkb-written.manifest.json';
@@ -38,6 +39,7 @@ class AlteredBundle extends CachingAssetBundle {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(warmActualLocaleAssets);
   final source = File(asset).readAsStringSync();
   final course = CalisthenicsCourse.parse(source);
   late Directory support;
@@ -117,6 +119,7 @@ void main() {
         LibraryScreen(content: content),
       ]) {
         await tester.pumpWidget(host(page, language));
+        await pumpActualLocaleReady(tester);
         await tester.pumpAndSettle();
         expect(find.byType(DbkbEntryCard), findsOneWidget);
         await tester.ensureVisible(find.byKey(const Key('dbkb.entry')));
@@ -128,6 +131,7 @@ void main() {
       }
       await tester.pumpWidget(host(Scaffold(body: SingleChildScrollView(
         child: DbkbEntryCard(content: content))), language));
+      await pumpActualLocaleReady(tester);
       await tester.pumpAndSettle();
       await tester.ensureVisible(find.byKey(const Key('dbkb.preparation.cal-09')));
       await tester.tap(find.byKey(const Key('dbkb.preparation.cal-09')));
@@ -141,6 +145,7 @@ void main() {
       final lesson = course.lessons.first;
       await tester.pumpWidget(host(CalisthenicsLessonScreen(
         course: course, lesson: lesson, storeLoader: (_) async => store), language));
+      await pumpActualLocaleReady(tester);
       await tester.pumpAndSettle();
       expect(find.text(lesson.answer!.inLanguage(language)), findsNothing);
       final toggle = find.byKey(const Key('dbkb.answer.toggle'));
@@ -154,6 +159,7 @@ void main() {
       await tester.pumpWidget(const SizedBox.shrink());
       await tester.pumpWidget(host(CalisthenicsLessonScreen(
         course: course, lesson: course.lessons[3], storeLoader: (_) async => store), language));
+      await pumpActualLocaleReady(tester);
       await tester.pumpAndSettle();
       await tester.scrollUntilVisible(find.byKey(const Key('calisthenics.prepared')), 200, scrollable: find.byType(Scrollable).first);
       expect(tester.widget<CheckboxListTile>(find.byKey(const Key('calisthenics.prepared'))).value, isFalse);

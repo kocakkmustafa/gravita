@@ -9,8 +9,10 @@ import 'package:gravita/app/calisthenics_course_screen.dart';
 import 'package:gravita/app/calisthenics_knowledge_diagrams.dart';
 import 'package:gravita/app/calisthenics_progress.dart';
 import 'package:gravita/app/theme.dart';
+import 'support/locale_asset_harness.dart' show warmActualLocaleAssets, pumpActualLocaleReady;
 
 void main() {
+  setUpAll(warmActualLocaleAssets);
   test(
     'diagram lessons are existing reading tasks, not physical assignments',
     () {
@@ -67,6 +69,7 @@ void main() {
               ),
             ),
           );
+          await pumpActualLocaleReady(tester);
           await tester.pump();
           // Observe a real serialized read behind the UI's markSeen writer.
           // Its predecessor may finish in the widget zone while disk IO and

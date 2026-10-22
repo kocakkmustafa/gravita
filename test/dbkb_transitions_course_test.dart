@@ -11,6 +11,7 @@ import 'package:gravita/app/calisthenics_course_screen.dart';
 import 'package:gravita/app/calisthenics_progress.dart';
 import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/library_screen.dart';
+import 'support/locale_asset_harness.dart' show warmActualLocaleAssets, pumpActualLocaleReady;
 
 const asset = 'content/courses/dbkb-transitions.v1.json';
 const integrity = 'content/motion_content/dbkb-transitions.manifest.json';
@@ -42,6 +43,7 @@ Future<void> reveal(WidgetTester tester, Finder target) async {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(warmActualLocaleAssets);
   final raw = File(asset).readAsStringSync();
   final course = CalisthenicsCourse.parse(raw);
   test('separate bounded course cannot become physical or a camera guide', () {
@@ -128,6 +130,7 @@ void main() {
         locale: Locale(language), supportedLocales: appSupportedLocales,
         localizationsDelegates: appLocalizationsDelegates,
         home: LibraryScreen(content: content)));
+      await pumpActualLocaleReady(tester);
       await tester.pumpAndSettle();
       await tester.scrollUntilVisible(find.byKey(const Key('dbkb.entry')), 200,
         scrollable: find.byType(Scrollable).first, maxScrolls: 100);

@@ -15,8 +15,10 @@ import 'package:gravita/app/theme.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 
 import 'support/launch_harness.dart';
+import 'support/locale_asset_harness.dart' show warmActualLocaleAssets, pumpActualLocaleReady;
 
 void main() {
+  setUpAll(warmActualLocaleAssets);
   late ContentRepository content;
   late Directory temp;
   late PathProviderPlatform original;
@@ -44,6 +46,7 @@ void main() {
             home: ProgressTab(content: content),
           ),
         );
+        await pumpActualLocaleReady(tester);
         await settleUntil(
           tester,
           () => find.byType(ProgressView).evaluate().isNotEmpty,
@@ -85,6 +88,7 @@ void main() {
             home: LibraryScreen(content: content),
           ),
         );
+        await pumpActualLocaleReady(tester);
         await tester.tap(find.byKey(const Key('study-review-entry')));
         await tester.pumpAndSettle();
         expect(find.byType(StudyReviewPage), findsOneWidget);

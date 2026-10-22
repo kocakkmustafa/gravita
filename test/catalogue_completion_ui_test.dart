@@ -8,8 +8,10 @@ import 'package:gravita/app/app_locale.dart';
 import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/movement_page.dart';
 import 'package:gravita/app/theme.dart';
+import 'support/locale_asset_harness.dart' show warmActualLocaleAssets, pumpActualLocaleReady;
 
 void main() {
+  setUpAll(warmActualLocaleAssets);
   late ContentRepository content;
   late List<Map<String, dynamic>> translations;
   setUp(() async {
@@ -63,6 +65,7 @@ void main() {
             language,
           ),
         );
+        await pumpActualLocaleReady(tester);
         await tester.pumpAndSettle();
         final selected = translations.where(
           (e) => (e['movement_ids'] as List).contains(movementId),

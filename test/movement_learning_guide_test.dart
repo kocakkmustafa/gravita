@@ -8,6 +8,8 @@ import 'package:gravita/app/calisthenics_course_screen.dart';
 import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/movement_page.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
+import 'support/locale_asset_harness.dart'
+    show warmActualLocaleAssets, pumpActualLocaleReady;
 
 class _EphemeralSupport extends PathProviderPlatform {
   _EphemeralSupport(this.path);
@@ -18,6 +20,7 @@ class _EphemeralSupport extends PathProviderPlatform {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(warmActualLocaleAssets);
   late Directory support;
   late PathProviderPlatform previous;
   setUp(() async {
@@ -54,6 +57,7 @@ void main() {
             ),
           ),
         );
+        await pumpActualLocaleReady(tester);
         await tester.pumpAndSettle();
         expect(find.byKey(MovementPage.startSessionKey), findsNothing);
         final link = find.byKey(Key('movement.guide.$lesson'));

@@ -7,8 +7,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gravita/app/app_locale.dart';
 import 'package:gravita/app/catalogue_translations_tr.dart';
 import 'package:gravita/app/content_repository.dart';
+import 'support/locale_asset_harness.dart' show warmActualLocaleAssets, pumpActualLocaleReady;
 
 void main() {
+  setUpAll(warmActualLocaleAssets);
   final fixture =
       (jsonDecode(
                 File(
@@ -49,6 +51,7 @@ void main() {
             ),
           ),
         );
+        await pumpActualLocaleReady(tester);
         final used = <String>{};
         final counts = <String, int>{};
         for (final movement in content.catalogue.movements) {

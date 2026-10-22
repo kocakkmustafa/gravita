@@ -8,9 +8,11 @@ import 'package:gravita/app/gravita_app.dart';
 import 'package:gravita/app/live_session_screen.dart';
 import 'package:gravita/app/movement_page.dart';
 import 'package:gravita_engine/gravita_engine.dart';
+import 'support/locale_asset_harness.dart' show warmActualLocaleAssets, pumpActualLocaleReady;
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(warmActualLocaleAssets);
 
   testWidgets(
     'Today Push-Up keeps configured contract but release camera is closed',
@@ -32,6 +34,7 @@ void main() {
           home: GravitaShell(content: content),
         ),
       );
+      await pumpActualLocaleReady(tester);
       await tester.pump();
       final Finder pushUpCard = find.text('Şınav');
       await tester.scrollUntilVisible(pushUpCard, 200, scrollable: find.byType(Scrollable).first, maxScrolls: 100);
@@ -88,6 +91,7 @@ void main() {
         ),
       ),
     );
+    await pumpActualLocaleReady(tester);
     await tester.pump();
     final Finder pushUpCard = find.text('Şınav');
     await tester.scrollUntilVisible(pushUpCard, 200, scrollable: find.byType(Scrollable).first, maxScrolls: 100);

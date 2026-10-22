@@ -12,6 +12,7 @@ import 'package:gravita/app/calisthenics_course.dart';
 import 'package:gravita/app/calisthenics_course_screen.dart';
 import 'package:gravita/app/calisthenics_progress.dart';
 import 'package:gravita/app/theme.dart';
+import 'support/locale_asset_harness.dart' show warmActualLocaleAssets, pumpActualLocaleReady;
 
 const a = '11111111-1111-4111-8111-111111111111';
 const b = '22222222-2222-4222-8222-222222222222';
@@ -41,6 +42,7 @@ final class PausedExistsFile implements File {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(warmActualLocaleAssets);
   final course = CalisthenicsCourse.parse(
     File('content/courses/dbkb-handling.v1.json').readAsStringSync());
   late Directory root;
@@ -62,6 +64,11 @@ void main() {
     home: child,
   );
   Future<void> to(WidgetTester tester, Key key, {double delta = 200}) async {
+    // The lesson body mounts after its real-IO progress store resolves.
+    for (var i = 0; i < 40 && find.byKey(const Key('calisthenics.lesson.body')).evaluate().isEmpty; i++) {
+      await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 150)));
+      await tester.pump(const Duration(milliseconds: 80));
+    }
     await tester.scrollUntilVisible(find.byKey(key), delta,
       scrollable: find.descendant(of: find.byKey(const Key('calisthenics.lesson.body')),
         matching: find.byType(Scrollable)).first, maxScrolls: 150);
@@ -159,6 +166,7 @@ void main() {
       final lesson = course.lessons.first;
       await tester.pumpWidget(host(CalisthenicsLessonScreen(course: course,
         lesson: lesson, storeLoader: (_) async => store(null)), language));
+      await pumpActualLocaleReady(tester);
       await settleIo(tester);
       expect(find.byKey(const Key('calisthenics.prepared')), findsNothing);
       expect(lesson.learningOnly, isTrue);
@@ -194,6 +202,7 @@ void main() {
             return opens == 2 ? lateOpen.future : Future.value(store(id));
           }));
         await tester.pumpWidget(host(page, language));
+        await pumpActualLocaleReady(tester);
       await settleIo(tester);
       await to(tester, const Key('dbkb.answer.toggle'));
       await tester.tap(find.byKey(const Key('dbkb.answer.toggle')));
@@ -217,6 +226,7 @@ void main() {
       final lesson = course.lessons.first;
       await tester.pumpWidget(host(CalisthenicsLessonScreen(course: course, lesson: lesson,
         storeLoader: (_) async => journal), language));
+      await pumpActualLocaleReady(tester);
       await settleIo(tester);
       await tester.runAsync(() async => Directory('${journal.file.path}.tmp').create());
       await to(tester, const Key('calisthenics.practised'));
@@ -253,6 +263,7 @@ void main() {
         onPressed: () => Navigator.of(context).push<void>(MaterialPageRoute<void>(
           builder: (_) => CalisthenicsLessonScreen(course: course, lesson: lesson,
             storeLoader: (_) async => store(null)))), child: const Text('open')))), language));
+      await pumpActualLocaleReady(tester);
       for (var visit = 0; visit < 2; visit++) {
         await tester.tap(find.text('open'));
         await tester.pumpAndSettle();
@@ -278,6 +289,7 @@ void main() {
         final journal = calisthenicsProgressStoreFor(root, null, courseId: original.id);
         await tester.pumpWidget(host(CalisthenicsLessonScreen(
           course: original, lesson: lesson, storeLoader: (_) async => journal), language));
+        await pumpActualLocaleReady(tester);
         await settleIo(tester);
         await to(tester, const Key('calisthenics.practised'));
         expect(tester.widget<OutlinedButton>(find.byKey(const Key('calisthenics.practised'))).onPressed, isNull);
@@ -303,6 +315,7 @@ void main() {
         try {
         await tester.pumpWidget(host(CalisthenicsLessonScreen(course: course, lesson: lesson,
           storeLoader: (_) async => store(null)), language, scale: 2));
+        await pumpActualLocaleReady(tester);
         await settleIo(tester);
         expect(find.byKey(const Key('dbkb.answer.content')), findsNothing);
         expect(lesson.learningOnly, isTrue);
