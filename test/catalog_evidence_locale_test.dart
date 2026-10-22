@@ -53,15 +53,19 @@ void main() {
             if (language == 'tr') {
               expect(text, isNot(source), reason: '${movement.id}: $source');
             } else {
-              // The reviewed EN display override corrects only the singular
-              // source grammar ("rule have" -> "rule has").
-              expect(
-                text,
-                source.replaceFirst(
-                  ' error rule have never ',
-                  ' error rule has never ',
-                ),
-              );
+              // The reviewed EN display override (g_466c477d6020) corrects
+              // only the singular source's grammar; plural sources show as-is.
+              const singularSource =
+                  'Its 1 error rule have never been run against real '
+                  'footage. There is no replay fixture for this movement, so '
+                  'we have no evidence they fire when they should — or stay '
+                  'quiet when they should.';
+              const singularDisplay =
+                  'Its 1 error rule has never been run against real footage. '
+                  'There is no replay fixture for this movement, so we have '
+                  'no evidence that it fires when it should — or stays quiet '
+                  'when it should.';
+              expect(text, source == singularSource ? singularDisplay : source);
             }
             expect(
               waitingMeasurementCopy(context, movement, '$source Revised.'),
