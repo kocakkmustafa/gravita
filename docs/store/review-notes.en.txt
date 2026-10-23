@@ -1,5 +1,5 @@
 GRAVITA — LOCAL REVIEW NOTES DRAFT — 18 OCTOBER 2026
-App: Gravita: Skills & Strength / com.yulalab.gravita / 1.0.0 (2)
+App: Gravita: Skills & Strength / com.yulalab.gravita / 1.0.0 (3)
 Runtime source: c05721d73b838859af976f8c06f09b9857d6960d
 Not submitted. Native signature, current screenshots, real account and device
 acceptance are still pending. No review credentials are stored in this file.
