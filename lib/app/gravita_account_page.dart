@@ -18,6 +18,8 @@ class GravitaAccountPage extends StatefulWidget {
     this.isIdentityAdmitted,
     this.clearLocalData,
     this.onRetryIdentity,
+    this.ageBlocked = false,
+    this.onAgeBlocked,
     super.key,
   });
 
@@ -27,6 +29,12 @@ class GravitaAccountPage extends StatefulWidget {
   final bool Function()? isIdentityAdmitted;
   final Future<void> Function(String userId)? clearLocalData;
   final Future<void> Function()? onRetryIdentity;
+
+  /// Durable device under-13 result ([AgeBlockStore]); Core keeps sign-up
+  /// closed while it is true. The country rule comes from Core (explicit
+  /// countryCode, then store region on newer pins, then device region).
+  final bool ageBlocked;
+  final VoidCallback? onAgeBlocked;
 
   @override
   State<GravitaAccountPage> createState() => _GravitaAccountPageState();
@@ -166,5 +174,7 @@ class _GravitaAccountPageState extends State<GravitaAccountPage> {
     clearLocalData: _cleanup,
     onRetryIdentity: widget.onRetryIdentity,
     paidFeaturesAvailable: motionPaidFeaturesAvailable,
+    ageBlocked: widget.ageBlocked,
+    onAgeBlocked: widget.onAgeBlocked,
   );
 }

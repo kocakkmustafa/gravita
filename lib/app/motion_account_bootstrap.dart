@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:motion_account/motion_account.dart';
 import 'package:path_provider/path_provider.dart';
@@ -5,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'account_connection.dart';
 import 'account_data_directory.dart';
 import 'account_store_epoch.dart';
+import 'age_block_store.dart';
 import 'app_locale.dart';
 import 'gravita_account_page.dart';
 import 'language_preferences.dart';
@@ -30,6 +33,8 @@ initializeMotionAccount() async {
     );
   }
 
+  final ageBlock = AgeBlockStore(directory: () async => supportRoot);
+  await ageBlock.load();
   final runtime = await MotionAccountRuntime.initialize(
     url: _url,
     publishableKey: _publishableKey,
@@ -40,7 +45,11 @@ initializeMotionAccount() async {
   );
   return (
     runtime,
-    bindGravitaMotionAccount(runtime, clearLocalData: clearLocalAccountData),
+    bindGravitaMotionAccount(
+      runtime,
+      clearLocalData: clearLocalAccountData,
+      ageBlock: ageBlock,
+    ),
   );
 }
 
@@ -48,6 +57,7 @@ initializeMotionAccount() async {
 AccountConnection bindGravitaMotionAccount(
   MotionAccountRuntime runtime, {
   required Future<void> Function(String userId) clearLocalData,
+  AgeBlockStore? ageBlock,
 }) {
   Widget accountPage(BuildContext _) => GravitaAccountPage(
     client: runtime.account,
@@ -60,6 +70,10 @@ AccountConnection bindGravitaMotionAccount(
         runtime.isCurrentSessionVerified && !runtime.passwordRecovery.value,
     clearLocalData: clearLocalData,
     onRetryIdentity: runtime.refreshIdentity,
+    ageBlocked: ageBlock?.blocked ?? false,
+    onAgeBlocked: ageBlock == null
+        ? null
+        : () => unawaited(ageBlock.markBlocked()),
   );
   final connection = AccountConnection(
     userId: runtime.userId,
