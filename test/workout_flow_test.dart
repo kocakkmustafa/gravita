@@ -97,9 +97,13 @@ void main() {
     WidgetTester tester,
   ) async {
     // Takvim BUGÜN başlıyor — 1. gün henüz kaçırılmamış, "Mark done" akışı.
-    await seed(tester, DateTime.now());
+    // One captured clock for seed, screen and oracle: no midnight drift.
+    final DateTime now = DateTime.now();
+    await seed(tester, now);
 
-    await tester.pumpWidget(host(WorkoutScreen(content: content)));
+    await tester.pumpWidget(
+      host(WorkoutScreen.withClock(content: content, now: () => now)),
+    );
     // ⚠️ `maxRounds` VARSAYILANDAN (10) YÜKSELTİLDİ — ölçüldü: `WorkoutScreen`i
     // KÖK olarak doğrudan pump etmek (`program_setup_screen_test.dart`ın
     // AKSİNE, orada ÖNCE bir ekran daha ısınıyor) soğuk-açılış G/Ç zincirini
@@ -180,13 +184,16 @@ void main() {
       // Bu seçim BİLEREK: yeniden sıralama sonrası 1. gün TAM bugüne kayar ve
       // "Missed" etiketi KAYBOLUR — koşul-bağlı bekleme için gözlemlenebilir,
       // gerçek bir tarih-sınır sabiti UYDURMADAN.
-      final now = DateTime.now();
+      // One captured clock for seed, screen and oracle: no midnight drift.
+      final DateTime now = DateTime.now();
       final int totalDays = await seed(
         tester,
         DateTime(now.year, now.month, now.day - 2),
       );
 
-      await tester.pumpWidget(host(WorkoutScreen(content: content)));
+      await tester.pumpWidget(
+        host(WorkoutScreen.withClock(content: content, now: () => now)),
+      );
       // ⚠️ `maxRounds` yükseltildi — üstteki testle AYNI ölçülmüş gerekçe.
       await settleUntil(
         tester,
@@ -238,7 +245,7 @@ void main() {
             'tarihler kaydı.',
       );
       expect(
-        dateOnly(saved.dates[0]).isBefore(dateOnly(DateTime.now())),
+        dateOnly(saved.dates[0]).isBefore(dateOnly(now)),
         isFalse,
         reason: '1. günün YENİ tarihi artık geçmişte DEĞİL.',
       );
