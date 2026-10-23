@@ -10,6 +10,7 @@ import 'calisthenics_progress.dart';
 import 'calisthenics_knowledge_diagrams.dart';
 import 'content_repository.dart';
 import 'motion_observation.dart';
+import 'paywall_policy.dart';
 import 'lesson_media.dart';
 import 'theme.dart';
 
@@ -243,6 +244,8 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
   Future<CalisthenicsProgress> readStore(CalisthenicsProgressStore value) =>
       value.load();
   Future<void> open(CalisthenicsLesson lesson) async {
+    if (!await ensureLessonAccess(context, widget.course, lesson)) return;
+    if (!mounted) return;
     await Navigator.of(context).push<void>(
       MaterialPageRoute<void>(
         builder: (_) => CalisthenicsLessonScreen(
@@ -322,6 +325,24 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
                   ),
                   style: GravitaType.body(context: context, size: 13),
                 ),
+                if (gravitaSubscriptionSalesAvailable) ...<Widget>[
+                  const SizedBox(height: 10),
+                  Text(
+                    localized(
+                      context,
+                      PaywallStrings.coursePreview,
+                      'Ücretsiz önizleme: {total} dersten {count} ders. Diğerleri '
+                      'Gravita veya Motion+ aboneliğine dahildir; ilerlemen '
+                      'her zaman okunur kalır.',
+                      values: <String, Object>{
+                        'count': freeLessonCount(course),
+                        'total': course.lessons.length,
+                      },
+                    ),
+                    key: const Key('calisthenics.paywall.note'),
+                    style: GravitaType.body(context: context, size: 13),
+                  ),
+                ],
                 if (next != null)
                   TextButton(
                     key: const Key('calisthenics.next'),
@@ -414,7 +435,17 @@ class _CalisthenicsCourseScreenState extends State<CalisthenicsCourseScreen>
                             color: GravitaColors.of(context).textSecondary,
                           ),
                         ),
-                        trailing: const Icon(Icons.chevron_right),
+                        trailing: isLockedLesson(course, lesson)
+                            ? Icon(
+                                Icons.lock_outline,
+                                key: Key('calisthenics.locked.${lesson.id}'),
+                                semanticLabel: localized(
+                                  context,
+                                  PaywallStrings.lockedLesson,
+                                  'Aboneliğe dahil',
+                                ),
+                              )
+                            : const Icon(Icons.chevron_right),
                         onTap: () => open(lesson),
                       ),
                   ],
@@ -696,15 +727,20 @@ class _CalisthenicsLessonScreenState extends State<CalisthenicsLessonScreen>
           if (lesson.id == 'dbkb-03' && widget.preparationCourse != null)
             TextButton(
               key: const Key('dbkb.lesson.preparation.cal-04'),
-              onPressed: () {
+              onPressed: () async {
                 final preparation = widget.preparationCourse!;
-                Navigator.of(context).push<void>(
+                final lesson = preparation.lessons.singleWhere(
+                  (l) => l.id == 'cal-04',
+                );
+                if (!await ensureLessonAccess(context, preparation, lesson)) {
+                  return;
+                }
+                if (!context.mounted) return;
+                await Navigator.of(context).push<void>(
                   MaterialPageRoute<void>(
                     builder: (_) => CalisthenicsLessonScreen(
                       course: preparation,
-                      lesson: preparation.lessons.singleWhere(
-                        (l) => l.id == 'cal-04',
-                      ),
+                      lesson: lesson,
                     ),
                   ),
                 );

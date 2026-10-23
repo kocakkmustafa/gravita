@@ -16,6 +16,7 @@ import 'package:path_provider_platform_interface/path_provider_platform_interfac
 
 import 'support/launch_harness.dart';
 import 'support/locale_asset_harness.dart' show warmActualLocaleAssets, pumpActualLocaleReady;
+import 'support/paywall_harness.dart' show asSubscriber;
 
 void main() {
   setUpAll(warmActualLocaleAssets);
@@ -38,13 +39,13 @@ void main() {
       '$language progress tab loads real empty history in the selected locale',
       (tester) async {
         await tester.pumpWidget(
-          MaterialApp(
+          asSubscriber(MaterialApp(
             theme: GravitaTheme.light,
             locale: Locale(language),
             supportedLocales: appSupportedLocales,
             localizationsDelegates: appLocalizationsDelegates,
             home: ProgressTab(content: content),
-          ),
+          )),
         );
         await pumpActualLocaleReady(tester);
         await settleUntil(
@@ -74,7 +75,7 @@ void main() {
         tester.view.devicePixelRatio = 1;
         addTearDown(tester.view.reset);
         await tester.pumpWidget(
-          MaterialApp(
+          asSubscriber(MaterialApp(
             theme: GravitaTheme.light,
             locale: Locale(language),
             supportedLocales: appSupportedLocales,
@@ -86,7 +87,7 @@ void main() {
               child: child!,
             ),
             home: LibraryScreen(content: content),
-          ),
+          )),
         );
         await pumpActualLocaleReady(tester);
         await tester.tap(find.byKey(const Key('study-review-entry')));

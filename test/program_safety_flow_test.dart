@@ -30,6 +30,7 @@ import 'package:path_provider_platform_interface/path_provider_platform_interfac
 import 'support/launch_harness.dart' show FakeSupportDir, settleUntil;
 import 'support/locale_asset_harness.dart'
     show warmActualLocaleAssets, pumpActualLocaleReady;
+import 'support/paywall_harness.dart' show grantPaidAccess;
 
 // Candidate only: requires V1-MINIMAL-SAFETY-CANDIDATE plus the five real
 // messages in all 14 packaged locale assets. No injected dictionary/store,
@@ -1120,6 +1121,7 @@ void main() {
       userId: owner,
       ownerSessionChanges: sessions.stream,
       pageBuilder: (_) => const SizedBox.shrink(),
+      requirePaidAccess: grantPaidAccess,
     );
     await showWorkout(tester, owner: first, connection: connection);
     final retainedWorkoutRoute = ModalRoute.of(

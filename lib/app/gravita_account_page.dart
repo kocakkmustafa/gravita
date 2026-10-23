@@ -6,6 +6,7 @@ import 'package:motion_account/motion_account.dart';
 
 import 'account_action_ticket.dart';
 import 'account_store_epoch.dart';
+import 'paywall_policy.dart';
 
 /// Account UI keeps Core's auth/password behavior while deletion belongs to a
 /// pre-dialog UUID, host epoch and session token. Token refresh remounts only
@@ -20,6 +21,7 @@ class GravitaAccountPage extends StatefulWidget {
     this.onRetryIdentity,
     this.ageBlocked = false,
     this.onAgeBlocked,
+    this.paidFeaturesAvailable = gravitaSubscriptionSalesAvailable,
     super.key,
   });
 
@@ -35,6 +37,10 @@ class GravitaAccountPage extends StatefulWidget {
   /// countryCode, then store region on newer pins, then device region).
   final bool ageBlocked;
   final VoidCallback? onAgeBlocked;
+
+  /// Subscription sales section of the shared account page (paywall A);
+  /// production keeps the default. The camera gate is separate.
+  final bool paidFeaturesAvailable;
 
   @override
   State<GravitaAccountPage> createState() => _GravitaAccountPageState();
@@ -173,7 +179,7 @@ class _GravitaAccountPageState extends State<GravitaAccountPage> {
     initialPasswordRecovery: _recovering,
     clearLocalData: _cleanup,
     onRetryIdentity: widget.onRetryIdentity,
-    paidFeaturesAvailable: motionPaidFeaturesAvailable,
+    paidFeaturesAvailable: widget.paidFeaturesAvailable,
     ageBlocked: widget.ageBlocked,
     onAgeBlocked: widget.onAgeBlocked,
   );

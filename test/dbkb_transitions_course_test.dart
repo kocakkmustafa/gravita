@@ -12,6 +12,7 @@ import 'package:gravita/app/calisthenics_progress.dart';
 import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/library_screen.dart';
 import 'support/locale_asset_harness.dart' show warmActualLocaleAssets, pumpActualLocaleReady;
+import 'support/paywall_harness.dart' show asSubscriber;
 
 const asset = 'content/courses/dbkb-transitions.v1.json';
 const integrity = 'content/motion_content/dbkb-transitions.manifest.json';
@@ -126,10 +127,10 @@ void main() {
   for (final language in ['en', 'tr']) {
     testWidgets('handling route is distinct and shows limits in $language', (tester) async {
       final content = (await tester.runAsync(() => ContentRepository.load(rootBundle)))!;
-      await tester.pumpWidget(MaterialApp(
+      await tester.pumpWidget(asSubscriber(MaterialApp(
         locale: Locale(language), supportedLocales: appSupportedLocales,
         localizationsDelegates: appLocalizationsDelegates,
-        home: LibraryScreen(content: content)));
+        home: LibraryScreen(content: content))));
       await pumpActualLocaleReady(tester);
       await tester.pumpAndSettle();
       await tester.scrollUntilVisible(find.byKey(const Key('dbkb.entry')), 200,

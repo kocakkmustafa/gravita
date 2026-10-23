@@ -15,6 +15,7 @@ import 'package:gravita/app/movement_page.dart';
 import 'package:gravita/app/calisthenics_course_screen.dart';
 
 import 'support/reachability_contract.dart';
+import 'support/paywall_harness.dart' show grantPaidAccess;
 
 /// ⭐ GEZİLEBİLİRLİK KAPISI — *"bugün kullanıcı kaç ayrı ekrana GİDEBİLİYOR?"*
 ///
@@ -220,6 +221,7 @@ void main() {
               userId: accountUser,
               pageBuilder: (_) =>
                   GravitaAccountPage(client: accountFixture.account),
+              requirePaidAccess: grantPaidAccess,
             ),
             currentUserId: null,
             child: MaterialApp(

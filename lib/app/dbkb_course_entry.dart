@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'app_locale.dart';
 import 'calisthenics_course_screen.dart';
 import 'content_repository.dart';
+import 'paywall_policy.dart';
 import 'theme.dart';
 
 /// Written curriculum entry, separate from camera movement availability.
@@ -139,16 +140,18 @@ class DbkbEntryCard extends StatelessWidget {
         for (final id in <String>['cal-03', 'cal-04', 'cal-08', 'cal-09'])
           TextButton(
             key: Key('dbkb.preparation.$id'),
-            onPressed: () => Navigator.of(context).push<void>(
-              MaterialPageRoute<void>(
-                builder: (_) => CalisthenicsLessonScreen(
-                  course: content.calisthenicsCourse,
-                  lesson: content.calisthenicsCourse.lessons.singleWhere(
-                    (l) => l.id == id,
-                  ),
+            onPressed: () async {
+              final course = content.calisthenicsCourse;
+              final lesson = course.lessons.singleWhere((l) => l.id == id);
+              if (!await ensureLessonAccess(context, course, lesson)) return;
+              if (!context.mounted) return;
+              await Navigator.of(context).push<void>(
+                MaterialPageRoute<void>(
+                  builder: (_) =>
+                      CalisthenicsLessonScreen(course: course, lesson: lesson),
                 ),
-              ),
-            ),
+              );
+            },
             child: Text(
               content.calisthenicsCourse.lessons
                   .singleWhere((l) => l.id == id)

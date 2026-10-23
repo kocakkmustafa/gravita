@@ -10,6 +10,7 @@ import 'calisthenics_course.dart';
 import 'calisthenics_course_screen.dart';
 import 'library_model.dart';
 import 'library_strings.dart';
+import 'paywall_policy.dart';
 import 'skills/skill_tree_screen.dart';
 import 'surface_widgets.dart';
 import 'theme.dart';
@@ -342,14 +343,17 @@ class _MovementPageState extends State<MovementPage> {
                   .title
                   .inLanguage(Localizations.localeOf(context).languageCode),
             ),
-            onPressed: () => Navigator.of(context).push<void>(
-              MaterialPageRoute<void>(
-                builder: (_) => CalisthenicsLessonScreen(
-                  course: course,
-                  lesson: course.lessons.singleWhere((l) => l.id == id),
+            onPressed: () async {
+              final lesson = course.lessons.singleWhere((l) => l.id == id);
+              if (!await ensureLessonAccess(context, course, lesson)) return;
+              if (!context.mounted) return;
+              await Navigator.of(context).push<void>(
+                MaterialPageRoute<void>(
+                  builder: (_) =>
+                      CalisthenicsLessonScreen(course: course, lesson: lesson),
                 ),
-              ),
-            ),
+              );
+            },
           ),
       ],
     );

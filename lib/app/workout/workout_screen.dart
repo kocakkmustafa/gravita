@@ -7,6 +7,7 @@ import '../app_locale.dart';
 import '../camera_release_policy.dart';
 import '../content_repository.dart';
 import '../library_strings.dart';
+import '../paywall_policy.dart';
 import '../program/program_builder.dart';
 import '../program/program_model.dart';
 import '../program/program_safety_notice.dart';
@@ -260,6 +261,23 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                   ),
                 ),
                 const SizedBox(height: 18),
+                if (gravitaSubscriptionSalesAvailable) ...<Widget>[
+                  Text(
+                    localized(
+                      context,
+                      PaywallStrings.practiceNote,
+                      'Program oluşturma ve yeni oturum kaydı aboneliğe '
+                      'dahildir. Kayıtlı programın ve geçmişin okunur kalır.',
+                    ),
+                    key: const Key('workout.paywall.note'),
+                    style: GravitaType.body(
+                      context: context,
+                      size: 13,
+                      color: GravitaColors.of(context).textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                ],
                 // ⚠️ InkWell-sarmalı KART — düz `FilledButton` DEĞİL.
                 // Gerekçe ölçüldü (G-271 devamı): `test/reachability_
                 // test.dart`ın `tappables()`i yalnız `InkWell`/
@@ -278,14 +296,19 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                     hoverColor: GravitaColors.of(
                       context,
                     ).onAccent.withValues(alpha: 0.12),
-                    onTap: () => Navigator.of(context).push<void>(
-                      MaterialPageRoute<void>(
-                        builder: (_) => ProgramSetupScreen(
-                          content: widget.content,
-                          accountUserId: widget.accountUserId,
+                    onTap: () async {
+                      // Independent practice stage (paywall A).
+                      if (!await ensureSubscriptionAccess(context)) return;
+                      if (!context.mounted) return;
+                      await Navigator.of(context).push<void>(
+                        MaterialPageRoute<void>(
+                          builder: (_) => ProgramSetupScreen(
+                            content: widget.content,
+                            accountUserId: widget.accountUserId,
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                     child: Ink(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -378,6 +401,10 @@ class _ProgramOverviewState extends State<_ProgramOverview> {
   }
 
   Future<bool> _markDone(int dayIndex, int rpe) async {
+    // Logging a new session is independent practice (paywall A); the saved
+    // schedule and RPE history stay readable without a subscription.
+    if (!await ensureSubscriptionAccess(context)) return false;
+    if (!mounted) return false;
     try {
       final updated =
           await (await ProgramScheduleStore.open(
@@ -395,6 +422,8 @@ class _ProgramOverviewState extends State<_ProgramOverview> {
   }
 
   Future<bool> _reschedule(int dayIndex) async {
+    if (!await ensureSubscriptionAccess(context)) return false;
+    if (!mounted) return false;
     try {
       final updated =
           await (await ProgramScheduleStore.open(

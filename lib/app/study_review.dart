@@ -4,6 +4,7 @@ import 'app_locale.dart';
 import 'calisthenics_course.dart';
 import 'calisthenics_course_screen.dart';
 import 'content_repository.dart';
+import 'paywall_policy.dart';
 
 import 'study_review_content.dart';
 
@@ -134,14 +135,25 @@ class StudyReviewPage extends StatelessWidget {
                           Localizations.localeOf(context).toLanguageTag(),
                         ),
                       ),
-                      onTap: () => Navigator.of(context).push<void>(
-                        MaterialPageRoute<void>(
-                          builder: (_) => CalisthenicsLessonScreen(
-                            course: content!.calisthenicsCourse,
-                            lesson: lesson,
+                      onTap: () async {
+                        final course = content!.calisthenicsCourse;
+                        if (!await ensureLessonAccess(
+                          context,
+                          course,
+                          lesson,
+                        )) {
+                          return;
+                        }
+                        if (!context.mounted) return;
+                        await Navigator.of(context).push<void>(
+                          MaterialPageRoute<void>(
+                            builder: (_) => CalisthenicsLessonScreen(
+                              course: course,
+                              lesson: lesson,
+                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                 ],
               ],

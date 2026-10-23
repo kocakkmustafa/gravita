@@ -23,6 +23,7 @@ import 'package:path_provider_platform_interface/path_provider_platform_interfac
 import 'support/locale_asset_harness.dart'
     show warmActualLocaleAssets, pumpActualLocaleReady;
 import 'support/launch_harness.dart' show FakeSupportDir, realIo, settleUntil;
+import 'support/paywall_harness.dart' show asSubscriber;
 
 // A02/A03/A08 regresyonları: gerçek widget/store, yalnız yeni sentetik dizin.
 // OS process death, fiziksel disk, hesap veya provider kabulü değildir.
@@ -61,13 +62,13 @@ void main() {
   File inputFile() => File('${temp.path}/program_inputs.json');
   File scheduleFile() => File('${temp.path}/program_schedule.json');
 
-  Widget host(Widget child) => MaterialApp(
+  Widget host(Widget child) => asSubscriber(MaterialApp(
     theme: GravitaTheme.light,
     locale: const Locale('en'),
     supportedLocales: appSupportedLocales,
     localizationsDelegates: appLocalizationsDelegates,
     home: child,
-  );
+  ));
 
   void prepareView(WidgetTester tester) {
     // İçerik/state gözlemi; minimum telefon veya performans fixture'ı değildir.

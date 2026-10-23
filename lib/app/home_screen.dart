@@ -10,6 +10,7 @@ import 'foundation_course_entry.dart';
 import 'library_model.dart';
 import 'library_strings.dart';
 import 'movement_page.dart';
+import 'paywall_policy.dart';
 import 'program/program_setup_screen.dart';
 import 'workout/workout_screen.dart';
 import 'skills/skill_trees_list_screen.dart';
@@ -202,16 +203,21 @@ class HomeScreen extends StatelessWidget {
               InkWell(
                 key: programSetupLinkKey,
                 borderRadius: BorderRadius.circular(18),
-                onTap: () => Navigator.of(context).push<void>(
-                  MaterialPageRoute<void>(
-                    builder: (_) => ProgramSetupScreen(
-                      content: content,
-                      accountUserId: AccountScope.maybeOf(
-                        context,
-                      )?.currentUserId,
+                onTap: () async {
+                  // Independent practice stage (paywall A).
+                  if (!await ensureSubscriptionAccess(context)) return;
+                  if (!context.mounted) return;
+                  await Navigator.of(context).push<void>(
+                    MaterialPageRoute<void>(
+                      builder: (_) => ProgramSetupScreen(
+                        content: content,
+                        accountUserId: AccountScope.maybeOf(
+                          context,
+                        )?.currentUserId,
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
                 child: GravitaCard(
                   radius: 18,
                   padding: const EdgeInsets.symmetric(

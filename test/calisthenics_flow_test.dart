@@ -13,6 +13,7 @@ import 'package:gravita/app/theme.dart';
 import 'support/launch_harness.dart';
 import 'support/locale_asset_harness.dart'
     show warmActualLocaleAssets, pumpActualLocaleReady;
+import 'support/paywall_harness.dart' show asSubscriber, grantPaidAccess;
 
 class _FileBundle extends AssetBundle {
   @override
@@ -35,13 +36,13 @@ void main() {
   tearDown(() async {
     if (await temp.exists()) await temp.delete(recursive: true);
   });
-  Widget host(Widget child) => MaterialApp(
+  Widget host(Widget child) => asSubscriber(MaterialApp(
     theme: GravitaTheme.light,
     locale: const Locale('tr'),
     supportedLocales: appSupportedLocales,
     localizationsDelegates: appLocalizationsDelegates,
     home: child,
-  );
+  ));
   void size(WidgetTester tester) {
     tester.view.physicalSize = const Size(375, 812);
     tester.view.devicePixelRatio = 1;
@@ -606,6 +607,7 @@ void main() {
         final connection = AccountConnection(
           userId: id,
           pageBuilder: (_) => const SizedBox(),
+          requirePaidAccess: grantPaidAccess,
         );
         final loaded = <String?>[];
         Future<CalisthenicsProgressStore> loader(String? account) async {
@@ -661,6 +663,7 @@ void main() {
     final connection = AccountConnection(
       userId: userId,
       pageBuilder: (_) => const SizedBox(),
+      requirePaidAccess: grantPaidAccess,
     );
     await tester.pumpWidget(
       host(
@@ -731,6 +734,7 @@ void main() {
       final connection = AccountConnection(
         userId: id,
         pageBuilder: (_) => const SizedBox(),
+        requirePaidAccess: grantPaidAccess,
       );
       await tester.pumpWidget(
         host(

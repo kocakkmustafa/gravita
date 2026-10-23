@@ -32,6 +32,7 @@ import 'package:path_provider_platform_interface/path_provider_platform_interfac
 import 'support/launch_harness.dart' show FakeSupportDir, settleUntil;
 import 'support/locale_asset_harness.dart'
     show pumpActualLocaleReady, warmActualLocaleAssets;
+import 'support/paywall_harness.dart' show asSubscriber;
 
 // Authored for the coordinator's SDK lane. These are selected real Flutter
 // surfaces; they do not establish native camera, glyph or visual acceptance.
@@ -46,7 +47,7 @@ void main() {
     Widget child, {
     Locale locale = const Locale('en'),
     double scale = 1,
-  }) => MaterialApp(
+  }) => asSubscriber(MaterialApp(
     theme: GravitaTheme.light,
     darkTheme: GravitaTheme.dark,
     themeMode: mode,
@@ -61,7 +62,7 @@ void main() {
       child: page!,
     ),
     home: child,
-  );
+  ));
 
   void viewport(WidgetTester tester, Size size) {
     tester.view.physicalSize = size;

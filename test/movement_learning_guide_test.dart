@@ -10,6 +10,7 @@ import 'package:gravita/app/movement_page.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'support/locale_asset_harness.dart'
     show warmActualLocaleAssets, pumpActualLocaleReady;
+import 'support/paywall_harness.dart' show asSubscriber;
 
 class _EphemeralSupport extends PathProviderPlatform {
   _EphemeralSupport(this.path);
@@ -46,7 +47,7 @@ void main() {
         });
         var cameraStarts = 0;
         await tester.pumpWidget(
-          MaterialApp(
+          asSubscriber(MaterialApp(
             locale: Locale(language),
             supportedLocales: appSupportedLocales,
             localizationsDelegates: appLocalizationsDelegates,
@@ -55,7 +56,7 @@ void main() {
               content: content,
               onStartSession: (_) => cameraStarts++,
             ),
-          ),
+          )),
         );
         await pumpActualLocaleReady(tester);
         await tester.pumpAndSettle();

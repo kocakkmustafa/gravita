@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gravita/app/account_connection.dart';
 import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/program/program_builder.dart';
 import 'package:gravita/app/program/program_model.dart';
@@ -15,6 +16,7 @@ import 'package:path_provider_platform_interface/path_provider_platform_interfac
 
 import 'support/launch_harness.dart' show FakeSupportDir, realIo, settleUntil;
 import 'support/locale_asset_harness.dart' show warmActualLocaleAssets;
+import 'support/paywall_harness.dart' show asSubscriber;
 
 /// GRA-P1-003 Step 3/4 — RPE toplama (yalnız kullanıcı beyanı, "camera
 /// sonucu değildir") + kaçırılan günü CEZASIZ yeniden sıralama. İkisi de
@@ -40,7 +42,7 @@ void main() {
   });
 
   Widget host(Widget child) =>
-      MaterialApp(theme: GravitaTheme.light, home: child);
+      asSubscriber(MaterialApp(theme: GravitaTheme.light, home: child));
 
   // `_DayCard._isMissed`in AYNI gün-bazlı karşılaştırması (saat DEĞİL) —
   // `settleUntil`in gerçek-zaman turları test gövdesinde SANİYELER
@@ -263,4 +265,68 @@ void main() {
       );
     },
   );
+  testWidgets('paywall A: without access a new session is not logged', (
+    WidgetTester tester,
+  ) async {
+    // Independent practice is paid; the saved program stays readable.
+    final DateTime now = DateTime.now();
+    await seed(tester, now);
+    var asked = 0;
+    await tester.pumpWidget(
+      AccountScope(
+        connection: AccountConnection(
+          userId: ValueNotifier<String?>(null),
+          pageBuilder: (_) => const SizedBox.shrink(),
+          requirePaidAccess: (_) async {
+            asked++;
+            return false;
+          },
+        ),
+        currentUserId: null,
+        child: MaterialApp(
+          theme: GravitaTheme.light,
+          home: WorkoutScreen.withClock(content: content, now: () => now),
+        ),
+      ),
+    );
+    await settleUntil(
+      tester,
+      () => find
+          .byKey(const ValueKey<String>('workout.markDone.1.1'))
+          .evaluate()
+          .isNotEmpty,
+      maxRounds: 30,
+    );
+    // Reading the saved program needs no subscription.
+    expect(find.byKey(WorkoutScreen.disclaimerKey), findsOneWidget);
+    expect(asked, 0);
+
+    final markDone = find.byKey(const ValueKey<String>('workout.markDone.1.1'));
+    await tester.ensureVisible(markDone);
+    await tester.pump();
+    await tester.tap(markDone);
+    await tester.pump();
+    final seven = find.descendant(
+      of: find.byType(ChoiceChip),
+      matching: find.text('7'),
+    );
+    await tester.ensureVisible(seven);
+    await tester.pump();
+    await tester.tap(seven);
+    await tester.pump();
+    final save = find.byKey(const ValueKey<String>('workout.saveRpe.1.1'));
+    await tester.ensureVisible(save);
+    await tester.pump();
+    await tester.tap(save);
+    await settleUntil(tester, () => asked > 0, maxRounds: 30);
+    await tester.pump();
+
+    expect(asked, 1);
+    expect(find.text('Done · RPE 7'), findsNothing);
+    final ProgramSchedule? saved = await realIo(
+      tester,
+      () async => (await ProgramScheduleStore.open()).read(),
+    );
+    expect(saved!.rpeByDayIndex, isEmpty, reason: 'nothing logged');
+  });
 }

@@ -11,6 +11,7 @@ import 'age_block_store.dart';
 import 'app_locale.dart';
 import 'gravita_account_page.dart';
 import 'language_preferences.dart';
+import 'paywall_policy.dart';
 import 'theme.dart';
 import 'theme_preferences.dart';
 
@@ -108,6 +109,8 @@ AccountConnection bindGravitaMotionAccount(
       context,
       account: runtime.account,
       accountPageBuilder: accountPage,
+      // Subscription sales, not the camera gate (paywall A).
+      paidFeaturesAvailable: gravitaSubscriptionSalesAvailable,
     ),
   );
   return connection;
