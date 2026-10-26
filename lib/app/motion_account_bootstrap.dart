@@ -105,6 +105,9 @@ AccountConnection bindGravitaMotionAccount(
             runtime.userId.value ==
                 runtime.account.supabase.auth.currentSession?.user.id),
     pageBuilder: accountPage,
+    membershipPageBuilder: gravitaSubscriptionSalesAvailable
+        ? (_) => MotionMembershipPage(account: runtime.account)
+        : null,
     requirePaidAccess: (context) => requireMotionPaidAccess(
       context,
       account: runtime.account,

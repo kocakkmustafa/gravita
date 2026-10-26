@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:motion_account/motion_account.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'account_action_ticket.dart';
 import 'account_store_epoch.dart';
@@ -22,6 +23,7 @@ class GravitaAccountPage extends StatefulWidget {
     this.ageBlocked = false,
     this.onAgeBlocked,
     this.membershipAvailable = gravitaSubscriptionSalesAvailable,
+    this.openStoreUrl = openGravitaStoreUrl,
     super.key,
   });
 
@@ -41,6 +43,9 @@ class GravitaAccountPage extends StatefulWidget {
   /// Membership section of the shared account page (paywall A);
   /// production keeps the default. The camera gate is separate.
   final bool membershipAvailable;
+
+  /// Opens the store's subscription settings; injectable for tests.
+  final Future<bool> Function(Uri) openStoreUrl;
 
   @override
   State<GravitaAccountPage> createState() => _GravitaAccountPageState();
@@ -180,7 +185,43 @@ class _GravitaAccountPageState extends State<GravitaAccountPage> {
     clearLocalData: _cleanup,
     onRetryIdentity: widget.onRetryIdentity,
     membershipAvailable: widget.membershipAvailable,
+    // Signed-in only (Core shows it in the account section); hidden while
+    // sales are closed.
+    onManageSubscription: widget.membershipAvailable
+        ? _manageSubscription
+        : null,
     ageBlocked: widget.ageBlocked,
     onAgeBlocked: widget.onAgeBlocked,
   );
+
+  Future<void> _manageSubscription() async {
+    final uri = gravitaStoreSubscriptionsUri(Theme.of(context).platform);
+    var opened = false;
+    try {
+      opened = await widget.openStoreUrl(uri);
+    } catch (_) {
+      // The store app or a browser may be unavailable on this device.
+    }
+    if (opened || !mounted) return;
+    ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+      SnackBar(
+        content: Text(
+          MotionAccountLocalizations.of(
+            context,
+          ).text(MotionAccountString.storeSubscriptionOpenFailed),
+        ),
+      ),
+    );
+  }
 }
+
+/// Store subscription settings: Google Play filtered to Gravita, App Store
+/// account subscriptions. Cancellation happens in the store, not in the app.
+Uri gravitaStoreSubscriptionsUri(TargetPlatform platform) => Uri.parse(
+  platform == TargetPlatform.android
+      ? 'https://play.google.com/store/account/subscriptions?package=com.yulalab.gravita'
+      : 'https://apps.apple.com/account/subscriptions',
+);
+
+Future<bool> openGravitaStoreUrl(Uri uri) =>
+    launchUrl(uri, mode: LaunchMode.externalApplication);

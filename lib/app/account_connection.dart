@@ -9,6 +9,7 @@ class AccountConnection {
     required this.userId,
     required this.pageBuilder,
     this.requirePaidAccess,
+    this.membershipPageBuilder,
     this.passwordRecovery,
     this.identityAdmissionChanges,
     this.isIdentityAdmitted,
@@ -35,6 +36,10 @@ class AccountConnection {
   /// Normal token refresh is deliberately excluded from this owner stream.
   final Stream<void>? ownerSessionChanges;
   final Future<bool> Function(BuildContext)? requirePaidAccess;
+
+  /// Shared membership page (purchase, restore, manage); null while sales are
+  /// closed. Profile shows it to signed-in people only.
+  final WidgetBuilder? membershipPageBuilder;
 }
 
 class AccountScope extends InheritedWidget {

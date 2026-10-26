@@ -73,6 +73,9 @@ dependencies:
       ref: f43d71a375431e96c689a7a4a04fb53ff01af693
   # Kamera izni: reddedilme DÜRÜST bir hâldir, sessizce boş ekran değil.
   permission_handler: ^12.0.3
+  # Store subscription settings link on the account page (GRV-10); same
+  # version Core motion_account already resolves.
+  url_launcher: 6.3.2
 
   # YALNIZ uygulama-özel dizini bulmak için. Depolama BİÇİMİ motorda
   # (`JsonlSessionStore`, append-only JSONL) ve kurucusu bir `File` alıyor —

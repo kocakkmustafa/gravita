@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:motion_account/motion_account.dart'
+    show MotionAccountLocalizations, MotionAccountString;
 
 import 'app_locale.dart';
 import 'catalog_copy_tr.dart';
@@ -21,6 +23,7 @@ class ProfileScreen extends StatelessWidget {
   const ProfileScreen({required this.content, super.key});
 
   static const Key noSettingsKey = Key('profile.noSettings');
+  static const Key membershipKey = Key('profile.membership');
   static const Key appearanceKey = Key('profile.appearance');
   static const Key languageKey = Key('profile.language');
   static const Key dataKey = Key('profile.data');
@@ -47,6 +50,24 @@ class ProfileScreen extends StatelessWidget {
             label: Text(localized(context, 'Account', 'Hesap')),
           ),
           const SizedBox(height: 14),
+          // Purchase, restore and manage live on Core's membership page; it
+          // needs an account, so guests reach it through Account first.
+          if (account.membershipPageBuilder case final WidgetBuilder membership
+              when AccountScope.maybeOf(context)?.currentUserId != null) ...[
+            OutlinedButton.icon(
+              key: membershipKey,
+              onPressed: () => Navigator.of(
+                context,
+              ).push<void>(MaterialPageRoute<void>(builder: membership)),
+              icon: const Icon(Icons.workspace_premium_outlined),
+              label: Text(
+                MotionAccountLocalizations.of(
+                  context,
+                ).text(MotionAccountString.membershipOptions),
+              ),
+            ),
+            const SizedBox(height: 14),
+          ],
         ],
         if (ThemePreferencesScope.maybeOf(context) != null) ...<Widget>[
           ListTile(
