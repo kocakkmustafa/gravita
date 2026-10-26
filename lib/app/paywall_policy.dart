@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:motion_account/motion_account.dart'
+    show motionSubscriptionSalesAvailable;
+import 'package:motion_entitlements/motion_entitlements.dart'
+    show isLessonUnlocked;
 
 import 'account_connection.dart';
 import 'app_locale.dart';
@@ -13,12 +17,17 @@ import 'calisthenics_course.dart';
 /// new sessions in it) are included with a Gravita or Motion+ subscription.
 /// Progress records, saved programs and history always stay readable.
 ///
-/// Sales are separate from the camera gate: `motionPaidFeaturesAvailable`
-/// keeps live camera sessions closed. While sales are unavailable nothing is
-/// locked, because a lock without a way to subscribe would strand people.
-const bool gravitaSubscriptionSalesAvailable = true;
+/// Sales follow Core's `motionSubscriptionSalesAvailable`; they are separate
+/// from the camera gate (`motionCameraCoachingAvailable` keeps live camera
+/// sessions closed). While sales are unavailable nothing is locked, because a
+/// lock without a way to subscribe would strand people.
+const bool gravitaSubscriptionSalesAvailable = motionSubscriptionSalesAvailable;
 
 /// Number of free lessons at the start of [course] under paywall "A".
+///
+/// These module-aligned counts are the founder-approved mapping (Y4-1,
+/// 26 Oct 2026: 44/117) and reach Core as `freeLessonLimit`, so Core's
+/// default max(first module, ceil(n/3)) never applies here.
 int freeLessonCount(CalisthenicsCourse course) {
   final int total = course.lessons.length;
   final int third = (total + 2) ~/ 3;
@@ -35,7 +44,16 @@ int freeLessonCount(CalisthenicsCourse course) {
 /// course are treated as paid (fail-closed).
 bool isFreeLesson(CalisthenicsCourse course, CalisthenicsLesson lesson) {
   final int index = course.lessons.indexWhere((l) => l.id == lesson.id);
-  return index >= 0 && index < freeLessonCount(course);
+  if (index < 0) return false;
+  return isLessonUnlocked(
+    lessonIndex: index,
+    totalLessons: course.lessons.length,
+    firstModuleLessonCount: course.modules.isEmpty
+        ? course.lessons.length
+        : course.modules.first.lessons.length,
+    entitled: false,
+    freeLessonLimit: freeLessonCount(course),
+  );
 }
 
 /// Whether [lesson] shows the subscription lock in course lists.

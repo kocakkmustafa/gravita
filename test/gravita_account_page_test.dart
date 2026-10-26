@@ -42,10 +42,6 @@ void main() {
         locale: const Locale('en'),
         home: GravitaAccountPage(
           client: fixture.account,
-          // Ticket/cleanup semantics only. Core 5832031 leaks an unheard
-          // failed membership Future when sales are on (reported to Core);
-          // the production default stays gravitaSubscriptionSalesAvailable.
-          paidFeaturesAvailable: false,
           clearLocalData: clear ?? (_) async {},
           passwordRecovery: recovery,
           identityAdmissionChanges: admission,

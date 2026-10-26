@@ -21,7 +21,7 @@ import 'package:gravita/app/theme.dart';
 import 'package:gravita/app/why_not_here_screen.dart';
 import 'package:gravita/app/workout/workout_screen.dart';
 import 'package:motion_account/motion_account.dart'
-    show motionPaidFeaturesAvailable;
+    show motionCameraCoachingAvailable;
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 
 import 'support/locale_asset_harness.dart'
@@ -62,7 +62,7 @@ void main() {
         useNarrowTall(tester);
         final content = await loadReal(tester);
         expect(motionPaidCameraLaunchEnabled, isFalse);
-        expect(motionPaidCameraLaunchEnabled, motionPaidFeaturesAvailable);
+        expect(motionPaidCameraLaunchEnabled, motionCameraCoachingAvailable);
         expect(content.catalogue.liveCount, 2);
         expect(content.startableConfigFor('push_up'), isNotNull);
         expect(content.calisthenicsCourse.lessons, hasLength(56));

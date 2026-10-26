@@ -109,8 +109,9 @@ AccountConnection bindGravitaMotionAccount(
       context,
       account: runtime.account,
       accountPageBuilder: accountPage,
-      // Subscription sales, not the camera gate (paywall A).
-      paidFeaturesAvailable: gravitaSubscriptionSalesAvailable,
+      // Subscription sales, not the camera gate (paywall A). The live camera
+      // launch closes earlier on motionCameraCoachingAvailable.
+      salesAvailable: gravitaSubscriptionSalesAvailable,
     ),
   );
   return connection;

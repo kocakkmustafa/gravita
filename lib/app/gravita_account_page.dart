@@ -21,7 +21,7 @@ class GravitaAccountPage extends StatefulWidget {
     this.onRetryIdentity,
     this.ageBlocked = false,
     this.onAgeBlocked,
-    this.paidFeaturesAvailable = gravitaSubscriptionSalesAvailable,
+    this.membershipAvailable = gravitaSubscriptionSalesAvailable,
     super.key,
   });
 
@@ -38,9 +38,9 @@ class GravitaAccountPage extends StatefulWidget {
   final bool ageBlocked;
   final VoidCallback? onAgeBlocked;
 
-  /// Subscription sales section of the shared account page (paywall A);
+  /// Membership section of the shared account page (paywall A);
   /// production keeps the default. The camera gate is separate.
-  final bool paidFeaturesAvailable;
+  final bool membershipAvailable;
 
   @override
   State<GravitaAccountPage> createState() => _GravitaAccountPageState();
@@ -179,7 +179,7 @@ class _GravitaAccountPageState extends State<GravitaAccountPage> {
     initialPasswordRecovery: _recovering,
     clearLocalData: _cleanup,
     onRetryIdentity: widget.onRetryIdentity,
-    paidFeaturesAvailable: widget.paidFeaturesAvailable,
+    membershipAvailable: widget.membershipAvailable,
     ageBlocked: widget.ageBlocked,
     onAgeBlocked: widget.onAgeBlocked,
   );

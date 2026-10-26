@@ -11,6 +11,10 @@ import 'package:gravita/app/calisthenics_progress.dart';
 import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/paywall_policy.dart';
 import 'package:gravita/app/theme.dart';
+import 'package:motion_account/motion_account.dart'
+    show motionCameraCoachingAvailable, motionSubscriptionSalesAvailable;
+import 'package:motion_entitlements/motion_entitlements.dart'
+    show isLessonUnlocked, motionFreeLessonLimit;
 
 import 'support/launch_harness.dart' show settleUntil;
 import 'support/locale_asset_harness.dart'
@@ -28,6 +32,8 @@ void main() {
 
   test('sales are open and the camera gate stays separate', () {
     expect(gravitaSubscriptionSalesAvailable, isTrue);
+    expect(gravitaSubscriptionSalesAvailable, motionSubscriptionSalesAvailable);
+    expect(motionCameraCoachingAvailable, isFalse);
   });
 
   test('every Gravita course frees its module-aligned first third', () async {
@@ -67,6 +73,33 @@ void main() {
       }
     }
     expect(free.values.fold<int>(0, (a, b) => a + b), 44);
+
+    // Y4-1 (26 Oct 2026): the app's module-aligned counts reach Core as the
+    // override. Core's default formula would cut calisthenics at 19, inside
+    // module 3; lessons 20 and 21 must stay free here.
+    final calisthenics = courses['calisthenics']!;
+    expect(
+      motionFreeLessonLimit(
+        totalLessons: 56,
+        firstModuleLessonCount: calisthenics.modules.first.lessons.length,
+      ),
+      19,
+    );
+    for (final i in [18, 19, 20]) {
+      expect(isFreeLesson(calisthenics, calisthenics.lessons[i]), isTrue);
+    }
+    expect(isFreeLesson(calisthenics, calisthenics.lessons[21]), isFalse);
+    // A subscription opens every lesson through the same Core rule.
+    expect(
+      isLessonUnlocked(
+        lessonIndex: 55,
+        totalLessons: 56,
+        firstModuleLessonCount: calisthenics.modules.first.lessons.length,
+        entitled: true,
+        freeLessonLimit: freeLessonCount(calisthenics),
+      ),
+      isTrue,
+    );
   });
 
   test('a lesson outside the course is treated as paid', () {
