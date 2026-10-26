@@ -261,8 +261,8 @@ Future<void> main() async {
   );
   englishDisplay.validateAgainst(bundledEnglish);
   check(
-    englishDisplay.messages.length == 5,
-    'five reviewed English display corrections',
+    englishDisplay.messages.length == 11,
+    'eleven reviewed English display corrections',
   );
   final grammarGolden = <String, String>{
     'g_053d7c4896da':
@@ -272,6 +272,18 @@ Future<void> main() async {
     'g_05a4e4ffb450': 'Stop if you feel shoulder pinching or neck strain.',
     'g_466c477d6020':
         'Its {count} error rule has never been run against real footage. There is no replay fixture for this movement, so we have no evidence that it fires when it should — or stays quiet when it should.',
+    'g_0e48b9b63767':
+        'If comfortable, lift one heel briefly while the other foot remains loaded; do not chase straight suspended legs. To finish, replace the lifted heel, keep both feet fully on the floor and settle the hips fully onto the seated starting support. Let the feet and seat take the body weight until the arms are unloaded and balance is steady. Only then open the grips, release the handles and rest with hands free.',
+    'g_2b94d72bb2f1':
+        'Press back to the starting line and reset your breath before repeating. To finish, come upright over both feet, taking small steps closer to the fixed support if needed. Settle with both feet fully on the floor and your body supported by them without leaning on the hands. Once balance is steady and the palms carry no body weight, lift the palms and rest with arms free.',
+    'g_6eebe3eb67a6':
+        'Keep the head and trunk quiet; this is small shoulder-blade movement, not a deep push-up. To finish, come upright over both feet, taking small steps closer to the wall or fixed incline support if needed. Settle with both feet fully on the floor and your body supported by them without leaning on the hands. Once balance is steady and the palms carry no body weight, lift the palms and rest with arms free.',
+    'g_7fe2c619bd6b':
+        'Press back without sitting the hips onto the heels. To finish, keep both knees on the mat, move the hips back through a comfortable range and bring the trunk into stable kneeling without relying on the palms. Do not force the hips onto the heels. Keep the palms placed until their load is fully removed and balance settles; then lift them, one at a time if needed, and rest with arms free.',
+    'g_a3af9e73daa6':
+        'If fatigue increases without symptoms, choose recovery or plan an easier option for a later session. If symptoms appear or increase, end the current task; do not retest symptoms with an easier version. Persistent or concerning symptoms need appropriate individual assessment before resuming. A course checklist is not a training deadline.',
+    'g_c68139b901f1':
+        'Press away smoothly without shrugging or forcing elbows wide. To finish, come upright over both feet, taking small steps closer to the wall if needed. Settle with both feet fully on the floor and your body supported by them without leaning on the hands. Once balance is steady and the palms carry no body weight, lift the palms and rest with arms free.',
     'g_f7090ef702c1':
         "Still counted, not graded: {sessions}. We opened grading later, and we don't grade sessions we didn't measure at the time.",
   };
