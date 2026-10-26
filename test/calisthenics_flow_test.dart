@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,6 +11,7 @@ import 'package:gravita/app/content_repository.dart';
 import 'package:gravita/app/home_screen.dart';
 import 'package:gravita/app/library_screen.dart';
 import 'package:gravita/app/theme.dart';
+
 import 'support/launch_harness.dart';
 import 'support/locale_asset_harness.dart'
     show warmActualLocaleAssets, pumpActualLocaleReady;
@@ -36,13 +38,15 @@ void main() {
   tearDown(() async {
     if (await temp.exists()) await temp.delete(recursive: true);
   });
-  Widget host(Widget child) => asSubscriber(MaterialApp(
-    theme: GravitaTheme.light,
-    locale: const Locale('tr'),
-    supportedLocales: appSupportedLocales,
-    localizationsDelegates: appLocalizationsDelegates,
-    home: child,
-  ));
+  Widget host(Widget child) => asSubscriber(
+    MaterialApp(
+      theme: GravitaTheme.light,
+      locale: const Locale('tr'),
+      supportedLocales: appSupportedLocales,
+      localizationsDelegates: appLocalizationsDelegates,
+      home: child,
+    ),
+  );
   void size(WidgetTester tester) {
     tester.view.physicalSize = const Size(375, 812);
     tester.view.devicePixelRatio = 1;
@@ -104,6 +108,9 @@ void main() {
         await tester.pump();
         expect(find.byType(CalisthenicsCourseScreen), findsOneWidget);
         expect(find.text('0 / 56'), findsOneWidget);
+        // The paywall preview note sits above "next"; scroll it into view.
+        await tester.ensureVisible(find.byKey(const Key('calisthenics.next')));
+        await tester.pump();
         await tester.tap(find.byKey(const Key('calisthenics.next')));
         await tester.pump();
         await tester.pump();
@@ -199,6 +206,8 @@ void main() {
       tester,
       () => find.byKey(const Key('calisthenics.next')).evaluate().isNotEmpty,
     );
+    await tester.ensureVisible(find.byKey(const Key('calisthenics.next')));
+    await tester.pump();
     await tester.tap(find.byKey(const Key('calisthenics.next')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));

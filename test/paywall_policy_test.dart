@@ -171,6 +171,20 @@ void main() {
         // Progress counts every lesson, paid ones included.
         expect(find.text('0 / 12'), findsOneWidget);
         for (final (i, lesson) in course.lessons.indexed) {
+          // The course list is lazy: bring each row into view before
+          // reading its lock state.
+          final row = find.byKey(Key('calisthenics.lesson.${lesson.id}'));
+          await tester.scrollUntilVisible(
+            row,
+            240,
+            scrollable: find
+                .descendant(
+                  of: find.byKey(const Key('calisthenics.course.body')),
+                  matching: find.byType(Scrollable),
+                )
+                .first,
+            maxScrolls: 60,
+          );
           final locked = find.byKey(Key('calisthenics.locked.${lesson.id}'));
           expect(
             locked,
@@ -178,10 +192,7 @@ void main() {
             reason: lesson.id,
           );
           // The lesson row and its state label stay visible either way.
-          expect(
-            find.byKey(Key('calisthenics.lesson.${lesson.id}')),
-            findsOneWidget,
-          );
+          expect(row, findsOneWidget);
         }
         expect(tester.takeException(), isNull);
       });
