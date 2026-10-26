@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOfUtc": "2026-10-18",
+  "asOfUtc": "2026-10-26",
   "appId": "com.yulalab.gravita",
   "runtimeSourceCommit": "c05721d73b838859af976f8c06f09b9857d6960d",
   "version": "1.0.0",
@@ -9,7 +9,7 @@
   "submissionAllowed": false,
   "sources": {
     "appleManifest": "ios/Runner/PrivacyInfo.xcprivacy",
-    "appleManifestSha256": "af4dc0fad1ad9eec69b5304d7c97a722e88b4a3cce2b78e7400f1de4efd2d983",
+    "appleManifestSha256": "4e2d935ac2bfa79ae4207b49b1936dd8f9b740da94273b39513054d56bb1d321",
     "providerReceiptDateUtc": "2026-09-26T21:36:00Z",
     "providerReceiptContext": "account-data-safety-draft.md; shared service receipt, not a new Gravita network session",
     "googleTypes": "https://support.google.com/googleplay/android-developer/answer/10787469?hl=en",
@@ -18,11 +18,12 @@
     "accountPolicyPin": "ef60e346934d7e5d45c87deb81583b263575b208"
   },
   "firstRelease": {
-    "salesEnabled": false,
+    "salesEnabled": true,
     "cameraSessionsEnabled": false,
-    "purchaseHistoryCollected": false,
+    "purchaseHistoryCollected": true,
     "realPurchaseRestoreAccepted": false,
-    "purchaseRestoreGate": "not_applicable_while_sales_disabled"
+    "purchaseRestoreGate": "sandbox_S1_S8_pending_management",
+    "salesDecision": "founder 2026-10-23: app subscription + Motion+; paywall A 44/117 (Y4-1, 2026-10-26)"
   },
   "dataTypes": [
     {
@@ -184,6 +185,33 @@
         "classificationStatus": "proposed_inference_review_required",
         "purposesStatus": "developer_review_required"
       }
+    },
+    {
+      "id": "purchase_history",
+      "apple": {
+        "type": "NSPrivacyCollectedDataTypePurchaseHistory",
+        "linked": true,
+        "tracking": false,
+        "purposes": [
+          "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+        ],
+        "status": "matches_source_manifest_not_console_readback"
+      },
+      "playProposal": {
+        "category": "Financial info",
+        "dataType": "Purchase history",
+        "collected": true,
+        "shared": null,
+        "ephemeral": false,
+        "optional": true,
+        "purposes": [
+          "App functionality",
+          "Account management"
+        ],
+        "classificationStatus": "direct_definition",
+        "purposesStatus": "developer_review_required"
+      },
+      "source": "Core f43d71a: motion_entitlements stores the server-verified subscription per account (store, product_id, original_transaction_id, state, expires_at, verified_at) so access can be restored; motion_trial_ledger keeps one Motion+ trial start (app_id, started_at) per account. Both are deleted with the account. Payment card data never reaches the app or Motion servers."
     }
   ],
   "localOnlyNotCollected": [

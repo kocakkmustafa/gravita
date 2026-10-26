@@ -2,11 +2,19 @@
 
 Yayıma hazırlanacak TR/EN metinlerin kaynağı [listing.json](listing.json) ve
 [listing.tr-TR.json](listing.tr-TR.json) dosyalarıdır. Güncel adayda
-**56 ders / 10 modül calisthenics**, mevcut DB/KB yolları ve üç ayrı 12 dersli
-barbell, halka, el desteği temel kurs taslağı vardır. Yeni 24 fiziksel görev
+**beş beceri alanında 7 kurs / 117 ders** vardır: **56 ders / 10 modül
+calisthenics**, üç DB/KB yolu (yazılı yol 12, tutuş 11, geçişler 2) ve üç ayrı
+12 dersli barbell, halka, el desteği temel kursu. Yeni 24 fiziksel görev
 uzman, gösterim ve öğrenci kabulü bekler. Varlık kimlikleri ve hashleri JSON
-içindeki `$` kaynak notlarındadır. Beş alanda tam öğretim hedefi korunur.
-Kamera koçluğu, form puanı ve abonelik satışı açık değildir.
+içindeki `$` kaynak notlarındadır.
+
+**Satış (2026-10-26 metni, GRV-04):** ilk sürümde abonelik açıktır (Gravita +
+Motion+). Paywall A: her kursun ilk bölümü ücretsiz, toplam **117 dersin 44'ü**
+(Y4-1); kalan dersler ve bağımsız pratik (program oluşturma, yeni seans kaydı)
+abonelikle; ilerleme, kayıtlı program ve geçmiş her zaman okunur. Deneme süresi
+metinde iddia edilmez, mağaza gösterir. `tools/validate_store_listing.py` kurs,
+ders ve ücretsiz ders iddialarını kaynaktan yeniden sayar. Kamera koçluğu ve
+form puanı açık değildir; etkileşimli beceri ağacı vaat edilmez.
 
 Kurs ilerlemesi kullanıcının kendi çalışma kaydıdır; ustalık veya fiziksel öğretim
 kabulü değildir. Hesap ve destek/gizlilik metinleri güncel JSON'dan alınır.

@@ -1,35 +1,55 @@
-GRAVITA — LOCAL REVIEW NOTES DRAFT — 18 OCTOBER 2026
-App: Gravita: Skills & Strength / com.yulalab.gravita / 1.0.0 (3)
-Runtime source: c05721d73b838859af976f8c06f09b9857d6960d
-Not submitted. Native signature, current screenshots, real account and device
-acceptance are still pending. No review credentials are stored in this file.
+GRAVITA — LOCAL REVIEW NOTES DRAFT — 26 OCTOBER 2026
+App: Gravita: Skills & Strength / com.yulalab.gravita / 1.0.0 (build set at packaging)
+Runtime source: the final packaged commit is recorded with the signed build receipt.
+Not submitted. Native signature, current screenshots, real account, sandbox
+purchase and device acceptance are still pending. No review credentials are
+stored in this file.
 
-The candidate supports English and Turkish. Browse without signing in.
-Home and Library offer the 56-lesson calisthenics course, existing dumbbell /
-kettlebell paths, and three separate 12-lesson foundation drafts for barbell,
-low rings and hand support. Their 24 physical tasks remain held pending expert
-review, permitted demonstrations and observed learner acceptance. Reading a
-lesson does not unlock a held task. Inversions are not opened by these drafts.
+The interface is available in 14 languages; course lessons are original
+English and Turkish text. Browse without signing in. Gravita teaches five
+skill areas in 7 written courses with 117 lessons: the 56-lesson calisthenics
+course, three dumbbell / kettlebell paths (written route, handling,
+transitions) and three 12-lesson foundation courses for barbell, low rings
+and hand support. The 24 physical tasks of the three foundation courses remain
+held pending expert review, permitted demonstrations and observed learner
+acceptance. Reading a lesson does not unlock a held task. Inversions are not
+taught.
 
-Open a foundation pathway, read its prerequisites, equipment, regression,
-progression and rest guidance. Reading progress is stored on this device.
-Guest progress is separate from each signed-in account and is not migrated
-when signing in. This progress is a practice record, not a mastery or form score.
-Demonstration videos are not supplied with these new foundation drafts.
+Subscriptions. Gravita offers an optional auto-renewing subscription
+("Gravita", monthly or yearly) and the shared "Motion+" subscription that also
+unlocks the same tier in the other Motion apps by the same developer.
+Free without an account: the first part of every course, 44 of 117 lessons
+(calisthenics 21 of 56, dumbbell / kettlebell written route 6 of 12, handling
+4 of 11, transitions 1 of 2, barbell, rings and hand support 4 of 12 each),
+plus progress, saved program and history, which always stay readable.
+Subscription unlocks: the remaining 73 lessons and independent practice
+(creating the eight-week program and logging new sessions). A locked lesson
+shows a lock icon; opening it asks the reviewer to sign in or opens the
+membership options. Prices come from
+the store; a free trial is shown only when the store offers one to this
+account. Purchases require a Motion account so access can be restored on
+another device; "Restore purchases" and "Manage subscription" (opens the store
+subscription settings) are on Account > Membership. Accounts that declare an
+age under 13 cannot be created; accounts for 13–17 that still await parental
+consent are not offered purchases. Camera coaching, live measurement and form
+grades are disabled in this version and are not part of the subscription.
+Sandbox test account: provided in App Store Connect review fields.
 
-Camera coaching and subscription sales are disabled in this candidate.
-The lessons do not need camera or microphone permission. No payment or
-purchase restoration is required to review the available lesson reading path.
-Model training and calibration are a later acceptance phase. Unsupported or
-uncalibrated movements must not be interpreted as measured physical accuracy.
+Open a course, read its prerequisites, equipment, regression, progression and
+rest guidance. Reading progress is stored on this device. Guest progress is
+separate from each signed-in account and is not migrated when signing in. This
+progress is a practice record, not a mastery or form score. Demonstration
+videos are not supplied in this version. The lessons do not need camera or
+microphone permission.
 
-The optional shared Motion account supports sign-in/profile and account
-deletion. For account-specific review, approved test credentials must be
-provided in the stores' secure review fields after real-device validation.
+The optional shared Motion account supports sign-in/profile, membership and
+account deletion. For account-specific review, approved test credentials must
+be provided in the stores' secure review fields after real-device validation.
 Deleting an account affects the shared Motion account across all five apps;
-it does not cancel any store subscription. Do not delete a real user's account
-for a review demonstration. A separately approved disposable account is needed
-for the destructive end-to-end deletion test.
+it does not cancel any store subscription.
+Do not delete a real user's account for a review demonstration. A separately
+approved disposable account is needed for the destructive end-to-end deletion
+test.
 
 Privacy and external deletion request:
 https://yulalab.com/en/privacy/motion

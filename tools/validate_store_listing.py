@@ -21,6 +21,10 @@ LIBRARY = ROOT / 'content/library.json'
 COURSE_PATH = 'content/courses/calisthenics.v1.json'
 COURSE = ROOT / COURSE_PATH
 PREPARATION_KEY = '$coursePreparation20260926'
+# Seven first-release courses in five skill areas (GRV-04, 2026-10-26).
+CATALOGUE_PATHS = [COURSE_PATH] + [f'content/courses/{name}.v1.json' for name in (
+    'dbkb-written', 'dbkb-handling', 'dbkb-transitions',
+    'barbell-foundations', 'rings-foundations', 'hands-foundations')]
 
 
 def course_counts(course: dict) -> tuple[int, int]:
@@ -40,15 +44,51 @@ def claimed_course(text: str, language: str) -> tuple[int, int] | None:
     return int(lessons.group(1)), int(modules.group(1))
 
 
+def free_lessons(course: dict) -> int:
+    """Paywall A, same rule as lib/app/paywall_policy.dart freeLessonCount."""
+    sizes = [len(module['lessons']) for module in course['modules']]
+    third = -(-sum(sizes) // 3)
+    if len(sizes) <= 1:
+        return third
+    covered = 0
+    for size in sizes:
+        if covered >= third:
+            break
+        covered += size
+    return covered
+
+
+def catalogue_counts(courses: list[dict]) -> tuple[int, int, int]:
+    """(courses, lessons, free lessons) across the first-release catalogue."""
+    return (len(courses), sum(course_counts(c)[0] for c in courses),
+            sum(free_lessons(c) for c in courses))
+
+
+def claimed_catalogue(text: str, language: str) -> tuple[int, int, int] | None:
+    if language == 'en':
+        total = re.search(r'\bfive skill areas with (\d+) original English and Turkish written lessons in (\d+) courses\b', text)
+        free = re.search(r'\b(\d+) of (\d+) lessons in total\b', text)
+        if not total or not free or free.group(2) != total.group(1):
+            return None
+        return int(total.group(2)), int(total.group(1)), int(free.group(1))
+    total = re.search(r'\bbeş beceri alanında (\d+) kursta (\d+) özgün Türkçe ve İngilizce yazılı dersle\b', text)
+    free = re.search(r"\b[Tt]oplam (\d+) dersin (\d+)'[a-zçğıöşü]+\b", text)
+    if not total or not free or free.group(1) != total.group(2):
+        return None
+    return int(total.group(1)), int(total.group(2)), int(free.group(2))
+
+
 def claimed_from_taslak_md(text: str) -> tuple[int, int, int] | None:
     match = re.search(r'(\d+) hareket,\s*(\d+) açık,\s*(\d+) ölçüm bekliyor', text)
     return tuple(map(int, match.groups())) if match else None
 
 
 def check(listings: dict[str, dict], course: dict, source_sha: str,
-          taslak_text: str, real_total: int, real_live: int) -> list[str]:
+          taslak_text: str, real_total: int, real_live: int,
+          catalogue: list[dict] | None = None) -> list[str]:
     """Pure gate; source content/hash and public/metadata claims are independent."""
     errors = []
+    expected_catalogue_counts = catalogue_counts(catalogue) if catalogue is not None else None
     expected_counts = course_counts(course)
     if expected_counts[0] <= 0 or expected_counts[1] <= 0:
         errors.append('course: empty lesson/module source')
@@ -64,6 +104,12 @@ def check(listings: dict[str, dict], course: dict, source_sha: str,
             errors.append(f'{label}: public course count claim ABSENT; parser or copy must be reviewed')
         elif claims != expected_counts:
             errors.append(f'{label}: public lesson/module claim {claims}, source {expected_counts}')
+        if expected_catalogue_counts is not None:
+            totals = claimed_catalogue(description, language) if isinstance(description, str) else None
+            if totals is None:
+                errors.append(f'{label}: public catalogue/free-lesson claim ABSENT; parser or copy must be reviewed')
+            elif totals != expected_catalogue_counts:
+                errors.append(f'{label}: public courses/lessons/free claim {totals}, source {expected_catalogue_counts}')
         metadata = listing.get(PREPARATION_KEY)
         if not isinstance(metadata, dict):
             errors.append(f'{label}: source metadata ABSENT')
@@ -97,8 +143,16 @@ def self_test() -> int:
                PREPARATION_KEY: deepcopy(metadata)},
     }
     taslak = '| 31 hareket, 2 açık, 29 ölçüm bekliyor | kaynak |'
-    def evaluate(value=listings, source=course, sha=source_sha, catalogue=taslak):
-        return check(value, source, sha, catalogue, 31, 2)
+    # Synthetic two-course catalogue: 56 + 12 lessons, 24 + 4 free (68/28).
+    small = {'modules': [{'lessons': [{}] * 4} for _ in range(3)]}
+    courses = [course, small]
+    assert catalogue_counts(courses) == (2, 68, 28)
+    listings['en']['description'] += (' Gravita teaches five skill areas with 68 original English and Turkish written lessons in 2 courses.'
+                                      ' The first part is free, 28 of 68 lessons in total.')
+    listings['tr']['description'] += (' Gravita beş beceri alanında 2 kursta 68 özgün Türkçe ve İngilizce yazılı dersle öğretir.'
+                                      " Toplam 68 dersin 28'i ücretsizdir.")
+    def evaluate(value=listings, source=course, sha=source_sha, catalogue=taslak, cat=courses):
+        return check(value, source, sha, catalogue, 31, 2, cat)
     if evaluate():
         print('⛔ Positive bilingual source-bound control failed')
         return 1
@@ -114,8 +168,16 @@ def self_test() -> int:
         scenarios.append((f'{language} wrong module metadata', evaluate(bad), 'moduleCount'))
         bad = deepcopy(listings); bad[language][PREPARATION_KEY]['lessonCount'] = 55
         scenarios.append((f'{language} wrong lesson metadata', evaluate(bad), 'lessonCount'))
+        bad = deepcopy(listings); bad[language]['description'] = bad[language]['description'].replace('28', '27')
+        scenarios.append((f'{language} wrong free-lesson claim', evaluate(bad), 'courses/lessons/free'))
+        bad = deepcopy(listings); bad[language]['description'] = bad[language]['description'].replace('in 2 courses', 'in 3 courses').replace('2 kursta', '3 kursta')
+        scenarios.append((f'{language} wrong course count', evaluate(bad), 'courses/lessons/free'))
+        bad = deepcopy(listings); bad[language]['description'] = bad[language]['description'].split(' Gravita ')[0]
+        scenarios.append((f'{language} absent catalogue claim', evaluate(bad), 'catalogue/free-lesson claim ABSENT'))
     changed_source = deepcopy(course); changed_source['modules'][0]['lessons'].append({})
     scenarios.append(('source gained lesson while copy stayed stale', evaluate(source=changed_source), 'public'))
+    scenarios.append(('catalogue gained lesson while copy stayed stale',
+                      evaluate(cat=[course, {'modules': [{'lessons': [{}] * 5}] + small['modules'][1:]}]), 'courses/lessons/free'))
     scenarios.append(('legacy catalogue stale', evaluate(catalogue='31 hareket, 3 açık, 28 ölçüm bekliyor'), 'TASLAK.md'))
     scenarios.append(('legacy catalogue absent', evaluate(catalogue='Only a catalogue.'), 'TASLAK.md'))
     for name, errors, expected in scenarios:
@@ -136,10 +198,11 @@ def main() -> int:
         real_live = sum(m.get('status') == 'live' for m in movements)
         raw_course = COURSE.read_bytes()
         course = json.loads(raw_course)
+        catalogue = [json.loads((ROOT / path).read_text(encoding='utf-8')) for path in CATALOGUE_PATHS]
         errors = check({language: json.loads(path.read_text(encoding='utf-8'))
                         for language, path in LISTINGS.items()}, course,
                        hashlib.sha256(raw_course).hexdigest(),
-                       TASLAK_MD.read_text(encoding='utf-8'), real_total, real_live)
+                       TASLAK_MD.read_text(encoding='utf-8'), real_total, real_live, catalogue)
     except (OSError, ValueError, KeyError, TypeError) as error:
         print(f'⛔ Source/draft cannot be read: {error}')
         return 1
@@ -148,7 +211,8 @@ def main() -> int:
             print(f'⛔ {error}')
         return 1
     lessons, modules = course_counts(course)
-    print(f'✅ EN/TR draft claims + SHA match source {lessons} lessons/{modules} modules; legacy catalogue {real_total}/{real_live}/{real_total-real_live}. Local draft only.')
+    n_courses, n_lessons, n_free = catalogue_counts(catalogue)
+    print(f'✅ EN/TR draft claims + SHA match source {lessons} lessons/{modules} modules; catalogue {n_courses} courses/{n_lessons} lessons/{n_free} free; legacy catalogue {real_total}/{real_live}/{real_total-real_live}. Local draft only.')
     return 0
 
 

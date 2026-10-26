@@ -3,6 +3,20 @@
 Bu taslak uygulama kodundaki ortak Motion hesabına göredir. App Store Connect
 gizlilik yanıtı ve Google Play Data safety formu henüz gönderilmiş değildir.
 
+## Satış açılışı — 2026-10-26
+
+Kurucu kararıyla (23 Ekim) ilk sürümde abonelik satışı açıktır (Gravita +
+Motion+; paywall A: 117 dersin 44'ü ücretsiz, Y4-1). Core `f43d71a`'da sunucu
+doğrulanmış aboneliği hesaba bağlı tutar: `motion_entitlements` (mağaza, ürün,
+özgün işlem kimliği, durum, bitiş ve doğrulama zamanı) ve Motion+ için hesap
+başına tek deneme kaydı `motion_trial_ledger` (app, başlangıç). Bu nedenle
+**satın alma geçmişi = toplanıyor, hesaba bağlı, App Functionality, tracking
+yok** (Apple `NSPrivacyCollectedDataTypePurchaseHistory`; Play Financial info →
+Purchase history). Kart/ödeme bilgisi uygulamaya veya Motion sunucusuna gelmez;
+mağaza işler. Hesap silme bu kayıtları siler ama mağaza aboneliğini iptal
+etmez. Manifest artık **yedi** collected-data kaydı taşır. Konsol beyanı ve
+sandbox S1–S8 kabulü Yönetim'dedir; bu belge kaynak eşlemesidir.
+
 ## Kaynakla uzlaştırma — 2026-09-26
 
 Başlıktaki 2026-09-25 ilk taslak tarihidir. Bu güncelleme mevcut ilk kurs,
@@ -59,7 +73,7 @@ akışı ve son paket/SDK gizlilik raporu ayrı kabul kapılarıdır.
 | E-posta adresi | Evet, Motion Auth | Kayıt, giriş, doğrulama, şifre sıfırlama | Evet |
 | Görünen ad | Kullanıcı girerse evet, Motion profili | Profil | Evet |
 | Kullanıcı kimliği | Evet, Motion Auth/profil/uygulama üyeliği | Oturum ve hesap veri ayrımı | Evet |
-| Satın alma geçmişi | Hayır; ilk sürümde satış ve ücretli oturum kapalı | Bu sürümde kullanılmaz | Hayır |
+| Satın alma geçmişi | Evet, Motion sunucusu (`motion_entitlements`, Motion+ deneme defteri) | Abonelik doğrulama, erişim ve başka cihazda geri yükleme | Evet |
 | Şifre | Auth isteğinde sunucuya gider; uygulama geçmişine yazılmaz | Kayıt, giriş, şifre değiştirme | Evet |
 | Kamera görüntüsü ve kare ölçümü | Hayır | Bu ilk sürümde kamera oturumu kapalı; ertelenen akış cihaz içindir | Sunucuya kamera verisi aktarımı açılmaz |
 | Calisthenics, DB/KB ve temel kurs taslaklarının ilerlemesi | Hayır | Görüldü, çalışıldı ve kullanıcı beyanıyla tamamlandı durumları | Konuk/hesap kapsamına ayrılmış yerel JSON; Motion hesabına senkronize edilmez |
