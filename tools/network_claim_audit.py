@@ -185,6 +185,7 @@ NETWORK_DEPS_RECORDED = {
     # Video ve kamera ölçümü bu istemcilere verilmez; yüzey iddiasının öznesi
     # kameradır. Genel "tamamen çevrimdışı" iddiası artık doğru değildir.
     "motion_account": "ortak Auth/profil/üyelik istemcisi; kamera verisi aktarmaz",
+    "motion_platform_signals": "Core R3 (0.2.0) native eklentisi: StoreKit 2 AppTransaction ve Apple Declared Age Range / Google Play Age Signals isteği; işletim sistemi/mağaza bu sırada ağa çıkabilir. Uygulama kendi soketini açmaz; kamera verisi aktarmaz",
     "http": "Supabase transitif HTTP taşıyıcısı; hesap istekleri",
     "functions_client": "hesap silme Edge Function HTTP çağrısı",
     "gotrue": "Auth e-posta/şifre ve oturum istekleri",
