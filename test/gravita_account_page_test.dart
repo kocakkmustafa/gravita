@@ -279,6 +279,7 @@ void main() {
       } finally {
         await tester.pumpWidget(const SizedBox.shrink());
         await _turn(tester);
+        await _drainMembershipRead(tester);
       }
     },
   );
@@ -362,8 +363,10 @@ void main() {
         await tester.pump();
         expect(find.text('Save password'), findsNothing);
         expect(find.text('Delete Motion account'), findsOneWidget);
-        await tester.ensureVisible(find.text('Refresh account'));
-        await tester.tap(find.text('Refresh account'));
+        // Sales are on (production default), so Core labels the retry
+        // "Refresh account and membership".
+        await tester.ensureVisible(find.text('Refresh account and membership'));
+        await tester.tap(find.text('Refresh account and membership'));
         await _until(tester, () => retries == 1, 'forwarded identity retry');
         admission.value = false;
         await tester.pump();
@@ -385,6 +388,7 @@ void main() {
         recovery.dispose();
         admission.dispose();
         await _turn(tester);
+        await _drainMembershipRead(tester);
         expect(tester.takeException(), isNull);
       }
     },
@@ -397,6 +401,12 @@ Future<void> _turn(WidgetTester tester) async {
   );
   await tester.pump();
 }
+
+/// Remounting the page (token refresh, recovery) starts a new membership read
+/// with sales on; the client's 10 s read deadline outlives the fake-async test.
+/// Core R1: a late timeout of a disposed page is swallowed, so pass it.
+Future<void> _drainMembershipRead(WidgetTester tester) =>
+    tester.pump(const Duration(seconds: 11));
 
 Future<void> _finishDialog(WidgetTester tester) async {
   await tester.pump();
