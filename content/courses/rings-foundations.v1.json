@@ -11,14 +11,14 @@
     "tr": "On iki özgün ders kurulum kararını, dikeye yakın iki ayak destekli rowu, ayakta alçak halkaya hafif basmayı ve küçük tekrarlanabilir oturumu öğretir. İki ayak bedeni desteklemeyi sürdürür. Asılma, ayaksız destek, dip, false grip, sallanma ve muscle-up ayrı öğretimdir. Oynatılabilir gösterim paketlenmemiştir."
   },
   "healthNotice": {
-    "en": "General adult skill education. Choose the easier or written option when needed. Stop for new pain, dizziness, unusual breathlessness, faintness, tingling or loss of grip/balance; do not retest symptoms. Persistent or concerning symptoms need appropriate individual assessment. Learning reports do not validate form or personal suitability.",
-    "tr": "Yetişkinler için genel beceri eğitimi. Gerektiğinde kolay veya yazılı seçeneği seç. Yeni ağrı, baş dönmesi, olağandışı nefes darlığı, baygınlık hissi, karıncalanma veya tutuş/denge kaybında dur; belirtileri yeniden sınama. Süren veya kaygı veren belirtilerde uygun bireysel değerlendirme gerekir. Öğrenme bildirimi formu veya kişisel uygunluğu doğrulamaz."
+    "en": "General skill education for adults and teens aged 13–17. Ages 13–17: practise with a parent, coach or other responsible adult who has checked the equipment. Choose the easier or written option when needed. Stop for new pain, dizziness, unusual breathlessness, faintness, tingling or loss of grip/balance; do not retest symptoms. Persistent or concerning symptoms need appropriate individual assessment. Learning reports do not validate form or personal suitability.",
+    "tr": "Yetişkinler ve 13–17 yaş gençler için genel beceri eğitimi. 13–17 yaş: ekipmanı kontrol etmiş bir ebeveyn, antrenör veya başka bir sorumlu yetişkinle çalış. Gerektiğinde kolay veya yazılı seçeneği seç. Yeni ağrı, baş dönmesi, olağandışı nefes darlığı, baygınlık hissi, karıncalanma veya tutuş/denge kaybında dur; belirtileri yeniden sınama. Süren veya kaygı veren belirtilerde uygun bireysel değerlendirme gerekir. Öğrenme bildirimi formu veya kişisel uygunluğu doğrulamaz."
   },
   "evidenceMode": "self_report",
   "reviewStatus": "first_release_draft",
   "scope": {
-    "en": "Optional adult beginner learning close to standing, using a manufacturer-compatible installation and continuous two-foot support. This is an original learning sequence, not a test of strength, personal medical suitability or injury prevention.",
-    "tr": "Üreticiye uygun kurulum ve sürekli iki ayak desteğiyle, ayakta durmaya yakın isteğe bağlı yetişkin başlangıç öğrenimi. Bu özgün öğrenme sırasıdır; kuvvet, kişisel tıbbi uygunluk veya yaralanma önleme testi değildir."
+    "en": "Optional beginner learning for adults and supervised teens aged 13–17, close to standing, using a manufacturer-compatible installation and continuous two-foot support. This is an original learning sequence, not a test of strength, personal medical suitability or injury prevention.",
+    "tr": "Üreticiye uygun kurulum ve sürekli iki ayak desteğiyle, ayakta durmaya yakın yetişkinler ve gözetim altındaki 13–17 yaş gençler için isteğe bağlı başlangıç öğrenimi. Bu özgün öğrenme sırasıdır; kuvvet, kişisel tıbbi uygunluk veya yaralanma önleme testi değildir."
   },
   "equipment": {
     "en": "Manufacturer-compatible fixed attachment, matching intact straps and correctly threaded buckles, intact rings, non-slip floor and footwear. Adjust equal ring heights while unloaded. Furniture, door trim, unverified options and improvised anchors are excluded.",

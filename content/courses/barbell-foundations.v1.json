@@ -11,14 +11,14 @@
     "tr": "On iki özgün ders ekipman bilgisini, yüksüz provayı, hafif yükseltilmiş başlangıçlı menteşeyi ve isteğe bağlı ayrı rack-squat hareket biçimini birleştirir. Kesin ekipman uygunluğu ve rahat kontrol giriş koşuludur; yazılı tamamlama fiziksel performansı doğrulamaz."
   },
   "healthNotice": {
-    "en": "General adult skill education. Choose the easier or written option when needed. Stop for new pain, dizziness, unusual breathlessness, faintness, tingling or loss of grip/balance; do not retest symptoms. Persistent or concerning symptoms need appropriate individual assessment. Learning reports do not validate form or personal suitability.",
-    "tr": "Yetişkinler için genel beceri eğitimi. Gerektiğinde kolay veya yazılı seçeneği seç. Yeni ağrı, baş dönmesi, olağandışı nefes darlığı, baygınlık hissi, karıncalanma veya tutuş/denge kaybında dur; belirtileri yeniden sınama. Süren veya kaygı veren belirtilerde uygun bireysel değerlendirme gerekir. Öğrenme bildirimi formu veya kişisel uygunluğu doğrulamaz."
+    "en": "General skill education for adults and teens aged 13–17. Ages 13–17: practise with a parent, coach or other responsible adult who has checked the equipment. Choose the easier or written option when needed. Stop for new pain, dizziness, unusual breathlessness, faintness, tingling or loss of grip/balance; do not retest symptoms. Persistent or concerning symptoms need appropriate individual assessment. Learning reports do not validate form or personal suitability.",
+    "tr": "Yetişkinler ve 13–17 yaş gençler için genel beceri eğitimi. 13–17 yaş: ekipmanı kontrol etmiş bir ebeveyn, antrenör veya başka bir sorumlu yetişkinle çalış. Gerektiğinde kolay veya yazılı seçeneği seç. Yeni ağrı, baş dönmesi, olağandışı nefes darlığı, baygınlık hissi, karıncalanma veya tutuş/denge kaybında dur; belirtileri yeniden sınama. Süren veya kaygı veren belirtilerde uygun bireysel değerlendirme gerekir. Öğrenme bildirimi formu veya kişisel uygunluğu doğrulamaz."
   },
   "evidenceMode": "self_report",
   "reviewStatus": "first_release_draft",
   "scope": {
-    "en": "Adult beginner learning with a known manageable light technique bar and suitable actual supports; unloaded alternatives remain valid. No added plates, heavy/maximal lifts, Olympic lifts, overhead work or deliberate failure testing.",
-    "tr": "Kütlesi bilinen yönetilebilir hafif teknik bar ve uygun gerçek desteklerle yetişkin başlangıç öğrenmesi; yüksüz alternatifler geçerlidir. Plaka ekleme, ağır/maksimum kaldırış, olimpik kaldırış, baş üstü iş veya bilinçli başarısızlık sınaması yoktur."
+    "en": "Beginner learning for adults and supervised teens aged 13–17 with a known manageable light technique bar and suitable actual supports; unloaded alternatives remain valid. Under 18: use only an empty technique bar or the unloaded option. No added plates, heavy/maximal lifts, Olympic lifts, overhead work or deliberate failure testing.",
+    "tr": "Kütlesi bilinen yönetilebilir hafif teknik bar ve uygun gerçek desteklerle yetişkinler ve gözetim altındaki 13–17 yaş gençler için başlangıç öğrenmesi; yüksüz alternatifler geçerlidir. 18 yaş altı: yalnız boş teknik bar veya yüksüz seçenek kullanılır. Plaka ekleme, ağır/maksimum kaldırış, olimpik kaldırış, baş üstü iş veya bilinçli başarısızlık sınaması yoktur."
   },
   "equipment": {
     "en": "For physical bar options: a marked light technique bar and matched manufacturer-compatible raised supports; the rack option additionally needs appropriate hooks and actual safeties. Otherwise use clear non-slip floor and empty hands.",

@@ -11,14 +11,14 @@
     "tr": "Destek seçimi, hazırlık, giriş, küçük prova dozu, yüksüz bitiş, hata düzeltme ve değerlendirme için tam yazılı başlangıç sırası. Dik, uygun yükseltilmiş ve diz destekli hareket biçimleri kendi kurulum ve belirtisiz önkoşulları uyduğunda erişilebilirdir. Ters duruş, dinamik giriş veya ayaklar havada görev verilmez."
   },
   "healthNotice": {
-    "en": "General adult skill education. Choose the easier or written option when needed. Stop for new pain, dizziness, unusual breathlessness, faintness, tingling or loss of grip/balance; do not retest symptoms. Persistent or concerning symptoms need appropriate individual assessment. Learning reports do not validate form or personal suitability.",
-    "tr": "Yetişkinler için genel beceri eğitimi. Gerektiğinde kolay veya yazılı seçeneği seç. Yeni ağrı, baş dönmesi, olağandışı nefes darlığı, baygınlık hissi, karıncalanma veya tutuş/denge kaybında dur; belirtileri yeniden sınama. Süren veya kaygı veren belirtilerde uygun bireysel değerlendirme gerekir. Öğrenme bildirimi formu veya kişisel uygunluğu doğrulamaz."
+    "en": "General skill education for adults and teens aged 13–17. Ages 13–17: practise with a parent, coach or other responsible adult who has checked the equipment. Choose the easier or written option when needed. Stop for new pain, dizziness, unusual breathlessness, faintness, tingling or loss of grip/balance; do not retest symptoms. Persistent or concerning symptoms need appropriate individual assessment. Learning reports do not validate form or personal suitability.",
+    "tr": "Yetişkinler ve 13–17 yaş gençler için genel beceri eğitimi. 13–17 yaş: ekipmanı kontrol etmiş bir ebeveyn, antrenör veya başka bir sorumlu yetişkinle çalış. Gerektiğinde kolay veya yazılı seçeneği seç. Yeni ağrı, baş dönmesi, olağandışı nefes darlığı, baygınlık hissi, karıncalanma veya tutuş/denge kaybında dur; belirtileri yeniden sınama. Süren veya kaygı veren belirtilerde uygun bireysel değerlendirme gerekir. Öğrenme bildirimi formu veya kişisel uygunluğu doğrulamaz."
   },
   "evidenceMode": "self_report",
   "reviewStatus": "first_release_draft",
   "scope": {
-    "en": "Healthy adult beginner support with feet or both knees down, a suitable fixed surface and an unhurried hands-free finish. Unseen exact source-video scope stays disclosed separately; inversions and advanced balance stay outside scope.",
-    "tr": "Ayaklar veya iki diz yerde, uygun sabit yüzey ve acele gerektirmeyen eller serbest bitişle sağlıklı yetişkin başlangıç desteği. Görülmemiş kesin kaynak video kapsamı ayrıca açıklanır; ters duruşlar ve ileri denge kapsam dışındadır."
+    "en": "Beginner support for healthy adults and supervised teens aged 13–17 with feet or both knees down, a suitable fixed surface and an unhurried hands-free finish. Unseen exact source-video scope stays disclosed separately; inversions and advanced balance stay outside scope.",
+    "tr": "Ayaklar veya iki diz yerde, uygun sabit yüzey ve acele gerektirmeyen eller serbest bitişle sağlıklı yetişkinler ve gözetim altındaki 13–17 yaş gençler için başlangıç desteği. Görülmemiş kesin kaynak video kapsamı ayrıca açıklanır; ters duruşlar ve ileri denge kapsam dışındadır."
   },
   "equipment": {
     "en": "Fixed wall, dry non-slip floor and clear space; for raised support a fixed purpose-built non-tipping surface; for floor tasks a comfortable non-slip knee mat and a familiar route to/from kneeling. No improvised furniture or anchor.",
