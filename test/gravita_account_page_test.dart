@@ -7,6 +7,7 @@ import 'package:gravita/app/account_action_ticket.dart';
 import 'package:gravita/app/account_data_directory.dart';
 import 'package:gravita/app/account_store_epoch.dart';
 import 'package:gravita/app/gravita_account_page.dart';
+import 'package:gravita/app/paywall_policy.dart';
 import 'package:motion_account/motion_account.dart';
 
 import 'account_action_ticket_test.dart'
@@ -240,6 +241,26 @@ void main() {
       );
     }
   }
+
+  testWidgets('production account page carries the Gravita teen policy', (
+    tester,
+  ) async {
+    try {
+      await show(tester);
+      final page = tester.widget<MotionAccountPage>(
+        find.byType(MotionAccountPage),
+      );
+      expect(page.teenPurchasePolicy, gravitaTeenPurchasePolicy);
+      expect(
+        page.teenPurchasePolicy,
+        MotionTeenPurchasePolicy.storeFamilyControls,
+      );
+    } finally {
+      await tester.pumpWidget(const SizedBox.shrink());
+      await _turn(tester);
+      await _drainMembershipRead(tester);
+    }
+  });
 
   testWidgets(
     'normal tokenRefreshed renews only account page ticket and preserves storage epoch',

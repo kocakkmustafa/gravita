@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:motion_account/motion_account.dart'
-    show motionSubscriptionSalesAvailable;
+    show MotionTeenPurchasePolicy, motionSubscriptionSalesAvailable;
 import 'package:motion_entitlements/motion_entitlements.dart'
     show isLessonUnlocked;
 
@@ -22,6 +22,15 @@ import 'calisthenics_course.dart';
 /// sessions closed). While sales are unavailable nothing is locked, because a
 /// lock without a way to subscribe would strand people.
 const bool gravitaSubscriptionSalesAvailable = motionSubscriptionSalesAvailable;
+
+/// K-2 (founder decision, 27 Oct 2026, all five Motion apps): purchases by a
+/// consent-pending 13–17 account are left to the store's family controls (Ask
+/// to Buy, Google Play parental approval). Core keeps parentalConsentRequired
+/// as its default, so every Core purchase entry point Gravita opens passes
+/// this value; account features still wait for consent and under-13 never
+/// buys.
+const MotionTeenPurchasePolicy gravitaTeenPurchasePolicy =
+    MotionTeenPurchasePolicy.storeFamilyControls;
 
 /// Number of free lessons at the start of [course] under paywall "A".
 ///

@@ -106,7 +106,10 @@ AccountConnection bindGravitaMotionAccount(
                 runtime.account.supabase.auth.currentSession?.user.id),
     pageBuilder: accountPage,
     membershipPageBuilder: gravitaSubscriptionSalesAvailable
-        ? (_) => MotionMembershipPage(account: runtime.account)
+        ? (_) => MotionMembershipPage(
+            account: runtime.account,
+            teenPurchasePolicy: gravitaTeenPurchasePolicy,
+          )
         : null,
     requirePaidAccess: (context) => requireMotionPaidAccess(
       context,
@@ -115,6 +118,7 @@ AccountConnection bindGravitaMotionAccount(
       // Subscription sales, not the camera gate (paywall A). The live camera
       // launch closes earlier on motionCameraCoachingAvailable.
       salesAvailable: gravitaSubscriptionSalesAvailable,
+      teenPurchasePolicy: gravitaTeenPurchasePolicy,
     ),
   );
   return connection;

@@ -30,9 +30,15 @@ the store; a free trial is shown only when the store offers one to this
 account. Purchases require a Motion account so access can be restored on
 another device; "Restore purchases" and "Manage subscription" (opens the store
 subscription settings) are on Account > Membership. Accounts that declare an
-age under 13 cannot be created; accounts for 13–17 that still await parental
-consent are not offered purchases. Camera coaching, live measurement and form
-grades are disabled in this version and are not part of the subscription.
+age under 13 cannot be created and users under 13 cannot purchase. A 13–17
+account that still awaits parental consent can see the subscription offers;
+purchases by users under 18 are subject to the store's family controls (Ask to
+Buy on the App Store, parental approval on Google Play), and account features
+stay limited until a parent approves. The barbell, rings and hand-support
+courses are written for adults and supervised teens aged 13–17 and ask teens
+to practise with a parent, coach or other responsible adult. Camera coaching,
+live measurement and form grades are disabled in this version and are not part
+of the subscription.
 Sandbox test account: provided in App Store Connect review fields.
 
 Open a course, read its prerequisites, equipment, regression, progression and

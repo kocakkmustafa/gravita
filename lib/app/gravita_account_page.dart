@@ -185,6 +185,7 @@ class _GravitaAccountPageState extends State<GravitaAccountPage> {
     clearLocalData: _cleanup,
     onRetryIdentity: widget.onRetryIdentity,
     membershipAvailable: widget.membershipAvailable,
+    teenPurchasePolicy: gravitaTeenPurchasePolicy,
     // Signed-in only (Core shows it in the account section); hidden while
     // sales are closed.
     onManageSubscription: widget.membershipAvailable
