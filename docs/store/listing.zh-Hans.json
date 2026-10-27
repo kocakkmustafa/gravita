@@ -1,0 +1,23 @@
+{
+  "$doc": "Local translation draft of listing.json (K-6, 2026-10-27): same facts as the EN source, paragraph for paragraph. Not submitted or provider-accepted. Native-speaker, legal and store review remain UNRUN.",
+  "$storeLocales": {
+    "appStoreConnect": "zh-Hans",
+    "playConsole": "zh-CN"
+  },
+  "appStore": {
+    "name": "Gravita：力量与技能",
+    "subtitle": "按自己的节奏练自重",
+    "promotionalText": "从准备到独立训练，循序建立你的自重练习：推、拉、腿部、核心、进阶选项和清晰可见的课程路线。",
+    "keywords": "自重,锻炼,健身,深蹲,俯卧撑,徒手训练,动作,训练"
+  },
+  "playStore": {
+    "shortDescription": "通过循序渐进的课程练习自重训练，进度保存在本机。"
+  },
+  "description": "Gravita 在五个技能领域教授力量与技能基础，共 7 门课程、117 节原创英语和土耳其语文字课程：自重训练、哑铃和壶铃基础、杠铃基础、低吊环支撑与拉、以及手部支撑平衡。\n\n主课程包含 10 个模块中的 56 节原创英语和土耳其语徒手训练课程：准备、自重深蹲和髋铰链、循序渐进的推和拉、核心控制、平衡以及训练计划。哑铃和壶铃路线涵盖文字路线、器械操作和动作衔接。三门各 12 节课的基础课程介绍轻量技术杆、接近站立姿势的低吊环以及有支撑的手部平衡。这三门课程面向成年人和在监护下练习的 13–17 岁青少年；青少年应与父母、教练或其他负责任的成年人一起练习。需要器械的任务会说明准备方法和替代方案。高阶技能课程讲解前提条件和监护，而不要求冒险尝试。不包含倒立类动作教学。\n\n免费课程与订阅：每门课程的第一部分免费，共 117 节课中的 44 节（约为每门课程的前三分之一）。Gravita 订阅，或同时涵盖其他 Motion 应用的 Motion+，包含其余课程和独立练习：创建八周计划并记录新的训练。你的进度、已保存的计划和历史记录始终可以查看。订阅会自动续订，直到你在 App Store 或 Google Play 账户设置中取消；价格和任何免费试用会在购买前显示。购买需要 Motion 账户，以便在其他设备上恢复访问权限。\n\n你可以不登录直接浏览，也可以使用可选的共享 Motion 账户。账户使用你的电子邮件地址、账户 ID 和可选的显示名称；可在应用内删除账户，删除不会取消商店订阅。课程记录保存在本设备上，归属于当前的访客或账户范围。\n\n课程进度是你自己的练习记录；完成课程并不证明已经掌握。此版本不包含示范视频。杠铃、吊环和手部支撑课程的身体任务仍在等待专家审核、获许可的示范和学员观察；阅读进度不能验证动作。此版本不提供摄像头指导和动作评分。一般性的调整不能判断个人健康是否适合。",
+  "cameraPermissionRationale": {
+    "ios": "Gravita 使用相机统计完整动作的次数并测量动作节奏。视频仅在此设备上处理，不会上传或保存；动作、重复次数和训练时长会保存在本地。",
+    "$source": "ios/Runner/zh-Hans.lproj/InfoPlist.strings NSCameraUsageDescription (verbatim)."
+  },
+  "supportUrl": "https://yulalab.com/support",
+  "privacyPolicyUrl": "https://yulalab.com/privacy/motion"
+}

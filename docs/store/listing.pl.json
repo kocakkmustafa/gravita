@@ -1,0 +1,23 @@
+{
+  "$doc": "Local translation draft of listing.json (K-6, 2026-10-27): same facts as the EN source, paragraph for paragraph. Not submitted or provider-accepted. Native-speaker, legal and store review remain UNRUN.",
+  "$storeLocales": {
+    "appStoreConnect": "pl",
+    "playConsole": "pl-PL"
+  },
+  "appStore": {
+    "name": "Gravita: Siła i Umiejętności",
+    "subtitle": "Kalistenika w twoim tempie",
+    "promotionalText": "Buduj trening z masą ciała od przygotowania po samodzielne sesje: pchanie, przyciąganie, nogi, korpus, opcje progresji i widoczna ścieżka lekcji.",
+    "keywords": "masa ciała,ćwiczenia,fitness,przysiad,pompki,kalistenika,ruch,trening"
+  },
+  "playStore": {
+    "shortDescription": "Trenuj z masą ciała w stopniowych lekcjach, z postępem zapisanym lokalnie."
+  },
+  "description": "Gravita uczy podstaw siły i umiejętności w pięciu obszarach w 117 autorskich lekcjach pisanych po angielsku i turecku, w 7 kursach: trening z masą ciała, podstawy hantli i kettlebella, podstawy sztangi, podpór i przyciąganie na niskich kółkach oraz równowaga w podporze na rękach.\n\nKurs główny zawiera 56 autorskich lekcji kalisteniki po angielsku i turecku w 10 modułach: przygotowanie, przysiady i zawias biodrowy z masą ciała, stopniowe pchanie i przyciąganie, kontrola korpusu, równowaga oraz planowanie sesji. Ścieżki z hantlami i kettlebellem obejmują drogę pisaną, obsługę sprzętu i przejścia. Trzy kursy podstawowe po 12 lekcji wprowadzają lekki drążek techniczny, niskie kółka blisko pozycji stojącej i wspieraną równowagę na rękach. Te trzy kursy są przeznaczone dla dorosłych oraz nastolatków w wieku 13–17 lat pod opieką; nastolatki ćwiczą z rodzicem, trenerem lub inną odpowiedzialną osobą dorosłą. Zadania wymagające sprzętu wyjaśniają przygotowanie i alternatywy. Lekcje zaawansowanych umiejętności wyjaśniają wymagania wstępne i nadzór zamiast wymagać ryzykownych prób. Brak instrukcji pozycji odwróconych.\n\nBezpłatne lekcje i subskrypcja: pierwsza część każdego kursu jest bezpłatna, łącznie 44 ze 117 lekcji (około pierwszej jednej trzeciej każdego kursu). Subskrypcja Gravita lub Motion+, która obejmuje też inne aplikacje Motion, zawiera pozostałe lekcje i samodzielną praktykę: tworzenie ośmiotygodniowego programu i zapisywanie nowych sesji. Twój postęp, zapisany program i historia zawsze pozostają dostępne do odczytu. Subskrypcje odnawiają się automatycznie, dopóki nie anulujesz ich w ustawieniach konta App Store lub Google Play; cena i ewentualny bezpłatny okres próbny są pokazywane przed zakupem. Zakupy wymagają konta Motion, aby można było przywrócić dostęp na innym urządzeniu.\n\nMożesz przeglądać bez logowania i korzystać z opcjonalnego wspólnego konta Motion. Konto używa twojego adresu e-mail, identyfikatora konta i opcjonalnej nazwy wyświetlanej; usunięcie konta jest dostępne w aplikacji i nie anuluje subskrypcji w sklepie. Zapisy kursów pozostają na urządzeniu w bieżącym zakresie gościa lub konta.\n\nPostęp w kursie to twój własny dziennik ćwiczeń; ukończenie lekcji nie potwierdza opanowania. Ta wersja nie zawiera filmów demonstracyjnych. Zadania fizyczne kursów ze sztangą, kółkami i podporem na rękach czekają na ocenę ekspertów, dozwolone demonstracje i obserwację uczących się; postęp w czytaniu nie potwierdza ruchu. Coaching z kamerą i oceny techniki nie są dostępne w tej wersji. Ogólne dostosowania nie rozstrzygają o osobistej przydatności zdrowotnej.",
+  "cameraPermissionRationale": {
+    "ios": "Gravita używa aparatu do liczenia pełnych powtórzeń i pomiaru tempa ruchu. Obraz jest przetwarzany na tym urządzeniu i nie jest przesyłany ani zapisywany; ruch, liczba powtórzeń i czas sesji są zapisywane lokalnie.",
+    "$source": "ios/Runner/pl.lproj/InfoPlist.strings NSCameraUsageDescription (verbatim)."
+  },
+  "supportUrl": "https://yulalab.com/support",
+  "privacyPolicyUrl": "https://yulalab.com/privacy/motion"
+}

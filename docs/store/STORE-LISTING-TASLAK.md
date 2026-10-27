@@ -16,6 +16,15 @@ metinde iddia edilmez, mağaza gösterir. `tools/validate_store_listing.py` kurs
 ders ve ücretsiz ders iddialarını kaynaktan yeniden sayar. Kamera koçluğu ve
 form puanı açık değildir; etkileşimli beceri ağacı vaat edilmez.
 
+**14 dil (2026-10-27, K-6):** EN/TR'ye ek 12 çeviri taslağı
+`listing.<dil>.json` (es-419, pt-BR, de, fr, ja, ar, it, ko, id, pl, hi,
+zh-Hans); her biri EN kaynağın olgularını paragraf paragraf taşır, mağaza yerel
+kodları `$storeLocales` içindedir, kamera gerekçesi o dilin `InfoPlist.strings`
+metnidir. Dersler yalnız İngilizce ve Türkçedir; çeviriler bunu açıkça söyler.
+`test/store_listing_locales_test.dart` alan sınırlarını, sayıları ve URL'leri
+denetler. Anadili, hukuk ve mağaza incelemesi UNRUN. Barbell/halka/el desteği
+kursları yetişkinler ve gözetimli 13–17 yaş gençler içindir (GRV-08 i).
+
 Kurs ilerlemesi kullanıcının kendi çalışma kaydıdır; ustalık veya fiziksel öğretim
 kabulü değildir. Hesap ve destek/gizlilik metinleri güncel JSON'dan alınır.
 Yerel metin, eski ekran görüntüsü veya kaynak testi mağazada kaydedildiği, güncel

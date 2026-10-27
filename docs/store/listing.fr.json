@@ -1,0 +1,23 @@
+{
+  "$doc": "Local translation draft of listing.json (K-6, 2026-10-27): same facts as the EN source, paragraph for paragraph. Not submitted or provider-accepted. Native-speaker, legal and store review remain UNRUN.",
+  "$storeLocales": {
+    "appStoreConnect": "fr-FR",
+    "playConsole": "fr-FR"
+  },
+  "appStore": {
+    "name": "Gravita : Force et Technique",
+    "subtitle": "Le calisthenics à ton rythme",
+    "promotionalText": "Construis ta pratique au poids du corps, de la préparation aux séances autonomes : poussée, tirage, jambes, gainage, options de progression et parcours visible.",
+    "keywords": "poids du corps,exercice,fitness,squat,pompes,calisthenics,mouvement,entraînement"
+  },
+  "playStore": {
+    "shortDescription": "Pratique au poids du corps avec des leçons progressives et un suivi local."
+  },
+  "description": "Gravita enseigne les bases de la force et de la technique dans cinq domaines, avec 117 leçons écrites originales en anglais et en turc réparties en 7 cours : entraînement au poids du corps, bases haltère et kettlebell, bases de la barre, appui et tirage aux anneaux bas, et équilibre en appui sur les mains.\n\nLe cours principal propose 56 leçons originales de calisthenics en anglais et en turc, en 10 modules : préparation, squats et charnière de hanche au poids du corps, poussée et tirage progressifs, contrôle du tronc, équilibre et planification des séances. Les parcours haltère et kettlebell couvrent un parcours écrit, la manipulation et les transitions. Trois cours de base de 12 leçons présentent une barre technique légère, des anneaux bas proches de la station debout et l’équilibre en appui sur les mains. Ces trois cours s’adressent aux adultes et aux adolescents de 13 à 17 ans encadrés ; les adolescents s’entraînent avec un parent, un entraîneur ou un autre adulte responsable. Les tâches qui demandent du matériel expliquent l’installation et les alternatives. Les leçons de compétences avancées expliquent les prérequis et l’encadrement au lieu d’exiger des tentatives risquées. Aucune instruction d’inversion n’est incluse.\n\nLeçons gratuites et abonnement : la première partie de chaque cours est gratuite, soit 44 leçons sur 117 au total (environ le premier tiers de chaque cours). Un abonnement Gravita, ou Motion+ qui couvre aussi les autres apps Motion, inclut les leçons restantes et la pratique autonome : créer le programme de huit semaines et enregistrer de nouvelles séances. Ta progression, ton programme enregistré et ton historique restent toujours consultables. Les abonnements se renouvellent automatiquement jusqu’à leur résiliation dans les réglages de ton compte App Store ou Google Play ; le prix et tout essai gratuit sont affichés avant l’achat. Les achats nécessitent un compte Motion afin de pouvoir restaurer l’accès sur un autre appareil.\n\nTu peux explorer sans te connecter et utiliser un compte Motion partagé facultatif. Le compte utilise ton adresse e-mail, un identifiant de compte et un nom d’affichage facultatif ; la suppression du compte est disponible dans l’app et n’annule pas un abonnement de la boutique. Les enregistrements des cours restent sur l’appareil, dans le périmètre invité ou compte en cours.\n\nLa progression du cours est ton propre carnet de pratique ; terminer une leçon ne certifie pas une maîtrise. Cette version ne contient pas de vidéo de démonstration. Les tâches physiques des cours barre, anneaux et appui sur les mains attendent une revue d’experts, des démonstrations autorisées et l’observation d’apprenants ; la progression de lecture ne valide pas le mouvement. Le coaching par caméra et les notes d’exécution ne sont pas disponibles dans cette version. Les adaptations générales ne déterminent pas l’aptitude de santé personnelle.",
+  "cameraPermissionRationale": {
+    "ios": "Gravita utilise la caméra pour compter les répétitions complètes et mesurer la cadence. La vidéo est traitée sur cet appareil et n’est ni téléversée ni enregistrée ; le mouvement, le nombre de répétitions et la durée de la séance sont enregistrés localement.",
+    "$source": "ios/Runner/fr.lproj/InfoPlist.strings NSCameraUsageDescription (verbatim)."
+  },
+  "supportUrl": "https://yulalab.com/support",
+  "privacyPolicyUrl": "https://yulalab.com/privacy/motion"
+}
