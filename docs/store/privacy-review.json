@@ -228,6 +228,9 @@
   "deletion": {
     "inAppPath": "Account > Delete account",
     "externalRequestUrl": "https://yulalab.com/en/privacy/motion",
+    "accountDeletionWebUrl": "https://yulalab.com/en/delete-account/motion",
+    "accountDeletionWebUrlStatus": "pending_live",
+    "accountDeletionWebUrlSource": "yulalab YUL-14 shared Motion page (14 locales); site release branch 98b907b, live with YUL-09",
     "externalPageContentObserved": true,
     "externalRequestExecuted": false,
     "realAccountDeletionAccepted": false,

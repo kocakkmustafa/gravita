@@ -51,7 +51,9 @@ Do not delete a real user's account for a review demonstration. A separately
 approved disposable account is needed for the destructive end-to-end deletion
 test.
 
-Privacy and external deletion request:
+Privacy policy:
 https://yulalab.com/en/privacy/motion
+Account deletion request without the app (shared Motion page):
+https://yulalab.com/en/delete-account/motion
 Support URL selected by the founder (direct live check still pending):
 https://yulalab.com/support
