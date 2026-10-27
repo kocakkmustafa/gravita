@@ -887,6 +887,60 @@ rendered_course=json.dumps(course,ensure_ascii=False,indent=2)+'\n'
 actual_sha=hashlib.sha256(rendered_course.encode('utf-8')).hexdigest()
 if actual_sha != v8k['courseSha256']:
     raise ValueError(f'v8k course SHA does not match scoped attribution: {actual_sha}')
+
+# v8l (GRV-07a) binds watched NHS video intervals to three exact lessons as
+# evidence only. It leaves the course bytes alone: those are pinned by the ops
+# v2k contract, the v2l projection and the media source pins. Sampled frames
+# are not a full-video review, a camera label or a physical validation.
+v8l_path=root/'content/courses/calisthenics.v8l-overlay.json'
+v8l=json.loads(v8l_path.read_text(encoding='utf-8'))
+if set(v8l) != {
+    'schemaVersion','editorialLayer','parentOverlaySha256','courseVersion',
+    'courseSha256','courseBytesChanged','reviewRecord','watchedSources',
+    'lessonIntervalBindings',
+} or v8l['schemaVersion'] != 1 or v8l['editorialLayer'] != 'v8l':
+    raise ValueError('Unsupported calisthenics v8l interval layer')
+if hashlib.sha256((root/'content/courses/calisthenics.v8k-overlay.json').read_bytes()).hexdigest() != v8l['parentOverlaySha256']:
+    raise ValueError('Historical v8k overlay changed')
+if v8l['courseSha256'] != actual_sha or v8l['courseBytesChanged'] is not False:
+    raise ValueError('v8l must bind to the unchanged v8k course bytes')
+if course['version'] != v8l['courseVersion'] or course['version'] != '1.0.0':
+    raise ValueError('v8l must preserve progress version 1.0.0')
+record=v8l['reviewRecord']
+if (set(record) != {'path','sha256','method'}
+        or len(record['sha256']) != 64 or set(record['sha256']) - set('0123456789abcdef')
+        or 'not continuous' not in record['method']):
+    raise ValueError('v8l needs a pinned sampled-frame review record')
+watched={item['id']:item for item in v8l['watchedSources']}
+if list(watched) != ['nhs_strength_flex_videos'] or set(watched) & set(sources_by_id):
+    raise ValueError('Unexpected v8l watched source')
+for source in watched.values():
+    if set(source) != {'id','title','url'} or not source['url'].startswith('https://www.nhs.uk/'):
+        raise ValueError(f'Invalid v8l watched source: {source["id"]}')
+bindings=v8l['lessonIntervalBindings']
+expected_bindings={
+    'cal-04':['nhs-warmup'],
+    'cal-08':['nhs-squat'],
+    'cal-15':['nhs-standing-press-up'],
+}
+if {k:[item.get('reviewRecordId') for item in v] for k,v in bindings.items()} != expected_bindings:
+    raise ValueError('v8l may bind only the three watched NHS intervals')
+for lesson_id, items in bindings.items():
+    if lesson_by_id[lesson_id]['practiceType'] != 'physical':
+        raise ValueError(f'v8l binds only physical lessons: {lesson_id}')
+    for item in items:
+        if set(item) != {
+            'sourceId','reviewRecordId','playerId','durationSeconds',
+            'sampledSeconds','supports','doesNotSupport',
+        } or item['sourceId'] not in watched or not item['playerId'].isdigit():
+            raise ValueError(f'Invalid v8l binding on {lesson_id}')
+        times=item['sampledSeconds']
+        if (len(times) < 2 or times != sorted(set(times))
+                or times[0] < 0 or times[-1] > item['durationSeconds']):
+            raise ValueError(f'v8l sampled times out of range on {lesson_id}')
+        for field in ('supports','doesNotSupport'):
+            if set(item[field]) != {'en','tr'} or any(not item[field][lang].strip() for lang in ('en','tr')):
+                raise ValueError(f'Invalid v8l scope on {lesson_id}')
 manifest={'schemaVersion':1,'courseId':course['id'],'courseVersion':course['version'],'status':'brief_only_not_generated_or_coach_reviewed','trainingData':False,'lessons':[{'moduleId':m['id'],'lessonId':l['id'],'practiceType':l['practiceType'],'mediaBrief':l['mediaBrief']} for m in modules for l in m['lessons']]}
 parser=argparse.ArgumentParser(); parser.add_argument('--check',action='store_true');args=parser.parse_args()
 for path,rendered in [

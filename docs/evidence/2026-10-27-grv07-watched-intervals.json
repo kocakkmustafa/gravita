@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "task": "GRV-07 (K-5, founder decision 2026-10-27): (a) NHS watched intervals bound by the v8l layer; (b) Mayo biceps curl / chest press browser-only review with necessary cookies only",
+  "a_nhs_v8l": {
+    "status": "PASS",
+    "layer": "content/courses/calisthenics.v8l-overlay.json",
+    "layerSha256": "b607e41adc597bc9dff060a92eb68b92d1bdca1471d13895b3f8ee8495412b79",
+    "courseSha256Unchanged": "15930d335f377c9f48e1c7285f1c44e25973b9cccb3167fa99cc9b8599889502",
+    "bindings": {
+      "cal-04": "nhs-warmup 11.16/20/41/62 s of 80.76 s",
+      "cal-08": "nhs-squat 13.54/21/27/33 s of 45.52 s",
+      "cal-15": "nhs-standing-press-up 7/18/24/30 s of 42 s"
+    },
+    "reviewRecordSha256": "4d53a558ac0bd04414246b088261cdd5cf4124265723cc2b8c61449b4b3cb226",
+    "method": "Sampled frames from the 2026-10-20 rendered-player review; not continuous full-video review, not a camera label, not physical validation.",
+    "checks": [
+      "python3 tool/generate_calisthenics_course.py --check (validates v8l; 7 mutations rejected)",
+      "dart run tool/build_calisthenics_integrity_manifest.dart --check (course bytes unchanged)",
+      "test/calisthenics_v8l_intervals_test.dart"
+    ]
+  },
+  "b_mayo": {
+    "status": "HOLD",
+    "reviewedAtUtc": "2026-10-27T10:12Z",
+    "consent": {
+      "choice": "Reject additional cookies (necessary only)",
+      "readbackPurposes": {
+        "Advertising": false,
+        "Analytics": false,
+        "Functional": false,
+        "Video": false
+      },
+      "confirmed": true
+    },
+    "pages": {
+      "biceps-curl": {
+        "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/biceps-curl/vid-20084675",
+        "video": "NOT_PLAYED — page shows \"This video can't be shown due to your current cookie settings.\"",
+        "transcriptRead": true,
+        "lessons": [
+          "dbkb-written dbkb-08",
+          "dbkb-handling dbkbh-d"
+        ]
+      },
+      "chest-press": {
+        "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/chest-press/vid-20084677",
+        "video": "NOT_PLAYED — same cookie block",
+        "transcriptRead": true,
+        "lessons": [
+          "dbkb-written dbkb-09, dbkb-12",
+          "dbkb-handling dbkbh-g",
+          "dbkb-transitions dbkbt-single-kb-floor-press"
+        ]
+      }
+    },
+    "watchedIntervals": [],
+    "downloads": "none",
+    "why": "Mayo embeds Kaltura video only under the optional Video cookie purpose. The founder approved necessary cookies only, so no interval was watched; enabling the Video purpose needs a separate founder decision.",
+    "productChange": "none (DB/KB course bytes and manifests unchanged)"
+  },
+  "notClaimed": "No video or frame was copied into the product; no clinical, physical or expert validation."
+}

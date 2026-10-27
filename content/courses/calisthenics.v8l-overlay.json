@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "editorialLayer": "v8l",
+  "parentOverlaySha256": "e13ecfb515c758eb3617dd0cc93b8419fa45bec6486404d2ee1ee84469942e89",
+  "courseVersion": "1.0.0",
+  "courseSha256": "15930d335f377c9f48e1c7285f1c44e25973b9cccb3167fa99cc9b8599889502",
+  "courseBytesChanged": false,
+  "reviewRecord": {
+    "path": "ventures/gravita/workspace/lifecycle-audit-2026-10-19/implementation-2026-10-20-09/VIDEO-VISUAL-REVIEW.json",
+    "sha256": "4d53a558ac0bd04414246b088261cdd5cf4124265723cc2b8c61449b4b3cb226",
+    "method": "Rendered player screenshots at the listed playback times; sampled frames, not continuous full-video review."
+  },
+  "watchedSources": [
+    {
+      "id": "nhs_strength_flex_videos",
+      "title": "NHS: Strength and Flex exercise plan how-to videos",
+      "url": "https://www.nhs.uk/live-well/exercise/strength-and-flex-exercise-plan-how-to-videos/"
+    }
+  ],
+  "lessonIntervalBindings": {
+    "cal-04": [
+      {
+        "sourceId": "nhs_strength_flex_videos",
+        "reviewRecordId": "nhs-warmup",
+        "playerId": "1763945815001",
+        "durationSeconds": 80.760001,
+        "sampledSeconds": [
+          11.16,
+          20,
+          41,
+          62
+        ],
+        "supports": {
+          "en": "A standing warm-up with gentle shoulder movement, arms forward and a small knee bend before strength work.",
+          "tr": "Kuvvet çalışmasından önce nazik omuz hareketi, öne uzanan kollar ve küçük diz bükmeli ayakta ısınmayı."
+        },
+        "doesNotSupport": {
+          "en": "Unloaded wrist movements, seated marching, the lesson's 2–4 minute dose, a complete warm-up for every session or personal suitability.",
+          "tr": "Yüksüz bilek hareketlerini, oturarak adımlamayı, dersin 2–4 dakikalık dozunu, her seans için tam ısınmayı veya kişisel uygunluğu."
+        }
+      }
+    ],
+    "cal-08": [
+      {
+        "sourceId": "nhs_strength_flex_videos",
+        "reviewRecordId": "nhs-squat",
+        "playerId": "1763919389001",
+        "durationSeconds": 45.52,
+        "sampledSeconds": [
+          13.54,
+          21,
+          27,
+          33
+        ],
+        "supports": {
+          "en": "A bodyweight squat shown from the front and side with arms forward; lifted heels are marked as the error and the whole foot stays on the floor.",
+          "tr": "Önden ve yandan, kollar öndeyken vücut ağırlığıyla squat; kalkan topuklar hata olarak işaretlenir, ayak tabanı yerde kalır."
+        },
+        "doesNotSupport": {
+          "en": "A universal depth or joint angle, loaded or deep squats, the lesson's sets or rest, personal suitability or a camera form verdict.",
+          "tr": "Evrensel derinlik veya eklem açısını, yüklü ya da derin squatı, dersin set veya molasını, kişisel uygunluğu ya da kamera form kararını."
+        }
+      }
+    ],
+    "cal-15": [
+      {
+        "sourceId": "nhs_strength_flex_videos",
+        "reviewRecordId": "nhs-standing-press-up",
+        "playerId": "1763919379001",
+        "durationSeconds": 42,
+        "sampledSeconds": [
+          7,
+          18,
+          24,
+          30
+        ],
+        "supports": {
+          "en": "A standing press-up with hands on a firm upright support: straight arms, bent elbows bringing the body in, and the return.",
+          "tr": "Eller sağlam dik bir desteğe dayalı ayakta press-up: düz kollar, dirsekler bükülürken gövdenin yaklaşması ve dönüş."
+        },
+        "doesNotSupport": {
+          "en": "Floor push-ups, load progression, the lesson's sets or rest, wall inspection, personal wrist or shoulder suitability or a camera verdict.",
+          "tr": "Zemin şınavını, yük ilerletmeyi, dersin set veya molasını, duvar kontrolünü, kişisel bilek/omuz uygunluğunu ya da kamera kararını."
+        }
+      }
+    ]
+  }
+}
