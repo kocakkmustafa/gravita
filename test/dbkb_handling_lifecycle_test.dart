@@ -88,6 +88,22 @@ void main() {
     expect(completed, isTrue, reason: 'Journal IO must settle while the widget zone is pumped');
     return pending;
   }
+  Future<void> prepare(WidgetTester tester) async {
+    // Tap the self-report only once it is on screen and enabled (not mid-save),
+    // then wait for the checked state instead of a single frame (CI race).
+    final prepared = find.byKey(const Key('calisthenics.prepared'));
+    await tester.ensureVisible(prepared);
+    await tester.pump();
+    for (var i = 0; i < 40 && tester.widget<CheckboxListTile>(prepared).onChanged == null; i++) {
+      await settleIo(tester);
+    }
+    await tester.tap(prepared);
+    for (var i = 0; i < 40 && tester.widget<CheckboxListTile>(prepared).value != true; i++) {
+      await settleIo(tester);
+    }
+    expect(tester.widget<CheckboxListTile>(prepared).value, isTrue,
+      reason: 'The preparation self-report must register before practice unlocks');
+  }
   void drainAfter(WidgetTester tester) {
     addTearDown(() async {
       await tester.pumpWidget(const SizedBox.shrink());
@@ -294,7 +310,7 @@ void main() {
         await to(tester, const Key('calisthenics.practised'));
         expect(tester.widget<OutlinedButton>(find.byKey(const Key('calisthenics.practised'))).onPressed, isNull);
         await to(tester, const Key('calisthenics.prepared'), delta: -200);
-        await tester.tap(find.byKey(const Key('calisthenics.prepared'))); await tester.pump();
+        await prepare(tester);
         await to(tester, const Key('calisthenics.practised'));
         expect(tester.widget<OutlinedButton>(find.byKey(const Key('calisthenics.practised'))).onPressed, isNotNull);
         expect(await tester.runAsync(() => store(null).load()),
