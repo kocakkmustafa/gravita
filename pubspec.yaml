@@ -19,13 +19,13 @@ dependencies:
     git:
       url: https://github.com/kocakkmustafa/motion-core.git
       path: packages/motion_account
-      ref: 0d29d1b019033f00828be741aa3e23e3923841be
+      ref: 5b15308ea2a89dd5adebe29635f8e7b18fff68e4
   # Paywall A lesson lock (Core R1+): same immutable revision as the account.
   motion_entitlements:
     git:
       url: https://github.com/kocakkmustafa/motion-core.git
       path: packages/motion_entitlements
-      ref: 0d29d1b019033f00828be741aa3e23e3923841be
+      ref: 5b15308ea2a89dd5adebe29635f8e7b18fff68e4
 
   # Motor AYRI paket ve Flutter bağımlılığı YOK (M-F-160, JabLab/Choreia
   # yerleşim aynası): ölçüm/hüküm mantığı widget ağacı olmadan test edilebilir
@@ -51,14 +51,14 @@ dependencies:
     git:
       url: https://github.com/kocakkmustafa/motion-core.git
       path: packages/motion_core
-      ref: 0d29d1b019033f00828be741aa3e23e3923841be
+      ref: 5b15308ea2a89dd5adebe29635f8e7b18fff68e4
   # Bundled course bytes share the immutable Core revision. This reader bridge
   # does not declare a production media manifest or enable delivery.
   motion_content:
     git:
       url: https://github.com/kocakkmustafa/motion-core.git
       path: packages/motion_content
-      ref: 0d29d1b019033f00828be741aa3e23e3923841be
+      ref: 5b15308ea2a89dd5adebe29635f8e7b18fff68e4
 
   # Packaged, offline lesson demonstrations. The shipping media catalog is
   # empty until a separately accepted media package is produced.
@@ -70,7 +70,7 @@ dependencies:
     git:
       url: https://github.com/kocakkmustafa/motion-core.git
       path: packages/motion_camera
-      ref: 0d29d1b019033f00828be741aa3e23e3923841be
+      ref: 5b15308ea2a89dd5adebe29635f8e7b18fff68e4
   # Kamera izni: reddedilme DÜRÜST bir hâldir, sessizce boş ekran değil.
   permission_handler: ^12.0.3
   # Store subscription settings link on the account page (GRV-10); same
