@@ -80,9 +80,11 @@ deseniyle birebir aynı çerçeve.
   kalem (D6'nın kapsamı: taslak + ekran görüntüsü, cihaz-üstü metin-doğrulaması değil).
 - **"Coach"/"training plan"/kişisel antrenör dili** — `valueWhatWeDont`ün yasakladığı tam
   sınıf, description hiçbir yerde kullanmıyor.
-- **Kamera izin gerekçesi hareket adı saymaz.** `ios/Runner/Info.plist` ve
-  `en.lproj`/`tr.lproj/InfoPlist.strings` aynı gerçek kullanım sınırını anlatır:
-  tam tekrar sayımı, tempo ölçümü, cihazda kalan video ve yerel seans özeti.
+- **Kamera izin gerekçesi önce kapalı olduğunu söyler.** `ios/Runner/Info.plist` ve
+  14 dilin `InfoPlist.strings` dosyası (2026-10-30, JabLab kalıbı): kamera koçluğu
+  bu sürümde kapalı; ileride ayrıca açılırsa cihaz üstünde hareket geri bildirimi;
+  görüntü ve vücut konumu yüklenmez veya saklanmaz; oturum geçmişi cihazda kalır.
+  Tekrar sayımı ve tempo ölçümü vaat edilmez.
 
 ## Ekran görüntüleri
 

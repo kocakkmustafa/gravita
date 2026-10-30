@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Gravita uses the camera to count complete reps and measure tempo. Video is processed on this device and is not uploaded or saved; movement, rep count and session duration are saved locally.</string>
+	<string>Camera coaching is disabled in this release. If separately enabled in a later release, Gravita uses the camera for on-device movement feedback. Camera images and body positions are not uploaded or saved. Session history stays on this device.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>

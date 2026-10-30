@@ -1,1 +1,1 @@
-"NSCameraUsageDescription" = "Gravita, tam tekrarları saymak ve tempoyu ölçmek için kamerayı kullanır. Video yalnızca bu cihazda işlenir; yüklenmez veya saklanmaz. Hareket, tekrar sayısı ve oturum süresi cihazda saklanır.";
+"NSCameraUsageDescription" = "Bu sürümde kamera koçluğu devre dışıdır. Daha sonraki bir sürümde ayrıca etkinleştirilirse Gravita, cihaz üzerinde hareket geri bildirimi vermek için kamerayı kullanır. Kamera görüntüleri ve vücut konumları yüklenmez veya kaydedilmez. Oturum geçmişi bu cihazda kalır.";
