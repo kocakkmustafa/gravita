@@ -68,12 +68,12 @@ Resmî ret metni okunmadığından boşluklar, kurucunun aynı-gün-beş-uygulam
 Gravita 1.0.0 ret metni henüz okunmadı. Taslak ret metni görülünce yeniden yazılacaktır; aşağıdaki metin yalnız §1'deki kanıtlı maddelere dayanır.
 
 > Merhaba,
-> Gravita, Yula Lab'ın beş Motion uygulamasından biri olarak aynı günlerde incelemeye gönderildi; bu yüzden benzer bir paket gibi göründüğünü anlıyoruz. Gönderimleri artık zamana yayıyoruz ve Gravita'yı ayrı ele alıyoruz.
-> Gravita beceri ve kuvvet gelişimine yöneliktir: 14 dilde arayüz, İngilizce ve Türkçe özgün yazılı 7 kurs ve 117 ders (56 derslik calisthenics kursu, üç dumbbell/kettlebell yolu ve halter, alçak halka ve el desteği için üç temel kurs). Sekiz haftalık program üretici, ders ilerleme kaydı, beceri grafı ve yazılı geri çağırma uygulamaya özgüdür. Ücretsiz bölüm 117 dersin 44'üdür.
+> Gravita, Yula Lab'ın beş Motion uygulamasından biri olarak [KURUCU DOĞRULAMASI GEREKİR: gönderim zamanı olgusu ve zamana yayma kararı] benzer bir paket gibi göründüğünü anlıyoruz; Gravita'yı ayrı ele alıyoruz.
+> Gravita beceri ve kuvvet gelişimine yöneliktir: 14 dilde arayüz, İngilizce ve Türkçe özgün yazılı 7 kurs ve 117 ders (56 derslik calisthenics kursu, üç dumbbell/kettlebell yolu ve halter, alçak halka ve el desteği için üç temel kurs). Sekiz haftalık program üretici ve ders ilerleme kaydı Gravita'ya aittir [beceri grafı ve yazılı geri çağırma: cihazda erişilebilirliği DOĞRULANMADI; doğrulanmadan yazılmaz]. Ücretsiz bölüm 117 dersin 44'üdür.
 > Hesap, abonelik ve güvenlik altyapısı ortaktır; içerik, ikon, ad ve alan ayrıdır. Bu sürümde kamera koçluğu ve canlı ölçüm kapalıdır ve bir farklılık olarak öne sürülmemektedir. Üç temel kursun fiziksel görevleri uzman incelemesi bekleyerek kapalı tutulur.
 > Ek bilgi isterseniz memnuniyetle sağlarız.
 
-Notlar: (a) Taslak yalnız kanıtlı maddelere dayanır; ret metni görülünce yeniden yazılmalıdır. (b) "Diğer uygulamalarda bu içerik yok" biçiminde bir cümle eklenecekse Motion orchestration doğrulamalıdır. (c) Gönderim, mağaza yazışması ve zamanlama kurucu/Motion orchestration işidir.
+Notlar: (a) Taslak yalnız kanıtlı maddelere dayanır; ret metni görülünce yeniden yazılmalıdır. (b) "Diğer uygulamalarda bu içerik yok" biçiminde bir cümle eklenecekse Motion orchestration doğrulamalıdır. (c) Köşeli parantezli yerler kurucu/Motion orchestration doğrulamasına kadar gönderilemez; "Gönderimleri zamana yayıyoruz" bir karar değil G1 önerisidir. (d) Beden sütununda L kullanılmadı; aralıklı hücreler (S–M, S/M) kodlu düzeltme gerekirse M sayılır. (e) Gönderim, mağaza yazışması ve zamanlama kurucu/Motion orchestration işidir.
 
 ## 4a. App Review notu kontrolü (kabul ölçütü 4)
 
