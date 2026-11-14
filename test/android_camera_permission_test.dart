@@ -13,7 +13,10 @@ void main() {
       'android/app/src/profile/AndroidManifest.xml',
     ]) {
       final File f = File(path);
-      if (!f.existsSync()) continue;
+      if (!f.existsSync()) {
+        expect(path.contains('/main/'), isFalse, reason: '$path yok');
+        continue;
+      }
       final String xml = f.readAsStringSync();
       expect(xml.contains('android.permission.CAMERA'), isFalse, reason: path);
       expect(xml.contains('android.hardware.camera'), isFalse, reason: path);
