@@ -13,7 +13,7 @@
   "cameraPermissionRationale": {
     "ios": "Bu sürümde kamera koçluğu devre dışıdır. Daha sonraki bir sürümde ayrıca etkinleştirilirse Gravita, cihaz üzerinde hareket geri bildirimi vermek için kamerayı kullanır. Kamera görüntüleri ve vücut konumları yüklenmez veya kaydedilmez. Oturum geçmişi bu cihazda kalır."
   },
-  "$releasePolicy20260925": "Founder deferred all paid camera sessions and subscription sales in the first release. Provider listings must use only the external fields above; older dollar-prefixed research notes describe deferred capabilities.",
+  "$releasePolicy20260925": "Founder deferred (camera off) all paid camera sessions and subscription sales in the first release. Provider listings must use only the external fields above; older dollar-prefixed research notes describe deferred capabilities.",
   "supportUrl": "https://yulalab.com/support",
   "privacyPolicyUrl": "https://yulalab.com/privacy/motion",
   "$coursePreparation20260926": {
@@ -25,8 +25,8 @@
     "mediaIncluded": false,
     "physicalDeviceAccepted": false
   },
-  "$sourceOfFacts": "Current course: content/courses/calisthenics.v1.json; its app-local UI and account-scoped practice store. Camera paid-access policy is unchanged. Readback of provider metadata is separate.",
-  "$notClaimed": "No independent skill/mastery outcome, physical-phone performance, clinical suitability, camera form grade or approved AI demonstration is asserted. This local content-preparation draft has not been uploaded.",
+  "$sourceOfFacts": "Current course: content/courses/calisthenics.v1.json; its app-local UI and account-scoped practice store. Camera is off (disabled); paid-access policy is unchanged. Readback of provider metadata is separate.",
+  "$notClaimed": "No independent skill/mastery outcome, physical-phone performance, clinical suitability, or approved AI demonstration is asserted; camera features are off (disabled) and not claimed. This local content-preparation draft has not been uploaded.",
   "$foundationPreparation20261017": {
     "status": "local_draft_expert_demonstration_and_learner_acceptance_pending",
     "assets": [
