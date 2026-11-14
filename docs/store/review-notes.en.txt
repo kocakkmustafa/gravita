@@ -15,6 +15,41 @@ held pending expert review, permitted demonstrations and observed learner
 acceptance. Reading a lesson does not unlock a held task. Inversions are not
 taught.
 
+Course structure and source coverage (counted from content/courses/*.v1.json;
+modules / lessons; "sources" is the course-level list of cited public pages,
+and every lesson lists the ones it draws on in "sourceIds"). Where a source
+entry carries "supports" and "doesNotSupport" text, it states what the page
+does and does not back (for example, general controlled technique, but not
+this course, individual suitability or physical mastery); those pages are
+references for concepts, not endorsements of the lessons.
+- Calisthenics: 10 modules / 56 lessons; 32 sources (calisthenics.v1.json:18),
+  14 of them with supports/doesNotSupport; sourceIds on all 56 lessons
+  (first at :354); modules at :292.
+- Dumbbell / kettlebell written route: 4 / 12; 8 sources, all scoped
+  (dbkb-written.v1.json:18); modules at :124.
+- Dumbbell / kettlebell handling: 1 / 11; 9 sources, all scoped
+  (dbkb-handling.v1.json:18); modules at :137.
+- Dumbbell / kettlebell transitions: 1 / 2; 13 sources, all scoped
+  (dbkb-transitions.v1.json:18); modules at :189.
+- Barbell foundations: 3 / 12; 6 sources, all scoped
+  (barbell-foundations.v1.json:36); modules at :116.
+- Low rings foundations: 3 / 12; 4 sources, all scoped
+  (rings-foundations.v1.json:35); modules at :89.
+- Hand support foundations: 3 / 12; 5 sources, all scoped
+  (hands-foundations.v1.json:35); modules at :102.
+Total 7 courses, 117 lessons (56+12+11+2+12+12+12). Cited sources are public
+health and fitness pages (for example ACSM, WHO, NHS, Mayo Clinic, ACE, NASM,
+NSCA, StrongFirst, GMB Fitness). In each 12-lesson foundation course every
+lesson records in "sourceEvidence" that its sequence is original editorial
+work ("originalEditorialSequence": true), that no source media is copied
+("copiedMedia": false) and that no physical validation is claimed
+("physicalValidationClaimed": false), e.g. barbell-foundations.v1.json:199.
+The calisthenics and dumbbell / kettlebell files carry no such per-lesson
+record, so nothing more is stated about how those lessons were produced;
+every course file is marked "evidenceMode": "self_report" (for example
+calisthenics.v1.json:13). The repo contains no written statement of who
+authored the lessons or of an expert review, and none is claimed.
+
 Subscriptions. Gravita offers an optional auto-renewing subscription
 ("Gravita", monthly or yearly) and the shared "Motion+" subscription that also
 unlocks the same tier in the other Motion apps by the same developer.

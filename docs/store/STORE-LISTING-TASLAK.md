@@ -14,12 +14,12 @@ Motion+). Paywall A: her kursun ilk bölümü ücretsiz, toplam **117 dersin 44'
 abonelikle; ilerleme, kayıtlı program ve geçmiş her zaman okunur. Deneme süresi
 metinde iddia edilmez, mağaza gösterir. `tools/validate_store_listing.py` kurs,
 ders ve ücretsiz ders iddialarını kaynaktan yeniden sayar. Kamera koçluğu ve
-form puanı açık değildir; etkileşimli beceri ağacı vaat edilmez.
+form puanı kapalıdır, bir farklılık olarak öne sürülmez; etkileşimli beceri ağacı vaat edilmez.
 
 **14 dil (2026-10-27, K-6):** EN/TR'ye ek 12 çeviri taslağı
 `listing.<dil>.json` (es-419, pt-BR, de, fr, ja, ar, it, ko, id, pl, hi,
 zh-Hans); her biri EN kaynağın olgularını paragraf paragraf taşır, mağaza yerel
-kodları `$storeLocales` içindedir, kamera gerekçesi o dilin `InfoPlist.strings`
+kodları `$storeLocales` içindedir, kamera gerekçesi (kamera kapalıdır) o dilin `InfoPlist.strings`
 metnidir. Dersler yalnız İngilizce ve Türkçedir; çeviriler bunu açıkça söyler.
 `test/store_listing_locales_test.dart` alan sınırlarını, sayıları ve URL'leri
 denetler. Anadili, hukuk ve mağaza incelemesi UNRUN. Barbell/halka/el desteği
@@ -43,6 +43,8 @@ Aşağıdaki eski katalog/kamera incelemesi kendi tarihinin kanıtıdır. Eski �
 “sıradaki” ve simge onayı ifadeleri güncel yayın durumu değildir; yukarıdaki iki
 JSON ve kaynaklarına bağlı güncel kabul kullanılır.
 
+**Kamera notu (GRA-P1-03):** 1.0.0'da kamera koçluğu, canlı ölçüm ve form notu kapalıdır ve bir farklılık olarak öne sürülmez. Aşağıdaki tarihsel bölümde kamera/ölçüm geçen her satır kapalı durumla uyumlu biçimde yeniden yazıldı; kamera tabanlı bir özellik iddia edilmez.
+
 # Mağaza Liste Metni — TASLAK (D6, 2026-08-16)
 
 **Makine-okur kaynak:** `docs/store/listing.json`. Bu dosya insan-okur bağlam; metnin
@@ -65,13 +67,13 @@ deseniyle birebir aynı çerçeve.
 
 | İddia | Kaynak |
 |---|---|
-| Kamerayla, cihazda, hareket gerçekten yapılınca sayar | `lib/app/onboarding_strings.dart` `valueWhatWeDo` (G-213'te bir kez yalan söyleyip düzeltilmiş) |
-| Form derecelendirmiyor, canlıda düzeltme yok | Aynı dizge, ikinci yarı |
+| Kamera tabanlı tekrar sayımı: kapalı, bir farklılık olarak öne sürülmez (1.0.0'da kamera kapalı) | Tarihsel kaynak: `lib/app/onboarding_strings.dart` `valueWhatWeDo` (G-213'te bir kez yalan söyleyip düzeltilmiş); mağaza metninde bu iddia kullanılmaz |
+| Form derecelendirmiyor, anlık düzeltme yok (kamera kapalı) | Aynı dizge, ikinci yarı |
 | Tıbbi değil, koç yerine geçmez, düşmeyi engelleyemez | `valueWhatWeDont`, birebir |
-| 31 hareket, 2 açık, 29 ölçüm bekliyor | `LibraryStrings.libraryCount` deseni + `content/library.json` (bu oturumda ölçüldü) |
-| Video yüklenmiyor; hesap için ağ kullanılıyor | Kamera akışı cihazda; `lib/app/motion_account_bootstrap.dart` ortak Auth/profil hizmetini başlatıyor |
+| 31 hareket, 2 açık, 29 ölçüm bekliyor (tarihsel katalog sayımı; ölçüm kapalı, 1.0.0'da öne sürülmez) | `LibraryStrings.libraryCount` deseni + `content/library.json` (bu oturumda ölçüldü) |
+| Video yüklenmiyor; hesap için ağ kullanılıyor | Kamera kapalı, kamera akışı yok; `lib/app/motion_account_bootstrap.dart` ortak Auth/profil hizmetini başlatıyor |
 | İsteğe bağlı ortak hesap var | `lib/app/profile_screen.dart` hesap girişine yönlendiriyor; `lib/app/gravita_app.dart` misafir akışını koruyor |
-| Sosyal paylaşım/UGC ve serbest web gezintisi yok | Ortak hesap ekranı gizlilik bağlantısını dış tarayıcıda açabilir; kamera veya seans paylaşım akışı yok |
+| Sosyal paylaşım/UGC ve serbest web gezintisi yok | Ortak hesap ekranı gizlilik bağlantısını dış tarayıcıda açabilir; kamera kapalı; seans paylaşım akışı yok |
 
 ## Ne YAZILMADI (bilerek)
 
@@ -84,7 +86,7 @@ deseniyle birebir aynı çerçeve.
   14 dilin `InfoPlist.strings` dosyası (2026-10-30, JabLab kalıbı): kamera koçluğu
   bu sürümde kapalı; ileride ayrıca açılırsa cihaz üstünde hareket geri bildirimi;
   görüntü ve vücut konumu yüklenmez veya saklanmaz; oturum geçmişi cihazda kalır.
-  Tekrar sayımı ve tempo ölçümü vaat edilmez.
+  Tekrar sayımı ve tempo ölçümü kapalıdır, vaat edilmez.
 
 ## Ekran görüntüleri
 
