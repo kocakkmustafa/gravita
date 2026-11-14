@@ -28,7 +28,7 @@ Kaynak kuralı: yollar bu depo köküne göredir. Emsal: Lissom'un `docs/store/F
 **Kapalıyken geriye kalan izler (tutarlılık gerektirir):**
 - Onboarding 3 adımın 3.'sü kamera adımı olarak duruyor (`onboarding_screen.dart:42,104`); bayrak kapalıyken başlık "Camera unavailable / Kamera kapalı", tek düğme "izin vermeden devam" ve izin istenmez (`:19,60-64,299-318`; gövde metni `:353`, `onboarding_strings.dart:80`). Ekran render olarak doğrulanmadı (`DOĞRULANMADI`), yalnız kaynak okundu.
 - Ana kabukta videocam simgeli, devre dışı düğme "Kamera kapalı" etiketiyle çiziliyor (`gravita_app.dart:525-535`).
-- iOS `NSCameraUsageDescription` (`ios/Runner/Info.plist:5`, 14 dilde `*.lproj/InfoPlist.strings:1`) ve Android `CAMERA` izni (`android/app/src/main/AndroidManifest.xml:2`) bildirimde duruyor; metin "disabled in this release" der (`listing.json:20-22`).
+- iOS `NSCameraUsageDescription` (`ios/Runner/Info.plist:5`, 14 dilde `*.lproj/InfoPlist.strings:1`) bildirimde duruyor (Android `CAMERA` izni GRA-P1-02 ile kaldırıldı, `test/android_camera_permission_test.dart`); metin "disabled in this release" der (`listing.json:20-22`).
 - Kamera kodu derlemede: `lib/app/live_session_screen.dart`, `camera_release_latch.dart`, `packages/gravita_engine`.
 - Mağaza JSON'unun `$`-önekli iç notları kamera sayımını anlatır (`listing.json:14,16,17`, ör. `$whatItDoesWhy`); gönderilen alan değildir. `docs/store/STORE-LISTING-TASLAK.md:68-74` eski kamera iddialarını içerir, aynı dosya `:40`'ta "tarihsel, yayın metni olarak kullanmayın" der.
 
